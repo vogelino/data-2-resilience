@@ -1,6 +1,7 @@
 import { browser } from '$app/environment';
 import { goto } from '$app/navigation';
 import { page } from '$app/stores';
+import { debounce } from 'es-toolkit';
 import { onDestroy } from 'svelte';
 import { type Writable, writable } from 'svelte/store';
 
@@ -16,10 +17,13 @@ export const urlInitialState: UrlState = {
 	slider: 50
 };
 
-export function useUrlState(): Writable<UrlState> {
+export function useUrlState(): {
+	urlState: Writable<UrlState>;
+	reset: () => void;
+} {
 	const urlState = writable<UrlState>(urlInitialState);
 
-	const debouncedUpdateUrlParam = debounce(updateUrlParam);
+	const debouncedUpdateUrlParam = debounce(updateUrlParam, 500);
 
 	function updateFromUrl(url: URL) {
 		const newStateFromUrl: UrlState = {
@@ -52,7 +56,7 @@ export function useUrlState(): Writable<UrlState> {
 		window.removeEventListener('popstate', onUpdateFromUrl);
 	});
 
-	return urlState;
+	return { urlState, reset: () => updateUrlParam(urlInitialState) };
 }
 
 async function updateUrlParam(newState: UrlState): Promise<void> {
@@ -63,16 +67,4 @@ async function updateUrlParam(newState: UrlState): Promise<void> {
 		params.set(key, value.toString());
 	}
 	await goto(`?${params.toString()}`, { keepFocus: true });
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function debounce<T extends (...args: any[]) => void>(
-	callback: T,
-	wait = 300
-): (...args: Parameters<T>) => void {
-	let timeout: ReturnType<typeof setTimeout>;
-	return (...args: Parameters<T>) => {
-		clearTimeout(timeout);
-		timeout = setTimeout(() => callback(...args), wait);
-	};
 }

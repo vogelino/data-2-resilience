@@ -42,5 +42,8 @@
 		"vite": "5.3.4",
 		"vitest": "2.0.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"zod": "3.23.8"
+	}
 }

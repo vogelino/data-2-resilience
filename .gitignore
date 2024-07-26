@@ -14,6 +14,7 @@ Thumbs.db
 .env
 .env.*
 !.env.production
+!.env.preview
 !.env.example
 !.env.test
 

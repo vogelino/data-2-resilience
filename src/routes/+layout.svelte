@@ -1,5 +1,8 @@
 <script>
+	import Head from 'components/head.svelte';
 	import '../app.css';
 </script>
 
-<slot></slot>
+<Head />
+
+<slot />

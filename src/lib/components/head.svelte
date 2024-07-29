@@ -8,12 +8,15 @@
 
 <svelte:head>
 	<HeadHrefLangs />
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+	<link rel="sitemap" type="application/xml" title="Sitemap" href={`${baseUrl}/sitemap.xml}`} />
 </svelte:head>
 <SvelteSeo
 	title={$LL.siteNameLong()}
 	description={$LL.siteDescription()}
 	canonical={baseUrl}
 	keywords={$LL.keywords()}
+	manifest={`${baseUrl}/manifest.json`}
 	openGraph={{
 		title: $LL.siteNameLong(),
 		description: $LL.siteDescription(),

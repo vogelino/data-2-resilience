@@ -10,7 +10,8 @@ const en = {
 	siteDescription: `Data2Resilience is a project aimed at improving urban resilience against extreme heat in Dortmund through innovative biometeorological measurement networks and community engagement. Learn more about our initiatives and results.`,
 	keywords: `Data2Resilience, urban resilience, extreme heat, Dortmund, climate change, biometeorological measurement, community engagement, heat resilience, urban climate, climate adaptation`,
 	twitterHandle: `RUBclim`,
-	log: `This log was called from '{fileName:string}'`
+	log: `This log was called from '{fileName:string}'`,
+	themeColor: `#007bff`
 } satisfies BaseTranslation;
 
 export default en;

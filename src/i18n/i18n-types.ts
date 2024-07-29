@@ -47,6 +47,10 @@ type RootTranslation = {
 	 * @param {string} fileName
 	 */
 	log: RequiredParams<'fileName'>
+	/**
+	 * #​0​0​7​b​f​f
+	 */
+	themeColor: string
 }
 
 export type TranslationFunctions = {
@@ -82,6 +86,10 @@ export type TranslationFunctions = {
 	 * This log was called from '{fileName}'
 	 */
 	log: (arg: { fileName: string }) => LocalizedString
+	/**
+	 * #007bff
+	 */
+	themeColor: () => LocalizedString
 }
 
 export type Formatters = {}

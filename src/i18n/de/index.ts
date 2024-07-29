@@ -10,7 +10,8 @@ const de = {
 	siteDescription: `Data2Resilience ist ein Projekt, das darauf abzielt, die urbane Widerstandsfähigkeit gegen extreme Hitze in Dortmund durch innovative biometeorologische Messnetze und bürgerschaftliches Engagement zu verbessern. Erfahren Sie mehr über unsere Initiativen und Ergebnisse.`,
 	keywords: `Data2Resilience, urbane Resilienz, extreme Hitze, Dortmund, Klimawandel, biometeorologische Messung, gesellschaftliches Engagement, Hitzeresilienz, Stadtklima, Klimaanpassung`,
 	twitterHandle: `RUBclim`,
-	log: `Dieses Logging wurde von '{fileName}' aufgerufen`
+	log: `Dieses Logging wurde von '{fileName}' aufgerufen`,
+	themeColor: `#007bff`
 } satisfies Translation;
 
 export default de;

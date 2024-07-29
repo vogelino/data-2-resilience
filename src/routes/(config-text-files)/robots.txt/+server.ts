@@ -11,7 +11,7 @@ const robots = () => {
 	const baseUrl = import.meta.env.VITE_BASE_URL || 'http://localhost:5173';
 	return `
 User-agent: *
-Disallow: ${import.meta.env.PROD ? '' : '/'}
+Disallow: ${import.meta.env.PROD || import.meta.env.DEV ? '' : '/'}
 
 Sitemap: ${baseUrl}/sitemap.xml
   `;

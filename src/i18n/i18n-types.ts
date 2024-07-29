@@ -51,6 +51,22 @@ type RootTranslation = {
 	 * #​0​0​7​b​f​f
 	 */
 	themeColor: string
+	headImages: {
+		og: {
+			/**
+			 * S​c​r​e​e​n​s​h​o​t​ ​o​f​ ​t​h​e​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​m​a​p​ ​d​a​s​h​b​o​a​r​d
+			 */
+			large: string
+			/**
+			 * L​o​g​o​ ​o​f​ ​t​h​e​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​p​r​o​j​e​c​t
+			 */
+			square: string
+		}
+		/**
+		 * S​c​r​e​e​n​s​h​o​t​ ​o​f​ ​t​h​e​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​m​a​p​ ​d​a​s​h​b​o​a​r​d
+		 */
+		twitter: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -90,6 +106,22 @@ export type TranslationFunctions = {
 	 * #007bff
 	 */
 	themeColor: () => LocalizedString
+	headImages: {
+		og: {
+			/**
+			 * Screenshot of the Data2Resilience map dashboard
+			 */
+			large: () => LocalizedString
+			/**
+			 * Logo of the Data2Resilience project
+			 */
+			square: () => LocalizedString
+		}
+		/**
+		 * Screenshot of the Data2Resilience map dashboard
+		 */
+		twitter: () => LocalizedString
+	}
 }
 
 export type Formatters = {}

@@ -11,7 +11,14 @@ const de = {
 	keywords: `Data2Resilience, urbane Resilienz, extreme Hitze, Dortmund, Klimawandel, biometeorologische Messung, gesellschaftliches Engagement, Hitzeresilienz, Stadtklima, Klimaanpassung`,
 	twitterHandle: `RUBclim`,
 	log: `Dieses Logging wurde von '{fileName}' aufgerufen`,
-	themeColor: `#007bff`
+	themeColor: `#007bff`,
+	headImages: {
+		og: {
+			large: 'Screenshot des Data2Resilience-Karten-Dashboards',
+			square: 'Logo des Data2Resilience-Projektes'
+		},
+		twitter: 'Screenshot des Data2Resilience-Karten-Dashboards'
+	}
 } satisfies Translation;
 
 export default de;

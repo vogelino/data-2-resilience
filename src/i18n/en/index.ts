@@ -11,7 +11,14 @@ const en = {
 	keywords: `Data2Resilience, urban resilience, extreme heat, Dortmund, climate change, biometeorological measurement, community engagement, heat resilience, urban climate, climate adaptation`,
 	twitterHandle: `RUBclim`,
 	log: `This log was called from '{fileName:string}'`,
-	themeColor: `#007bff`
+	themeColor: `#007bff`,
+	headImages: {
+		og: {
+			large: 'Screenshot of the Data2Resilience map dashboard',
+			square: 'Logo of the Data2Resilience project'
+		},
+		twitter: 'Screenshot of the Data2Resilience map dashboard'
+	}
 } satisfies BaseTranslation;
 
 export default en;

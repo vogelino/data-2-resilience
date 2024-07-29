@@ -46,10 +46,10 @@
 
 <svelte:window on:popstate={handlePopStateEvent} />
 
-<ul class="flex items-center gap-2">
+<ul class="flex items-center gap-2" aria-label="Language switcher">
 	{#each locales as l}
 		<li
-			class="hover:hover-hover:font-bold flex border-l border-slate-300 pl-2 transition first-of-type:border-none first-of-type:pl-0"
+			class="hover:hover-hover:font-bold border-border flex border-l pl-2 transition first-of-type:border-none first-of-type:pl-0"
 		>
 			<a class:font-bold={l === $locale} href={replaceLocaleInUrl($page.url, l)}>
 				{l}

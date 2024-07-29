@@ -2,6 +2,7 @@
 	import LL, { setLocale } from '$i18n/i18n-svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Head from 'components/head.svelte';
+	import { ModeWatcher } from 'mode-watcher';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 
@@ -13,6 +14,7 @@
 </script>
 
 <Head />
+<ModeWatcher />
 <Header title={$LL.siteNameShort()} />
 
 <main class="p-6">

@@ -48,7 +48,13 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"bits-ui": "0.21.12",
+		"clsx": "2.1.1",
 		"es-toolkit": "1.13.1",
+		"lucide-svelte": "0.417.0",
+		"mode-watcher": "0.4.1",
+		"tailwind-merge": "2.4.0",
+		"tailwind-variants": "0.2.1",
 		"typesafe-i18n": "5.26.2",
 		"zod": "3.23.8"
 	}

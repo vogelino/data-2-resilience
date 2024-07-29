@@ -1,23 +1,22 @@
 <script>
+	import LL from '$i18n/i18n-svelte';
 	import SvelteSeo from 'svelte-seo';
+	import HeadHrefLangs from './HeadHrefLangs.svelte';
 
-	const siteNameShort = `Data2Resilience`;
-	const author = `Data2Resilience Team`;
-	const siteSubtitle = `Enhancing Urban Resilience Against Extreme Heat in Dortmund`;
-	const siteNameLong = `${siteNameShort} | ${siteSubtitle}`;
-	const siteDescription = `Data2Resilience is a project aimed at improving urban resilience against extreme heat in Dortmund through innovative biometeorological measurement networks and community engagement. Learn more about our initiatives and results.`;
-	const keywords = `Data2Resilience, urban resilience, extreme heat, Dortmund, climate change, biometeorological measurement, community engagement, heat resilience, urban climate, climate adaptation`;
 	const baseUrl = import.meta.env.VITE_BASE_URL || 'http://localhost:5173';
 </script>
 
+<svelte:head>
+	<HeadHrefLangs />
+</svelte:head>
 <SvelteSeo
-	title={siteNameLong}
-	description={siteDescription}
+	title={$LL.siteNameLong()}
+	description={$LL.siteDescription()}
 	canonical={baseUrl}
-	{keywords}
+	keywords={$LL.keywords()}
 	openGraph={{
-		title: siteNameLong,
-		description: siteDescription,
+		title: $LL.siteNameLong(),
+		description: $LL.siteDescription(),
 		url: `${baseUrl}`,
 		type: 'website',
 		images: [
@@ -41,25 +40,25 @@
 				url: `${baseUrl}/images/jumping.jpg`
 			}
 		],
-		site_name: siteNameShort
+		site_name: $LL.siteNameShort()
 	}}
 	twitter={{
 		card: 'summary_large_image',
-		site: '@RUBclim',
-		title: siteNameLong,
-		description: siteDescription,
+		site: `@${$LL.twitterHandle()}`,
+		title: $LL.siteNameLong(),
+		description: $LL.siteDescription(),
 		image: `${baseUrl}/images/squatting.jpg`,
 		imageAlt: 'Squatting'
 	}}
 	jsonLd={{
 		'@context': 'https://schema.org',
 		'@type': 'WebSite',
-		name: siteNameLong,
-		description: siteDescription,
+		name: $LL.siteNameLong(),
+		description: $LL.siteDescription(),
 		url: `${baseUrl}`,
 		author: {
 			'@type': 'Organization',
-			name: author
+			name: $LL.author()
 		}
 	}}
 />

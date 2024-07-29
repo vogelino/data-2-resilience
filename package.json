@@ -12,7 +12,8 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest",
+		"typesafe-i18n": "typesafe-i18n"
 	},
 	"engines": {
 		"node": "20.x"
@@ -39,6 +40,7 @@
 		"svelte-check": "3.6.0",
 		"svelte-seo": "1.6.1",
 		"tailwindcss": "3.4.4",
+		"tailwindcss-touch": "1.0.1",
 		"typescript": "5.5.4",
 		"typescript-eslint": "8.0.0-alpha.20",
 		"vite": "5.3.4",
@@ -47,6 +49,7 @@
 	"type": "module",
 	"dependencies": {
 		"es-toolkit": "1.13.1",
+		"typesafe-i18n": "5.26.2",
 		"zod": "3.23.8"
 	}
 }

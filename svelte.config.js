@@ -14,7 +14,8 @@ const config = {
 		adapter: adapter(),
 
 		alias: {
-			components: 'src/lib/components'
+			components: 'src/lib/components',
+			$i18n: 'src/i18n'
 		}
 	}
 };

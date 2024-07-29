@@ -8,6 +8,9 @@ dependencies:
   es-toolkit:
     specifier: 1.13.1
     version: 1.13.1
+  typesafe-i18n:
+    specifier: 5.26.2
+    version: 5.26.2(typescript@5.5.4)
   zod:
     specifier: 3.23.8
     version: 3.23.8
@@ -76,6 +79,9 @@ devDependencies:
   tailwindcss:
     specifier: 3.4.4
     version: 3.4.4
+  tailwindcss-touch:
+    specifier: 1.0.1
+    version: 1.0.1
   typescript:
     specifier: 5.5.4
     version: 5.5.4
@@ -2969,6 +2975,10 @@ packages:
       periscopic: 3.1.0
     dev: true
 
+  /tailwindcss-touch@1.0.1:
+    resolution: {integrity: sha512-h8A/S9+Mk2rnnaOB/NGCE7CxDhtGKbsAWf8Y2tCO6Zf381Y8dKcygPl1OXkFDnWXkL+FfHxmrGpwculDWAumbA==}
+    dev: true
+
   /tailwindcss@3.4.4:
     resolution: {integrity: sha512-ZoyXOdJjISB7/BcLTR6SEsLgKtDStYyYZVLsUtWChO4Ps20CBad7lfJKVDiejocV4ME1hLmyY0WJE3hSDcmQ2A==}
     engines: {node: '>=14.0.0'}
@@ -3086,6 +3096,15 @@ packages:
       prelude-ls: 1.2.1
     dev: true
 
+  /typesafe-i18n@5.26.2(typescript@5.5.4):
+    resolution: {integrity: sha512-2QAriFmiY5JwUAJtG7yufoE/XZ1aFBY++wj7YFS2yo89a3jLBfKoWSdq5JfQYk1V2BS7V2c/u+KEcaCQoE65hw==}
+    hasBin: true
+    peerDependencies:
+      typescript: '>=3.5.1'
+    dependencies:
+      typescript: 5.5.4
+    dev: false
+
   /typescript-eslint@8.0.0-alpha.20(eslint@9.0.0)(typescript@5.5.4):
     resolution: {integrity: sha512-/cx37A2S+AOne5uFpD8GzHzV5b/7wncAh4agmIRieAZWXJWbRcue7e8RI6LnpQ7CHy9IHPmALcHcXPXogM6jcQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -3108,7 +3127,6 @@ packages:
     resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: true
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}

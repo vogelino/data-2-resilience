@@ -1,3 +1,19 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer base {
+	html {
+		font-size: clamp(14px, 2vw, 18px);
+	}
+
+	:root {
+		--fg: black;
+		--bg: white;
+		--overlay: rgba(0, 0, 0, 0.5);
+		--grayDark: #3e3e3e;
+		--grayMed: #a5a5a5;
+		--grayLight: #d0d0d0;
+		--grayUltraLight: #f0f0f0;
+	}
+}

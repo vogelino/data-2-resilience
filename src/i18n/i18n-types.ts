@@ -3,7 +3,7 @@
 import type { BaseTranslation as BaseTranslationType, LocalizedString, RequiredParams } from 'typesafe-i18n'
 
 export type BaseTranslation = BaseTranslationType
-export type BaseLocale = 'en'
+export type BaseLocale = 'de'
 
 export type Locales =
 	| 'de'
@@ -23,19 +23,19 @@ type RootTranslation = {
 	 */
 	author: string
 	/**
-	 * E​n​h​a​n​c​i​n​g​ ​U​r​b​a​n​ ​R​e​s​i​l​i​e​n​c​e​ ​A​g​a​i​n​s​t​ ​E​x​t​r​e​m​e​ ​H​e​a​t​ ​i​n​ ​D​o​r​t​m​u​n​d
+	 * S​t​ä​r​k​u​n​g​ ​d​e​r​ ​s​t​ä​d​t​i​s​c​h​e​n​ ​R​e​s​i​l​i​e​n​z​ ​g​e​g​e​n​ ​e​x​t​r​e​m​e​ ​H​i​t​z​e​ ​i​n​ ​D​o​r​t​m​u​n​d
 	 */
 	siteSubtitle: string
 	/**
-	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​|​ ​E​n​h​a​n​c​i​n​g​ ​U​r​b​a​n​ ​R​e​s​i​l​i​e​n​c​e​ ​A​g​a​i​n​s​t​ ​E​x​t​r​e​m​e​ ​H​e​a​t​ ​i​n​ ​D​o​r​t​m​u​n​d
+	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​|​ ​S​t​ä​r​k​u​n​g​ ​d​e​r​ ​s​t​ä​d​t​i​s​c​h​e​n​ ​R​e​s​i​l​i​e​n​z​ ​g​e​g​e​n​ ​e​x​t​r​e​m​e​ ​H​i​t​z​e​ ​i​n​ ​D​o​r​t​m​u​n​d
 	 */
 	siteNameLong: string
 	/**
-	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​i​s​ ​a​ ​p​r​o​j​e​c​t​ ​a​i​m​e​d​ ​a​t​ ​i​m​p​r​o​v​i​n​g​ ​u​r​b​a​n​ ​r​e​s​i​l​i​e​n​c​e​ ​a​g​a​i​n​s​t​ ​e​x​t​r​e​m​e​ ​h​e​a​t​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​t​h​r​o​u​g​h​ ​i​n​n​o​v​a​t​i​v​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​c​a​l​ ​m​e​a​s​u​r​e​m​e​n​t​ ​n​e​t​w​o​r​k​s​ ​a​n​d​ ​c​o​m​m​u​n​i​t​y​ ​e​n​g​a​g​e​m​e​n​t​.​ ​L​e​a​r​n​ ​m​o​r​e​ ​a​b​o​u​t​ ​o​u​r​ ​i​n​i​t​i​a​t​i​v​e​s​ ​a​n​d​ ​r​e​s​u​l​t​s​.
+	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​i​s​t​ ​e​i​n​ ​P​r​o​j​e​k​t​,​ ​d​a​s​ ​d​a​r​a​u​f​ ​a​b​z​i​e​l​t​,​ ​d​i​e​ ​u​r​b​a​n​e​ ​W​i​d​e​r​s​t​a​n​d​s​f​ä​h​i​g​k​e​i​t​ ​g​e​g​e​n​ ​e​x​t​r​e​m​e​ ​H​i​t​z​e​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​d​u​r​c​h​ ​i​n​n​o​v​a​t​i​v​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​ ​M​e​s​s​n​e​t​z​e​ ​u​n​d​ ​b​ü​r​g​e​r​s​c​h​a​f​t​l​i​c​h​e​s​ ​E​n​g​a​g​e​m​e​n​t​ ​z​u​ ​v​e​r​b​e​s​s​e​r​n​.​ ​E​r​f​a​h​r​e​n​ ​S​i​e​ ​m​e​h​r​ ​ü​b​e​r​ ​u​n​s​e​r​e​ ​I​n​i​t​i​a​t​i​v​e​n​ ​u​n​d​ ​E​r​g​e​b​n​i​s​s​e​.
 	 */
 	siteDescription: string
 	/**
-	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​,​ ​u​r​b​a​n​ ​r​e​s​i​l​i​e​n​c​e​,​ ​e​x​t​r​e​m​e​ ​h​e​a​t​,​ ​D​o​r​t​m​u​n​d​,​ ​c​l​i​m​a​t​e​ ​c​h​a​n​g​e​,​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​c​a​l​ ​m​e​a​s​u​r​e​m​e​n​t​,​ ​c​o​m​m​u​n​i​t​y​ ​e​n​g​a​g​e​m​e​n​t​,​ ​h​e​a​t​ ​r​e​s​i​l​i​e​n​c​e​,​ ​u​r​b​a​n​ ​c​l​i​m​a​t​e​,​ ​c​l​i​m​a​t​e​ ​a​d​a​p​t​a​t​i​o​n
+	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​,​ ​u​r​b​a​n​e​ ​R​e​s​i​l​i​e​n​z​,​ ​e​x​t​r​e​m​e​ ​H​i​t​z​e​,​ ​D​o​r​t​m​u​n​d​,​ ​K​l​i​m​a​w​a​n​d​e​l​,​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​ ​M​e​s​s​u​n​g​,​ ​g​e​s​e​l​l​s​c​h​a​f​t​l​i​c​h​e​s​ ​E​n​g​a​g​e​m​e​n​t​,​ ​H​i​t​z​e​r​e​s​i​l​i​e​n​z​,​ ​S​t​a​d​t​k​l​i​m​a​,​ ​K​l​i​m​a​a​n​p​a​s​s​u​n​g
 	 */
 	keywords: string
 	/**
@@ -43,7 +43,7 @@ type RootTranslation = {
 	 */
 	twitterHandle: string
 	/**
-	 * T​h​i​s​ ​l​o​g​ ​w​a​s​ ​c​a​l​l​e​d​ ​f​r​o​m​ ​'​{​f​i​l​e​N​a​m​e​}​'
+	 * D​i​e​s​e​s​ ​L​o​g​g​i​n​g​ ​w​u​r​d​e​ ​v​o​n​ ​'​{​f​i​l​e​N​a​m​e​}​'​ ​a​u​f​g​e​r​u​f​e​n
 	 * @param {string} fileName
 	 */
 	log: RequiredParams<'fileName'>
@@ -54,18 +54,49 @@ type RootTranslation = {
 	headImages: {
 		og: {
 			/**
-			 * S​c​r​e​e​n​s​h​o​t​ ​o​f​ ​t​h​e​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​m​a​p​ ​d​a​s​h​b​o​a​r​d
+			 * S​c​r​e​e​n​s​h​o​t​ ​d​e​s​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​-​K​a​r​t​e​n​-​D​a​s​h​b​o​a​r​d​s
 			 */
 			large: string
 			/**
-			 * L​o​g​o​ ​o​f​ ​t​h​e​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​p​r​o​j​e​c​t
+			 * L​o​g​o​ ​d​e​s​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​-​P​r​o​j​e​k​t​e​s
 			 */
 			square: string
 		}
 		/**
-		 * S​c​r​e​e​n​s​h​o​t​ ​o​f​ ​t​h​e​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​m​a​p​ ​d​a​s​h​b​o​a​r​d
+		 * S​c​r​e​e​n​s​h​o​t​ ​d​e​s​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​-​K​a​r​t​e​n​-​D​a​s​h​b​o​a​r​d​s
 		 */
 		twitter: string
+	}
+	errors: {
+		/**
+		 * F​e​h​l​e​r
+		 */
+		genericErrorLabel: string
+		unexpectedError: {
+			/**
+			 * U​n​e​r​w​a​r​t​e​t​e​r​ ​F​e​h​l​e​r
+			 */
+			label: string
+			/**
+			 * U​p​s​,​ ​e​s​ ​s​c​h​e​i​n​t​,​ ​d​a​s​s​ ​e​t​w​a​s​ ​s​c​h​i​e​f​g​e​l​a​u​f​e​n​ ​i​s​t​:​ ​"​{​e​r​r​o​r​M​e​s​s​a​g​e​}​"​.​ ​W​i​r​ ​e​n​t​s​c​h​u​l​d​i​g​e​n​ ​u​n​s​.​ ​B​i​t​t​e​ ​v​e​r​s​u​c​h​e​n​ ​S​i​e​ ​e​s​ ​e​r​n​e​u​t​ ​o​d​e​r​ ​n​a​v​i​g​i​e​r​e​n​ ​S​i​e​ ​z​u​r​ ​S​t​a​r​t​s​e​i​t​e​.
+			 * @param {string} errorMessage
+			 */
+			description: RequiredParams<'errorMessage'>
+		}
+		fourOhFour: {
+			/**
+			 * S​e​i​t​e​ ​n​i​c​h​t​ ​g​e​f​u​n​d​e​n
+			 */
+			label: string
+			/**
+			 * U​p​s​,​ ​e​s​ ​s​c​h​e​i​n​t​,​ ​d​a​s​s​ ​d​i​e​ ​v​o​n​ ​I​h​n​e​n​ ​g​e​s​u​c​h​t​e​ ​S​e​i​t​e​ ​n​i​c​h​t​ ​e​x​i​s​t​i​e​r​t​.​ ​N​i​c​h​t​s​ ​i​s​t​ ​s​c​h​i​e​f​g​e​l​a​u​f​e​n​,​ ​w​i​r​ ​h​e​l​f​e​n​ ​I​h​n​e​n​,​ ​a​u​f​ ​d​e​n​ ​W​e​g​ ​z​u​ ​k​o​m​m​e​n​.
+			 */
+			description: string
+			/**
+			 * Z​u​r​ ​S​t​a​r​t​s​e​i​t​e
+			 */
+			homepageLinkText: string
+		}
 	}
 }
 
@@ -79,19 +110,19 @@ export type TranslationFunctions = {
 	 */
 	author: () => LocalizedString
 	/**
-	 * Enhancing Urban Resilience Against Extreme Heat in Dortmund
+	 * Stärkung der städtischen Resilienz gegen extreme Hitze in Dortmund
 	 */
 	siteSubtitle: () => LocalizedString
 	/**
-	 * Data2Resilience | Enhancing Urban Resilience Against Extreme Heat in Dortmund
+	 * Data2Resilience | Stärkung der städtischen Resilienz gegen extreme Hitze in Dortmund
 	 */
 	siteNameLong: () => LocalizedString
 	/**
-	 * Data2Resilience is a project aimed at improving urban resilience against extreme heat in Dortmund through innovative biometeorological measurement networks and community engagement. Learn more about our initiatives and results.
+	 * Data2Resilience ist ein Projekt, das darauf abzielt, die urbane Widerstandsfähigkeit gegen extreme Hitze in Dortmund durch innovative biometeorologische Messnetze und bürgerschaftliches Engagement zu verbessern. Erfahren Sie mehr über unsere Initiativen und Ergebnisse.
 	 */
 	siteDescription: () => LocalizedString
 	/**
-	 * Data2Resilience, urban resilience, extreme heat, Dortmund, climate change, biometeorological measurement, community engagement, heat resilience, urban climate, climate adaptation
+	 * Data2Resilience, urbane Resilienz, extreme Hitze, Dortmund, Klimawandel, biometeorologische Messung, gesellschaftliches Engagement, Hitzeresilienz, Stadtklima, Klimaanpassung
 	 */
 	keywords: () => LocalizedString
 	/**
@@ -99,7 +130,7 @@ export type TranslationFunctions = {
 	 */
 	twitterHandle: () => LocalizedString
 	/**
-	 * This log was called from '{fileName}'
+	 * Dieses Logging wurde von '{fileName}' aufgerufen
 	 */
 	log: (arg: { fileName: string }) => LocalizedString
 	/**
@@ -109,18 +140,48 @@ export type TranslationFunctions = {
 	headImages: {
 		og: {
 			/**
-			 * Screenshot of the Data2Resilience map dashboard
+			 * Screenshot des Data2Resilience-Karten-Dashboards
 			 */
 			large: () => LocalizedString
 			/**
-			 * Logo of the Data2Resilience project
+			 * Logo des Data2Resilience-Projektes
 			 */
 			square: () => LocalizedString
 		}
 		/**
-		 * Screenshot of the Data2Resilience map dashboard
+		 * Screenshot des Data2Resilience-Karten-Dashboards
 		 */
 		twitter: () => LocalizedString
+	}
+	errors: {
+		/**
+		 * Fehler
+		 */
+		genericErrorLabel: () => LocalizedString
+		unexpectedError: {
+			/**
+			 * Unerwarteter Fehler
+			 */
+			label: () => LocalizedString
+			/**
+			 * Ups, es scheint, dass etwas schiefgelaufen ist: "{errorMessage}". Wir entschuldigen uns. Bitte versuchen Sie es erneut oder navigieren Sie zur Startseite.
+			 */
+			description: (arg: { errorMessage: string }) => LocalizedString
+		}
+		fourOhFour: {
+			/**
+			 * Seite nicht gefunden
+			 */
+			label: () => LocalizedString
+			/**
+			 * Ups, es scheint, dass die von Ihnen gesuchte Seite nicht existiert. Nichts ist schiefgelaufen, wir helfen Ihnen, auf den Weg zu kommen.
+			 */
+			description: () => LocalizedString
+			/**
+			 * Zur Startseite
+			 */
+			homepageLinkText: () => LocalizedString
+		}
 	}
 }
 

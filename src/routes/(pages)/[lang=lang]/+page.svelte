@@ -4,10 +4,12 @@
 	console.info($LL.log({ fileName: '+page.svelte' }));
 </script>
 
-<h2>
-	{$LL.siteNameLong()}
-</h2>
+<main class="flex flex-col gap-2 p-6">
+	<h2>
+		{$LL.siteNameLong()}
+	</h2>
 
-<h3>
-	{$LL.siteDescription()}
-</h3>
+	<h3>
+		{$LL.siteDescription()}
+	</h3>
+</main>

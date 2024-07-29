@@ -15,8 +15,9 @@
 
 <Head />
 <ModeWatcher />
-<Header title={$LL.siteNameShort()} />
 
-<main class="p-6">
+<div class="grid min-h-screen grid-rows-[auto,1fr]">
+	<Header title={$LL.siteNameShort()} />
+
 	<slot />
-</main>
+</div>

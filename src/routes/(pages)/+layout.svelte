@@ -3,7 +3,7 @@
 	import Header from '$lib/components/Header.svelte';
 	import Head from 'components/head.svelte';
 	import { ModeWatcher } from 'mode-watcher';
-	import '../app.css';
+	import '../../app.css';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;

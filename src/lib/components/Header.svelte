@@ -6,7 +6,7 @@
 </script>
 
 <header
-	class="border-border grid w-screen grid-cols-[auto,1fr] items-center gap-x-8 gap-y-2 border-b px-6 py-4"
+	class="grid h-[var(--headerHeight,5rem)] w-screen grid-cols-[auto,1fr] items-center gap-x-8 gap-y-4 border-b border-border px-6 py-3"
 >
 	<h1 class="text-xl font-bold">{title}</h1>
 

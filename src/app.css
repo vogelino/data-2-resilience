@@ -39,6 +39,11 @@
 		--ring: 222.2 84% 4.9%;
 
 		--radius: 0.5rem;
+
+		/* COMPONENT VARIABLES */
+		--headerHeight: 5rem;
+		--leftSidebarWidth: min(24rem, calc(100vw - 3rem));
+		--rightSidebarWidth: min(32rem, calc(100vw - 3rem));
 	}
 
 	.dark {

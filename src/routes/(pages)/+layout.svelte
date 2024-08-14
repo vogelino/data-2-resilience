@@ -16,8 +16,7 @@
 <Head />
 <ModeWatcher />
 
-<div class="grid min-h-screen grid-rows-[auto,1fr]">
+<div class="grid h-screen w-screen grid-rows-[auto,1fr] overflow-clip">
 	<Header title={$LL.siteNameShort()} />
-
 	<slot />
 </div>

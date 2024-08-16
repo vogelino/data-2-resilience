@@ -11,8 +11,6 @@
 	let longitude = 51.511;
 	let zoom = 10.5;
 
-	console.log(stations);
-
 	const urlState = queryParameters(
 		{
 			lon: ssp.number(longitude),
@@ -65,6 +63,20 @@
 				data: bezirke
 			});
 
+			map.addSource('wms-test-source', {
+				type: 'raster',
+				// Important: WMS must contain '&bbox={bbox-epsg-3857}'' parameter
+				// Important: WMS must be served as transparent png with '&transparent=true' parameter
+				tiles: [
+					// Default png images
+					// 'http://34.175.30.147:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_00&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng8&transparent=true'
+
+					// 8-bit images optimized
+					'http://34.175.30.147:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_00&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true'
+				],
+				tileSize: 256
+			});
+
 			map.addLayer({
 				id: 'bezirke',
 				source: {
@@ -99,6 +111,16 @@
 				}
 			});
 
+			map.addLayer(
+				{
+					id: 'wms-test-layer',
+					type: 'raster',
+					source: 'wms-test-source',
+					paint: {}
+				}
+				// 'aeroway_fill' //streets above image
+			);
+
 			// When a click event occurs on a feature in the places layer, open a popup at the
 			// location of the feature, with description HTML from its properties.
 			map.on('click', 'stations', (e) => {
@@ -124,26 +146,6 @@
 			map.on('mouseleave', 'stations', () => {
 				map.getCanvas().style.cursor = '';
 			});
-
-			// map.addSource('wms-test-source', {
-			// 	type: 'raster',
-			// 	// Important: WMS must contain '&bbox={bbox-epsg-3857}'' parameter
-			// 	// Important: WMS must be served as transparent png with '&transparent=true' parameter
-			// 	tiles: [
-			// 		'http://34.175.30.147:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_00&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng&transparent=true'
-			// 		// 'https://ils-geomonitoring.de/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode%3Alulc_2018_Dortmund&bbox={bbox-epsg-3857}&width=768&height=752&srs=EPSG%3A32632&styles=&format=image%2Fpng'
-			// 	],
-			// 	tileSize: 256
-			// });
-			// map.addLayer(
-			// 	{
-			// 		id: 'wms-test-layer',
-			// 		type: 'raster',
-			// 		source: 'wms-test-source',
-			// 		paint: {}
-			// 	}
-			// 	// 'aeroway_fill' //streets above image
-			// );
 		});
 
 		map.on('move', () => {

@@ -1,7 +1,5 @@
 export const stations = {
-	type: 'FeatureCollection',
-	name: 'merged',
-	crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
+	type: 'FeatureCollection' as const,
 	features: [
 		{
 			type: 'Feature',
@@ -964,8 +962,7 @@ export const stations = {
 			geometry: { type: 'Point', coordinates: [7.397681953953454, 51.517844917773211] }
 		}
 	]
-};
-
+} satisfies GeoJSON.GeoJSON;
 
 export const bezirke = {
 	type: 'FeatureCollection',
@@ -2303,4 +2300,4 @@ export const bezirke = {
 			}
 		}
 	]
-};
+} satisfies GeoJSON.GeoJSON;

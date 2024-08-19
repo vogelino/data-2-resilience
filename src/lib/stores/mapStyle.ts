@@ -1,6 +1,7 @@
+import type { StyleSpecification } from 'maplibre-gl';
 import { writable } from 'svelte/store';
 
-export const positronMapStyle = writable({
+export const positronMapStyle = writable<StyleSpecification>({
 	version: 8,
 	name: 'Positron',
 	metadata: {},
@@ -182,6 +183,7 @@ export const positronMapStyle = writable({
 					]
 				},
 				'line-dasharray': {
+					type: 'interval',
 					stops: [
 						[6, [1]],
 						[7, [2, 2]]
@@ -213,6 +215,7 @@ export const positronMapStyle = writable({
 					]
 				},
 				'line-dasharray': {
+					type: 'interval',
 					stops: [
 						[6, [1]],
 						[7, [2, 2]]
@@ -254,6 +257,7 @@ export const positronMapStyle = writable({
 				'fill-translate-anchor': 'map',
 				'fill-opacity': 1,
 				'fill-translate': {
+					type: 'interval',
 					stops: [
 						[0, [0, 2]],
 						[6, [0, 1]],
@@ -563,6 +567,7 @@ export const positronMapStyle = writable({
 				'line-opacity': 1,
 				'line-color': '#d5d5d5',
 				'line-dasharray': {
+					type: 'interval',
 					stops: [
 						[15, [2, 2]],
 						[18, [3, 3]]
@@ -782,6 +787,7 @@ export const positronMapStyle = writable({
 					]
 				},
 				'line-dasharray': {
+					type: 'interval',
 					stops: [
 						[15, [5, 5]],
 						[16, [6, 6]]
@@ -1127,6 +1133,7 @@ export const positronMapStyle = writable({
 				'line-opacity': 1,
 				'line-color': '#d5d5d5',
 				'line-dasharray': {
+					type: 'interval',
 					stops: [
 						[15, [2, 2]],
 						[18, [3, 3]]
@@ -1425,6 +1432,7 @@ export const positronMapStyle = writable({
 					]
 				},
 				'line-dasharray': {
+					type: 'interval',
 					stops: [
 						[15, [5, 5]],
 						[16, [6, 6]]
@@ -1674,6 +1682,7 @@ export const positronMapStyle = writable({
 				'line-opacity': 1,
 				'line-color': '#d5d5d5',
 				'line-dasharray': {
+					type: 'interval',
 					stops: [
 						[15, [2, 2]],
 						[18, [3, 3]]
@@ -1874,7 +1883,7 @@ export const positronMapStyle = writable({
 			},
 			paint: {
 				'fill-translate': {
-					base: 1,
+					type: 'interval',
 					stops: [
 						[14, [0, 0]],
 						[16, [-2, -2]]
@@ -2871,6 +2880,7 @@ export const positronMapStyle = writable({
 				'text-field': '{name}',
 				'symbol-avoid-edges': false,
 				'symbol-spacing': {
+					type: 'interval',
 					stops: [
 						[6, 200],
 						[16, 250]
@@ -2919,6 +2929,7 @@ export const positronMapStyle = writable({
 				'text-field': '{name}',
 				'symbol-avoid-edges': false,
 				'symbol-spacing': {
+					type: 'interval',
 					stops: [
 						[6, 200],
 						[16, 250]
@@ -2969,7 +2980,5 @@ export const positronMapStyle = writable({
 				'text-halo-width': 0.75
 			}
 		}
-	],
-	id: 'voyager',
-	owner: 'Carto'
+	]
 });

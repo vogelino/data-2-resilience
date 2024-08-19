@@ -31,6 +31,10 @@ const de = {
 			homepageLinkText: 'Zur Startseite'
 		}
 	},
+	generic: {
+		expand: 'Mehr erfahren',
+		collapse: 'Zusammenklappen'
+	},
 	navigation: {
 		header: {
 			about: 'Über dieses Dashboard'
@@ -61,7 +65,19 @@ const de = {
 			title: 'Wie messen wir thermischen Komfort?',
 			intro: [
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
-			]
+			],
+			stationsDescriptions: {
+				wheather: {
+					title: 'Wetterstation mit Blackglobe-Sensor',
+					description:
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+				},
+				airTemperatureAndHumidity: {
+					title: 'Lufttemperatur- und Feuchtigkeitssensor',
+					description:
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+				}
+			}
 		}
 	},
 	indicators: {

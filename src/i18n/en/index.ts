@@ -31,6 +31,10 @@ const en = {
 			homepageLinkText: 'To the homepage'
 		}
 	},
+	generic: {
+		expand: 'Know more',
+		collapse: 'Collapse'
+	},
 	navigation: {
 		header: {
 			about: 'About this dashboard'
@@ -60,7 +64,19 @@ const en = {
 			title: 'How are we measuring thermal comfort?',
 			intro: [
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
-			]
+			],
+			stationsDescriptions: {
+				wheather: {
+					title: 'Weather station with Blackglobe sensor',
+					description:
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+				},
+				airTemperatureAndHumidity: {
+					title: 'Air temperature and humidity sensor',
+					description:
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+				}
+			}
 		}
 	},
 	indicators: {

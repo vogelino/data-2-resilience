@@ -66,9 +66,10 @@
 										class={cn(
 											'w-full border border-r-0 border-border px-4 py-2 text-center',
 											'rounded-l bg-background transition group-hover/indicators:bg-muted',
+											'focusable focus-visible:z-10 focus-visible:rounded focus-visible:border',
 											selectedIndicatorSlug === 'utci_class' &&
 												'border-foreground bg-foreground font-semibold text-background group-hover/indicators:bg-foreground',
-											selectedIndicatorSlug === 'utci_value' &&
+											selectedIndicatorSlug !== 'utci_class' &&
 												'group-hover/indicators:hover:bg-background'
 										)}
 									>
@@ -81,11 +82,12 @@
 										on:click|preventDefault|stopPropagation={() =>
 											(selectedIndicatorSlug = 'utci_value')}
 										class={cn(
+											'focusable focus-visible:z-10 focus-visible:rounded focus-visible:border',
 											'w-full border border-l-0 border-border px-4 py-2 text-center',
 											'rounded-r bg-background transition group-hover/indicators:bg-muted',
 											selectedIndicatorSlug === 'utci_value' &&
 												'border-foreground bg-foreground font-semibold text-background group-hover/indicators:bg-foreground',
-											selectedIndicatorSlug === 'utci_class' &&
+											selectedIndicatorSlug !== 'utci_value' &&
 												'group-hover/indicators:hover:bg-background'
 										)}
 									>

@@ -58,7 +58,10 @@
 					{$isLeftSidebarOpened ? '←' : '→'}
 				</span>
 			</button>
-			<div class="min-h-full w-[var(--leftSidebarWidth)] overflow-y-auto overflow-x-clip">
+			<div
+				class="h-[calc(100vh-var(--headerHeight,5rem))] w-[var(--leftSidebarWidth)] overflow-y-auto overflow-x-clip"
+				id="left-sidebar-scroll-container"
+			>
 				<slot name="left-sidebar" />
 			</div>
 		</div>
@@ -93,7 +96,10 @@
 				)}
 				on:click={closeRightSidebar}>×</button
 			>
-			<div class="min-h-full w-[var(--rightSidebarWidth)] overflow-y-auto overflow-x-clip">
+			<div
+				class="h-[calc(100vh-var(--headerHeight,5rem))] w-[var(--rightSidebarWidth)] overflow-y-auto overflow-x-clip"
+				id="right-sidebar-scroll-container"
+			>
 				<slot name="right-sidebar" />
 			</div>
 		</div>

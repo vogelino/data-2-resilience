@@ -10,6 +10,68 @@
 	let latitude = 7.467;
 	let longitude = 51.511;
 	let zoom = 10.5;
+	let selectedHour = '00';
+	let map;
+
+	let layerIds = [];
+	let sourceIds = [];
+
+	$: tilesURL = `http://34.175.150.40:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${selectedHour}&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`;
+
+	// $: console.log('selectedHour', selectedHour);
+	$: console.log('tilesURL', tilesURL);
+
+	const sourceId = `wms-test-source-${selectedHour}`;
+	const layerId = `wms-test-layer-${selectedHour}`;
+
+	function onChange(event) {
+		selectedHour = event.currentTarget.value;
+
+		const sourceId = `wms-test-source-${selectedHour}`;
+		const layerId = `wms-test-layer-${selectedHour}`;
+
+		// Check if the source already exists
+		if (!map.getSource(sourceId)) {
+			// If not, add the source
+			map.addSource(sourceId, {
+				type: 'raster',
+				tiles: [tilesURL],
+				tileSize: 256
+			});
+		}
+
+		// Check if the layer already exists
+		if (!map.getLayer(layerId)) {
+			// If not, add the layer
+			map.addLayer({
+				id: layerId,
+				type: 'raster',
+				source: sourceId,
+				paint: {}
+			});
+
+			// Track the new IDs
+			sourceIds.push(sourceId);
+			layerIds.push(layerId);
+		}
+	}
+
+	function cleanupMap() {
+		layerIds.forEach((layerId) => {
+			if (map.getLayer(layerId)) {
+				map.removeLayer(layerId);
+			}
+		});
+
+		sourceIds.forEach((sourceId) => {
+			if (map.getSource(sourceId)) {
+				map.removeSource(sourceId);
+			}
+		});
+
+		layerIds = [];
+		sourceIds = [];
+	}
 
 	const urlState = queryParameters(
 		{
@@ -39,7 +101,7 @@
 			[7.826598237576263, 51.61374377792475]
 		];
 
-		const map = new maplibregl.Map({
+		map = new maplibregl.Map({
 			container: 'map',
 			style: $positronMapStyle,
 			center: [$urlState.lat, $urlState.lon],
@@ -63,19 +125,38 @@
 				data: bezirke
 			});
 
-			map.addSource('wms-test-source', {
+			map.addSource(`wms-test-source-${selectedHour}`, {
 				type: 'raster',
-				// Important: WMS must contain '&bbox={bbox-epsg-3857}'' parameter
-				// Important: WMS must be served as transparent png with '&transparent=true' parameter
-				tiles: [
-					// Default png images
-					// 'http://34.175.30.147:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_00&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng8&transparent=true'
-
-					// 8-bit images optimized
-					'http://34.175.30.147:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_00&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true'
-				],
+				tiles: [tilesURL],
 				tileSize: 256
 			});
+
+			map.addLayer({
+				id: `wms-test-layer-${selectedHour}`,
+				type: 'raster',
+				source: `wms-test-source-${selectedHour}`,
+				paint: {}
+			});
+
+			// map.addSource(`wms-test-source-${selectedHour}`, {
+			// 	type: 'raster',
+			// 	tiles: [tilesURL],
+			// 	tileSize: 256
+			// });
+
+			// map.addSource('wms-test-source', {
+			// 	type: 'raster',
+			// 	// Important: WMS must contain '&bbox={bbox-epsg-3857}'' parameter
+			// 	// Important: WMS must be served as transparent png with '&transparent=true' parameter
+			// 	tiles: [
+			// 		// Default png images
+			// 		// 'http://34.175.30.147:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_00&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng8&transparent=true'
+
+			// 		// 8-bit images optimized
+			// 		`http://34.175.30.147:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${hour}&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`
+			// 	],
+			// 	tileSize: 256
+			// });
 
 			map.addLayer({
 				id: 'bezirke',
@@ -111,15 +192,15 @@
 				}
 			});
 
-			map.addLayer(
-				{
-					id: 'wms-test-layer',
-					type: 'raster',
-					source: 'wms-test-source',
-					paint: {}
-				}
-				// 'aeroway_fill' //streets above image
-			);
+			// map.addLayer(
+			// 	{
+			// 		id: `wms-test-layer-${selectedHour}`,
+			// 		type: 'raster',
+			// 		source: `wms-test-source-${selectedHour}`,
+			// 		paint: {}
+			// 	}
+			// 	// 'aeroway_fill' //streets above image
+			// );
 
 			// When a click event occurs on a feature in the places layer, open a popup at the
 			// location of the feature, with description HTML from its properties.
@@ -169,5 +250,22 @@
 </script>
 
 <div class="relative grid h-full w-full items-center justify-center overflow-clip">
-	<div id="map" class="h-[calc(100vh-var(--headerHeight,5rem))] w-screen"></div>
+	<div id="map" class="relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen">
+		<div class="absolute bottom-0 z-50 flex h-24 w-full flex-col items-center">
+			<div class="space-x-4 rounded bg-white p-4">
+				{#each ['00', '15', '20'] as time}
+					<label>
+						<input
+							type="radio"
+							name="time"
+							value={time}
+							class="mr-1"
+							bind:group={selectedHour}
+							on:change={onChange}
+						/>{time == '00' ? '0' : time}h
+					</label>
+				{/each}
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,11 +1,10 @@
 <script lang="ts">
-	import maplibregl from 'maplibre-gl';
+	import { bezirke, stations } from '$lib/stores/mapData';
+	import { positronMapStyle } from '$lib/stores/mapStyle';
+	import maplibregl, { type LngLatBoundsLike, type LngLatLike } from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { onMount } from 'svelte';
 	import { queryParameters, ssp } from 'sveltekit-search-params';
-	import { positronMapStyle } from '$lib/stores/mapStyle';
-	import { stations, bezirke } from '$lib/stores/mapData';
-	import { redirect } from '@sveltejs/kit';
 
 	let latitude = 7.467;
 	let longitude = 51.511;
@@ -93,18 +92,22 @@
 		};
 
 		// Add tiles to mapStyle
+		// @ts-ignore
 		$positronMapStyle.sources.openmaptiles = tiles;
 
 		// Define maxBounds
 		const bounds = [
 			[7.090650277147461, 51.400616267063896],
 			[7.826598237576263, 51.61374377792475]
-		];
+		] satisfies LngLatBoundsLike;
 
 		map = new maplibregl.Map({
 			container: 'map',
 			style: $positronMapStyle,
-			center: [$urlState.lat, $urlState.lon],
+			center: {
+				lat: $urlState.lat ?? 7.467,
+				lon: $urlState.lon ?? 51.511
+			},
 			zoom: $urlState.zoom,
 			maxBounds: bounds
 			// minZoom: 10,
@@ -112,7 +115,7 @@
 		});
 
 		// Add zoom and rotation controls to the map.
-		map.addControl(new maplibregl.NavigationControl('top-right'));
+		map.addControl(new maplibregl.NavigationControl(), 'top-right');
 
 		map.on('load', () => {
 			map.addSource('stations', {
@@ -160,15 +163,11 @@
 
 			map.addLayer({
 				id: 'bezirke',
-				source: {
-					type: 'vector'
-				},
 				source: 'bezirke',
 				type: 'line',
 				paint: {
 					'line-color': 'black',
 					'line-width': 0.5
-
 					// MapLibre Style Specification paint properties
 				},
 				layout: {
@@ -178,9 +177,6 @@
 
 			map.addLayer({
 				id: 'stations',
-				source: {
-					type: 'vector'
-				},
 				source: 'stations',
 				type: 'circle',
 				paint: {
@@ -205,8 +201,11 @@
 			// When a click event occurs on a feature in the places layer, open a popup at the
 			// location of the feature, with description HTML from its properties.
 			map.on('click', 'stations', (e) => {
+				if (!e.features?.length) return;
+				if (!('coordinates' in e.features[0].geometry)) return;
 				const coordinates = e.features[0].geometry.coordinates.slice();
 				const description = e.features[0].properties.Label;
+				if (typeof coordinates[0] !== 'number') return;
 
 				// Ensure that if the map is zoomed out such that multiple
 				// copies of the feature are visible, the popup appears
@@ -215,7 +214,10 @@
 					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
 				}
 
-				new maplibregl.Popup().setLngLat(coordinates).setHTML(description).addTo(map);
+				new maplibregl.Popup()
+					.setLngLat(coordinates as LngLatLike)
+					.setHTML(description)
+					.addTo(map);
 			});
 
 			// Change the cursor to a pointer when the mouse is over the places layer.

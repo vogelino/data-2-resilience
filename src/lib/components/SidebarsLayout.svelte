@@ -49,9 +49,10 @@
 			>
 				<span
 					class={cn(
-						'rounded-r-sm bg-background py-3 pl-1 pr-1.5',
+						'rounded-r-sm border border-l-0 border-border bg-background py-3 pl-1 pr-1.5',
 						'group-focus-visible:ring-2 group-focus-visible:ring-background',
-						'group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-primary'
+						'group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-primary',
+						'transition group-hover:bg-muted'
 					)}
 				>
 					{$isLeftSidebarOpened ? '←' : '→'}

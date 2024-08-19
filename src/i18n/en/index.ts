@@ -30,6 +30,67 @@ const en = {
 			description: `Oops, it looks like the page you were looking for doesn't exist. Don't worry, we can help you get back on track.`,
 			homepageLinkText: 'To the homepage'
 		}
+	},
+	navigation: {
+		header: {
+			about: 'About this dashboard'
+		},
+		tabs: {
+			thermicalComfort: 'Thermal comfort',
+			actualMeasurements: 'Actual measurements',
+			stations: 'Stations'
+		}
+	},
+	pages: {
+		thermicalComfort: {
+			title: 'Wie warm fühlt sich deine Stadt an?',
+			intro: [
+				'Thermal comfort is the state of well-being in which a person is satisfied with the thermal environment. This means that temperature, humidity, air movement and radiant heat are within a range perceived as comfortable. It can be measured using various indicators:'
+			],
+			indicatorsNavAriaLabel: 'Select an indicator to change the data displayed on the map.'
+		},
+		measurements: {
+			title: 'What is currently being measured?',
+			intro: [
+				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+				'Current measured values can be displayed both for the measuring stations and for the individual city districts.'
+			]
+		},
+		stations: {
+			title: 'How are we measuring thermal comfort?',
+			intro: [
+				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+			]
+		}
+	},
+	indicators: {
+		utci: {
+			title: 'Universal Thermic Comfort Index (UTCI)',
+			description:
+				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.',
+			types: {
+				byClass: {
+					title: 'By class',
+					description:
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
+				},
+				byValue: {
+					title: 'By value',
+					description:
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
+				}
+			}
+		},
+		pet: {
+			title: 'Physiological equivalent temperature (PET)',
+			description:
+				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
+		},
+		mrt: {
+			title: 'Mean regional temperature (MRT)',
+			description:
+				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
+		}
 	}
 } satisfies Translation;
 

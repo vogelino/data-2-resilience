@@ -98,6 +98,128 @@ type RootTranslation = {
 			homepageLinkText: string
 		}
 	}
+	navigation: {
+		header: {
+			/**
+			 * Ü​b​e​r​ ​d​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d
+			 */
+			about: string
+		}
+		tabs: {
+			/**
+			 * T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t
+			 */
+			thermicalComfort: string
+			/**
+			 * A​k​t​u​e​l​l​e​ ​M​e​s​s​w​e​r​t​e
+			 */
+			actualMeasurements: string
+			/**
+			 * M​e​s​s​s​t​a​t​i​o​n​e​n
+			 */
+			stations: string
+		}
+	}
+	pages: {
+		thermicalComfort: {
+			/**
+			 * W​i​e​ ​w​a​r​m​ ​f​ü​h​l​t​ ​s​i​c​h​ ​d​e​i​n​e​ ​S​t​a​d​t​ ​a​n​?
+			 */
+			title: string
+			intro: {
+				/**
+				 * T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t​ ​i​s​t​ ​d​e​r​ ​W​o​h​l​f​ü​h​l​z​u​s​t​a​n​d​,​ ​b​e​i​ ​d​e​m​ ​e​i​n​e​ ​P​e​r​s​o​n​ ​m​i​t​ ​d​e​r​ ​t​h​e​r​m​i​s​c​h​e​n​ ​U​m​g​e​b​u​n​g​ ​z​u​f​r​i​e​d​e​n​ ​i​s​t​.​ ​D​a​s​ ​b​e​d​e​u​t​e​t​,​ ​d​a​s​s​ ​T​e​m​p​e​r​a​t​u​r​,​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​,​ ​L​u​f​t​b​e​w​e​g​u​n​g​ ​u​n​d​ ​S​t​r​a​h​l​u​n​g​s​w​ä​r​m​e​ ​i​n​ ​e​i​n​e​m​ ​a​l​s​ ​a​n​g​e​n​e​h​m​ ​e​m​p​f​u​n​d​e​n​e​n​ ​B​e​r​e​i​c​h​ ​l​i​e​g​e​n​.​ ​E​r​ ​k​a​n​n​ ​a​n​h​a​n​d​ ​v​e​r​s​c​h​i​e​d​e​n​e​r​ ​I​n​d​i​k​a​t​o​r​e​n​ ​g​e​m​e​s​s​e​n​ ​w​e​r​d​e​n​:
+				 */
+				'0': string
+			}
+			/**
+			 * W​ä​h​l​e​ ​e​i​n​e​n​ ​I​n​d​i​k​a​t​o​r​,​ ​u​m​ ​d​i​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​D​a​t​e​n​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​z​u​ ​ä​n​d​e​r​n​.
+			 */
+			indicatorsNavAriaLabel: string
+		}
+		measurements: {
+			/**
+			 * W​a​s​ ​w​i​r​d​ ​a​k​t​u​e​l​l​ ​g​e​m​e​s​s​e​n​?
+			 */
+			title: string
+			intro: {
+				/**
+				 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
+				 */
+				'0': string
+				/**
+				 * A​k​t​u​e​l​l​ ​M​e​s​s​w​e​r​t​e​ ​k​ö​n​n​e​n​ ​s​o​w​o​h​l​ ​f​ü​r​ ​d​i​e​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​a​l​s​ ​a​u​c​h​ ​f​ü​r​ ​d​i​e​ ​e​i​n​z​e​l​n​e​n​ ​S​t​a​d​t​b​e​z​i​r​k​e​ ​a​n​g​e​z​e​i​g​t​ ​w​e​r​d​e​n​.
+				 */
+				'1': string
+			}
+		}
+		stations: {
+			/**
+			 * W​i​e​ ​m​e​s​s​e​n​ ​w​i​r​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​?
+			 */
+			title: string
+			intro: {
+				/**
+				 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
+				 */
+				'0': string
+			}
+		}
+	}
+	indicators: {
+		utci: {
+			/**
+			 * U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)
+			 */
+			title: string
+			/**
+			 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​.
+			 */
+			description: string
+			types: {
+				byClass: {
+					/**
+					 * N​a​c​h​ ​K​l​a​s​s​e
+					 */
+					title: string
+					/**
+					 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​.
+					 */
+					description: string
+				}
+				byValue: {
+					/**
+					 * N​a​c​h​ ​W​e​r​t
+					 */
+					title: string
+					/**
+					 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​.
+					 */
+					description: string
+				}
+			}
+		}
+		pet: {
+			/**
+			 * P​h​y​s​i​o​l​o​g​i​s​c​h​ ​Ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)
+			 */
+			title: string
+			/**
+			 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​.
+			 */
+			description: string
+		}
+		mrt: {
+			/**
+			 * M​i​t​t​e​l​w​e​r​t​ ​d​e​r​ ​r​e​g​i​o​n​a​l​e​n​ ​T​e​m​p​e​r​a​t​u​r​ ​(​M​R​T​)
+			 */
+			title: string
+			/**
+			 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​.
+			 */
+			description: string
+		}
+	}
 }
 
 export type TranslationFunctions = {
@@ -181,6 +303,128 @@ export type TranslationFunctions = {
 			 * Zur Startseite
 			 */
 			homepageLinkText: () => LocalizedString
+		}
+	}
+	navigation: {
+		header: {
+			/**
+			 * Über dieses Dashboard
+			 */
+			about: () => LocalizedString
+		}
+		tabs: {
+			/**
+			 * Thermischer Komfort
+			 */
+			thermicalComfort: () => LocalizedString
+			/**
+			 * Aktuelle Messwerte
+			 */
+			actualMeasurements: () => LocalizedString
+			/**
+			 * Messstationen
+			 */
+			stations: () => LocalizedString
+		}
+	}
+	pages: {
+		thermicalComfort: {
+			/**
+			 * Wie warm fühlt sich deine Stadt an?
+			 */
+			title: () => LocalizedString
+			intro: {
+				/**
+				 * Thermischer Komfort ist der Wohlfühlzustand, bei dem eine Person mit der thermischen Umgebung zufrieden ist. Das bedeutet, dass Temperatur, Luftfeuchtigkeit, Luftbewegung und Strahlungswärme in einem als angenehm empfundenen Bereich liegen. Er kann anhand verschiedener Indikatoren gemessen werden:
+				 */
+				'0': () => LocalizedString
+			}
+			/**
+			 * Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.
+			 */
+			indicatorsNavAriaLabel: () => LocalizedString
+		}
+		measurements: {
+			/**
+			 * Was wird aktuell gemessen?
+			 */
+			title: () => LocalizedString
+			intro: {
+				/**
+				 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+				 */
+				'0': () => LocalizedString
+				/**
+				 * Aktuell Messwerte können sowohl für die Messstationen als auch für die einzelnen Stadtbezirke angezeigt werden.
+				 */
+				'1': () => LocalizedString
+			}
+		}
+		stations: {
+			/**
+			 * Wie messen wir thermischen Komfort?
+			 */
+			title: () => LocalizedString
+			intro: {
+				/**
+				 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+				 */
+				'0': () => LocalizedString
+			}
+		}
+	}
+	indicators: {
+		utci: {
+			/**
+			 * Universeller Thermischer Klimaindex (UTCI)
+			 */
+			title: () => LocalizedString
+			/**
+			 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.
+			 */
+			description: () => LocalizedString
+			types: {
+				byClass: {
+					/**
+					 * Nach Klasse
+					 */
+					title: () => LocalizedString
+					/**
+					 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.
+					 */
+					description: () => LocalizedString
+				}
+				byValue: {
+					/**
+					 * Nach Wert
+					 */
+					title: () => LocalizedString
+					/**
+					 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.
+					 */
+					description: () => LocalizedString
+				}
+			}
+		}
+		pet: {
+			/**
+			 * Physiologisch Äquivalente Temperatur (PET)
+			 */
+			title: () => LocalizedString
+			/**
+			 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.
+			 */
+			description: () => LocalizedString
+		}
+		mrt: {
+			/**
+			 * Mittelwert der regionalen Temperatur (MRT)
+			 */
+			title: () => LocalizedString
+			/**
+			 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.
+			 */
+			description: () => LocalizedString
 		}
 	}
 }

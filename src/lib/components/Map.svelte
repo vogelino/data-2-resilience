@@ -109,13 +109,22 @@
 				lon: $urlState.lon ?? 51.511
 			},
 			zoom: $urlState.zoom,
-			maxBounds: bounds
+			maxBounds: bounds,
+			attributionControl: false
 			// minZoom: 10,
 			// maxZoom: 16
 		});
 
 		// Add zoom and rotation controls to the map.
 		map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+		map.addControl(
+			new maplibregl.AttributionControl({
+				compact: true,
+				customAttribution: `© <a href="https://maplibre.org/">MapLibre</a>, <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>`
+			}),
+			'bottom-right'
+		);
 
 		map.on('load', () => {
 			map.addSource('stations', {

@@ -31,6 +31,17 @@ const en = {
 			homepageLinkText: 'To the homepage'
 		}
 	},
+	welcome: {
+		title: 'Welcome',
+		text: [
+			'The Data2Resilience project uses a new biometeorological measurement network to observe and predict heat and involves citizens early to address challenges and needs in Dortmund. This dashboard allows you to explore real-time data on thermal comfort in the city.'
+		],
+		buttons: {
+			confirm: "Understood, let's go",
+			launchTour: 'Start the tour'
+		},
+		expandButtonLabel: 'Show the introduction message again'
+	},
 	generic: {
 		expand: 'Know more',
 		collapse: 'Collapse'

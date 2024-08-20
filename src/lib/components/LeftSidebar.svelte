@@ -3,6 +3,7 @@
 	import LL, { locale } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import { onMount } from 'svelte';
+	import WelcomeMessage from './WelcomeMessage.svelte';
 
 	let navElement: HTMLElement;
 	$: fullPath = $page.url.pathname.replace(`/${$locale}`, '');
@@ -29,7 +30,8 @@
 		document.getElementById('left-sidebar-scroll-container')?.addEventListener('scroll', () => {
 			const scrollTop = document.getElementById('left-sidebar-scroll-container')?.scrollTop;
 			if (!navElement) return;
-			if (scrollTop && scrollTop > 10) {
+			const { top, height } = navElement.getBoundingClientRect();
+			if (scrollTop && scrollTop > Math.abs(top + height + 10)) {
 				navElement.classList.add('shadow-2xl');
 			} else {
 				navElement.classList.remove('shadow-2xl');
@@ -38,11 +40,12 @@
 	});
 </script>
 
+<WelcomeMessage />
 <nav
-	class="sticky top-0 z-50 border-r border-border bg-background shadow-black/10 transition-shadow"
+	class="sticky top-0 z-50 border-b border-r border-border bg-background pt-2 shadow-black/10 transition-shadow duration-1000"
 	bind:this={navElement}
 >
-	<ul class="flex border-b border-border pt-6">
+	<ul class="flex w-[var(--leftSidebarWidth)] translate-y-px overflow-x-auto overflow-y-clip">
 		{#each tabs as tab (tab.slug)}
 			<li class={cn('relative -mb-px -ml-px flex', tab.isActive && 'z-10', 'focus-within:z-10')}>
 				<a
@@ -53,7 +56,7 @@
 					].join('')}
 					class={cn(
 						'focusable px-4 pb-2 pt-3 transition focus-visible:rounded-lg',
-						'border border-background border-b-transparent hover:z-10',
+						'text-nowrap border border-background hover:z-10',
 						tab.slug === 'thermical-comfort' ? 'rounded-tr-lg pl-6' : ' rounded-t-lg',
 						tab.isActive && 'border-border border-b-background bg-background font-semibold',
 						tab.isActive && tab.slug === 'thermical-comfort' && 'border-l-background',

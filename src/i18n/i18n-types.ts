@@ -108,6 +108,32 @@ type RootTranslation = {
 		 */
 		collapse: string
 	}
+	welcome: {
+		/**
+		 * H​e​r​z​l​i​c​h​ ​w​i​l​l​k​o​m​m​e​n
+		 */
+		title: string
+		text: {
+			/**
+			 * D​a​s​ ​P​r​o​j​e​k​t​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​n​u​t​z​t​ ​e​i​n​ ​n​e​u​e​s​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​s​ ​M​e​s​s​n​e​t​z​w​e​r​k​ ​z​u​r​ ​B​e​o​b​a​c​h​t​u​n​g​ ​u​n​d​ ​V​o​r​h​e​r​s​a​g​e​ ​v​o​n​ ​H​i​t​z​e​ ​u​n​d​ ​b​e​z​i​e​h​t​ ​d​i​e​ ​B​ü​r​g​e​r​ ​f​r​ü​h​z​e​i​t​i​g​ ​e​i​n​,​ ​u​m​ ​H​e​r​a​u​s​f​o​r​d​e​r​u​n​g​e​n​ ​u​n​d​ ​B​e​d​ü​r​f​n​i​s​s​e​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​z​u​ ​a​d​r​e​s​s​i​e​r​e​n​.​ ​D​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d​ ​e​r​m​ö​g​l​i​c​h​t​ ​I​h​n​e​n​,​ ​E​c​h​t​z​e​i​t​d​a​t​e​n​ ​z​u​m​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​ ​i​n​ ​d​e​r​ ​S​t​a​d​t​ ​z​u​ ​e​r​k​u​n​d​e​n​.
+			 */
+			'0': string
+		}
+		buttons: {
+			/**
+			 * V​e​r​s​t​a​n​d​e​n​,​ ​l​o​s​ ​g​e​h​t​'​s
+			 */
+			confirm: string
+			/**
+			 * E​i​n​f​ü​h​r​u​n​g​ ​s​t​a​r​t​e​n
+			 */
+			launchTour: string
+		}
+		/**
+		 * E​i​n​l​e​i​t​u​n​g​ ​e​r​n​e​u​t​ ​a​n​z​e​i​g​e​n
+		 */
+		expandButtonLabel: string
+	}
 	navigation: {
 		header: {
 			/**
@@ -346,6 +372,32 @@ export type TranslationFunctions = {
 		 * Zusammenklappen
 		 */
 		collapse: () => LocalizedString
+	}
+	welcome: {
+		/**
+		 * Herzlich willkommen
+		 */
+		title: () => LocalizedString
+		text: {
+			/**
+			 * Das Projekt Data2Resilience nutzt ein neues biometeorologisches Messnetzwerk zur Beobachtung und Vorhersage von Hitze und bezieht die Bürger frühzeitig ein, um Herausforderungen und Bedürfnisse in Dortmund zu adressieren. Dieses Dashboard ermöglicht Ihnen, Echtzeitdaten zum thermischen Komfort in der Stadt zu erkunden.
+			 */
+			'0': () => LocalizedString
+		}
+		buttons: {
+			/**
+			 * Verstanden, los geht's
+			 */
+			confirm: () => LocalizedString
+			/**
+			 * Einführung starten
+			 */
+			launchTour: () => LocalizedString
+		}
+		/**
+		 * Einleitung erneut anzeigen
+		 */
+		expandButtonLabel: () => LocalizedString
 	}
 	navigation: {
 		header: {

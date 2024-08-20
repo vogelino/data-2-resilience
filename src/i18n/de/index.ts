@@ -35,6 +35,17 @@ const de = {
 		expand: 'Mehr erfahren',
 		collapse: 'Zusammenklappen'
 	},
+	welcome: {
+		title: 'Herzlich willkommen',
+		text: [
+			'Das Projekt Data2Resilience nutzt ein neues biometeorologisches Messnetzwerk zur Beobachtung und Vorhersage von Hitze und bezieht die Bürger frühzeitig ein, um Herausforderungen und Bedürfnisse in Dortmund zu adressieren. Dieses Dashboard ermöglicht Ihnen, Echtzeitdaten zum thermischen Komfort in der Stadt zu erkunden.'
+		],
+		buttons: {
+			confirm: "Verstanden, los geht's",
+			launchTour: 'Einführung starten'
+		},
+		expandButtonLabel: 'Einleitung erneut anzeigen'
+	},
 	navigation: {
 		header: {
 			about: 'Über dieses Dashboard'

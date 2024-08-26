@@ -26,6 +26,9 @@
 	function onChange(event) {
 		selectedHour = event.currentTarget.value;
 
+		// Clean up old sources and layers
+		cleanupMap();
+
 		const sourceId = `wms-test-source-${selectedHour}`;
 		const layerId = `wms-test-layer-${selectedHour}`;
 

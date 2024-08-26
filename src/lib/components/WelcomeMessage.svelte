@@ -4,7 +4,7 @@
 	import { ArrowDown, X } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
 
-	let opened = false;
+	let opened = true;
 </script>
 
 <section

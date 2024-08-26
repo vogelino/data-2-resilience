@@ -52,8 +52,8 @@ const en = {
 		},
 		tabs: {
 			thermicalComfort: 'Thermal comfort',
-			actualMeasurements: 'Actual measurements',
-			stations: 'Stations'
+			actualMeasurements: 'Current measurements',
+			stations: 'Weather stations'
 		}
 	},
 	pages: {

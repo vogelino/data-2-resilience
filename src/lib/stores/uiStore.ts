@@ -6,3 +6,5 @@ export const toggleLeftSidebar = () => isLeftSidebarOpened.update((value) => !va
 export const isRightSidebarOpened = writable(false);
 export const closeRightSidebar = () => isRightSidebarOpened.set(false);
 export const openRightSidebar = () => isRightSidebarOpened.set(true);
+
+export const tabActive = writable('thermical-comfort');

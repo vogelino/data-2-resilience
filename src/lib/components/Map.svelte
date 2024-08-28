@@ -10,49 +10,51 @@
 	let longitude = 51.511;
 	let zoom = 10.5;
 	let selectedHour = '00';
-	let map;
+	let map: maplibregl.Map;
 
-	let layerIds = [];
-	let sourceIds = [];
+	let layerIds: string[] = [];
+	let sourceIds: string[] = [];
 
 	$: tilesURL = `http://34.175.150.40:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${selectedHour}&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`;
 
-	// $: console.log('selectedHour', selectedHour);
-	$: console.log('tilesURL', tilesURL);
+	const urlState = queryParameters(
+		{
+			lon: ssp.number(longitude),
+			lat: ssp.number(latitude),
+			zoom: ssp.number(zoom)
+		},
+		{
+			debounceHistory: 500
+		}
+	);
 
-	const sourceId = `wms-test-source-${selectedHour}`;
-	const layerId = `wms-test-layer-${selectedHour}`;
-
-	function onChange(event) {
-		selectedHour = event.currentTarget.value;
-
-		// Clean up old sources and layers
+	function onChange(event: Event) {
+		const target = event.currentTarget as HTMLInputElement;
+		selectedHour = target.value;
 		cleanupMap();
+		addWmsLayer(selectedHour);
+	}
 
-		const sourceId = `wms-test-source-${selectedHour}`;
-		const layerId = `wms-test-layer-${selectedHour}`;
+	function addWmsLayer(hour: string) {
+		const sourceId = `wms-test-source-${hour}`;
+		const layerId = `wms-test-layer-${hour}`;
+		const newTilesURL = `http://34.175.150.40:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${hour}&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`;
 
-		// Check if the source already exists
 		if (!map.getSource(sourceId)) {
-			// If not, add the source
 			map.addSource(sourceId, {
 				type: 'raster',
-				tiles: [tilesURL],
+				tiles: [newTilesURL],
 				tileSize: 256
 			});
 		}
 
-		// Check if the layer already exists
 		if (!map.getLayer(layerId)) {
-			// If not, add the layer
 			map.addLayer({
 				id: layerId,
 				type: 'raster',
 				source: sourceId,
 				paint: {}
 			});
-
-			// Track the new IDs
 			sourceIds.push(sourceId);
 			layerIds.push(layerId);
 		}
@@ -75,19 +77,7 @@
 		sourceIds = [];
 	}
 
-	const urlState = queryParameters(
-		{
-			lon: ssp.number(longitude),
-			lat: ssp.number(latitude),
-			zoom: ssp.number(zoom)
-		},
-		{
-			debounceHistory: 500
-		}
-	);
-
 	onMount(() => {
-		// Fetch local tiles
 		let tiles = {
 			type: 'vector',
 			tiles: [`${location.origin}/openmaptiles/{z}/{x}/{y}.pbf`],
@@ -98,27 +88,23 @@
 		// @ts-ignore
 		$positronMapStyle.sources.openmaptiles = tiles;
 
-		// Define maxBounds
-		const bounds = [
+		const bounds: LngLatBoundsLike = [
 			[7.090650277147461, 51.400616267063896],
 			[7.826598237576263, 51.61374377792475]
-		] satisfies LngLatBoundsLike;
+		];
 
 		map = new maplibregl.Map({
 			container: 'map',
 			style: $positronMapStyle,
 			center: {
-				lat: $urlState.lat ?? 7.467,
-				lon: $urlState.lon ?? 51.511
+				lng: $urlState.lon ?? longitude,
+				lat: $urlState.lat ?? latitude
 			},
-			zoom: $urlState.zoom,
+			zoom: $urlState.zoom ?? zoom,
 			maxBounds: bounds,
 			attributionControl: false
-			// minZoom: 10,
-			// maxZoom: 16
 		});
 
-		// Add zoom and rotation controls to the map.
 		map.addControl(new maplibregl.NavigationControl(), 'top-right');
 
 		map.addControl(
@@ -140,38 +126,7 @@
 				data: bezirke
 			});
 
-			map.addSource(`wms-test-source-${selectedHour}`, {
-				type: 'raster',
-				tiles: [tilesURL],
-				tileSize: 256
-			});
-
-			map.addLayer({
-				id: `wms-test-layer-${selectedHour}`,
-				type: 'raster',
-				source: `wms-test-source-${selectedHour}`,
-				paint: {}
-			});
-
-			// map.addSource(`wms-test-source-${selectedHour}`, {
-			// 	type: 'raster',
-			// 	tiles: [tilesURL],
-			// 	tileSize: 256
-			// });
-
-			// map.addSource('wms-test-source', {
-			// 	type: 'raster',
-			// 	// Important: WMS must contain '&bbox={bbox-epsg-3857}'' parameter
-			// 	// Important: WMS must be served as transparent png with '&transparent=true' parameter
-			// 	tiles: [
-			// 		// Default png images
-			// 		// 'http://34.175.30.147:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_00&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng8&transparent=true'
-
-			// 		// 8-bit images optimized
-			// 		`http://34.175.30.147:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${hour}&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`
-			// 	],
-			// 	tileSize: 256
-			// });
+			addWmsLayer(selectedHour);
 
 			map.addLayer({
 				id: 'bezirke',
@@ -180,10 +135,6 @@
 				paint: {
 					'line-color': 'black',
 					'line-width': 0.5
-					// MapLibre Style Specification paint properties
-				},
-				layout: {
-					// MapLibre Style Specification layout properties
 				}
 			});
 
@@ -193,35 +144,15 @@
 				type: 'circle',
 				paint: {
 					'circle-radius': 3
-					// MapLibre Style Specification paint properties
-				},
-				layout: {
-					// MapLibre Style Specification layout properties
 				}
 			});
 
-			// map.addLayer(
-			// 	{
-			// 		id: `wms-test-layer-${selectedHour}`,
-			// 		type: 'raster',
-			// 		source: `wms-test-source-${selectedHour}`,
-			// 		paint: {}
-			// 	}
-			// 	// 'aeroway_fill' //streets above image
-			// );
-
-			// When a click event occurs on a feature in the places layer, open a popup at the
-			// location of the feature, with description HTML from its properties.
 			map.on('click', 'stations', (e) => {
 				if (!e.features?.length) return;
-				if (!('coordinates' in e.features[0].geometry)) return;
 				const coordinates = e.features[0].geometry.coordinates.slice();
 				const description = e.features[0].properties.Label;
 				if (typeof coordinates[0] !== 'number') return;
 
-				// Ensure that if the map is zoomed out such that multiple
-				// copies of the feature are visible, the popup appears
-				// over the copy being pointed to.
 				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
 					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
 				}
@@ -232,12 +163,10 @@
 					.addTo(map);
 			});
 
-			// Change the cursor to a pointer when the mouse is over the places layer.
 			map.on('mouseenter', 'stations', () => {
 				map.getCanvas().style.cursor = 'pointer';
 			});
 
-			// Change it back to a pointer when it leaves.
 			map.on('mouseleave', 'stations', () => {
 				map.getCanvas().style.cursor = '';
 			});
@@ -247,14 +176,6 @@
 			const center = map.getCenter();
 			$urlState.lat = center.lat;
 			$urlState.lon = center.lng;
-
-			// let bounds = map.getBounds();
-			// console.log('bounds', bounds);
-			// let boundsFormatted = [
-			// 	[bounds['_sw'].lng, bounds['_sw'].lat],
-			// 	[bounds['_ne'].lng, bounds['_ne'].lat]
-			// ];
-			// console.log('boundsFormatted', boundsFormatted);
 		});
 
 		map.on('zoom', () => {
@@ -276,7 +197,7 @@
 							class="mr-1"
 							bind:group={selectedHour}
 							on:change={onChange}
-						/>{time == '00' ? '0' : time}h
+						/>{time === '00' ? '0' : time}h
 					</label>
 				{/each}
 			</div>

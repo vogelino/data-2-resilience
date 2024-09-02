@@ -2,9 +2,29 @@
 	import LL from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import { ArrowDown, X } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 	import Button from './ui/button/button.svelte';
 
 	let opened = false;
+
+	onMount(() => {
+		const lastValue = localStorage.getItem('welcome-opened');
+		if (lastValue === 'true') {
+			opened = true;
+		} else if (lastValue === 'false') {
+			opened = false;
+		}
+	});
+
+	const handleClose = () => {
+		localStorage.setItem('welcome-opened', 'false');
+		opened = false;
+	};
+
+	const handleOpen = () => {
+		localStorage.setItem('welcome-opened', 'true');
+		opened = true;
+	};
 </script>
 
 <section
@@ -17,17 +37,17 @@
 		{/each}
 		<Button
 			size="icon"
-			on:click={() => (opened = false)}
-			class="absolute right-6 top-6 rounded-full text-muted-foreground"
+			on:click={handleClose}
+			class="absolute right-4 top-6 rounded-full text-muted-foreground"
 			variant="ghost"
 		>
 			<X />
 		</Button>
 		<div class="flex gap-4">
-			<Button on:click={() => (opened = false)}>
+			<Button on:click={handleClose}>
 				{$LL.welcome.buttons.confirm()}
 			</Button>
-			<Button variant="outline" on:click={() => (opened = false)}>
+			<Button variant="outline" on:click={handleClose}>
 				{$LL.welcome.buttons.launchTour()}
 			</Button>
 		</div>
@@ -36,7 +56,7 @@
 			variant="ghost"
 			class="-ml-3 flex h-fit w-fit cursor-pointer items-center gap-2 py-2 text-left text-sm"
 			size="sm"
-			on:click={() => (opened = true)}
+			on:click={handleOpen}
 		>
 			<ArrowDown class="size-4" />
 			{$LL.welcome.expandButtonLabel()}

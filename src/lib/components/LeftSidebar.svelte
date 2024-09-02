@@ -4,6 +4,7 @@
 	import { cn } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import WelcomeMessage from './WelcomeMessage.svelte';
+	import { tabActive } from '$lib/stores/uiStore';
 
 	let navElement: HTMLElement;
 	$: fullPath = $page.url.pathname.replace(`/${$locale}`, '');
@@ -24,6 +25,9 @@
 			isActive: fullPath === '/stations'
 		}
 	];
+
+	$: $tabActive = tabs.find((tab) => tab.isActive).slug;
+
 	const urlQuery = $page.url.searchParams.toString();
 
 	onMount(() => {

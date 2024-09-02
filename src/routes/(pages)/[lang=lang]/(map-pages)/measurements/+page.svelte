@@ -30,7 +30,7 @@
 		<dd class="text-2xl font-semibold">4 m/s</dd>
 	</dl>
 	<dl class="col-span-12 flex flex-col items-center rounded-md border border-border p-2">
-		<dt>Wetterstation aktuell</dt>
+		<dt>Wettersituation aktuell</dt>
 		<dd class="flex items-center gap-2 text-2xl font-semibold">
 			<Sun class="h-6 w-6 text-foreground" />
 			sonnig / bewölkt

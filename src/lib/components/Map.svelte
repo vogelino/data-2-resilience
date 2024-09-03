@@ -46,21 +46,15 @@
 	});
 
 	$: {
+		const isRightPage = $page.url.pathname === `/${$locale}`;
 		popups.forEach((popup, id) => {
-			popup.addClassName('!hidden');
-			popup.removeClassName('selected');
+			const isSelected = $selectedStations.includes(id);
+			const isVisible = isRightPage && $stationsWithPopup.includes(id);
+			popup.remove();
+			popup.addTo(map);
+			popup.getElement()?.classList.toggle('selected', isSelected);
+			popup.getElement()?.classList.toggle('!hidden', !isVisible);
 		});
-		if ($page.url.pathname === `/${$locale}`) {
-			$stationsWithPopup.forEach((id) => {
-				const popup = popups.get(id);
-				if (popup) {
-					const isSelected = $selectedStations.includes(id);
-					popup.removeClassName('!hidden');
-					popup.addTo(map);
-					popup.getElement()?.classList.toggle('selected', isSelected);
-				}
-			});
-		}
 	}
 
 	function onChange(event: Event) {
@@ -196,6 +190,7 @@
 				if (!e.features?.length) return;
 				const { properties } = e.features[0];
 				const stationId = properties.id;
+				if (!stationId) return;
 				toggleStationSelection(stationId);
 			});
 
@@ -220,7 +215,12 @@
 
 		stations.features.forEach((station) => {
 			const stationId = station.properties.id;
-			const popup = new maplibregl.Popup({ closeButton: false });
+			const popup = new maplibregl.Popup({
+				closeButton: false,
+				closeOnClick: false,
+				closeOnMove: false,
+				focusAfterOpen: true
+			});
 			popup.setLngLat(station.geometry.coordinates as LngLatLike);
 			popup.setHTML(
 				getPopupHtml({ title: station.properties.Label, content: station.properties.Strasse })

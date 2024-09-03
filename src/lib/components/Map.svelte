@@ -1,32 +1,67 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { locale } from '$i18n/i18n-svelte';
 	import { bezirke, stations } from '$lib/stores/mapData';
 	import { positronMapStyle } from '$lib/stores/mapStyle';
+	import {
+		hoverStation,
+		selectedStations,
+		stationsWithPopup,
+		toggleStationSelection,
+		unhoverStations
+	} from '$lib/stores/stationsStore';
+	import { getPopupHtml } from '$lib/utils/mapUti';
 	import maplibregl, { type LngLatBoundsLike, type LngLatLike } from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { onMount } from 'svelte';
-	import { queryParameters, ssp } from 'sveltekit-search-params';
+	import { queryParam, ssp } from 'sveltekit-search-params';
 
-	let latitude = 7.467;
-	let longitude = 51.511;
-	let zoom = 10.5;
 	let selectedHour = '00';
 	let map: maplibregl.Map;
 
 	let layerIds: string[] = [];
 	let sourceIds: string[] = [];
+	let popups = new Map<string, maplibregl.Popup>();
 
 	$: tilesURL = `http://34.175.150.40:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${selectedHour}&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`;
 
-	const urlState = queryParameters(
-		{
-			lon: ssp.number(longitude),
-			lat: ssp.number(latitude),
-			zoom: ssp.number(zoom)
-		},
-		{
-			debounceHistory: 500
+	const config = { debounceHistory: 500 };
+	const lon = queryParam('lon', ssp.number(7.467), config);
+	const lat = queryParam('lat', ssp.number(51.511), config);
+	const zoom = queryParam('zoom', ssp.number(10.5), config);
+	const urlState = queryParam('selectedStations');
+
+	selectedStations.subscribe((value) => {
+		urlState.set(value.join(','));
+	});
+
+	onMount(() => {
+		let initialized = false;
+		urlState.subscribe((value) => {
+			if (!initialized && value) {
+				selectedStations.set(value.split(','));
+			}
+			initialized = true;
+		});
+	});
+
+	$: {
+		popups.forEach((popup, id) => {
+			popup.addClassName('!hidden');
+			popup.removeClassName('selected');
+		});
+		if ($page.url.pathname === `/${$locale}`) {
+			$stationsWithPopup.forEach((id) => {
+				const popup = popups.get(id);
+				if (popup) {
+					const isSelected = $selectedStations.includes(id);
+					popup.removeClassName('!hidden');
+					popup.addTo(map);
+					popup.getElement()?.classList.toggle('selected', isSelected);
+				}
+			});
 		}
-	);
+	}
 
 	function onChange(event: Event) {
 		const target = event.currentTarget as HTMLInputElement;
@@ -97,10 +132,10 @@
 			container: 'map',
 			style: $positronMapStyle,
 			center: {
-				lng: $urlState.lon ?? longitude,
-				lat: $urlState.lat ?? latitude
+				lng: $lon,
+				lat: $lat
 			},
-			zoom: $urlState.zoom ?? zoom,
+			zoom: $zoom ?? zoom,
 			maxBounds: bounds,
 			attributionControl: false
 		});
@@ -147,20 +182,21 @@
 				}
 			});
 
+			map.on('mouseenter', 'stations', (e) => {
+				if (!e.features?.length) return;
+				const stationId = e.features[0].properties.id;
+				hoverStation(stationId);
+			});
+
+			map.on('mouseleave', 'stations', (e) => {
+				unhoverStations();
+			});
+
 			map.on('click', 'stations', (e) => {
 				if (!e.features?.length) return;
-				const coordinates = e.features[0].geometry.coordinates.slice();
-				const description = e.features[0].properties.Label;
-				if (typeof coordinates[0] !== 'number') return;
-
-				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-				}
-
-				new maplibregl.Popup()
-					.setLngLat(coordinates as LngLatLike)
-					.setHTML(description)
-					.addTo(map);
+				const { properties } = e.features[0];
+				const stationId = properties.id;
+				toggleStationSelection(stationId);
 			});
 
 			map.on('mouseenter', 'stations', () => {
@@ -174,20 +210,33 @@
 
 		map.on('move', () => {
 			const center = map.getCenter();
-			$urlState.lat = center.lat;
-			$urlState.lon = center.lng;
+			$lat = center.lat;
+			$lon = center.lng;
 		});
 
 		map.on('zoom', () => {
-			$urlState.zoom = map.getZoom();
+			$zoom = map.getZoom();
 		});
+
+		stations.features.forEach((station) => {
+			const stationId = station.properties.id;
+			const popup = new maplibregl.Popup({ closeButton: false });
+			popup.setLngLat(station.geometry.coordinates as LngLatLike);
+			popup.setHTML(
+				getPopupHtml({ title: station.properties.Label, content: station.properties.Strasse })
+			);
+			popup.addTo(map);
+			popup.addClassName('!hidden');
+			popups.set(stationId, popup);
+		});
+		popups = popups;
 	});
 </script>
 
 <div class="relative grid h-full w-full items-center justify-center overflow-clip">
 	<div id="map" class="relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen">
-		<div class="absolute bottom-0 z-50 flex h-24 w-full flex-col items-center">
-			<div class="space-x-4 rounded bg-white p-4">
+		<div class="pointer-events-none absolute bottom-0 z-50 flex h-24 w-full flex-col items-center">
+			<div class="pointer-events-auto space-x-4 rounded bg-background p-4">
 				{#each ['00', '15', '20'] as time}
 					<label>
 						<input
@@ -204,3 +253,24 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	/* MAPLIBRE */
+	#map :global(.maplibregl-popup-content) {
+		background: hsl(var(--background));
+		padding: 0.75rem 1rem;
+		border: 1px solid hsl(var(--border));
+	}
+
+	#map :global(.maplibregl-popup-tip) {
+		border-top-color: hsl(var(--border));
+	}
+
+	#map :global(.selected > .maplibregl-popup-content) {
+		border-color: hsl(var(--foreground));
+	}
+
+	#map :global(.selected > .maplibregl-popup-tip) {
+		border-top-color: hsl(var(--foreground));
+	}
+</style>

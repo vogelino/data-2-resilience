@@ -1,12 +1,12 @@
 <script lang="ts">
+	import { unselectAllStations } from '$lib/stores/stationsStore';
 	import {
-		closeRightSidebar,
 		isLeftSidebarOpened,
 		isRightSidebarOpened,
-		openRightSidebar,
 		toggleLeftSidebar
 	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { X } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
 </script>
 
@@ -68,13 +68,6 @@
 	</aside>
 	<main class="relative z-10 h-[calc(100vh-var(--headerHeight,5rem))] overflow-y-auto">
 		<slot />
-		<Button
-			on:click={openRightSidebar}
-			class={cn(
-				'absolute right-6 top-6 transition-opacity',
-				$isRightSidebarOpened ? 'pointer-events-none opacity-0' : 'opacity-100'
-			)}>Open Right Sidebar</Button
-		>
 	</main>
 	<aside class="relative z-50">
 		<div
@@ -88,14 +81,18 @@
 					: 'translate-x-[var(--rightSidebarWidth)] shadow-none'
 			)}
 		>
-			<button
+			<Button
 				type="button"
+				size="icon"
+				variant="outline"
 				class={cn(
 					'absolute right-4 top-4 z-50 border border-border',
 					'flex size-8 items-center justify-center rounded-full bg-background'
 				)}
-				on:click={closeRightSidebar}>×</button
+				on:click={unselectAllStations}
 			>
+				<X class="h-4 w-4" />
+			</Button>
 			<div
 				class="h-[calc(100vh-var(--headerHeight,5rem))] w-[var(--rightSidebarWidth)] overflow-y-auto overflow-x-clip"
 				id="right-sidebar-scroll-container"

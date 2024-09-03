@@ -56,6 +56,9 @@ const en = {
 			stations: 'Weather stations'
 		}
 	},
+	rightSidebar: {
+		title: 'Selected stations'
+	},
 	pages: {
 		thermicalComfort: {
 			title: 'Wie warm fühlt sich deine Stadt an?',

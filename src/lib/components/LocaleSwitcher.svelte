@@ -6,6 +6,7 @@
 	import type { Locales } from '$i18n/i18n-types';
 	import { locales } from '$i18n/i18n-util';
 	import { loadLocaleAsync } from '$i18n/i18n-util.async';
+	import { cn } from '$lib/utils';
 	import { replaceLocaleInUrl } from '../../utils';
 
 	const switchLocale = async (newLocale: Locales, updateHistoryState = true) => {
@@ -49,9 +50,12 @@
 <ul class="flex items-center gap-2" aria-label="Language switcher">
 	{#each locales as l}
 		<li
-			class="hover:hover-hover:font-bold border-border flex border-l pl-2 transition first-of-type:border-none first-of-type:pl-0"
+			class="flex border-l border-border pl-2 transition first-of-type:border-none first-of-type:pl-0 hover:hover-hover:font-bold"
 		>
-			<a class:font-bold={l === $locale} href={replaceLocaleInUrl($page.url, l)}>
+			<a
+				class={cn('focusable rounded px-2 py-1', l === $locale && 'font-bold')}
+				href={replaceLocaleInUrl($page.url, l)}
+			>
 				{l}
 			</a>
 		</li>

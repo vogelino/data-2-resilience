@@ -961,7 +961,21 @@ export const stations = {
 			},
 			geometry: { type: 'Point', coordinates: [7.397681953953454, 51.517844917773211] }
 		}
-	]
+	].map(
+		(s, id) =>
+			({ ...s, properties: { ...s.properties, id: String(id) } }) as GeoJSON.Feature<
+				GeoJSON.Point,
+				{
+					id: string;
+					x_Koord: number;
+					y_Koord: number;
+					Label: string;
+					Strasse: string;
+					layer: string;
+					path: string;
+				}
+			>
+	)
 } satisfies GeoJSON.GeoJSON;
 
 export const bezirke = {

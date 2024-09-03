@@ -156,6 +156,12 @@ type RootTranslation = {
 			stations: string
 		}
 	}
+	rightSidebar: {
+		/**
+		 * A​u​s​g​e​w​ä​h​l​t​e​ ​M​e​s​s​s​t​a​t​i​o​n​e​n
+		 */
+		title: string
+	}
 	pages: {
 		thermicalComfort: {
 			/**
@@ -420,6 +426,12 @@ export type TranslationFunctions = {
 			 */
 			stations: () => LocalizedString
 		}
+	}
+	rightSidebar: {
+		/**
+		 * Ausgewählte Messstationen
+		 */
+		title: () => LocalizedString
 	}
 	pages: {
 		thermicalComfort: {

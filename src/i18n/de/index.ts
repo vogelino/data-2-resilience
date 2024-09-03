@@ -122,6 +122,13 @@ const de = {
 			description:
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
 		}
+	},
+	map: {
+		zoom: {
+			navAlt: 'Zoom-Navigation',
+			zoomIn: 'Reinzoomen',
+			zoomOut: 'Rauszoomen'
+		}
 	}
 } satisfies BaseTranslation;
 

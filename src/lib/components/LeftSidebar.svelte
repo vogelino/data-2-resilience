@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import LL, { locale } from '$i18n/i18n-svelte';
+	import { tabActive } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import WelcomeMessage from './WelcomeMessage.svelte';
-	import { tabActive } from '$lib/stores/uiStore';
 
 	let navElement: HTMLElement;
 	$: fullPath = $page.url.pathname.replace(`/${$locale}`, '');
@@ -26,7 +26,7 @@
 		}
 	];
 
-	$: $tabActive = tabs.find((tab) => tab.isActive).slug;
+	$: $tabActive = tabs.find((tab) => tab.isActive)?.slug || tabs[0].slug;
 
 	const urlQuery = $page.url.searchParams.toString();
 

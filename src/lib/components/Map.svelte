@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { locale } from '$i18n/i18n-svelte';
+	import { LL, locale } from '$i18n/i18n-svelte';
 	import { bezirke, stations } from '$lib/stores/mapData';
 	import { positronMapStyle } from '$lib/stores/mapStyle';
 	import {
@@ -10,11 +10,15 @@
 		toggleStationSelection,
 		unhoverStations
 	} from '$lib/stores/stationsStore';
+	import { isRightSidebarOpened } from '$lib/stores/uiStore';
+	import { cn } from '$lib/utils';
 	import { getPopupHtml } from '$lib/utils/mapUti';
+	import { Minus, Plus } from 'lucide-svelte';
 	import maplibregl, { type LngLatBoundsLike, type LngLatLike } from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { onMount } from 'svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
+	import Button from './ui/button/button.svelte';
 
 	let selectedHour = '00';
 	let map: maplibregl.Map;
@@ -253,6 +257,34 @@
 		</div>
 	</div>
 </div>
+<nav
+	aria-label={$LL.map.zoom.navAlt()}
+	class={cn(
+		'fixed right-4 top-[calc(var(--headerHeight,5rem)+1rem)] z-50 flex flex-col gap-px',
+		'rounded-md border border-border bg-border',
+		'shadow-lg transition-transform duration-300 ease-in-out',
+		$isRightSidebarOpened && '-translate-x-[var(--rightSidebarWidth)]'
+	)}
+>
+	<Button
+		size="icon"
+		variant="ghost"
+		aria-label={$LL.map.zoom.zoomIn()}
+		class="relative rounded-b-none bg-white focus-visible:z-50 focus-visible:rounded"
+		on:click={() => map.zoomIn()}
+	>
+		<Plus class="h-5 w-5" />
+	</Button>
+	<Button
+		size="icon"
+		variant="ghost"
+		aria-label={$LL.map.zoom.zoomOut()}
+		class="relative rounded-t-none bg-white focus-visible:z-50 focus-visible:rounded"
+		on:click={() => map.zoomOut()}
+	>
+		<Minus class="h-5 w-5" />
+	</Button>
+</nav>
 
 <style>
 	/* MAPLIBRE */

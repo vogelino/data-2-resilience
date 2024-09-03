@@ -284,6 +284,22 @@ type RootTranslation = {
 			description: string
 		}
 	}
+	map: {
+		zoom: {
+			/**
+			 * Z​o​o​m​-​N​a​v​i​g​a​t​i​o​n
+			 */
+			navAlt: string
+			/**
+			 * R​e​i​n​z​o​o​m​e​n
+			 */
+			zoomIn: string
+			/**
+			 * R​a​u​s​z​o​o​m​e​n
+			 */
+			zoomOut: string
+		}
+	}
 }
 
 export type TranslationFunctions = {
@@ -553,6 +569,22 @@ export type TranslationFunctions = {
 			 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.
 			 */
 			description: () => LocalizedString
+		}
+	}
+	map: {
+		zoom: {
+			/**
+			 * Zoom-Navigation
+			 */
+			navAlt: () => LocalizedString
+			/**
+			 * Reinzoomen
+			 */
+			zoomIn: () => LocalizedString
+			/**
+			 * Rauszoomen
+			 */
+			zoomOut: () => LocalizedString
 		}
 	}
 }

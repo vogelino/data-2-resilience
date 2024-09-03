@@ -1,26 +1,32 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
-	import { cn } from '$lib/utils';
+	import ThermalCompfortNavItem from 'components/ThermalCompfortNavItem.svelte';
+	import { queryParam } from 'sveltekit-search-params';
 
-	let selectedIndicatorSlug = 'utci_class';
+	let selectedIndicatorSlugParam = queryParam('thermal_comfort');
+	$: selectedIndicatorSlug =
+		$selectedIndicatorSlugParam === null ? 'utci_category' : $selectedIndicatorSlugParam;
 
 	$: indicatorValues = [
 		{
-			slug: 'utci',
+			slug: 'utci' as const,
 			title: $LL.indicators.utci.title(),
 			description: $LL.indicators.utci.description(),
-			isSelected: selectedIndicatorSlug === 'utci_class' || selectedIndicatorSlug === 'utci_value'
+			hasCategory: true,
+			isSelected: selectedIndicatorSlug === 'utci_category' || selectedIndicatorSlug === 'utci'
 		},
 		{
-			slug: 'pet',
+			slug: 'pet' as const,
 			title: $LL.indicators.pet.title(),
 			description: $LL.indicators.pet.description(),
-			isSelected: selectedIndicatorSlug === 'pet'
+			hasCategory: true,
+			isSelected: selectedIndicatorSlug === 'pet_category' || selectedIndicatorSlug === 'pet'
 		},
 		{
-			slug: 'mrt',
+			slug: 'mrt' as const,
 			title: $LL.indicators.mrt.title(),
 			description: $LL.indicators.mrt.description(),
+			hasCategory: false,
 			isSelected: selectedIndicatorSlug === 'mrt'
 		}
 	];
@@ -33,72 +39,7 @@
 <nav aria-label={$LL.pages.thermicalComfort.indicatorsNavAriaLabel()} class="my-6">
 	<ul class="flex flex-col gap-px rounded-xl border border-border bg-border">
 		{#each indicatorValues as indicator (indicator.slug)}
-			<li class="group/indicators relative focus-within:z-10">
-				<button
-					type="button"
-					class={cn(
-						'focusable bg-background p-4 text-left',
-						'transition hover:bg-muted focus-visible:rounded-xl',
-						'group-first-of-type/indicators:rounded-t-xl group-last-of-type/indicators:rounded-b-xl'
-					)}
-					on:click={() =>
-						(selectedIndicatorSlug = indicator.slug === 'utci' ? 'utci_class' : indicator.slug)}
-				>
-					<h2 class="relative mb-1 pr-8 font-semibold">
-						{indicator.title}
-						<span
-							class={cn(
-								'absolute right-0 top-0 bg-background',
-								'size-5 rounded-full border border-foreground ring-4 ring-inset ring-background',
-								indicator.isSelected && 'bg-foreground'
-							)}
-						/>
-					</h2>
-					<p class="text-sm text-muted-foreground">{indicator.description}</p>
-					{#if indicator.slug === 'utci'}
-						<nav class="mt-2">
-							<ul class="grid grid-cols-2 gap-px rounded bg-border">
-								<li class="group/utci flex">
-									<button
-										type="button"
-										on:click|preventDefault|stopPropagation={() =>
-											(selectedIndicatorSlug = 'utci_class')}
-										class={cn(
-											'w-full border border-r-0 border-border px-4 py-2 text-center',
-											'rounded-l bg-background transition group-hover/indicators:bg-muted',
-											'focusable focus-visible:z-10 focus-visible:rounded focus-visible:border',
-											selectedIndicatorSlug === 'utci_class' &&
-												'border-foreground bg-foreground font-semibold text-background group-hover/indicators:bg-foreground',
-											selectedIndicatorSlug !== 'utci_class' &&
-												'group-hover/indicators:hover:bg-background'
-										)}
-									>
-										{$LL.indicators.utci.types.byClass.title()}
-									</button>
-								</li>
-								<li class="group/utci flex">
-									<button
-										type="button"
-										on:click|preventDefault|stopPropagation={() =>
-											(selectedIndicatorSlug = 'utci_value')}
-										class={cn(
-											'focusable focus-visible:z-10 focus-visible:rounded focus-visible:border',
-											'w-full border border-l-0 border-border px-4 py-2 text-center',
-											'rounded-r bg-background transition group-hover/indicators:bg-muted',
-											selectedIndicatorSlug === 'utci_value' &&
-												'border-foreground bg-foreground font-semibold text-background group-hover/indicators:bg-foreground',
-											selectedIndicatorSlug !== 'utci_value' &&
-												'group-hover/indicators:hover:bg-background'
-										)}
-									>
-										{$LL.indicators.utci.types.byValue.title()}
-									</button>
-								</li>
-							</ul>
-						</nav>
-					{/if}
-				</button>
-			</li>
+			<ThermalCompfortNavItem {indicator} />
 		{/each}
 	</ul>
 </nav>

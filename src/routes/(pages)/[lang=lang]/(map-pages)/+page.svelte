@@ -19,8 +19,8 @@
 			slug: 'pet' as const,
 			title: $LL.indicators.pet.title(),
 			description: $LL.indicators.pet.description(),
-			hasCategory: true,
-			isSelected: selectedIndicatorSlug === 'pet_category' || selectedIndicatorSlug === 'pet'
+			hasCategory: false,
+			isSelected: selectedIndicatorSlug === 'pet'
 		},
 		{
 			slug: 'mrt' as const,

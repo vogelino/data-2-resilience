@@ -12,7 +12,9 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
+	import { Info } from 'lucide-svelte';
 	import { queryParam } from 'sveltekit-search-params';
+	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
 	export let indicator: IndicatorType;
 
@@ -28,34 +30,51 @@
 	<button
 		type="button"
 		class={cn(
-			'focusable bg-background p-4 text-left',
+			'focusable flex w-full flex-col bg-background p-4 text-left',
 			'transition hover:bg-muted focus-visible:rounded-xl',
-			'group-first-of-type/indicators:rounded-t-xl group-last-of-type/indicators:rounded-b-xl'
+			'group-first-of-type/indicators:rounded-t-xl group-last-of-type/indicators:rounded-b-xl',
+			indicator.isSelected && indicator.hasCategory && 'pb-5'
 		)}
 		on:click={() =>
 			($selectedIndicatorSlugParam = indicator.hasCategory ? slugWithCategory : indicator.slug)}
 	>
-		<h2 class="relative mb-1 pr-8 font-semibold">
-			{indicator.title}
+		<h2 class="relative flex w-full items-center justify-between gap-4 pr-8 font-semibold">
+			<span class="inline-flex items-center gap-1.5">
+				{indicator.title}
+				<Tooltip openDelay={100}>
+					<TooltipTrigger
+						class={cn(
+							'focusable hover-hover:hover:bg-foreground hover-hover:hover:text-background',
+							'rounded-full p-1 transition'
+						)}
+					>
+						<Info class="size-4" />
+					</TooltipTrigger>
+					<TooltipContent class="flex w-96 max-w-full flex-col gap-1 px-4 pb-4 pt-3 leading-tight">
+						<strong class="block text-base font-semibold leading-5">{indicator.title}</strong>
+						<p class="text-sm leading-4 text-muted-foreground">{indicator.description}</p>
+					</TooltipContent>
+				</Tooltip>
+			</span>
 			<span
 				class={cn(
 					'absolute right-0 top-0 bg-background',
 					'size-5 rounded-full border border-foreground ring-4 ring-inset ring-background',
 					indicator.isSelected && 'bg-foreground'
 				)}
-			/>
+			></span>
 		</h2>
-		<p class="text-sm text-muted-foreground">{indicator.description}</p>
-		{#if indicator.hasCategory}
+		{#if indicator.hasCategory && indicator.isSelected}
 			<nav class="mt-2">
-				<ul class="grid grid-cols-2 gap-px rounded bg-border">
+				<ul class="inline-flex gap-px rounded bg-border">
 					<li class="group/utci flex">
 						<button
 							type="button"
-							on:click|preventDefault|stopPropagation={() =>
-								($selectedIndicatorSlugParam = slugWithCategory)}
+							on:click|preventDefault|stopPropagation={() => {
+								$selectedIndicatorSlugParam = slugWithCategory;
+							}}
 							class={cn(
-								'w-full border border-r-0 border-border px-4 py-2 text-center',
+								'border border-r-0 border-border px-3 py-1.5 text-center',
 								'rounded-l bg-background transition group-hover/indicators:bg-muted',
 								'focusable focus-visible:z-10 focus-visible:rounded focus-visible:border',
 								categorySelected &&
@@ -69,11 +88,12 @@
 					<li class="group/utci flex">
 						<button
 							type="button"
-							on:click|preventDefault|stopPropagation={() =>
-								($selectedIndicatorSlugParam = indicator.slug)}
+							on:click|preventDefault|stopPropagation={() => {
+								$selectedIndicatorSlugParam = indicator.slug;
+							}}
 							class={cn(
 								'focusable focus-visible:z-10 focus-visible:rounded focus-visible:border',
-								'w-full border border-l-0 border-border px-4 py-2 text-center',
+								'border border-l-0 border-border px-3 py-1.5 text-center',
 								'rounded-r bg-background transition group-hover/indicators:bg-muted',
 								valueSelected &&
 									'border-foreground bg-foreground font-semibold text-background group-hover/indicators:bg-foreground',

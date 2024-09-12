@@ -4,7 +4,7 @@
 
 @layer base {
 	html {
-		font-size: clamp(0.81rem, 0.447059vi + 0.7rem, 1rem);
+		font-size: clamp(0.78rem, 0.517647vi + 0.65rem, 1rem);
 		line-height: calc(2px + 2ex + 2px);
 	}
 

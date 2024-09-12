@@ -46,27 +46,37 @@
 
 <WelcomeMessage />
 <nav
-	class="sticky top-0 z-50 border-b border-r border-border bg-background pt-2 shadow-black/10 transition-shadow duration-1000"
+	class="sticky top-0 z-50 border-b border-r border-border bg-background pt-1 shadow-black/10 transition-shadow duration-1000"
 	bind:this={navElement}
 >
 	<ul
 		class="flex w-[var(--leftSidebarWidth)] translate-y-px overflow-x-auto overflow-y-clip focus-within:overflow-visible"
 	>
 		{#each tabs as tab (tab.slug)}
-			<li class={cn('relative -mb-px -ml-px flex', tab.isActive && 'z-10', 'focus-within:z-10')}>
+			<li
+				class={cn(
+					'relative -mb-px -ml-px flex',
+					tab.isActive && 'z-10',
+					'[&:has(:focus-visible)]:z-20'
+				)}
+			>
 				<a
 					href={[
 						`/${$locale}`,
-						tab.slug === 'thermical-comfort' ? '' : `/${tab.slug}`,
+						tab.slug === tabs[0].slug ? '' : `/${tab.slug}`,
 						urlQuery ? `?${urlQuery}` : ''
 					].join('')}
 					class={cn(
 						'focusable px-4 pb-2 pt-3 transition focus-visible:rounded-lg',
-						'text-nowrap border border-background hover:z-10',
-						tab.slug === 'thermical-comfort' ? 'rounded-tr-lg pl-6' : ' rounded-t-lg',
-						tab.isActive && 'border-border border-b-background bg-background font-semibold',
-						tab.isActive && tab.slug === 'thermical-comfort' && 'border-l-background',
-						!tab.isActive && 'hover:border-border hover:bg-muted'
+						'text-nowrap border border-transparent focus-visible:z-10 hover-hover:hover:z-50',
+						tab.slug === tabs[0].slug ? 'rounded-tr-lg pl-6' : ' rounded-t-lg',
+						tab.isActive && cn('border-border border-b-background bg-background font-semibold'),
+						tab.isActive && tab.slug === tabs[0].slug && 'border-l-background',
+						!tab.isActive &&
+							cn(
+								'hover-hover:hover:border-border hover-hover:hover:border-b-border hover-hover:hover:bg-muted',
+								'border-b-2 focus-visible:border-b'
+							)
 					)}>{tab.name}</a
 				>
 			</li>

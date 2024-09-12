@@ -1,7 +1,7 @@
 import type { Translation } from '../i18n-types';
 
 const siteNameShort = `Data2Resilience`;
-const siteSubtitle = `Enhancing Urban Resilience Against Extreme Heat in Dortmund`;
+const siteSubtitle = `Dashboard for thermal comfort in Dortmund`;
 const en = {
 	siteNameShort,
 	author: `Data2Resilience Team`,

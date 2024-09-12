@@ -1,7 +1,7 @@
 import type { BaseTranslation } from '../i18n-types';
 
 const siteNameShort = `Data2Resilience`;
-const siteSubtitle = `Stärkung der städtischen Resilienz gegen extreme Hitze in Dortmund`;
+const siteSubtitle = `Dashboard für Thermischen Komfort in Dortmund`;
 const de = {
 	siteNameShort,
 	author: `Data2Resilience Team`,

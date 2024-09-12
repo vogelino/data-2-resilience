@@ -49,7 +49,9 @@
 	class="sticky top-0 z-50 border-b border-r border-border bg-background pt-2 shadow-black/10 transition-shadow duration-1000"
 	bind:this={navElement}
 >
-	<ul class="flex w-[var(--leftSidebarWidth)] translate-y-px overflow-x-auto overflow-y-clip">
+	<ul
+		class="flex w-[var(--leftSidebarWidth)] translate-y-px overflow-x-auto overflow-y-clip focus-within:overflow-visible"
+	>
 		{#each tabs as tab (tab.slug)}
 			<li class={cn('relative -mb-px -ml-px flex', tab.isActive && 'z-10', 'focus-within:z-10')}>
 				<a

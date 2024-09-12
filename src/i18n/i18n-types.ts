@@ -23,11 +23,11 @@ type RootTranslation = {
 	 */
 	author: string
 	/**
-	 * S​t​ä​r​k​u​n​g​ ​d​e​r​ ​s​t​ä​d​t​i​s​c​h​e​n​ ​R​e​s​i​l​i​e​n​z​ ​g​e​g​e​n​ ​e​x​t​r​e​m​e​ ​H​i​t​z​e​ ​i​n​ ​D​o​r​t​m​u​n​d
+	 * D​a​s​h​b​o​a​r​d​ ​f​ü​r​ ​T​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​ ​i​n​ ​D​o​r​t​m​u​n​d
 	 */
 	siteSubtitle: string
 	/**
-	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​|​ ​S​t​ä​r​k​u​n​g​ ​d​e​r​ ​s​t​ä​d​t​i​s​c​h​e​n​ ​R​e​s​i​l​i​e​n​z​ ​g​e​g​e​n​ ​e​x​t​r​e​m​e​ ​H​i​t​z​e​ ​i​n​ ​D​o​r​t​m​u​n​d
+	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​|​ ​D​a​s​h​b​o​a​r​d​ ​f​ü​r​ ​T​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​ ​i​n​ ​D​o​r​t​m​u​n​d
 	 */
 	siteNameLong: string
 	/**
@@ -312,11 +312,11 @@ export type TranslationFunctions = {
 	 */
 	author: () => LocalizedString
 	/**
-	 * Stärkung der städtischen Resilienz gegen extreme Hitze in Dortmund
+	 * Dashboard für Thermischen Komfort in Dortmund
 	 */
 	siteSubtitle: () => LocalizedString
 	/**
-	 * Data2Resilience | Stärkung der städtischen Resilienz gegen extreme Hitze in Dortmund
+	 * Data2Resilience | Dashboard für Thermischen Komfort in Dortmund
 	 */
 	siteNameLong: () => LocalizedString
 	/**

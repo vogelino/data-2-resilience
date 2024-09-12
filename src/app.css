@@ -88,6 +88,7 @@
 @layer components {
 	.focusable {
 		@apply focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground;
+		@apply focus-within:border-border focus-visible:bg-background focus-visible:text-foreground;
 		@apply focus-visible:ring-offset-4 focus-visible:ring-offset-background;
 	}
 }

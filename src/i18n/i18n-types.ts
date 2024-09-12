@@ -207,7 +207,7 @@ type RootTranslation = {
 				'0': string
 			}
 			stationsDescriptions: {
-				wheather: {
+				weather: {
 					/**
 					 * W​e​t​t​e​r​s​t​a​t​i​o​n​ ​m​i​t​ ​B​l​a​c​k​g​l​o​b​e​-​S​e​n​s​o​r
 					 */
@@ -494,7 +494,7 @@ export type TranslationFunctions = {
 				'0': () => LocalizedString
 			}
 			stationsDescriptions: {
-				wheather: {
+				weather: {
 					/**
 					 * Wetterstation mit Blackglobe-Sensor
 					 */

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
+	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
 	import ThermalCompfortNavItem from 'components/ThermalCompfortNavItem.svelte';
 	import { queryParam } from 'sveltekit-search-params';
 
@@ -34,7 +35,9 @@
 
 <h1 class="mb-2 text-xl font-semibold">{$LL.pages.thermicalComfort.title()}</h1>
 {#each Object.values($LL.pages.thermicalComfort.intro) as paragraph}
-	<p class="mb-2">{paragraph()}</p>
+	<CollapsibleParagraph>
+		{paragraph()}
+	</CollapsibleParagraph>
 {/each}
 <nav aria-label={$LL.pages.thermicalComfort.indicatorsNavAriaLabel()} class="my-6">
 	<ul class="flex flex-col gap-px rounded-xl border border-border bg-border">

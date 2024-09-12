@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
 	import airTemperatureAndHumiditySensor from '$lib/assets/air-temperature-humidity-sensor.png';
-	import wheatherStation from '$lib/assets/wheather-station.png';
+	import weatherStation from '$lib/assets/weather-station.png';
 	import SensorDescription from 'components/SensorDescription.svelte';
 </script>
 
@@ -12,9 +12,9 @@
 
 <ul class="mt-6 flex flex-col gap-6">
 	<SensorDescription
-		title={$LL.pages.stations.stationsDescriptions.wheather.title()}
-		description={$LL.pages.stations.stationsDescriptions.wheather.description()}
-		image={{ src: wheatherStation, alt: 'Weather station with Blackglobe sensor' }}
+		title={$LL.pages.stations.stationsDescriptions.weather.title()}
+		description={$LL.pages.stations.stationsDescriptions.weather.description()}
+		image={{ src: weatherStation, alt: 'Weather station with Blackglobe sensor' }}
 	/>
 	<SensorDescription
 		title={$LL.pages.stations.stationsDescriptions.airTemperatureAndHumidity.title()}

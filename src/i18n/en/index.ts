@@ -31,6 +31,10 @@ const en = {
 			homepageLinkText: 'To the homepage'
 		}
 	},
+	generic: {
+		expand: 'Know more',
+		collapse: 'Collapse'
+	},
 	welcome: {
 		title: 'Welcome',
 		text: [
@@ -41,10 +45,6 @@ const en = {
 			launchTour: 'Start the tour'
 		},
 		expandButtonLabel: 'Show the introduction message again'
-	},
-	generic: {
-		expand: 'Know more',
-		collapse: 'Collapse'
 	},
 	navigation: {
 		header: {
@@ -61,7 +61,7 @@ const en = {
 	},
 	pages: {
 		thermicalComfort: {
-			title: 'Wie warm fühlt sich deine Stadt an?',
+			title: 'How warm does your city feel?',
 			intro: [
 				'Thermal comfort is the state of well-being in which a person is satisfied with the thermal environment. This means that temperature, humidity, air movement and radiant heat are within a range perceived as comfortable. It can be measured using various indicators:'
 			],
@@ -80,7 +80,7 @@ const en = {
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
 			],
 			stationsDescriptions: {
-				wheather: {
+				weather: {
 					title: 'Weather station with Blackglobe sensor',
 					description:
 						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'

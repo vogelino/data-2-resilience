@@ -38,6 +38,12 @@
 				$isRightSidebarOpened && 'max-xl:-translate-x-[var(--leftSidebarWidth)]'
 			)}
 		>
+			<div
+				class="h-[calc(100vh-var(--headerHeight,5rem))] w-[var(--leftSidebarWidth)] overflow-y-auto overflow-x-clip"
+				id="left-sidebar-scroll-container"
+			>
+				<slot name="left-sidebar" />
+			</div>
 			<button
 				type="button"
 				class={cn(
@@ -58,12 +64,6 @@
 					{$isLeftSidebarOpened ? '←' : '→'}
 				</span>
 			</button>
-			<div
-				class="h-[calc(100vh-var(--headerHeight,5rem))] w-[var(--leftSidebarWidth)] overflow-y-auto overflow-x-clip"
-				id="left-sidebar-scroll-container"
-			>
-				<slot name="left-sidebar" />
-			</div>
 		</div>
 	</aside>
 	<main class="relative z-10 h-[calc(100vh-var(--headerHeight,5rem))] overflow-y-auto">

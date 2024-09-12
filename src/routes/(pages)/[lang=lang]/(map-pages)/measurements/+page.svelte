@@ -1,6 +1,17 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
-	import Sun from 'lucide-svelte/icons/sun';
+	import { stations } from '$lib/stores/mapData';
+	import { selectedStations, unselectStation } from '$lib/stores/stationsStore';
+	import Button from 'components/ui/button/button.svelte';
+	import { X } from 'lucide-svelte';
+
+	$: formattedStations = $selectedStations.map((id) => {
+		const station = stations.features.find((s) => s.properties.id === id);
+		return {
+			id,
+			name: station?.properties.Label || id
+		};
+	});
 </script>
 
 <h1 class="mb-2 text-xl font-semibold">{$LL.pages.measurements.title()}</h1>
@@ -8,32 +19,18 @@
 	<p class="mb-2">{paragraph()}</p>
 {/each}
 
-<div class="mt-6 grid grid-cols-12 gap-4 text-sm">
-	<dl class="col-span-5 flex flex-col items-end rounded-md border border-border p-2">
-		<dt>Aktive Messstationen</dt>
-		<dd class="text-2xl font-semibold">82</dd>
-	</dl>
-	<dl class="col-span-7 flex flex-col items-end rounded-md border border-border p-2">
-		<dt>Universeller Thermischer Klimaindex</dt>
-		<dd class="text-2xl font-semibold">21°C</dd>
-	</dl>
-	<dl class="col-span-4 flex flex-col items-end rounded-md border border-border p-2">
-		<dt>Niederschlag (24h)</dt>
-		<dd class="text-2xl font-semibold">57 mm</dd>
-	</dl>
-	<dl class="col-span-4 flex flex-col items-end rounded-md border border-border p-2">
-		<dt>Luftdruck aktuell</dt>
-		<dd class="text-2xl font-semibold">1080 hPa</dd>
-	</dl>
-	<dl class="col-span-4 flex flex-col items-end rounded-md border border-border p-2">
-		<dt>Wind aktuell</dt>
-		<dd class="text-2xl font-semibold">4 m/s</dd>
-	</dl>
-	<dl class="col-span-12 flex flex-col items-center rounded-md border border-border p-2">
-		<dt>Wettersituation aktuell</dt>
-		<dd class="flex items-center gap-2 text-2xl font-semibold">
-			<Sun class="h-6 w-6 text-foreground" />
-			sonnig / bewölkt
-		</dd>
-	</dl>
-</div>
+<ul class="not-prose flex flex-col p-0">
+	{#each formattedStations as station (station.id)}
+		<li class="flex items-center justify-between gap-6 border-b border-border py-1">
+			<span>{station.name}</span>
+			<Button
+				size="icon"
+				variant="ghost"
+				on:click={() => unselectStation(station.id)}
+				class="size-6 rounded-full"
+			>
+				<X class="h-4 w-4" />
+			</Button>
+		</li>
+	{/each}
+</ul>

@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 	import Button from './ui/button/button.svelte';
 
-	let opened = true;
+	let opened = false;
 
 	onMount(() => {
 		const lastValue = localStorage.getItem('welcome-opened');

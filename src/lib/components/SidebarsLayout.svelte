@@ -41,6 +41,7 @@
 			<div
 				class="h-[calc(100vh-var(--headerHeight,5rem))] w-[var(--leftSidebarWidth)] overflow-y-auto overflow-x-clip"
 				id="left-sidebar-scroll-container"
+				inert={!$isLeftSidebarOpened}
 			>
 				<slot name="left-sidebar" />
 			</div>
@@ -96,6 +97,7 @@
 			<div
 				class="h-[calc(100vh-var(--headerHeight,5rem))] w-[var(--rightSidebarWidth)] overflow-y-auto overflow-x-clip"
 				id="right-sidebar-scroll-container"
+				inert={!$isRightSidebarOpened}
 			>
 				<slot name="right-sidebar" />
 			</div>

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { LL, locale } from '$i18n/i18n-svelte';
-	import { bezirke, stations } from '$lib/stores/mapData';
+	import { locale } from '$i18n/i18n-svelte';
 	import { positronMapStyle } from '$lib/stores/mapStyle';
 	import {
 		hoverStation,
@@ -10,47 +9,51 @@
 		toggleStationSelection,
 		unhoverStations
 	} from '$lib/stores/stationsStore';
-	import { isRightSidebarOpened } from '$lib/stores/uiStore';
-	import { cn } from '$lib/utils';
-	import { getPopupHtml } from '$lib/utils/mapUti';
-	import { Minus, Plus } from 'lucide-svelte';
-	import maplibregl, { type LngLatBoundsLike, type LngLatLike } from 'maplibre-gl';
+	import {
+		addDistrictsLayer,
+		addStationsLayer,
+		addWmsLayers,
+		getAllPopups,
+		initMap,
+		updateLayersVisibilityByPage
+	} from '$lib/utils/mapUti';
+	import maplibregl from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { onMount } from 'svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
-	import Button from './ui/button/button.svelte';
+	import MapHourFilter from './MapHourFilter.svelte';
+	import MapZoomControl from './MapZoomControl.svelte';
 
-	let selectedHour = '00';
 	let map: maplibregl.Map;
-
-	let layerIds: string[] = [];
-	let sourceIds: string[] = [];
+	let initialized = false;
 	let popups = new Map<string, maplibregl.Popup>();
-
-	$: tilesURL = `http://34.175.150.40:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${selectedHour}&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`;
 
 	const config = { debounceHistory: 500 };
 	const lon = queryParam('lon', ssp.number(7.467), config);
 	const lat = queryParam('lat', ssp.number(51.511), config);
 	const zoom = queryParam('zoom', ssp.number(10.5), config);
-	const urlState = queryParam('selectedStations');
+	const hour = queryParam('hour', ssp.number(0), config);
+	const urlStations = queryParam('selectedStations');
+	const thermalComfort = queryParam('thermal_comfort');
 
 	selectedStations.subscribe((value) => {
-		urlState.set(value.join(','));
+		urlStations.set(value.join(','));
 	});
 
 	onMount(() => {
-		let initialized = false;
-		urlState.subscribe((value) => {
+		urlStations.subscribe((value) => {
 			if (!initialized && value) {
 				selectedStations.set(value.split(','));
 			}
-			initialized = true;
 		});
 	});
 
+	$: p = $page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
+	$: currentPage = p === '' ? 'thermal-comfort' : p;
+	$: layerType = currentPage === `thermal-comfort` ? $thermalComfort : 'stations';
+
 	$: {
-		const isRightPage = $page.url.pathname === `/${$locale}`;
+		const isRightPage = currentPage === 'measurements';
 		popups.forEach((popup, id) => {
 			const isSelected = $selectedStations.includes(id);
 			const isVisible = isRightPage && $stationsWithPopup.includes(id);
@@ -61,150 +64,66 @@
 		});
 	}
 
-	function onChange(event: Event) {
+	$: {
+		if (initialized && map) {
+			updateLayersVisibilityByPage({
+				hour: $hour,
+				map,
+				visibleLayerType: layerType,
+				page: currentPage
+			});
+		}
+	}
+
+	function onHourChange(event: Event) {
 		const target = event.currentTarget as HTMLInputElement;
-		selectedHour = target.value;
-		cleanupMap();
-		addWmsLayer(selectedHour);
+		hour.set(+target.value);
 	}
 
-	function addWmsLayer(hour: string) {
-		const sourceId = `wms-test-source-${hour}`;
-		const layerId = `wms-test-layer-${hour}`;
-		const newTilesURL = `http://34.175.150.40:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${hour}&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`;
-
-		if (!map.getSource(sourceId)) {
-			map.addSource(sourceId, {
-				type: 'raster',
-				tiles: [newTilesURL],
-				tileSize: 256
-			});
-		}
-
-		if (!map.getLayer(layerId)) {
-			map.addLayer({
-				id: layerId,
-				type: 'raster',
-				source: sourceId,
-				paint: {}
-			});
-			sourceIds.push(sourceId);
-			layerIds.push(layerId);
-		}
-	}
-
-	function cleanupMap() {
-		layerIds.forEach((layerId) => {
-			if (map.getLayer(layerId)) {
-				map.removeLayer(layerId);
-			}
+	function initStationsInteractions(mp: maplibregl.Map) {
+		// MAP INTERACTIONS
+		mp.on('mouseenter', 'stations', (e) => {
+			const stationId = e.features?.[0]?.properties.id;
+			if (!stationId) return;
+			hoverStation(stationId);
 		});
 
-		sourceIds.forEach((sourceId) => {
-			if (map.getSource(sourceId)) {
-				map.removeSource(sourceId);
-			}
+		mp.on('mouseleave', 'stations', (e) => {
+			unhoverStations();
 		});
 
-		layerIds = [];
-		sourceIds = [];
+		mp.on('click', 'stations', (e) => {
+			const stationId = e.features?.[0]?.properties.id;
+			if (!stationId) return;
+			toggleStationSelection(stationId);
+		});
+
+		mp.on('mouseenter', 'stations', () => {
+			mp.getCanvas().style.cursor = 'pointer';
+		});
+
+		mp.on('mouseleave', 'stations', () => {
+			mp.getCanvas().style.cursor = '';
+		});
 	}
 
 	onMount(() => {
-		let tiles = {
-			type: 'vector',
-			tiles: [`${location.origin}/openmaptiles/{z}/{x}/{y}.pbf`],
-			maxzoom: 14
-		};
-
-		// Add tiles to mapStyle
-		// @ts-ignore
-		$positronMapStyle.sources.openmaptiles = tiles;
-
-		const bounds: LngLatBoundsLike = [
-			[7.090650277147461, 51.400616267063896],
-			[7.826598237576263, 51.61374377792475]
-		];
-
-		map = new maplibregl.Map({
-			container: 'map',
-			style: $positronMapStyle,
-			center: {
-				lng: $lon,
-				lat: $lat
-			},
-			zoom: $zoom ?? zoom,
-			maxBounds: bounds,
-			attributionControl: false
+		map = initMap({
+			defaultLat: $lat,
+			defaultLng: $lon,
+			defaultZoom: $zoom,
+			style: $positronMapStyle
 		});
 
-		map.addControl(new maplibregl.NavigationControl(), 'top-right');
-
-		map.addControl(
-			new maplibregl.AttributionControl({
-				compact: true,
-				customAttribution: `© <a href="https://maplibre.org/">MapLibre</a>, <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>`
-			}),
-			'bottom-right'
-		);
-
 		map.on('load', () => {
-			map.addSource('stations', {
-				type: 'geojson',
-				data: stations
-			});
+			// MAP SOURCES AND LAYERS
+			addWmsLayers({ map });
+			addDistrictsLayer({ map });
+			addStationsLayer({ map });
 
-			map.addSource('bezirke', {
-				type: 'geojson',
-				data: bezirke
-			});
+			initStationsInteractions(map);
 
-			addWmsLayer(selectedHour);
-
-			map.addLayer({
-				id: 'bezirke',
-				source: 'bezirke',
-				type: 'line',
-				paint: {
-					'line-color': 'black',
-					'line-width': 0.5
-				}
-			});
-
-			map.addLayer({
-				id: 'stations',
-				source: 'stations',
-				type: 'circle',
-				paint: {
-					'circle-radius': 3
-				}
-			});
-
-			map.on('mouseenter', 'stations', (e) => {
-				if (!e.features?.length) return;
-				const stationId = e.features[0].properties.id;
-				hoverStation(stationId);
-			});
-
-			map.on('mouseleave', 'stations', (e) => {
-				unhoverStations();
-			});
-
-			map.on('click', 'stations', (e) => {
-				if (!e.features?.length) return;
-				const { properties } = e.features[0];
-				const stationId = properties.id;
-				if (!stationId) return;
-				toggleStationSelection(stationId);
-			});
-
-			map.on('mouseenter', 'stations', () => {
-				map.getCanvas().style.cursor = 'pointer';
-			});
-
-			map.on('mouseleave', 'stations', () => {
-				map.getCanvas().style.cursor = '';
-			});
+			initialized = true;
 		});
 
 		map.on('move', () => {
@@ -217,77 +136,36 @@
 			$zoom = map.getZoom();
 		});
 
-		stations.features.forEach((station) => {
-			const stationId = station.properties.id;
-			const popup = new maplibregl.Popup({
-				closeButton: false,
-				closeOnClick: false,
-				closeOnMove: false,
-				focusAfterOpen: true
-			});
-			popup.setLngLat(station.geometry.coordinates as LngLatLike);
-			popup.setHTML(
-				getPopupHtml({ title: station.properties.Label, content: station.properties.Strasse })
-			);
-			popup.addTo(map);
-			popup.addClassName('!hidden');
-			popups.set(stationId, popup);
-		});
-		popups = popups;
+		popups = getAllPopups(map);
 	});
 </script>
 
 <div class="relative grid h-full w-full items-center justify-center overflow-clip">
 	<div id="map" class="relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen">
-		<div class="pointer-events-none absolute bottom-0 z-50 flex h-24 w-full flex-col items-center">
-			<div class="pointer-events-auto space-x-4 rounded bg-background p-4">
-				{#each ['00', '15', '20'] as time}
-					<label>
-						<input
-							type="radio"
-							name="time"
-							value={time}
-							class="mr-1"
-							bind:group={selectedHour}
-							on:change={onChange}
-						/>{time === '00' ? '0' : time}h
-					</label>
-				{/each}
-			</div>
-		</div>
+		<MapZoomControl {map} />
+		{#if currentPage === 'thermal-comfort'}
+			<MapHourFilter />
+		{/if}
 	</div>
 </div>
-<nav
-	aria-label={$LL.map.zoom.navAlt()}
-	class={cn(
-		'fixed right-4 top-[calc(var(--headerHeight,5rem)+1rem)] z-50 flex flex-col gap-px',
-		'rounded-md border border-border bg-border',
-		'shadow-lg transition-transform duration-300 ease-in-out',
-		$isRightSidebarOpened && '-translate-x-[var(--rightSidebarWidth)]'
-	)}
->
-	<Button
-		size="icon"
-		variant="ghost"
-		aria-label={$LL.map.zoom.zoomIn()}
-		class="relative rounded-b-none bg-white focus-visible:z-50 focus-visible:rounded"
-		on:click={() => map.zoomIn()}
-	>
-		<Plus class="h-5 w-5" />
-	</Button>
-	<Button
-		size="icon"
-		variant="ghost"
-		aria-label={$LL.map.zoom.zoomOut()}
-		class="relative rounded-t-none bg-white focus-visible:z-50 focus-visible:rounded"
-		on:click={() => map.zoomOut()}
-	>
-		<Minus class="h-5 w-5" />
-	</Button>
-</nav>
 
 <style>
 	/* MAPLIBRE */
+	#map :global(.maplibregl-canvas) {
+		outline: none;
+	}
+
+	#map:has(.maplibregl-canvas:focus-visible)::after {
+		content: '';
+		position: absolute;
+		inset: -4px;
+		z-index: 1000;
+		box-shadow:
+			inset 0 0 0 6px hsl(var(--background)),
+			inset 0 0 0 8px hsl(var(--foreground));
+		border-radius: 0.75rem;
+	}
+
 	#map :global(.maplibregl-popup-content) {
 		background: hsl(var(--background));
 		padding: 0.75rem 1rem;

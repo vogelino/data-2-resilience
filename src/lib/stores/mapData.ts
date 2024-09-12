@@ -978,7 +978,7 @@ export const stations = {
 	)
 } satisfies GeoJSON.GeoJSON;
 
-export const bezirke = {
+export const districts = {
 	type: 'FeatureCollection',
 	features: [
 		{

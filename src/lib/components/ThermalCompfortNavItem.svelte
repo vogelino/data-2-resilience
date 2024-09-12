@@ -35,11 +35,12 @@
 			'group-first-of-type/indicators:rounded-t-xl group-last-of-type/indicators:rounded-b-xl',
 			indicator.isSelected && indicator.hasCategory && 'pb-5'
 		)}
-		on:click={() =>
-			($selectedIndicatorSlugParam = indicator.hasCategory ? slugWithCategory : indicator.slug)}
+		on:click={() => {
+			$selectedIndicatorSlugParam = indicator.hasCategory ? slugWithCategory : indicator.slug;
+		}}
 	>
-		<h2 class="relative flex w-full items-center justify-between gap-4 pr-8 font-semibold">
-			<span class="inline-flex items-center gap-1.5">
+		<div class="relative flex w-full items-center justify-between gap-4 pr-8 font-semibold">
+			<div class="inline-flex items-center gap-1.5">
 				{indicator.title}
 				<Tooltip openDelay={100}>
 					<TooltipTrigger
@@ -48,14 +49,14 @@
 							'rounded-full p-1 transition'
 						)}
 					>
-						<Info class="size-4" />
+						<Info class="size-4"></Info>
 					</TooltipTrigger>
 					<TooltipContent class="flex w-96 max-w-full flex-col gap-1 px-4 pb-4 pt-3 leading-tight">
 						<strong class="block text-base font-semibold leading-5">{indicator.title}</strong>
 						<p class="text-sm leading-4 text-muted-foreground">{indicator.description}</p>
 					</TooltipContent>
 				</Tooltip>
-			</span>
+			</div>
 			<span
 				class={cn(
 					'absolute right-0 top-0 bg-background',
@@ -63,7 +64,7 @@
 					indicator.isSelected && 'bg-foreground'
 				)}
 			></span>
-		</h2>
+		</div>
 		{#if indicator.hasCategory && indicator.isSelected}
 			<nav class="mt-2">
 				<ul class="inline-flex gap-px rounded bg-border">

@@ -210,6 +210,84 @@ type RootTranslation = {
 				 */
 				label: string
 			}
+			unitSelect: {
+				/**
+				 * K​e​i​n​e​ ​E​i​n​h​e​i​t​ ​g​e​f​u​n​d​e​n
+				 */
+				noUnitFound: string
+				/**
+				 * E​i​n​h​e​i​t​ ​a​u​s​w​ä​h​l​e​n
+				 */
+				placeholder: string
+				/**
+				 * E​i​n​h​e​i​t​ ​s​u​c​h​e​n​.​.​.
+				 */
+				searchPlaceholder: string
+				/**
+				 * {​p​a​r​t​}​ ​v​o​n​ ​{​t​o​t​a​l​}
+				 * @param {unknown} part
+				 * @param {unknown} total
+				 */
+				xOutOfY: RequiredParams<'part' | 'total'>
+				units: {
+					/**
+					 * U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)​ ​(​°​C​)
+					 */
+					utci: string
+					/**
+					 * P​h​y​s​i​o​l​o​g​i​s​c​h​ ​Ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)​ ​(​°​C​)
+					 */
+					pet: string
+					/**
+					 * L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​(​°​C​)
+					 */
+					temp: string
+					/**
+					 * L​u​f​t​d​r​u​c​k​ ​(​h​P​a​)
+					 */
+					pressure: string
+					/**
+					 * N​i​e​d​e​r​s​c​h​l​a​g​ ​(​m​m​)
+					 */
+					precipitation: string
+					/**
+					 * R​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​(​%​)
+					 */
+					relativeHumidity: string
+					/**
+					 * W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​(​m​/​s​)
+					 */
+					windSpeed: string
+					/**
+					 * M​a​x​i​m​a​l​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​(​m​/​s​)
+					 */
+					maxWindSpeed: string
+					/**
+					 * W​i​n​d​r​i​c​h​t​u​n​g​ ​(​°​)
+					 */
+					windDirection: string
+					/**
+					 * M​i​t​t​l​e​r​e​ ​S​t​r​a​h​l​u​n​g​s​t​e​m​p​e​r​a​t​u​r​ ​(​°​C​)
+					 */
+					midRadiationTemp: string
+					/**
+					 * A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e
+					 */
+					lighningStrikesCount: string
+					/**
+					 * D​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​ ​(​m​)
+					 */
+					avgLighningStrikesDist: string
+					/**
+					 * S​o​l​a​r​s​t​r​a​h​l​u​n​g​ ​(​W​/​m​²​)
+					 */
+					solarradiation: string
+					/**
+					 * D​a​m​p​f​d​r​u​c​k​ ​(​h​P​a​)
+					 */
+					vaporPressure: string
+				}
+			}
 		}
 		stations: {
 			/**
@@ -510,6 +588,82 @@ export type TranslationFunctions = {
 				 * Ausgewählte Messstationen
 				 */
 				label: () => LocalizedString
+			}
+			unitSelect: {
+				/**
+				 * Keine Einheit gefunden
+				 */
+				noUnitFound: () => LocalizedString
+				/**
+				 * Einheit auswählen
+				 */
+				placeholder: () => LocalizedString
+				/**
+				 * Einheit suchen...
+				 */
+				searchPlaceholder: () => LocalizedString
+				/**
+				 * {part} von {total}
+				 */
+				xOutOfY: (arg: { part: unknown, total: unknown }) => LocalizedString
+				units: {
+					/**
+					 * Universeller Thermischer Komfortindex (UTCI) (°C)
+					 */
+					utci: () => LocalizedString
+					/**
+					 * Physiologisch Äquivalente Temperatur (PET) (°C)
+					 */
+					pet: () => LocalizedString
+					/**
+					 * Lufttemperatur (°C)
+					 */
+					temp: () => LocalizedString
+					/**
+					 * Luftdruck (hPa)
+					 */
+					pressure: () => LocalizedString
+					/**
+					 * Niederschlag (mm)
+					 */
+					precipitation: () => LocalizedString
+					/**
+					 * Relative Luftfeuchtigkeit (%)
+					 */
+					relativeHumidity: () => LocalizedString
+					/**
+					 * Windgeschwindigkeit (m/s)
+					 */
+					windSpeed: () => LocalizedString
+					/**
+					 * Maximale Windgeschwindigkeit (m/s)
+					 */
+					maxWindSpeed: () => LocalizedString
+					/**
+					 * Windrichtung (°)
+					 */
+					windDirection: () => LocalizedString
+					/**
+					 * Mittlere Strahlungstemperatur (°C)
+					 */
+					midRadiationTemp: () => LocalizedString
+					/**
+					 * Anzahl der Blitzeinschläge
+					 */
+					lighningStrikesCount: () => LocalizedString
+					/**
+					 * Durchschnittliche Blitzentfernung (m)
+					 */
+					avgLighningStrikesDist: () => LocalizedString
+					/**
+					 * Solarstrahlung (W/m²)
+					 */
+					solarradiation: () => LocalizedString
+					/**
+					 * Dampfdruck (hPa)
+					 */
+					vaporPressure: () => LocalizedString
+				}
 			}
 		}
 		stations: {

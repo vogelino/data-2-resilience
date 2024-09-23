@@ -78,6 +78,28 @@ const de = {
 			stationsSelect: {
 				placeholder: 'Eine oder mehrere Stationen auswählen',
 				label: 'Ausgewählte Messstationen'
+			},
+			unitSelect: {
+				noUnitFound: 'Keine Einheit gefunden',
+				placeholder: 'Einheit auswählen',
+				searchPlaceholder: 'Einheit suchen...',
+				xOutOfY: '{part} von {total}',
+				units: {
+					utci: 'Universeller Thermischer Komfortindex (UTCI) (°C)',
+					pet: 'Physiologisch Äquivalente Temperatur (PET) (°C)',
+					temp: 'Lufttemperatur (°C)',
+					pressure: 'Luftdruck (hPa)',
+					precipitation: 'Niederschlag (mm)',
+					relativeHumidity: 'Relative Luftfeuchtigkeit (%)',
+					windSpeed: 'Windgeschwindigkeit (m/s)',
+					maxWindSpeed: 'Maximale Windgeschwindigkeit (m/s)',
+					windDirection: 'Windrichtung (°)',
+					midRadiationTemp: 'Mittlere Strahlungstemperatur (°C)',
+					lighningStrikesCount: 'Anzahl der Blitzeinschläge',
+					avgLighningStrikesDist: 'Durchschnittliche Blitzentfernung (m)',
+					solarradiation: 'Solarstrahlung (W/m²)',
+					vaporPressure: 'Dampfdruck (hPa)'
+				}
 			}
 		},
 		stations: {

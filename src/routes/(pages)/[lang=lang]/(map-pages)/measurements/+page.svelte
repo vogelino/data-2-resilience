@@ -4,6 +4,7 @@
 	import { selectedStations } from '$lib/stores/stationsStore';
 	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
 	import StationsSelect from 'components/StationsSelect.svelte';
+	import UnitSelect from 'components/UnitSelect.svelte';
 
 	$: formattedStations = $selectedStations.map((id) => {
 		const station = stations.features.find((s) => s.properties.id === id);
@@ -22,3 +23,5 @@
 </CollapsibleParagraph>
 
 <StationsSelect />
+
+<UnitSelect />

@@ -40,10 +40,10 @@
 </label>
 <div
 	class={cn(
-		'multiselect-wrapper',
+		'multiselect-wrapper mb-4',
 		'[&:has(input:focus-visible)]:outline-none [&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',
-		'[&:has(input:focus-visible)]:ring-offset-4 [&:has(input:focus-visible)]:ring-offset-background',
-		'[&:has(input:focus-visible)]:rounded-lg [&:has(input:focus-visible)]:bg-background'
+		'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background',
+		'[&:has(input:focus-visible)]:rounded-md [&:has(input:focus-visible)]:bg-background'
 	)}
 >
 	<MultiSelect
@@ -63,8 +63,8 @@
 <style>
 	.multiselect-wrapper {
 		--sms-border: 1px solid hsl(var(--border));
-		--sms-border-radius: 0.5rem;
-		--sms-padding: 0.5rem 0.5rem;
+		--sms-border-radius: 0.4rem;
+		--sms-padding: 0.25rem 0.5rem;
 		--sms-bg: hsl(var(--background));
 		--sms-text-color: hsl(var(--foreground));
 		--sms-min-height: 2rem;
@@ -85,7 +85,7 @@
 		--sms-options-bg: hsl(var(--background));
 		--sms-options-max-height: 50vh;
 		--sms-options-overscroll: none;
-		--sms-options-shadow: 0 0 2rem -1rem rgba(0, 0, 0, 0.2);
+		--sms-options-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 		--sms-options-border: 1px solid hsl(var(--border));
 		--sms-options-border-width: 1px;
 		--sms-options-border-radius: 0.25rem;
@@ -111,5 +111,10 @@
 		box-shadow:
 			0 0 0 4px hsl(var(--background)),
 			0 0 0 6px hsl(var(--ring));
+	}
+
+	.multiselect-wrapper :global(ul.options li[role='option']) {
+		font-size: 0.875rem;
+		border-radius: 0.25rem;
 	}
 </style>

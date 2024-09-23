@@ -77,6 +77,28 @@ const en = {
 			stationsSelect: {
 				placeholder: 'Select one or more stations',
 				label: 'Selected stations'
+			},
+			unitSelect: {
+				noUnitFound: 'No unit found',
+				placeholder: 'Select a unit',
+				searchPlaceholder: 'Search unit...',
+				xOutOfY: '{part} of {total} stations',
+				units: {
+					utci: 'Universal Thermic Comfort Index (UTCI) (°C)',
+					pet: 'Physiological equivalent temperature (PET) (°C)',
+					temp: 'Air temperature (°C)',
+					pressure: 'Air pressure (hPa)',
+					precipitation: 'Precipitation (mm)',
+					relativeHumidity: 'Relative humidity (%)',
+					windSpeed: 'Wind speed (m/s)',
+					maxWindSpeed: 'Maximum wind speed (m/s)',
+					windDirection: 'Wind direction (°)',
+					midRadiationTemp: 'Mid-range radiation temperature (°C)',
+					lighningStrikesCount: 'Lightning strikes count',
+					avgLighningStrikesDist: 'Average lightning strike distance (m)',
+					solarradiation: 'Solar radiation (W/m²)',
+					vaporPressure: 'Vapor pressure (hPa)'
+				}
 			}
 		},
 		stations: {

@@ -40,7 +40,7 @@
 		'multiselect-wrapper',
 		'[&:has(input:focus-visible)]:outline-none [&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',
 		'[&:has(input:focus-visible)]:ring-offset-4 [&:has(input:focus-visible)]:ring-offset-background',
-		'[&:has(input:focus-visible)]:rounded-sm'
+		'[&:has(input:focus-visible)]:rounded-lg [&:has(input:focus-visible)]:bg-background'
 	)}
 >
 	<MultiSelect
@@ -58,8 +58,8 @@
 <style>
 	.multiselect-wrapper {
 		--sms-border: 1px solid hsl(var(--border));
-		--sms-border-radius: 0.25rem;
-		--sms-padding: 0.5rem 0.25rem;
+		--sms-border-radius: 0.5rem;
+		--sms-padding: 0.5rem 0.5rem;
 		--sms-bg: hsl(var(--background));
 		--sms-text-color: hsl(var(--foreground));
 		--sms-min-height: 2rem;

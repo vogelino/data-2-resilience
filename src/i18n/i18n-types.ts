@@ -175,6 +175,12 @@ type RootTranslation = {
 				'0': string
 			}
 			/**
+			 * D​a​t​e​n​ ​n​u​r​ ​v​e​r​f​ü​g​b​a​r​ ​i​m​ ​Z​e​i​t​r​a​u​m​ ​v​o​m​ ​{​s​t​a​r​t​D​a​t​e​}​ ​b​i​s​ ​{​e​n​d​D​a​t​e​}​.
+			 * @param {string} endDate
+			 * @param {string} startDate
+			 */
+			timeRangeAlert: RequiredParams<'endDate' | 'startDate'>
+			/**
 			 * W​ä​h​l​e​ ​e​i​n​e​n​ ​I​n​d​i​k​a​t​o​r​,​ ​u​m​ ​d​i​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​D​a​t​e​n​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​z​u​ ​ä​n​d​e​r​n​.
 			 */
 			indicatorsNavAriaLabel: string
@@ -461,6 +467,10 @@ export type TranslationFunctions = {
 				 */
 				'0': () => LocalizedString
 			}
+			/**
+			 * Daten nur verfügbar im Zeitraum vom {startDate} bis {endDate}.
+			 */
+			timeRangeAlert: (arg: { endDate: string, startDate: string }) => LocalizedString
 			/**
 			 * Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.
 			 */

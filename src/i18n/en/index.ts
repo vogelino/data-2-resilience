@@ -65,6 +65,7 @@ const en = {
 			intro: [
 				'Thermal comfort is the state of well-being in which a person is satisfied with the thermal environment. This means that temperature, humidity, air movement and radiant heat are within a range perceived as comfortable. It can be measured using various indicators:'
 			],
+			timeRangeAlert: `Data only available from {startDate} to {endDate}.`,
 			indicatorsNavAriaLabel: 'Select an indicator to change the data displayed on the map.'
 		},
 		measurements: {

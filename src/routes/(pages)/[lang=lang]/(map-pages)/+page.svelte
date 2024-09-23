@@ -2,6 +2,7 @@
 	import LL from '$i18n/i18n-svelte';
 	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
 	import ThermalCompfortNavItem from 'components/ThermalCompfortNavItem.svelte';
+	import Alert from 'components/ui/alert/alert.svelte';
 	import { queryParam } from 'sveltekit-search-params';
 
 	let selectedIndicatorSlugParam = queryParam('thermal_comfort');
@@ -39,7 +40,21 @@
 		{paragraph()}
 	</CollapsibleParagraph>
 {/each}
-<nav aria-label={$LL.pages.thermicalComfort.indicatorsNavAriaLabel()} class="my-6">
+<Alert class="mt-4 rounded-3xl bg-muted px-4 pb-2 pt-1.5 text-center font-semibold">
+	{$LL.pages.thermicalComfort.timeRangeAlert({
+		startDate: new Date('2024-07-01').toLocaleDateString('en-GB', {
+			day: '2-digit',
+			month: 'long',
+			year: undefined
+		}),
+		endDate: new Date('2024-07-31').toLocaleDateString('en-GB', {
+			day: '2-digit',
+			month: 'long',
+			year: 'numeric'
+		})
+	})}
+</Alert>
+<nav aria-label={$LL.pages.thermicalComfort.indicatorsNavAriaLabel()} class="mb-6 mt-4">
 	<ul class="flex flex-col gap-px rounded-xl border border-border bg-border">
 		{#each indicatorValues as indicator (indicator.slug)}
 			<ThermalCompfortNavItem {indicator} />

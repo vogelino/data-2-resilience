@@ -65,6 +65,7 @@ const de = {
 			intro: [
 				'Thermischer Komfort ist der Wohlfühlzustand, bei dem eine Person mit der thermischen Umgebung zufrieden ist. Das bedeutet, dass Temperatur, Luftfeuchtigkeit, Luftbewegung und Strahlungswärme in einem als angenehm empfundenen Bereich liegen. Er kann anhand verschiedener Indikatoren gemessen werden:'
 			],
+			timeRangeAlert: `Daten nur verfügbar im Zeitraum vom {startDate:string} bis {endDate:string}.`,
 			indicatorsNavAriaLabel:
 				'Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.'
 		},

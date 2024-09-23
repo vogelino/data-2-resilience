@@ -35,11 +35,12 @@
 </script>
 
 <h1 class="mb-2 text-xl font-semibold">{$LL.pages.thermicalComfort.title()}</h1>
-{#each Object.values($LL.pages.thermicalComfort.intro) as paragraph}
-	<CollapsibleParagraph>
-		{paragraph()}
-	</CollapsibleParagraph>
-{/each}
+<CollapsibleParagraph>
+	{#each Object.values($LL.pages.thermicalComfort.intro) as paragraph}
+		<p>{paragraph()}</p>
+	{/each}
+</CollapsibleParagraph>
+
 <Alert class="mt-4 rounded-3xl bg-muted px-4 pb-2 pt-1.5 text-center font-semibold">
 	{$LL.pages.thermicalComfort.timeRangeAlert({
 		startDate: new Date('2024-07-01').toLocaleDateString('en-GB', {

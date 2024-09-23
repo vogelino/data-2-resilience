@@ -2,13 +2,16 @@
 	import LL from '$i18n/i18n-svelte';
 	import airTemperatureAndHumiditySensor from '$lib/assets/air-temperature-humidity-sensor.png';
 	import weatherStation from '$lib/assets/weather-station.png';
+	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
 	import SensorDescription from 'components/SensorDescription.svelte';
 </script>
 
 <h1 class="mb-2 text-xl font-semibold">{$LL.pages.stations.title()}</h1>
-{#each Object.values($LL.pages.stations.intro) as paragraph}
-	<p class="mb-2">{paragraph()}</p>
-{/each}
+<CollapsibleParagraph>
+	{#each Object.values($LL.pages.stations.intro) as paragraph}
+		<p>{paragraph()}</p>
+	{/each}
+</CollapsibleParagraph>
 
 <ul class="mt-6 flex flex-col gap-6">
 	<SensorDescription

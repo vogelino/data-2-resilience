@@ -22,16 +22,16 @@
 	}
 </script>
 
-<p
+<div
 	class={cn(
-		'transition-colors',
+		'flex flex-col gap-1 transition-colors',
 		!isExpanded && clampingClasses[linesClampedCount],
 		!isExpanded && 'text-muted-foreground',
 		className
 	)}
 >
 	<slot />
-</p>
+</div>
 <Button
 	variant="link"
 	type="button"

@@ -17,7 +17,7 @@
 			{title}
 		</h2>
 		<CollapsibleParagraph linesClampedCount={3} className="text-sm">
-			{description}
+			<p>{description}</p>
 		</CollapsibleParagraph>
 	</header>
 	<img src={image.src} alt={image.alt} class="aspect-2.61/1 w-full rounded-b-xl object-contain" />

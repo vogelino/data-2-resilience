@@ -74,7 +74,10 @@ const de = {
 			intro: [
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
 				'Aktuell Messwerte können sowohl für die Messstationen als auch für die einzelnen Stadtbezirke angezeigt werden.'
-			]
+			],
+			stationsSelect: {
+				placeholder: 'Eine oder mehrere Stationen auswählen'
+			}
 		},
 		stations: {
 			title: 'Wie messen wir thermischen Komfort?',

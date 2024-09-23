@@ -200,6 +200,12 @@ type RootTranslation = {
 				 */
 				'1': string
 			}
+			stationsSelect: {
+				/**
+				 * E​i​n​e​ ​o​d​e​r​ ​m​e​h​r​e​r​e​ ​S​t​a​t​i​o​n​e​n​ ​a​u​s​w​ä​h​l​e​n
+				 */
+				placeholder: string
+			}
 		}
 		stations: {
 			/**
@@ -490,6 +496,12 @@ export type TranslationFunctions = {
 				 * Aktuell Messwerte können sowohl für die Messstationen als auch für die einzelnen Stadtbezirke angezeigt werden.
 				 */
 				'1': () => LocalizedString
+			}
+			stationsSelect: {
+				/**
+				 * Eine oder mehrere Stationen auswählen
+				 */
+				placeholder: () => LocalizedString
 			}
 		}
 		stations: {

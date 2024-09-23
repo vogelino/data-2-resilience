@@ -205,6 +205,10 @@ type RootTranslation = {
 				 * E​i​n​e​ ​o​d​e​r​ ​m​e​h​r​e​r​e​ ​S​t​a​t​i​o​n​e​n​ ​a​u​s​w​ä​h​l​e​n
 				 */
 				placeholder: string
+				/**
+				 * A​u​s​g​e​w​ä​h​l​t​e​ ​M​e​s​s​s​t​a​t​i​o​n​e​n
+				 */
+				label: string
 			}
 		}
 		stations: {
@@ -502,6 +506,10 @@ export type TranslationFunctions = {
 				 * Eine oder mehrere Stationen auswählen
 				 */
 				placeholder: () => LocalizedString
+				/**
+				 * Ausgewählte Messstationen
+				 */
+				label: () => LocalizedString
 			}
 		}
 		stations: {

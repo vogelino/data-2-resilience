@@ -35,6 +35,9 @@
 	}
 </script>
 
+<label for="stations-select" class="mt-7 block border-t border-border pb-3 pt-5">
+	{$LL.pages.measurements.stationsSelect.label()}:
+</label>
 <div
 	class={cn(
 		'multiselect-wrapper',
@@ -52,6 +55,8 @@
 		outerDivClass="multiselect"
 		selectedOptionsDraggable={false}
 		placeholder={$LL.pages.measurements.stationsSelect.placeholder()}
+		id="stations-select"
+		name="stations-select"
 	/>
 </div>
 
@@ -65,7 +70,7 @@
 		--sms-min-height: 2rem;
 		--sms-width: 100%;
 		--sms-max-width: 100%;
-		--sms-margin: 2rem 0 0.5rem 0;
+		--sms-margin: 0;
 		--sms-font-size: inherit;
 		--sms-active-color: hsl(var(--foreground));
 		--sms-focus-border: 1px solid hsl(var(--border));

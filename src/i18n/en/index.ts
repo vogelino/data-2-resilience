@@ -75,7 +75,8 @@ const en = {
 				'Current measured values can be displayed both for the measuring stations and for the individual city districts.'
 			],
 			stationsSelect: {
-				placeholder: 'Select one or more stations'
+				placeholder: 'Select one or more stations',
+				label: 'Selected stations'
 			}
 		},
 		stations: {

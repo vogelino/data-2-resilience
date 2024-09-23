@@ -76,7 +76,8 @@ const de = {
 				'Aktuell Messwerte können sowohl für die Messstationen als auch für die einzelnen Stadtbezirke angezeigt werden.'
 			],
 			stationsSelect: {
-				placeholder: 'Eine oder mehrere Stationen auswählen'
+				placeholder: 'Eine oder mehrere Stationen auswählen',
+				label: 'Ausgewählte Messstationen'
 			}
 		},
 		stations: {

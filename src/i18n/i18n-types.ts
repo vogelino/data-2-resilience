@@ -230,62 +230,202 @@ type RootTranslation = {
 				 */
 				xOutOfY: RequiredParams<'part' | 'total'>
 				units: {
-					/**
-					 * U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)​ ​(​°​C​)
-					 */
-					utci: string
-					/**
-					 * P​h​y​s​i​o​l​o​g​i​s​c​h​ ​Ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)​ ​(​°​C​)
-					 */
-					pet: string
-					/**
-					 * L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​(​°​C​)
-					 */
-					temp: string
-					/**
-					 * L​u​f​t​d​r​u​c​k​ ​(​h​P​a​)
-					 */
-					pressure: string
-					/**
-					 * N​i​e​d​e​r​s​c​h​l​a​g​ ​(​m​m​)
-					 */
-					precipitation: string
-					/**
-					 * R​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​(​%​)
-					 */
-					relativeHumidity: string
-					/**
-					 * W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​(​m​/​s​)
-					 */
-					windSpeed: string
-					/**
-					 * M​a​x​i​m​a​l​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​(​m​/​s​)
-					 */
-					maxWindSpeed: string
-					/**
-					 * W​i​n​d​r​i​c​h​t​u​n​g​ ​(​°​)
-					 */
-					windDirection: string
-					/**
-					 * M​i​t​t​l​e​r​e​ ​S​t​r​a​h​l​u​n​g​s​t​e​m​p​e​r​a​t​u​r​ ​(​°​C​)
-					 */
-					midRadiationTemp: string
-					/**
-					 * A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e
-					 */
-					lighningStrikesCount: string
-					/**
-					 * D​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​ ​(​m​)
-					 */
-					avgLighningStrikesDist: string
-					/**
-					 * S​o​l​a​r​s​t​r​a​h​l​u​n​g​ ​(​W​/​m​²​)
-					 */
-					solarradiation: string
-					/**
-					 * D​a​m​p​f​d​r​u​c​k​ ​(​h​P​a​)
-					 */
-					vaporPressure: string
+					utci: {
+						/**
+						 * U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)​ ​(​°​C​)
+						 */
+						label: string
+						/**
+						 * U​T​C​I​ ​(​°​C​)
+						 */
+						shortLabel: string
+						/**
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​U​n​i​v​e​r​s​e​l​l​e​ ​T​h​e​r​m​i​s​c​h​e​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​e​i​n​e​n​ ​I​n​d​e​x​,​ ​d​e​r​ ​d​i​e​ ​t​h​e​r​m​i​s​c​h​e​n​ ​B​e​d​i​n​g​u​n​g​e​n​ ​f​ü​r​ ​e​i​n​e​ ​S​t​a​n​d​a​r​d​p​e​r​s​o​n​ ​i​n​ ​e​i​n​e​r​ ​s​t​a​n​d​a​r​d​i​s​i​e​r​t​e​n​ ​U​m​g​e​b​u​n​g​ ​d​a​r​s​t​e​l​l​t​.
+						 */
+						description: string
+					}
+					pet: {
+						/**
+						 * P​h​y​s​i​o​l​o​g​i​s​c​h​ ​Ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)​ ​(​°​C​)
+						 */
+						label: string
+						/**
+						 * P​E​T​ ​(​°​C​)
+						 */
+						shortLabel: string
+						/**
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​P​h​y​s​i​o​l​o​g​i​s​c​h​ ​Ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​e​i​n​ ​M​a​ß​ ​f​ü​r​ ​d​i​e​ ​t​h​e​r​m​i​s​c​h​e​ ​B​e​l​a​s​t​u​n​g​,​ ​d​a​s​ ​d​i​e​ ​p​h​y​s​i​o​l​o​g​i​s​c​h​e​ ​R​e​a​k​t​i​o​n​ ​d​e​s​ ​m​e​n​s​c​h​l​i​c​h​e​n​ ​K​ö​r​p​e​r​s​ ​a​u​f​ ​d​i​e​ ​U​m​g​e​b​u​n​g​s​b​e​d​i​n​g​u​n​g​e​n​ ​b​e​r​ü​c​k​s​i​c​h​t​i​g​t​.
+						 */
+						description: string
+					}
+					temp: {
+						/**
+						 * L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​(​°​C​)
+						 */
+						label: string
+						/**
+						 * T​e​m​p​ ​(​°​C​)
+						 */
+						shortLabel: string
+						/**
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​L​u​f​t​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​g​e​m​e​s​s​e​n​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​u​m​g​e​b​e​n​d​e​n​ ​L​u​f​t​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​.
+						 */
+						description: string
+					}
+					pressure: {
+						/**
+						 * L​u​f​t​d​r​u​c​k​ ​(​h​P​a​)
+						 */
+						label: string
+						/**
+						 * D​r​u​c​k​ ​(​h​P​a​)
+						 */
+						shortLabel: string
+						/**
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​L​u​f​t​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​d​u​r​c​h​ ​d​a​s​ ​G​e​w​i​c​h​t​ ​d​e​r​ ​A​t​m​o​s​p​h​ä​r​e​ ​a​u​s​g​e​ü​b​t​e​n​ ​D​r​u​c​k​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
+						 */
+						description: string
+					}
+					precipitation: {
+						/**
+						 * N​i​e​d​e​r​s​c​h​l​a​g​ ​(​m​m​)
+						 */
+						label: string
+						/**
+						 * N​i​e​d​e​r​s​c​h​l​a​g​ ​(​m​m​)
+						 */
+						shortLabel: string
+						/**
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​N​i​e​d​e​r​s​c​h​l​a​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​M​e​n​g​e​ ​a​n​ ​W​a​s​s​e​r​,​ ​d​i​e​ ​a​l​s​ ​R​e​g​e​n​,​ ​S​c​h​n​e​e​ ​o​d​e​r​ ​i​n​ ​a​n​d​e​r​e​r​ ​F​o​r​m​ ​v​o​m​ ​H​i​m​m​e​l​ ​f​ä​l​l​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​i​l​l​i​m​e​t​e​r​n​.
+						 */
+						description: string
+					}
+					relativeHumidity: {
+						/**
+						 * R​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​(​%​)
+						 */
+						label: string
+						/**
+						 * R​L​F​ ​(​%​)
+						 */
+						shortLabel: string
+						/**
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​R​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​A​n​t​e​i​l​ ​d​e​s​ ​W​a​s​s​e​r​d​a​m​p​f​s​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​i​m​ ​V​e​r​h​ä​l​t​n​i​s​ ​z​u​r​ ​m​a​x​i​m​a​l​e​n​ ​M​e​n​g​e​,​ ​d​i​e​ ​d​i​e​ ​L​u​f​t​ ​b​e​i​ ​d​i​e​s​e​r​ ​T​e​m​p​e​r​a​t​u​r​ ​a​u​f​n​e​h​m​e​n​ ​k​ö​n​n​t​e​.
+						 */
+						description: string
+					}
+					windSpeed: {
+						/**
+						 * W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​(​m​/​s​)
+						 */
+						label: string
+						/**
+						 * W​G​ ​(​m​/​s​)
+						 */
+						shortLabel: string
+						/**
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​G​e​s​c​h​w​i​n​d​i​g​k​e​i​t​,​ ​m​i​t​ ​d​e​r​ ​s​i​c​h​ ​d​i​e​ ​L​u​f​t​ ​b​e​w​e​g​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​ ​p​r​o​ ​S​e​k​u​n​d​e​.
+						 */
+						description: string
+					}
+					maxWindSpeed: {
+						/**
+						 * M​a​x​i​m​a​l​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​(​m​/​s​)
+						 */
+						label: string
+						/**
+						 * M​a​x​ ​W​G​ ​(​m​/​s​)
+						 */
+						shortLabel: string
+						/**
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
+						 */
+						description: string
+					}
+					windDirection: {
+						/**
+						 * W​i​n​d​r​i​c​h​t​u​n​g​ ​(​°​)
+						 */
+						label: string
+						/**
+						 * W​R​ ​(​°​)
+						 */
+						shortLabel: string
+						/**
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​W​i​n​d​r​i​c​h​t​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​R​i​c​h​t​u​n​g​,​ ​a​u​s​ ​d​e​r​ ​d​e​r​ ​W​i​n​d​ ​w​e​h​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​d​.
+						 */
+						description: string
+					}
+					midRadiationTemp: {
+						/**
+						 * M​i​t​t​l​e​r​e​ ​S​t​r​a​h​l​u​n​g​s​t​e​m​p​e​r​a​t​u​r​ ​(​°​C​)
+						 */
+						label: string
+						/**
+						 * M​S​T​ ​(​°​C​)
+						 */
+						shortLabel: string
+						/**
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​t​t​l​e​r​e​ ​S​t​r​a​h​l​u​n​g​s​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​u​m​g​e​b​e​n​d​e​n​ ​O​b​e​r​f​l​ä​c​h​e​n​,​ ​d​i​e​ ​W​ä​r​m​e​s​t​r​a​h​l​u​n​g​ ​a​b​g​e​b​e​n​.
+						 */
+						description: string
+					}
+					lighningStrikesCount: {
+						/**
+						 * A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e
+						 */
+						label: string
+						/**
+						 * B​E​ ​A​n​z​a​h​l
+						 */
+						shortLabel: string
+						/**
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​H​ä​u​f​i​g​k​e​i​t​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​G​e​b​i​e​t​ ​u​n​d​ ​Z​e​i​t​r​a​u​m​.
+						 */
+						description: string
+					}
+					avgLighningStrikesDist: {
+						/**
+						 * D​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​ ​(​m​)
+						 */
+						label: string
+						/**
+						 * D​u​r​c​h​s​c​h​n​.​ ​B​E​ ​(​m​)
+						 */
+						shortLabel: string
+						/**
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​D​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​m​i​t​t​l​e​r​e​ ​E​n​t​f​e​r​n​u​n​g​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​z​u​ ​e​i​n​e​m​ ​B​e​z​u​g​s​p​u​n​k​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​.
+						 */
+						description: string
+					}
+					solarradiation: {
+						/**
+						 * S​o​l​a​r​s​t​r​a​h​l​u​n​g​ ​(​W​/​m​²​)
+						 */
+						label: string
+						/**
+						 * S​S​ ​(​W​/​m​²​)
+						 */
+						shortLabel: string
+						/**
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​S​o​l​a​r​s​t​r​a​h​l​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​M​e​n​g​e​ ​a​n​ ​S​o​n​n​e​n​e​n​e​r​g​i​e​,​ ​d​i​e​ ​p​r​o​ ​F​l​ä​c​h​e​n​e​i​n​h​e​i​t​ ​e​m​p​f​a​n​g​e​n​ ​w​i​r​d​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​W​a​t​t​ ​p​r​o​ ​Q​u​a​d​r​a​t​m​e​t​e​r​.
+						 */
+						description: string
+					}
+					vaporPressure: {
+						/**
+						 * D​a​m​p​f​d​r​u​c​k​ ​(​h​P​a​)
+						 */
+						label: string
+						/**
+						 * D​P​ ​(​h​P​a​)
+						 */
+						shortLabel: string
+						/**
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​D​a​m​p​f​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​D​r​u​c​k​,​ ​d​e​n​ ​d​e​r​ ​W​a​s​s​e​r​d​a​m​p​f​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​ü​b​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
+						 */
+						description: string
+					}
 				}
 			}
 		}
@@ -607,62 +747,202 @@ export type TranslationFunctions = {
 				 */
 				xOutOfY: (arg: { part: unknown, total: unknown }) => LocalizedString
 				units: {
-					/**
-					 * Universeller Thermischer Komfortindex (UTCI) (°C)
-					 */
-					utci: () => LocalizedString
-					/**
-					 * Physiologisch Äquivalente Temperatur (PET) (°C)
-					 */
-					pet: () => LocalizedString
-					/**
-					 * Lufttemperatur (°C)
-					 */
-					temp: () => LocalizedString
-					/**
-					 * Luftdruck (hPa)
-					 */
-					pressure: () => LocalizedString
-					/**
-					 * Niederschlag (mm)
-					 */
-					precipitation: () => LocalizedString
-					/**
-					 * Relative Luftfeuchtigkeit (%)
-					 */
-					relativeHumidity: () => LocalizedString
-					/**
-					 * Windgeschwindigkeit (m/s)
-					 */
-					windSpeed: () => LocalizedString
-					/**
-					 * Maximale Windgeschwindigkeit (m/s)
-					 */
-					maxWindSpeed: () => LocalizedString
-					/**
-					 * Windrichtung (°)
-					 */
-					windDirection: () => LocalizedString
-					/**
-					 * Mittlere Strahlungstemperatur (°C)
-					 */
-					midRadiationTemp: () => LocalizedString
-					/**
-					 * Anzahl der Blitzeinschläge
-					 */
-					lighningStrikesCount: () => LocalizedString
-					/**
-					 * Durchschnittliche Blitzentfernung (m)
-					 */
-					avgLighningStrikesDist: () => LocalizedString
-					/**
-					 * Solarstrahlung (W/m²)
-					 */
-					solarradiation: () => LocalizedString
-					/**
-					 * Dampfdruck (hPa)
-					 */
-					vaporPressure: () => LocalizedString
+					utci: {
+						/**
+						 * Universeller Thermischer Komfortindex (UTCI) (°C)
+						 */
+						label: () => LocalizedString
+						/**
+						 * UTCI (°C)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Der <strong>Universelle Thermische Komfortindex (UTCI)</strong> beschreibt einen Index, der die thermischen Bedingungen für eine Standardperson in einer standardisierten Umgebung darstellt.
+						 */
+						description: () => LocalizedString
+					}
+					pet: {
+						/**
+						 * Physiologisch Äquivalente Temperatur (PET) (°C)
+						 */
+						label: () => LocalizedString
+						/**
+						 * PET (°C)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Die <strong>Physiologisch Äquivalente Temperatur (PET)</strong> beschreibt ein Maß für die thermische Belastung, das die physiologische Reaktion des menschlichen Körpers auf die Umgebungsbedingungen berücksichtigt.
+						 */
+						description: () => LocalizedString
+					}
+					temp: {
+						/**
+						 * Lufttemperatur (°C)
+						 */
+						label: () => LocalizedString
+						/**
+						 * Temp (°C)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Die <strong>Lufttemperatur</strong> beschreibt die gemessene Temperatur der umgebenden Luft in Grad Celsius.
+						 */
+						description: () => LocalizedString
+					}
+					pressure: {
+						/**
+						 * Luftdruck (hPa)
+						 */
+						label: () => LocalizedString
+						/**
+						 * Druck (hPa)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Der <strong>Luftdruck</strong> beschreibt den durch das Gewicht der Atmosphäre ausgeübten Druck, gemessen in Hektopascal.
+						 */
+						description: () => LocalizedString
+					}
+					precipitation: {
+						/**
+						 * Niederschlag (mm)
+						 */
+						label: () => LocalizedString
+						/**
+						 * Niederschlag (mm)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Der <strong>Niederschlag</strong> beschreibt die Menge an Wasser, die als Regen, Schnee oder in anderer Form vom Himmel fällt, gemessen in Millimetern.
+						 */
+						description: () => LocalizedString
+					}
+					relativeHumidity: {
+						/**
+						 * Relative Luftfeuchtigkeit (%)
+						 */
+						label: () => LocalizedString
+						/**
+						 * RLF (%)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Die <strong>Relative Luftfeuchtigkeit</strong> beschreibt den Anteil des Wasserdampfs in der Luft im Verhältnis zur maximalen Menge, die die Luft bei dieser Temperatur aufnehmen könnte.
+						 */
+						description: () => LocalizedString
+					}
+					windSpeed: {
+						/**
+						 * Windgeschwindigkeit (m/s)
+						 */
+						label: () => LocalizedString
+						/**
+						 * WG (m/s)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Die <strong>Windgeschwindigkeit</strong> beschreibt die Geschwindigkeit, mit der sich die Luft bewegt, gemessen in Metern pro Sekunde.
+						 */
+						description: () => LocalizedString
+					}
+					maxWindSpeed: {
+						/**
+						 * Maximale Windgeschwindigkeit (m/s)
+						 */
+						label: () => LocalizedString
+						/**
+						 * Max WG (m/s)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Die <strong>Maximale Windgeschwindigkeit</strong> beschreibt die höchste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.
+						 */
+						description: () => LocalizedString
+					}
+					windDirection: {
+						/**
+						 * Windrichtung (°)
+						 */
+						label: () => LocalizedString
+						/**
+						 * WR (°)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Die <strong>Windrichtung</strong> beschreibt die Richtung, aus der der Wind weht, gemessen in Grad.
+						 */
+						description: () => LocalizedString
+					}
+					midRadiationTemp: {
+						/**
+						 * Mittlere Strahlungstemperatur (°C)
+						 */
+						label: () => LocalizedString
+						/**
+						 * MST (°C)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Die <strong>Mittlere Strahlungstemperatur</strong> beschreibt die durchschnittliche Temperatur der umgebenden Oberflächen, die Wärmestrahlung abgeben.
+						 */
+						description: () => LocalizedString
+					}
+					lighningStrikesCount: {
+						/**
+						 * Anzahl der Blitzeinschläge
+						 */
+						label: () => LocalizedString
+						/**
+						 * BE Anzahl
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Die <strong>Anzahl der Blitzeinschläge</strong> beschreibt die Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.
+						 */
+						description: () => LocalizedString
+					}
+					avgLighningStrikesDist: {
+						/**
+						 * Durchschnittliche Blitzentfernung (m)
+						 */
+						label: () => LocalizedString
+						/**
+						 * Durchschn. BE (m)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Die <strong>Durchschnittliche Blitzentfernung</strong> beschreibt die mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.
+						 */
+						description: () => LocalizedString
+					}
+					solarradiation: {
+						/**
+						 * Solarstrahlung (W/m²)
+						 */
+						label: () => LocalizedString
+						/**
+						 * SS (W/m²)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Die <strong>Solarstrahlung</strong> beschreibt die Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.
+						 */
+						description: () => LocalizedString
+					}
+					vaporPressure: {
+						/**
+						 * Dampfdruck (hPa)
+						 */
+						label: () => LocalizedString
+						/**
+						 * DP (hPa)
+						 */
+						shortLabel: () => LocalizedString
+						/**
+						 * Der <strong>Dampfdruck</strong> beschreibt den Druck, den der Wasserdampf in der Luft ausübt, gemessen in Hektopascal.
+						 */
+						description: () => LocalizedString
+					}
 				}
 			}
 		}

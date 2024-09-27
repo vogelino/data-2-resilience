@@ -84,20 +84,90 @@ const en = {
 				searchPlaceholder: 'Search unit...',
 				xOutOfY: '{part} of {total} stations',
 				units: {
-					utci: 'Universal Thermic Comfort Index (UTCI) (°C)',
-					pet: 'Physiological equivalent temperature (PET) (°C)',
-					temp: 'Air temperature (°C)',
-					pressure: 'Air pressure (hPa)',
-					precipitation: 'Precipitation (mm)',
-					relativeHumidity: 'Relative humidity (%)',
-					windSpeed: 'Wind speed (m/s)',
-					maxWindSpeed: 'Maximum wind speed (m/s)',
-					windDirection: 'Wind direction (°)',
-					midRadiationTemp: 'Mid-range radiation temperature (°C)',
-					lighningStrikesCount: 'Lightning strikes count',
-					avgLighningStrikesDist: 'Average lightning strike distance (m)',
-					solarradiation: 'Solar radiation (W/m²)',
-					vaporPressure: 'Vapor pressure (hPa)'
+					utci: {
+						label: 'Universal Thermic Comfort Index (UTCI) (°C)',
+						shortLabel: 'UTCI (°C)',
+						description:
+							'The <strong>Universal Thermic Comfort Index (UTCI)</strong> describes a measure of human thermal comfort that combines air temperature, humidity, wind speed, and radiation.'
+					},
+					pet: {
+						label: 'Physiological equivalent temperature (PET) (°C)',
+						shortLabel: 'PET (°C)',
+						description:
+							'The <strong>Physiological equivalent temperature (PET)</strong> describes an index that represents the thermal conditions experienced by a standard person in a standard indoor setting.'
+					},
+					temp: {
+						label: 'Air temperature (°C)',
+						shortLabel: 'Temp (°C)',
+						description:
+							'The <strong>Air temperature</strong> describes the degree of hotness or coldness of the air measured in Celsius.'
+					},
+					pressure: {
+						label: 'Air pressure (hPa)',
+						shortLabel: 'Pressure (hPa)',
+						description:
+							'The <strong>Air pressure</strong> describes the force exerted by the weight of air in the atmosphere, measured in hectopascals.'
+					},
+					precipitation: {
+						label: 'Precipitation (mm)',
+						shortLabel: 'Precip (mm)',
+						description:
+							'The <strong>Precipitation</strong> describes the amount of water falling from the sky as rain, snow, or other forms, measured in millimeters.'
+					},
+					relativeHumidity: {
+						label: 'Relative humidity (%)',
+						shortLabel: 'RH (%)',
+						description:
+							'The <strong>Relative humidity</strong> describes the amount of water vapor in the air compared to the maximum amount it could hold at that temperature.'
+					},
+					windSpeed: {
+						label: 'Wind speed (m/s)',
+						shortLabel: 'WS (m/s)',
+						description:
+							'The <strong>Wind speed</strong> describes the rate at which air is moving, measured in meters per second.'
+					},
+					maxWindSpeed: {
+						label: 'Maximum wind speed (m/s)',
+						shortLabel: 'Max WS (m/s)',
+						description:
+							'The <strong>Maximum wind speed</strong> describes the highest rate of air movement recorded during a specific time period.'
+					},
+					windDirection: {
+						label: 'Wind direction (°)',
+						shortLabel: 'WD (°)',
+						description:
+							'The <strong>Wind direction</strong> describes the direction from which the wind is blowing, measured in degrees.'
+					},
+					midRadiationTemp: {
+						label: 'Mid-range radiation temperature (°C)',
+						shortLabel: 'MRT (°C)',
+						description:
+							'The <strong>Mid-range radiation temperature</strong> describes the average temperature of surrounding surfaces that emit radiant heat.'
+					},
+					lighningStrikesCount: {
+						label: 'Lightning strikes count',
+						shortLabel: 'LS Count',
+						description:
+							'The <strong>Lightning strikes count</strong> describes the number of times lightning has struck within a given area and time period.'
+					},
+					avgLighningStrikesDist: {
+						label: 'Average lightning strike distance (m)',
+						shortLabel: 'Avg LS Dist (m)',
+						description:
+							'The <strong>Average lightning strike distance</strong> describes the mean distance of lightning strikes from a reference point, measured in meters.'
+					},
+					solarradiation: {
+						label: 'Solar radiation (W/m²)',
+						shortLabel: 'SR (W/m²)',
+						description:
+							'The <strong>Solar radiation</strong> describes the amount of energy received from the sun per unit area, measured in watts per square meter.'
+					},
+					vaporPressure: {
+						label: 'Vapor pressure (hPa)',
+						shortLabel: 'VP (hPa)',
+						description:
+							'The <strong>Vapor pressure</strong> describes the pressure exerted by water vapor in the air, measured in hectopascals.'
+					}
 				}
 			}
 		},

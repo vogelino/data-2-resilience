@@ -9,6 +9,7 @@
 		toggleStationSelection,
 		unhoverStations
 	} from '$lib/stores/stationsStore';
+	import { selectedUnit } from '$lib/stores/unitStore';
 	import {
 		addDistrictsLayer,
 		addStationsLayer,
@@ -35,15 +36,25 @@
 	const hour = queryParam('hour', ssp.number(0), config);
 	const urlStations = queryParam('selectedStations');
 	const thermalComfort = queryParam('thermal_comfort');
+	const unit = queryParam('unit');
 
 	selectedStations.subscribe((value) => {
 		urlStations.set(value.join(','));
+	});
+
+	selectedUnit.subscribe((value) => {
+		unit.set(value);
 	});
 
 	onMount(() => {
 		urlStations.subscribe((value) => {
 			if (!initialized && value) {
 				selectedStations.set(value.split(','));
+			}
+		});
+		unit.subscribe((value) => {
+			if (!initialized && value) {
+				selectedUnit.set(value);
 			}
 		});
 	});

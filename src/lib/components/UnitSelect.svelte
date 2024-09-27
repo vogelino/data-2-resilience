@@ -3,20 +3,26 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Command from '$lib/components/ui/command';
 	import * as Popover from '$lib/components/ui/popover';
+	import { selectedUnit, selectUnit } from '$lib/stores/unitStore';
 	import { cn } from '$lib/utils.js';
 	import { Check, ChevronDown } from 'lucide-svelte';
 	import { tick } from 'svelte';
+	import CollapsibleParagraph from './CollapsibleParagraph.svelte';
 
-	const units = Object.entries($LL.pages.measurements.unitSelect.units).map(([value, label]) => ({
-		value: value.trim().toLowerCase(),
-		label: label()
+	const units = Object.entries($LL.pages.measurements.unitSelect.units).map(([key, value]) => ({
+		value: key,
+		label: value.label()
 	}));
 
 	let open = false;
-	let value = units[0].value;
 
-	$: selectedValue =
-		units.find((f) => f.value === value)?.label ?? $LL.pages.measurements.unitSelect.placeholder();
+	$: selectedValue = units.find((f) => f.value === $selectedUnit);
+	$: selectedValueLabel = selectedValue?.label ?? $LL.pages.measurements.unitSelect.placeholder();
+	$: selectedValueDescription = selectedValue?.value
+		? $LL.pages.measurements.unitSelect.units[
+				selectedValue.value as keyof typeof $LL.pages.measurements.unitSelect.units
+			]?.description()
+		: '';
 
 	function closeAndFocusTrigger(triggerId: string) {
 		open = false;
@@ -38,7 +44,7 @@
 				'items-center px-3 py-2.5 text-left'
 			)}
 		>
-			<span class="truncate">{selectedValue}</span>
+			<span class="truncate">{selectedValueLabel}</span>
 			<ChevronDown
 				class={cn('ml-2 h-4 w-4 shrink-0 opacity-50 transition-transform', open && 'rotate-180')}
 			/>
@@ -52,19 +58,19 @@
 			/>
 			<Command.Empty>{$LL.pages.measurements.unitSelect.noUnitFound()}</Command.Empty>
 			<Command.Group>
-				{#each units as framework}
+				{#each units as unit}
 					<Command.Item
-						value={framework.value}
+						value={unit.value}
 						onSelect={() => {
-							value = framework.value;
+							selectUnit(unit.value);
 							closeAndFocusTrigger(ids.trigger);
 						}}
 						class="grid grid-cols-[auto_1fr_auto] gap-2"
 					>
 						<Check
-							class={cn('h-4 w-4 shrink-0', value !== framework.value && 'text-transparent')}
+							class={cn('h-4 w-4 shrink-0', $selectedUnit !== unit.value && 'text-transparent')}
 						/>
-						<span>{framework.label}</span>
+						<span>{unit.label}</span>
 						<span class="shrink-0 text-xs text-muted-foreground">
 							{$LL.pages.measurements.unitSelect.xOutOfY({
 								part: Math.floor(Math.random() * 10).toLocaleString($locale),
@@ -77,3 +83,9 @@
 		</Command.Root>
 	</Popover.Content>
 </Popover.Root>
+
+{#if selectedValue}
+	<CollapsibleParagraph className="mt-2" linesClampedCount={3}>
+		<p>{@html selectedValueDescription}</p>
+	</CollapsibleParagraph>
+{/if}

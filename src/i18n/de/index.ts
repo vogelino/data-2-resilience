@@ -85,20 +85,90 @@ const de = {
 				searchPlaceholder: 'Einheit suchen...',
 				xOutOfY: '{part} von {total}',
 				units: {
-					utci: 'Universeller Thermischer Komfortindex (UTCI) (°C)',
-					pet: 'Physiologisch Äquivalente Temperatur (PET) (°C)',
-					temp: 'Lufttemperatur (°C)',
-					pressure: 'Luftdruck (hPa)',
-					precipitation: 'Niederschlag (mm)',
-					relativeHumidity: 'Relative Luftfeuchtigkeit (%)',
-					windSpeed: 'Windgeschwindigkeit (m/s)',
-					maxWindSpeed: 'Maximale Windgeschwindigkeit (m/s)',
-					windDirection: 'Windrichtung (°)',
-					midRadiationTemp: 'Mittlere Strahlungstemperatur (°C)',
-					lighningStrikesCount: 'Anzahl der Blitzeinschläge',
-					avgLighningStrikesDist: 'Durchschnittliche Blitzentfernung (m)',
-					solarradiation: 'Solarstrahlung (W/m²)',
-					vaporPressure: 'Dampfdruck (hPa)'
+					utci: {
+						label: 'Universeller Thermischer Komfortindex (UTCI) (°C)',
+						shortLabel: 'UTCI (°C)',
+						description:
+							'Der <strong>Universelle Thermische Komfortindex (UTCI)</strong> beschreibt einen Index, der die thermischen Bedingungen für eine Standardperson in einer standardisierten Umgebung darstellt.'
+					},
+					pet: {
+						label: 'Physiologisch Äquivalente Temperatur (PET) (°C)',
+						shortLabel: 'PET (°C)',
+						description:
+							'Die <strong>Physiologisch Äquivalente Temperatur (PET)</strong> beschreibt ein Maß für die thermische Belastung, das die physiologische Reaktion des menschlichen Körpers auf die Umgebungsbedingungen berücksichtigt.'
+					},
+					temp: {
+						label: 'Lufttemperatur (°C)',
+						shortLabel: 'Temp (°C)',
+						description:
+							'Die <strong>Lufttemperatur</strong> beschreibt die gemessene Temperatur der umgebenden Luft in Grad Celsius.'
+					},
+					pressure: {
+						label: 'Luftdruck (hPa)',
+						shortLabel: 'Druck (hPa)',
+						description:
+							'Der <strong>Luftdruck</strong> beschreibt den durch das Gewicht der Atmosphäre ausgeübten Druck, gemessen in Hektopascal.'
+					},
+					precipitation: {
+						label: 'Niederschlag (mm)',
+						shortLabel: 'Niederschlag (mm)',
+						description:
+							'Der <strong>Niederschlag</strong> beschreibt die Menge an Wasser, die als Regen, Schnee oder in anderer Form vom Himmel fällt, gemessen in Millimetern.'
+					},
+					relativeHumidity: {
+						label: 'Relative Luftfeuchtigkeit (%)',
+						shortLabel: 'RLF (%)',
+						description:
+							'Die <strong>Relative Luftfeuchtigkeit</strong> beschreibt den Anteil des Wasserdampfs in der Luft im Verhältnis zur maximalen Menge, die die Luft bei dieser Temperatur aufnehmen könnte.'
+					},
+					windSpeed: {
+						label: 'Windgeschwindigkeit (m/s)',
+						shortLabel: 'WG (m/s)',
+						description:
+							'Die <strong>Windgeschwindigkeit</strong> beschreibt die Geschwindigkeit, mit der sich die Luft bewegt, gemessen in Metern pro Sekunde.'
+					},
+					maxWindSpeed: {
+						label: 'Maximale Windgeschwindigkeit (m/s)',
+						shortLabel: 'Max WG (m/s)',
+						description:
+							'Die <strong>Maximale Windgeschwindigkeit</strong> beschreibt die höchste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.'
+					},
+					windDirection: {
+						label: 'Windrichtung (°)',
+						shortLabel: 'WR (°)',
+						description:
+							'Die <strong>Windrichtung</strong> beschreibt die Richtung, aus der der Wind weht, gemessen in Grad.'
+					},
+					midRadiationTemp: {
+						label: 'Mittlere Strahlungstemperatur (°C)',
+						shortLabel: 'MST (°C)',
+						description:
+							'Die <strong>Mittlere Strahlungstemperatur</strong> beschreibt die durchschnittliche Temperatur der umgebenden Oberflächen, die Wärmestrahlung abgeben.'
+					},
+					lighningStrikesCount: {
+						label: 'Anzahl der Blitzeinschläge',
+						shortLabel: 'BE Anzahl',
+						description:
+							'Die <strong>Anzahl der Blitzeinschläge</strong> beschreibt die Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.'
+					},
+					avgLighningStrikesDist: {
+						label: 'Durchschnittliche Blitzentfernung (m)',
+						shortLabel: 'Durchschn. BE (m)',
+						description:
+							'Die <strong>Durchschnittliche Blitzentfernung</strong> beschreibt die mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.'
+					},
+					solarradiation: {
+						label: 'Solarstrahlung (W/m²)',
+						shortLabel: 'SS (W/m²)',
+						description:
+							'Die <strong>Solarstrahlung</strong> beschreibt die Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.'
+					},
+					vaporPressure: {
+						label: 'Dampfdruck (hPa)',
+						shortLabel: 'DP (hPa)',
+						description:
+							'Der <strong>Dampfdruck</strong> beschreibt den Druck, den der Wasserdampf in der Luft ausübt, gemessen in Hektopascal.'
+					}
 				}
 			}
 		},

@@ -210,6 +210,12 @@ type RootTranslation = {
 				 */
 				label: string
 			}
+			charts: {
+				/**
+				 * M​e​s​s​s​t​a​t​i​o​n
+				 */
+				stationsXAxisLabel: string
+			}
 			unitSelect: {
 				/**
 				 * K​e​i​n​e​ ​E​i​n​h​e​i​t​ ​g​e​f​u​n​d​e​n
@@ -728,6 +734,12 @@ export type TranslationFunctions = {
 				 * Ausgewählte Messstationen
 				 */
 				label: () => LocalizedString
+			}
+			charts: {
+				/**
+				 * Messstation
+				 */
+				stationsXAxisLabel: () => LocalizedString
 			}
 			unitSelect: {
 				/**

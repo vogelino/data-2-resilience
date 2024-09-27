@@ -2,7 +2,9 @@
 	import { LL } from '$i18n/i18n-svelte';
 	import { selectedStations } from '$lib/stores/stationsStore';
 	import { selectedUnit } from '$lib/stores/unitStore';
+	import { addDays, endOfToday, format } from 'date-fns';
 	import DailySationsValuesBarChart from './DailySationsValuesBarChart.svelte';
+	import DateRangeSlider from './DateRangeSlider.svelte';
 
 	$: selectedUnitLabel =
 		$LL.pages.measurements.unitSelect.units[
@@ -10,8 +12,11 @@
 		]?.shortLabel();
 
 	let timeMode: 'day' | 'range' = 'day';
-	let dateFrom = new Date();
-	let dateTo = new Date();
+	let dateRange = [-10, 0];
+	function formatter(value: number) {
+		const date = addDays(endOfToday(), value);
+		return format(date, 'dd. MMM yyy');
+	}
 </script>
 
 {#if $selectedStations.length > 1}
@@ -22,6 +27,8 @@
 				<DailySationsValuesBarChart />
 			{/if}
 		</div>
-		<div class="border-border p-4"></div>
+		<div class="border-border p-4">
+			<DateRangeSlider />
+		</div>
 	</div>
 {/if}

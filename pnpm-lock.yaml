@@ -23,6 +23,9 @@ importers:
       cmdk-sv:
         specifier: 0.0.18
         version: 0.0.18(svelte@4.2.7)
+      date-fns:
+        specifier: 4.1.0
+        version: 4.1.0
       es-toolkit:
         specifier: 1.13.1
         version: 1.13.1
@@ -35,6 +38,9 @@ importers:
       mode-watcher:
         specifier: 0.4.1
         version: 0.4.1(svelte@4.2.7)
+      svelte-range-slider-pips:
+        specifier: 3.1.1
+        version: 3.1.1(svelte@4.2.7)
       tailwind-merge:
         specifier: 2.4.0
         version: 2.4.0
@@ -1999,6 +2005,9 @@ packages:
     resolution: {integrity: sha512-t/Ygsytq+R995EJ5PZlD4Cu56sWa8InXySaViRzw9apusqsOO2bQP+SbYzAhR0pFKoB+43lYy8rWban9JSuXnA==}
     engines: {node: '>= 0.4'}
 
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
+
   debug@4.3.7:
     resolution: {integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==}
     engines: {node: '>=6.0'}
@@ -3621,6 +3630,11 @@ packages:
         optional: true
       typescript:
         optional: true
+
+  svelte-range-slider-pips@3.1.1:
+    resolution: {integrity: sha512-CaBczr0/egEr3ShYyFo3gDObZiYDEc7YBC35rQr8D2kWvisxCftE/+Znryk8YXva86Fq77tzQ4JeOfB+iUMjrg==}
+    peerDependencies:
+      svelte: ^4.0.0
 
   svelte-seo@1.6.1:
     resolution: {integrity: sha512-vTKvOA0rl3HVhgbyoMhwz0P1s+18ldOT+lHlTlrQn7Mn0SBx7Ia7MB+llF4O/mYoiV5idmNu8i3xWsam8COsbw==}
@@ -6243,6 +6257,8 @@ snapshots:
       es-errors: 1.3.0
       is-data-view: 1.0.1
 
+  date-fns@4.1.0: {}
+
   debug@4.3.7:
     dependencies:
       ms: 2.1.3
@@ -7840,6 +7856,10 @@ snapshots:
       postcss: 8.4.38
       postcss-load-config: 4.0.2(postcss@8.4.38)
       typescript: 5.5.4
+
+  svelte-range-slider-pips@3.1.1(svelte@4.2.7):
+    dependencies:
+      svelte: 4.2.7
 
   svelte-seo@1.6.1(typescript@5.5.4):
     dependencies:

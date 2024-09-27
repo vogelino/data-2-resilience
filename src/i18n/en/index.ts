@@ -169,6 +169,11 @@ const en = {
 							'The <strong>Vapor pressure</strong> describes the pressure exerted by water vapor in the air, measured in hectopascals.'
 					}
 				}
+			},
+			dateRangeSlider: {
+				today: 'Today',
+				day: 'Day',
+				range: 'Range'
 			}
 		},
 		stations: {

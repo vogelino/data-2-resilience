@@ -170,6 +170,11 @@ const de = {
 							'Der <strong>Dampfdruck</strong> beschreibt den Druck, den der Wasserdampf in der Luft ausübt, gemessen in Hektopascal.'
 					}
 				}
+			},
+			dateRangeSlider: {
+				today: 'Heute',
+				day: 'Tag',
+				range: 'Zeitraum'
 			}
 		},
 		stations: {

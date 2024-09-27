@@ -210,12 +210,6 @@ type RootTranslation = {
 				 */
 				label: string
 			}
-			charts: {
-				/**
-				 * M​e​s​s​s​t​a​t​i​o​n
-				 */
-				stationsXAxisLabel: string
-			}
 			unitSelect: {
 				/**
 				 * K​e​i​n​e​ ​E​i​n​h​e​i​t​ ​g​e​f​u​n​d​e​n
@@ -433,6 +427,20 @@ type RootTranslation = {
 						description: string
 					}
 				}
+			}
+			dateRangeSlider: {
+				/**
+				 * H​e​u​t​e
+				 */
+				today: string
+				/**
+				 * T​a​g
+				 */
+				day: string
+				/**
+				 * Z​e​i​t​r​a​u​m
+				 */
+				range: string
 			}
 		}
 		stations: {
@@ -735,12 +743,6 @@ export type TranslationFunctions = {
 				 */
 				label: () => LocalizedString
 			}
-			charts: {
-				/**
-				 * Messstation
-				 */
-				stationsXAxisLabel: () => LocalizedString
-			}
 			unitSelect: {
 				/**
 				 * Keine Einheit gefunden
@@ -956,6 +958,20 @@ export type TranslationFunctions = {
 						description: () => LocalizedString
 					}
 				}
+			}
+			dateRangeSlider: {
+				/**
+				 * Heute
+				 */
+				today: () => LocalizedString
+				/**
+				 * Tag
+				 */
+				day: () => LocalizedString
+				/**
+				 * Zeitraum
+				 */
+				range: () => LocalizedString
 			}
 		}
 		stations: {

@@ -3,7 +3,7 @@
 	import { selectedStations } from '$lib/stores/stationsStore';
 	import { selectedUnit } from '$lib/stores/unitStore';
 	import { addDays, endOfToday, format } from 'date-fns';
-	import DailySationsValuesBarChart from './DailySationsValuesBarChart.svelte';
+	import DailySationsValuesBarLayerChart from './DailySationsValuesBarLayerChart.svelte';
 	import DateRangeSlider from './DateRangeSlider.svelte';
 
 	$: selectedUnitLabel =
@@ -24,7 +24,7 @@
 		<div class="flex flex-col gap-4 border-b border-border p-4">
 			<h3 class="font-semibold">{selectedUnitLabel}</h3>
 			{#if timeMode === 'day'}
-				<DailySationsValuesBarChart />
+				<DailySationsValuesBarLayerChart />
 			{/if}
 		</div>
 		<div class="border-border p-4">

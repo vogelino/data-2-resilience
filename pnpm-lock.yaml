@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@tanstack/svelte-query':
+        specifier: 5.59.0
+        version: 5.59.0(svelte@4.2.7)
+      '@tanstack/svelte-query-devtools':
+        specifier: 5.59.0
+        version: 5.59.0(@tanstack/svelte-query@5.59.0(svelte@4.2.7))(svelte@4.2.7)
       '@unovis/svelte':
         specifier: 1.4.3-beta.0
         version: 1.4.3-beta.0(@unovis/ts@1.4.3-beta.0)(svelte@4.2.7)
@@ -53,6 +59,9 @@ importers:
       zod:
         specifier: 3.23.8
         version: 3.23.8
+      zod-validation-error:
+        specifier: 3.4.0
+        version: 3.4.0(zod@3.23.8)
     devDependencies:
       '@playwright/test':
         specifier: 1.28.1
@@ -1478,6 +1487,23 @@ packages:
     resolution: {integrity: sha512-ADGcJ8dX21dVVHIwTRgzrcunY6YY9uSlAHHGVKvkA+vLc5qLwEszvKts40lx7z0qc4clpjclwLeK5rVCV2P/uw==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
+
+  '@tanstack/query-core@5.59.0':
+    resolution: {integrity: sha512-WGD8uIhX6/deH/tkZqPNcRyAhDUqs729bWKoByYHSogcshXfFbppOdTER5+qY7mFvu8KEFJwT0nxr8RfPTVh0Q==}
+
+  '@tanstack/query-devtools@5.58.0':
+    resolution: {integrity: sha512-iFdQEFXaYYxqgrv63ots+65FGI+tNp5ZS5PdMU1DWisxk3fez5HG3FyVlbUva+RdYS5hSLbxZ9aw3yEs97GNTw==}
+
+  '@tanstack/svelte-query-devtools@5.59.0':
+    resolution: {integrity: sha512-/yWGDUJIbDM4RD7L8K/V+oFaierY0l5a2TnRLo0y2mPSJb8aiM8fYEpHYklk8F1ale5JmomQRxNVQT38+L2/NA==}
+    peerDependencies:
+      '@tanstack/svelte-query': ^5.59.0
+      svelte: ^3.54.0 || ^4.0.0 || ^5.0.0-next.0
+
+  '@tanstack/svelte-query@5.59.0':
+    resolution: {integrity: sha512-KjRQg6me2LSNvENUJalvLjTfFG2kmWRd7K+hFyPd2CysfqFAoyKvXnzLaUfJgtDSS4cobLlqMECZQ7kD37VGhw==}
+    peerDependencies:
+      svelte: ^3.54.0 || ^4.0.0 || ^5.0.0-next.0
 
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
@@ -5004,6 +5030,12 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod-validation-error@3.4.0:
+    resolution: {integrity: sha512-ZOPR9SVY6Pb2qqO5XHt+MkkTRxGXb4EVtnjc9JpXUOtUB1T9Ru7mZOT361AN3MsetVe7R0a1KZshJDZdgp9miQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      zod: ^3.18.0
+
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
@@ -6618,6 +6650,22 @@ snapshots:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.4
+
+  '@tanstack/query-core@5.59.0': {}
+
+  '@tanstack/query-devtools@5.58.0': {}
+
+  '@tanstack/svelte-query-devtools@5.59.0(@tanstack/svelte-query@5.59.0(svelte@4.2.7))(svelte@4.2.7)':
+    dependencies:
+      '@tanstack/query-devtools': 5.58.0
+      '@tanstack/svelte-query': 5.59.0(svelte@4.2.7)
+      esm-env: 1.0.0
+      svelte: 4.2.7
+
+  '@tanstack/svelte-query@5.59.0(svelte@4.2.7)':
+    dependencies:
+      '@tanstack/query-core': 5.59.0
+      svelte: 4.2.7
 
   '@testing-library/dom@10.4.0':
     dependencies:
@@ -10478,5 +10526,9 @@ snapshots:
   yaml@2.5.1: {}
 
   yocto-queue@0.1.0: {}
+
+  zod-validation-error@3.4.0(zod@3.23.8):
+    dependencies:
+      zod: 3.23.8
 
   zod@3.23.8: {}

@@ -1,20 +1,23 @@
+import { browser } from '$app/environment';
 import type { Locales } from '$i18n/i18n-types';
 import { loadLocaleAsync } from '$i18n/i18n-util.async';
-import { i18nObject } from '$i18n/i18n-util.js';
+import { QueryClient } from '@tanstack/svelte-query';
+
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad<{ locale: Locales }> = async ({
 	data: { locale = 'en' } = { locale: 'en' }
 }) => {
-	// load dictionary into memory
 	await loadLocaleAsync(locale);
-	// if you need to output a localized string in a `load` function,
-	// you always need to create a new `i18nObject` instance in each `load` function
-	// to not run into shared server state issues
-	const LL = i18nObject(locale);
 
-	console.info(LL.log({ fileName: '+layout.ts' }));
+	const queryClient = new QueryClient({
+		defaultOptions: {
+			queries: {
+				enabled: browser,
+				staleTime: 60 * 1000
+			}
+		}
+	});
 
-	// pass locale to the "rendering context"
-	return { locale };
+	return { locale, queryClient };
 };

@@ -21,7 +21,6 @@
     "node": "20.x"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.9.0",
     "@playwright/test": "1.28.1",
     "@storybook/addon-essentials": "^8.3.4",
     "@storybook/addon-interactions": "^8.3.4",

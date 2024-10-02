@@ -18,18 +18,18 @@
 			isSelected: selectedIndicatorSlug === 'utci_category' || selectedIndicatorSlug === 'utci'
 		},
 		{
-			slug: 'pet' as const,
-			title: $LL.indicators.pet.title(),
-			description: $LL.indicators.pet.description(),
+			slug: 'relative_humidity' as const,
+			title: $LL.indicators.relative_humidity.title(),
+			description: $LL.indicators.relative_humidity.description(),
 			hasCategory: false,
-			isSelected: selectedIndicatorSlug === 'pet'
+			isSelected: selectedIndicatorSlug === 'relative_humidity'
 		},
 		{
-			slug: 'mrt' as const,
-			title: $LL.indicators.mrt.title(),
-			description: $LL.indicators.mrt.description(),
+			slug: 'temp' as const,
+			title: $LL.indicators.temp.title(),
+			description: $LL.indicators.temp.description(),
 			hasCategory: false,
-			isSelected: selectedIndicatorSlug === 'mrt'
+			isSelected: selectedIndicatorSlug === 'temp'
 		}
 	];
 </script>

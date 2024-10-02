@@ -13,13 +13,23 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"typesafe-i18n": "typesafe-i18n"
+		"typesafe-i18n": "typesafe-i18n",
+		"storybook": "storybook dev -p 6006",
+		"build-storybook": "storybook build"
 	},
 	"engines": {
 		"node": "20.x"
 	},
 	"devDependencies": {
 		"@playwright/test": "1.28.1",
+		"@storybook/addon-essentials": "^8.3.4",
+		"@storybook/addon-interactions": "^8.3.4",
+		"@storybook/addon-links": "^8.3.4",
+		"@storybook/addon-svelte-csf": "^4.1.7",
+		"@storybook/blocks": "^8.3.4",
+		"@storybook/svelte": "^8.3.4",
+		"@storybook/sveltekit": "^8.3.4",
+		"@storybook/test": "^8.3.4",
 		"@sveltejs/adapter-auto": "3.0.0",
 		"@sveltejs/adapter-vercel": "5.4.1",
 		"@sveltejs/kit": "2.5.18",
@@ -31,12 +41,14 @@
 		"dotenv": "16.4.5",
 		"eslint": "9.0.0",
 		"eslint-config-prettier": "9.1.0",
+		"eslint-plugin-storybook": "0.9.0",
 		"eslint-plugin-svelte": "2.36.0",
 		"globals": "15.0.0",
 		"postcss": "8.4.38",
 		"prettier": "3.1.1",
 		"prettier-plugin-svelte": "3.1.2",
 		"prettier-plugin-tailwindcss": "0.6.4",
+		"storybook": "^8.3.4",
 		"svelte": "4.2.7",
 		"svelte-check": "3.6.0",
 		"svelte-multiselect": "10.3.0",
@@ -67,5 +79,10 @@
 		"tailwind-variants": "0.2.1",
 		"typesafe-i18n": "5.26.2",
 		"zod": "3.23.8"
+	},
+	"eslintConfig": {
+		"extends": [
+			"plugin:storybook/recommended"
+		]
 	}
 }

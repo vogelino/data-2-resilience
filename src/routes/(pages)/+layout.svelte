@@ -1,6 +1,5 @@
 <script lang="ts">
 	import LL, { setLocale } from '$i18n/i18n-svelte';
-	import Header from '$lib/components/Header.svelte';
 	import Head from 'components/head.svelte';
 	import { ModeWatcher } from 'mode-watcher';
 	import '../../app.css';
@@ -17,6 +16,5 @@
 <ModeWatcher />
 
 <div class="grid h-screen w-screen grid-rows-[auto,1fr] overflow-clip">
-	<Header title={$LL.siteNameShort()} subtitle={$LL.siteSubtitle()} />
 	<slot />
 </div>

@@ -511,9 +511,9 @@ type RootTranslation = {
 				}
 			}
 		}
-		pet: {
+		relative_humidity: {
 			/**
-			 * P​h​y​s​i​o​l​o​g​i​s​c​h​ ​Ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)
+			 * R​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t
 			 */
 			title: string
 			/**
@@ -521,9 +521,9 @@ type RootTranslation = {
 			 */
 			description: string
 		}
-		mrt: {
+		temp: {
 			/**
-			 * M​i​t​t​e​l​w​e​r​t​ ​d​e​r​ ​r​e​g​i​o​n​a​l​e​n​ ​T​e​m​p​e​r​a​t​u​r​ ​(​M​R​T​)
+			 * L​u​f​t​t​e​m​p​e​r​a​t​u​r
 			 */
 			title: string
 			/**
@@ -1042,9 +1042,9 @@ export type TranslationFunctions = {
 				}
 			}
 		}
-		pet: {
+		relative_humidity: {
 			/**
-			 * Physiologisch Äquivalente Temperatur (PET)
+			 * Relative Luftfeuchtigkeit
 			 */
 			title: () => LocalizedString
 			/**
@@ -1052,9 +1052,9 @@ export type TranslationFunctions = {
 			 */
 			description: () => LocalizedString
 		}
-		mrt: {
+		temp: {
 			/**
-			 * Mittelwert der regionalen Temperatur (MRT)
+			 * Lufttemperatur
 			 */
 			title: () => LocalizedString
 			/**

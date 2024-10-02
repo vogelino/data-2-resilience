@@ -214,13 +214,13 @@ const de = {
 				}
 			}
 		},
-		pet: {
-			title: 'Physiologisch Äquivalente Temperatur (PET)',
+		relative_humidity: {
+			title: 'Relative Luftfeuchtigkeit',
 			description:
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
 		},
-		mrt: {
-			title: 'Mittelwert der regionalen Temperatur (MRT)',
+		temp: {
+			title: 'Lufttemperatur',
 			description:
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
 		}

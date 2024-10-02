@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
-	export type SelectedIndicatorSlugType = 'pet' | 'pet_category' | 'utci' | 'utci_category' | 'mrt';
+	export type SelectedIndicatorSlugType = 'relative_humidity' | 'utci' | 'utci_category' | 'temp';
 	export type IndicatorType = {
-		slug: 'utci' | 'pet' | 'mrt';
+		slug: 'utci' | 'relative_humidity' | 'temp';
 		title: string;
 		description: string;
 		hasCategory: boolean;

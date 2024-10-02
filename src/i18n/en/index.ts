@@ -208,13 +208,13 @@ const en = {
 				}
 			}
 		},
-		pet: {
-			title: 'Physiological equivalent temperature (PET)',
+		relative_humidity: {
+			title: 'Relative humidity',
 			description:
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
 		},
-		mrt: {
-			title: 'Mean regional temperature (MRT)',
+		temp: {
+			title: 'Air temperature',
 			description:
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
 		}

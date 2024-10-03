@@ -35,7 +35,6 @@
 		return id ? d.find((d) => d.id === id) : d;
 	};
 	const queryFn: QueryFunction = ({ queryKey }) => {
-		console.log(queryKey);
 		return api().getStationsLatestData(queryKey[1] as WeatherMeasurementKeyNoMinMax);
 	};
 </script>

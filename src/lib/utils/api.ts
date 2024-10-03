@@ -4,8 +4,10 @@ import { parseStationMetadata } from './parsingUtil';
 import {
 	ParsedStationMetadataSchema,
 	RawStationMetadataSchema,
+	weatherMeasurementSchemas,
 	weatherMeasurementSchemasNoMinMax,
 	type StationMetadata,
+	type WeatherMeasurementKey,
 	type WeatherMeasurementKeyNoMinMax
 } from './schemas';
 
@@ -22,6 +24,21 @@ export const api = (customFetch = fetch) => ({
 		const weatherMeasurementSchema = weatherMeasurementSchemasNoMinMax[param];
 		const schema =
 			RawStationMetadataSchema.merge(weatherMeasurementSchema).transform(parseStationMetadata);
+		const data = await parseData(response, schema);
+		return data;
+	},
+	getStaionsData: async (params: {
+		id: string;
+		start_date: string;
+		end_date: string;
+		param: WeatherMeasurementKey;
+		scale?: 'hourly' | 'daily';
+	}) => {
+		const urlParams = new URLSearchParams(params);
+		const response = await customFetch(
+			`http://localhost:5173/placeholder_api/stations_data/${params.id}?${urlParams}`
+		);
+		const schema = weatherMeasurementSchemas[params.param];
 		const data = await parseData(response, schema);
 		return data;
 	}

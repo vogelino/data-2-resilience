@@ -1,4 +1,4 @@
-<script lang="ts" generics="T">
+<script lang="ts">
 	import { browser } from '$app/environment';
 	import { cn } from '$lib/utils';
 	import {
@@ -31,7 +31,7 @@
 			$query.status === 'error' && 'bg-red-600'
 		)}
 	/>
-	<span class={cn(status === 'pending' && 'animate-pulse')}>
+	<span class={cn($query.status === 'pending' && 'animate-pulse')}>
 		{$query.status.substring(0, 1).toUpperCase() + $query.status.substring(1)}
 	</span>
 </div>

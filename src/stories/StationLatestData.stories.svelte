@@ -24,18 +24,19 @@
 </script>
 
 <script lang="ts">
-	import { api, type StationMetadata, type WeatherMeasurementKey } from '$lib/utils/api';
+	import { api } from '$lib/utils/api';
+	import type { StationMetadata, WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { QueryFunction } from '@tanstack/svelte-query';
 	import DataFetchingPreview from './utils/DataFetchingPreview.svelte';
 
 	const getDataFormatter = (id?: string) => (data: unknown) => {
-		const d = data as StationMetadata[] & Record<WeatherMeasurementKey, unknown>;
+		const d = data as StationMetadata[] & Record<WeatherMeasurementKeyNoMinMax, unknown>;
 		return id ? d.find((d) => d.id === id) : d;
 	};
 	const queryFn: QueryFunction = ({ queryKey }) => {
 		console.log(queryKey);
-		return api().getStationsLatestData(queryKey[1] as WeatherMeasurementKey);
+		return api().getStationsLatestData(queryKey[1] as WeatherMeasurementKeyNoMinMax);
 	};
 </script>
 

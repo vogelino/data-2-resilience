@@ -15,7 +15,8 @@
 </script>
 
 <script lang="ts">
-	import { api, type StationMetadata } from '$lib/utils/api';
+	import { api } from '$lib/utils/api';
+	import type { StationMetadata } from '$lib/utils/schemas';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import DataFetchingPreview from './utils/DataFetchingPreview.svelte';
 

@@ -1,22 +1,23 @@
 import { stations } from '$lib/stores/mapData';
 import {
-	weatherMeasurementKeys,
+	weatherMeasurementSchemasNoMinMaxKeys,
 	type RawStationMetadata,
-	type WeatherMeasurementKey
-} from '$lib/utils/api';
+	type WeatherMeasurementKeyNoMinMax
+} from '$lib/utils/schemas';
 import { json } from '@sveltejs/kit';
 import fakeData from './fakeData';
 
 export function GET({ url }) {
 	const param = url.searchParams.get('param');
 	if (!param) throw new Error('param is required');
-	const parsedParams = param.split(',') as WeatherMeasurementKey[];
-	console.log(parsedParams.map((p) => ({ [p]: Math.random() })));
-	const allParamsValid = parsedParams.every((param) => weatherMeasurementKeys.includes(param));
+	const parsedParams = param.split(',') as WeatherMeasurementKeyNoMinMax[];
+	const allParamsValid = parsedParams.every((param) =>
+		weatherMeasurementSchemasNoMinMaxKeys.includes(param)
+	);
 	if (!allParamsValid) {
 		throw new Error(
 			'param must be an array of one or many of the following values: ' +
-				weatherMeasurementKeys.join(', ')
+				weatherMeasurementSchemasNoMinMaxKeys.join(', ')
 		);
 	}
 	return json({

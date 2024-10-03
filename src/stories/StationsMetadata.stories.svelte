@@ -15,36 +15,21 @@
 </script>
 
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { api, type StationMetadata } from '$lib/utils/api';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
-	import { createQuery, QueryClient } from '@tanstack/svelte-query';
 	import DataFetchingPreview from './utils/DataFetchingPreview.svelte';
 
-	const queryClient = new QueryClient({
-		defaultOptions: {
-			queries: {
-				enabled: browser
-			}
-		}
-	});
-
-	const stations = createQuery<StationMetadata[] | StationMetadata | undefined, Error>(
-		{
-			queryKey: ['stationsMetadata'],
-			queryFn: () => api().getStationsMetadata()
-		},
-		queryClient
-	);
+	const getDataFormatter = (id?: string) => (data: unknown) => {
+		const d = data as StationMetadata[];
+		return id ? d.find((d) => d.id === id) : d;
+	};
 </script>
 
 <Template let:args>
 	<DataFetchingPreview
-		status={$stations.status}
-		data={args.id && Array.isArray($stations.data)
-			? $stations.data.filter((s) => s.id === args.id)
-			: $stations.data}
-		error={$stations.error}
+		queryKey={['stationsMetadata']}
+		queryFn={() => api().getStationsMetadata()}
+		dataFormatter={getDataFormatter(args.id)}
 	/>
 </Template>
 

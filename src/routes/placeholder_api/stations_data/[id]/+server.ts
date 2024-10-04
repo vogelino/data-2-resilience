@@ -1,6 +1,6 @@
 import { weatherMeasurementKeys, type WeatherMeasurementKey } from '$lib/utils/schemas';
 import { json } from '@sveltejs/kit';
-import { isValid } from 'date-fns';
+import { isAfter, isBefore, isValid } from 'date-fns';
 import fakeData from './fakeData';
 
 export function GET({ url }) {
@@ -26,6 +26,9 @@ export function GET({ url }) {
 		);
 	}
 	return json({
-		data: fakeData[parsedParam]?.data ?? []
+		data: (fakeData[parsedParam]?.data ?? []).filter((item) => {
+			const date = new Date(item.measured_at);
+			return isBefore(date, new Date(end_date)) && isAfter(date, new Date(start_date));
+		})
 	});
 }

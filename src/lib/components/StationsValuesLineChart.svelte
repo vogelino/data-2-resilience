@@ -3,6 +3,7 @@
 	import { stations } from '$lib/stores/mapData';
 	import { selectedStations } from '$lib/stores/stationsStore';
 	import { api } from '$lib/utils/api';
+	import { today } from '$lib/utils/dateUtil';
 	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisCrosshair, VisLine, VisTooltip, VisXYContainer } from '@unovis/svelte';
@@ -12,8 +13,8 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
 
-	let start_date = addDays(new Date(), -10);
-	let end_date = addDays(new Date(), 0);
+	let start_date = addDays(today(), -10);
+	let end_date = addDays(today(), 0);
 	const rangeStart = queryParam('range_start', ssp.number(-10));
 	const rangeEnd = queryParam('range_end', ssp.number(0));
 
@@ -21,11 +22,11 @@
 
 	const updateStartDate = debounce((d: number) => {
 		updateStartDate?.cancel();
-		start_date = addDays(new Date(), d);
+		start_date = addDays(today(), d);
 	}, 500);
 	const updateEndDate = debounce((d: number) => {
 		updateEndDate?.cancel();
-		end_date = addDays(new Date(), d);
+		end_date = addDays(today(), d);
 	}, 500);
 
 	rangeStart.subscribe(updateStartDate);

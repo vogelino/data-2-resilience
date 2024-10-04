@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { addDays, isToday } from 'date-fns';
+	import { isToday, today } from '$lib/utils/dateUtil';
+	import { addDays } from 'date-fns';
 	import { RangeSlider } from 'svelte-range-slider-pips';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import Button from './ui/button/button.svelte';
@@ -15,7 +16,7 @@
 
 	$: formatter = (value: number) => {
 		if (Number.isNaN(value)) return '';
-		const date = addDays(new Date(), value === -0 ? 0 : value);
+		const date = addDays(today(), value === -0 ? 0 : value);
 		if (isToday(date)) return $LL.pages.measurements.dateRangeSlider.today();
 		return new Intl.DateTimeFormat($locale, {
 			day: 'numeric',

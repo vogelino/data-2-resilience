@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { addDays, format, isToday } from 'date-fns';
+	import { LL, locale } from '$i18n/i18n-svelte';
+	import { addDays, isToday } from 'date-fns';
 	import { RangeSlider } from 'svelte-range-slider-pips';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import Button from './ui/button/button.svelte';
@@ -14,9 +15,13 @@
 
 	$: formatter = (value: number) => {
 		if (Number.isNaN(value)) return '';
-		const date = addDays(dateRangeEnd, value === -0 ? 0 : value);
-		if (isToday(date)) return 'Today';
-		return format(date, 'dd. MMM yyy');
+		const date = addDays(new Date(), value === -0 ? 0 : value);
+		if (isToday(date)) return $LL.pages.measurements.dateRangeSlider.today();
+		return new Intl.DateTimeFormat($locale, {
+			day: 'numeric',
+			month: 'short',
+			year: 'numeric'
+		}).format(date);
 	};
 
 	const onRangeChange = (event: CustomEvent<{ values: [number, number] }>) => {
@@ -79,7 +84,7 @@
 			on:click={() => setIsRange(false)}
 			class="rounded-r-none focus-visible:z-10 focus-visible:rounded"
 		>
-			Day
+			{$LL.pages.measurements.dateRangeSlider.day()}
 		</Button>
 		<Button
 			variant={$isRange ? 'default' : 'outline'}
@@ -87,7 +92,7 @@
 			on:click={() => setIsRange(true)}
 			class="rounded-l-none focus-visible:z-10 focus-visible:rounded"
 		>
-			Range
+			{$LL.pages.measurements.dateRangeSlider.range()}
 		</Button>
 	</div>
 </div>

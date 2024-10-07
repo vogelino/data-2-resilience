@@ -3,7 +3,7 @@ import { json } from '@sveltejs/kit';
 import { isAfter, isBefore, isValid } from 'date-fns';
 import fakeData from './fakeData';
 
-export function GET({ url }) {
+export async function GET({ url }) {
 	const id = url.pathname.split('/').pop();
 	const param = url.searchParams.get('param');
 	const start_date = url.searchParams.get('start_date');
@@ -25,10 +25,18 @@ export function GET({ url }) {
 			'param must be an one of the following values: ' + weatherMeasurementKeys.join(', ')
 		);
 	}
+
+	await wait(1000);
 	return json({
 		data: (fakeData[parsedParam]?.data ?? []).filter((item) => {
 			const date = new Date(item.measured_at);
 			return isBefore(date, new Date(end_date)) && isAfter(date, new Date(start_date));
 		})
+	});
+}
+
+async function wait(ms: number) {
+	return new Promise((resolve) => {
+		setTimeout(resolve, ms);
 	});
 }

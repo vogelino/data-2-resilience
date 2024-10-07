@@ -9,9 +9,12 @@
 	const dateRangeStart = -30;
 	const dateRangeEnd = 0;
 
-	let selectedRangeStart = queryParam('range_start', ssp.number(-10));
-	let selectedRangeEnd = queryParam('range_end', ssp.number(0));
-	let dayValue = queryParam('day_value', ssp.number(0));
+	const options = {
+		debounceHistory: 500
+	};
+	let selectedRangeStart = queryParam('range_start', ssp.number(-10), options);
+	let selectedRangeEnd = queryParam('range_end', ssp.number(0), options);
+	let dayValue = queryParam('day_value', ssp.number(0), options);
 	let isRange = queryParam('is_range', ssp.boolean(false));
 
 	$: formatter = (value: number) => {

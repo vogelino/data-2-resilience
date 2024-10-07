@@ -13,12 +13,14 @@
 	import { debounce } from 'es-toolkit';
 	import { LoaderCircle } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
+	import ErrorAlert from './ErrorAlert.svelte';
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
 
 	let start_date: Date | undefined;
 	let end_date: Date | undefined;
-	const rangeStart = queryParam('range_start', ssp.number(-10));
-	const rangeEnd = queryParam('range_end', ssp.number(0));
+	const options = { debounceHistory: 500 };
+	const rangeStart = queryParam('range_start', ssp.number(-10), options);
+	const rangeEnd = queryParam('range_end', ssp.number(0), options);
 
 	const unit = queryParam('unit', ssp.string());
 
@@ -103,7 +105,7 @@
 		height={300}
 		class={cn('transition-opacity', $query.isFetching && 'opacity-20')}
 	>
-		{#if data && data.length > 0}
+		{#if data && data.length > 0 && !$query.error}
 			<VisLine {x} {y} />
 			<VisAxis type="x" tickFormat={xTickFormat} />
 			<VisAxis type="y" tickFormat={yTickFormat} />
@@ -112,7 +114,7 @@
 		{/if}
 		{#if $query.error}
 			<div class="absolute inset-0 flex items-center justify-center">
-				{$query.error.message}
+				<ErrorAlert errorObject={$query.error} />
 			</div>
 		{/if}
 	</VisXYContainer>

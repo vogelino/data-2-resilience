@@ -1106,6 +1106,50 @@ type RootTranslation = {
 					description: string
 				}
 			}
+			table: {
+				headers: {
+					/**
+					 * S​t​a​t​i​o​n​s​t​y​p
+					 */
+					stationType: string
+					/**
+					 * I​D
+					 */
+					id: string
+					/**
+					 * G​e​o​k​o​o​r​d​i​n​a​t​e​n
+					 */
+					geolocation: string
+					/**
+					 * S​t​a​d​t​b​e​z​i​r​k
+					 */
+					district: string
+					/**
+					 * I​n​s​t​a​l​l​a​t​i​o​n​ ​a​m
+					 */
+					installation_at: string
+					/**
+					 * S​t​a​t​u​s
+					 */
+					status: string
+					/**
+					 * D​e​t​a​i​l​s
+					 */
+					details: string
+				}
+				cells: {
+					stationTypes: {
+						/**
+						 * W​e​t​t​e​r​s​t​a​t​i​o​n​ ​(​i​n​k​l​.​ ​B​l​a​c​k​g​l​o​b​e​ ​S​e​n​s​o​r​)
+						 */
+						biomet: string
+						/**
+						 * T​e​m​p​e​r​a​t​u​r​-​u​n​d​ ​F​e​u​c​h​t​i​g​k​e​i​t​s​s​e​n​s​o​r
+						 */
+						temprh: string
+					}
+				}
+			}
 		}
 	}
 	indicators: {
@@ -2265,6 +2309,50 @@ export type TranslationFunctions = {
 					 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
 					 */
 					description: () => LocalizedString
+				}
+			}
+			table: {
+				headers: {
+					/**
+					 * Stationstyp
+					 */
+					stationType: () => LocalizedString
+					/**
+					 * ID
+					 */
+					id: () => LocalizedString
+					/**
+					 * Geokoordinaten
+					 */
+					geolocation: () => LocalizedString
+					/**
+					 * Stadtbezirk
+					 */
+					district: () => LocalizedString
+					/**
+					 * Installation am
+					 */
+					installation_at: () => LocalizedString
+					/**
+					 * Status
+					 */
+					status: () => LocalizedString
+					/**
+					 * Details
+					 */
+					details: () => LocalizedString
+				}
+				cells: {
+					stationTypes: {
+						/**
+						 * Wetterstation (inkl. Blackglobe Sensor)
+						 */
+						biomet: () => LocalizedString
+						/**
+						 * Temperatur-und Feuchtigkeitssensor
+						 */
+						temprh: () => LocalizedString
+					}
 				}
 			}
 		}

@@ -40,8 +40,11 @@ export function GET({ url }) {
 					longitude: station.geometry.coordinates[0],
 					altitude: Math.random() * 3000,
 					district: station.properties.Strasse,
-					lcz: Math.random() * 10
-				}) satisfies RawStationMetadata
+					lcz: Math.random() * 10,
+					measured_at: new Date().toISOString()
+				}) satisfies RawStationMetadata & {
+					measured_at: string;
+				}
 		)
 	});
 }

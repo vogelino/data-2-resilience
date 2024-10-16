@@ -35,4 +35,4 @@
 </Template>
 
 <Story name="All" />
-<Story name="Single" args={{ id: '1' }} />
+<Story name="Single" args={{ id: 'DEC005304' }} />

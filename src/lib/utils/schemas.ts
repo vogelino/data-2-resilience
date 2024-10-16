@@ -137,7 +137,8 @@ export const RawStationMetadataSchema = z.object({
 	longitude: z.number(),
 	altitude: z.number(),
 	district: z.string(),
-	lcz: z.number(),
+	lcz: z.number().nullable(),
+	measured_at: z.string().optional(),
 	station_type: StationTypeSchema
 });
 export type RawStationMetadata = z.infer<typeof RawStationMetadataSchema>;

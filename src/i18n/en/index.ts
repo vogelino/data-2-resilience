@@ -462,6 +462,23 @@ const en = {
 					description:
 						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
 				}
+			},
+			table: {
+				headers: {
+					stationType: 'Station type',
+					id: 'ID',
+					geolocation: 'Geolocation',
+					district: 'District',
+					installation_at: 'Installation at',
+					status: 'Status',
+					details: 'Details'
+				},
+				cells: {
+					stationTypes: {
+						biomet: 'Weather station (including Blackglobe sensor)',
+						temprh: 'Temperature and humidity sensor'
+					}
+				}
 			}
 		}
 	},

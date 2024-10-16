@@ -6,7 +6,7 @@
 		title: 'Data Loading/Stations Data',
 		component: undefined,
 		args: {
-			id: '1',
+			id: 'DEC005476',
 			start_date: '2024-09-21T03:00:00.000Z',
 			end_date: '2024-10-03T03:00:00.000Z',
 			param: 'wind_direction',

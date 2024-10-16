@@ -1,4 +1,6 @@
 <script lang="ts" generics="T">
+	import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
+
 	import Button from './ui/button/button.svelte';
 
 	import { writable } from 'svelte/store';
@@ -41,6 +43,7 @@
 	};
 
 	$: options.update((old) => ({ ...old, data: data || [] }));
+	$: options.update((old) => ({ ...old, columns }));
 	$: options.update((old) => ({ ...old, state: { ...old.state, pagination } }));
 
 	const options = writable<TableOptions<T>>({
@@ -56,12 +59,12 @@
 	const table = createSvelteTable(options);
 </script>
 
-<table>
-	<thead>
+<Table>
+	<TableHeader>
 		{#each $table.getHeaderGroups() as headerGroup}
-			<tr>
+			<TableRow>
 				{#each headerGroup.headers as header}
-					<th colSpan={header.colSpan}>
+					<TableHead colspan={header.colSpan}>
 						{#if !header.isPlaceholder}
 							<button
 								type="button"
@@ -79,23 +82,23 @@
 								{/if}
 							</button>
 						{/if}
-					</th>
+					</TableHead>
 				{/each}
-			</tr>
+			</TableRow>
 		{/each}
-	</thead>
-	<tbody>
+	</TableHeader>
+	<TableBody>
 		{#each $table.getRowModel().rows.slice(0, pagination.pageSize) as row}
-			<tr>
+			<TableRow>
 				{#each row.getVisibleCells() as cell}
-					<td>
+					<TableCell>
 						<svelte:component this={flexRender(cell.column.columnDef.cell, cell.getContext())} />
-					</td>
+					</TableCell>
 				{/each}
-			</tr>
+			</TableRow>
 		{/each}
-	</tbody>
-</table>
+	</TableBody>
+</Table>
 <div class="flex items-center gap-2">
 	<Button
 		variant="outline"

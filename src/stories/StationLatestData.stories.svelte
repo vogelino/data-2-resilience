@@ -47,6 +47,6 @@
 	/>
 </Template>
 
-<Story name="Wind Speed" args={{ id: '1', param: 'wind_speed' }} />
-<Story name="Wind Direction" args={{ id: '1', param: 'wind_direction' }} />
-<Story name="Relative Humidity" args={{ id: '1', param: 'relative_humidity' }} />
+<Story name="Wind Speed" args={{ id: 'DEC005304', param: 'wind_speed' }} />
+<Story name="Wind Direction" args={{ id: 'DEC005304', param: 'wind_direction' }} />
+<Story name="Relative Humidity" args={{ id: 'DEC005304', param: 'relative_humidity' }} />

@@ -1,3 +1,4 @@
+import { PUBLIC_API_BASE_URL } from '$env/static/public';
 import { z } from 'zod';
 import { fromError } from 'zod-validation-error';
 import { parseStationMetadata } from './parsingUtil';
@@ -13,13 +14,13 @@ import {
 
 export const api = (customFetch = fetch) => ({
 	getStationsMetadata: async () => {
-		const response = await customFetch('http://localhost:5173/placeholder_api/stations_metadata');
+		const response = await customFetch(`${PUBLIC_API_BASE_URL}/stations/metadata`);
 		const data = await parseData(response, ParsedStationMetadataSchema);
 		return data satisfies StationMetadata[];
 	},
 	getStationsLatestData: async (param: WeatherMeasurementKeyNoMinMax) => {
 		const response = await customFetch(
-			`http://localhost:5173/placeholder_api/stations_latest_data?param=${param}`
+			`${PUBLIC_API_BASE_URL}/stations/latest_data?param=${param}`
 		);
 		const weatherMeasurementSchema = weatherMeasurementSchemasNoMinMax[param];
 		const schema =
@@ -35,9 +36,7 @@ export const api = (customFetch = fetch) => ({
 		scale?: 'hourly' | 'daily';
 	}) => {
 		const urlParams = new URLSearchParams(params);
-		const response = await customFetch(
-			`http://localhost:5173/placeholder_api/stations_data/${params.id}?${urlParams}`
-		);
+		const response = await customFetch(`${PUBLIC_API_BASE_URL}/data/${params.id}?${urlParams}`);
 		const schema = weatherMeasurementSchemas[params.param];
 		const data = await parseData(response, schema);
 		return data;

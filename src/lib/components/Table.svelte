@@ -1,7 +1,6 @@
 <script lang="ts" generics="T">
-	import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
-
 	import Button from './ui/button/button.svelte';
+	import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 
 	import { writable } from 'svelte/store';
 
@@ -17,13 +16,20 @@
 		type SortingState,
 		type TableOptions
 	} from '@tanstack/svelte-table';
-	import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight } from 'lucide-svelte';
+	import {
+		ArrowDownAZ,
+		ArrowDownZA,
+		ChevronFirst,
+		ChevronLast,
+		ChevronLeft,
+		ChevronRight
+	} from 'lucide-svelte';
 
 	export let data: T[] | undefined;
 	export let columns: ColumnDef<T>[];
 
 	let sorting: SortingState = [];
-	let pagination: PaginationState = { pageIndex: 0, pageSize: 15 };
+	let pagination: PaginationState = { pageIndex: 0, pageSize: 13 };
 
 	const setSorting: OnChangeFn<SortingState> = (updater) => {
 		if (updater instanceof Function) {
@@ -71,14 +77,15 @@
 								class:cursor-pointer={header.column.getCanSort()}
 								class:select-none={header.column.getCanSort()}
 								on:click={header.column.getToggleSortingHandler()}
+								class="flex items-center gap-2"
 							>
 								<svelte:component
 									this={flexRender(header.column.columnDef.header, header.getContext())}
 								/>
 								{#if header.column.getIsSorted().toString() === 'asc'}
-									🔼
+									<ArrowDownAZ />
 								{:else if header.column.getIsSorted().toString() === 'desc'}
-									🔽
+									<ArrowDownZA />
 								{/if}
 							</button>
 						{/if}
@@ -99,11 +106,10 @@
 		{/each}
 	</TableBody>
 </Table>
-<div class="flex items-center gap-2">
+<div class="flex items-center justify-end gap-2 border-t border-border p-2">
 	<Button
 		variant="outline"
 		size="icon"
-		class="rounded border p-1"
 		on:click={() => $table.firstPage()}
 		disabled={!$table.getCanPreviousPage()}
 	>
@@ -112,7 +118,6 @@
 	<Button
 		variant="outline"
 		size="icon"
-		class="rounded border p-1"
 		on:click={() => $table.previousPage()}
 		disabled={!$table.getCanPreviousPage()}
 	>
@@ -128,7 +133,6 @@
 	<Button
 		variant="outline"
 		size="icon"
-		class="rounded border p-1"
 		on:click={() => $table.nextPage()}
 		disabled={!$table.getCanNextPage()}
 	>
@@ -137,7 +141,6 @@
 	<Button
 		variant="outline"
 		size="icon"
-		class="rounded border p-1"
 		on:click={() => $table.lastPage()}
 		disabled={!$table.getCanNextPage()}
 	>

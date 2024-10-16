@@ -1148,6 +1148,16 @@ type RootTranslation = {
 						 */
 						temprh: string
 					}
+					status: {
+						/**
+						 * A​k​t​i​v
+						 */
+						active: string
+						/**
+						 * I​n​a​k​t​i​v
+						 */
+						inactive: string
+					}
 				}
 			}
 		}
@@ -2352,6 +2362,16 @@ export type TranslationFunctions = {
 						 * Temperatur-und Feuchtigkeitssensor
 						 */
 						temprh: () => LocalizedString
+					}
+					status: {
+						/**
+						 * Aktiv
+						 */
+						active: () => LocalizedString
+						/**
+						 * Inaktiv
+						 */
+						inactive: () => LocalizedString
 					}
 				}
 			}

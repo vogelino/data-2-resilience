@@ -18,7 +18,18 @@
 			cell: (info) =>
 				info.getValue() === 'biomet'
 					? $LL.pages.stations.table.cells.stationTypes.biomet()
-					: $LL.pages.stations.table.cells.stationTypes.temprh()
+					: $LL.pages.stations.table.cells.stationTypes.temprh(),
+			sortingFn: (a, b) => {
+				const aLabel =
+					a.original.stationType === 'biomet'
+						? $LL.pages.stations.table.cells.stationTypes.biomet()
+						: $LL.pages.stations.table.cells.stationTypes.temprh();
+				const bLabel =
+					b.original.stationType === 'biomet'
+						? $LL.pages.stations.table.cells.stationTypes.biomet()
+						: $LL.pages.stations.table.cells.stationTypes.temprh();
+				return aLabel.localeCompare(bLabel, $locale);
+			}
 		},
 		{
 			header: () => $LL.pages.stations.table.headers.id(),
@@ -40,12 +51,29 @@
 		},
 		{
 			header: () => $LL.pages.stations.table.headers.status(),
-			accessorKey: 'latitude',
-			cell: (info) => ((info.getValue() as number) > 51.491 ? 'active' : 'inactive')
+			accessorKey: 'status',
+			cell: ({ row }) =>
+				(row.original.latitude as number) > 51.491
+					? $LL.pages.stations.table.cells.status.active()
+					: $LL.pages.stations.table.cells.status.inactive(),
+			sortingFn: (a, b) => {
+				const aLabel =
+					a.original.latitude > 51.491
+						? $LL.pages.stations.table.cells.status.active()
+						: $LL.pages.stations.table.cells.status.inactive();
+				const bLabel =
+					b.original.latitude > 51.491
+						? $LL.pages.stations.table.cells.status.active()
+						: $LL.pages.stations.table.cells.status.inactive();
+				return aLabel.localeCompare(bLabel, $locale);
+			}
 		}
 	] satisfies ColumnDef<StationMetadata>[];
 </script>
 
-<h1>{$LL.pages.stations.title()}</h1>
-
-<Table data={$query.data} {columns} />
+<div class="container flex flex-col gap-6 bg-muted py-8">
+	<h1 class="text-xl font-semibold">{$LL.pages.stations.title()}</h1>
+	<div class="rounded border border-border bg-background">
+		<Table data={$query.data} {columns} />
+	</div>
+</div>

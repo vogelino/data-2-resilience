@@ -478,6 +478,10 @@ const de = {
 					stationTypes: {
 						biomet: 'Wetterstation (inkl. Blackglobe Sensor)',
 						temprh: 'Temperatur-und Feuchtigkeitssensor'
+					},
+					status: {
+						active: 'Aktiv',
+						inactive: 'Inaktiv'
 					}
 				}
 			}

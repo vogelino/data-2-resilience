@@ -142,13 +142,13 @@ type RootTranslation = {
 		}
 		tabs: {
 			/**
-			 * T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t
-			 */
-			thermicalComfort: string
-			/**
 			 * A​k​t​u​e​l​l​e​ ​M​e​s​s​w​e​r​t​e
 			 */
 			actualMeasurements: string
+			/**
+			 * H​i​t​z​e​s​t​r​e​s​s
+			 */
+			heatStress: string
 			/**
 			 * M​e​s​s​s​t​a​t​i​o​n​e​n
 			 */
@@ -162,7 +162,7 @@ type RootTranslation = {
 		title: string
 	}
 	pages: {
-		thermicalComfort: {
+		heatStress: {
 			/**
 			 * W​i​e​ ​w​a​r​m​ ​f​ü​h​l​t​ ​s​i​c​h​ ​d​e​i​n​e​ ​S​t​a​d​t​ ​a​n​?
 			 */
@@ -1361,13 +1361,13 @@ export type TranslationFunctions = {
 		}
 		tabs: {
 			/**
-			 * Thermischer Komfort
-			 */
-			thermicalComfort: () => LocalizedString
-			/**
 			 * Aktuelle Messwerte
 			 */
 			actualMeasurements: () => LocalizedString
+			/**
+			 * Hitzestress
+			 */
+			heatStress: () => LocalizedString
 			/**
 			 * Messstationen
 			 */
@@ -1381,7 +1381,7 @@ export type TranslationFunctions = {
 		title: () => LocalizedString
 	}
 	pages: {
-		thermicalComfort: {
+		heatStress: {
 			/**
 			 * Wie warm fühlt sich deine Stadt an?
 			 */

@@ -51,8 +51,8 @@ const de = {
 			about: 'Über dieses Dashboard'
 		},
 		tabs: {
-			thermicalComfort: 'Thermischer Komfort',
 			actualMeasurements: 'Aktuelle Messwerte',
+			heatStress: 'Hitzestress',
 			stations: 'Messstationen'
 		}
 	},
@@ -60,7 +60,7 @@ const de = {
 		title: 'Ausgewählte Messstationen'
 	},
 	pages: {
-		thermicalComfort: {
+		heatStress: {
 			title: 'Wie warm fühlt sich deine Stadt an?',
 			intro: [
 				'Thermischer Komfort ist der Wohlfühlzustand, bei dem eine Person mit der thermischen Umgebung zufrieden ist. Das bedeutet, dass Temperatur, Luftfeuchtigkeit, Luftbewegung und Strahlungswärme in einem als angenehm empfundenen Bereich liegen. Er kann anhand verschiedener Indikatoren gemessen werden:'

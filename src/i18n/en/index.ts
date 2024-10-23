@@ -51,8 +51,8 @@ const en = {
 			about: 'About this dashboard'
 		},
 		tabs: {
-			thermicalComfort: 'Thermal comfort',
 			actualMeasurements: 'Current measurements',
+			heatStress: 'Heat stress',
 			stations: 'Weather stations'
 		}
 	},
@@ -60,7 +60,7 @@ const en = {
 		title: 'Selected stations'
 	},
 	pages: {
-		thermicalComfort: {
+		heatStress: {
 			title: 'How warm does your city feel?',
 			intro: [
 				'Thermal comfort is the state of well-being in which a person is satisfied with the thermal environment. This means that temperature, humidity, air movement and radiant heat are within a range perceived as comfortable. It can be measured using various indicators:'

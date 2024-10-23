@@ -78,10 +78,9 @@ type RootTranslation = {
 			 */
 			label: string
 			/**
-			 * U​p​s​,​ ​e​s​ ​s​c​h​e​i​n​t​,​ ​d​a​s​s​ ​e​t​w​a​s​ ​s​c​h​i​e​f​g​e​l​a​u​f​e​n​ ​i​s​t​:​ ​"​{​e​r​r​o​r​M​e​s​s​a​g​e​?​}​"​.​ ​W​i​r​ ​e​n​t​s​c​h​u​l​d​i​g​e​n​ ​u​n​s​.​ ​B​i​t​t​e​ ​v​e​r​s​u​c​h​e​n​ ​S​i​e​ ​e​s​ ​e​r​n​e​u​t​ ​o​d​e​r​ ​n​a​v​i​g​i​e​r​e​n​ ​S​i​e​ ​z​u​r​ ​S​t​a​r​t​s​e​i​t​e​.
-			 * @param {string} [errorMessage]
+			 * U​p​s​,​ ​e​s​ ​s​c​h​e​i​n​t​,​ ​d​a​s​s​ ​e​t​w​a​s​ ​s​c​h​i​e​f​g​e​l​a​u​f​e​n​ ​i​s​t​.​ ​W​i​r​ ​e​n​t​s​c​h​u​l​d​i​g​e​n​ ​u​n​s​.​ ​B​i​t​t​e​ ​v​e​r​s​u​c​h​e​n​ ​S​i​e​ ​e​s​ ​e​r​n​e​u​t​ ​o​d​e​r​ ​n​a​v​i​g​i​e​r​e​n​ ​S​i​e​ ​z​u​r​ ​S​t​a​r​t​s​e​i​t​e​.
 			 */
-			description: RequiredParams<'errorMessage?'> | string
+			description: string
 		}
 		fourOhFour: {
 			/**
@@ -1298,9 +1297,9 @@ export type TranslationFunctions = {
 			 */
 			label: () => LocalizedString
 			/**
-			 * Ups, es scheint, dass etwas schiefgelaufen ist: "{errorMessage?}". Wir entschuldigen uns. Bitte versuchen Sie es erneut oder navigieren Sie zur Startseite.
+			 * Ups, es scheint, dass etwas schiefgelaufen ist. Wir entschuldigen uns. Bitte versuchen Sie es erneut oder navigieren Sie zur Startseite.
 			 */
-			description: (arg: { errorMessage?: string }) => LocalizedString
+			description: () => LocalizedString
 		}
 		fourOhFour: {
 			/**

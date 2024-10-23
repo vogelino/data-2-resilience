@@ -23,7 +23,7 @@ const de = {
 		genericErrorLabel: 'Fehler',
 		unexpectedError: {
 			label: 'Unerwarteter Fehler',
-			description: `Ups, es scheint, dass etwas schiefgelaufen ist: "{errorMessage?:string}". Wir entschuldigen uns. Bitte versuchen Sie es erneut oder navigieren Sie zur Startseite.`
+			description: `Ups, es scheint, dass etwas schiefgelaufen ist. Wir entschuldigen uns. Bitte versuchen Sie es erneut oder navigieren Sie zur Startseite.`
 		},
 		fourOhFour: {
 			label: 'Seite nicht gefunden',

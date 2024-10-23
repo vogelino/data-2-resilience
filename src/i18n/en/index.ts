@@ -23,7 +23,7 @@ const en = {
 		genericErrorLabel: 'Error',
 		unexpectedError: {
 			label: 'Unexpected error',
-			description: `Oops, it looks like something unexpected has went wrong: "{errorMessage}". We're sorry. Please try again or navigate to the homepage.`
+			description: `Oops, it looks like something unexpected has went wrong. We're sorry. Please try again or navigate to the homepage.`
 		},
 		fourOhFour: {
 			label: 'Page not found',

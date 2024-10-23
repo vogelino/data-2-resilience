@@ -5,10 +5,10 @@
 	import { cn } from '$lib/utils';
 	import MultiSelect, { type MultiSelectEvents, type ObjectOption } from 'svelte-multiselect';
 
-	$: formattedStations = stations.features
+	$: formattedStations = $stations.features
 		.map((s) => ({
 			value: s.properties.id,
-			label: s.properties.Label
+			label: s.properties.longName
 		}))
 		.sort((a, b) => a.label.localeCompare(b.label));
 	$: formattedSelectedStations = $selectedStations.map((id) => ({

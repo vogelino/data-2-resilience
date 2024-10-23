@@ -5,7 +5,7 @@
 	import Alert from 'components/ui/alert/alert.svelte';
 	import { queryParam } from 'sveltekit-search-params';
 
-	let selectedIndicatorSlugParam = queryParam('thermal_comfort');
+	let selectedIndicatorSlugParam = queryParam('heatSress');
 	$: selectedIndicatorSlug =
 		$selectedIndicatorSlugParam === null ? 'utci_category' : $selectedIndicatorSlugParam;
 

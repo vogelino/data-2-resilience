@@ -9,7 +9,7 @@
 
 	$: data = $selectedStations.map((id) => ({
 		id,
-		label: stations.features.find((s) => s.properties.id === id)?.properties.Label || id,
+		label: $stations.features.find((s) => s.properties.id === id)?.properties.longName || id,
 		value: Math.random() * 10000
 	}));
 	$: unitShortLabel =

@@ -63,7 +63,7 @@ const de = {
 		heatStress: {
 			title: 'Wie warm fühlt sich deine Stadt an?',
 			intro: [
-				'Thermischer Komfort ist der Wohlfühlzustand, bei dem eine Person mit der thermischen Umgebung zufrieden ist. Das bedeutet, dass Temperatur, Luftfeuchtigkeit, Luftbewegung und Strahlungswärme in einem als angenehm empfundenen Bereich liegen. Er kann anhand verschiedener Indikatoren gemessen werden:'
+				'Hitzestress ist der Zustand von Unbehagen und körperlicher Belastung, der auftritt, wenn die thermische Umgebung die Fähigkeit einer Person übersteigt, Wärme abzuleiten. Das bedeutet, dass Temperatur, Luftfeuchtigkeit, Luftbewegung und Strahlungswärme auf einem Niveau liegen, das Unbehagen oder Gesundheitsrisiken verursachen kann. Hitzestress kann anhand verschiedener Indikatoren bewertet werden:'
 			],
 			timeRangeAlert: `Daten nur verfügbar im Zeitraum vom {startDate:string} bis {endDate:string}.`,
 			indicatorsNavAriaLabel:

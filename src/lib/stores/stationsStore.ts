@@ -1,6 +1,6 @@
 import { derived, writable } from 'svelte/store';
 
-export const selectedStations = writable([] as string[]);
+export const selectedStations = writable(['DEC004D1B'] as string[]);
 export const hoveredStation = writable<string | null>(null);
 export const stationsWithPopup = derived(
 	[hoveredStation, selectedStations],

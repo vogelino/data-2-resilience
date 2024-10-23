@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { locale } from '$i18n/i18n-svelte';
+	import { fetchStations } from '$lib/stores/mapData';
 	import { positronMapStyle } from '$lib/stores/mapStyle';
 	import {
 		hoverStation,
@@ -35,7 +36,7 @@
 	const zoom = queryParam('zoom', ssp.number(10.5), config);
 	const hour = queryParam('hour', ssp.number(0), config);
 	const urlStations = queryParam('selectedStations');
-	const thermalComfort = queryParam('thermal_comfort');
+	const heatStress = queryParam('heatSress');
 	const unit = queryParam('unit');
 
 	selectedStations.subscribe((value) => {
@@ -46,22 +47,9 @@
 		unit.set(value);
 	});
 
-	onMount(() => {
-		urlStations.subscribe((value) => {
-			if (!initialized && value) {
-				selectedStations.set(value.split(','));
-			}
-		});
-		unit.subscribe((value) => {
-			if (!initialized && value) {
-				selectedUnit.set(value);
-			}
-		});
-	});
-
 	$: p = $page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
-	$: currentPage = p === '' ? 'thermal-comfort' : p;
-	$: layerType = currentPage === `thermal-comfort` ? $thermalComfort : 'stations';
+	$: currentPage = p === '' ? 'measurements' : p;
+	$: layerType = currentPage === `heat-stress` ? $heatStress : 'stations';
 
 	$: {
 		const isRightPage = currentPage === 'measurements';
@@ -92,8 +80,13 @@
 	}
 
 	function initStationsInteractions(mp: maplibregl.Map) {
+		if (!mp || !mp.getLayer('stations')) {
+			console.error('calles initStationsInteractions without the stations layer initialized');
+			return;
+		}
 		// MAP INTERACTIONS
 		mp.on('mouseenter', 'stations', (e) => {
+			mp.getCanvas().style.cursor = 'pointer';
 			const stationId = e.features?.[0]?.properties.id;
 			if (!stationId) return;
 			hoverStation(stationId);
@@ -101,20 +94,13 @@
 
 		mp.on('mouseleave', 'stations', (e) => {
 			unhoverStations();
+			mp.getCanvas().style.cursor = '';
 		});
 
 		mp.on('click', 'stations', (e) => {
 			const stationId = e.features?.[0]?.properties.id;
 			if (!stationId) return;
 			toggleStationSelection(stationId);
-		});
-
-		mp.on('mouseenter', 'stations', () => {
-			mp.getCanvas().style.cursor = 'pointer';
-		});
-
-		mp.on('mouseleave', 'stations', () => {
-			mp.getCanvas().style.cursor = '';
 		});
 	}
 
@@ -130,9 +116,6 @@
 			// MAP SOURCES AND LAYERS
 			addWmsLayers({ map });
 			addDistrictsLayer({ map });
-			addStationsLayer({ map });
-
-			initStationsInteractions(map);
 
 			initialized = true;
 		});
@@ -147,14 +130,28 @@
 			$zoom = map.getZoom();
 		});
 
-		popups = getAllPopups(map);
+		urlStations.subscribe((value) => {
+			if (!initialized && value) {
+				selectedStations.set(value.split(','));
+			}
+		});
+		unit.subscribe((value) => {
+			if (!initialized && value) {
+				selectedUnit.set(value);
+			}
+		});
+		fetchStations().then((stations) => {
+			addStationsLayer({ map, stations });
+			initStationsInteractions(map);
+			popups = getAllPopups(map, stations);
+		});
 	});
 </script>
 
 <div class="relative grid h-full w-full items-center justify-center overflow-clip">
 	<div id="map" class="relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen">
 		<MapZoomControl {map} />
-		{#if currentPage === 'thermal-comfort'}
+		{#if currentPage === 'heat-stress'}
 			<MapHourFilter />
 		{/if}
 	</div>

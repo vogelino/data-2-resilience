@@ -169,7 +169,7 @@ type RootTranslation = {
 			title: string
 			intro: {
 				/**
-				 * T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t​ ​i​s​t​ ​d​e​r​ ​W​o​h​l​f​ü​h​l​z​u​s​t​a​n​d​,​ ​b​e​i​ ​d​e​m​ ​e​i​n​e​ ​P​e​r​s​o​n​ ​m​i​t​ ​d​e​r​ ​t​h​e​r​m​i​s​c​h​e​n​ ​U​m​g​e​b​u​n​g​ ​z​u​f​r​i​e​d​e​n​ ​i​s​t​.​ ​D​a​s​ ​b​e​d​e​u​t​e​t​,​ ​d​a​s​s​ ​T​e​m​p​e​r​a​t​u​r​,​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​,​ ​L​u​f​t​b​e​w​e​g​u​n​g​ ​u​n​d​ ​S​t​r​a​h​l​u​n​g​s​w​ä​r​m​e​ ​i​n​ ​e​i​n​e​m​ ​a​l​s​ ​a​n​g​e​n​e​h​m​ ​e​m​p​f​u​n​d​e​n​e​n​ ​B​e​r​e​i​c​h​ ​l​i​e​g​e​n​.​ ​E​r​ ​k​a​n​n​ ​a​n​h​a​n​d​ ​v​e​r​s​c​h​i​e​d​e​n​e​r​ ​I​n​d​i​k​a​t​o​r​e​n​ ​g​e​m​e​s​s​e​n​ ​w​e​r​d​e​n​:
+				 * H​i​t​z​e​s​t​r​e​s​s​ ​i​s​t​ ​d​e​r​ ​Z​u​s​t​a​n​d​ ​v​o​n​ ​U​n​b​e​h​a​g​e​n​ ​u​n​d​ ​k​ö​r​p​e​r​l​i​c​h​e​r​ ​B​e​l​a​s​t​u​n​g​,​ ​d​e​r​ ​a​u​f​t​r​i​t​t​,​ ​w​e​n​n​ ​d​i​e​ ​t​h​e​r​m​i​s​c​h​e​ ​U​m​g​e​b​u​n​g​ ​d​i​e​ ​F​ä​h​i​g​k​e​i​t​ ​e​i​n​e​r​ ​P​e​r​s​o​n​ ​ü​b​e​r​s​t​e​i​g​t​,​ ​W​ä​r​m​e​ ​a​b​z​u​l​e​i​t​e​n​.​ ​D​a​s​ ​b​e​d​e​u​t​e​t​,​ ​d​a​s​s​ ​T​e​m​p​e​r​a​t​u​r​,​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​,​ ​L​u​f​t​b​e​w​e​g​u​n​g​ ​u​n​d​ ​S​t​r​a​h​l​u​n​g​s​w​ä​r​m​e​ ​a​u​f​ ​e​i​n​e​m​ ​N​i​v​e​a​u​ ​l​i​e​g​e​n​,​ ​d​a​s​ ​U​n​b​e​h​a​g​e​n​ ​o​d​e​r​ ​G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n​ ​v​e​r​u​r​s​a​c​h​e​n​ ​k​a​n​n​.​ ​H​i​t​z​e​s​t​r​e​s​s​ ​k​a​n​n​ ​a​n​h​a​n​d​ ​v​e​r​s​c​h​i​e​d​e​n​e​r​ ​I​n​d​i​k​a​t​o​r​e​n​ ​b​e​w​e​r​t​e​t​ ​w​e​r​d​e​n​:
 				 */
 				'0': string
 			}
@@ -1388,7 +1388,7 @@ export type TranslationFunctions = {
 			title: () => LocalizedString
 			intro: {
 				/**
-				 * Thermischer Komfort ist der Wohlfühlzustand, bei dem eine Person mit der thermischen Umgebung zufrieden ist. Das bedeutet, dass Temperatur, Luftfeuchtigkeit, Luftbewegung und Strahlungswärme in einem als angenehm empfundenen Bereich liegen. Er kann anhand verschiedener Indikatoren gemessen werden:
+				 * Hitzestress ist der Zustand von Unbehagen und körperlicher Belastung, der auftritt, wenn die thermische Umgebung die Fähigkeit einer Person übersteigt, Wärme abzuleiten. Das bedeutet, dass Temperatur, Luftfeuchtigkeit, Luftbewegung und Strahlungswärme auf einem Niveau liegen, das Unbehagen oder Gesundheitsrisiken verursachen kann. Hitzestress kann anhand verschiedener Indikatoren bewertet werden:
 				 */
 				'0': () => LocalizedString
 			}

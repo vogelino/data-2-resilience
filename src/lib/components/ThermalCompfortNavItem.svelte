@@ -18,7 +18,7 @@
 
 	export let indicator: IndicatorType;
 
-	let selectedIndicatorSlugParam = queryParam('thermal_comfort');
+	let selectedIndicatorSlugParam = queryParam('heatSress');
 	$: selectedIndicatorSlug =
 		$selectedIndicatorSlugParam === null ? 'utci_category' : $selectedIndicatorSlugParam;
 	$: slugWithCategory = `${indicator.slug}_category`;

@@ -1,7 +1,7 @@
 import type { Translation } from '../i18n-types';
 
 const siteNameShort = `Data2Resilience`;
-const siteSubtitle = `Dashboard for thermal comfort in Dortmund`;
+const siteSubtitle = `Dashboard for heat stress in Dortmund`;
 const en = {
 	siteNameShort,
 	author: `Data2Resilience Team`,
@@ -38,7 +38,7 @@ const en = {
 	welcome: {
 		title: 'Welcome',
 		text: [
-			'The Data2Resilience project uses a new biometeorological measurement network to observe and predict heat and involves citizens early to address challenges and needs in Dortmund. This dashboard allows you to explore real-time data on thermal comfort in the city.'
+			'The Data2Resilience project uses a new biometeorological measurement network to observe and predict heat and involves citizens early to address challenges and needs in Dortmund. This dashboard allows you to explore real-time data on heat stress in the city.'
 		],
 		buttons: {
 			confirm: "Understood, let's go",
@@ -63,7 +63,7 @@ const en = {
 		heatStress: {
 			title: 'How warm does your city feel?',
 			intro: [
-				'Thermal comfort is the state of well-being in which a person is satisfied with the thermal environment. This means that temperature, humidity, air movement and radiant heat are within a range perceived as comfortable. It can be measured using various indicators:'
+				"Heat stress is the state of discomfort and physiological strain experienced when the thermal environment exceeds a person's ability to dissipate heat. This means that temperature, humidity, air movement, and radiant heat are at levels that can cause discomfort or health risks. It can be assessed using various indicators:"
 			],
 			timeRangeAlert: `Data only available from {startDate} to {endDate}.`,
 			indicatorsNavAriaLabel: 'Select an indicator to change the data displayed on the map.'
@@ -268,7 +268,7 @@ const en = {
 						label: 'PET category',
 						shortLabel: 'PET Cat.',
 						description:
-							'The <strong>PET category</strong> describes the classification of the physiological equivalent temperature in terms of thermal comfort.'
+							'The <strong>PET category</strong> describes the classification of the physiological equivalent temperature in terms of heat stress.'
 					},
 					pet_max: {
 						label: 'Maximum physiological equivalent temperature (PET) (°C)',
@@ -346,7 +346,7 @@ const en = {
 						label: 'UTCI category',
 						shortLabel: 'UTCI Cat.',
 						description:
-							'The <strong>UTCI category</strong> describes the classification of the universal thermal comfort index in terms of thermal comfort.'
+							'The <strong>UTCI category</strong> describes the classification of the universal heat stress index in terms of heat stress.'
 					},
 					utci_max: {
 						label: 'Maximum Universal Thermic Comfort Index (UTCI) (°C)',
@@ -364,7 +364,7 @@ const en = {
 						label: 'Universal Thermic Comfort Index (UTCI) (°C)',
 						shortLabel: 'UTCI (°C)',
 						description:
-							'The <strong>Universal Thermic Comfort Index (UTCI)</strong> describes a measure of human thermal comfort that combines air temperature, humidity, wind speed, and radiation.'
+							'The <strong>Universal Thermic Comfort Index (UTCI)</strong> describes a measure of human heat stress that combines air temperature, humidity, wind speed, and radiation.'
 					},
 					vapor_pressure_max: {
 						label: 'Maximum vapor pressure (hPa)',
@@ -447,7 +447,7 @@ const en = {
 			}
 		},
 		stations: {
-			title: 'How are we measuring thermal comfort?',
+			title: 'How are we measuring heat stress?',
 			intro: [
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
 			],

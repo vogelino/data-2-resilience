@@ -4,9 +4,7 @@
 
 	export let errorObject: Error | undefined | null;
 	export let label = $LL.errors.unexpectedError.label();
-	export let description = $LL.errors.unexpectedError.description({
-		errorMessage: errorObject?.message || 'N/A'
-	});
+	export let description = $LL.errors.unexpectedError.description();
 </script>
 
 <div
@@ -18,8 +16,8 @@
 	</strong>
 	{description}
 	{#if errorObject}
-		<pre class="rounded-sm border border-black/10 bg-black/5 p-3 font-mono text-sm">
-      {errorObject.message}
-    </pre>
+		<p class="overflow-auto rounded-sm border border-black/10 bg-black/5 p-3 font-mono text-sm">
+			{errorObject.message.trim()}
+		</p>
 	{/if}
 </div>

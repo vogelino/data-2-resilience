@@ -199,6 +199,26 @@ type RootTranslation = {
 				 */
 				'1': string
 			}
+			/**
+			 * K​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​K​o​n​f​i​g​u​r​a​t​i​o​n​ ​v​e​r​f​ü​g​b​a​r
+			 */
+			noDataAvailable: string
+			/**
+			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​{​u​n​i​t​}​ ​w​e​r​d​e​n​ ​f​ü​r​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​{​s​t​a​t​i​o​n​s​}​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​e​r​h​o​b​e​n​.
+			 * @param {string} stations
+			 * @param {string} unit
+			 */
+			someUnsupportedStations: RequiredParams<'stations' | 'unit'>
+			/**
+			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​a​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​h​e​b​t​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​r​ ​I​n​d​i​k​a​t​o​r​ ​{​u​n​i​t​}​.
+			 * @param {string} unit
+			 */
+			allUnsupportedStations: RequiredParams<'unit'>
+			/**
+			 * D​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​ ​h​e​b​t​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​r​ ​I​n​d​i​k​a​t​o​r​ ​{​u​n​i​t​}​.
+			 * @param {string} unit
+			 */
+			singleUnsupportedStation: RequiredParams<'unit'>
 			stationsSelect: {
 				/**
 				 * E​i​n​e​ ​o​d​e​r​ ​m​e​h​r​e​r​e​ ​S​t​a​t​i​o​n​e​n​ ​a​u​s​w​ä​h​l​e​n
@@ -1416,6 +1436,22 @@ export type TranslationFunctions = {
 				 */
 				'1': () => LocalizedString
 			}
+			/**
+			 * Keine Daten für die ausgewählte Konfiguration verfügbar
+			 */
+			noDataAvailable: () => LocalizedString
+			/**
+			 * Für den gewählten Indikator {unit} werden für die Stationen {stations} keine Daten erhoben.
+			 */
+			someUnsupportedStations: (arg: { stations: string, unit: string }) => LocalizedString
+			/**
+			 * Keine der ausgewahlten Stationen hebt Daten für der Indikator {unit}.
+			 */
+			allUnsupportedStations: (arg: { unit: string }) => LocalizedString
+			/**
+			 * Die ausgewählte Station hebt keine Daten für der Indikator {unit}.
+			 */
+			singleUnsupportedStation: (arg: { unit: string }) => LocalizedString
 			stationsSelect: {
 				/**
 				 * Eine oder mehrere Stationen auswählen

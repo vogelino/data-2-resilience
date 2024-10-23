@@ -9,7 +9,7 @@
 	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisCrosshair, VisLine, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { Position } from '@unovis/ts';
-	import { addDays, format } from 'date-fns';
+	import { addDays, compareAsc, format } from 'date-fns';
 	import { debounce } from 'es-toolkit';
 	import { LoaderCircle } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
@@ -43,25 +43,31 @@
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 		].shortLabel();
 
-	$: id = $selectedStations[0];
+	$: ids = $selectedStations.toSorted();
 	$: query = createQuery({
-		queryKey: ['stationsData', id, startDateKey, endDateKey, $unit],
+		queryKey: ['stationsData', ids.join('-'), startDateKey, endDateKey, $unit],
 		queryFn: async () => {
-			if (!id || !start_date || !end_date || !$unit) return;
-			return api().getStaionsData({
-				id: '1',
-				start_date: start_date.toISOString(),
-				end_date: end_date.toISOString(),
-				param: $unit as unknown as WeatherMeasurementKeyNoMinMax,
-				scale: 'hourly'
+			if (ids.length === 0 || !start_date || !end_date || !$unit) return;
+			const promises = ids.map(async (id) => {
+				const startDate = start_date?.toISOString() || '';
+				const endDate = end_date?.toISOString() || '';
+				const itemResults = await api().getStaionsData({
+					id,
+					start_date: startDate,
+					end_date: endDate,
+					param: $unit as unknown as WeatherMeasurementKeyNoMinMax,
+					scale: 'hourly'
+				});
+				return itemResults.map((i) => ({ ...i, id, [id]: i[$unit as keyof typeof i] }));
 			});
+
+			const results = await Promise.all(promises);
+			return results.flat();
 		},
-		enabled: Boolean(id && start_date && end_date && $unit)
+		enabled: Boolean(ids.length > 0 && start_date && end_date && $unit)
 	});
 
-	type DataRecord = {
-		label: string;
-		value: number;
+	type DataRecord = Record<string, unknown> & {
 		date: Date;
 	};
 
@@ -69,31 +75,53 @@
 
 	$: query.subscribe((value) => {
 		if (!value.data) return;
-		data = value.data.map((item) => {
-			const value = item[$unit as keyof typeof item] as unknown as number;
-			const formattedItem = {
-				label: stations.features.find((s) => s.properties.id === id)?.properties.Label || id,
-				value,
-				date: new Date(item.measured_at)
-			} satisfies DataRecord;
-			return formattedItem;
-		});
+		const dateStrings = [...value.data.map(({ measured_at }) => measured_at)];
+		const allData = value.data;
+		data = dateStrings
+			.map((dateString) => {
+				const itemsAtThisTime = allData.filter((item) => item.measured_at === dateString);
+				const formattedItem = {
+					...itemsAtThisTime.reduce(
+						(acc, item) => ({ ...acc, [item.id]: item[$unit as keyof typeof item] }),
+						{}
+					),
+					...itemsAtThisTime.reduce(
+						(acc, { id }) => ({
+							...acc,
+							[`${id}_label`]:
+								$stations.features.find((item) => item.properties.id === id)?.properties.longName ||
+								id
+						}),
+						{}
+					),
+					date: new Date(dateString)
+				} satisfies DataRecord;
+				return formattedItem;
+			})
+			.sort((a, b) => compareAsc(a.date, b.date));
 	});
 
-	const y = (d: DataRecord) => d.value;
+	$: y = ids.map((id) => (d: DataRecord) => d[id as keyof typeof d] || 0);
 	const x = (d: DataRecord) => d.date.getTime();
 	$: xTickFormat = (d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d);
 	$: yTickFormat = (d: number) => d.toLocaleString($locale);
 	$: tooltipTemplate = (d: DataRecord) => `
 		<span class="flex flex-col text-xs">
-			<strong>${d.label}</strong>
-			<span>${new Intl.DateTimeFormat($locale, {
-				dateStyle: 'long',
-				timeStyle: 'short'
-			}).format(d.date)}</span>
-			<span>${unitShortLabel}: ${
-				typeof d.value === 'number' ? d.value.toLocaleString($locale) : d.value ?? 'Unknown'
-			}</span>
+			<strong class="pb-1">
+				${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short' }).format(d.date)}
+			</strong>
+			<span class="grid grid-cols-[auto_1fr] gap-x-1">
+				${ids
+					.map((id) => {
+						const label = d[`${id}_label`];
+						const value = d[id as keyof typeof d];
+						return `
+						<strong>${label}: </strong>
+						<span>${typeof value === 'number' ? value.toLocaleString($locale) : value ?? 'Unknown'}</span>
+					`;
+					})
+					.join('')}
+			</span>
 		</span>
 	`;
 </script>
@@ -111,6 +139,10 @@
 			<VisAxis type="y" tickFormat={yTickFormat} />
 			<VisCrosshair template={tooltipTemplate} {x} {y} />
 			<VisTooltip verticalShift={300} horizontalPlacement={Position.Center} />
+		{:else if data && data.length === 0}
+			<div class="absolute inset-0 flex items-center justify-center">
+				{$LL.pages.measurements.noDataAvailable()}
+			</div>
 		{/if}
 		{#if $query.error}
 			<div class="absolute inset-0 flex items-center justify-center">

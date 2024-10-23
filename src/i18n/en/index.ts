@@ -74,6 +74,13 @@ const en = {
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
 				'Current measured values can be displayed both for the measuring stations and for the individual city districts.'
 			],
+			noDataAvailable: 'No data available for the selected configuration',
+			someUnsupportedStations:
+				'No data is collected for the selected indicator {unit} at the stations {stations}.',
+			allUnsupportedStations:
+				'None of the selected stations collect data for the indicator {unit}.',
+			singleUnsupportedStation:
+				'The selected station does not collect data for the indicator {unit}.',
 			stationsSelect: {
 				placeholder: 'Select one or more stations',
 				label: 'Selected stations'

@@ -30,7 +30,7 @@
 	import DataFetchingPreview from './utils/DataFetchingPreview.svelte';
 
 	const queryFn: QueryFunction = ({ queryKey }) => {
-		return api().getStaionsData({
+		return api().getStationData({
 			id: queryKey[1] as string,
 			start_date: new Date(queryKey[2] as string).toISOString(),
 			end_date: new Date(queryKey[3] as string).toISOString(),

@@ -46,20 +46,34 @@
 
 	$: ids = $selectedStations.toSorted();
 	$: query = createQuery({
-		queryKey: ['stationsData', ids.join('-'), startDateKey, endDateKey, $unit],
+		queryKey: ['stationsData-range', ids.join('-'), startDateKey, endDateKey, $unit],
 		queryFn: async () => {
 			if (ids.length === 0 || !start_date || !end_date || !$unit) return;
 			const promises = ids.map(async (id) => {
 				const startDate = start_date?.toISOString() || '';
 				const endDate = end_date?.toISOString() || '';
-				const itemResults = await api().getStaionsData({
+				const itemResults = await api().getStationData({
 					id,
 					start_date: startDate,
 					end_date: endDate,
 					param: $unit as unknown as WeatherMeasurementKeyNoMinMax,
 					scale: 'hourly'
 				});
-				return itemResults.map((i) => ({ ...i, id, [id]: i[$unit as keyof typeof i] }));
+				if (itemResults === null) {
+					return [
+						{
+							id,
+							[id]: undefined,
+							supported: false
+						}
+					];
+				}
+				return (itemResults || []).map((i) => ({
+					...i,
+					id,
+					[id]: i[$unit as keyof typeof i],
+					supported: true
+				}));
 			});
 
 			const results = await Promise.all(promises);
@@ -76,22 +90,22 @@
 
 	$: query.subscribe((value) => {
 		if (!value.data) return;
-		const dateStrings = [...value.data.map(({ measured_at }) => measured_at)];
+		const dateStrings = value.data
+			.map(({ measured_at }) => measured_at)
+			.filter(Boolean) as string[];
 		const allData = value.data;
 		data = dateStrings
 			.map((dateString) => {
 				const itemsAtThisTime = allData.filter((item) => item.measured_at === dateString);
 				const formattedItem = {
 					...itemsAtThisTime.reduce(
-						(acc, item) => ({ ...acc, [item.id]: item[$unit as keyof typeof item] }),
-						{}
-					),
-					...itemsAtThisTime.reduce(
-						(acc, { id }) => ({
+						(acc, item) => ({
 							...acc,
-							[`${id}_label`]:
-								$stations.features.find((item) => item.properties.id === id)?.properties.longName ||
-								id
+							[item.id]: item[$unit as keyof typeof item],
+							[`${item.id}_supported`]: item.supported,
+							[`${item.id}_label`]:
+								$stations.features.find((item) => item.properties.id === item.id)?.properties
+									.longName || item.id
 						}),
 						{}
 					),
@@ -101,6 +115,8 @@
 			})
 			.sort((a, b) => compareAsc(a.date, b.date));
 	});
+
+	$: console.log({ data });
 
 	$: y = ids.map((id) => (d: DataRecord) => (d[id as keyof typeof d] || 0) as number);
 	const x = (d: DataRecord) => d.date.getTime();
@@ -143,7 +159,7 @@
 			<VisAxis type="y" tickFormat={yTickFormat} />
 			<VisCrosshair template={tooltipTemplate} {x} {y} />
 			<VisTooltip verticalShift={300} horizontalPlacement={Position.Center} />
-		{:else if data && data.length === 0}
+		{:else if $query.isSuccess && data && data.length === 0}
 			<div class="absolute inset-0 flex items-center justify-center">
 				{$LL.pages.measurements.noDataAvailable()}
 			</div>

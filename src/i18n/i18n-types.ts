@@ -204,21 +204,39 @@ type RootTranslation = {
 			 */
 			noDataAvailable: string
 			/**
-			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​{​u​n​i​t​}​ ​w​e​r​d​e​n​ ​f​ü​r​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​{​s​t​a​t​i​o​n​s​}​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​e​r​h​o​b​e​n​.
+			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​w​e​r​d​e​n​ ​f​ü​r​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​n​i​c​h​t​ ​g​e​n​ü​g​e​n​d​ ​D​a​t​e​n​ ​e​r​h​o​b​e​n​,​ ​u​m​ ​s​i​e​ ​i​n​ ​a​g​g​r​e​g​i​e​r​t​e​n​ ​F​r​o​m​ ​a​n​z​u​z​e​i​g​e​n​.
+			 * @param {string} stations
+			 * @param {string} unit
+			 */
+			someInsufficientDataStations: RequiredParams<'stations' | 'unit'>
+			/**
+			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​a​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​e​r​h​e​b​t​ ​g​e​n​ü​g​e​n​d​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​,​ ​u​m​ ​s​i​e​ ​i​n​ ​a​g​g​r​e​g​i​e​r​t​e​n​ ​F​r​o​m​ ​a​n​z​u​z​e​i​g​e​n​.
+			 * @param {string} unit
+			 */
+			allInsufficientDataStations: RequiredParams<'unit'>
+			/**
+			 * D​i​e​ ​S​t​a​t​i​o​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​t​ ​n​i​c​h​t​ ​g​e​n​ü​g​e​n​d​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​,​ ​u​m​ ​s​i​e​ ​i​n​ ​a​g​g​r​e​g​i​e​r​t​e​n​ ​F​r​o​m​ ​a​n​z​u​z​e​i​g​e​n​.
+			 * @param {string} station
+			 * @param {string} unit
+			 */
+			singleInsufficientDataStation: RequiredParams<'station' | 'unit'>
+			/**
+			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​k​e​i​n​e​ ​D​a​t​e​n​.
 			 * @param {string} stations
 			 * @param {string} unit
 			 */
 			someUnsupportedStations: RequiredParams<'stations' | 'unit'>
 			/**
-			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​a​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​h​e​b​t​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​r​ ​I​n​d​i​k​a​t​o​r​ ​{​u​n​i​t​}​.
+			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​e​r​h​e​b​t​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
 			 * @param {string} unit
 			 */
 			allUnsupportedStations: RequiredParams<'unit'>
 			/**
-			 * D​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​ ​h​e​b​t​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​r​ ​I​n​d​i​k​a​t​o​r​ ​{​u​n​i​t​}​.
+			 * D​i​e​ ​S​t​a​t​i​o​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​t​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
+			 * @param {string} station
 			 * @param {string} unit
 			 */
-			singleUnsupportedStation: RequiredParams<'unit'>
+			singleUnsupportedStation: RequiredParams<'station' | 'unit'>
 			stationsSelect: {
 				/**
 				 * E​i​n​e​ ​o​d​e​r​ ​m​e​h​r​e​r​e​ ​S​t​a​t​i​o​n​e​n​ ​a​u​s​w​ä​h​l​e​n
@@ -1445,17 +1463,29 @@ export type TranslationFunctions = {
 			 */
 			noDataAvailable: () => LocalizedString
 			/**
-			 * Für den gewählten Indikator {unit} werden für die Stationen {stations} keine Daten erhoben.
+			 * Für den gewählten Indikator <strong>{unit}</strong> werden für die Stationen <strong>{stations}</strong> nicht genügend Daten erhoben, um sie in aggregierten From anzuzeigen.
+			 */
+			someInsufficientDataStations: (arg: { stations: string, unit: string }) => LocalizedString
+			/**
+			 * Keine der ausgewahlten Stationen erhebt genügend Daten für den Indikator <strong>{unit}</strong>, um sie in aggregierten From anzuzeigen.
+			 */
+			allInsufficientDataStations: (arg: { unit: string }) => LocalizedString
+			/**
+			 * Die Station <strong>{station}</strong> erhebt nicht genügend Daten für den Indikator <strong>{unit}</strong>, um sie in aggregierten From anzuzeigen.
+			 */
+			singleInsufficientDataStation: (arg: { station: string, unit: string }) => LocalizedString
+			/**
+			 * Für den gewählten Indikator <strong>{unit}</strong> erheben die Stationen <strong>{stations}</strong> keine Daten.
 			 */
 			someUnsupportedStations: (arg: { stations: string, unit: string }) => LocalizedString
 			/**
-			 * Keine der ausgewahlten Stationen hebt Daten für der Indikator {unit}.
+			 * Keine der ausgewählten Stationen erhebt Daten für den Indikator <strong>{unit}</strong>.
 			 */
 			allUnsupportedStations: (arg: { unit: string }) => LocalizedString
 			/**
-			 * Die ausgewählte Station hebt keine Daten für der Indikator {unit}.
+			 * Die Station <strong>{station}</strong> erhebt keine Daten für den Indikator <strong>{unit}</strong>.
 			 */
-			singleUnsupportedStation: (arg: { unit: string }) => LocalizedString
+			singleUnsupportedStation: (arg: { station: string, unit: string }) => LocalizedString
 			stationsSelect: {
 				/**
 				 * Eine oder mehrere Stationen auswählen

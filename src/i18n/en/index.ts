@@ -75,12 +75,18 @@ const en = {
 				'Current measured values can be displayed both for the measuring stations and for the individual city districts.'
 			],
 			noDataAvailable: 'No data available for the selected configuration',
+			someInsufficientDataStations:
+				'Not enought data is collected for the selected indicator <strong>{unit}</strong> at the stations <strong>{stations}</strong> for us to aggregate it.',
+			allInsufficientDataStations:
+				'None of the selected stations collect enough data for the indicator <strong>{unit}</strong> for us to aggregate it.',
+			singleInsufficientDataStation:
+				'The station <strong>{station}</strong> does not collect enough data for the indicator <strong>{unit}</strong> for us to aggregate it.',
 			someUnsupportedStations:
-				'No data is collected for the selected indicator {unit} at the stations {stations}.',
+				'The stations <strong>{stations}</strong> do not collect data for the selected indicator <strong>{unit}</strong>.',
 			allUnsupportedStations:
-				'None of the selected stations collect data for the indicator {unit}.',
+				'None of the selected stations collect data for the indicator <strong>{unit}</strong>.',
 			singleUnsupportedStation:
-				'The selected station does not collect data for the indicator {unit}.',
+				'The station <strong>{station}</strong> does not collect data for the indicator <strong>{unit}</strong>.',
 			stationsSelect: {
 				placeholder: 'Select one or more stations',
 				label: 'Selected stations'

@@ -76,12 +76,18 @@ const de = {
 				'Aktuell Messwerte können sowohl für die Messstationen als auch für die einzelnen Stadtbezirke angezeigt werden.'
 			],
 			noDataAvailable: 'Keine Daten für die ausgewählte Konfiguration verfügbar',
+			someInsufficientDataStations:
+				'Für den gewählten Indikator <strong>{unit:string}</strong> werden für die Stationen <strong>{stations:string}</strong> nicht genügend Daten erhoben, um sie in aggregierten From anzuzeigen.',
+			allInsufficientDataStations:
+				'Keine der ausgewahlten Stationen erhebt genügend Daten für den Indikator <strong>{unit:string}</strong>, um sie in aggregierten From anzuzeigen.',
+			singleInsufficientDataStation:
+				'Die Station <strong>{station:string}</strong> erhebt nicht genügend Daten für den Indikator <strong>{unit:string}</strong>, um sie in aggregierten From anzuzeigen.',
 			someUnsupportedStations:
-				'Für den gewählten Indikator {unit:string} werden für die Stationen {stations:string} keine Daten erhoben.',
+				'Für den gewählten Indikator <strong>{unit:string}</strong> erheben die Stationen <strong>{stations:string}</strong> keine Daten.',
 			allUnsupportedStations:
-				'Keine der ausgewahlten Stationen hebt Daten für der Indikator {unit:string}.',
+				'Keine der ausgewählten Stationen erhebt Daten für den Indikator <strong>{unit:string}</strong>.',
 			singleUnsupportedStation:
-				'Die ausgewählte Station hebt keine Daten für der Indikator {unit:string}.',
+				'Die Station <strong>{station:string}</strong> erhebt keine Daten für den Indikator <strong>{unit:string}</strong>.',
 			stationsSelect: {
 				placeholder: 'Eine oder mehrere Stationen auswählen',
 				label: 'Ausgewählte Messstationen'

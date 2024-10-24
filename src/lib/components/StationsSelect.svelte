@@ -11,10 +11,12 @@
 			label: s.properties.longName
 		}))
 		.sort((a, b) => a.label.localeCompare(b.label));
-	$: formattedSelectedStations = $selectedStations.map((id) => ({
-		value: id,
-		label: formattedStations.find((s) => s.value === id)?.label || id
-	}));
+	$: formattedSelectedStations = $selectedStations
+		.map((id) => ({
+			value: id,
+			label: formattedStations.find((s) => s.value === id)?.label || id
+		}))
+		.sort((a, b) => a.label.localeCompare(b.label));
 
 	function onAdd(e: MultiSelectEvents['add']) {
 		const opt = e.detail.option as ObjectOption;

@@ -28,7 +28,7 @@ export const api = (customFetch = fetch) => ({
 		const data = await parseData(response, schema);
 		return data;
 	},
-	getStaionsData: async (params: {
+	getStationData: async (params: {
 		id: string;
 		start_date: string;
 		end_date: string;
@@ -37,6 +37,11 @@ export const api = (customFetch = fetch) => ({
 	}) => {
 		const urlParams = new URLSearchParams(params);
 		const response = await customFetch(`${PUBLIC_API_BASE_URL}/data/${params.id}?${urlParams}`);
+
+		if (!response.ok && response.status === 422) {
+			return null;
+		}
+
 		const schema = weatherMeasurementSchemas[params.param];
 		const data = await parseData(response, schema);
 		return data;

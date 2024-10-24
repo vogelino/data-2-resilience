@@ -7,7 +7,7 @@
 
 	let selectedIndicatorSlugParam = queryParam('heatSress');
 	$: selectedIndicatorSlug =
-		$selectedIndicatorSlugParam === null ? 'utci_category' : $selectedIndicatorSlugParam;
+		$selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam;
 
 	$: indicatorValues = [
 		{

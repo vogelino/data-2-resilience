@@ -20,7 +20,7 @@
 
 	let selectedIndicatorSlugParam = queryParam('heatSress');
 	$: selectedIndicatorSlug =
-		$selectedIndicatorSlugParam === null ? 'utci_category' : $selectedIndicatorSlugParam;
+		$selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam;
 	$: slugWithCategory = `${indicator.slug}_category`;
 	$: valueSelected = indicator.isSelected && selectedIndicatorSlug !== slugWithCategory;
 	$: categorySelected = indicator.isSelected && selectedIndicatorSlug === slugWithCategory;

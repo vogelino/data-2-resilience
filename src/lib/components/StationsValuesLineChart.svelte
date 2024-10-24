@@ -42,6 +42,7 @@
 		$LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 		].shortLabel();
+	$: stationHeaderLabel = $LL.pages.measurements.unitSelect.stationsHeaderLabel();
 
 	$: ids = $selectedStations.toSorted();
 	$: query = createQuery({
@@ -101,22 +102,25 @@
 			.sort((a, b) => compareAsc(a.date, b.date));
 	});
 
-	$: y = ids.map((id) => (d: DataRecord) => d[id as keyof typeof d] || 0);
+	$: y = ids.map((id) => (d: DataRecord) => (d[id as keyof typeof d] || 0) as number);
 	const x = (d: DataRecord) => d.date.getTime();
 	$: xTickFormat = (d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d);
 	$: yTickFormat = (d: number) => d.toLocaleString($locale);
 	$: tooltipTemplate = (d: DataRecord) => `
-		<span class="flex flex-col text-xs">
-			<strong class="pb-1">
+		<span class="flex flex-col text-xs min-w-56">
+			<strong class="pb-1 mb-1 border-b border-border text-sm">
 				${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short' }).format(d.date)}
 			</strong>
-			<span class="grid grid-cols-[auto_1fr] gap-x-1">
+			<span class="grid grid-cols-[auto_1fr] gap-x-4">
+				<strong class="pb-1 mb-1 border-b border-border">${stationHeaderLabel}</strong>
+				<strong class="pb-1 mb-1 border-b border-border">${unitShortLabel}</strong>
 				${ids
+					.filter((id) => d[id as keyof typeof d] && d[`${id}_label`])
 					.map((id) => {
 						const label = d[`${id}_label`];
 						const value = d[id as keyof typeof d];
 						return `
-						<strong>${label}: </strong>
+						<span>${label}</span>
 						<span>${typeof value === 'number' ? value.toLocaleString($locale) : value ?? 'Unknown'}</span>
 					`;
 					})
@@ -134,7 +138,7 @@
 		class={cn('transition-opacity', $query.isFetching && 'opacity-20')}
 	>
 		{#if data && data.length > 0 && !$query.error}
-			<VisLine {x} {y} />
+			<VisLine {x} {y} fallbackValue={undefined} />
 			<VisAxis type="x" tickFormat={xTickFormat} />
 			<VisAxis type="y" tickFormat={yTickFormat} />
 			<VisCrosshair template={tooltipTemplate} {x} {y} />

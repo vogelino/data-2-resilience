@@ -248,6 +248,10 @@ type RootTranslation = {
 				 * @param {unknown} total
 				 */
 				xOutOfY: RequiredParams<'part' | 'total'>
+				/**
+				 * S​t​a​t​i​o​n​n​a​m​e​n
+				 */
+				stationsHeaderLabel: string
 				units: {
 					absolute_humidity_max: {
 						/**
@@ -1479,6 +1483,10 @@ export type TranslationFunctions = {
 				 * {part} von {total}
 				 */
 				xOutOfY: (arg: { part: unknown, total: unknown }) => LocalizedString
+				/**
+				 * Stationnamen
+				 */
+				stationsHeaderLabel: () => LocalizedString
 				units: {
 					absolute_humidity_max: {
 						/**

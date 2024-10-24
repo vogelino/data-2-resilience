@@ -91,6 +91,7 @@ const de = {
 				placeholder: 'Einheit auswählen',
 				searchPlaceholder: 'Einheit suchen...',
 				xOutOfY: '{part} von {total}',
+				stationsHeaderLabel: `Stationnamen`,
 				units: {
 					absolute_humidity_max: {
 						label: 'Maximale absolute Luftfeuchtigkeit (g/m³)',

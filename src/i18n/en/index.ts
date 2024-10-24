@@ -90,6 +90,7 @@ const en = {
 				placeholder: 'Select a unit',
 				searchPlaceholder: 'Search unit...',
 				xOutOfY: '{part} of {total} stations',
+				stationsHeaderLabel: `Station name`,
 				units: {
 					absolute_humidity_max: {
 						label: 'Maximum absolute humidity (g/m³)',

@@ -100,16 +100,6 @@
 	$: unsupportedDataStations = $stations.features
 		.filter((f) => unsupportedDataIds.includes(f.properties.id))
 		.sort((a, b) => a.properties.longName.localeCompare(b.properties.longName));
-	$: console.log({
-		ids,
-		data,
-		insufficientDataIds,
-		noneSufficientData,
-		insufficientDataStations,
-		unsupportedDataIds,
-		noneSupportedData,
-		unsupportedDataStations
-	});
 
 	const y = (d: DataRecord) => d.value;
 	const x = (d: DataRecord, idx: number) => idx;

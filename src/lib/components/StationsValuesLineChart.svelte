@@ -116,8 +116,6 @@
 			.sort((a, b) => compareAsc(a.date, b.date));
 	});
 
-	$: console.log({ data });
-
 	$: y = ids.map((id) => (d: DataRecord) => (d[id as keyof typeof d] || 0) as number);
 	const x = (d: DataRecord) => d.date.getTime();
 	$: xTickFormat = (d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d);

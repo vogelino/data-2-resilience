@@ -15,6 +15,7 @@ export const stations = writable({
 export async function fetchStations() {
 	const stationsMetadata = await api().getStationsMetadata();
 	const stationsGeoJSONFeatures = stationsMetadata.map((station) => ({
+		id: station.id,
 		type: 'Feature' as const,
 		properties: station,
 		geometry: {

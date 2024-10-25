@@ -102,17 +102,15 @@
 				.map((dateString) => {
 					const itemsAtThisTime = allData.filter((item) => item.measured_at === dateString);
 					const formattedItem = {
-						...itemsAtThisTime.reduce(
-							(acc, item) => ({
+						...itemsAtThisTime.reduce((acc, item) => {
+							const relatedStation = stations.features.find((f) => f.properties.id === item.id);
+							return {
 								...acc,
 								[item.id]: item[$unit as keyof typeof item],
 								[`${item.id}_supported`]: item.supported,
-								[`${item.id}_label`]:
-									stations.features.find((item) => item.properties.id === item.id)?.properties
-										.longName || item.id
-							}),
-							{}
-						),
+								[`${item.id}_label`]: relatedStation?.properties.longName || item.id
+							};
+						}, {}),
 						date: new Date(dateString)
 					} satisfies DataRecord;
 					return formattedItem;
@@ -135,6 +133,12 @@
 				<strong class="pb-1 mb-1 border-b border-border">${unitShortLabel}</strong>
 				${ids
 					.filter((id) => d[id as keyof typeof d] && d[`${id}_label`])
+					.sort((a, b) => {
+						const aLabel = d[`${a}_label`] as string;
+						const bLabel = d[`${b}_label`] as string;
+						if (!aLabel || !bLabel) return 0;
+						return aLabel.localeCompare(bLabel);
+					})
 					.map((id) => {
 						const label = d[`${id}_label`];
 						const value = d[id as keyof typeof d];

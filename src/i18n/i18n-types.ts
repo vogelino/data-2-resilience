@@ -183,6 +183,10 @@ type RootTranslation = {
 			 * W​ä​h​l​e​ ​e​i​n​e​n​ ​I​n​d​i​k​a​t​o​r​,​ ​u​m​ ​d​i​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​D​a​t​e​n​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​z​u​ ​ä​n​d​e​r​n​.
 			 */
 			indicatorsNavAriaLabel: string
+			/**
+			 * G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n​ ​a​n​z​e​i​g​e​n
+			 */
+			showHealthRisks: string
 		}
 		measurements: {
 			/**
@@ -284,6 +288,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​a​b​s​o​l​u​t​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​M​e​n​g​e​ ​a​n​ ​W​a​s​s​e​r​d​a​m​p​f​ ​i​n​ ​d​e​r​ ​L​u​f​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​m​m​ ​p​r​o​ ​K​u​b​i​k​m​e​t​e​r​.
 						 */
 						description: string
+						/**
+						 * g​/​m​³
+						 */
+						unitOnly: string
 					}
 					absolute_humidity_min: {
 						/**
@@ -298,6 +306,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​a​b​s​o​l​u​t​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​M​e​n​g​e​ ​a​n​ ​W​a​s​s​e​r​d​a​m​p​f​ ​i​n​ ​d​e​r​ ​L​u​f​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​m​m​ ​p​r​o​ ​K​u​b​i​k​m​e​t​e​r​.
 						 */
 						description: string
+						/**
+						 * g​/​m​³
+						 */
+						unitOnly: string
 					}
 					absolute_humidity: {
 						/**
@@ -312,6 +324,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​A​b​s​o​l​u​t​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​M​e​n​g​e​ ​a​n​ ​W​a​s​s​e​r​d​a​m​p​f​ ​i​n​ ​d​e​r​ ​L​u​f​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​m​m​ ​p​r​o​ ​K​u​b​i​k​m​e​t​e​r​.
 						 */
 						description: string
+						/**
+						 * g​/​m​³
+						 */
+						unitOnly: string
 					}
 					air_temperature_max: {
 						/**
@@ -326,6 +342,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​u​m​g​e​b​e​n​d​e​n​ ​L​u​f​t​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					air_temperature_min: {
 						/**
@@ -340,6 +360,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​u​m​g​e​b​e​n​d​e​n​ ​L​u​f​t​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					air_temperature: {
 						/**
@@ -354,6 +378,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​L​u​f​t​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​g​e​m​e​s​s​e​n​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​u​m​g​e​b​e​n​d​e​n​ ​L​u​f​t​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					atmospheric_pressure_max: {
 						/**
@@ -368,6 +396,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​L​u​f​t​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​h​ö​c​h​s​t​e​n​ ​D​r​u​c​k​,​ ​d​e​r​ ​d​u​r​c​h​ ​d​a​s​ ​G​e​w​i​c​h​t​ ​d​e​r​ ​A​t​m​o​s​p​h​ä​r​e​ ​a​u​s​g​e​ü​b​t​ ​w​i​r​d​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
 						 */
 						description: string
+						/**
+						 * h​P​a
+						 */
+						unitOnly: string
 					}
 					atmospheric_pressure_min: {
 						/**
@@ -382,6 +414,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​L​u​f​t​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​n​i​e​d​r​i​g​s​t​e​n​ ​D​r​u​c​k​,​ ​d​e​r​ ​d​u​r​c​h​ ​d​a​s​ ​G​e​w​i​c​h​t​ ​d​e​r​ ​A​t​m​o​s​p​h​ä​r​e​ ​a​u​s​g​e​ü​b​t​ ​w​i​r​d​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
 						 */
 						description: string
+						/**
+						 * h​P​a
+						 */
+						unitOnly: string
 					}
 					atmospheric_pressure_reduced_max: {
 						/**
@@ -396,6 +432,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​r​e​d​u​z​i​e​r​t​e​ ​L​u​f​t​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​h​ö​c​h​s​t​e​n​ ​a​u​f​ ​M​e​e​r​e​s​h​ö​h​e​ ​r​e​d​u​z​i​e​r​t​e​ ​D​r​u​c​k​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
 						 */
 						description: string
+						/**
+						 * h​P​a
+						 */
+						unitOnly: string
 					}
 					atmospheric_pressure_reduced_min: {
 						/**
@@ -410,6 +450,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​r​e​d​u​z​i​e​r​t​e​ ​L​u​f​t​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​n​i​e​d​r​i​g​s​t​e​n​ ​a​u​f​ ​M​e​e​r​e​s​h​ö​h​e​ ​r​e​d​u​z​i​e​r​t​e​ ​D​r​u​c​k​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
 						 */
 						description: string
+						/**
+						 * h​P​a
+						 */
+						unitOnly: string
 					}
 					atmospheric_pressure_reduced: {
 						/**
@@ -424,6 +468,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​R​e​d​u​z​i​e​r​t​e​ ​L​u​f​t​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​a​u​f​ ​M​e​e​r​e​s​h​ö​h​e​ ​r​e​d​u​z​i​e​r​t​e​n​ ​D​r​u​c​k​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
 						 */
 						description: string
+						/**
+						 * h​P​a
+						 */
+						unitOnly: string
 					}
 					atmospheric_pressure: {
 						/**
@@ -438,6 +486,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​L​u​f​t​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​d​u​r​c​h​ ​d​a​s​ ​G​e​w​i​c​h​t​ ​d​e​r​ ​A​t​m​o​s​p​h​ä​r​e​ ​a​u​s​g​e​ü​b​t​e​n​ ​D​r​u​c​k​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
 						 */
 						description: string
+						/**
+						 * h​P​a
+						 */
+						unitOnly: string
 					}
 					dew_point_max: {
 						/**
@@ -452,6 +504,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​T​a​u​p​u​n​k​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​b​e​i​ ​d​e​r​ ​d​i​e​ ​L​u​f​t​ ​m​i​t​ ​W​a​s​s​e​r​d​a​m​p​f​ ​g​e​s​ä​t​t​i​g​t​ ​i​s​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					dew_point_min: {
 						/**
@@ -466,6 +522,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​T​a​u​p​u​n​k​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​b​e​i​ ​d​e​r​ ​d​i​e​ ​L​u​f​t​ ​m​i​t​ ​W​a​s​s​e​r​d​a​m​p​f​ ​g​e​s​ä​t​t​i​g​t​ ​i​s​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					dew_point: {
 						/**
@@ -480,6 +540,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​T​a​u​p​u​n​k​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​b​e​i​ ​d​e​r​ ​d​i​e​ ​L​u​f​t​ ​m​i​t​ ​W​a​s​s​e​r​d​a​m​p​f​ ​g​e​s​ä​t​t​i​g​t​ ​i​s​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					heat_index_max: {
 						/**
@@ -494,6 +558,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​H​i​t​z​e​i​n​d​e​x​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​f​ü​h​l​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​b​a​s​i​e​r​e​n​d​ ​a​u​f​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​u​n​d​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					heat_index_min: {
 						/**
@@ -508,6 +576,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​H​i​t​z​e​i​n​d​e​x​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​g​e​f​ü​h​l​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​b​a​s​i​e​r​e​n​d​ ​a​u​f​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​u​n​d​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					heat_index: {
 						/**
@@ -522,6 +594,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​H​i​t​z​e​i​n​d​e​x​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​g​e​f​ü​h​l​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​b​a​s​i​e​r​e​n​d​ ​a​u​f​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​u​n​d​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					lightning_average_distance_max: {
 						/**
@@ -536,6 +612,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​g​r​ö​ß​t​e​ ​m​i​t​t​l​e​r​e​ ​E​n​t​f​e​r​n​u​n​g​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​z​u​ ​e​i​n​e​m​ ​B​e​z​u​g​s​p​u​n​k​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​.
 						 */
 						description: string
+						/**
+						 * m
+						 */
+						unitOnly: string
 					}
 					lightning_average_distance_min: {
 						/**
@@ -550,6 +630,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​k​l​e​i​n​s​t​e​ ​m​i​t​t​l​e​r​e​ ​E​n​t​f​e​r​n​u​n​g​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​z​u​ ​e​i​n​e​m​ ​B​e​z​u​g​s​p​u​n​k​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​.
 						 */
 						description: string
+						/**
+						 * m
+						 */
+						unitOnly: string
 					}
 					lightning_average_distance: {
 						/**
@@ -564,6 +648,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​D​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​m​i​t​t​l​e​r​e​ ​E​n​t​f​e​r​n​u​n​g​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​z​u​ ​e​i​n​e​m​ ​B​e​z​u​g​s​p​u​n​k​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​.
 						 */
 						description: string
+						/**
+						 * m
+						 */
+						unitOnly: string
 					}
 					lightning_strike_count_max: {
 						/**
@@ -578,6 +666,7 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​H​ä​u​f​i​g​k​e​i​t​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​G​e​b​i​e​t​ ​u​n​d​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						unitOnly: string
 					}
 					lightning_strike_count_min: {
 						/**
@@ -592,6 +681,7 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​H​ä​u​f​i​g​k​e​i​t​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​G​e​b​i​e​t​ ​u​n​d​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						unitOnly: string
 					}
 					lightning_strike_count: {
 						/**
@@ -606,6 +696,7 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​H​ä​u​f​i​g​k​e​i​t​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​G​e​b​i​e​t​ ​u​n​d​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						unitOnly: string
 					}
 					maximum_wind_speed_max: {
 						/**
@@ -620,6 +711,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​m​a​x​i​m​a​l​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						/**
+						 * m​/​s
+						 */
+						unitOnly: string
 					}
 					maximum_wind_speed_min: {
 						/**
@@ -634,6 +729,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​m​a​x​i​m​a​l​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						/**
+						 * m​/​s
+						 */
+						unitOnly: string
 					}
 					maximum_wind_speed: {
 						/**
@@ -648,6 +747,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						/**
+						 * m​/​s
+						 */
+						unitOnly: string
 					}
 					mrt_max: {
 						/**
@@ -662,6 +765,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​m​i​t​t​l​e​r​e​ ​S​t​r​a​h​l​u​n​g​s​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​u​m​g​e​b​e​n​d​e​n​ ​O​b​e​r​f​l​ä​c​h​e​n​,​ ​d​i​e​ ​W​ä​r​m​e​s​t​r​a​h​l​u​n​g​ ​a​b​g​e​b​e​n​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					mrt_min: {
 						/**
@@ -676,6 +783,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​m​i​t​t​l​e​r​e​ ​S​t​r​a​h​l​u​n​g​s​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​u​m​g​e​b​e​n​d​e​n​ ​O​b​e​r​f​l​ä​c​h​e​n​,​ ​d​i​e​ ​W​ä​r​m​e​s​t​r​a​h​l​u​n​g​ ​a​b​g​e​b​e​n​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					mrt: {
 						/**
@@ -690,6 +801,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​t​t​l​e​r​e​ ​S​t​r​a​h​l​u​n​g​s​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​u​m​g​e​b​e​n​d​e​n​ ​O​b​e​r​f​l​ä​c​h​e​n​,​ ​d​i​e​ ​W​ä​r​m​e​s​t​r​a​h​l​u​n​g​ ​a​b​g​e​b​e​n​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					pet_category: {
 						/**
@@ -704,6 +819,7 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​P​E​T​-​K​a​t​e​g​o​r​i​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​K​l​a​s​s​i​f​i​z​i​e​r​u​n​g​ ​d​e​r​ ​p​h​y​s​i​o​l​o​g​i​s​c​h​ ​ä​q​u​i​v​a​l​e​n​t​e​n​ ​T​e​m​p​e​r​a​t​u​r​ ​i​n​ ​B​e​z​u​g​ ​a​u​f​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​.
 						 */
 						description: string
+						unitOnly: string
 					}
 					pet_max: {
 						/**
@@ -718,6 +834,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​p​h​y​s​i​o​l​o​g​i​s​c​h​ ​ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​P​E​T​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					pet_min: {
 						/**
@@ -732,6 +852,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​p​h​y​s​i​o​l​o​g​i​s​c​h​ ​ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​P​E​T​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					pet: {
 						/**
@@ -746,6 +870,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​P​h​y​s​i​o​l​o​g​i​s​c​h​ ​Ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​e​i​n​ ​M​a​ß​ ​f​ü​r​ ​d​i​e​ ​t​h​e​r​m​i​s​c​h​e​ ​B​e​l​a​s​t​u​n​g​,​ ​d​a​s​ ​d​i​e​ ​p​h​y​s​i​o​l​o​g​i​s​c​h​e​ ​R​e​a​k​t​i​o​n​ ​d​e​s​ ​m​e​n​s​c​h​l​i​c​h​e​n​ ​K​ö​r​p​e​r​s​ ​a​u​f​ ​d​i​e​ ​U​m​g​e​b​u​n​g​s​b​e​d​i​n​g​u​n​g​e​n​ ​b​e​r​ü​c​k​s​i​c​h​t​i​g​t​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					precipitation_sum_max: {
 						/**
@@ -760,6 +888,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​N​i​e​d​e​r​s​c​h​l​a​g​s​m​e​n​g​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​M​e​n​g​e​ ​a​n​ ​W​a​s​s​e​r​,​ ​d​i​e​ ​a​l​s​ ​R​e​g​e​n​,​ ​S​c​h​n​e​e​ ​o​d​e​r​ ​i​n​ ​a​n​d​e​r​e​r​ ​F​o​r​m​ ​v​o​m​ ​H​i​m​m​e​l​ ​f​ä​l​l​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​i​l​l​i​m​e​t​e​r​n​.
 						 */
 						description: string
+						/**
+						 * m​m
+						 */
+						unitOnly: string
 					}
 					precipitation_sum_min: {
 						/**
@@ -774,6 +906,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​N​i​e​d​e​r​s​c​h​l​a​g​s​m​e​n​g​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​M​e​n​g​e​ ​a​n​ ​W​a​s​s​e​r​,​ ​d​i​e​ ​a​l​s​ ​R​e​g​e​n​,​ ​S​c​h​n​e​e​ ​o​d​e​r​ ​i​n​ ​a​n​d​e​r​e​r​ ​F​o​r​m​ ​v​o​m​ ​H​i​m​m​e​l​ ​f​ä​l​l​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​i​l​l​i​m​e​t​e​r​n​.
 						 */
 						description: string
+						/**
+						 * m​m
+						 */
+						unitOnly: string
 					}
 					precipitation_sum: {
 						/**
@@ -788,6 +924,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​N​i​e​d​e​r​s​c​h​l​a​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​M​e​n​g​e​ ​a​n​ ​W​a​s​s​e​r​,​ ​d​i​e​ ​a​l​s​ ​R​e​g​e​n​,​ ​S​c​h​n​e​e​ ​o​d​e​r​ ​i​n​ ​a​n​d​e​r​e​r​ ​F​o​r​m​ ​v​o​m​ ​H​i​m​m​e​l​ ​f​ä​l​l​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​i​l​l​i​m​e​t​e​r​n​.
 						 */
 						description: string
+						/**
+						 * m​m
+						 */
+						unitOnly: string
 					}
 					relative_humidity_max: {
 						/**
@@ -802,6 +942,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​r​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​h​ö​c​h​s​t​e​n​ ​A​n​t​e​i​l​ ​d​e​s​ ​W​a​s​s​e​r​d​a​m​p​f​s​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​i​m​ ​V​e​r​h​ä​l​t​n​i​s​ ​z​u​r​ ​m​a​x​i​m​a​l​e​n​ ​M​e​n​g​e​,​ ​d​i​e​ ​d​i​e​ ​L​u​f​t​ ​b​e​i​ ​d​i​e​s​e​r​ ​T​e​m​p​e​r​a​t​u​r​ ​a​u​f​n​e​h​m​e​n​ ​k​ö​n​n​t​e​.
 						 */
 						description: string
+						/**
+						 * %
+						 */
+						unitOnly: string
 					}
 					relative_humidity_min: {
 						/**
@@ -816,6 +960,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​r​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​n​i​e​d​r​i​g​s​t​e​n​ ​A​n​t​e​i​l​ ​d​e​s​ ​W​a​s​s​e​r​d​a​m​p​f​s​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​i​m​ ​V​e​r​h​ä​l​t​n​i​s​ ​z​u​r​ ​m​a​x​i​m​a​l​e​n​ ​M​e​n​g​e​,​ ​d​i​e​ ​d​i​e​ ​L​u​f​t​ ​b​e​i​ ​d​i​e​s​e​r​ ​T​e​m​p​e​r​a​t​u​r​ ​a​u​f​n​e​h​m​e​n​ ​k​ö​n​n​t​e​.
 						 */
 						description: string
+						/**
+						 * %
+						 */
+						unitOnly: string
 					}
 					relative_humidity: {
 						/**
@@ -830,6 +978,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​R​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​A​n​t​e​i​l​ ​d​e​s​ ​W​a​s​s​e​r​d​a​m​p​f​s​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​i​m​ ​V​e​r​h​ä​l​t​n​i​s​ ​z​u​r​ ​m​a​x​i​m​a​l​e​n​ ​M​e​n​g​e​,​ ​d​i​e​ ​d​i​e​ ​L​u​f​t​ ​b​e​i​ ​d​i​e​s​e​r​ ​T​e​m​p​e​r​a​t​u​r​ ​a​u​f​n​e​h​m​e​n​ ​k​ö​n​n​t​e​.
 						 */
 						description: string
+						/**
+						 * %
+						 */
+						unitOnly: string
 					}
 					solar_radiation_max: {
 						/**
@@ -844,6 +996,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​S​o​l​a​r​s​t​r​a​h​l​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​M​e​n​g​e​ ​a​n​ ​S​o​n​n​e​n​e​n​e​r​g​i​e​,​ ​d​i​e​ ​p​r​o​ ​F​l​ä​c​h​e​n​e​i​n​h​e​i​t​ ​e​m​p​f​a​n​g​e​n​ ​w​i​r​d​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​W​a​t​t​ ​p​r​o​ ​Q​u​a​d​r​a​t​m​e​t​e​r​.
 						 */
 						description: string
+						/**
+						 * W​/​m​²
+						 */
+						unitOnly: string
 					}
 					solar_radiation_min: {
 						/**
@@ -858,6 +1014,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​S​o​l​a​r​s​t​r​a​h​l​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​M​e​n​g​e​ ​a​n​ ​S​o​n​n​e​n​e​n​e​r​g​i​e​,​ ​d​i​e​ ​p​r​o​ ​F​l​ä​c​h​e​n​e​i​n​h​e​i​t​ ​e​m​p​f​a​n​g​e​n​ ​w​i​r​d​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​W​a​t​t​ ​p​r​o​ ​Q​u​a​d​r​a​t​m​e​t​e​r​.
 						 */
 						description: string
+						/**
+						 * W​/​m​²
+						 */
+						unitOnly: string
 					}
 					solar_radiation: {
 						/**
@@ -872,6 +1032,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​S​o​l​a​r​s​t​r​a​h​l​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​M​e​n​g​e​ ​a​n​ ​S​o​n​n​e​n​e​n​e​r​g​i​e​,​ ​d​i​e​ ​p​r​o​ ​F​l​ä​c​h​e​n​e​i​n​h​e​i​t​ ​e​m​p​f​a​n​g​e​n​ ​w​i​r​d​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​W​a​t​t​ ​p​r​o​ ​Q​u​a​d​r​a​t​m​e​t​e​r​.
 						 */
 						description: string
+						/**
+						 * W​/​m​²
+						 */
+						unitOnly: string
 					}
 					utci_category: {
 						/**
@@ -886,6 +1050,7 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​U​T​C​I​-​K​a​t​e​g​o​r​i​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​K​l​a​s​s​i​f​i​z​i​e​r​u​n​g​ ​d​e​s​ ​u​n​i​v​e​r​s​e​l​l​e​n​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​i​n​ ​B​e​z​u​g​ ​a​u​f​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​.
 						 */
 						description: string
+						unitOnly: string
 					}
 					utci_max: {
 						/**
@@ -900,6 +1065,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​U​n​i​v​e​r​s​e​l​l​e​ ​T​h​e​r​m​i​s​c​h​e​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​U​T​C​I​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					utci_min: {
 						/**
@@ -914,6 +1083,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​U​n​i​v​e​r​s​e​l​l​e​ ​T​h​e​r​m​i​s​c​h​e​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​U​T​C​I​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					utci: {
 						/**
@@ -928,6 +1101,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​U​n​i​v​e​r​s​e​l​l​e​ ​T​h​e​r​m​i​s​c​h​e​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​e​i​n​e​n​ ​I​n​d​e​x​,​ ​d​e​r​ ​d​i​e​ ​t​h​e​r​m​i​s​c​h​e​n​ ​B​e​d​i​n​g​u​n​g​e​n​ ​f​ü​r​ ​e​i​n​e​ ​S​t​a​n​d​a​r​d​p​e​r​s​o​n​ ​i​n​ ​e​i​n​e​r​ ​s​t​a​n​d​a​r​d​i​s​i​e​r​t​e​n​ ​U​m​g​e​b​u​n​g​ ​d​a​r​s​t​e​l​l​t​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					vapor_pressure_max: {
 						/**
@@ -942,6 +1119,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​D​a​m​p​f​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​h​ö​c​h​s​t​e​n​ ​D​r​u​c​k​,​ ​d​e​n​ ​d​e​r​ ​W​a​s​s​e​r​d​a​m​p​f​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​ü​b​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
 						 */
 						description: string
+						/**
+						 * h​P​a
+						 */
+						unitOnly: string
 					}
 					vapor_pressure_min: {
 						/**
@@ -956,6 +1137,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​D​a​m​p​f​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​n​i​e​d​r​i​g​s​t​e​n​ ​D​r​u​c​k​,​ ​d​e​n​ ​d​e​r​ ​W​a​s​s​e​r​d​a​m​p​f​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​ü​b​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
 						 */
 						description: string
+						/**
+						 * h​P​a
+						 */
+						unitOnly: string
 					}
 					vapor_pressure: {
 						/**
@@ -970,6 +1155,10 @@ type RootTranslation = {
 						 * D​e​r​ ​<​s​t​r​o​n​g​>​D​a​m​p​f​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​D​r​u​c​k​,​ ​d​e​n​ ​d​e​r​ ​W​a​s​s​e​r​d​a​m​p​f​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​ü​b​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
 						 */
 						description: string
+						/**
+						 * h​P​a
+						 */
+						unitOnly: string
 					}
 					wet_bulb_temperature_max: {
 						/**
@@ -984,6 +1173,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​F​e​u​c​h​t​k​u​g​e​l​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​d​i​e​ ​e​i​n​ ​T​h​e​r​m​o​m​e​t​e​r​ ​a​n​z​e​i​g​e​n​ ​w​ü​r​d​e​,​ ​w​e​n​n​ ​e​s​ ​m​i​t​ ​e​i​n​e​m​ ​f​e​u​c​h​t​e​n​ ​T​u​c​h​ ​u​m​w​i​c​k​e​l​t​ ​u​n​d​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​g​e​s​e​t​z​t​ ​i​s​t​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					wet_bulb_temperature_min: {
 						/**
@@ -998,6 +1191,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​F​e​u​c​h​t​k​u​g​e​l​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​d​i​e​ ​e​i​n​ ​T​h​e​r​m​o​m​e​t​e​r​ ​a​n​z​e​i​g​e​n​ ​w​ü​r​d​e​,​ ​w​e​n​n​ ​e​s​ ​m​i​t​ ​e​i​n​e​m​ ​f​e​u​c​h​t​e​n​ ​T​u​c​h​ ​u​m​w​i​c​k​e​l​t​ ​u​n​d​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​g​e​s​e​t​z​t​ ​i​s​t​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					wet_bulb_temperature: {
 						/**
@@ -1012,6 +1209,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​F​e​u​c​h​t​k​u​g​e​l​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​d​i​e​ ​e​i​n​ ​T​h​e​r​m​o​m​e​t​e​r​ ​a​n​z​e​i​g​e​n​ ​w​ü​r​d​e​,​ ​w​e​n​n​ ​e​s​ ​m​i​t​ ​e​i​n​e​m​ ​f​e​u​c​h​t​e​n​ ​T​u​c​h​ ​u​m​w​i​c​k​e​l​t​ ​u​n​d​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​g​e​s​e​t​z​t​ ​i​s​t​.
 						 */
 						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
 					}
 					wind_direction_max: {
 						/**
@@ -1026,6 +1227,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​W​i​n​d​r​i​c​h​t​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​R​i​c​h​t​u​n​g​,​ ​a​u​s​ ​d​e​r​ ​d​e​r​ ​W​i​n​d​ ​w​e​h​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​d​.
 						 */
 						description: string
+						/**
+						 * °
+						 */
+						unitOnly: string
 					}
 					wind_direction_min: {
 						/**
@@ -1040,6 +1245,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​W​i​n​d​r​i​c​h​t​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​R​i​c​h​t​u​n​g​,​ ​a​u​s​ ​d​e​r​ ​d​e​r​ ​W​i​n​d​ ​w​e​h​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​d​.
 						 */
 						description: string
+						/**
+						 * °
+						 */
+						unitOnly: string
 					}
 					wind_direction: {
 						/**
@@ -1054,6 +1263,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​W​i​n​d​r​i​c​h​t​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​R​i​c​h​t​u​n​g​,​ ​a​u​s​ ​d​e​r​ ​d​e​r​ ​W​i​n​d​ ​w​e​h​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​d​.
 						 */
 						description: string
+						/**
+						 * °
+						 */
+						unitOnly: string
 					}
 					wind_speed_max: {
 						/**
@@ -1068,6 +1281,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						/**
+						 * m​/​s
+						 */
+						unitOnly: string
 					}
 					wind_speed_min: {
 						/**
@@ -1082,6 +1299,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
+						/**
+						 * m​/​s
+						 */
+						unitOnly: string
 					}
 					wind_speed: {
 						/**
@@ -1096,6 +1317,10 @@ type RootTranslation = {
 						 * D​i​e​ ​<​s​t​r​o​n​g​>​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​G​e​s​c​h​w​i​n​d​i​g​k​e​i​t​,​ ​m​i​t​ ​d​e​r​ ​s​i​c​h​ ​d​i​e​ ​L​u​f​t​ ​b​e​w​e​g​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​ ​p​r​o​ ​S​e​k​u​n​d​e​.
 						 */
 						description: string
+						/**
+						 * m​/​s
+						 */
+						unitOnly: string
 					}
 				}
 			}
@@ -1442,6 +1667,10 @@ export type TranslationFunctions = {
 			 * Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.
 			 */
 			indicatorsNavAriaLabel: () => LocalizedString
+			/**
+			 * Gesundheitsrisiken anzeigen
+			 */
+			showHealthRisks: () => LocalizedString
 		}
 		measurements: {
 			/**
@@ -1531,6 +1760,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale absolute Luftfeuchtigkeit</strong> beschreibt die höchste Menge an Wasserdampf in der Luft, gemessen in Gramm pro Kubikmeter.
 						 */
 						description: () => LocalizedString
+						/**
+						 * g/m³
+						 */
+						unitOnly: () => LocalizedString
 					}
 					absolute_humidity_min: {
 						/**
@@ -1545,6 +1778,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale absolute Luftfeuchtigkeit</strong> beschreibt die niedrigste Menge an Wasserdampf in der Luft, gemessen in Gramm pro Kubikmeter.
 						 */
 						description: () => LocalizedString
+						/**
+						 * g/m³
+						 */
+						unitOnly: () => LocalizedString
 					}
 					absolute_humidity: {
 						/**
@@ -1559,6 +1796,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Absolute Luftfeuchtigkeit</strong> beschreibt die Menge an Wasserdampf in der Luft, gemessen in Gramm pro Kubikmeter.
 						 */
 						description: () => LocalizedString
+						/**
+						 * g/m³
+						 */
+						unitOnly: () => LocalizedString
 					}
 					air_temperature_max: {
 						/**
@@ -1573,6 +1814,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale Lufttemperatur</strong> beschreibt die höchste gemessene Temperatur der umgebenden Luft in Grad Celsius.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					air_temperature_min: {
 						/**
@@ -1587,6 +1832,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale Lufttemperatur</strong> beschreibt die niedrigste gemessene Temperatur der umgebenden Luft in Grad Celsius.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					air_temperature: {
 						/**
@@ -1601,6 +1850,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Lufttemperatur</strong> beschreibt die gemessene Temperatur der umgebenden Luft in Grad Celsius.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					atmospheric_pressure_max: {
 						/**
@@ -1615,6 +1868,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Maximale Luftdruck</strong> beschreibt den höchsten Druck, der durch das Gewicht der Atmosphäre ausgeübt wird, gemessen in Hektopascal.
 						 */
 						description: () => LocalizedString
+						/**
+						 * hPa
+						 */
+						unitOnly: () => LocalizedString
 					}
 					atmospheric_pressure_min: {
 						/**
@@ -1629,6 +1886,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Minimale Luftdruck</strong> beschreibt den niedrigsten Druck, der durch das Gewicht der Atmosphäre ausgeübt wird, gemessen in Hektopascal.
 						 */
 						description: () => LocalizedString
+						/**
+						 * hPa
+						 */
+						unitOnly: () => LocalizedString
 					}
 					atmospheric_pressure_reduced_max: {
 						/**
@@ -1643,6 +1904,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Maximale reduzierte Luftdruck</strong> beschreibt den höchsten auf Meereshöhe reduzierte Druck, gemessen in Hektopascal.
 						 */
 						description: () => LocalizedString
+						/**
+						 * hPa
+						 */
+						unitOnly: () => LocalizedString
 					}
 					atmospheric_pressure_reduced_min: {
 						/**
@@ -1657,6 +1922,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Minimale reduzierte Luftdruck</strong> beschreibt den niedrigsten auf Meereshöhe reduzierte Druck, gemessen in Hektopascal.
 						 */
 						description: () => LocalizedString
+						/**
+						 * hPa
+						 */
+						unitOnly: () => LocalizedString
 					}
 					atmospheric_pressure_reduced: {
 						/**
@@ -1671,6 +1940,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Reduzierte Luftdruck</strong> beschreibt den auf Meereshöhe reduzierten Druck, gemessen in Hektopascal.
 						 */
 						description: () => LocalizedString
+						/**
+						 * hPa
+						 */
+						unitOnly: () => LocalizedString
 					}
 					atmospheric_pressure: {
 						/**
@@ -1685,6 +1958,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Luftdruck</strong> beschreibt den durch das Gewicht der Atmosphäre ausgeübten Druck, gemessen in Hektopascal.
 						 */
 						description: () => LocalizedString
+						/**
+						 * hPa
+						 */
+						unitOnly: () => LocalizedString
 					}
 					dew_point_max: {
 						/**
@@ -1699,6 +1976,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Maximale Taupunkt</strong> beschreibt die höchste Temperatur, bei der die Luft mit Wasserdampf gesättigt ist, gemessen in Grad Celsius.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					dew_point_min: {
 						/**
@@ -1713,6 +1994,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Minimale Taupunkt</strong> beschreibt die niedrigste Temperatur, bei der die Luft mit Wasserdampf gesättigt ist, gemessen in Grad Celsius.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					dew_point: {
 						/**
@@ -1727,6 +2012,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Taupunkt</strong> beschreibt die Temperatur, bei der die Luft mit Wasserdampf gesättigt ist, gemessen in Grad Celsius.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					heat_index_max: {
 						/**
@@ -1741,6 +2030,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Maximale Hitzeindex</strong> beschreibt die höchste gefühlte Temperatur, basierend auf Lufttemperatur und Luftfeuchtigkeit.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					heat_index_min: {
 						/**
@@ -1755,6 +2048,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Minimale Hitzeindex</strong> beschreibt die niedrigste gefühlte Temperatur, basierend auf Lufttemperatur und Luftfeuchtigkeit.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					heat_index: {
 						/**
@@ -1769,6 +2066,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Hitzeindex</strong> beschreibt die gefühlte Temperatur, basierend auf Lufttemperatur und Luftfeuchtigkeit.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					lightning_average_distance_max: {
 						/**
@@ -1783,6 +2084,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale durchschnittliche Blitzentfernung</strong> beschreibt die größte mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.
 						 */
 						description: () => LocalizedString
+						/**
+						 * m
+						 */
+						unitOnly: () => LocalizedString
 					}
 					lightning_average_distance_min: {
 						/**
@@ -1797,6 +2102,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale durchschnittliche Blitzentfernung</strong> beschreibt die kleinste mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.
 						 */
 						description: () => LocalizedString
+						/**
+						 * m
+						 */
+						unitOnly: () => LocalizedString
 					}
 					lightning_average_distance: {
 						/**
@@ -1811,6 +2120,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Durchschnittliche Blitzentfernung</strong> beschreibt die mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.
 						 */
 						description: () => LocalizedString
+						/**
+						 * m
+						 */
+						unitOnly: () => LocalizedString
 					}
 					lightning_strike_count_max: {
 						/**
@@ -1825,6 +2138,7 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale Anzahl der Blitzeinschläge</strong> beschreibt die höchste Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.
 						 */
 						description: () => LocalizedString
+						unitOnly: () => LocalizedString
 					}
 					lightning_strike_count_min: {
 						/**
@@ -1839,6 +2153,7 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale Anzahl der Blitzeinschläge</strong> beschreibt die niedrigste Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.
 						 */
 						description: () => LocalizedString
+						unitOnly: () => LocalizedString
 					}
 					lightning_strike_count: {
 						/**
@@ -1853,6 +2168,7 @@ export type TranslationFunctions = {
 						 * Die <strong>Anzahl der Blitzeinschläge</strong> beschreibt die Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.
 						 */
 						description: () => LocalizedString
+						unitOnly: () => LocalizedString
 					}
 					maximum_wind_speed_max: {
 						/**
@@ -1867,6 +2183,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale maximale Windgeschwindigkeit</strong> beschreibt die höchste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.
 						 */
 						description: () => LocalizedString
+						/**
+						 * m/s
+						 */
+						unitOnly: () => LocalizedString
 					}
 					maximum_wind_speed_min: {
 						/**
@@ -1881,6 +2201,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale maximale Windgeschwindigkeit</strong> beschreibt die niedrigste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.
 						 */
 						description: () => LocalizedString
+						/**
+						 * m/s
+						 */
+						unitOnly: () => LocalizedString
 					}
 					maximum_wind_speed: {
 						/**
@@ -1895,6 +2219,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale Windgeschwindigkeit</strong> beschreibt die höchste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.
 						 */
 						description: () => LocalizedString
+						/**
+						 * m/s
+						 */
+						unitOnly: () => LocalizedString
 					}
 					mrt_max: {
 						/**
@@ -1909,6 +2237,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale mittlere Strahlungstemperatur</strong> beschreibt die höchste durchschnittliche Temperatur der umgebenden Oberflächen, die Wärmestrahlung abgeben.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					mrt_min: {
 						/**
@@ -1923,6 +2255,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale mittlere Strahlungstemperatur</strong> beschreibt die niedrigste durchschnittliche Temperatur der umgebenden Oberflächen, die Wärmestrahlung abgeben.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					mrt: {
 						/**
@@ -1937,6 +2273,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Mittlere Strahlungstemperatur</strong> beschreibt die durchschnittliche Temperatur der umgebenden Oberflächen, die Wärmestrahlung abgeben.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					pet_category: {
 						/**
@@ -1951,6 +2291,7 @@ export type TranslationFunctions = {
 						 * Die <strong>PET-Kategorie</strong> beschreibt die Klassifizierung der physiologisch äquivalenten Temperatur in Bezug auf thermischen Komfort.
 						 */
 						description: () => LocalizedString
+						unitOnly: () => LocalizedString
 					}
 					pet_max: {
 						/**
@@ -1965,6 +2306,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale physiologisch äquivalente Temperatur (PET)</strong> beschreibt die höchste gemessene PET in einem bestimmten Zeitraum.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					pet_min: {
 						/**
@@ -1979,6 +2324,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale physiologisch äquivalente Temperatur (PET)</strong> beschreibt die niedrigste gemessene PET in einem bestimmten Zeitraum.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					pet: {
 						/**
@@ -1993,6 +2342,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Physiologisch Äquivalente Temperatur (PET)</strong> beschreibt ein Maß für die thermische Belastung, das die physiologische Reaktion des menschlichen Körpers auf die Umgebungsbedingungen berücksichtigt.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					precipitation_sum_max: {
 						/**
@@ -2007,6 +2360,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale Niederschlagsmenge</strong> beschreibt die höchste Menge an Wasser, die als Regen, Schnee oder in anderer Form vom Himmel fällt, gemessen in Millimetern.
 						 */
 						description: () => LocalizedString
+						/**
+						 * mm
+						 */
+						unitOnly: () => LocalizedString
 					}
 					precipitation_sum_min: {
 						/**
@@ -2021,6 +2378,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale Niederschlagsmenge</strong> beschreibt die niedrigste Menge an Wasser, die als Regen, Schnee oder in anderer Form vom Himmel fällt, gemessen in Millimetern.
 						 */
 						description: () => LocalizedString
+						/**
+						 * mm
+						 */
+						unitOnly: () => LocalizedString
 					}
 					precipitation_sum: {
 						/**
@@ -2035,6 +2396,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Niederschlag</strong> beschreibt die Menge an Wasser, die als Regen, Schnee oder in anderer Form vom Himmel fällt, gemessen in Millimetern.
 						 */
 						description: () => LocalizedString
+						/**
+						 * mm
+						 */
+						unitOnly: () => LocalizedString
 					}
 					relative_humidity_max: {
 						/**
@@ -2049,6 +2414,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale relative Luftfeuchtigkeit</strong> beschreibt den höchsten Anteil des Wasserdampfs in der Luft im Verhältnis zur maximalen Menge, die die Luft bei dieser Temperatur aufnehmen könnte.
 						 */
 						description: () => LocalizedString
+						/**
+						 * %
+						 */
+						unitOnly: () => LocalizedString
 					}
 					relative_humidity_min: {
 						/**
@@ -2063,6 +2432,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale relative Luftfeuchtigkeit</strong> beschreibt den niedrigsten Anteil des Wasserdampfs in der Luft im Verhältnis zur maximalen Menge, die die Luft bei dieser Temperatur aufnehmen könnte.
 						 */
 						description: () => LocalizedString
+						/**
+						 * %
+						 */
+						unitOnly: () => LocalizedString
 					}
 					relative_humidity: {
 						/**
@@ -2077,6 +2450,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Relative Luftfeuchtigkeit</strong> beschreibt den Anteil des Wasserdampfs in der Luft im Verhältnis zur maximalen Menge, die die Luft bei dieser Temperatur aufnehmen könnte.
 						 */
 						description: () => LocalizedString
+						/**
+						 * %
+						 */
+						unitOnly: () => LocalizedString
 					}
 					solar_radiation_max: {
 						/**
@@ -2091,6 +2468,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale Solarstrahlung</strong> beschreibt die höchste Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.
 						 */
 						description: () => LocalizedString
+						/**
+						 * W/m²
+						 */
+						unitOnly: () => LocalizedString
 					}
 					solar_radiation_min: {
 						/**
@@ -2105,6 +2486,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale Solarstrahlung</strong> beschreibt die niedrigste Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.
 						 */
 						description: () => LocalizedString
+						/**
+						 * W/m²
+						 */
+						unitOnly: () => LocalizedString
 					}
 					solar_radiation: {
 						/**
@@ -2119,6 +2504,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Solarstrahlung</strong> beschreibt die Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.
 						 */
 						description: () => LocalizedString
+						/**
+						 * W/m²
+						 */
+						unitOnly: () => LocalizedString
 					}
 					utci_category: {
 						/**
@@ -2133,6 +2522,7 @@ export type TranslationFunctions = {
 						 * Die <strong>UTCI-Kategorie</strong> beschreibt die Klassifizierung des universellen thermischen Komfortindex in Bezug auf thermischen Komfort.
 						 */
 						description: () => LocalizedString
+						unitOnly: () => LocalizedString
 					}
 					utci_max: {
 						/**
@@ -2147,6 +2537,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Maximale Universelle Thermische Komfortindex (UTCI)</strong> beschreibt die höchste gemessene UTCI in einem bestimmten Zeitraum.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					utci_min: {
 						/**
@@ -2161,6 +2555,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Minimale Universelle Thermische Komfortindex (UTCI)</strong> beschreibt die niedrigste gemessene UTCI in einem bestimmten Zeitraum.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					utci: {
 						/**
@@ -2175,6 +2573,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Universelle Thermische Komfortindex (UTCI)</strong> beschreibt einen Index, der die thermischen Bedingungen für eine Standardperson in einer standardisierten Umgebung darstellt.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					vapor_pressure_max: {
 						/**
@@ -2189,6 +2591,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Maximale Dampfdruck</strong> beschreibt den höchsten Druck, den der Wasserdampf in der Luft ausübt, gemessen in Hektopascal.
 						 */
 						description: () => LocalizedString
+						/**
+						 * hPa
+						 */
+						unitOnly: () => LocalizedString
 					}
 					vapor_pressure_min: {
 						/**
@@ -2203,6 +2609,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Minimale Dampfdruck</strong> beschreibt den niedrigsten Druck, den der Wasserdampf in der Luft ausübt, gemessen in Hektopascal.
 						 */
 						description: () => LocalizedString
+						/**
+						 * hPa
+						 */
+						unitOnly: () => LocalizedString
 					}
 					vapor_pressure: {
 						/**
@@ -2217,6 +2627,10 @@ export type TranslationFunctions = {
 						 * Der <strong>Dampfdruck</strong> beschreibt den Druck, den der Wasserdampf in der Luft ausübt, gemessen in Hektopascal.
 						 */
 						description: () => LocalizedString
+						/**
+						 * hPa
+						 */
+						unitOnly: () => LocalizedString
 					}
 					wet_bulb_temperature_max: {
 						/**
@@ -2231,6 +2645,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale Feuchtkugeltemperatur</strong> beschreibt die höchste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					wet_bulb_temperature_min: {
 						/**
@@ -2245,6 +2663,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale Feuchtkugeltemperatur</strong> beschreibt die niedrigste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					wet_bulb_temperature: {
 						/**
@@ -2259,6 +2681,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Feuchtkugeltemperatur</strong> beschreibt die Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
 					}
 					wind_direction_max: {
 						/**
@@ -2273,6 +2699,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale Windrichtung</strong> beschreibt die höchste gemessene Richtung, aus der der Wind weht, gemessen in Grad.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °
+						 */
+						unitOnly: () => LocalizedString
 					}
 					wind_direction_min: {
 						/**
@@ -2287,6 +2717,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale Windrichtung</strong> beschreibt die niedrigste gemessene Richtung, aus der der Wind weht, gemessen in Grad.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °
+						 */
+						unitOnly: () => LocalizedString
 					}
 					wind_direction: {
 						/**
@@ -2301,6 +2735,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Windrichtung</strong> beschreibt die Richtung, aus der der Wind weht, gemessen in Grad.
 						 */
 						description: () => LocalizedString
+						/**
+						 * °
+						 */
+						unitOnly: () => LocalizedString
 					}
 					wind_speed_max: {
 						/**
@@ -2315,6 +2753,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Maximale Windgeschwindigkeit</strong> beschreibt die höchste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.
 						 */
 						description: () => LocalizedString
+						/**
+						 * m/s
+						 */
+						unitOnly: () => LocalizedString
 					}
 					wind_speed_min: {
 						/**
@@ -2329,6 +2771,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Minimale Windgeschwindigkeit</strong> beschreibt die niedrigste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.
 						 */
 						description: () => LocalizedString
+						/**
+						 * m/s
+						 */
+						unitOnly: () => LocalizedString
 					}
 					wind_speed: {
 						/**
@@ -2343,6 +2789,10 @@ export type TranslationFunctions = {
 						 * Die <strong>Windgeschwindigkeit</strong> beschreibt die Geschwindigkeit, mit der sich die Luft bewegt, gemessen in Metern pro Sekunde.
 						 */
 						description: () => LocalizedString
+						/**
+						 * m/s
+						 */
+						unitOnly: () => LocalizedString
 					}
 				}
 			}

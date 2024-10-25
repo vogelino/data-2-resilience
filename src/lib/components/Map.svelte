@@ -23,6 +23,7 @@
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { onMount } from 'svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
+	import ChoroplethLegend from './ChoroplethLegend.svelte';
 	import MapHourFilter from './MapHourFilter.svelte';
 	import MapZoomControl from './MapZoomControl.svelte';
 
@@ -153,6 +154,7 @@
 		<MapZoomControl {map} />
 		{#if currentPage === 'heat-stress'}
 			<MapHourFilter />
+			<ChoroplethLegend />
 		{/if}
 	</div>
 </div>

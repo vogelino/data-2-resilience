@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
-	export type SelectedIndicatorSlugType = 'pet' | 'pet_category' | 'utci' | 'utci_category' | 'mrt';
+	export type SelectedIndicatorSlugType = 'relative_humidity' | 'utci' | 'utci_category' | 'temp';
 	export type IndicatorType = {
-		slug: 'utci' | 'pet' | 'mrt';
+		slug: 'utci' | 'relative_humidity' | 'temp';
 		title: string;
 		description: string;
 		hasCategory: boolean;
@@ -18,9 +18,9 @@
 
 	export let indicator: IndicatorType;
 
-	let selectedIndicatorSlugParam = queryParam('thermal_comfort');
+	let selectedIndicatorSlugParam = queryParam('heatSress');
 	$: selectedIndicatorSlug =
-		$selectedIndicatorSlugParam === null ? 'utci_category' : $selectedIndicatorSlugParam;
+		$selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam;
 	$: slugWithCategory = `${indicator.slug}_category`;
 	$: valueSelected = indicator.isSelected && selectedIndicatorSlug !== slugWithCategory;
 	$: categorySelected = indicator.isSelected && selectedIndicatorSlug === slugWithCategory;

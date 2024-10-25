@@ -10,14 +10,14 @@
 	$: fullPath = $page.url.pathname.replace(`/${$locale}`, '');
 	$: tabs = [
 		{
-			slug: 'thermical-comfort',
-			name: $LL.navigation.tabs.thermicalComfort(),
+			slug: 'measurements',
+			name: $LL.navigation.tabs.actualMeasurements(),
 			isActive: fullPath === '/' || fullPath === ''
 		},
 		{
-			slug: 'measurements',
-			name: $LL.navigation.tabs.actualMeasurements(),
-			isActive: fullPath === '/measurements'
+			slug: 'heat-stress',
+			name: $LL.navigation.tabs.heatStress(),
+			isActive: fullPath === '/heat-stress'
 		},
 		{
 			slug: 'stations',

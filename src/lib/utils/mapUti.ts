@@ -1,6 +1,7 @@
-import { districts, stations } from '$lib/stores/mapData';
+import { districts, type StationsGeoJSONType } from '$lib/stores/mapData';
 import maplibregl from 'maplibre-gl';
 import { z } from 'zod';
+import type { StationMetadata } from './schemas';
 
 export function getPopupHtml({ title, content }: { title: string; content: string }) {
 	const isDifferent = title.toLowerCase().trim() !== content.toLowerCase().trim();
@@ -64,7 +65,9 @@ function addWmsLayer({
 	const validatedLayerType = getValidatedLayerType({ layerType });
 	const layerId = getWMSLayerId({ layerType: validatedLayerType, hour });
 	const sourceId = `${layerId}-source`;
-	const newTilesURL = `http://34.175.150.40:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${hour}&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`;
+	// const newTilesURL = `http://34.175.150.40:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${hour}&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`;
+
+	const newTilesURL = `http://34.175.150.40:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${hour}_separate_color&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`;
 
 	if (!map.getSource(sourceId)) {
 		try {
@@ -119,7 +122,7 @@ export function setLayerVisibility({
 const LayerTypesSchema = z.enum(['utci', 'utci_category', 'pet', 'mrt']);
 export type LayerType = z.infer<typeof LayerTypesSchema>;
 
-const PagesWithMapSchema = z.enum(['thermal-comfort', 'measurements']);
+const PagesWithMapSchema = z.enum(['measurements', 'heat-stress']);
 export type PageWithMapType = z.infer<typeof PagesWithMapSchema>;
 
 function hideAllWMSLayers({ map, layerType }: { map: maplibregl.Map; layerType: LayerType }) {
@@ -164,7 +167,7 @@ export function updateLayersVisibilityByPage({
 	const validatedPage = getValidatedPage({ page });
 	const validatedLayerType = getValidatedLayerType({ layerType: visibleLayerType });
 
-	if (validatedPage === 'thermal-comfort') {
+	if (validatedPage === 'heat-stress') {
 		showLayer({ layerId: getWMSLayerId({ layerType: validatedLayerType, hour }), map });
 	} else {
 		showLayer({ layerId: 'stations', map });
@@ -176,9 +179,9 @@ function getWMSLayerId({ layerType, hour }: { layerType: LayerType; hour: string
 	return `wms-${layerType}-${paddedHour}`;
 }
 
-function getValidatedPage({ page = 'thermal-comfort' }: { page?: string | null }) {
+function getValidatedPage({ page = 'measurements' }: { page?: string | null }) {
 	const parsedPage = PagesWithMapSchema.safeParse(page);
-	return parsedPage.success ? parsedPage.data : 'thermal-comfort';
+	return parsedPage.success ? parsedPage.data : 'measurements';
 }
 
 function getValidatedLayerType({ layerType = 'utci' }: { layerType?: string | null }) {
@@ -202,19 +205,28 @@ export function addDistrictsLayer({ map }: { map: maplibregl.Map }) {
 	});
 }
 
-export function addStationsLayer({ map }: { map: maplibregl.Map }) {
-	map.addSource('stations', {
-		type: 'geojson',
-		data: stations
-	});
-	map.addLayer({
-		id: 'stations',
-		source: 'stations',
-		type: 'circle',
-		paint: {
-			'circle-radius': 3
-		}
-	});
+export function addStationsLayer({
+	map,
+	stations
+}: {
+	map: maplibregl.Map;
+	stations: StationsGeoJSONType;
+}) {
+	if (!map.getSource('stations') && stations.features.length > 0) {
+		map.addSource('stations', {
+			type: 'geojson',
+			data: stations
+		});
+
+		map.addLayer({
+			id: 'stations',
+			source: 'stations',
+			type: 'circle',
+			paint: {
+				'circle-radius': 3
+			}
+		});
+	}
 }
 
 export function cleanupMap({
@@ -243,7 +255,12 @@ export function cleanupMap({
 	onCleanupComplete();
 }
 
-export function getAllPopups(mp: maplibregl.Map) {
+export function getAllPopups(
+	mp: maplibregl.Map,
+	stations: {
+		features: GeoJSON.Feature<GeoJSON.Point, StationMetadata>[];
+	}
+) {
 	return stations.features.reduce((acc, station) => {
 		const stationId = station.properties.id;
 		const popup = new maplibregl.Popup({
@@ -254,7 +271,7 @@ export function getAllPopups(mp: maplibregl.Map) {
 		});
 		popup.setLngLat(station.geometry.coordinates as maplibregl.LngLatLike);
 		popup.setHTML(
-			getPopupHtml({ title: station.properties.Label, content: station.properties.Strasse })
+			getPopupHtml({ title: station.properties.longName, content: station.properties.district })
 		);
 		popup.addTo(mp);
 		popup.addClassName('!hidden');

@@ -9,10 +9,12 @@
 	import { tick } from 'svelte';
 	import CollapsibleParagraph from './CollapsibleParagraph.svelte';
 
-	const units = Object.entries($LL.pages.measurements.unitSelect.units).map(([key, value]) => ({
-		value: key,
-		label: value.label()
-	}));
+	const units = Object.entries($LL.pages.measurements.unitSelect.units)
+		.filter(([key]) => !(key.endsWith('_min') || key.endsWith('_max')))
+		.map(([key, value]) => ({
+			value: key,
+			label: value.label()
+		}));
 
 	let open = false;
 

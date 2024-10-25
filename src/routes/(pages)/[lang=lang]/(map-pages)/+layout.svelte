@@ -6,6 +6,10 @@
 	import Map from 'components/Map.svelte';
 	import SidebarsLayout from 'components/SidebarsLayout.svelte';
 	import StationsTable from 'components/StationsTable.svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+	$: stations = data.stationsGeoJson;
 
 	$: isStationsPage = $page.url.pathname.replace(`/${$locale}`, '') === '/stations';
 </script>
@@ -18,6 +22,6 @@
 	{#if isStationsPage}
 		<StationsTable />
 	{:else}
-		<Map />
+		<Map {stations} />
 	{/if}
 </SidebarsLayout>

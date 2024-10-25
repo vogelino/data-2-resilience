@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { stations } from '$lib/stores/mapData';
+	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { selectedStations } from '$lib/stores/stationsStore';
 	import { selectedUnit } from '$lib/stores/unitStore';
 	import { api } from '$lib/utils/api';
@@ -14,6 +14,8 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ErrorAlert from './ErrorAlert.svelte';
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
+
+	export let stations: StationsGeoJSONType;
 
 	type DataRecord = {
 		id: string;
@@ -62,7 +64,7 @@
 					scale: 'daily'
 				});
 				const label =
-					$stations.features.find((f) => f.properties.id === id)?.properties.longName || id;
+					stations.features.find((f) => f.properties.id === id)?.properties.longName || id;
 				if (itemResults === null) {
 					return {
 						id,
@@ -92,12 +94,12 @@
 		.filter((d) => d.supported && d.value === undefined)
 		.map((d) => d.id);
 	$: noneSufficientData = insufficientDataIds.length === ids.length;
-	$: insufficientDataStations = $stations.features
+	$: insufficientDataStations = stations.features
 		.filter((f) => insufficientDataIds.includes(f.properties.id))
 		.sort((a, b) => a.properties.longName.localeCompare(b.properties.longName));
 	$: unsupportedDataIds = data.filter((d) => !d.supported).map((d) => d.id);
 	$: noneSupportedData = unsupportedDataIds.length === ids.length;
-	$: unsupportedDataStations = $stations.features
+	$: unsupportedDataStations = stations.features
 		.filter((f) => unsupportedDataIds.includes(f.properties.id))
 		.sort((a, b) => a.properties.longName.localeCompare(b.properties.longName));
 

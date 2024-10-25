@@ -1,4 +1,4 @@
-import { districts } from '$lib/stores/mapData';
+import { districts, type StationsGeoJSONType } from '$lib/stores/mapData';
 import maplibregl from 'maplibre-gl';
 import { z } from 'zod';
 import type { StationMetadata } from './schemas';
@@ -69,7 +69,7 @@ function addWmsLayer({
 
 	const newTilesURL = `http://34.175.150.40:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${hour}_separate_color&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`;
 
-	http: if (!map.getSource(sourceId)) {
+	if (!map.getSource(sourceId)) {
 		try {
 			map.addSource(sourceId, {
 				type: 'raster',
@@ -210,10 +210,7 @@ export function addStationsLayer({
 	stations
 }: {
 	map: maplibregl.Map;
-	stations: {
-		type: 'FeatureCollection';
-		features: GeoJSON.Feature<GeoJSON.Point, StationMetadata>[];
-	};
+	stations: StationsGeoJSONType;
 }) {
 	if (!map.getSource('stations') && stations.features.length > 0) {
 		map.addSource('stations', {

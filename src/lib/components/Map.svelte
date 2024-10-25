@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { locale } from '$i18n/i18n-svelte';
-	import { fetchStations } from '$lib/stores/mapData';
+	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { positronMapStyle } from '$lib/stores/mapStyle';
 	import {
 		hoverStation,
@@ -25,6 +25,8 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import MapHourFilter from './MapHourFilter.svelte';
 	import MapZoomControl from './MapZoomControl.svelte';
+
+	export let stations: StationsGeoJSONType;
 
 	let map: maplibregl.Map;
 	let initialized = false;
@@ -116,6 +118,9 @@
 			// MAP SOURCES AND LAYERS
 			addWmsLayers({ map });
 			addDistrictsLayer({ map });
+			addStationsLayer({ map, stations });
+			initStationsInteractions(map);
+			popups = getAllPopups(map, stations);
 
 			initialized = true;
 		});
@@ -139,11 +144,6 @@
 			if (!initialized && value) {
 				selectedUnit.set(value);
 			}
-		});
-		fetchStations().then((stations) => {
-			addStationsLayer({ map, stations });
-			initStationsInteractions(map);
-			popups = getAllPopups(map, stations);
 		});
 	});
 </script>

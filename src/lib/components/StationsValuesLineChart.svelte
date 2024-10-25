@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { stations } from '$lib/stores/mapData';
+	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { selectedStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
 	import { api } from '$lib/utils/api';
@@ -15,6 +15,8 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ErrorAlert from './ErrorAlert.svelte';
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
+
+	export let stations: StationsGeoJSONType;
 
 	let start_date: Date | undefined;
 	let end_date: Date | undefined;
@@ -46,7 +48,7 @@
 
 	$: ids = $selectedStations.toSorted();
 	$: query = createQuery({
-		queryKey: ['stationsData-range', ids.join('-'), startDateKey, endDateKey, $unit],
+		queryKey: ['stationsData-range', ids?.join('-'), startDateKey, endDateKey, $unit, stations],
 		queryFn: async () => {
 			if (ids.length === 0 || !start_date || !end_date || !$unit) return;
 			const promises = ids.map(async (id) => {
@@ -79,7 +81,9 @@
 			const results = await Promise.all(promises);
 			return results.flat();
 		},
-		enabled: Boolean(ids.length > 0 && start_date && end_date && $unit)
+		enabled: Boolean(
+			ids?.length > 0 && stations?.features?.length > 0 && start_date && end_date && $unit
+		)
 	});
 
 	type DataRecord = Record<string, unknown> & {
@@ -88,33 +92,34 @@
 
 	let data = [] as DataRecord[];
 
-	$: query.subscribe((value) => {
-		if (!value.data) return;
-		const dateStrings = value.data
-			.map(({ measured_at }) => measured_at)
-			.filter(Boolean) as string[];
-		const allData = value.data;
-		data = dateStrings
-			.map((dateString) => {
-				const itemsAtThisTime = allData.filter((item) => item.measured_at === dateString);
-				const formattedItem = {
-					...itemsAtThisTime.reduce(
-						(acc, item) => ({
-							...acc,
-							[item.id]: item[$unit as keyof typeof item],
-							[`${item.id}_supported`]: item.supported,
-							[`${item.id}_label`]:
-								$stations.features.find((item) => item.properties.id === item.id)?.properties
-									.longName || item.id
-						}),
-						{}
-					),
-					date: new Date(dateString)
-				} satisfies DataRecord;
-				return formattedItem;
-			})
-			.sort((a, b) => compareAsc(a.date, b.date));
-	});
+	$: {
+		if ($query.data) {
+			const dateStrings = $query.data
+				.map(({ measured_at }) => measured_at)
+				.filter(Boolean) as string[];
+			const allData = $query.data;
+			data = dateStrings
+				.map((dateString) => {
+					const itemsAtThisTime = allData.filter((item) => item.measured_at === dateString);
+					const formattedItem = {
+						...itemsAtThisTime.reduce(
+							(acc, item) => ({
+								...acc,
+								[item.id]: item[$unit as keyof typeof item],
+								[`${item.id}_supported`]: item.supported,
+								[`${item.id}_label`]:
+									stations.features.find((item) => item.properties.id === item.id)?.properties
+										.longName || item.id
+							}),
+							{}
+						),
+						date: new Date(dateString)
+					} satisfies DataRecord;
+					return formattedItem;
+				})
+				.sort((a, b) => compareAsc(a.date, b.date));
+		}
+	}
 
 	$: y = ids.map((id) => (d: DataRecord) => (d[id as keyof typeof d] || 0) as number);
 	const x = (d: DataRecord) => d.date.getTime();

@@ -6,7 +6,7 @@ import { QueryClient } from '@tanstack/svelte-query';
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad<{ locale: Locales }> = async ({
-	data: { locale = 'en' } = { locale: 'en' }
+	data: { locale = 'en', stationsGeoJson } = { locale: 'en' }
 }) => {
 	await loadLocaleAsync(locale);
 
@@ -19,5 +19,5 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({
 		}
 	});
 
-	return { locale, queryClient };
+	return { locale, queryClient, stationsGeoJson };
 };

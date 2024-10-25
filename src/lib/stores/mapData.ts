@@ -2,10 +2,15 @@ import { api } from '$lib/utils/api';
 import { writable } from 'svelte/store';
 import { type StationMetadata } from '../utils/schemas';
 
+export type StationsGeoJSONType = {
+	type: 'FeatureCollection';
+	features: GeoJSON.Feature<GeoJSON.Point, StationMetadata>[];
+};
+
 export const stations = writable({
 	type: 'FeatureCollection' as const,
 	features: [] as GeoJSON.Feature<GeoJSON.Point, StationMetadata>[]
-} satisfies GeoJSON.GeoJSON);
+} satisfies StationsGeoJSONType);
 
 export async function fetchStations() {
 	const stationsMetadata = await api().getStationsMetadata();

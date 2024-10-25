@@ -41,7 +41,7 @@
 	{/each}
 </CollapsibleParagraph>
 
-<Alert class="mt-4 rounded-3xl bg-muted px-4 pb-2 pt-1.5 text-center font-semibold">
+<Alert class="mt-4 rounded-3xl bg-muted px-4 pb-2 pt-1.5 text-center text-sm font-semibold">
 	{$LL.pages.heatStress.timeRangeAlert({
 		startDate: new Date('2024-07-01').toLocaleDateString('en-GB', {
 			day: '2-digit',

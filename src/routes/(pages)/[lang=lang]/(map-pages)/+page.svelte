@@ -4,6 +4,10 @@
 	import StationsSelect from 'components/StationsSelect.svelte';
 	import UnitDataVis from 'components/UnitDataVis.svelte';
 	import UnitSelect from 'components/UnitSelect.svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+	$: stationsGeoJson = data.stationsGeoJson;
 </script>
 
 <h1 class="mb-2 text-xl font-semibold">{$LL.pages.measurements.title()}</h1>
@@ -13,8 +17,8 @@
 	{/each}
 </CollapsibleParagraph>
 
-<StationsSelect />
+<StationsSelect stations={stationsGeoJson} />
 
 <UnitSelect />
 
-<UnitDataVis />
+<UnitDataVis stations={stationsGeoJson} />

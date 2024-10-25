@@ -1,11 +1,16 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
-	import { stations } from '$lib/stores/mapData';
 	import { selectedStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
+	import type { StationMetadata } from '$lib/utils/schemas';
 	import MultiSelect, { type MultiSelectEvents, type ObjectOption } from 'svelte-multiselect';
 
-	$: formattedStations = $stations.features
+	export let stations: {
+		type: 'FeatureCollection';
+		features: GeoJSON.Feature<GeoJSON.Point, StationMetadata>[];
+	};
+
+	$: formattedStations = stations.features
 		.map((s) => ({
 			value: s.properties.id,
 			label: s.properties.longName

@@ -4,7 +4,7 @@
 	import { cn } from '$lib/utils';
 	import { Minus, Plus } from 'lucide-svelte';
 	import type { Map as MapLibreMap } from 'maplibre-gl';
-	import { Button } from './ui/button';
+	import { Button } from '../ui/button';
 
 	export let map: MapLibreMap;
 

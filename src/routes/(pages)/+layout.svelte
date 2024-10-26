@@ -10,14 +10,14 @@
 
 	export let data: LayoutData;
 	// at the very top, set the locale before you access the store and before the actual rendering takes place
-	setLocale(data.locale);
+	data && setLocale(data.locale);
 </script>
 
 <Head />
 <ModeWatcher />
 
 <div class="grid h-screen w-screen grid-rows-[auto,1fr] overflow-clip">
-	<QueryClientProvider client={data.queryClient}>
+	<QueryClientProvider client={data?.queryClient}>
 		<slot />
 		<SvelteQueryDevtools />
 	</QueryClientProvider>

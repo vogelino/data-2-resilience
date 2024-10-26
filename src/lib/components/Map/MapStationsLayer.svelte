@@ -1,11 +1,6 @@
 <script lang="ts">
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
-	import {
-		hoverStation,
-		selectedStations,
-		toggleStationSelection,
-		unhoverStations
-	} from '$lib/stores/stationsStore';
+	import { selectedStations, toggleStationSelection } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
 
@@ -18,15 +13,15 @@
 		<button
 			type="button"
 			class={cn(
-				'grid h-5 w-5 place-items-center rounded-full border-2 border-background bg-primary outline-none',
+				'grid h-4 w-4 place-items-center rounded-full border-2 border-background bg-primary outline-none',
 				'focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background',
 				$selectedStations.includes(feature.properties?.id) && [
 					'ring-2 ring-background ring-offset-2 ring-offset-primary'
 				]
 			)}
-			on:click={() => toggleStationSelection(feature.properties?.id)}
-			on:mouseenter={() => hoverStation(feature.properties?.id)}
-			on:mouseleave={() => unhoverStations()}
+			on:click={() => {
+				toggleStationSelection(feature.properties?.id);
+			}}
 			on:focusin={() => {
 				map.flyTo({
 					center: [7.467, 51.511],

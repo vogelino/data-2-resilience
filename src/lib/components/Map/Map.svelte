@@ -4,6 +4,7 @@
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { selectedStations } from '$lib/stores/stationsStore';
 	import { selectedUnit } from '$lib/stores/unitStore';
+	import { mode } from 'mode-watcher';
 	import { onMount } from 'svelte';
 	import { MapLibre } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
@@ -56,7 +57,9 @@
 		maxPitch={0}
 		class="relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen"
 		standardControls={false}
-		style={'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'}
+		style={$mode === 'dark'
+			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
+			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'}
 		on:moveend={(e) => {
 			if (!e?.detail?.map) return;
 			const center = e.detail.map.getCenter();
@@ -93,10 +96,10 @@
 		position: absolute;
 		inset: -4px;
 		z-index: 1000;
+		border-radius: 0.75rem;
 		box-shadow:
 			inset 0 0 0 6px hsl(var(--background)),
 			inset 0 0 0 8px hsl(var(--foreground));
-		border-radius: 0.75rem;
 	}
 
 	.main-map :global(.maplibregl-popup-content) {

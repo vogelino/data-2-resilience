@@ -33,12 +33,6 @@
 	$: currentPage = p === '' ? 'measurements' : p;
 
 	onMount(() => {
-		selectedStations.subscribe((value) => {
-			value && urlStations.set(value.join(','));
-		});
-		selectedUnit.subscribe((value) => {
-			value && unit.set(value);
-		});
 		urlStations.subscribe((value) => {
 			value && selectedStations.set(value.split(','));
 		});
@@ -55,6 +49,11 @@
 		zoom={mapZoom}
 		dragRotate={false}
 		maxPitch={0}
+		maxBounds={[
+			[7.090650277147461, 51.400616267063896],
+			[7.826598237576263, 51.61374377792475]
+		]}
+		attributionControl={false}
 		class="relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen"
 		standardControls={false}
 		style={$mode === 'dark'

@@ -39,7 +39,7 @@
 			value={`${`${$hour}`.padStart(2, '0')}:00`}
 			pattern="[0-9]{2}:0{2}"
 			step="3600"
-			on:change={onHourChange}
+			on:input={onHourChange}
 			class={cn(
 				'pointer-events-auto size-24 rounded border border-border',
 				'bg-background px-0 py-0 text-center text-2xl text-foreground',

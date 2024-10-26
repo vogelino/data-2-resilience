@@ -38,7 +38,7 @@
 		variant="ghost"
 		aria-label={$LL.map.zoom.zoomIn()}
 		class={cn(
-			'relative rounded-b-none bg-white',
+			'relative rounded-b-none bg-background',
 			'focusable focus-visible:z-50 focus-visible:rounded'
 		)}
 		disabled={maxZoomReached}
@@ -51,7 +51,7 @@
 		variant="ghost"
 		aria-label={$LL.map.zoom.zoomOut()}
 		class={cn(
-			'relative rounded-t-none bg-white',
+			'relative rounded-t-none bg-background',
 			'focusable focus-visible:z-50 focus-visible:rounded'
 		)}
 		on:click={() => map.zoomOut()}

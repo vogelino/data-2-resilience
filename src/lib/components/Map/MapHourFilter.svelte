@@ -15,7 +15,7 @@
 
 <div
 	class={cn(
-		'fixed bottom-8 right-8 z-10 overflow-clip rounded shadow-lg',
+		'fixed bottom-8 right-8 z-10 overflow-clip rounded bg-background shadow-lg',
 		'[&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-foreground',
 		'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background'
 	)}
@@ -42,7 +42,7 @@
 			on:change={onHourChange}
 			class={cn(
 				'pointer-events-auto size-24 rounded border border-border',
-				'px-0 py-0 text-center text-2xl',
+				'bg-background px-0 py-0 text-center text-2xl text-foreground',
 				'outline-none'
 			)}
 		/>

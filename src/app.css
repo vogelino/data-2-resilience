@@ -43,7 +43,6 @@
 		/* COMPONENT VARIABLES */
 		--headerHeight: 5rem;
 		--leftSidebarWidth: min(33rem, calc(100vw - 3rem));
-		--rightSidebarWidth: min(40rem, calc(100vw - 3rem));
 	}
 
 	.dark {

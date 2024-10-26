@@ -1,5 +1,5 @@
 export const load = async ({ parent }) => {
-	const { stationsGeoJson } = await parent();
+	const { stationsGeoJson, locale } = await parent();
 
-	return { stationsGeoJson };
+	return { stationsGeoJson, locale };
 };

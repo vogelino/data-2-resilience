@@ -56,9 +56,6 @@ const de = {
 			stations: 'Messstationen'
 		}
 	},
-	rightSidebar: {
-		title: 'Ausgewählte Messstationen'
-	},
 	pages: {
 		heatStress: {
 			title: 'Wie warm fühlt sich deine Stadt an?',

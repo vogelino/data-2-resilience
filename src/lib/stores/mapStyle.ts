@@ -1,7 +1,6 @@
 import type { StyleSpecification } from 'maplibre-gl';
-import { writable } from 'svelte/store';
 
-export const positronMapStyle = writable<StyleSpecification>({
+export const positronMapStyle = {
 	version: 8,
 	name: 'Positron',
 	metadata: {},
@@ -2981,4 +2980,4 @@ export const positronMapStyle = writable<StyleSpecification>({
 			}
 		}
 	]
-});
+} as StyleSpecification;

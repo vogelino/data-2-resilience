@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
-	import { isRightSidebarOpened } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { Minus, Plus } from 'lucide-svelte';
 	import type { Map as MapLibreMap } from 'maplibre-gl';
-	import { Button } from './ui/button';
+	import { Button } from '../ui/button';
 
 	export let map: MapLibreMap;
 
@@ -29,8 +28,7 @@
 	class={cn(
 		'fixed right-4 top-[calc(var(--headerHeight,5rem)+1rem)] z-50 flex flex-col gap-px',
 		'rounded-md border border-border bg-border',
-		'shadow-lg transition-transform duration-300 ease-in-out',
-		$isRightSidebarOpened && '-translate-x-[var(--rightSidebarWidth)]'
+		'shadow-lg transition-transform duration-300 ease-in-out'
 	)}
 >
 	<Button
@@ -38,7 +36,7 @@
 		variant="ghost"
 		aria-label={$LL.map.zoom.zoomIn()}
 		class={cn(
-			'relative rounded-b-none bg-white',
+			'relative rounded-b-none bg-background',
 			'focusable focus-visible:z-50 focus-visible:rounded'
 		)}
 		disabled={maxZoomReached}
@@ -51,7 +49,7 @@
 		variant="ghost"
 		aria-label={$LL.map.zoom.zoomOut()}
 		class={cn(
-			'relative rounded-t-none bg-white',
+			'relative rounded-t-none bg-background',
 			'focusable focus-visible:z-50 focus-visible:rounded'
 		)}
 		on:click={() => map.zoomOut()}

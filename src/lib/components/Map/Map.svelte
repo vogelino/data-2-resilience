@@ -47,14 +47,14 @@
 	});
 </script>
 
-<div class="relative grid h-full w-full items-center justify-center overflow-clip">
+<div class="main-map relative grid h-full w-full items-center justify-center overflow-clip">
 	<MapLibre
 		let:map
 		center={[mapLon, mapLat]}
 		zoom={mapZoom}
 		dragRotate={false}
 		maxPitch={0}
-		class="main-map relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen"
+		class="relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen"
 		standardControls={false}
 		style={'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'}
 		on:moveend={(e) => {
@@ -70,7 +70,7 @@
 
 		<MapDistrictsLayer />
 		{#if currentPage === 'measurements'}
-			<MapStationsLayer {stations} />
+			<MapStationsLayer {stations} {map} />
 		{:else if currentPage === 'heat-stress'}
 			<MapMeasurementsRasterLayer hour={$hour} />
 		{/if}

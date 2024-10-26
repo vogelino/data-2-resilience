@@ -10,6 +10,7 @@
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
 
 	export let stations: StationsGeoJSONType;
+	export let map: maplibregl.Map;
 </script>
 
 <GeoJSON id="stations" data={stations} promoteId="STATEFP">
@@ -26,6 +27,12 @@
 			on:click={() => toggleStationSelection(feature.properties?.id)}
 			on:mouseenter={() => hoverStation(feature.properties?.id)}
 			on:mouseleave={() => unhoverStations()}
+			on:focusin={() => {
+				map.flyTo({
+					center: [7.467, 51.511],
+					zoom: 10.5
+				});
+			}}
 		/>
 		<div
 			class={cn(

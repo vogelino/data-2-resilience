@@ -56,9 +56,6 @@ const en = {
 			stations: 'Weather stations'
 		}
 	},
-	rightSidebar: {
-		title: 'Selected stations'
-	},
 	pages: {
 		heatStress: {
 			title: 'How warm does your city feel?',

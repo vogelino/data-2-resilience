@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
-	import { selectedUnit } from '$lib/stores/unitStore';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import DailySationsValuesBarChart from './DailySationsValuesBarChart.svelte';
 	import DateRangeSlider from './DateRangeSlider.svelte';
@@ -9,9 +8,11 @@
 
 	export let stations: StationsGeoJSONType;
 
+	let unit = queryParam('unit', ssp.string('air_temperature'));
+
 	$: selectedUnitLabel =
 		$LL.pages.measurements.unitSelect.units[
-			$selectedUnit as keyof typeof $LL.pages.measurements.unitSelect.units
+			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 		]?.shortLabel();
 
 	const isRange = queryParam('is_range', ssp.boolean(false));

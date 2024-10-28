@@ -3,7 +3,6 @@
 	import { locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { selectedStations } from '$lib/stores/stationsStore';
-	import { selectedUnit } from '$lib/stores/unitStore';
 	import { mode } from 'mode-watcher';
 	import { onMount } from 'svelte';
 	import { MapLibre } from 'svelte-maplibre';
@@ -23,7 +22,7 @@
 	const zoom = queryParam('zoom', ssp.number(10.5), config);
 	const hour = queryParam('hour', ssp.number(12), config);
 	const urlStations = queryParam('selectedStations');
-	const unit = queryParam('unit');
+	const unit = queryParam('unit', ssp.string('air_temperature'));
 
 	let mapLat = $lat;
 	let mapLon = $lon;
@@ -35,9 +34,6 @@
 	onMount(() => {
 		urlStations.subscribe((value) => {
 			value && selectedStations.set(value.split(','));
-		});
-		unit.subscribe((value) => {
-			value && selectedUnit.set(value);
 		});
 	});
 </script>

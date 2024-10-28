@@ -2,7 +2,7 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { selectedStations } from '$lib/stores/stationsStore';
-	import { selectedUnit } from '$lib/stores/unitStore';
+	import { cn } from '$lib/utils';
 	import { api } from '$lib/utils/api';
 	import { today } from '$lib/utils/dateUtil';
 	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
@@ -15,6 +15,7 @@
 	import { StackedBar } from '@unovis/ts';
 	import { addDays, format } from 'date-fns';
 	import { debounce } from 'es-toolkit';
+	import { LoaderCircle } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ErrorAlert from './ErrorAlert.svelte';
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
@@ -32,8 +33,7 @@
 	let date: Date | undefined;
 	const options = { debounceHistory: 500 };
 	const dayVlaue = queryParam('day_value', ssp.number(0), options);
-
-	const unit = queryParam('unit', ssp.string());
+	const unit = queryParam('unit', ssp.string('air_temperature'));
 
 	const updateDay = debounce((d: number) => {
 		updateDay?.cancel();
@@ -45,14 +45,15 @@
 	$: dateKey = date && format(date, 'yyyy-MM-dd');
 	$: unitShortLabel =
 		$LL.pages.measurements.unitSelect.units[
-			$selectedUnit as keyof typeof $LL.pages.measurements.unitSelect.units
+			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 		].shortLabel();
 	$: unitLongLabel =
 		$LL.pages.measurements.unitSelect.units[
-			$selectedUnit as keyof typeof $LL.pages.measurements.unitSelect.units
+			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 		].label();
 
 	$: ids = $selectedStations.toSorted();
+	$: enabled = Boolean(ids.length > 0 && date && $unit);
 	$: query = createQuery({
 		queryKey: ['stationsData-daily', ids.join('-'), dateKey, $unit],
 		queryFn: async () => {
@@ -90,7 +91,7 @@
 			const results = await Promise.all(promises);
 			return results as DataRecord[];
 		},
-		enabled: Boolean(ids.length > 0 && date && $unit)
+		enabled
 	});
 
 	$: data = $query.data || [];
@@ -107,10 +108,12 @@
 	$: unsupportedMsg = getMessageForUnsupportedStations({
 		ids,
 		unsupportedIds,
-		unit: $selectedUnit,
+		unit: $unit,
 		stations: stations.features,
 		LL: $LL
 	});
+
+	$: console.log($unit);
 
 	const y = (d: DataRecord) => d.value;
 	const x = (d: DataRecord, idx: number) => idx;
@@ -151,8 +154,8 @@
 		{/if}
 	</Alert>
 {/if}
-{#if !noneSufficientData && !noneSupportedData}
-	<UnovisChartContainer>
+<UnovisChartContainer className={cn('relative min-h-16')}>
+	{#if !noneSufficientData && !noneSupportedData}
 		<VisXYContainer padding={{ top: 8, bottom: 8, right: 16 }} height={60 + chartData.length * 24}>
 			{#if $query.isSuccess && chartData.length > 0}
 				<VisStackedBar
@@ -176,7 +179,7 @@
 					tickTextTrimType="end"
 				/>
 				<VisTooltip {triggers} />
-			{:else if $query.isSuccess && chartData && chartData.length === 0}
+			{:else if $query.isSuccess && chartData.length === 0}
 				<div class="absolute inset-0 flex items-center justify-center">
 					{$LL.pages.measurements.noDataAvailable()}
 				</div>
@@ -188,5 +191,14 @@
 				</div>
 			{/if}
 		</VisXYContainer>
-	</UnovisChartContainer>
-{/if}
+	{/if}
+	<div
+		class={cn(
+			'absolute inset-0 flex items-center justify-center',
+			'pointer-events-none opacity-100',
+			!$query.isFetching && 'opacity-0'
+		)}
+	>
+		<LoaderCircle class="size-6 animate-spin" />
+	</div>
+</UnovisChartContainer>

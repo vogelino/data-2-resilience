@@ -46,13 +46,13 @@
 		--vis-dark-axis-grid-color: hsl(var(--muted-foreground) / 0.2);
 		--vis-dark-axis-label-color: hsl(var(--muted-foreground));
 
-		--vis-tooltip-background-color: hsl(var(--background));
+		--vis-tooltip-background-color: hsl(var(--background) / 0.8);
 		--vis-tooltip-border-color: hsl(var(--border));
 		--vis-tooltip-text-color: hsl(var(--foreground));
 		--vis-tooltip-shadow-color: rgba(172, 179, 184, 0.35);
-		--vis-tooltip-backdrop-filter: none;
+		--vis-tooltip-backdrop-filter: blur(1px);
 		--vis-tooltip-padding: 0.5rem 0.75rem;
-		--vis-dark-tooltip-background-color: hsl(var(--background));
+		--vis-dark-tooltip-background-color: hsla(var(--background) / 0.8);
 		--vis-dark-tooltip-text-color: hsl(var(--foreground));
 		--vis-dark-tooltip-border-color: hsl(var(--border));
 		--vis-dark-tooltip-shadow-color: rgba(0, 0, 0, 0.95);

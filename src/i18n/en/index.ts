@@ -29,6 +29,9 @@ const en = {
 			label: 'Page not found',
 			description: `Oops, it looks like the page you were looking for doesn't exist. Don't worry, we can help you get back on track.`,
 			homepageLinkText: 'To the homepage'
+		},
+		unsupported: {
+			unsupportedStation: 'Does not collect this data'
 		}
 	},
 	generic: {

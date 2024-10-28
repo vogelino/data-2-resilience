@@ -3,18 +3,17 @@
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { selectedStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
-	import { api } from '$lib/utils/api';
 	import { today } from '$lib/utils/dateUtil';
-	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisCrosshair, VisLine, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { Position } from '@unovis/ts';
-	import { addDays, compareAsc, format } from 'date-fns';
+	import { addDays, format } from 'date-fns';
 	import { debounce } from 'es-toolkit';
 	import { LoaderCircle } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
-	import ErrorAlert from './ErrorAlert.svelte';
-	import UnovisChartContainer from './UnovisChartContainer.svelte';
+	import ErrorAlert from '../ErrorAlert.svelte';
+	import UnovisChartContainer from '../UnovisChartContainer.svelte';
+	import { getStationDataFetcher } from './stationsLineChartUtil';
 
 	export let stations: StationsGeoJSONType;
 
@@ -47,40 +46,16 @@
 	$: stationHeaderLabel = $LL.pages.measurements.unitSelect.stationsHeaderLabel();
 
 	$: ids = $selectedStations.toSorted();
+	$: queryFn = getStationDataFetcher({
+		ids,
+		start_date,
+		end_date,
+		unit: $unit,
+		stations: stations.features
+	});
 	$: query = createQuery({
 		queryKey: ['stationsData-range', ids?.join('-'), startDateKey, endDateKey, $unit, stations],
-		queryFn: async () => {
-			if (ids.length === 0 || !start_date || !end_date || !$unit) return;
-			const promises = ids.map(async (id) => {
-				const startDate = start_date?.toISOString() || '';
-				const endDate = end_date?.toISOString() || '';
-				const itemResults = await api().getStationData({
-					id,
-					start_date: startDate,
-					end_date: endDate,
-					param: $unit as unknown as WeatherMeasurementKeyNoMinMax,
-					scale: 'hourly'
-				});
-				if (itemResults === null) {
-					return [
-						{
-							id,
-							[id]: undefined,
-							supported: false
-						}
-					];
-				}
-				return (itemResults || []).map((i) => ({
-					...i,
-					id,
-					[id]: i[$unit as keyof typeof i],
-					supported: true
-				}));
-			});
-
-			const results = await Promise.all(promises);
-			return results.flat();
-		},
+		queryFn,
 		enabled: Boolean(
 			ids?.length > 0 && stations?.features?.length > 0 && start_date && end_date && $unit
 		)
@@ -90,36 +65,9 @@
 		date: Date;
 	};
 
-	let data = [] as DataRecord[];
+	$: data = $query.data || ([] as DataRecord[]).filter(Boolean);
 
-	$: {
-		if ($query.data) {
-			const dateStrings = $query.data
-				.map(({ measured_at }) => measured_at)
-				.filter(Boolean) as string[];
-			const allData = $query.data;
-			data = dateStrings
-				.map((dateString) => {
-					const itemsAtThisTime = allData.filter((item) => item.measured_at === dateString);
-					const formattedItem = {
-						...itemsAtThisTime.reduce((acc, item) => {
-							const relatedStation = stations.features.find((f) => f.properties.id === item.id);
-							return {
-								...acc,
-								[item.id]: item[$unit as keyof typeof item],
-								[`${item.id}_supported`]: item.supported,
-								[`${item.id}_label`]: relatedStation?.properties.longName || item.id
-							};
-						}, {}),
-						date: new Date(dateString)
-					} satisfies DataRecord;
-					return formattedItem;
-				})
-				.sort((a, b) => compareAsc(a.date, b.date));
-		}
-	}
-
-	$: y = ids.map((id) => (d: DataRecord) => (d[id as keyof typeof d] || 0) as number);
+	$: y = ids.map((id) => (d: DataRecord) => d[id as keyof typeof d] as number);
 	const x = (d: DataRecord) => d.date.getTime();
 	$: xTickFormat = (d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d);
 	$: yTickFormat = (d: number) => d.toLocaleString($locale);
@@ -132,7 +80,6 @@
 				<strong class="pb-1 mb-1 border-b border-border">${stationHeaderLabel}</strong>
 				<strong class="pb-1 mb-1 border-b border-border">${unitShortLabel}</strong>
 				${ids
-					.filter((id) => d[id as keyof typeof d] && d[`${id}_label`])
 					.sort((a, b) => {
 						const aLabel = d[`${a}_label`] as string;
 						const bLabel = d[`${b}_label`] as string;
@@ -143,9 +90,18 @@
 						const label = d[`${id}_label`];
 						const value = d[id as keyof typeof d];
 						return `
-						<span>${label}</span>
-						<span>${typeof value === 'number' ? value.toLocaleString($locale) : value ?? 'Unknown'}</span>
-					`;
+							<span>${label}</span>
+							${
+								value === null
+									? `<span class="text-red-500">${$LL.errors.unsupported.unsupportedStation()}</span>`
+									: `<span>
+										${typeof value === 'number' ? value.toLocaleString($locale) : value ?? 'Unknown'}
+										${$LL.pages.measurements.unitSelect.units[
+											$unit as keyof typeof $LL.pages.measurements.unitSelect.units
+										].unitOnly()}
+									</span>`
+							}
+						`;
 					})
 					.join('')}
 			</span>

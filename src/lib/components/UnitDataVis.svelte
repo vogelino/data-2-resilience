@@ -6,7 +6,7 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import DailySationsValuesBarChart from './DailySationsValuesBarChart.svelte';
 	import DateRangeSlider from './DateRangeSlider.svelte';
-	import StationsValuesLineChart from './StationsValuesLineChart.svelte';
+	import StationsValuesLineChart from './StationsLineChart/StationsLineChart.svelte';
 
 	export let stations: StationsGeoJSONType;
 

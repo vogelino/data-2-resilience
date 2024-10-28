@@ -29,6 +29,9 @@ const de = {
 			label: 'Seite nicht gefunden',
 			description: `Ups, es scheint, dass die von Ihnen gesuchte Seite nicht existiert. Nichts ist schiefgelaufen, wir helfen Ihnen, auf den Weg zu kommen.`,
 			homepageLinkText: 'Zur Startseite'
+		},
+		unsupported: {
+			unsupportedStation: 'Erhebt nicht diese Daten'
 		}
 	},
 	generic: {

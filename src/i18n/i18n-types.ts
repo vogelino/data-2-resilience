@@ -96,6 +96,12 @@ type RootTranslation = {
 			 */
 			homepageLinkText: string
 		}
+		unsupported: {
+			/**
+			 * E​r​h​e​b​t​ ​n​i​c​h​t​ ​d​i​e​s​e​ ​D​a​t​e​n
+			 */
+			unsupportedStation: string
+		}
 	}
 	generic: {
 		/**
@@ -1575,6 +1581,12 @@ export type TranslationFunctions = {
 			 * Zur Startseite
 			 */
 			homepageLinkText: () => LocalizedString
+		}
+		unsupported: {
+			/**
+			 * Erhebt nicht diese Daten
+			 */
+			unsupportedStation: () => LocalizedString
 		}
 	}
 	generic: {

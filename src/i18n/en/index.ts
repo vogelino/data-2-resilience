@@ -514,6 +514,19 @@ const en = {
 					}
 				}
 			},
+			heatStressCategories: {
+				'extreme cold stress': 'Extreme Cold Stress',
+				'very strong cold stress': 'Very Strong Cold Stress',
+				'strong cold stress': 'Strong Cold Stress',
+				'moderate cold stress': 'Moderate Cold Stress',
+				'slight cold stress': 'Slight Cold Stress',
+				'no thermal stress': 'No Thermal Stress',
+				'slight heat stress': 'Slight Heat Stress',
+				'moderate heat stress': 'Moderate Heat Stress',
+				'strong heat stress': 'Strong Heat Stress',
+				'very strong heat stress': 'Very Strong Heat Stress',
+				'extreme heat stress': 'Extreme Heat Stress'
+			},
 			dateRangeSlider: {
 				today: 'Today',
 				day: 'Day',

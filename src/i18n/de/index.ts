@@ -515,6 +515,19 @@ const de = {
 					}
 				}
 			},
+			heatStressCategories: {
+				'extreme cold stress': 'Extremer Kältestress',
+				'very strong cold stress': 'Sehr starker Kältestress',
+				'strong cold stress': 'Starker Kältestress',
+				'moderate cold stress': 'Mäßiger Kältestress',
+				'slight cold stress': 'Leichter Kältestress',
+				'no thermal stress': 'Kein thermischer Stress',
+				'slight heat stress': 'Leichter Wärmestress',
+				'moderate heat stress': 'Mäßiger Wärmestress',
+				'strong heat stress': 'Starker Wärmestress',
+				'very strong heat stress': 'Sehr starker Wärmestress',
+				'extreme heat stress': 'Extremer Wärmestress'
+			},
 			dateRangeSlider: {
 				today: 'Heute',
 				day: 'Tag',

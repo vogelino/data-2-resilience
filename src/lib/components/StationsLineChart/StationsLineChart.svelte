@@ -4,6 +4,10 @@
 	import { selectedStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
 	import { today } from '$lib/utils/dateUtil';
+	import {
+		getHeatStressCategoryByValue,
+		getHeatStressValueByCategory
+	} from '$lib/utils/heatStressCategoriesUtil';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisCrosshair, VisLine, VisTooltip, VisXYContainer } from '@unovis/svelte';
@@ -69,10 +73,23 @@
 
 	$: data = $query.data?.lineChartData || ([] as DataRecord[]).filter(Boolean);
 
-	$: y = ids.map((id) => (d: DataRecord) => d[id as keyof typeof d] as number);
+	$: isCatChart = $unit.endsWith('_category');
+	$: y = ids.map(
+		(id) => (d: DataRecord) =>
+			isCatChart
+				? getHeatStressValueByCategory(`${d[id as keyof typeof d]}` as string)
+				: (d[id as keyof typeof d] as number)
+	);
 	const x = (d: DataRecord) => d.date.getTime();
 	$: xTickFormat = (d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d);
-	$: yTickFormat = (d: number) => d.toLocaleString($locale);
+	$: yTickFormat = (d: number) =>
+		isCatChart
+			? $LL.pages.measurements.heatStressCategories[
+					getHeatStressCategoryByValue(
+						d
+					) as keyof typeof $LL.pages.measurements.heatStressCategories
+				]()
+			: d.toLocaleString($locale);
 	$: tooltipTemplate = (d: DataRecord) => `
 		<span class="flex flex-col text-xs min-w-56">
 			<strong class="pb-1 mb-1 border-b border-border text-sm">
@@ -95,7 +112,13 @@
 						return `
 							<span>${label}</span>
 							${`<span>
-										${typeof value === 'number' ? value.toLocaleString($locale) : value ?? 'Unknown'}
+										${
+											typeof value === 'number'
+												? value.toLocaleString($locale)
+												: $LL.pages.measurements.heatStressCategories[
+														value as keyof typeof $LL.pages.measurements.heatStressCategories
+													]()
+										}
 										${$LL.pages.measurements.unitSelect.units[
 											$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 										].unitOnly()}

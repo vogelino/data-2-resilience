@@ -1324,6 +1324,52 @@ type RootTranslation = {
 					}
 				}
 			}
+			heatStressCategories: {
+				/**
+				 * E​x​t​r​e​m​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+				 */
+				'extreme cold stress': string
+				/**
+				 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+				 */
+				'very strong cold stress': string
+				/**
+				 * S​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+				 */
+				'strong cold stress': string
+				/**
+				 * M​ä​ß​i​g​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+				 */
+				'moderate cold stress': string
+				/**
+				 * L​e​i​c​h​t​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+				 */
+				'slight cold stress': string
+				/**
+				 * K​e​i​n​ ​t​h​e​r​m​i​s​c​h​e​r​ ​S​t​r​e​s​s
+				 */
+				'no thermal stress': string
+				/**
+				 * L​e​i​c​h​t​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
+				 */
+				'slight heat stress': string
+				/**
+				 * M​ä​ß​i​g​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
+				 */
+				'moderate heat stress': string
+				/**
+				 * S​t​a​r​k​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
+				 */
+				'strong heat stress': string
+				/**
+				 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
+				 */
+				'very strong heat stress': string
+				/**
+				 * E​x​t​r​e​m​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
+				 */
+				'extreme heat stress': string
+			}
 			dateRangeSlider: {
 				/**
 				 * H​e​u​t​e
@@ -2795,6 +2841,52 @@ export type TranslationFunctions = {
 						unitOnly: () => LocalizedString
 					}
 				}
+			}
+			heatStressCategories: {
+				/**
+				 * Extremer Kältestress
+				 */
+				'extreme cold stress': () => LocalizedString
+				/**
+				 * Sehr starker Kältestress
+				 */
+				'very strong cold stress': () => LocalizedString
+				/**
+				 * Starker Kältestress
+				 */
+				'strong cold stress': () => LocalizedString
+				/**
+				 * Mäßiger Kältestress
+				 */
+				'moderate cold stress': () => LocalizedString
+				/**
+				 * Leichter Kältestress
+				 */
+				'slight cold stress': () => LocalizedString
+				/**
+				 * Kein thermischer Stress
+				 */
+				'no thermal stress': () => LocalizedString
+				/**
+				 * Leichter Wärmestress
+				 */
+				'slight heat stress': () => LocalizedString
+				/**
+				 * Mäßiger Wärmestress
+				 */
+				'moderate heat stress': () => LocalizedString
+				/**
+				 * Starker Wärmestress
+				 */
+				'strong heat stress': () => LocalizedString
+				/**
+				 * Sehr starker Wärmestress
+				 */
+				'very strong heat stress': () => LocalizedString
+				/**
+				 * Extremer Wärmestress
+				 */
+				'extreme heat stress': () => LocalizedString
 			}
 			dateRangeSlider: {
 				/**

@@ -113,8 +113,6 @@
 		LL: $LL
 	});
 
-	$: console.log($unit);
-
 	const y = (d: DataRecord) => d.value;
 	const x = (d: DataRecord, idx: number) => idx;
 	const yTickFormat = (idx: number) => chartData[idx]?.label ?? '';

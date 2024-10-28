@@ -21,6 +21,28 @@
 	import UnovisChartContainer from '../UnovisChartContainer.svelte';
 	import { getStationDataFetcher } from './stationsLineChartUtil';
 
+	const CHART_COLORS = [
+		'#000000',
+		'#2E7DAF',
+		'#E17C05',
+		'#6CC24A',
+		'#7B2D9B',
+		'#D64545',
+		'#3B8C8C',
+		'#B86B25',
+		'#7F4B91',
+		'#598234',
+		'#3C5BA2',
+		'#8BC34A',
+		'#CDDC39',
+		'#FFEB3B',
+		'#FFC107',
+		'#FF9800',
+		'#FF5722',
+		'#795548',
+		'#607D8B'
+	];
+
 	export let stations: StationsGeoJSONType;
 
 	let start_date: Date | undefined;
@@ -28,7 +50,6 @@
 	const options = { debounceHistory: 500 };
 	const rangeStart = queryParam('range_start', ssp.number(-10), options);
 	const rangeEnd = queryParam('range_end', ssp.number(0), options);
-
 	const unit = queryParam('unit', ssp.string('air_temperature'));
 
 	const updateStartDate = debounce((d: number) => {
@@ -80,7 +101,9 @@
 				? getHeatStressValueByCategory(`${d[id as keyof typeof d]}` as string)
 				: (d[id as keyof typeof d] as number)
 	);
+	$: idsColors = ids.reduce((acc, id, idx) => ({ ...acc, [id]: CHART_COLORS[idx] }), {});
 	const x = (d: DataRecord) => d.date.getTime();
+	const color = (d: DataRecord, idx: number) => CHART_COLORS[idx];
 	$: xTickFormat = (d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d);
 	$: yTickFormat = (d: number) =>
 		isCatChart
@@ -90,27 +113,29 @@
 					) as keyof typeof $LL.pages.measurements.heatStressCategories
 				]()
 			: d.toLocaleString($locale);
+	$: legendItems = ids
+		.filter((id) => !unsupportedIds.includes(id))
+		.map((id) => ({
+			id,
+			name: stations.features.find((f) => f.properties.id === id)?.properties.longName || id,
+			color: idsColors[id as keyof typeof idsColors]
+		}))
+		.sort((a, b) => a.name.localeCompare(b.name));
 	$: tooltipTemplate = (d: DataRecord) => `
 		<span class="flex flex-col text-xs min-w-56">
 			<strong class="pb-1 mb-1 border-b border-border text-sm">
 				${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short' }).format(d.date)}
 			</strong>
 			<span class="grid grid-cols-[auto_1fr] gap-x-4">
-				<strong class="pb-1 mb-1 border-b border-border">${stationHeaderLabel}</strong>
-				<strong class="pb-1 mb-1 border-b border-border">${unitShortLabel}</strong>
-				${ids
-					.filter((id) => d[id as keyof typeof d])
-					.sort((a, b) => {
-						const aLabel = d[`${a}_label`] as string;
-						const bLabel = d[`${b}_label`] as string;
-						if (!aLabel || !bLabel) return 0;
-						return aLabel.localeCompare(bLabel);
-					})
-					.map((id) => {
-						const label = d[`${id}_label`];
+				${legendItems
+					.filter(({ id }) => d[id as keyof typeof d])
+					.map(({ id, name, color }) => {
 						const value = d[id as keyof typeof d];
 						return `
-							<span>${label}</span>
+							<span class="flex items-center">
+								${color && `<span style="background-color: ${color}" class="inline-block w-3 h-0.5 mr-2"></span>`}
+								${name}
+							</span>
 							${`<span>
 										${
 											typeof value === 'number'
@@ -145,16 +170,16 @@
 	</Alert>
 {/if}
 <UnovisChartContainer
-	className={cn('relative', $query.isSuccess && data && data.length === 0 ? '' : 'h-[300px]')}
+	className={cn('relative', $query.isSuccess && data && data.length === 0 ? '' : 'min-h-[300px]')}
 >
 	<VisXYContainer
 		padding={{ top: 8, bottom: 8, right: 16 }}
 		{data}
 		height={$query.isSuccess && data && data.length === 0 ? 64 : 300}
-		class={cn('transition-opacity', $query.isFetching && 'opacity-20')}
+		class={cn('relative transition-opacity', $query.isFetching && 'opacity-20')}
 	>
 		{#if data && data.length > 0 && !$query.error}
-			<VisLine {x} {y} fallbackValue={undefined} />
+			<VisLine {x} {y} fallbackValue={undefined} {color} />
 			<VisAxis type="x" tickFormat={xTickFormat} />
 			<VisAxis type="y" tickFormat={yTickFormat} />
 			<VisCrosshair template={tooltipTemplate} {x} {y} />
@@ -170,6 +195,18 @@
 			</div>
 		{/if}
 	</VisXYContainer>
+	{#if data && data.length > 0 && !$query.error}
+		<ul
+			class="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-4 text-xs text-muted-foreground"
+		>
+			{#each legendItems as { id, name, color }}
+				<li class="flex items-center gap-2">
+					<span style="background-color: {color}" class="inline-block h-0.5 w-3" />
+					{name}
+				</li>
+			{/each}
+		</ul>
+	{/if}
 	<div
 		class={cn(
 			'absolute inset-0 flex items-center justify-center',

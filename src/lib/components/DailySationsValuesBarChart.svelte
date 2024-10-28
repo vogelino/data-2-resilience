@@ -117,9 +117,9 @@
 
 	const y = (d: DataRecord) => d.value;
 	const x = (d: DataRecord, idx: number) => idx;
-	const yTickFormat = (idx: number) => data[idx]?.label ?? '';
+	const yTickFormat = (idx: number) => chartData[idx]?.label ?? '';
 	$: xTickFormat = (value: number) => value.toLocaleString($locale);
-	$: tickValues = chartData.map(x);
+	$: yTickValues = chartData.map(x);
 	$: triggers = {
 		[StackedBar.selectors.bar]: (d: DataRecord) => `
 			<span class="flex flex-col text-xs">
@@ -137,16 +137,16 @@
 {/if}
 {#if insufficientDataIds.length > 0}
 	<Alert variant="warning">
-		{#if $query.isSuccess && data && noneSufficientData}
+		{#if $query.isSuccess && noneSufficientData}
 			{@html $LL.pages.measurements.allInsufficientDataStations({
 				unit: unitLongLabel
 			})}
-		{:else if $query.isSuccess && data && insufficientDataIds.length === 1}
+		{:else if $query.isSuccess && insufficientDataIds.length === 1}
 			{@html $LL.pages.measurements.singleInsufficientDataStation({
 				unit: unitLongLabel,
 				station: insufficientDataStations[0].properties.longName
 			})}
-		{:else if $query.isSuccess && data && insufficientDataIds.length > 1}
+		{:else if $query.isSuccess && insufficientDataIds.length > 1}
 			{@html $LL.pages.measurements.someInsufficientDataStations({
 				unit: unitLongLabel,
 				stations: insufficientDataStations.map(({ properties }) => properties.longName).join(', ')
@@ -172,7 +172,7 @@
 				<VisAxis
 					type="y"
 					tickFormat={yTickFormat}
-					{tickValues}
+					tickValues={yTickValues}
 					gridLine={false}
 					numTicks={chartData.length}
 					tickTextFitMode="trim"

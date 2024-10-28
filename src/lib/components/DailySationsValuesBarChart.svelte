@@ -6,6 +6,10 @@
 	import { api } from '$lib/utils/api';
 	import { today } from '$lib/utils/dateUtil';
 	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
+	import {
+		getMessageForUnsupportedStations,
+		isNoStationSupported
+	} from '$lib/utils/stationsDataVisUtil';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { StackedBar } from '@unovis/ts';
@@ -14,6 +18,7 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ErrorAlert from './ErrorAlert.svelte';
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
+	import { Alert } from './ui/alert';
 
 	export let stations: StationsGeoJSONType;
 
@@ -97,11 +102,15 @@
 	$: insufficientDataStations = stations.features
 		.filter((f) => insufficientDataIds.includes(f.properties.id))
 		.sort((a, b) => a.properties.longName.localeCompare(b.properties.longName));
-	$: unsupportedDataIds = data.filter((d) => !d.supported).map((d) => d.id);
-	$: noneSupportedData = unsupportedDataIds.length === ids.length;
-	$: unsupportedDataStations = stations.features
-		.filter((f) => unsupportedDataIds.includes(f.properties.id))
-		.sort((a, b) => a.properties.longName.localeCompare(b.properties.longName));
+	$: unsupportedIds = data.filter((d) => !d.supported).map((d) => d.id);
+	$: noneSupportedData = isNoStationSupported({ ids, unsupportedIds });
+	$: unsupportedMsg = getMessageForUnsupportedStations({
+		ids,
+		unsupportedIds,
+		unit: $selectedUnit,
+		stations: stations.features,
+		LL: $LL
+	});
 
 	const y = (d: DataRecord) => d.value;
 	const x = (d: DataRecord, idx: number) => idx;
@@ -118,27 +127,13 @@
 	};
 </script>
 
-{#if unsupportedDataIds.length > 0}
-	<div class="rounded-lg border border-red-600 bg-red-50 px-4 py-3 text-red-900">
-		{#if $query.isSuccess && data && noneSupportedData}
-			{@html $LL.pages.measurements.allUnsupportedStations({
-				unit: unitLongLabel
-			})}
-		{:else if $query.isSuccess && data && unsupportedDataIds.length === 1}
-			{@html $LL.pages.measurements.singleUnsupportedStation({
-				unit: unitLongLabel,
-				station: unsupportedDataStations[0].properties.longName
-			})}
-		{:else if $query.isSuccess && data && unsupportedDataIds.length > 1}
-			{@html $LL.pages.measurements.someUnsupportedStations({
-				unit: unitLongLabel,
-				stations: unsupportedDataStations.map(({ properties }) => properties.longName).join(', ')
-			})}
-		{/if}
-	</div>
+{#if unsupportedMsg}
+	<Alert variant="destructive">
+		{@html unsupportedMsg}
+	</Alert>
 {/if}
 {#if insufficientDataIds.length > 0}
-	<div class="rounded-lg border border-orange-600 bg-orange-50 px-4 py-3 text-orange-900">
+	<Alert variant="warning">
 		{#if $query.isSuccess && data && noneSufficientData}
 			{@html $LL.pages.measurements.allInsufficientDataStations({
 				unit: unitLongLabel
@@ -154,42 +149,44 @@
 				stations: insufficientDataStations.map(({ properties }) => properties.longName).join(', ')
 			})}
 		{/if}
-	</div>
+	</Alert>
 {/if}
-<UnovisChartContainer>
-	<VisXYContainer padding={{ top: 8, bottom: 8, right: 16 }} height={60 + chartData.length * 24}>
-		{#if !noneSufficientData && !noneSupportedData && data.length > 0}
-			<VisStackedBar
-				data={chartData}
-				{x}
-				{y}
-				numTicks={Math.max(2, chartData.length)}
-				tickValues={chartData.length === 1 && chartData[0].value === 0 ? [0, 5] : undefined}
-				orientation="horizontal"
-				barPadding={0.2}
-				barMinHeight1Px
-			/>
-			<VisAxis type="x" tickFormat={xTickFormat} numTicks={5} />
-			<VisAxis
-				type="y"
-				tickFormat={yTickFormat}
-				{tickValues}
-				gridLine={false}
-				numTicks={chartData.length}
-				tickTextFitMode="trim"
-				tickTextTrimType="end"
-			/>
-			<VisTooltip {triggers} />
-		{:else if $query.isSuccess && data && data.length === 0}
-			<div class="absolute inset-0 flex items-center justify-center">
-				{$LL.pages.measurements.noDataAvailable()}
-			</div>
-		{/if}
+{#if !noneSufficientData && !noneSupportedData}
+	<UnovisChartContainer>
+		<VisXYContainer padding={{ top: 8, bottom: 8, right: 16 }} height={60 + chartData.length * 24}>
+			{#if $query.isSuccess && chartData.length > 0}
+				<VisStackedBar
+					data={chartData}
+					{x}
+					{y}
+					numTicks={Math.max(2, chartData.length)}
+					tickValues={chartData.length === 1 && chartData[0].value === 0 ? [0, 5] : undefined}
+					orientation="horizontal"
+					barPadding={0.2}
+					barMinHeight1Px
+				/>
+				<VisAxis type="x" tickFormat={xTickFormat} numTicks={5} />
+				<VisAxis
+					type="y"
+					tickFormat={yTickFormat}
+					{tickValues}
+					gridLine={false}
+					numTicks={chartData.length}
+					tickTextFitMode="trim"
+					tickTextTrimType="end"
+				/>
+				<VisTooltip {triggers} />
+			{:else if $query.isSuccess && chartData && chartData.length === 0}
+				<div class="absolute inset-0 flex items-center justify-center">
+					{$LL.pages.measurements.noDataAvailable()}
+				</div>
+			{/if}
 
-		{#if $query.error}
-			<div class="absolute inset-0 flex items-center justify-center">
-				<ErrorAlert errorObject={$query.error} />
-			</div>
-		{/if}
-	</VisXYContainer>
-</UnovisChartContainer>
+			{#if $query.error}
+				<div class="absolute inset-0 flex items-center justify-center">
+					<ErrorAlert errorObject={$query.error} />
+				</div>
+			{/if}
+		</VisXYContainer>
+	</UnovisChartContainer>
+{/if}

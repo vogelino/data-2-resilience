@@ -50,11 +50,15 @@ export const getStationDataFetcher =
 			.flat()
 			.map(({ id }) => id)
 			.filter(notEmpty);
-		return mapDataToLineChartData({
+		return {
+			lineChartData: mapDataToLineChartData({
+				data: onlyWithSupported,
+				unsupportedIds: onlyUnsupported,
+				stations
+			}),
 			data: onlyWithSupported,
-			unsupportedIds: onlyUnsupported,
-			stations
-		});
+			unsupportedIds: onlyUnsupported
+		};
 	};
 
 type PromiseResult<T> =

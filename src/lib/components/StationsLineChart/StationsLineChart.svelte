@@ -2,11 +2,14 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { selectedStations } from '$lib/stores/stationsStore';
+	import { selectedUnit } from '$lib/stores/unitStore';
 	import { cn } from '$lib/utils';
 	import { today } from '$lib/utils/dateUtil';
+	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisCrosshair, VisLine, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { Position } from '@unovis/ts';
+	import Alert from 'components/ui/alert/alert.svelte';
 	import { addDays, format } from 'date-fns';
 	import { debounce } from 'es-toolkit';
 	import { LoaderCircle } from 'lucide-svelte';
@@ -65,7 +68,7 @@
 		date: Date;
 	};
 
-	$: data = $query.data || ([] as DataRecord[]).filter(Boolean);
+	$: data = $query.data?.lineChartData || ([] as DataRecord[]).filter(Boolean);
 
 	$: y = ids.map((id) => (d: DataRecord) => d[id as keyof typeof d] as number);
 	const x = (d: DataRecord) => d.date.getTime();
@@ -80,6 +83,7 @@
 				<strong class="pb-1 mb-1 border-b border-border">${stationHeaderLabel}</strong>
 				<strong class="pb-1 mb-1 border-b border-border">${unitShortLabel}</strong>
 				${ids
+					.filter((id) => d[id as keyof typeof d])
 					.sort((a, b) => {
 						const aLabel = d[`${a}_label`] as string;
 						const bLabel = d[`${b}_label`] as string;
@@ -91,29 +95,40 @@
 						const value = d[id as keyof typeof d];
 						return `
 							<span>${label}</span>
-							${
-								value === null
-									? `<span class="text-red-500">${$LL.errors.unsupported.unsupportedStation()}</span>`
-									: `<span>
+							${`<span>
 										${typeof value === 'number' ? value.toLocaleString($locale) : value ?? 'Unknown'}
 										${$LL.pages.measurements.unitSelect.units[
 											$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 										].unitOnly()}
-									</span>`
-							}
+									</span>`}
 						`;
 					})
 					.join('')}
 			</span>
 		</span>
 	`;
+	$: unsupportedIds = $query.data?.unsupportedIds || [];
+	$: unsupportedMsg = getMessageForUnsupportedStations({
+		ids,
+		unsupportedIds,
+		unit: $selectedUnit,
+		stations: stations.features,
+		LL: $LL
+	});
 </script>
 
-<UnovisChartContainer className={cn('relative h-[300px]')}>
+{#if unsupportedMsg}
+	<Alert variant="destructive">
+		{@html unsupportedMsg}
+	</Alert>
+{/if}
+<UnovisChartContainer
+	className={cn('relative', $query.isSuccess && data && data.length === 0 ? '' : 'h-[300px]')}
+>
 	<VisXYContainer
 		padding={{ top: 8, bottom: 8, right: 16 }}
 		{data}
-		height={300}
+		height={$query.isSuccess && data && data.length === 0 ? 64 : 300}
 		class={cn('transition-opacity', $query.isFetching && 'opacity-20')}
 	>
 		{#if data && data.length > 0 && !$query.error}

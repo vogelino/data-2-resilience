@@ -43,7 +43,12 @@
 {/if}
 
 {#if $query.error}
-	<p class={cn('mt-8 rounded font-mono text-red-600', 'border border-red-300 bg-red-50 px-6 py-5')}>
+	<p
+		class={cn(
+			'mt-8 rounded font-mono text-red-600',
+			'border border-red-300 bg-red-500/5 px-6 py-5'
+		)}
+	>
 		{$query.error.message}
 	</p>
 {/if}

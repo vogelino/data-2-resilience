@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
 	import { Frown } from 'lucide-svelte';
+	import { Alert } from './ui/alert';
 
 	export let errorObject: Error | undefined | null;
 	export let label = $LL.errors.unexpectedError.label();
 	export let description = $LL.errors.unexpectedError.description();
 </script>
 
-<div
-	class="flex max-h-72 max-w-sm flex-col gap-2 overflow-y-auto rounded border border-red-600 bg-red-50 p-4 text-red-900"
->
+<Alert class="flex max-h-72 max-w-sm flex-col gap-2 overflow-y-auto" variant="destructive">
 	<strong class="flex items-center gap-2">
 		<Frown class="inline-block size-6 shrink-0" />
 		<span class="mt-1">{label}</span>
@@ -20,4 +19,4 @@
 			{errorObject.message.trim()}
 		</p>
 	{/if}
-</div>
+</Alert>

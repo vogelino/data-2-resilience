@@ -22,7 +22,7 @@
 	import { getStationDataFetcher } from './stationsLineChartUtil';
 
 	const CHART_COLORS = [
-		'#000000',
+		'hsl(var(--primary))',
 		'#2E7DAF',
 		'#E17C05',
 		'#6CC24A',

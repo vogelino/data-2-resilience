@@ -23,7 +23,7 @@
 	const zoom = queryParam('zoom', ssp.number(10.5), config);
 	const hour = queryParam('hour', ssp.number(12), config);
 	const urlStations = queryParam('selectedStations');
-	const unit = queryParam('unit', ssp.string('air_temperature'));
+	const showDistricts = queryParam('showDistricts', ssp.boolean(true));
 
 	let mapLat = $lat;
 	let mapLon = $lon;
@@ -68,7 +68,7 @@
 		<MapZoomControl {map} />
 		<MapLayerSelection />
 
-		<MapDistrictsLayer />
+		{#if $showDistricts}<MapDistrictsLayer />{/if}
 		{#if currentPage === 'measurements'}
 			<MapStationsLayer {stations} {map} />
 		{:else if currentPage === 'heat-stress'}

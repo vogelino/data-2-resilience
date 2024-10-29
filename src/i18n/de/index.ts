@@ -608,6 +608,12 @@ const de = {
 			navAlt: 'Zoom-Navigation',
 			zoomIn: 'Reinzoomen',
 			zoomOut: 'Rauszoomen'
+		},
+		layersSelection: {
+			ariaLabel: 'Auswahl der Kartenebene',
+			districts: 'Bezirksgrenzen',
+			lors: 'Lebensweltlich orientierte Räume',
+			satellite: 'Satellitenbilder'
 		}
 	}
 } satisfies BaseTranslation;

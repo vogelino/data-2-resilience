@@ -1543,6 +1543,24 @@ type RootTranslation = {
 			 */
 			zoomOut: string
 		}
+		layersSelection: {
+			/**
+			 * A​u​s​w​a​h​l​ ​d​e​r​ ​K​a​r​t​e​n​e​b​e​n​e
+			 */
+			ariaLabel: string
+			/**
+			 * B​e​z​i​r​k​s​g​r​e​n​z​e​n
+			 */
+			districts: string
+			/**
+			 * L​e​b​e​n​s​w​e​l​t​l​i​c​h​ ​o​r​i​e​n​t​i​e​r​t​e​ ​R​ä​u​m​e
+			 */
+			lors: string
+			/**
+			 * S​a​t​e​l​l​i​t​e​n​b​i​l​d​e​r
+			 */
+			satellite: string
+		}
 	}
 }
 
@@ -3060,6 +3078,24 @@ export type TranslationFunctions = {
 			 * Rauszoomen
 			 */
 			zoomOut: () => LocalizedString
+		}
+		layersSelection: {
+			/**
+			 * Auswahl der Kartenebene
+			 */
+			ariaLabel: () => LocalizedString
+			/**
+			 * Bezirksgrenzen
+			 */
+			districts: () => LocalizedString
+			/**
+			 * Lebensweltlich orientierte Räume
+			 */
+			lors: () => LocalizedString
+			/**
+			 * Satellitenbilder
+			 */
+			satellite: () => LocalizedString
 		}
 	}
 }

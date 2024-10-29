@@ -607,6 +607,12 @@ const en = {
 			navAlt: 'Zoom navigation',
 			zoomIn: 'Zoom in',
 			zoomOut: 'Zoom out'
+		},
+		layersSelection: {
+			ariaLabel: 'Map layer selection',
+			districts: 'District boundaries',
+			lors: 'Neighborhood areas',
+			satellite: 'Satellite imagery'
 		}
 	}
 } satisfies Translation;

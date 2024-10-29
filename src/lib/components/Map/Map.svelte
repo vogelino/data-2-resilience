@@ -10,6 +10,7 @@
 	import ChoroplethLegend from '../ChoroplethLegend.svelte';
 	import MapDistrictsLayer from './MapDistrictsLayer.svelte';
 	import MapHourFilter from './MapHourFilter.svelte';
+	import MapLayerSelection from './MapLayerSelection.svelte';
 	import MapMeasurementsRasterLayer from './MapMeasurementsRasterLayer.svelte';
 	import MapStationsLayer from './MapStationsLayer.svelte';
 	import MapZoomControl from './MapZoomControl.svelte';
@@ -65,6 +66,7 @@
 		}}
 	>
 		<MapZoomControl {map} />
+		<MapLayerSelection />
 
 		<MapDistrictsLayer />
 		{#if currentPage === 'measurements'}

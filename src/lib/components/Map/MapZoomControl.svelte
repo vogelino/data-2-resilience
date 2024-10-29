@@ -27,7 +27,7 @@
 	aria-label={$LL.map.zoom.navAlt()}
 	class={cn(
 		'fixed right-4 top-[calc(var(--headerHeight,5rem)+1rem)] z-50 flex flex-col gap-px',
-		'rounded-md border border-border bg-border',
+		'w-10 rounded-md border border-border bg-border',
 		'shadow-lg transition-transform duration-300 ease-in-out'
 	)}
 >
@@ -36,7 +36,7 @@
 		variant="ghost"
 		aria-label={$LL.map.zoom.zoomIn()}
 		class={cn(
-			'relative rounded-b-none bg-background',
+			'relative size-10 rounded-b-none bg-background',
 			'focusable focus-visible:z-50 focus-visible:rounded'
 		)}
 		disabled={maxZoomReached}

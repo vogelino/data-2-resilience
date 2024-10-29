@@ -13,10 +13,10 @@
 		<button
 			type="button"
 			class={cn(
-				'grid h-4 w-4 place-items-center rounded-full border-2 border-background bg-primary outline-none',
-				'focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+				'grid h-4 w-4 place-items-center rounded-full border-2 border-background bg-foreground outline-none',
+				'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
 				$selectedStations.includes(feature.properties?.id) && [
-					'ring-2 ring-background ring-offset-2 ring-offset-primary'
+					'bg-primary ring-2 ring-background ring-offset-2 ring-offset-foreground'
 				]
 			)}
 			on:click={() => {

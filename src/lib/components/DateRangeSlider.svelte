@@ -104,9 +104,9 @@
 <style>
 	:global(.date-range-slider) {
 		--range-slider: hsl(var(--muted-foreground) / 0.3);
-		--range-handle-inactive: hsl(var(--foreground));
-		--range-handle: hsl(var(--foreground));
-		--range-handle-focus: hsl(var(--primary));
+		--range-handle-inactive: hsl(var(--primary));
+		--range-handle: hsl(var(--primary));
+		--range-handle-focus: hsl(var(--foreground));
 		--range-handle-border: hsl(var(--muted-foreground));
 		--range-range-inactive: hsl(var(--foreground));
 		--range-range: hsl(var(--foreground));

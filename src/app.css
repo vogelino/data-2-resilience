@@ -24,8 +24,8 @@
 		--border: 214.3 31.8% 91.4%;
 		--input: 214.3 31.8% 91.4%;
 
-		--primary: 222.2 47.4% 11.2%;
-		--primary-foreground: 210 40% 98%;
+		--primary: 48 96% 53%;
+		--primary-foreground: var(--foreground);
 
 		--secondary: 210 40% 96.1%;
 		--secondary-foreground: 222.2 47.4% 11.2%;
@@ -64,8 +64,8 @@
 		--border: 217.2 32.6% 17.5%;
 		--input: 217.2 32.6% 17.5%;
 
-		--primary: 210 40% 98%;
-		--primary-foreground: 222.2 47.4% 11.2%;
+		--primary: 48 96% 53%;
+		--primary-foreground: var(--background);
 
 		--secondary: 217.2 32.6% 17.5%;
 		--secondary-foreground: 210 40% 98%;
@@ -79,7 +79,7 @@
 		--warning: 25 95% 53%;
 		--warning-foreground: 33 100% 96%;
 
-		--ring: hsl(var(--foreground));
+		--ring: var(--primary);
 	}
 
 	* {
@@ -92,8 +92,8 @@
 
 @layer components {
 	.focusable {
-		@apply focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground;
+		@apply focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
 		@apply focus-within:border-border focus-visible:bg-background focus-visible:text-foreground;
-		@apply focus-visible:ring-offset-4 focus-visible:ring-offset-background;
+		@apply focus-visible:rounded focus-visible:ring-offset-4 focus-visible:ring-offset-background;
 	}
 }

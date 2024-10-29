@@ -16,7 +16,7 @@
 <div
 	class={cn(
 		'fixed bottom-8 right-8 z-10 overflow-clip rounded bg-background shadow-lg',
-		'[&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-foreground',
+		'[&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',
 		'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background'
 	)}
 >

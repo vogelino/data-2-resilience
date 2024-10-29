@@ -23,7 +23,7 @@
 		'fixed bottom-8 left-8 z-10 overflow-clip rounded border border-border bg-background shadow-lg',
 		$isLeftSidebarOpened ? 'translate-x-[var(--leftSidebarWidth)]' : 'translate-x-0',
 		'p-4 transition-transform duration-300 ease-in-out',
-		'[&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-foreground',
+		'[&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',
 		'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background'
 	)}
 >
@@ -41,7 +41,7 @@
 		type="button"
 		class={cn(
 			'underline decoration-muted underline-offset-2',
-			'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+			'focusable',
 			'hover-hover:hover:decoration-primary',
 			'flex items-center gap-1 transition-all'
 		)}

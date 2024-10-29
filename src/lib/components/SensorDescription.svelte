@@ -7,8 +7,6 @@
 		src: string;
 		alt: string;
 	};
-
-	let expanded = false;
 </script>
 
 <li class="rounded-xl border border-border bg-background">
@@ -20,5 +18,9 @@
 			<p>{description}</p>
 		</CollapsibleParagraph>
 	</header>
-	<img src={image.src} alt={image.alt} class="aspect-2.61/1 w-full rounded-b-xl object-contain" />
+	<img
+		src={image.src}
+		alt={image.alt}
+		class="aspect-2.61/1 w-full rounded-b-xl bg-primary object-contain"
+	/>
 </li>

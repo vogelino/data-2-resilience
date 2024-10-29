@@ -60,8 +60,8 @@
 			<span
 				class={cn(
 					'absolute right-0 top-0 bg-background',
-					'size-5 rounded-full border border-foreground ring-4 ring-inset ring-background',
-					indicator.isSelected && 'bg-foreground'
+					'size-5 rounded-full border border-muted-foreground ring-4 ring-inset ring-background',
+					indicator.isSelected && 'border-primary bg-primary-foreground ring-primary'
 				)}
 			></span>
 		</div>
@@ -79,7 +79,7 @@
 								'rounded-l bg-background transition group-hover/indicators:bg-muted',
 								'focusable focus-visible:z-10 focus-visible:rounded focus-visible:border',
 								categorySelected &&
-									'border-foreground bg-foreground font-semibold text-background group-hover/indicators:bg-foreground',
+									'border-primary bg-primary font-semibold text-primary-foreground group-hover/indicators:bg-primary group-hover/indicators:text-primary-foreground',
 								!categorySelected && 'group-hover/indicators:hover:bg-background'
 							)}
 						>
@@ -93,11 +93,11 @@
 								$selectedIndicatorSlugParam = indicator.slug;
 							}}
 							class={cn(
-								'focusable focus-visible:z-10 focus-visible:rounded focus-visible:border',
 								'border border-l-0 border-border px-3 py-1.5 text-center',
 								'rounded-r bg-background transition group-hover/indicators:bg-muted',
+								'focusable focus-visible:z-10 focus-visible:rounded focus-visible:border',
 								valueSelected &&
-									'border-foreground bg-foreground font-semibold text-background group-hover/indicators:bg-foreground',
+									'border-primary bg-primary font-semibold text-primary-foreground group-hover/indicators:bg-primary group-hover/indicators:text-primary-foreground',
 								!valueSelected && 'group-hover/indicators:hover:bg-background'
 							)}
 						>

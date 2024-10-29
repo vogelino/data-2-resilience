@@ -79,14 +79,14 @@
 		--sms-max-width: 100%;
 		--sms-margin: 0;
 		--sms-font-size: inherit;
-		--sms-active-color: hsl(var(--foreground));
+		--sms-active-color: hsl(var(--primary));
 		--sms-focus-border: 1px solid hsl(var(--border));
 		--sms-disabled-bg: hsl(var(--muted));
 		--sms-placeholder-color: hsl(var(--muted-foreground));
 		--sms-placeholder-opacity: 0.5;
-		--sms-selected-bg: hsl(var(--foreground));
+		--sms-selected-bg: hsl(var(--primary));
 		--sms-selected-li-padding: 0.25rem 0.5rem;
-		--sms-selected-text-color: hsl(var(--background));
+		--sms-selected-text-color: hsl(var(--primary-foreground));
 		--sms-remove-btn-hover-color: hsl(var(--destructive));
 		--sms-remove-btn-hover-bg: hsl(var(--destructive-foreground));
 		--sms-options-bg: hsl(var(--background));

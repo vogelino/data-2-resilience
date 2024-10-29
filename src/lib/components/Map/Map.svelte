@@ -87,8 +87,8 @@
 
 	{#if currentPage === 'heat-stress'}
 		<MapHourFilter />
-		<ChoroplethLegend />
 	{/if}
+	<ChoroplethLegend />
 </div>
 
 <style>
@@ -105,24 +105,6 @@
 		border-radius: 0.75rem;
 		box-shadow:
 			inset 0 0 0 6px hsl(var(--background)),
-			inset 0 0 0 8px hsl(var(--foreground));
-	}
-
-	.main-map :global(.maplibregl-popup-content) {
-		background: hsl(var(--background));
-		padding: 0.75rem 1rem;
-		border: 1px solid hsl(var(--border));
-	}
-
-	.main-map :global(.maplibregl-popup-tip) {
-		border-top-color: hsl(var(--border));
-	}
-
-	.main-map :global(.selected > .maplibregl-popup-content) {
-		border-color: hsl(var(--foreground));
-	}
-
-	.main-map :global(.selected > .maplibregl-popup-tip) {
-		border-top-color: hsl(var(--foreground));
+			inset 0 0 0 8px hsl(var(--ring));
 	}
 </style>

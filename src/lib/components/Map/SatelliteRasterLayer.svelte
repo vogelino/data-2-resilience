@@ -6,5 +6,5 @@
 </script>
 
 <RasterTileSource tiles={[satelliteTilesUrl]} tileSize={256}>
-	<RasterLayer paint={{}} beforeLayerType="fill-extrusion" />
+	<RasterLayer paint={{}} beforeLayerType="symbol" />
 </RasterTileSource>

@@ -7,7 +7,7 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 
 	let showDistricts = queryParam('showDistricts', ssp.boolean(true));
-	let showLors = queryParam('showLor', ssp.boolean(false));
+	let showLors = queryParam('showLors', ssp.boolean(false));
 	let showSatellite = queryParam('showSatellite', ssp.boolean(false));
 </script>
 

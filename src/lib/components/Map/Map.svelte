@@ -11,9 +11,11 @@
 	import MapDistrictsLayer from './MapDistrictsLayer.svelte';
 	import MapHourFilter from './MapHourFilter.svelte';
 	import MapLayerSelection from './MapLayerSelection.svelte';
+	import MapLorsLayer from './MapLorsLayer.svelte';
 	import MapMeasurementsRasterLayer from './MapMeasurementsRasterLayer.svelte';
 	import MapStationsLayer from './MapStationsLayer.svelte';
 	import MapZoomControl from './MapZoomControl.svelte';
+	import SatelliteRasterLayer from './SatelliteRasterLayer.svelte';
 
 	export let stations: StationsGeoJSONType;
 
@@ -24,6 +26,8 @@
 	const hour = queryParam('hour', ssp.number(12), config);
 	const urlStations = queryParam('selectedStations');
 	const showDistricts = queryParam('showDistricts', ssp.boolean(true));
+	const showLors = queryParam('showLors', ssp.boolean(false));
+	const showSatellite = queryParam('showSatellite', ssp.boolean(false));
 
 	let mapLat = $lat;
 	let mapLon = $lon;
@@ -37,6 +41,11 @@
 			value && selectedStations.set(value.split(','));
 		});
 	});
+
+	$: vectorTilesUrl =
+		$mode === 'dark'
+			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
+			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
 </script>
 
 <div class="main-map relative grid h-full w-full items-center justify-center overflow-clip">
@@ -53,9 +62,7 @@
 		attributionControl={false}
 		class="relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen"
 		standardControls={false}
-		style={$mode === 'dark'
-			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
-			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'}
+		style={vectorTilesUrl}
 		on:moveend={(e) => {
 			if (!e?.detail?.map) return;
 			const center = e.detail.map.getCenter();
@@ -68,7 +75,9 @@
 		<MapZoomControl {map} />
 		<MapLayerSelection />
 
+		{#if $showSatellite}<SatelliteRasterLayer />{/if}
 		{#if $showDistricts}<MapDistrictsLayer />{/if}
+		{#if $showLors}<MapLorsLayer />{/if}
 		{#if currentPage === 'measurements'}
 			<MapStationsLayer {stations} {map} />
 		{:else if currentPage === 'heat-stress'}

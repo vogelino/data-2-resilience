@@ -1368,3 +1368,5 @@ export const districts = {
 		}
 	]
 } satisfies GeoJSON.GeoJSON;
+
+export const lors = districts;

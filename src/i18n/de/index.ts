@@ -597,7 +597,7 @@ const de = {
 			description:
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
 		},
-		temp: {
+		air_temperature: {
 			title: 'Lufttemperatur',
 			description:
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'

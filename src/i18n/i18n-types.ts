@@ -1517,7 +1517,7 @@ type RootTranslation = {
 			 */
 			description: string
 		}
-		temp: {
+		air_temperature: {
 			/**
 			 * L​u​f​t​t​e​m​p​e​r​a​t​u​r
 			 */
@@ -3053,7 +3053,7 @@ export type TranslationFunctions = {
 			 */
 			description: () => LocalizedString
 		}
-		temp: {
+		air_temperature: {
 			/**
 			 * Lufttemperatur
 			 */

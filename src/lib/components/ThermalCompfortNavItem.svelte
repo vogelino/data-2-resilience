@@ -1,7 +1,11 @@
 <script context="module" lang="ts">
-	export type SelectedIndicatorSlugType = 'relative_humidity' | 'utci' | 'utci_category' | 'temp';
+	export type SelectedIndicatorSlugType =
+		| 'relative_humidity'
+		| 'utci'
+		| 'utci_category'
+		| 'air_temperature';
 	export type IndicatorType = {
-		slug: 'utci' | 'relative_humidity' | 'temp';
+		slug: 'utci' | 'relative_humidity' | 'air_temperature';
 		title: string;
 		description: string;
 		hasCategory: boolean;
@@ -13,12 +17,12 @@
 	import { LL } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import { Info } from 'lucide-svelte';
-	import { queryParam } from 'sveltekit-search-params';
+	import { queryParam, ssp } from 'sveltekit-search-params';
 	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
 	export let indicator: IndicatorType;
 
-	let selectedIndicatorSlugParam = queryParam('heatSress');
+	let selectedIndicatorSlugParam = queryParam('heatSress', ssp.string('utci'));
 	$: selectedIndicatorSlug =
 		$selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam;
 	$: slugWithCategory = `${indicator.slug}_category`;

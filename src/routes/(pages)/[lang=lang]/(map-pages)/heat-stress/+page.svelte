@@ -3,9 +3,9 @@
 	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
 	import ThermalCompfortNavItem from 'components/ThermalCompfortNavItem.svelte';
 	import Alert from 'components/ui/alert/alert.svelte';
-	import { queryParam } from 'sveltekit-search-params';
+	import { queryParam, ssp } from 'sveltekit-search-params';
 
-	let selectedIndicatorSlugParam = queryParam('heatSress');
+	let selectedIndicatorSlugParam = queryParam('heatSress', ssp.string('utci'));
 	$: selectedIndicatorSlug =
 		$selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam;
 
@@ -25,11 +25,11 @@
 			isSelected: selectedIndicatorSlug === 'relative_humidity'
 		},
 		{
-			slug: 'temp' as const,
-			title: $LL.indicators.temp.title(),
-			description: $LL.indicators.temp.description(),
+			slug: 'air_temperature' as const,
+			title: $LL.indicators.air_temperature.title(),
+			description: $LL.indicators.air_temperature.description(),
 			hasCategory: false,
-			isSelected: selectedIndicatorSlug === 'temp'
+			isSelected: selectedIndicatorSlug === 'air_temperature'
 		}
 	];
 </script>

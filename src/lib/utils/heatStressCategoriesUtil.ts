@@ -1,4 +1,4 @@
-const valueToCategoryMap = new Map<number, string>([
+export const valueToCategoryMap = new Map<number, string>([
 	[-5, 'extreme cold stress'],
 	[-4, 'very strong cold stress'],
 	[-3, 'strong cold stress'],

@@ -47,10 +47,10 @@
 
 <svelte:window on:popstate={handlePopStateEvent} />
 
-<ul class="flex items-center gap-2" aria-label="Language switcher">
+<ul class="flex items-center gap-1" aria-label="Language switcher">
 	{#each locales as l}
 		<li
-			class="flex border-l border-border pl-2 transition first-of-type:border-none first-of-type:pl-0 hover:hover-hover:font-bold"
+			class="flex border-l border-border pl-1 transition first-of-type:border-none first-of-type:pl-0 hover:hover-hover:font-bold"
 		>
 			<a
 				class={cn('focusable rounded px-2 py-1', l === $locale && 'font-bold')}

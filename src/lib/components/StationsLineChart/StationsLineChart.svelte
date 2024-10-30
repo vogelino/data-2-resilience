@@ -107,10 +107,10 @@
 	$: xTickFormat = (d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d);
 	$: yTickFormat = (d: number) =>
 		isCatChart
-			? $LL.pages.measurements.heatStressCategories[
+			? $LL.map.choroplethLegend.heatStressCategories[
 					getHeatStressCategoryByValue(
 						d
-					) as keyof typeof $LL.pages.measurements.heatStressCategories
+					) as keyof typeof $LL.map.choroplethLegend.heatStressCategories
 				]()
 			: d.toLocaleString($locale);
 	$: legendItems = ids
@@ -140,8 +140,8 @@
 										${
 											typeof value === 'number'
 												? value.toLocaleString($locale)
-												: $LL.pages.measurements.heatStressCategories[
-														value as keyof typeof $LL.pages.measurements.heatStressCategories
+												: $LL.map.choroplethLegend.heatStressCategories[
+														value as keyof typeof $LL.map.choroplethLegend.heatStressCategories
 													]()
 										}
 										${$LL.pages.measurements.unitSelect.units[

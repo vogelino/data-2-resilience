@@ -66,8 +66,7 @@ const en = {
 				"Heat stress is the state of discomfort and physiological strain experienced when the thermal environment exceeds a person's ability to dissipate heat. This means that temperature, humidity, air movement, and radiant heat are at levels that can cause discomfort or health risks. It can be assessed using various indicators:"
 			],
 			timeRangeAlert: `Data only available from {startDate} to {endDate}.`,
-			indicatorsNavAriaLabel: 'Select an indicator to change the data displayed on the map.',
-			showHealthRisks: 'Show health risks'
+			indicatorsNavAriaLabel: 'Select an indicator to change the data displayed on the map.'
 		},
 		measurements: {
 			title: 'What is currently being measured?',
@@ -514,19 +513,6 @@ const en = {
 					}
 				}
 			},
-			heatStressCategories: {
-				'extreme cold stress': 'Extreme Cold Stress',
-				'very strong cold stress': 'Very Strong Cold Stress',
-				'strong cold stress': 'Strong Cold Stress',
-				'moderate cold stress': 'Moderate Cold Stress',
-				'slight cold stress': 'Slight Cold Stress',
-				'no thermal stress': 'No Thermal Stress',
-				'slight heat stress': 'Slight Heat Stress',
-				'moderate heat stress': 'Moderate Heat Stress',
-				'strong heat stress': 'Strong Heat Stress',
-				'very strong heat stress': 'Very Strong Heat Stress',
-				'extreme heat stress': 'Extreme Heat Stress'
-			},
 			dateRangeSlider: {
 				today: 'Today',
 				day: 'Day',
@@ -613,6 +599,47 @@ const en = {
 			districts: 'District boundaries',
 			lors: 'Neighborhood areas',
 			satellite: 'Satellite imagery'
+		},
+		choroplethLegend: {
+			showHealthRisks: 'Show health risks',
+			hideHealthRisks: 'Hide health risks',
+			title: 'Heath risks',
+			heatStressCategories: {
+				'extreme cold stress': 'Extreme Cold Stress',
+				'very strong cold stress': 'Very Strong Cold Stress',
+				'strong cold stress': 'Strong Cold Stress',
+				'moderate cold stress': 'Moderate Cold Stress',
+				'slight cold stress': 'Slight Cold Stress',
+				'no thermal stress': 'No Thermal Stress',
+				'slight heat stress': 'Slight Heat Stress',
+				'moderate heat stress': 'Moderate Heat Stress',
+				'strong heat stress': 'Strong Heat Stress',
+				'very strong heat stress': 'Very Strong Heat Stress',
+				'extreme heat stress': 'Extreme Heat Stress'
+			},
+			healthRisks: {
+				veryCold: {
+					title: 'Very cold',
+					description: 'Risk of hypothermia and frostbite with prolonged exposure'
+				},
+				cold: {
+					title: 'Cold',
+					description: 'Risk of lowered body temperature and discomfort'
+				},
+				slightlyWarm: {
+					title: 'Slightly warm',
+					description: 'Risk of discomfort and increased sweating'
+				},
+				warm: {
+					title: 'Warm',
+					description:
+						'Risk of heat cramps, heat exhaustion and other heat-related illnesses, especially during physical activity'
+				},
+				veryWarm: {
+					title: 'Very warm',
+					description: 'Risk of heat stroke and organ failure'
+				}
+			}
 		}
 	}
 } satisfies Translation;

@@ -183,10 +183,6 @@ type RootTranslation = {
 			 * W​ä​h​l​e​ ​e​i​n​e​n​ ​I​n​d​i​k​a​t​o​r​,​ ​u​m​ ​d​i​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​D​a​t​e​n​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​z​u​ ​ä​n​d​e​r​n​.
 			 */
 			indicatorsNavAriaLabel: string
-			/**
-			 * G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n​ ​a​n​z​e​i​g​e​n
-			 */
-			showHealthRisks: string
 		}
 		measurements: {
 			/**
@@ -1324,52 +1320,6 @@ type RootTranslation = {
 					}
 				}
 			}
-			heatStressCategories: {
-				/**
-				 * E​x​t​r​e​m​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
-				 */
-				'extreme cold stress': string
-				/**
-				 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
-				 */
-				'very strong cold stress': string
-				/**
-				 * S​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
-				 */
-				'strong cold stress': string
-				/**
-				 * M​ä​ß​i​g​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
-				 */
-				'moderate cold stress': string
-				/**
-				 * L​e​i​c​h​t​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
-				 */
-				'slight cold stress': string
-				/**
-				 * K​e​i​n​ ​t​h​e​r​m​i​s​c​h​e​r​ ​S​t​r​e​s​s
-				 */
-				'no thermal stress': string
-				/**
-				 * L​e​i​c​h​t​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
-				 */
-				'slight heat stress': string
-				/**
-				 * M​ä​ß​i​g​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
-				 */
-				'moderate heat stress': string
-				/**
-				 * S​t​a​r​k​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
-				 */
-				'strong heat stress': string
-				/**
-				 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
-				 */
-				'very strong heat stress': string
-				/**
-				 * E​x​t​r​e​m​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
-				 */
-				'extreme heat stress': string
-			}
 			dateRangeSlider: {
 				/**
 				 * H​e​u​t​e
@@ -1561,6 +1511,118 @@ type RootTranslation = {
 			 */
 			satellite: string
 		}
+		choroplethLegend: {
+			/**
+			 * G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n​ ​e​i​n​b​l​e​n​d​e​n
+			 */
+			showHealthRisks: string
+			/**
+			 * G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n​ ​a​u​s​b​l​e​n​d​e​n
+			 */
+			hideHealthRisks: string
+			/**
+			 * G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n
+			 */
+			title: string
+			heatStressCategories: {
+				/**
+				 * E​x​t​r​e​m​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+				 */
+				'extreme cold stress': string
+				/**
+				 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+				 */
+				'very strong cold stress': string
+				/**
+				 * S​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+				 */
+				'strong cold stress': string
+				/**
+				 * M​ä​ß​i​g​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+				 */
+				'moderate cold stress': string
+				/**
+				 * L​e​i​c​h​t​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+				 */
+				'slight cold stress': string
+				/**
+				 * K​e​i​n​ ​t​h​e​r​m​i​s​c​h​e​r​ ​S​t​r​e​s​s
+				 */
+				'no thermal stress': string
+				/**
+				 * L​e​i​c​h​t​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
+				 */
+				'slight heat stress': string
+				/**
+				 * M​ä​ß​i​g​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
+				 */
+				'moderate heat stress': string
+				/**
+				 * S​t​a​r​k​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
+				 */
+				'strong heat stress': string
+				/**
+				 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
+				 */
+				'very strong heat stress': string
+				/**
+				 * E​x​t​r​e​m​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
+				 */
+				'extreme heat stress': string
+			}
+			healthRisks: {
+				veryCold: {
+					/**
+					 * S​e​h​r​ ​k​a​l​t
+					 */
+					title: string
+					/**
+					 * R​i​s​i​k​o​ ​v​o​n​ ​U​n​t​e​r​k​ü​h​l​u​n​g​ ​u​n​d​ ​E​r​f​r​i​e​r​u​n​g​e​n​ ​b​e​i​ ​l​ä​n​g​e​r​e​r​ ​E​x​p​o​s​i​t​i​o​n
+					 */
+					description: string
+				}
+				cold: {
+					/**
+					 * K​a​l​t
+					 */
+					title: string
+					/**
+					 * R​i​s​i​k​o​ ​v​o​n​ ​e​r​n​i​e​d​r​i​g​t​e​r​ ​K​ö​r​p​e​r​t​e​m​p​e​r​a​t​u​r​ ​u​n​d​ ​U​n​b​e​h​a​g​e​n
+					 */
+					description: string
+				}
+				slightlyWarm: {
+					/**
+					 * L​e​i​c​h​t​ ​w​a​r​m
+					 */
+					title: string
+					/**
+					 * R​i​s​i​k​o​ ​v​o​n​ ​U​n​b​e​h​a​g​e​n​ ​u​n​d​ ​e​r​h​ö​h​t​e​m​ ​S​c​h​w​e​i​ß​a​u​s​s​t​o​ß
+					 */
+					description: string
+				}
+				warm: {
+					/**
+					 * W​a​r​m
+					 */
+					title: string
+					/**
+					 * R​i​s​i​k​o​ ​v​o​n​ ​H​i​t​z​e​k​r​ä​m​p​f​e​n​,​ ​H​i​t​z​e​e​r​s​c​h​ö​p​f​u​n​g​ ​u​n​d​ ​a​n​d​e​r​e​n​ ​h​i​t​z​e​b​e​d​i​n​g​t​e​n​ ​E​r​k​r​a​n​k​u​n​g​e​n​,​ ​b​e​s​o​n​d​e​r​s​ ​b​e​i​ ​k​ö​r​p​e​r​l​i​c​h​e​r​ ​A​k​t​i​v​i​t​ä​t
+					 */
+					description: string
+				}
+				veryWarm: {
+					/**
+					 * S​e​h​r​ ​w​a​r​m
+					 */
+					title: string
+					/**
+					 * R​i​s​i​k​o​ ​v​o​n​ ​H​i​t​z​s​c​h​l​a​g​ ​u​n​d​ ​O​r​g​a​n​v​e​r​s​a​g​e​n
+					 */
+					description: string
+				}
+			}
+		}
 	}
 }
 
@@ -1731,10 +1793,6 @@ export type TranslationFunctions = {
 			 * Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.
 			 */
 			indicatorsNavAriaLabel: () => LocalizedString
-			/**
-			 * Gesundheitsrisiken anzeigen
-			 */
-			showHealthRisks: () => LocalizedString
 		}
 		measurements: {
 			/**
@@ -2860,52 +2918,6 @@ export type TranslationFunctions = {
 					}
 				}
 			}
-			heatStressCategories: {
-				/**
-				 * Extremer Kältestress
-				 */
-				'extreme cold stress': () => LocalizedString
-				/**
-				 * Sehr starker Kältestress
-				 */
-				'very strong cold stress': () => LocalizedString
-				/**
-				 * Starker Kältestress
-				 */
-				'strong cold stress': () => LocalizedString
-				/**
-				 * Mäßiger Kältestress
-				 */
-				'moderate cold stress': () => LocalizedString
-				/**
-				 * Leichter Kältestress
-				 */
-				'slight cold stress': () => LocalizedString
-				/**
-				 * Kein thermischer Stress
-				 */
-				'no thermal stress': () => LocalizedString
-				/**
-				 * Leichter Wärmestress
-				 */
-				'slight heat stress': () => LocalizedString
-				/**
-				 * Mäßiger Wärmestress
-				 */
-				'moderate heat stress': () => LocalizedString
-				/**
-				 * Starker Wärmestress
-				 */
-				'strong heat stress': () => LocalizedString
-				/**
-				 * Sehr starker Wärmestress
-				 */
-				'very strong heat stress': () => LocalizedString
-				/**
-				 * Extremer Wärmestress
-				 */
-				'extreme heat stress': () => LocalizedString
-			}
 			dateRangeSlider: {
 				/**
 				 * Heute
@@ -3096,6 +3108,118 @@ export type TranslationFunctions = {
 			 * Satellitenbilder
 			 */
 			satellite: () => LocalizedString
+		}
+		choroplethLegend: {
+			/**
+			 * Gesundheitsrisiken einblenden
+			 */
+			showHealthRisks: () => LocalizedString
+			/**
+			 * Gesundheitsrisiken ausblenden
+			 */
+			hideHealthRisks: () => LocalizedString
+			/**
+			 * Gesundheitsrisiken
+			 */
+			title: () => LocalizedString
+			heatStressCategories: {
+				/**
+				 * Extremer Kältestress
+				 */
+				'extreme cold stress': () => LocalizedString
+				/**
+				 * Sehr starker Kältestress
+				 */
+				'very strong cold stress': () => LocalizedString
+				/**
+				 * Starker Kältestress
+				 */
+				'strong cold stress': () => LocalizedString
+				/**
+				 * Mäßiger Kältestress
+				 */
+				'moderate cold stress': () => LocalizedString
+				/**
+				 * Leichter Kältestress
+				 */
+				'slight cold stress': () => LocalizedString
+				/**
+				 * Kein thermischer Stress
+				 */
+				'no thermal stress': () => LocalizedString
+				/**
+				 * Leichter Wärmestress
+				 */
+				'slight heat stress': () => LocalizedString
+				/**
+				 * Mäßiger Wärmestress
+				 */
+				'moderate heat stress': () => LocalizedString
+				/**
+				 * Starker Wärmestress
+				 */
+				'strong heat stress': () => LocalizedString
+				/**
+				 * Sehr starker Wärmestress
+				 */
+				'very strong heat stress': () => LocalizedString
+				/**
+				 * Extremer Wärmestress
+				 */
+				'extreme heat stress': () => LocalizedString
+			}
+			healthRisks: {
+				veryCold: {
+					/**
+					 * Sehr kalt
+					 */
+					title: () => LocalizedString
+					/**
+					 * Risiko von Unterkühlung und Erfrierungen bei längerer Exposition
+					 */
+					description: () => LocalizedString
+				}
+				cold: {
+					/**
+					 * Kalt
+					 */
+					title: () => LocalizedString
+					/**
+					 * Risiko von erniedrigter Körpertemperatur und Unbehagen
+					 */
+					description: () => LocalizedString
+				}
+				slightlyWarm: {
+					/**
+					 * Leicht warm
+					 */
+					title: () => LocalizedString
+					/**
+					 * Risiko von Unbehagen und erhöhtem Schweißausstoß
+					 */
+					description: () => LocalizedString
+				}
+				warm: {
+					/**
+					 * Warm
+					 */
+					title: () => LocalizedString
+					/**
+					 * Risiko von Hitzekrämpfen, Hitzeerschöpfung und anderen hitzebedingten Erkrankungen, besonders bei körperlicher Aktivität
+					 */
+					description: () => LocalizedString
+				}
+				veryWarm: {
+					/**
+					 * Sehr warm
+					 */
+					title: () => LocalizedString
+					/**
+					 * Risiko von Hitzschlag und Organversagen
+					 */
+					description: () => LocalizedString
+				}
+			}
 		}
 	}
 }

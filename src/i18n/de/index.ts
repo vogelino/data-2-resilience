@@ -67,8 +67,7 @@ const de = {
 			],
 			timeRangeAlert: `Daten nur verfügbar im Zeitraum vom {startDate:string} bis {endDate:string}.`,
 			indicatorsNavAriaLabel:
-				'Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.',
-			showHealthRisks: 'Gesundheitsrisiken anzeigen'
+				'Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.'
 		},
 		measurements: {
 			title: 'Was wird aktuell gemessen?',
@@ -515,19 +514,6 @@ const de = {
 					}
 				}
 			},
-			heatStressCategories: {
-				'extreme cold stress': 'Extremer Kältestress',
-				'very strong cold stress': 'Sehr starker Kältestress',
-				'strong cold stress': 'Starker Kältestress',
-				'moderate cold stress': 'Mäßiger Kältestress',
-				'slight cold stress': 'Leichter Kältestress',
-				'no thermal stress': 'Kein thermischer Stress',
-				'slight heat stress': 'Leichter Wärmestress',
-				'moderate heat stress': 'Mäßiger Wärmestress',
-				'strong heat stress': 'Starker Wärmestress',
-				'very strong heat stress': 'Sehr starker Wärmestress',
-				'extreme heat stress': 'Extremer Wärmestress'
-			},
 			dateRangeSlider: {
 				today: 'Heute',
 				day: 'Tag',
@@ -614,6 +600,47 @@ const de = {
 			districts: 'Bezirksgrenzen',
 			lors: 'Lebensweltlich orientierte Räume',
 			satellite: 'Satellitenbilder'
+		},
+		choroplethLegend: {
+			showHealthRisks: 'Gesundheitsrisiken einblenden',
+			hideHealthRisks: 'Gesundheitsrisiken ausblenden',
+			title: 'Gesundheitsrisiken',
+			heatStressCategories: {
+				'extreme cold stress': 'Extremer Kältestress',
+				'very strong cold stress': 'Sehr starker Kältestress',
+				'strong cold stress': 'Starker Kältestress',
+				'moderate cold stress': 'Mäßiger Kältestress',
+				'slight cold stress': 'Leichter Kältestress',
+				'no thermal stress': 'Kein thermischer Stress',
+				'slight heat stress': 'Leichter Wärmestress',
+				'moderate heat stress': 'Mäßiger Wärmestress',
+				'strong heat stress': 'Starker Wärmestress',
+				'very strong heat stress': 'Sehr starker Wärmestress',
+				'extreme heat stress': 'Extremer Wärmestress'
+			},
+			healthRisks: {
+				veryCold: {
+					title: 'Sehr kalt',
+					description: 'Risiko von Unterkühlung und Erfrierungen bei längerer Exposition'
+				},
+				cold: {
+					title: 'Kalt',
+					description: 'Risiko von erniedrigter Körpertemperatur und Unbehagen'
+				},
+				slightlyWarm: {
+					title: 'Leicht warm',
+					description: 'Risiko von Unbehagen und erhöhtem Schweißausstoß'
+				},
+				warm: {
+					title: 'Warm',
+					description:
+						'Risiko von Hitzekrämpfen, Hitzeerschöpfung und anderen hitzebedingten Erkrankungen, besonders bei körperlicher Aktivität'
+				},
+				veryWarm: {
+					title: 'Sehr warm',
+					description: 'Risiko von Hitzschlag und Organversagen'
+				}
+			}
 		}
 	}
 } satisfies BaseTranslation;

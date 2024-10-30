@@ -11,7 +11,7 @@
 	let showSatellite = queryParam('showSatellite', ssp.boolean(false));
 </script>
 
-<DropdownMenu.Root>
+<DropdownMenu.Root closeOnItemClick={false}>
 	<DropdownMenu.Trigger asChild aria-label={$LL.map.layersSelection.ariaLabel()} let:builder>
 		<Button
 			builders={[builder]}

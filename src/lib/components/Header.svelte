@@ -10,7 +10,7 @@
 </script>
 
 <header
-	class="grid h-[var(--headerHeight,5rem)] w-screen grid-cols-[auto,1fr] items-center gap-x-8 gap-y-4 border-b border-border px-6 py-3"
+	class="grid h-[var(--headerHeight,5rem)] w-screen grid-cols-[auto,1fr] items-center gap-x-4 gap-y-4 border-b border-border px-6"
 >
 	<a
 		href={`/${$locale}`}
@@ -19,17 +19,17 @@
 			'transition-colors hover-hover:hover:bg-muted'
 		)}
 	>
-		<Logo className="size-10 -translate-y-0.5" />
+		<Logo className="size-10 -translate-y-0.5 shrink-0" />
 		<span class="flex h-full flex-col justify-around">
 			<h1 class="font-semibold">{title}</h1>
-			<p class="text-sm text-muted-foreground">{subtitle}</p>
+			<p class="text-balance text-sm leading-4 text-muted-foreground">{subtitle}</p>
 		</span>
 	</a>
 
 	<nav
 		id="secondary-nav"
 		aria-label="Light/Dark theme- and language switchers"
-		class="flex w-full items-center justify-end gap-8"
+		class="flex w-full items-center justify-end gap-4"
 	>
 		<LocaleSwitcher />
 		<DarkModeToggle />

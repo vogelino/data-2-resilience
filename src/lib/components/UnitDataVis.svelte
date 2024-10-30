@@ -20,7 +20,6 @@
 
 <div class="mt-4 flex flex-col rounded-md border border-border">
 	<div class="flex flex-col gap-4 border-b border-border p-4">
-		<h3 class="font-semibold">{selectedUnitLabel}</h3>
 		{#if $isRange}
 			<StationsValuesLineChart {stations} />
 		{:else}

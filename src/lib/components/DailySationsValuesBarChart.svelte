@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
-	import { selectedStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
 	import { api } from '$lib/utils/api';
 	import { today } from '$lib/utils/dateUtil';
@@ -34,6 +33,11 @@
 	const options = { debounceHistory: 500 };
 	const dayVlaue = queryParam('day_value', ssp.number(0), options);
 	const unit = queryParam('unit', ssp.string('air_temperature'));
+	const urlStations = queryParam(
+		'selectedStations',
+		ssp.string(['DEC005304', 'DEC005476', 'DEC00546E'].join(','))
+	);
+	$: selectedStationsIds = $urlStations.split(',');
 
 	const updateDay = debounce((d: number) => {
 		updateDay?.cancel();
@@ -51,8 +55,12 @@
 		$LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 		].label();
+	$: unitOnly =
+		$LL.pages.measurements.unitSelect.units[
+			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
+		].unitOnly();
 
-	$: ids = $selectedStations.toSorted();
+	$: ids = selectedStationsIds.toSorted();
 	$: enabled = Boolean(ids.length > 0 && date && $unit);
 	$: query = createQuery({
 		queryKey: ['stationsData-daily', ids.join('-'), dateKey, $unit],
@@ -126,6 +134,12 @@
 			</span>
 		`
 	};
+
+	const dateLongFormatter = new Intl.DateTimeFormat($locale, {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric'
+	});
 </script>
 
 {#if unsupportedMsg}
@@ -152,51 +166,83 @@
 		{/if}
 	</Alert>
 {/if}
-<UnovisChartContainer className={cn('relative min-h-16')}>
-	{#if !noneSufficientData && !noneSupportedData}
-		<VisXYContainer padding={{ top: 8, bottom: 8, right: 16 }} height={60 + chartData.length * 24}>
-			{#if $query.isSuccess && chartData.length > 0}
-				<VisStackedBar
-					data={chartData}
-					{x}
-					{y}
-					numTicks={Math.max(2, chartData.length)}
-					tickValues={chartData.length === 1 && chartData[0].value === 0 ? [0, 5] : undefined}
-					orientation="horizontal"
-					barPadding={0.2}
-					barMinHeight1Px
-				/>
-				<VisAxis type="x" tickFormat={xTickFormat} numTicks={5} />
-				<VisAxis
-					type="y"
-					tickFormat={yTickFormat}
-					tickValues={yTickValues}
-					gridLine={false}
-					numTicks={chartData.length}
-					tickTextFitMode="trim"
-					tickTextTrimType="end"
-				/>
-				<VisTooltip {triggers} />
-			{:else if $query.isSuccess && chartData.length === 0}
-				<div class="absolute inset-0 flex items-center justify-center">
-					{$LL.pages.measurements.noDataAvailable()}
-				</div>
-			{/if}
 
-			{#if $query.error}
-				<div class="absolute inset-0 flex items-center justify-center">
-					<ErrorAlert errorObject={$query.error} />
-				</div>
+{#if selectedStationsIds.length === 1 && (data[0]?.value || $query.isLoading)}
+	<div class="flex flex-col justify-center gap-2 text-center">
+		<span class="text-muted-foreground">
+			{#if $query.isLoading}
+				<span class="inline-block h-4 w-40 animate-pulse rounded-sm bg-muted-foreground/20"></span>
+			{:else if date}
+				{dateLongFormatter.format(date)}
 			{/if}
-		</VisXYContainer>
-	{/if}
-	<div
-		class={cn(
-			'absolute inset-0 flex items-center justify-center',
-			'pointer-events-none opacity-100',
-			!$query.isFetching && 'opacity-0'
-		)}
-	>
-		<LoaderCircle class="size-6 animate-spin" />
+		</span>
+		<strong class="text-3xl leading-tight">
+			{#if $query.isLoading}
+				<span class="inline-block h-6 w-24 animate-pulse rounded-sm bg-muted-foreground/20"></span>
+			{:else if data[0].value !== undefined}
+				{data[0].value?.toLocaleString($locale)}
+				{unitOnly}
+			{/if}
+		</strong>
+		<span>
+			{#if $query.isLoading}
+				<span class="inline-block h-4 w-48 animate-pulse rounded-sm bg-muted-foreground/20"></span>
+			{:else if date}
+				{unitLongLabel}
+			{/if}</span
+		>
 	</div>
-</UnovisChartContainer>
+{:else if selectedStationsIds.length > 1 && data.length > 1}
+	<h3 class="font-semibold">{unitShortLabel}</h3>
+	<UnovisChartContainer className={cn('relative min-h-16')}>
+		{#if !noneSufficientData && !noneSupportedData}
+			<VisXYContainer
+				padding={{ top: 8, bottom: 8, right: 16 }}
+				height={60 + chartData.length * 24}
+			>
+				{#if $query.isSuccess && chartData.length > 0}
+					<VisStackedBar
+						data={chartData}
+						{x}
+						{y}
+						numTicks={Math.max(2, chartData.length)}
+						tickValues={chartData.length === 1 && chartData[0].value === 0 ? [0, 5] : undefined}
+						orientation="horizontal"
+						barPadding={0.2}
+						barMinHeight1Px
+					/>
+					<VisAxis type="x" tickFormat={xTickFormat} numTicks={5} />
+					<VisAxis
+						type="y"
+						tickFormat={yTickFormat}
+						tickValues={yTickValues}
+						gridLine={false}
+						numTicks={chartData.length}
+						tickTextFitMode="trim"
+						tickTextTrimType="end"
+					/>
+					<VisTooltip {triggers} />
+				{:else if $query.isSuccess && chartData.length === 0}
+					<div class="absolute inset-0 flex items-center justify-center">
+						{$LL.pages.measurements.noDataAvailable()}
+					</div>
+				{/if}
+
+				{#if $query.error}
+					<div class="absolute inset-0 flex items-center justify-center">
+						<ErrorAlert errorObject={$query.error} />
+					</div>
+				{/if}
+			</VisXYContainer>
+		{/if}
+		<div
+			class={cn(
+				'absolute inset-0 flex items-center justify-center',
+				'pointer-events-none opacity-100',
+				!$query.isFetching && 'opacity-0'
+			)}
+		>
+			<LoaderCircle class="size-6 animate-spin" />
+		</div>
+	</UnovisChartContainer>
+{/if}

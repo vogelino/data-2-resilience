@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
-	import { selectedStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
 	import { today } from '$lib/utils/dateUtil';
 	import {
@@ -51,6 +50,11 @@
 	const rangeStart = queryParam('range_start', ssp.number(-10), options);
 	const rangeEnd = queryParam('range_end', ssp.number(0), options);
 	const unit = queryParam('unit', ssp.string('air_temperature'));
+	const urlStations = queryParam(
+		'selectedStations',
+		ssp.string(['DEC005304', 'DEC005476', 'DEC00546E'].join(','))
+	);
+	$: selectedStationsIds = $urlStations.split(',');
 
 	const updateStartDate = debounce((d: number) => {
 		updateStartDate?.cancel();
@@ -66,13 +70,8 @@
 
 	$: startDateKey = start_date && format(start_date, 'yyyy-MM-dd');
 	$: endDateKey = end_date && format(end_date, 'yyyy-MM-dd');
-	$: unitShortLabel =
-		$LL.pages.measurements.unitSelect.units[
-			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].shortLabel();
-	$: stationHeaderLabel = $LL.pages.measurements.unitSelect.stationsHeaderLabel();
 
-	$: ids = $selectedStations.toSorted();
+	$: ids = selectedStationsIds.toSorted();
 	$: queryFn = getStationDataFetcher({
 		ids,
 		start_date,
@@ -162,8 +161,14 @@
 		stations: stations.features,
 		LL: $LL
 	});
+
+	$: selectedUnitLabel =
+		$LL.pages.measurements.unitSelect.units[
+			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
+		].shortLabel();
 </script>
 
+<h3 class="font-semibold">{selectedUnitLabel}</h3>
 {#if unsupportedMsg}
 	<Alert variant="destructive">
 		{@html unsupportedMsg}

@@ -2,9 +2,7 @@
 	import { page } from '$app/stores';
 	import { locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
-	import { selectedStations } from '$lib/stores/stationsStore';
 	import { mode } from 'mode-watcher';
-	import { onMount } from 'svelte';
 	import { MapLibre } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ChoroplethLegend from '../ChoroplethLegend.svelte';
@@ -24,7 +22,6 @@
 	const lat = queryParam('lat', ssp.number(51.511), config);
 	const zoom = queryParam('zoom', ssp.number(10.5), config);
 	const hour = queryParam('hour', ssp.number(12), config);
-	const urlStations = queryParam('selectedStations');
 	const showDistricts = queryParam('showDistricts', ssp.boolean(true));
 	const showLors = queryParam('showLors', ssp.boolean(false));
 	const showSatellite = queryParam('showSatellite', ssp.boolean(false));
@@ -35,13 +32,6 @@
 
 	$: p = $page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
 	$: currentPage = p === '' ? 'measurements' : p;
-
-	onMount(() => {
-		urlStations.subscribe((value) => {
-			value && selectedStations.set(value.split(','));
-		});
-	});
-
 	$: vectorTilesUrl =
 		$mode === 'dark'
 			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'

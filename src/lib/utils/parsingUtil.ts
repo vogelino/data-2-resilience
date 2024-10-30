@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import type { RawStationMetadata } from './schemas';
 
 export function parseStationMetadata({
@@ -12,4 +13,11 @@ export function parseStationMetadata({
 		longName: long_name,
 		stationType: station_type
 	};
+}
+
+const datavisSchema = z.enum(['day', 'hour', 'range']).default('day');
+type DatavisType = z.infer<typeof datavisSchema>;
+export function parseDatavisType(type: unknown) {
+	const parsedValue = datavisSchema.safeParse(type);
+	return (parsedValue.success ? parsedValue.data : 'day') satisfies DatavisType;
 }

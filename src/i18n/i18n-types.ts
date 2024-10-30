@@ -1326,11 +1326,15 @@ type RootTranslation = {
 				 */
 				today: string
 				/**
-				 * T​a​g
+				 * P​r​o​ ​T​a​g
 				 */
 				day: string
 				/**
-				 * Z​e​i​t​r​a​u​m
+				 * P​r​o​ ​S​t​u​n​d​e
+				 */
+				hour: string
+				/**
+				 * Z​e​i​t​s​p​a​n​n​e
 				 */
 				range: string
 			}
@@ -2924,11 +2928,15 @@ export type TranslationFunctions = {
 				 */
 				today: () => LocalizedString
 				/**
-				 * Tag
+				 * Pro Tag
 				 */
 				day: () => LocalizedString
 				/**
-				 * Zeitraum
+				 * Pro Stunde
+				 */
+				hour: () => LocalizedString
+				/**
+				 * Zeitspanne
 				 */
 				range: () => LocalizedString
 			}

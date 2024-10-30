@@ -516,8 +516,9 @@ const de = {
 			},
 			dateRangeSlider: {
 				today: 'Heute',
-				day: 'Tag',
-				range: 'Zeitraum'
+				day: 'Pro Tag',
+				hour: 'Pro Stunde',
+				range: 'Zeitspanne'
 			}
 		},
 		stations: {

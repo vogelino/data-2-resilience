@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { isToday, today } from '$lib/utils/dateUtil';
+	import { parseDatavisType } from '$lib/utils/parsingUtil';
 	import { addDays } from 'date-fns';
 	import { RangeSlider } from 'svelte-range-slider-pips';
 	import { queryParam, ssp } from 'sveltekit-search-params';
+	import DatavisHourInput from './Map/DatavisHourInput.svelte';
 	import Button from './ui/button/button.svelte';
 
 	const dateRangeStart = -30;
@@ -12,10 +14,11 @@
 	const options = {
 		debounceHistory: 500
 	};
-	let selectedRangeStart = queryParam('range_start', ssp.number(-10), options);
-	let selectedRangeEnd = queryParam('range_end', ssp.number(0), options);
-	let dayValue = queryParam('day_value', ssp.number(0), options);
-	let isRange = queryParam('is_range', ssp.boolean(false));
+	const selectedRangeStart = queryParam('range_start', ssp.number(-10), options);
+	const selectedRangeEnd = queryParam('range_end', ssp.number(0), options);
+	const dayValue = queryParam('day_value', ssp.number(0), options);
+	const rawDatavisType = queryParam('datavisType', ssp.string('day'));
+	$: datavisType = parseDatavisType($rawDatavisType);
 
 	$: formatter = (value: number) => {
 		if (Number.isNaN(value)) return '';
@@ -42,10 +45,6 @@
 		dayValue.set(Math.round(value));
 	};
 
-	function setIsRange(value: boolean) {
-		isRange.set(value);
-	}
-
 	const commonProps = {
 		min: dateRangeStart,
 		max: dateRangeEnd,
@@ -63,7 +62,7 @@
 </script>
 
 <div class="date-range-slider flex flex-col">
-	{#if $isRange}
+	{#if datavisType === 'range'}
 		<RangeSlider
 			values={[$selectedRangeStart, $selectedRangeEnd]}
 			on:change={onRangeChange}
@@ -73,28 +72,41 @@
 			first="label"
 		/>
 	{:else}
-		<RangeSlider
-			value={$dayValue}
-			on:change={onValueChange}
-			range={false}
-			{...commonProps}
-			{formatter}
-		/>
+		<div class="grid grid-cols-[1fr_auto] items-center gap-4">
+			<RangeSlider
+				value={$dayValue}
+				on:change={onValueChange}
+				range={false}
+				{...commonProps}
+				{formatter}
+			/>
+			{#if datavisType === 'hour'}
+				<DatavisHourInput />
+			{/if}
+		</div>
 	{/if}
 	<div class="flex justify-center">
 		<Button
-			variant={$isRange ? 'outline' : 'default'}
+			variant={datavisType === 'hour' ? 'default' : 'outline'}
 			size="sm"
-			on:click={() => setIsRange(false)}
+			on:click={() => ($rawDatavisType = 'hour')}
 			class="rounded-r-none focus-visible:z-10 focus-visible:rounded"
+		>
+			{$LL.pages.measurements.dateRangeSlider.hour()}
+		</Button>
+		<Button
+			variant={datavisType === 'day' ? 'default' : 'outline'}
+			size="sm"
+			on:click={() => ($rawDatavisType = 'day')}
+			class="-ml-px rounded-none focus-visible:z-10 focus-visible:rounded"
 		>
 			{$LL.pages.measurements.dateRangeSlider.day()}
 		</Button>
 		<Button
-			variant={$isRange ? 'default' : 'outline'}
+			variant={datavisType === 'range' ? 'default' : 'outline'}
 			size="sm"
-			on:click={() => setIsRange(true)}
-			class="rounded-l-none focus-visible:z-10 focus-visible:rounded"
+			on:click={() => ($rawDatavisType = 'range')}
+			class="-ml-px rounded-l-none focus-visible:z-10 focus-visible:rounded"
 		>
 			{$LL.pages.measurements.dateRangeSlider.range()}
 		</Button>

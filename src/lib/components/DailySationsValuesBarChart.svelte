@@ -3,6 +3,7 @@
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { cn } from '$lib/utils';
 	import { today } from '$lib/utils/dateUtil';
+	import { parseDatavisType } from '$lib/utils/parsingUtil';
 	import { useDailyStationsData } from '$lib/utils/queryUtils/stationsDataDaily';
 	import {
 		getMessageForUnsupportedStations,
@@ -40,6 +41,8 @@
 		.map((id) => id.trim())
 		.filter(Boolean)
 		.toSorted();
+	const rawDatavisType = queryParam('datavisType', ssp.string('day'));
+	$: datavisType = parseDatavisType($rawDatavisType);
 
 	const updateDay = debounce((d: number) => {
 		updateDay?.cancel();
@@ -67,7 +70,8 @@
 		ids,
 		date,
 		unit: $unit,
-		stations
+		stations,
+		scale: datavisType === 'day' ? 'daily' : 'hourly'
 	});
 
 	$: data = $query.data || [];

@@ -515,8 +515,9 @@ const en = {
 			},
 			dateRangeSlider: {
 				today: 'Today',
-				day: 'Day',
-				range: 'Range'
+				day: 'Per day',
+				hour: 'Per hour',
+				range: 'Time range'
 			}
 		},
 		stations: {

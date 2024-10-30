@@ -15,17 +15,19 @@ export function useDailyStationsData({
 	ids: unsortedIds = [],
 	date,
 	unit,
-	stations
+	stations,
+	scale = 'daily'
 }: {
 	ids?: string[];
 	date: Date | undefined;
 	unit: string;
 	stations: StationsGeoJSONType;
+	scale?: 'daily' | 'hourly';
 }) {
 	const ids = unsortedIds.filter(Boolean).toSorted();
 	const dateKey = date && format(date, 'yyyy-MM-dd');
 	return createQuery({
-		queryKey: ['stationsData-daily', ids.join('-'), dateKey, unit],
+		queryKey: ['stationsData-daily', ids.join('-'), dateKey, unit, scale],
 		queryFn: async () => {
 			if (ids.length === 0 || !date || !unit) return [];
 			const promises = ids.map(async (id) => {
@@ -37,7 +39,7 @@ export function useDailyStationsData({
 					start_date: startDate,
 					end_date: endDate,
 					param: unit as unknown as WeatherMeasurementKeyNoMinMax,
-					scale: 'daily'
+					scale
 				});
 				const label =
 					stations.features.find((f) => f.properties.id === id)?.properties.longName || id;

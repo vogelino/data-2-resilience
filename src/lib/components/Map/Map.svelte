@@ -6,6 +6,7 @@
 	import { MapLibre } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ChoroplethLegend from '../ChoroplethLegend.svelte';
+	import MapAttribution from './MapAttribution.svelte';
 	import MapDistrictsLayer from './MapDistrictsLayer.svelte';
 	import MapHourFilter from './MapHourFilter.svelte';
 	import MapLayerSelection from './MapLayerSelection.svelte';
@@ -79,6 +80,7 @@
 		<MapHourFilter />
 	{/if}
 	<ChoroplethLegend />
+	<MapAttribution />
 </div>
 
 <style>

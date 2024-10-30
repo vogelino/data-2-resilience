@@ -51,8 +51,8 @@
 
 <div
 	class={cn(
-		'flex w-72 flex-col gap-2 text-sm',
-		'fixed bottom-8 left-8 z-10 overflow-clip rounded border border-border bg-background shadow-lg',
+		'flex w-72 flex-col gap-2 bg-background/80 text-sm backdrop-blur-[2px]',
+		'fixed bottom-8 left-8 z-10 overflow-clip rounded border border-border shadow-lg',
 		$isLeftSidebarOpened ? 'translate-x-[var(--leftSidebarWidth)]' : 'translate-x-0',
 		'p-4 transition-transform duration-300 ease-in-out',
 		'[&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',

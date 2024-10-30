@@ -2,14 +2,12 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { cn } from '$lib/utils';
-	import { api } from '$lib/utils/api';
 	import { today } from '$lib/utils/dateUtil';
-	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
+	import { useDailyStationsData } from '$lib/utils/queryUtils/stationsDataDaily';
 	import {
 		getMessageForUnsupportedStations,
 		isNoStationSupported
 	} from '$lib/utils/stationsDataVisUtil';
-	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { StackedBar } from '@unovis/ts';
 	import { addDays, format } from 'date-fns';
@@ -37,7 +35,11 @@
 		'selectedStations',
 		ssp.string(['DEC005304', 'DEC005476', 'DEC00546E'].join(','))
 	);
-	$: selectedStationsIds = $urlStations.split(',');
+	$: selectedStationsIds = $urlStations
+		.split(',')
+		.map((id) => id.trim())
+		.filter(Boolean)
+		.toSorted();
 
 	const updateDay = debounce((d: number) => {
 		updateDay?.cancel();
@@ -61,45 +63,11 @@
 		].unitOnly();
 
 	$: ids = selectedStationsIds.toSorted();
-	$: enabled = Boolean(ids.length > 0 && date && $unit);
-	$: query = createQuery({
-		queryKey: ['stationsData-daily', ids.join('-'), dateKey, $unit],
-		queryFn: async () => {
-			if (ids.length === 0 || !date || !$unit) return [];
-			const promises = ids.map(async (id) => {
-				if (ids.length === 0 || !date || !$unit) return;
-				const startDate = addDays(date, -1).toISOString();
-				const endDate = date?.toISOString() || '';
-				const itemResults = await api().getStationData({
-					id,
-					start_date: startDate,
-					end_date: endDate,
-					param: $unit as unknown as WeatherMeasurementKeyNoMinMax,
-					scale: 'daily'
-				});
-				const label =
-					stations.features.find((f) => f.properties.id === id)?.properties.longName || id;
-				if (itemResults === null) {
-					return {
-						id,
-						label,
-						value: undefined,
-						supported: false
-					};
-				}
-				const i = itemResults[0];
-				return {
-					id,
-					label,
-					value: i ? (i[$unit as keyof typeof i] as unknown as number) : undefined,
-					supported: true
-				};
-			});
-
-			const results = await Promise.all(promises);
-			return results as DataRecord[];
-		},
-		enabled
+	$: query = useDailyStationsData({
+		ids,
+		date,
+		unit: $unit,
+		stations
 	});
 
 	$: data = $query.data || [];
@@ -130,7 +98,10 @@
 		[StackedBar.selectors.bar]: (d: DataRecord) => `
 			<span class="flex flex-col text-xs">
 				<strong>${d.label}</strong>
-				<span>${unitShortLabel}: ${d.value?.toLocaleString($locale)}</span>
+				<span>
+					${d.value?.toLocaleString($locale)}
+					${unitOnly}
+				</span>
 			</span>
 		`
 	};
@@ -167,7 +138,7 @@
 	</Alert>
 {/if}
 
-{#if selectedStationsIds.length === 1 && (data[0]?.value || $query.isLoading)}
+{#if ids.length === 1 && (data[0]?.value || $query.isLoading)}
 	<div class="flex flex-col justify-center gap-2 text-center">
 		<span class="text-muted-foreground">
 			{#if $query.isLoading}
@@ -192,9 +163,11 @@
 			{/if}</span
 		>
 	</div>
-{:else if selectedStationsIds.length > 1 && data.length > 1}
-	<h3 class="font-semibold">{unitShortLabel}</h3>
-	<UnovisChartContainer className={cn('relative min-h-16')}>
+{:else if ids.length > 1 && data.length > 1}
+	{#if $query.isSuccess && chartData.length > 0}
+		<h3 class="font-semibold">{unitShortLabel}</h3>
+	{/if}
+	<UnovisChartContainer className={cn('relative', !data || (data.length === 0 && 'min-h-16'))}>
 		{#if !noneSufficientData && !noneSupportedData}
 			<VisXYContainer
 				padding={{ top: 8, bottom: 8, right: 16 }}

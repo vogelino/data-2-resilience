@@ -7,18 +7,17 @@
 		getHeatStressCategoryByValue,
 		getHeatStressValueByCategory
 	} from '$lib/utils/heatStressCategoriesUtil';
+	import { useSationsRangeData } from '$lib/utils/queryUtils/stationsDataRange';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
-	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisCrosshair, VisLine, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { Position } from '@unovis/ts';
 	import Alert from 'components/ui/alert/alert.svelte';
-	import { addDays, format } from 'date-fns';
+	import { addDays } from 'date-fns';
 	import { debounce } from 'es-toolkit';
 	import { LoaderCircle } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ErrorAlert from '../ErrorAlert.svelte';
 	import UnovisChartContainer from '../UnovisChartContainer.svelte';
-	import { getStationDataFetcher } from './stationsLineChartUtil';
 
 	const CHART_COLORS = [
 		'hsl(var(--primary))',
@@ -54,7 +53,11 @@
 		'selectedStations',
 		ssp.string(['DEC005304', 'DEC005476', 'DEC00546E'].join(','))
 	);
-	$: selectedStationsIds = $urlStations.split(',');
+	$: selectedStationsIds = $urlStations
+		.split(',')
+		.map((id) => id.trim())
+		.filter(Boolean)
+		.toSorted();
 
 	const updateStartDate = debounce((d: number) => {
 		updateStartDate?.cancel();
@@ -68,23 +71,13 @@
 	rangeStart.subscribe(updateStartDate);
 	rangeEnd.subscribe(updateEndDate);
 
-	$: startDateKey = start_date && format(start_date, 'yyyy-MM-dd');
-	$: endDateKey = end_date && format(end_date, 'yyyy-MM-dd');
-
 	$: ids = selectedStationsIds.toSorted();
-	$: queryFn = getStationDataFetcher({
+	$: query = useSationsRangeData({
 		ids,
 		start_date,
 		end_date,
 		unit: $unit,
-		stations: stations.features
-	});
-	$: query = createQuery({
-		queryKey: ['stationsData-range', ids?.join('-'), startDateKey, endDateKey, $unit, stations],
-		queryFn,
-		enabled: Boolean(
-			ids?.length > 0 && stations?.features?.length > 0 && start_date && end_date && $unit
-		)
+		stations
 	});
 
 	type DataRecord = Record<string, unknown> & {

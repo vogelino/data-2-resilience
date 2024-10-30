@@ -14,7 +14,11 @@
 		'selectedStations',
 		ssp.string(['DEC005304', 'DEC005476', 'DEC00546E'].join(','))
 	);
-	$: selectedStationsIds = $urlStations.split(',');
+	$: selectedStationsIds = $urlStations
+		.split(',')
+		.map((id) => id.trim())
+		.filter(Boolean)
+		.toSorted();
 
 	$: formattedStations = stations.features
 		.map((s) => ({

@@ -106,22 +106,22 @@
 		--range-slider: hsl(var(--muted-foreground) / 0.3);
 		--range-handle-inactive: hsl(var(--primary));
 		--range-handle: hsl(var(--primary));
-		--range-handle-focus: hsl(var(--foreground));
-		--range-handle-border: hsl(var(--muted-foreground));
-		--range-range-inactive: hsl(var(--foreground));
-		--range-range: hsl(var(--foreground));
+		--range-handle-focus: hsl(var(--primary));
+		--range-handle-border: hsl(var(--muted-primary));
+		--range-range-inactive: hsl(var(--primary));
+		--range-range: hsl(var(--primary));
 		--range-float-inactive: hsl(var(--muted-foreground));
-		--range-float: hsl(var(--foreground));
-		--range-float-text: hsl(var(--background));
+		--range-float: hsl(var(--primary));
+		--range-float-text: hsl(var(--primary-foreground));
 
 		--range-pip: hsl(var(--muted-foreground) / 0.3);
 		--range-pip-text: hsl(var(--muted-foreground));
-		--range-pip-active: hsl(var(--foreground));
-		--range-pip-active-text: hsl(var(--foreground));
-		--range-pip-hover: hsl(var(--muted-foreground) / 0.5);
-		--range-pip-hover-text: hsl(var(--muted-foreground) / 0.5);
-		--range-pip-in-range: hsl(var(--muted-foreground) / 0.5);
-		--range-pip-in-range-text: hsl(var(--muted-foreground) / 0.5);
+		--range-pip-active: hsl(var(--muted-foreground));
+		--range-pip-active-text: hsl(var(--primary-foreground));
+		--range-pip-hover: hsl(var(--muted-foreground));
+		--range-pip-hover-text: hsl(var(--muted-foreground));
+		--range-pip-in-range: hsl(var(--muted-foreground));
+		--range-pip-in-range-text: hsl(var(--muted-foreground));
 	}
 
 	:global(.date-range-slider .rangePips .pip.first > .pipVal) {

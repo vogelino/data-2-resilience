@@ -76,6 +76,8 @@ const de = {
 				'Aktuell Messwerte können sowohl für die Messstationen als auch für die einzelnen Stadtbezirke angezeigt werden.'
 			],
 			noDataAvailable: 'Keine Daten für die ausgewählte Konfiguration verfügbar',
+			noStationsSelected:
+				'Wählen Sie eine Messstation aus, um Daten für die ausgewählte Konfiguration zu erhalten.',
 			someInsufficientDataStations:
 				'Für den gewählten Indikator <strong>{unit:string}</strong> werden für die Stationen <strong>{stations:string}</strong> nicht genügend Daten erhoben, um sie in aggregierten From anzuzeigen.',
 			allInsufficientDataStations:

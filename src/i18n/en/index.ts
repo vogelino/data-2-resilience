@@ -75,6 +75,7 @@ const en = {
 				'Current measured values can be displayed both for the measuring stations and for the individual city districts.'
 			],
 			noDataAvailable: 'No data available for the selected configuration',
+			noStationsSelected: 'Select at least one station to display its data',
 			someInsufficientDataStations:
 				'Not enought data is collected for the selected indicator <strong>{unit}</strong> at the stations <strong>{stations}</strong> for us to aggregate it.',
 			allInsufficientDataStations:

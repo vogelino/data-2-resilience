@@ -34,6 +34,7 @@ export const api = (customFetch = fetch) => ({
 		end_date: string;
 		param: WeatherMeasurementKey;
 		scale?: 'hourly' | 'daily' | 'max';
+		hour?: string;
 	}) => {
 		const urlParams = new URLSearchParams(params);
 		const response = await customFetch(`${PUBLIC_API_BASE_URL}/data/${params.id}?${urlParams}`);

@@ -204,6 +204,10 @@ type RootTranslation = {
 			 */
 			noDataAvailable: string
 			/**
+			 * W​ä​h​l​e​n​ ​S​i​e​ ​e​i​n​e​ ​M​e​s​s​s​t​a​t​i​o​n​ ​a​u​s​,​ ​u​m​ ​D​a​t​e​n​ ​f​ü​r​ ​d​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​K​o​n​f​i​g​u​r​a​t​i​o​n​ ​z​u​ ​e​r​h​a​l​t​e​n​.
+			 */
+			noStationsSelected: string
+			/**
 			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​w​e​r​d​e​n​ ​f​ü​r​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​n​i​c​h​t​ ​g​e​n​ü​g​e​n​d​ ​D​a​t​e​n​ ​e​r​h​o​b​e​n​,​ ​u​m​ ​s​i​e​ ​i​n​ ​a​g​g​r​e​g​i​e​r​t​e​n​ ​F​r​o​m​ ​a​n​z​u​z​e​i​g​e​n​.
 			 * @param {string} stations
 			 * @param {string} unit
@@ -1507,7 +1511,7 @@ type RootTranslation = {
 			 */
 			districts: string
 			/**
-			 * L​e​b​e​n​s​w​e​l​t​l​i​c​h​ ​o​r​i​e​n​t​i​e​r​t​e​ ​R​ä​u​m​e
+			 * V​u​l​n​e​r​a​b​l​e​ ​G​e​b​i​e​t​e
 			 */
 			lors: string
 			/**
@@ -1817,6 +1821,10 @@ export type TranslationFunctions = {
 			 * Keine Daten für die ausgewählte Konfiguration verfügbar
 			 */
 			noDataAvailable: () => LocalizedString
+			/**
+			 * Wählen Sie eine Messstation aus, um Daten für die ausgewählte Konfiguration zu erhalten.
+			 */
+			noStationsSelected: () => LocalizedString
 			/**
 			 * Für den gewählten Indikator <strong>{unit}</strong> werden für die Stationen <strong>{stations}</strong> nicht genügend Daten erhoben, um sie in aggregierten From anzuzeigen.
 			 */
@@ -3109,7 +3117,7 @@ export type TranslationFunctions = {
 			 */
 			districts: () => LocalizedString
 			/**
-			 * Lebensweltlich orientierte Räume
+			 * Vulnerable Gebiete
 			 */
 			lors: () => LocalizedString
 			/**

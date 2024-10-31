@@ -1,21 +1,13 @@
 <script lang="ts">
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
+	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
-	import { queryParam, ssp } from 'sveltekit-search-params';
 
 	export let stations: StationsGeoJSONType;
 	export let map: maplibregl.Map;
 
-	const urlStations = queryParam(
-		'selectedStations',
-		ssp.string(['DEC005304', 'DEC005476', 'DEC00546E'].join(','))
-	);
-	$: selectedStationsIds = $urlStations
-		.split(',')
-		.map((id) => id.trim())
-		.filter(Boolean)
-		.toSorted();
+	const selectedStations = useStations();
 </script>
 
 <GeoJSON id="stations" data={stations} promoteId="STATEFP">
@@ -25,13 +17,15 @@
 			class={cn(
 				'grid h-4 w-4 place-items-center rounded-full border-2 border-background bg-foreground outline-none',
 				'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-				selectedStationsIds.includes(feature.properties?.id) && [
+				$selectedStations.includes(feature.properties?.id) && [
 					'bg-primary ring-2 ring-background ring-offset-2 ring-offset-foreground'
 				]
 			)}
 			on:click={() => {
 				if (!feature.properties?.id) return;
-				$urlStations = [...selectedStationsIds, feature.properties.id].filter(Boolean).join(',');
+				const { id } = feature.properties;
+				const wasIncluded = $selectedStations.includes(id);
+				toggleStationSelection(id);
 			}}
 			on:focusin={() => {
 				map.flyTo({

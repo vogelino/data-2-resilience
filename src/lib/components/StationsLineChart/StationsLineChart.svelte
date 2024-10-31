@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
+	import { useStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
 	import { today } from '$lib/utils/dateUtil';
 	import {
@@ -49,15 +50,7 @@
 	const rangeStart = queryParam('range_start', ssp.number(-10), options);
 	const rangeEnd = queryParam('range_end', ssp.number(0), options);
 	const unit = queryParam('unit', ssp.string('air_temperature'));
-	const urlStations = queryParam(
-		'selectedStations',
-		ssp.string(['DEC005304', 'DEC005476', 'DEC00546E'].join(','))
-	);
-	$: selectedStationsIds = $urlStations
-		.split(',')
-		.map((id) => id.trim())
-		.filter(Boolean)
-		.toSorted();
+	const selectedStations = useStations();
 
 	const updateStartDate = debounce((d: number) => {
 		updateStartDate?.cancel();
@@ -71,9 +64,8 @@
 	rangeStart.subscribe(updateStartDate);
 	rangeEnd.subscribe(updateEndDate);
 
-	$: ids = selectedStationsIds.toSorted();
 	$: query = useSationsRangeData({
-		ids,
+		ids: $selectedStations,
 		start_date,
 		end_date,
 		unit: $unit,
@@ -87,13 +79,16 @@
 	$: data = $query.data?.lineChartData || ([] as DataRecord[]).filter(Boolean);
 
 	$: isCatChart = $unit.endsWith('_category');
-	$: y = ids.map(
+	$: y = $selectedStations.map(
 		(id) => (d: DataRecord) =>
 			isCatChart
 				? getHeatStressValueByCategory(`${d[id as keyof typeof d]}` as string)
 				: (d[id as keyof typeof d] as number)
 	);
-	$: idsColors = ids.reduce((acc, id, idx) => ({ ...acc, [id]: CHART_COLORS[idx] }), {});
+	$: idsColors = $selectedStations.reduce(
+		(acc, id, idx) => ({ ...acc, [id]: CHART_COLORS[idx] }),
+		{}
+	);
 	const x = (d: DataRecord) => d.date.getTime();
 	const color = (d: DataRecord, idx: number) => CHART_COLORS[idx];
 	$: xTickFormat = (d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d);
@@ -105,7 +100,7 @@
 					) as keyof typeof $LL.map.choroplethLegend.heatStressCategories
 				]()
 			: d.toLocaleString($locale);
-	$: legendItems = ids
+	$: legendItems = $selectedStations
 		.filter((id) => !unsupportedIds.includes(id))
 		.map((id) => ({
 			id,
@@ -148,7 +143,7 @@
 	`;
 	$: unsupportedIds = $query.data?.unsupportedIds || [];
 	$: unsupportedMsg = getMessageForUnsupportedStations({
-		ids,
+		ids: $selectedStations,
 		unsupportedIds,
 		unit: $unit,
 		stations: stations.features,

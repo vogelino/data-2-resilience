@@ -1,24 +1,21 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
+	import {
+		deselectAllStations,
+		deselectStation,
+		selectStation,
+		useStations
+	} from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
 	import type { StationMetadata } from '$lib/utils/schemas';
 	import MultiSelect, { type MultiSelectEvents, type ObjectOption } from 'svelte-multiselect';
-	import { queryParam, ssp } from 'sveltekit-search-params';
 
 	export let stations: {
 		type: 'FeatureCollection';
 		features: GeoJSON.Feature<GeoJSON.Point, StationMetadata>[];
 	};
 
-	const urlStations = queryParam(
-		'selectedStations',
-		ssp.string(['DEC005304', 'DEC005476', 'DEC00546E'].join(','))
-	);
-	$: selectedStationsIds = $urlStations
-		.split(',')
-		.map((id) => id.trim())
-		.filter(Boolean)
-		.toSorted();
+	const selectedStations = useStations();
 
 	$: formattedStations = stations.features
 		.map((s) => ({
@@ -26,7 +23,7 @@
 			label: s.properties.longName
 		}))
 		.sort((a, b) => a.label.localeCompare(b.label));
-	$: formattedSelectedStations = selectedStationsIds
+	$: formattedSelectedStations = $selectedStations
 		.map((id) => ({
 			value: id,
 			label: formattedStations.find((s) => s.value === id)?.label || id
@@ -37,19 +34,18 @@
 		const opt = e.detail.option as ObjectOption;
 		const val = opt.value as string;
 		if (!val) return;
-		$urlStations = [...selectedStationsIds, val].join(',');
+		selectStation(val);
 	}
 
 	function onRemove(e: MultiSelectEvents['remove']) {
 		const opt = e.detail.option as ObjectOption;
 		const val = opt.value as string;
 		if (!val) return;
-		const newIds = selectedStationsIds.filter((id) => id !== val);
-		$urlStations = newIds.join(',');
+		deselectStation(val);
 	}
 
 	function onRemoveAll() {
-		$urlStations = '';
+		deselectAllStations();
 	}
 </script>
 

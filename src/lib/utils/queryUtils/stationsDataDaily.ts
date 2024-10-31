@@ -1,5 +1,5 @@
 import { createQuery } from '@tanstack/svelte-query';
-import { addDays, format } from 'date-fns';
+import { addDays, format, setHours } from 'date-fns';
 import { api } from '../api';
 import type { WeatherMeasurementKeyNoMinMax } from '../schemas';
 import { type StationsGeoJSONType } from './../../stores/mapData';
@@ -16,24 +16,30 @@ export function useDailyStationsData({
 	date,
 	unit,
 	stations,
-	scale = 'daily'
+	scale = 'daily',
+	hour: rawHour = 12
 }: {
 	ids?: string[];
 	date: Date | undefined;
 	unit: string;
 	stations: StationsGeoJSONType;
 	scale?: 'daily' | 'hourly';
+	hour?: number;
 }) {
 	const ids = unsortedIds.filter(Boolean).toSorted();
 	const dateKey = date && format(date, 'yyyy-MM-dd');
+	const hour = scale === 'hourly' ? rawHour : undefined;
 	return createQuery({
-		queryKey: ['stationsData-daily', ids.join('-'), dateKey, unit, scale],
+		queryKey: ['stationsData-daily', ids.join('-'), dateKey, unit, scale, hour],
 		queryFn: async () => {
 			if (ids.length === 0 || !date || !unit) return [];
 			const promises = ids.map(async (id) => {
 				if (ids.length === 0 || !date || !unit) return;
-				const startDate = addDays(date, -1).toISOString();
-				const endDate = date?.toISOString() || '';
+				const isHour = scale === 'hourly' && typeof hour === 'number';
+				const startDate = isHour
+					? setHours(date, hour).toISOString()
+					: addDays(date, -1).toISOString();
+				const endDate = isHour ? setHours(date, hour).toISOString() : date?.toISOString() || '';
 				const itemResults = await api().getStationData({
 					id,
 					start_date: startDate,

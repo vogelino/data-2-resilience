@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
+	import { useStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
 	import { today } from '$lib/utils/dateUtil';
 	import { parseDatavisType } from '$lib/utils/parsingUtil';
@@ -11,7 +12,7 @@
 	} from '$lib/utils/stationsDataVisUtil';
 	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { StackedBar } from '@unovis/ts';
-	import { addDays, format } from 'date-fns';
+	import { addDays } from 'date-fns';
 	import { debounce } from 'es-toolkit';
 	import { LoaderCircle } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
@@ -32,15 +33,8 @@
 	const options = { debounceHistory: 500 };
 	const dayVlaue = queryParam('day_value', ssp.number(0), options);
 	const unit = queryParam('unit', ssp.string('air_temperature'));
-	const urlStations = queryParam(
-		'selectedStations',
-		ssp.string(['DEC005304', 'DEC005476', 'DEC00546E'].join(','))
-	);
-	$: selectedStationsIds = $urlStations
-		.split(',')
-		.map((id) => id.trim())
-		.filter(Boolean)
-		.toSorted();
+	const hour = queryParam('hour', ssp.number(12));
+	const selectedStations = useStations();
 	const rawDatavisType = queryParam('datavisType', ssp.string('day'));
 	$: datavisType = parseDatavisType($rawDatavisType);
 
@@ -51,7 +45,6 @@
 
 	dayVlaue.subscribe(updateDay);
 
-	$: dateKey = date && format(date, 'yyyy-MM-dd');
 	$: unitShortLabel =
 		$LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
@@ -65,13 +58,14 @@
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 		].unitOnly();
 
-	$: ids = selectedStationsIds.toSorted();
+	$: ids = $selectedStations.toSorted();
 	$: query = useDailyStationsData({
 		ids,
 		date,
 		unit: $unit,
 		stations,
-		scale: datavisType === 'day' ? 'daily' : 'hourly'
+		scale: datavisType === 'day' ? 'daily' : 'hourly',
+		hour: $hour
 	});
 
 	$: data = $query.data || [];

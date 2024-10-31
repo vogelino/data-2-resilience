@@ -123,7 +123,7 @@
 		--range-handle-border: hsl(var(--muted-primary));
 		--range-range-inactive: hsl(var(--primary));
 		--range-range: hsl(var(--primary));
-		--range-float-inactive: hsl(var(--muted-foreground));
+		--range-float-inactive: hsl(var(--primary));
 		--range-float: hsl(var(--primary));
 		--range-float-text: hsl(var(--primary-foreground));
 
@@ -131,8 +131,8 @@
 		--range-pip-text: hsl(var(--muted-foreground));
 		--range-pip-active: hsl(var(--muted-foreground));
 		--range-pip-active-text: hsl(var(--primary-foreground));
-		--range-pip-hover: hsl(var(--muted-foreground));
-		--range-pip-hover-text: hsl(var(--muted-foreground));
+		--range-pip-hover: hsl(var(--primary));
+		--range-pip-hover-text: hsl(var(--primary-foreground));
 		--range-pip-in-range: hsl(var(--muted-foreground));
 		--range-pip-in-range-text: hsl(var(--muted-foreground));
 	}

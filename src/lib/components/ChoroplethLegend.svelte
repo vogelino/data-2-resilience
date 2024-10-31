@@ -4,7 +4,6 @@
 	import * as Popover from '$lib/components/ui/popover';
 	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { valueToCategoryMap } from '$lib/utils/heatStressCategoriesUtil';
 	import { HeartPulse, X } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import { Button } from './ui/button';
@@ -34,18 +33,13 @@
 	$: isCategoryUnit = finalUnit.endsWith('_category');
 	$: labels = getUnitLabelsByUnit(finalUnit, isCategoryUnit);
 
-	const categoryColors = [
-		'bg-yellow-50',
-		'bg-yellow-100',
-		'bg-yellow-200',
-		'bg-yellow-300',
-		'bg-yellow-400',
-		'bg-yellow-500',
-		'bg-yellow-600',
-		'bg-yellow-700',
-		'bg-yellow-800',
-		'bg-yellow-900',
-		'bg-yellow-950'
+	const jetColors = [
+		'rgb(0, 0, 131)',
+		'rgb(0, 60, 170)',
+		'rgb(5, 255, 255)',
+		'rgb(255, 255, 0)',
+		'rgb(250, 0, 0)',
+		'rgb(128, 0, 0)'
 	];
 </script>
 
@@ -65,13 +59,18 @@
 			<div
 				class="rounded-xs flex h-2 w-full max-w-96 overflow-clip shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 			>
-				{#each valueToCategoryMap.values() as _category, i}
-					<span class={cn('size-full', categoryColors[i])} />
+				{#each jetColors as color}
+					<span class={cn('size-full')} style={`background-color: ${color}`} />
 				{/each}
 			</div>
 		{:else}
 			<div
 				class="rounded-xs h-2 w-full max-w-96 bg-gradient-to-r from-yellow-50 via-yellow-500 to-yellow-950 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
+				style={`
+					background-image: linear-gradient(
+						to right,
+						${jetColors.join(', ')}
+				)`}
 			/>
 		{/if}
 		<div class="opacity- flex w-full items-center justify-between text-muted-foreground">

@@ -75,10 +75,10 @@
 		<MapLorsLayer visible={$showLors} />
 	</MapLibre>
 
+	<ChoroplethLegend />
 	{#if currentPage === 'heat-stress'}
 		<MapHourFilter />
 	{/if}
-	<ChoroplethLegend />
 	<MapAttribution />
 </div>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DatavisHourInput from '$lib/components/Map/DatavisHourInput.svelte';
+	import DatavisHourInput from 'components/HourInput.svelte';
 </script>
 
 <DatavisHourInput

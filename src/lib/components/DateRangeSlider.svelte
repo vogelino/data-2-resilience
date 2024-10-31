@@ -6,7 +6,7 @@
 	import { addDays } from 'date-fns';
 	import { RangeSlider } from 'svelte-range-slider-pips';
 	import { queryParam, ssp } from 'sveltekit-search-params';
-	import DatavisHourInput from './Map/DatavisHourInput.svelte';
+	import DatavisHourInput from './HourInput.svelte';
 	import Button from './ui/button/button.svelte';
 
 	const dateRangeStart = -30;

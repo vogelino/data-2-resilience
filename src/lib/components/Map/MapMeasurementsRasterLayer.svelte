@@ -1,11 +1,44 @@
 <script lang="ts">
+	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { getDayOfYear, getYear, parseISO } from 'date-fns';
 	import { RasterLayer, RasterTileSource } from 'svelte-maplibre';
+	import { queryParam, ssp } from 'sveltekit-search-params';
 
 	export let hour: number;
+	export let visible = false;
 
-	$: tilesUrl = `http://34.175.150.40:8080/geoserver/RUBochum/wms?service=WMS&version=1.1.0&request=GetMap&layers=RUBochum%3AUTCI_pytherm_3m_v0.6.0_2024_177_${hour}_separate_color&bbox={bbox-epsg-3857}&width=768&height=703&srs=EPSG%3A3857&styles=&format=image%2Fpng%3B%20mode%3D8bit&transparent=true`;
+	const heatStressUnit = queryParam('heatStress', ssp.string('utci'));
+
+	const categoryToClassMap = {
+		utci: 'UTCI',
+		utci_category: 'UTCI_CLASS',
+		relative_humidity: 'RH',
+		air_temperature: 'TA'
+	};
+	const hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23] // prettier-ignore
+	const date = parseISO('2024-08-13T00:00:00.000Z'); // TODO: Replace with today as soon as supported
+	const dayOfYearToday = getDayOfYear(date);
+	const year = getYear(date);
+	$: tilesUrls = hours.map((h) => {
+		const paddedHour = `${h}`.padStart(2, '0');
+		const unit =
+			// @ts-ignore
+			'UTCI' || // TODO: Replace with real unit once supported
+			categoryToClassMap[$heatStressUnit as keyof typeof categoryToClassMap] ||
+			categoryToClassMap.utci;
+		return {
+			layerHour: h,
+			tilesUrl: `${PUBLIC_API_BASE_URL}/tms/singleband/${unit}/${year}/${dayOfYearToday}/${paddedHour}/{z}/{x}/{y}.png?colormap=jet&tile_size=[256,256]`
+		};
+	});
 </script>
 
-<RasterTileSource tiles={[tilesUrl]} tileSize={256}>
-	<RasterLayer paint={{}} beforeLayerType="symbol" />
-</RasterTileSource>
+{#each tilesUrls as { layerHour, tilesUrl } (layerHour)}
+	<RasterTileSource tiles={[tilesUrl]} tileSize={256}>
+		<RasterLayer
+			paint={{}}
+			layout={{ visibility: visible && hour === layerHour ? 'visible' : 'none' }}
+			beforeLayerType="symbol"
+		/>
+	</RasterTileSource>
+{/each}

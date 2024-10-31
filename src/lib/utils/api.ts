@@ -14,7 +14,7 @@ import {
 
 export const api = (customFetch = fetch) => ({
 	getStationsMetadata: async () => {
-		const response = await customFetch(`${PUBLIC_API_BASE_URL}/stations/metadata`);
+		const response = await customFetch(`${PUBLIC_API_BASE_URL}/v1/stations/metadata`);
 		const data = await parseData(response, ParsedStationMetadataSchema);
 		return data satisfies StationMetadata[];
 	},
@@ -37,7 +37,7 @@ export const api = (customFetch = fetch) => ({
 		hour?: string;
 	}) => {
 		const urlParams = new URLSearchParams(params);
-		const response = await customFetch(`${PUBLIC_API_BASE_URL}/data/${params.id}?${urlParams}`);
+		const response = await customFetch(`${PUBLIC_API_BASE_URL}/v1/data/${params.id}?${urlParams}`);
 
 		if (!response.ok && response.status === 422) return null;
 

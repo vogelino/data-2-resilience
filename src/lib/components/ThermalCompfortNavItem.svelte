@@ -22,7 +22,7 @@
 
 	export let indicator: IndicatorType;
 
-	let selectedIndicatorSlugParam = queryParam('heatSress', ssp.string('utci'));
+	let selectedIndicatorSlugParam = queryParam('heatStress', ssp.string('utci'));
 	$: selectedIndicatorSlug =
 		$selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam;
 	$: slugWithCategory = `${indicator.slug}_category`;

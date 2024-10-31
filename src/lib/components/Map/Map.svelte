@@ -66,14 +66,13 @@
 		<MapZoomControl {map} />
 		<MapLayerSelection />
 
-		{#if $showSatellite}<SatelliteRasterLayer />{/if}
-		{#if $showDistricts}<MapDistrictsLayer />{/if}
-		{#if $showLors}<MapLorsLayer />{/if}
+		<SatelliteRasterLayer visible={$showSatellite} />
 		{#if currentPage === 'measurements'}
 			<MapStationsLayer {stations} {map} />
-		{:else if currentPage === 'heat-stress'}
-			<MapMeasurementsRasterLayer hour={$hour} />
 		{/if}
+		<MapMeasurementsRasterLayer hour={$hour} visible={currentPage === 'heat-stress'} />
+		<MapDistrictsLayer visible={$showDistricts} />
+		<MapLorsLayer visible={$showLors} />
 	</MapLibre>
 
 	{#if currentPage === 'heat-stress'}

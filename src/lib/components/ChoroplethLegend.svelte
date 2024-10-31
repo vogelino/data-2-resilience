@@ -9,7 +9,7 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import { Button } from './ui/button';
 
-	const heatStressUnit = queryParam('heatSress', ssp.string('utci'));
+	const heatStressUnit = queryParam('heatStress', ssp.string('utci'));
 	const unit = queryParam('unit', ssp.string('air_temperature'));
 
 	let open = false;

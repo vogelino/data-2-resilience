@@ -5,7 +5,7 @@
 	import Alert from 'components/ui/alert/alert.svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 
-	let selectedIndicatorSlugParam = queryParam('heatSress', ssp.string('utci'));
+	let selectedIndicatorSlugParam = queryParam('heatStress', ssp.string('utci'));
 	$: selectedIndicatorSlug =
 		$selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam;
 

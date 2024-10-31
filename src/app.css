@@ -55,7 +55,7 @@
 		--warning: 25 95% 53%;
 		--warning-foreground: 13 81% 15%;
 
-		--ring: 222.2 84% 4.9%;
+		--ring: var(--muted-foreground);
 
 		--radius: 0.5rem;
 

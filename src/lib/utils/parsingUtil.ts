@@ -15,6 +15,13 @@ export function parseStationMetadata({
 	};
 }
 
+export function parseRawStationNameToId({ name, ...rest }: { name?: string }) {
+	return {
+		...rest,
+		id: name
+	};
+}
+
 const datavisSchema = z.enum(['day', 'hour', 'range']).default('day');
 type DatavisType = z.infer<typeof datavisSchema>;
 export function parseDatavisType(type: unknown) {

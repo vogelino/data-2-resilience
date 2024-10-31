@@ -4,6 +4,7 @@
 	import * as Popover from '$lib/components/ui/popover';
 	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { schemeTurbo, unitsToScalesMap } from '$lib/utils/colorScaleUtil';
 	import { HeartPulse, X } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import { Button } from './ui/button';
@@ -33,14 +34,10 @@
 	$: labels = getUnitLabelsByUnit(finalUnit, isCategoryUnit);
 	$: unitWithoutCategory = finalUnit.replace(/_category$/, '') === 'pet' ? 'pet' : 'utci';
 
-	const jetColors = [
-		'rgb(0, 0, 131)',
-		'rgb(0, 60, 170)',
-		'rgb(5, 255, 255)',
-		'rgb(255, 255, 0)',
-		'rgb(250, 0, 0)',
-		'rgb(128, 0, 0)'
-	];
+	$: scale =
+		unitsToScalesMap[finalUnit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default;
+	$: range = scale.fn.range() as string[];
+	$: isOrdinal = scale.type === 'ordinal';
 </script>
 
 <div
@@ -55,11 +52,11 @@
 >
 	<strong>{labels.label}</strong>
 	<div class="flex flex-col gap-0">
-		{#if isCategoryUnit}
+		{#if isOrdinal}
 			<div
 				class="rounded-xs flex h-2 w-full max-w-96 overflow-clip shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 			>
-				{#each jetColors as color}
+				{#each range as color}
 					<span class={cn('size-full')} style={`background-color: ${color}`} />
 				{/each}
 			</div>
@@ -69,7 +66,7 @@
 				style={`
 					background-image: linear-gradient(
 						to right,
-						${jetColors.join(', ')}
+						${schemeTurbo.join(', ')}
 				)`}
 			/>
 		{/if}

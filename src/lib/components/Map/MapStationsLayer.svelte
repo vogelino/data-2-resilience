@@ -2,12 +2,35 @@
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
+	import { unitsToScalesMap } from '$lib/utils/colorScaleUtil';
+	import { useSationsSnapshotData } from '$lib/utils/queryUtils/stationsLatestData';
+	import { subDays } from 'date-fns';
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
+	import { queryParam, ssp } from 'sveltekit-search-params';
 
 	export let stations: StationsGeoJSONType;
 	export let map: maplibregl.Map;
 
+	const unit = queryParam('unit', ssp.string('air_temperature'));
 	const selectedStations = useStations();
+	$: query = useSationsSnapshotData({
+		date: subDays(new Date(), 18),
+		unit: $unit,
+		scale: 'hourly'
+	});
+	$: idToItemMap = $query.data || {};
+
+	$: getBgColorById = (id?: string) => {
+		const defaultColor = 'hsl(var(--muted-foreground))';
+		if (!id || !$unit) return defaultColor;
+		const item = idToItemMap[id];
+		if (!item) return defaultColor;
+		const value = item[$unit as keyof typeof item];
+		if (!value) return defaultColor;
+		const colorScale =
+			unitsToScalesMap[$unit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default;
+		return colorScale.fn(value as { valueOf(): number } & string);
+	};
 </script>
 
 <GeoJSON id="stations" data={stations} promoteId="STATEFP">
@@ -18,13 +41,13 @@
 				'grid h-4 w-4 place-items-center rounded-full border-2 border-background bg-foreground outline-none',
 				'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
 				$selectedStations.includes(feature.properties?.id) && [
-					'bg-primary ring-2 ring-background ring-offset-2 ring-offset-foreground'
+					'ring-2 ring-background ring-offset-2 ring-offset-foreground'
 				]
 			)}
+			style={`background-color: ${getBgColorById(feature.properties?.id)}`}
 			on:click={() => {
 				if (!feature.properties?.id) return;
 				const { id } = feature.properties;
-				const wasIncluded = $selectedStations.includes(id);
 				toggleStationSelection(id);
 			}}
 			on:focusin={() => {

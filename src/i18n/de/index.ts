@@ -551,6 +551,7 @@ const de = {
 			},
 			table: {
 				headers: {
+					name: 'Stationsname',
 					stationType: 'Stationstyp',
 					id: 'ID',
 					geolocation: 'Geokoordinaten',

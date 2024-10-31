@@ -549,6 +549,7 @@ const en = {
 			},
 			table: {
 				headers: {
+					name: 'Station name',
 					stationType: 'Station type',
 					id: 'ID',
 					geolocation: 'Geolocation',

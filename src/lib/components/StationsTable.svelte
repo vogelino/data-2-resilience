@@ -13,6 +13,12 @@
 
 	$: columns = [
 		{
+			header: () => $LL.pages.stations.table.headers.name(),
+			accessorKey: 'longName',
+			cell: (info) => info.getValue(),
+			sortingFn: (a, b) => a.original.longName.localeCompare(b.original.longName, $locale)
+		},
+		{
 			header: () => $LL.pages.stations.table.headers.stationType(),
 			accessorKey: 'stationType',
 			cell: (info) =>
@@ -34,12 +40,18 @@
 		{
 			header: () => $LL.pages.stations.table.headers.id(),
 			accessorKey: 'id',
-			cell: (info) => info.getValue()
+			cell: (info) => info.getValue(),
+			sortingFn: (a, b) => a.original.longName.localeCompare(b.original.longName, $locale)
 		},
 		{
 			header: () => $LL.pages.stations.table.headers.district(),
 			accessorKey: 'district',
-			cell: (info) => info.getValue()
+			cell: (info) => {
+				const val = info.getValue();
+				if (val === 'unknown') return '-';
+				return val;
+			},
+			sortingFn: (a, b) => a.original.longName.localeCompare(b.original.longName, $locale)
 		},
 		{
 			header: () => $LL.pages.stations.table.headers.geolocation(),

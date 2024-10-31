@@ -1403,6 +1403,10 @@ type RootTranslation = {
 			table: {
 				headers: {
 					/**
+					 * S​t​a​t​i​o​n​s​n​a​m​e
+					 */
+					name: string
+					/**
 					 * S​t​a​t​i​o​n​s​t​y​p
 					 */
 					stationType: string
@@ -3032,6 +3036,10 @@ export type TranslationFunctions = {
 			}
 			table: {
 				headers: {
+					/**
+					 * Stationsname
+					 */
+					name: () => LocalizedString
 					/**
 					 * Stationstyp
 					 */

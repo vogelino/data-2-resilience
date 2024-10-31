@@ -45,11 +45,7 @@
 
 	dayVlaue.subscribe(updateDay);
 
-	$: unitShortLabel =
-		$LL.pages.measurements.unitSelect.units[
-			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].shortLabel();
-	$: unitLongLabel =
+	$: unitLabel =
 		$LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 		].label();
@@ -126,16 +122,16 @@
 	<Alert variant="warning">
 		{#if $query.isSuccess && noneSufficientData}
 			{@html $LL.pages.measurements.allInsufficientDataStations({
-				unit: unitLongLabel
+				unit: unitLabel
 			})}
 		{:else if $query.isSuccess && insufficientDataIds.length === 1}
 			{@html $LL.pages.measurements.singleInsufficientDataStation({
-				unit: unitLongLabel,
+				unit: unitLabel,
 				station: insufficientDataStations[0].properties.longName
 			})}
 		{:else if $query.isSuccess && insufficientDataIds.length > 1}
 			{@html $LL.pages.measurements.someInsufficientDataStations({
-				unit: unitLongLabel,
+				unit: unitLabel,
 				stations: insufficientDataStations.map(({ properties }) => properties.longName).join(', ')
 			})}
 		{/if}
@@ -165,13 +161,13 @@
 			{#if $query.isLoading}
 				<span class="inline-block h-4 w-48 animate-pulse rounded-sm bg-muted-foreground/20"></span>
 			{:else if date}
-				{unitLongLabel}
+				{unitLabel}
 			{/if}</span
 		>
 	</div>
 {:else}
 	{#if $query.isLoading || ($query.isSuccess && chartData.length > 0)}
-		<h3 class="font-semibold">{unitShortLabel}</h3>
+		<h3 class="font-semibold">{unitLabel} {unitOnly ? `(${unitOnly})` : ''}</h3>
 	{/if}
 	<UnovisChartContainer
 		className={cn('relative', !data || (data.length === 0 && 'min-h-[240px]'))}

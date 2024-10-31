@@ -157,7 +157,7 @@
 	$: selectedUnitLabel =
 		$LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].shortLabel();
+		].label();
 </script>
 
 <h3 class="font-semibold">{selectedUnitLabel}</h3>
@@ -167,7 +167,7 @@
 	</Alert>
 {/if}
 <UnovisChartContainer
-	className={cn('relative', $query.isSuccess && data && data.length === 0 ? '' : 'min-h-[300px]')}
+	className={cn('relative', $query.isSuccess && data && data.length === 0 ? '' : 'h-[340px]')}
 >
 	<VisXYContainer
 		padding={{ top: 8, bottom: 8, right: 16 }}
@@ -208,7 +208,7 @@
 		class={cn(
 			'absolute inset-0 flex items-center justify-center',
 			'pointer-events-none opacity-0',
-			$query.isFetching && 'opacity-100'
+			$query.isLoading && 'opacity-100'
 		)}
 	>
 		<LoaderCircle class="size-6 animate-spin" />

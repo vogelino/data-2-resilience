@@ -111,414 +111,355 @@ const de = {
 				stationsHeaderLabel: `Stationnamen`,
 				units: {
 					absolute_humidity_max: {
-						label: 'Maximale absolute Luftfeuchtigkeit (g/m³)',
-						shortLabel: 'Max ALF (g/m³)',
+						label: 'Maximale absolute Luftfeuchtigkeit',
 						description:
 							'Die <strong>Maximale absolute Luftfeuchtigkeit</strong> beschreibt die höchste Menge an Wasserdampf in der Luft, gemessen in Gramm pro Kubikmeter.',
 						unitOnly: 'g/m³'
 					},
 					absolute_humidity_min: {
-						label: 'Minimale absolute Luftfeuchtigkeit (g/m³)',
-						shortLabel: 'Min ALF (g/m³)',
+						label: 'Minimale absolute Luftfeuchtigkeit',
 						description:
 							'Die <strong>Minimale absolute Luftfeuchtigkeit</strong> beschreibt die niedrigste Menge an Wasserdampf in der Luft, gemessen in Gramm pro Kubikmeter.',
 						unitOnly: 'g/m³'
 					},
 					absolute_humidity: {
-						label: 'Absolute Luftfeuchtigkeit (g/m³)',
-						shortLabel: 'ALF (g/m³)',
+						label: 'Absolute Luftfeuchtigkeit',
 						description:
 							'Die <strong>Absolute Luftfeuchtigkeit</strong> beschreibt die Menge an Wasserdampf in der Luft, gemessen in Gramm pro Kubikmeter.',
 						unitOnly: 'g/m³'
 					},
 					air_temperature_max: {
-						label: 'Maximale Lufttemperatur (°C)',
-						shortLabel: 'Max Temp (°C)',
+						label: 'Maximale Lufttemperatur',
 						description:
 							'Die <strong>Maximale Lufttemperatur</strong> beschreibt die höchste gemessene Temperatur der umgebenden Luft in Grad Celsius.',
 						unitOnly: '°C'
 					},
 					air_temperature_min: {
-						label: 'Minimale Lufttemperatur (°C)',
-						shortLabel: 'Min Temp (°C)',
+						label: 'Minimale Lufttemperatur',
 						description:
 							'Die <strong>Minimale Lufttemperatur</strong> beschreibt die niedrigste gemessene Temperatur der umgebenden Luft in Grad Celsius.',
 						unitOnly: '°C'
 					},
 					air_temperature: {
-						label: 'Lufttemperatur (°C)',
-						shortLabel: 'Temp (°C)',
+						label: 'Lufttemperatur',
 						description:
 							'Die <strong>Lufttemperatur</strong> beschreibt die gemessene Temperatur der umgebenden Luft in Grad Celsius.',
 						unitOnly: '°C'
 					},
 					atmospheric_pressure_max: {
-						label: 'Maximaler Luftdruck (hPa)',
-						shortLabel: 'Max Druck (hPa)',
+						label: 'Maximaler Luftdruck',
 						description:
 							'Der <strong>Maximale Luftdruck</strong> beschreibt den höchsten Druck, der durch das Gewicht der Atmosphäre ausgeübt wird, gemessen in Hektopascal.',
 						unitOnly: 'hPa'
 					},
 					atmospheric_pressure_min: {
-						label: 'Minimaler Luftdruck (hPa)',
-						shortLabel: 'Min Druck (hPa)',
+						label: 'Minimaler Luftdruck',
 						description:
 							'Der <strong>Minimale Luftdruck</strong> beschreibt den niedrigsten Druck, der durch das Gewicht der Atmosphäre ausgeübt wird, gemessen in Hektopascal.',
 						unitOnly: 'hPa'
 					},
 					atmospheric_pressure_reduced_max: {
-						label: 'Maximaler reduzierter Luftdruck (hPa)',
-						shortLabel: 'Max red. Druck (hPa)',
+						label: 'Maximaler reduzierter Luftdruck',
 						description:
 							'Der <strong>Maximale reduzierte Luftdruck</strong> beschreibt den höchsten auf Meereshöhe reduzierte Druck, gemessen in Hektopascal.',
 						unitOnly: 'hPa'
 					},
 					atmospheric_pressure_reduced_min: {
-						label: 'Minimaler reduzierter Luftdruck (hPa)',
-						shortLabel: 'Min red. Druck (hPa)',
+						label: 'Minimaler reduzierter Luftdruck',
 						description:
 							'Der <strong>Minimale reduzierte Luftdruck</strong> beschreibt den niedrigsten auf Meereshöhe reduzierte Druck, gemessen in Hektopascal.',
 						unitOnly: 'hPa'
 					},
 					atmospheric_pressure_reduced: {
-						label: 'Reduzierter Luftdruck (hPa)',
-						shortLabel: 'Red. Druck (hPa)',
+						label: 'Reduzierter Luftdruck',
 						description:
 							'Der <strong>Reduzierte Luftdruck</strong> beschreibt den auf Meereshöhe reduzierten Druck, gemessen in Hektopascal.',
 						unitOnly: 'hPa'
 					},
 					atmospheric_pressure: {
-						label: 'Luftdruck (hPa)',
-						shortLabel: 'Druck (hPa)',
+						label: 'Luftdruck',
 						description:
 							'Der <strong>Luftdruck</strong> beschreibt den durch das Gewicht der Atmosphäre ausgeübten Druck, gemessen in Hektopascal.',
 						unitOnly: 'hPa'
 					},
 					dew_point_max: {
-						label: 'Maximaler Taupunkt (°C)',
-						shortLabel: 'Max TP (°C)',
+						label: 'Maximaler Taupunkt',
 						description:
 							'Der <strong>Maximale Taupunkt</strong> beschreibt die höchste Temperatur, bei der die Luft mit Wasserdampf gesättigt ist, gemessen in Grad Celsius.',
 						unitOnly: '°C'
 					},
 					dew_point_min: {
-						label: 'Minimaler Taupunkt (°C)',
-						shortLabel: 'Min TP (°C)',
+						label: 'Minimaler Taupunkt',
 						description:
 							'Der <strong>Minimale Taupunkt</strong> beschreibt die niedrigste Temperatur, bei der die Luft mit Wasserdampf gesättigt ist, gemessen in Grad Celsius.',
 						unitOnly: '°C'
 					},
 					dew_point: {
-						label: 'Taupunkt (°C)',
-						shortLabel: 'TP (°C)',
+						label: 'Taupunkt',
 						description:
 							'Der <strong>Taupunkt</strong> beschreibt die Temperatur, bei der die Luft mit Wasserdampf gesättigt ist, gemessen in Grad Celsius.',
 						unitOnly: '°C'
 					},
 					heat_index_max: {
-						label: 'Maximaler Hitzeindex (°C)',
-						shortLabel: 'Max HI (°C)',
+						label: 'Maximaler Hitzeindex',
 						description:
 							'Der <strong>Maximale Hitzeindex</strong> beschreibt die höchste gefühlte Temperatur, basierend auf Lufttemperatur und Luftfeuchtigkeit.',
 						unitOnly: '°C'
 					},
 					heat_index_min: {
-						label: 'Minimaler Hitzeindex (°C)',
-						shortLabel: 'Min HI (°C)',
+						label: 'Minimaler Hitzeindex',
 						description:
 							'Der <strong>Minimale Hitzeindex</strong> beschreibt die niedrigste gefühlte Temperatur, basierend auf Lufttemperatur und Luftfeuchtigkeit.',
 						unitOnly: '°C'
 					},
 					heat_index: {
-						label: 'Hitzeindex (°C)',
-						shortLabel: 'HI (°C)',
+						label: 'Hitzeindex',
 						description:
 							'Der <strong>Hitzeindex</strong> beschreibt die gefühlte Temperatur, basierend auf Lufttemperatur und Luftfeuchtigkeit.',
 						unitOnly: '°C'
 					},
 					lightning_average_distance_max: {
-						label: 'Maximale durchschnittliche Blitzentfernung (m)',
-						shortLabel: 'Max Durchschn. BE (m)',
+						label: 'Maximale durchschnittliche Blitzentfernung',
 						description:
 							'Die <strong>Maximale durchschnittliche Blitzentfernung</strong> beschreibt die größte mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.',
 						unitOnly: 'm'
 					},
 					lightning_average_distance_min: {
-						label: 'Minimale durchschnittliche Blitzentfernung (m)',
-						shortLabel: 'Min Durchschn. BE (m)',
+						label: 'Minimale durchschnittliche Blitzentfernung',
 						description:
 							'Die <strong>Minimale durchschnittliche Blitzentfernung</strong> beschreibt die kleinste mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.',
 						unitOnly: 'm'
 					},
 					lightning_average_distance: {
-						label: 'Durchschnittliche Blitzentfernung (m)',
-						shortLabel: 'Durchschn. BE (m)',
+						label: 'Durchschnittliche Blitzentfernung',
 						description:
 							'Die <strong>Durchschnittliche Blitzentfernung</strong> beschreibt die mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.',
 						unitOnly: 'm'
 					},
 					lightning_strike_count_max: {
 						label: 'Maximale Anzahl der Blitzeinschläge',
-						shortLabel: 'Max BE Anzahl',
 						description:
 							'Die <strong>Maximale Anzahl der Blitzeinschläge</strong> beschreibt die höchste Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.',
 						unitOnly: ''
 					},
 					lightning_strike_count_min: {
 						label: 'Minimale Anzahl der Blitzeinschläge',
-						shortLabel: 'Min BE Anzahl',
 						description:
 							'Die <strong>Minimale Anzahl der Blitzeinschläge</strong> beschreibt die niedrigste Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.',
 						unitOnly: ''
 					},
 					lightning_strike_count: {
 						label: 'Anzahl der Blitzeinschläge',
-						shortLabel: 'BE Anzahl',
 						description:
 							'Die <strong>Anzahl der Blitzeinschläge</strong> beschreibt die Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.',
 						unitOnly: ''
 					},
 					maximum_wind_speed_max: {
-						label: 'Maximale maximale Windgeschwindigkeit (m/s)',
-						shortLabel: 'Max max WG (m/s)',
+						label: 'Maximale Windgeschwindigkeit',
 						description:
-							'Die <strong>Maximale maximale Windgeschwindigkeit</strong> beschreibt die höchste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.',
+							'Die <strong>Maximale Windgeschwindigkeit</strong> beschreibt die höchste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.',
 						unitOnly: 'm/s'
 					},
 					maximum_wind_speed_min: {
-						label: 'Minimale maximale Windgeschwindigkeit (m/s)',
-						shortLabel: 'Min max WG (m/s)',
+						label: 'Minimale Windgeschwindigkeit',
 						description:
-							'Die <strong>Minimale maximale Windgeschwindigkeit</strong> beschreibt die niedrigste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.',
+							'Die <strong>Minimale Windgeschwindigkeit</strong> beschreibt die niedrigste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.',
 						unitOnly: 'm/s'
 					},
 					maximum_wind_speed: {
-						label: 'Maximale Windgeschwindigkeit (m/s)',
-						shortLabel: 'Max WG (m/s)',
+						label: 'Maximale Windgeschwindigkeit',
 						description:
 							'Die <strong>Maximale Windgeschwindigkeit</strong> beschreibt die höchste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.',
 						unitOnly: 'm/s'
 					},
 					mrt_max: {
-						label: 'Maximale mittlere Strahlungstemperatur (°C)',
-						shortLabel: 'Max MST (°C)',
+						label: 'Maximale Mittlere Strahlungstemperatur',
 						description:
-							'Die <strong>Maximale mittlere Strahlungstemperatur</strong> beschreibt die höchste durchschnittliche Temperatur der umgebenden Oberflächen, die Wärmestrahlung abgeben.',
+							'Die <strong>Maximale Mittlere Strahlungstemperatur</strong> beschreibt die höchste durchschnittliche Temperatur der umgebenden Oberflächen, die Wärmestrahlung abgeben.',
 						unitOnly: '°C'
 					},
 					mrt_min: {
-						label: 'Minimale mittlere Strahlungstemperatur (°C)',
-						shortLabel: 'Min MST (°C)',
+						label: 'Minimale Mittlere Strahlungstemperatur',
 						description:
 							'Die <strong>Minimale mittlere Strahlungstemperatur</strong> beschreibt die niedrigste durchschnittliche Temperatur der umgebenden Oberflächen, die Wärmestrahlung abgeben.',
 						unitOnly: '°C'
 					},
 					mrt: {
-						label: 'Mittlere Strahlungstemperatur (°C)',
-						shortLabel: 'MST (°C)',
+						label: 'Mittlere Strahlungstemperatur',
 						description:
 							'Die <strong>Mittlere Strahlungstemperatur</strong> beschreibt die durchschnittliche Temperatur der umgebenden Oberflächen, die Wärmestrahlung abgeben.',
 						unitOnly: '°C'
 					},
 					pet_category: {
 						label: 'PET-Kategorie',
-						shortLabel: 'PET Kat.',
 						description:
 							'Die <strong>PET-Kategorie</strong> beschreibt die Klassifizierung der physiologisch äquivalenten Temperatur in Bezug auf thermischen Komfort.',
 						unitOnly: ''
 					},
 					pet_max: {
-						label: 'Maximale physiologisch äquivalente Temperatur (PET) (°C)',
-						shortLabel: 'Max PET (°C)',
+						label: 'Maximale Physiologisch äquivalente Temperatur (PET)',
 						description:
-							'Die <strong>Maximale physiologisch äquivalente Temperatur (PET)</strong> beschreibt die höchste gemessene PET in einem bestimmten Zeitraum.',
+							'Die <strong>Maximale Physiologisch äquivalente Temperatur (PET)</strong> beschreibt die höchste gemessene PET in einem bestimmten Zeitraum.',
 						unitOnly: '°C'
 					},
 					pet_min: {
-						label: 'Minimale physiologisch äquivalente Temperatur (PET) (°C)',
-						shortLabel: 'Min PET (°C)',
+						label: 'Minimale Physiologisch äquivalente Temperatur (PET)',
 						description:
-							'Die <strong>Minimale physiologisch äquivalente Temperatur (PET)</strong> beschreibt die niedrigste gemessene PET in einem bestimmten Zeitraum.',
+							'Die <strong>Minimale Physiologisch äquivalente Temperatur (PET)</strong> beschreibt die niedrigste gemessene PET in einem bestimmten Zeitraum.',
 						unitOnly: '°C'
 					},
 					pet: {
-						label: 'Physiologisch Äquivalente Temperatur (PET) (°C)',
-						shortLabel: 'PET (°C)',
+						label: 'Physiologisch äquivalente Temperatur (PET)',
 						description:
-							'Die <strong>Physiologisch Äquivalente Temperatur (PET)</strong> beschreibt ein Maß für die thermische Belastung, das die physiologische Reaktion des menschlichen Körpers auf die Umgebungsbedingungen berücksichtigt.',
+							'Die <strong>Physiologisch äquivalente Temperatur (PET)</strong> beschreibt ein Maß für die thermische Belastung, das die physiologische Reaktion des menschlichen Körpers auf die Umgebungsbedingungen berücksichtigt.',
 						unitOnly: '°C'
 					},
 					precipitation_sum_max: {
-						label: 'Maximale Niederschlagsmenge (mm)',
-						shortLabel: 'Max Niederschlag (mm)',
+						label: 'Maximale Niederschlagsmenge',
 						description:
 							'Die <strong>Maximale Niederschlagsmenge</strong> beschreibt die höchste Menge an Wasser, die als Regen, Schnee oder in anderer Form vom Himmel fällt, gemessen in Millimetern.',
 						unitOnly: 'mm'
 					},
 					precipitation_sum_min: {
-						label: 'Minimale Niederschlagsmenge (mm)',
-						shortLabel: 'Min Niederschlag (mm)',
+						label: 'Minimale Niederschlagsmenge',
 						description:
 							'Die <strong>Minimale Niederschlagsmenge</strong> beschreibt die niedrigste Menge an Wasser, die als Regen, Schnee oder in anderer Form vom Himmel fällt, gemessen in Millimetern.',
 						unitOnly: 'mm'
 					},
 					precipitation_sum: {
-						label: 'Niederschlag (mm)',
-						shortLabel: 'Niederschlag (mm)',
+						label: 'Niederschlag',
 						description:
 							'Der <strong>Niederschlag</strong> beschreibt die Menge an Wasser, die als Regen, Schnee oder in anderer Form vom Himmel fällt, gemessen in Millimetern.',
 						unitOnly: 'mm'
 					},
 					relative_humidity_max: {
-						label: 'Maximale relative Luftfeuchtigkeit (%)',
-						shortLabel: 'Max RLF (%)',
+						label: 'Maximale relative Luftfeuchtigkeit',
 						description:
 							'Die <strong>Maximale relative Luftfeuchtigkeit</strong> beschreibt den höchsten Anteil des Wasserdampfs in der Luft im Verhältnis zur maximalen Menge, die die Luft bei dieser Temperatur aufnehmen könnte.',
 						unitOnly: '%'
 					},
 					relative_humidity_min: {
-						label: 'Minimale relative Luftfeuchtigkeit (%)',
-						shortLabel: 'Min RLF (%)',
+						label: 'Minimale relative Luftfeuchtigkeit',
 						description:
 							'Die <strong>Minimale relative Luftfeuchtigkeit</strong> beschreibt den niedrigsten Anteil des Wasserdampfs in der Luft im Verhältnis zur maximalen Menge, die die Luft bei dieser Temperatur aufnehmen könnte.',
 						unitOnly: '%'
 					},
 					relative_humidity: {
-						label: 'Relative Luftfeuchtigkeit (%)',
-						shortLabel: 'RLF (%)',
+						label: 'Relative Luftfeuchtigkeit',
 						description:
 							'Die <strong>Relative Luftfeuchtigkeit</strong> beschreibt den Anteil des Wasserdampfs in der Luft im Verhältnis zur maximalen Menge, die die Luft bei dieser Temperatur aufnehmen könnte.',
 						unitOnly: '%'
 					},
 					solar_radiation_max: {
-						label: 'Maximale Solarstrahlung (W/m²)',
-						shortLabel: 'Max SS (W/m²)',
+						label: 'Maximale Solarstrahlung',
 						description:
 							'Die <strong>Maximale Solarstrahlung</strong> beschreibt die höchste Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.',
 						unitOnly: 'W/m²'
 					},
 					solar_radiation_min: {
-						label: 'Minimale Solarstrahlung (W/m²)',
-						shortLabel: 'Min SS (W/m²)',
+						label: 'Minimale Solarstrahlung',
 						description:
 							'Die <strong>Minimale Solarstrahlung</strong> beschreibt die niedrigste Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.',
 						unitOnly: 'W/m²'
 					},
 					solar_radiation: {
-						label: 'Solarstrahlung (W/m²)',
-						shortLabel: 'SS (W/m²)',
+						label: 'Solarstrahlung',
 						description:
 							'Die <strong>Solarstrahlung</strong> beschreibt die Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.',
 						unitOnly: 'W/m²'
 					},
 					utci_category: {
 						label: 'UTCI-Kategorie',
-						shortLabel: 'UTCI Kat.',
 						description:
 							'Die <strong>UTCI-Kategorie</strong> beschreibt die Klassifizierung des universellen thermischen Komfortindex in Bezug auf thermischen Komfort.',
 						unitOnly: ''
 					},
 					utci_max: {
-						label: 'Maximaler Universeller Thermischer Komfortindex (UTCI) (°C)',
-						shortLabel: 'Max UTCI (°C)',
+						label: 'Maximaler Universeller Thermischer Komfortindex (UTCI)',
 						description:
 							'Der <strong>Maximale Universelle Thermische Komfortindex (UTCI)</strong> beschreibt die höchste gemessene UTCI in einem bestimmten Zeitraum.',
 						unitOnly: '°C'
 					},
 					utci_min: {
-						label: 'Minimaler Universeller Thermischer Komfortindex (UTCI) (°C)',
-						shortLabel: 'Min UTCI (°C)',
+						label: 'Minimaler Universeller Thermischer Komfortindex (UTCI)',
 						description:
 							'Der <strong>Minimale Universelle Thermische Komfortindex (UTCI)</strong> beschreibt die niedrigste gemessene UTCI in einem bestimmten Zeitraum.',
 						unitOnly: '°C'
 					},
 					utci: {
-						label: 'Universeller Thermischer Komfortindex (UTCI) (°C)',
-						shortLabel: 'UTCI (°C)',
+						label: 'Universeller Thermischer Komfortindex (UTCI)',
 						description:
 							'Der <strong>Universelle Thermische Komfortindex (UTCI)</strong> beschreibt einen Index, der die thermischen Bedingungen für eine Standardperson in einer standardisierten Umgebung darstellt.',
 						unitOnly: '°C'
 					},
 					vapor_pressure_max: {
-						label: 'Maximaler Dampfdruck (hPa)',
-						shortLabel: 'Max DP (hPa)',
+						label: 'Maximaler Dampfdruck',
 						description:
 							'Der <strong>Maximale Dampfdruck</strong> beschreibt den höchsten Druck, den der Wasserdampf in der Luft ausübt, gemessen in Hektopascal.',
 						unitOnly: 'hPa'
 					},
 					vapor_pressure_min: {
-						label: 'Minimaler Dampfdruck (hPa)',
-						shortLabel: 'Min DP (hPa)',
+						label: 'Minimaler Dampfdruck',
 						description:
 							'Der <strong>Minimale Dampfdruck</strong> beschreibt den niedrigsten Druck, den der Wasserdampf in der Luft ausübt, gemessen in Hektopascal.',
 						unitOnly: 'hPa'
 					},
 					vapor_pressure: {
-						label: 'Dampfdruck (hPa)',
-						shortLabel: 'DP (hPa)',
+						label: 'Dampfdruck',
 						description:
 							'Der <strong>Dampfdruck</strong> beschreibt den Druck, den der Wasserdampf in der Luft ausübt, gemessen in Hektopascal.',
 						unitOnly: 'hPa'
 					},
 					wet_bulb_temperature_max: {
-						label: 'Maximale Feuchtkugeltemperatur (°C)',
-						shortLabel: 'Max FKT (°C)',
+						label: 'Maximale Feuchtkugeltemperatur',
 						description:
 							'Die <strong>Maximale Feuchtkugeltemperatur</strong> beschreibt die höchste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.',
 						unitOnly: '°C'
 					},
 					wet_bulb_temperature_min: {
-						label: 'Minimale Feuchtkugeltemperatur (°C)',
-						shortLabel: 'Min FKT (°C)',
+						label: 'Minimale Feuchtkugeltemperatur',
 						description:
 							'Die <strong>Minimale Feuchtkugeltemperatur</strong> beschreibt die niedrigste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.',
 						unitOnly: '°C'
 					},
 					wet_bulb_temperature: {
-						label: 'Feuchtkugeltemperatur (°C)',
-						shortLabel: 'FKT (°C)',
+						label: 'Feuchtkugeltemperatur',
 						description:
 							'Die <strong>Feuchtkugeltemperatur</strong> beschreibt die Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.',
 						unitOnly: '°C'
 					},
 					wind_direction_max: {
-						label: 'Maximale Windrichtung (°)',
-						shortLabel: 'Max WR (°)',
+						label: 'Maximale Windrichtung',
 						description:
 							'Die <strong>Maximale Windrichtung</strong> beschreibt die höchste gemessene Richtung, aus der der Wind weht, gemessen in Grad.',
 						unitOnly: '°'
 					},
 					wind_direction_min: {
-						label: 'Minimale Windrichtung (°)',
-						shortLabel: 'Min WR (°)',
+						label: 'Minimale Windrichtung',
 						description:
 							'Die <strong>Minimale Windrichtung</strong> beschreibt die niedrigste gemessene Richtung, aus der der Wind weht, gemessen in Grad.',
 						unitOnly: '°'
 					},
 					wind_direction: {
-						label: 'Windrichtung (°)',
-						shortLabel: 'WR (°)',
+						label: 'Windrichtung',
 						description:
 							'Die <strong>Windrichtung</strong> beschreibt die Richtung, aus der der Wind weht, gemessen in Grad.',
 						unitOnly: '°'
 					},
 					wind_speed_max: {
-						label: 'Maximale Windgeschwindigkeit (m/s)',
-						shortLabel: 'Max WG (m/s)',
+						label: 'Maximale Windgeschwindigkeit',
 						description:
 							'Die <strong>Maximale Windgeschwindigkeit</strong> beschreibt die höchste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.',
 						unitOnly: 'm/s'
 					},
 					wind_speed_min: {
-						label: 'Minimale Windgeschwindigkeit (m/s)',
-						shortLabel: 'Min WG (m/s)',
+						label: 'Minimale Windgeschwindigkeit',
 						description:
 							'Die <strong>Minimale Windgeschwindigkeit</strong> beschreibt die niedrigste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.',
 						unitOnly: 'm/s'
 					},
 					wind_speed: {
-						label: 'Windgeschwindigkeit (m/s)',
-						shortLabel: 'WG (m/s)',
+						label: 'Windgeschwindigkeit',
 						description:
 							'Die <strong>Windgeschwindigkeit</strong> beschreibt die Geschwindigkeit, mit der sich die Luft bewegt, gemessen in Metern pro Sekunde.',
 						unitOnly: 'm/s'

@@ -20,7 +20,6 @@
 
 	$: getUnitLabelsByUnit = function (unit: Unit, isCategoryUnit = false) {
 		return {
-			unitShortLabel: $LL.pages.measurements.unitSelect.units[unit].shortLabel(),
 			unitOnlyLabel:
 				$LL.pages.measurements.unitSelect.units[
 					isCategoryUnit ? (unit.replace('_category', '') as Unit) : unit
@@ -53,7 +52,7 @@
 		'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background'
 	)}
 >
-	<strong>{labels.unitShortLabel}</strong>
+	<strong>{labels.label}</strong>
 	<div class="flex flex-col gap-0">
 		{#if isCategoryUnit}
 			<div

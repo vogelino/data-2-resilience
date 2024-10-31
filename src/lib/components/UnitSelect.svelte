@@ -13,7 +13,8 @@
 		.filter(([key]) => !(key.endsWith('_min') || key.endsWith('_max')))
 		.map(([key, value]) => ({
 			value: key,
-			label: value.label()
+			label: value.label(),
+			unitOnly: value.unitOnly()
 		}));
 
 	let open = false;
@@ -61,7 +62,7 @@
 			/>
 			<Command.Empty>{$LL.pages.measurements.unitSelect.noUnitFound()}</Command.Empty>
 			<Command.Group>
-				{#each units as { value, label } (value)}
+				{#each units as { value, label, unitOnly } (value)}
 					<Command.Item
 						{value}
 						onSelect={() => {
@@ -71,7 +72,7 @@
 						class="grid grid-cols-[auto_1fr_auto] gap-2"
 					>
 						<Check class={cn('h-4 w-4 shrink-0', $unit !== value && 'text-transparent')} />
-						<span>{label}</span>
+						<span>{label} {unitOnly ? `(${unitOnly})` : ''}</span>
 						<!-- <span class="shrink-0 text-xs text-muted-foreground">
 							{$LL.pages.measurements.unitSelect.xOutOfY({
 								part: Math.floor(Math.random() * 10).toLocaleString($locale),

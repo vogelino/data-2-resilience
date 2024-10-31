@@ -2,8 +2,9 @@
 	import { LL } from '$i18n/i18n-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { cn } from '$lib/utils';
+	import CheckboxIcon from 'components/CheckboxIcon.svelte';
 	import Button from 'components/ui/button/button.svelte';
-	import { Check, Layers3 } from 'lucide-svelte';
+	import { Layers3 } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 
 	let showDistricts = queryParam('showDistricts', ssp.boolean(true));
@@ -28,27 +29,21 @@
 			<Layers3 class="size-5" />
 		</Button>
 	</DropdownMenu.Trigger>
-	<DropdownMenu.Content align="end">
+	<DropdownMenu.Content align="end" class="w-56">
 		<DropdownMenu.Item
 			on:click={() => ($showDistricts = !$showDistricts)}
-			class={cn('grid grid-cols-[1.25rem_1fr] items-center')}
+			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
 		>
-			<Check
-				class={cn('size-4 opacity-0 transition-opacity', $showDistricts && 'opacity-100')}
-				strokeWidth={3}
-			/>
+			<CheckboxIcon checked={$showDistricts} />
 			<span class={cn($showDistricts && 'font-semibold')}>
 				{$LL.map.layersSelection.districts()}
 			</span>
 		</DropdownMenu.Item>
 		<DropdownMenu.Item
 			on:click={() => ($showLors = !$showLors)}
-			class={cn('grid grid-cols-[1.25rem_1fr] items-center')}
+			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
 		>
-			<Check
-				class={cn('size-4 opacity-0 transition-opacity', $showLors && 'opacity-100')}
-				strokeWidth={3}
-			/>
+			<CheckboxIcon checked={$showLors} />
 			<span class={cn($showLors && 'font-semibold')}>
 				{$LL.map.layersSelection.lors()}
 			</span>
@@ -56,12 +51,9 @@
 		<DropdownMenu.Separator />
 		<DropdownMenu.Item
 			on:click={() => ($showSatellite = !$showSatellite)}
-			class={cn('grid grid-cols-[1.25rem_1fr] items-center')}
+			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
 		>
-			<Check
-				class={cn('size-4 opacity-0 transition-opacity', $showSatellite && 'opacity-100')}
-				strokeWidth={3}
-			/>
+			<CheckboxIcon checked={$showSatellite} />
 			<span class={cn($showSatellite && 'font-semibold')}>
 				{$LL.map.layersSelection.satellite()}
 			</span>

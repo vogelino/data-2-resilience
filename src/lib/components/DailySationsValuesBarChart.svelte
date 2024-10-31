@@ -90,14 +90,19 @@
 	const y = (d: DataRecord) => d.value;
 	const x = (d: DataRecord, idx: number) => idx;
 	const yTickFormat = (idx: number) => chartData[idx]?.label ?? '';
-	$: xTickFormat = (value: number) => value.toLocaleString($locale);
+	$: xTickFormat = (value: number) =>
+		value.toLocaleString($locale, {
+			maximumFractionDigits: 1
+		});
 	$: yTickValues = chartData.map(x);
 	$: triggers = {
 		[StackedBar.selectors.bar]: (d: DataRecord) => `
 			<span class="flex flex-col text-xs">
 				<strong>${d.label}</strong>
 				<span>
-					${d.value?.toLocaleString($locale)}
+					${d.value?.toLocaleString($locale, {
+						maximumFractionDigits: 1
+					})}
 					${unitOnly}
 				</span>
 			</span>
@@ -149,8 +154,10 @@
 		<strong class="text-3xl leading-tight">
 			{#if $query.isLoading}
 				<span class="inline-block h-6 w-24 animate-pulse rounded-sm bg-muted-foreground/20"></span>
-			{:else if data[0].value !== undefined}
-				{data[0].value?.toLocaleString($locale)}
+			{:else if data[0]?.value !== undefined}
+				{data[0]?.value?.toLocaleString($locale, {
+					maximumFractionDigits: 1
+				})}
 				{unitOnly}
 			{/if}
 		</strong>

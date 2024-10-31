@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { LL, locale } from '$i18n/i18n-svelte';
+	import { LL } from '$i18n/i18n-svelte';
 	import { Button } from '$lib/components/ui/button';
 	import * as Command from '$lib/components/ui/command';
 	import * as Popover from '$lib/components/ui/popover';
@@ -72,12 +72,12 @@
 					>
 						<Check class={cn('h-4 w-4 shrink-0', $unit !== value && 'text-transparent')} />
 						<span>{label}</span>
-						<span class="shrink-0 text-xs text-muted-foreground">
+						<!-- <span class="shrink-0 text-xs text-muted-foreground">
 							{$LL.pages.measurements.unitSelect.xOutOfY({
 								part: Math.floor(Math.random() * 10).toLocaleString($locale),
 								total: units.length.toLocaleString($locale)
 							})}
-						</span>
+						</span> -->
 					</Command.Item>
 				{/each}
 			</Command.Group>

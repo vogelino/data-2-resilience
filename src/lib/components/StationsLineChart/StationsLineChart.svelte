@@ -99,7 +99,9 @@
 						d
 					) as keyof typeof $LL.map.choroplethLegend.heatStressCategories
 				]()
-			: d.toLocaleString($locale);
+			: d.toLocaleString($locale, {
+					maximumFractionDigits: 1
+				});
 	$: legendItems = $selectedStations
 		.filter((id) => !unsupportedIds.includes(id))
 		.map((id) => ({
@@ -126,7 +128,9 @@
 							${`<span>
 										${
 											typeof value === 'number'
-												? value.toLocaleString($locale)
+												? value.toLocaleString($locale, {
+														maximumFractionDigits: 1
+													})
 												: $LL.map.choroplethLegend.heatStressCategories[
 														value as keyof typeof $LL.map.choroplethLegend.heatStressCategories
 													]()

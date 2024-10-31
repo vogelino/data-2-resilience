@@ -1,4 +1,5 @@
 <script lang="ts" generics="T">
+	import { locale } from '$i18n/i18n-svelte';
 	import Button from './ui/button/button.svelte';
 	import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 
@@ -127,7 +128,9 @@
 		<div>Page</div>
 		<strong>
 			{$table.getState().pagination.pageIndex + 1} of{' '}
-			{$table.getPageCount().toLocaleString()}
+			{$table.getPageCount().toLocaleString($locale, {
+				maximumFractionDigits: 0
+			})}
 		</strong>
 	</span>
 	<Button

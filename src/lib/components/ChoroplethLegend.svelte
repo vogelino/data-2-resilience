@@ -31,6 +31,7 @@
 	$: finalUnit = currentPage === 'measurements' ? ($unit as Unit) : ($heatStressUnit as Unit);
 	$: isCategoryUnit = finalUnit.endsWith('_category');
 	$: labels = getUnitLabelsByUnit(finalUnit, isCategoryUnit);
+	$: unitWithoutCategory = finalUnit.replace(/_category$/, '') === 'pet' ? 'pet' : 'utci';
 
 	const jetColors = [
 		'rgb(0, 0, 131)',
@@ -105,9 +106,12 @@
 				</Button>
 			</strong>
 			<ul class="flex flex-col gap-2 pt-2 text-sm">
-				{#each Object.values($LL.map.choroplethLegend.healthRisks) as { title, description }, i}
+				{#each Object.values($LL.map.choroplethLegend.healthRisks) as { title, description, ranges }, i}
 					<li class="border-t border-border pt-2">
-						<strong>{title()}{': '}</strong>
+						<p>
+							<strong>{title()}</strong>
+							<span class="text-muted-foreground">{ranges[unitWithoutCategory]()}{': '}</span>
+						</p>
 						{@html description()}
 					</li>
 				{/each}

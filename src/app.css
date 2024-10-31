@@ -19,6 +19,11 @@
 		color: hsl(var(--foreground));
 	}
 
+	* {
+		scrollbar-color: hsl(var(--muted-foreground) / 0.5) hsl(var(--muted));
+		scrollbar-width: thin;
+	}
+
 	:root {
 		--background: 0 0% 100%;
 		--foreground: 222.2 84% 4.9%;

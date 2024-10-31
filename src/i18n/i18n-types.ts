@@ -1380,6 +1380,16 @@ type RootTranslation = {
 					 * R​i​s​i​k​o​ ​v​o​n​ ​U​n​t​e​r​k​ü​h​l​u​n​g​ ​u​n​d​ ​E​r​f​r​i​e​r​u​n​g​e​n​ ​b​e​i​ ​l​ä​n​g​e​r​e​r​ ​E​x​p​o​s​i​t​i​o​n
 					 */
 					description: string
+					ranges: {
+						/**
+						 * (​u​n​t​e​r​ ​8​ ​°​C​)
+						 */
+						pet: string
+						/**
+						 * (​u​n​t​e​r​ ​-​2​7​ ​°​C​)
+						 */
+						utci: string
+					}
 				}
 				cold: {
 					/**
@@ -1390,6 +1400,16 @@ type RootTranslation = {
 					 * R​i​s​i​k​o​ ​v​o​n​ ​e​r​n​i​e​d​r​i​g​t​e​r​ ​K​ö​r​p​e​r​t​e​m​p​e​r​a​t​u​r​ ​u​n​d​ ​U​n​b​e​h​a​g​e​n
 					 */
 					description: string
+					ranges: {
+						/**
+						 * (​8​ ​b​i​s​ ​1​8​ ​°​C​)
+						 */
+						pet: string
+						/**
+						 * (​-​2​7​ ​b​i​s​ ​9​ ​°​C​)
+						 */
+						utci: string
+					}
 				}
 				slightlyWarm: {
 					/**
@@ -1400,6 +1420,16 @@ type RootTranslation = {
 					 * R​i​s​i​k​o​ ​v​o​n​ ​U​n​b​e​h​a​g​e​n​ ​u​n​d​ ​e​r​h​ö​h​t​e​m​ ​S​c​h​w​e​i​ß​a​u​s​s​t​o​ß
 					 */
 					description: string
+					ranges: {
+						/**
+						 * (​2​3​ ​b​i​s​ ​2​9​ ​°​C​)
+						 */
+						pet: string
+						/**
+						 * (​2​6​ ​b​i​s​ ​3​2​ ​°​C​)
+						 */
+						utci: string
+					}
 				}
 				warm: {
 					/**
@@ -1410,6 +1440,16 @@ type RootTranslation = {
 					 * R​i​s​i​k​o​ ​v​o​n​ ​H​i​t​z​e​k​r​ä​m​p​f​e​n​,​ ​H​i​t​z​e​e​r​s​c​h​ö​p​f​u​n​g​ ​u​n​d​ ​a​n​d​e​r​e​n​ ​h​i​t​z​e​b​e​d​i​n​g​t​e​n​ ​E​r​k​r​a​n​k​u​n​g​e​n​,​ ​b​e​s​o​n​d​e​r​s​ ​b​e​i​ ​k​ö​r​p​e​r​l​i​c​h​e​r​ ​A​k​t​i​v​i​t​ä​t
 					 */
 					description: string
+					ranges: {
+						/**
+						 * (​2​9​ ​b​i​s​ ​3​5​ ​°​C​)
+						 */
+						pet: string
+						/**
+						 * (​3​2​ ​b​i​s​ ​3​8​ ​°​C​)
+						 */
+						utci: string
+					}
 				}
 				veryWarm: {
 					/**
@@ -1420,6 +1460,16 @@ type RootTranslation = {
 					 * R​i​s​i​k​o​ ​v​o​n​ ​H​i​t​z​s​c​h​l​a​g​ ​u​n​d​ ​O​r​g​a​n​v​e​r​s​a​g​e​n
 					 */
 					description: string
+					ranges: {
+						/**
+						 * (​ü​b​e​r​ ​3​5​ ​°​C​)
+						 */
+						pet: string
+						/**
+						 * (​ü​b​e​r​ ​3​8​ ​°​C​)
+						 */
+						utci: string
+					}
 				}
 			}
 		}
@@ -2778,6 +2828,16 @@ export type TranslationFunctions = {
 					 * Risiko von Unterkühlung und Erfrierungen bei längerer Exposition
 					 */
 					description: () => LocalizedString
+					ranges: {
+						/**
+						 * (unter 8 °C)
+						 */
+						pet: () => LocalizedString
+						/**
+						 * (unter -27 °C)
+						 */
+						utci: () => LocalizedString
+					}
 				}
 				cold: {
 					/**
@@ -2788,6 +2848,16 @@ export type TranslationFunctions = {
 					 * Risiko von erniedrigter Körpertemperatur und Unbehagen
 					 */
 					description: () => LocalizedString
+					ranges: {
+						/**
+						 * (8 bis 18 °C)
+						 */
+						pet: () => LocalizedString
+						/**
+						 * (-27 bis 9 °C)
+						 */
+						utci: () => LocalizedString
+					}
 				}
 				slightlyWarm: {
 					/**
@@ -2798,6 +2868,16 @@ export type TranslationFunctions = {
 					 * Risiko von Unbehagen und erhöhtem Schweißausstoß
 					 */
 					description: () => LocalizedString
+					ranges: {
+						/**
+						 * (23 bis 29 °C)
+						 */
+						pet: () => LocalizedString
+						/**
+						 * (26 bis 32 °C)
+						 */
+						utci: () => LocalizedString
+					}
 				}
 				warm: {
 					/**
@@ -2808,6 +2888,16 @@ export type TranslationFunctions = {
 					 * Risiko von Hitzekrämpfen, Hitzeerschöpfung und anderen hitzebedingten Erkrankungen, besonders bei körperlicher Aktivität
 					 */
 					description: () => LocalizedString
+					ranges: {
+						/**
+						 * (29 bis 35 °C)
+						 */
+						pet: () => LocalizedString
+						/**
+						 * (32 bis 38 °C)
+						 */
+						utci: () => LocalizedString
+					}
 				}
 				veryWarm: {
 					/**
@@ -2818,6 +2908,16 @@ export type TranslationFunctions = {
 					 * Risiko von Hitzschlag und Organversagen
 					 */
 					description: () => LocalizedString
+					ranges: {
+						/**
+						 * (über 35 °C)
+						 */
+						pet: () => LocalizedString
+						/**
+						 * (über 38 °C)
+						 */
+						utci: () => LocalizedString
+					}
 				}
 			}
 		}

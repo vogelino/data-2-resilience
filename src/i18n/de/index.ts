@@ -36,7 +36,16 @@ const de = {
 	},
 	generic: {
 		expand: 'Mehr erfahren',
-		collapse: 'Zusammenklappen'
+		collapse: 'Zusammenklappen',
+		leftSidebar: {
+			showAriaLabel: 'Linke Sidebar einblenden',
+			hideAriaLabel: 'Linke Sidebar ausblenden'
+		},
+		hourInput: {
+			inputAriaLabel: 'Stunde des Tages auswählen',
+			buttonUpAriaLabel: 'Eine Stunde später auswahlen',
+			buttonDownAriaLabel: 'Eine Stunde früher auswahlen'
+		}
 	},
 	welcome: {
 		title: 'Herzlich willkommen',

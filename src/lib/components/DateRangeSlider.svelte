@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
+	import { cn } from '$lib/utils';
 	import { isToday, today } from '$lib/utils/dateUtil';
 	import { parseDatavisType } from '$lib/utils/parsingUtil';
 	import { addDays } from 'date-fns';
@@ -61,7 +62,7 @@
 	};
 </script>
 
-<div class="date-range-slider flex flex-col">
+<div class={cn('date-range-slider flex flex-col gap-2')}>
 	{#if datavisType === 'range'}
 		<RangeSlider
 			values={[$selectedRangeStart, $selectedRangeEnd]}
@@ -72,7 +73,7 @@
 			first="label"
 		/>
 	{:else}
-		<div class="grid grid-cols-[1fr_auto] items-center gap-4">
+		<div class="grid grid-cols-[1fr_auto] items-center gap-2">
 			<RangeSlider
 				value={$dayValue}
 				on:change={onValueChange}

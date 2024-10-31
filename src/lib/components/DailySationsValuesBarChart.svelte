@@ -103,6 +103,7 @@
 			</span>
 		`
 	};
+	$: chartHeight = Math.max(240, 60 + chartData.length * 22);
 
 	const dateLongFormatter = new Intl.DateTimeFormat($locale, {
 		year: 'numeric',
@@ -136,7 +137,7 @@
 	</Alert>
 {/if}
 
-{#if ids.length === 1 && (data[0]?.value || $query.isLoading)}
+{#if ids.length === 1}
 	<div class="flex flex-col justify-center gap-2 text-center">
 		<span class="text-muted-foreground">
 			{#if $query.isLoading}
@@ -161,16 +162,16 @@
 			{/if}</span
 		>
 	</div>
-{:else if ids.length > 1 && data.length > 1}
-	{#if $query.isSuccess && chartData.length > 0}
+{:else}
+	{#if $query.isLoading || ($query.isSuccess && chartData.length > 0)}
 		<h3 class="font-semibold">{unitShortLabel}</h3>
 	{/if}
-	<UnovisChartContainer className={cn('relative', !data || (data.length === 0 && 'min-h-16'))}>
+	<UnovisChartContainer
+		className={cn('relative', !data || (data.length === 0 && 'min-h-[240px]'))}
+		style={`height: ${chartHeight}px`}
+	>
 		{#if !noneSufficientData && !noneSupportedData}
-			<VisXYContainer
-				padding={{ top: 8, bottom: 8, right: 16 }}
-				height={60 + chartData.length * 24}
-			>
+			<VisXYContainer padding={{ top: 8, bottom: 8, right: 16 }} height={chartHeight}>
 				{#if $query.isSuccess && chartData.length > 0}
 					<VisStackedBar
 						data={chartData}

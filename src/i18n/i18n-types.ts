@@ -112,6 +112,30 @@ type RootTranslation = {
 		 * Z​u​s​a​m​m​e​n​k​l​a​p​p​e​n
 		 */
 		collapse: string
+		leftSidebar: {
+			/**
+			 * L​i​n​k​e​ ​S​i​d​e​b​a​r​ ​e​i​n​b​l​e​n​d​e​n
+			 */
+			showAriaLabel: string
+			/**
+			 * L​i​n​k​e​ ​S​i​d​e​b​a​r​ ​a​u​s​b​l​e​n​d​e​n
+			 */
+			hideAriaLabel: string
+		}
+		hourInput: {
+			/**
+			 * S​t​u​n​d​e​ ​d​e​s​ ​T​a​g​e​s​ ​a​u​s​w​ä​h​l​e​n
+			 */
+			inputAriaLabel: string
+			/**
+			 * E​i​n​e​ ​S​t​u​n​d​e​ ​s​p​ä​t​e​r​ ​a​u​s​w​a​h​l​e​n
+			 */
+			buttonUpAriaLabel: string
+			/**
+			 * E​i​n​e​ ​S​t​u​n​d​e​ ​f​r​ü​h​e​r​ ​a​u​s​w​a​h​l​e​n
+			 */
+			buttonDownAriaLabel: string
+		}
 	}
 	welcome: {
 		/**
@@ -1732,6 +1756,30 @@ export type TranslationFunctions = {
 		 * Zusammenklappen
 		 */
 		collapse: () => LocalizedString
+		leftSidebar: {
+			/**
+			 * Linke Sidebar einblenden
+			 */
+			showAriaLabel: () => LocalizedString
+			/**
+			 * Linke Sidebar ausblenden
+			 */
+			hideAriaLabel: () => LocalizedString
+		}
+		hourInput: {
+			/**
+			 * Stunde des Tages auswählen
+			 */
+			inputAriaLabel: () => LocalizedString
+			/**
+			 * Eine Stunde später auswahlen
+			 */
+			buttonUpAriaLabel: () => LocalizedString
+			/**
+			 * Eine Stunde früher auswahlen
+			 */
+			buttonDownAriaLabel: () => LocalizedString
+		}
 	}
 	welcome: {
 		/**

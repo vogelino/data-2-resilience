@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LL } from '$i18n/i18n-svelte';
 	import { isLeftSidebarOpened, toggleLeftSidebar } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 </script>
@@ -36,6 +37,9 @@
 					' py-8 pr-6 transition-opacity focus-visible:outline-none'
 				)}
 				on:click={toggleLeftSidebar}
+				aria-label={$isLeftSidebarOpened
+					? $LL.generic.leftSidebar.hideAriaLabel()
+					: $LL.generic.leftSidebar.showAriaLabel()}
 			>
 				<span
 					class={cn(

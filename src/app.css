@@ -8,6 +8,17 @@
 		line-height: calc(2px + 2ex + 2px);
 	}
 
+	/* Styling the selection color */
+	*::-moz-selection {
+		background: hsl(var(--primary) / 0.5);
+		color: hsl(var(--foreground));
+	}
+
+	*::selection {
+		background: hsl(var(--primary) / 0.5);
+		color: hsl(var(--foreground));
+	}
+
 	:root {
 		--background: 0 0% 100%;
 		--foreground: 222.2 84% 4.9%;

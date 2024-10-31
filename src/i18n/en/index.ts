@@ -36,7 +36,16 @@ const en = {
 	},
 	generic: {
 		expand: 'Know more',
-		collapse: 'Collapse'
+		collapse: 'Collapse',
+		leftSidebar: {
+			showAriaLabel: 'Expande left sidebar',
+			hideAriaLabel: 'Collapse left sidebar'
+		},
+		hourInput: {
+			inputAriaLabel: 'Select hour of the day',
+			buttonUpAriaLabel: 'Select an hour later',
+			buttonDownAriaLabel: 'Select an hour earlier'
+		}
 	},
 	welcome: {
 		title: 'Welcome',

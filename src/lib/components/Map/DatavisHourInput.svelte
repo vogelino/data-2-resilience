@@ -1,69 +1,107 @@
 <script lang="ts">
+	import { LL } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
+	import Button from 'components/ui/button/button.svelte';
+	import { ArrowDown, ArrowUp } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 
+	type ClassesType = {
+		container?: string;
+		input?: string;
+		buttonUp?: string;
+		buttonDown?: string;
+		button?: string;
+		icon?: string;
+		iconUp?: string;
+		iconDown?: string;
+	};
+	export let classes: ClassesType = {};
+
 	let hour = queryParam('hour', ssp.number(12));
-
-	$: hourBefore = $hour - 1 < 0 ? undefined : $hour - 1;
-	$: hourAfter = $hour + 1 > 23 ? undefined : $hour + 1;
-
-	$: console.log({ hourBefore, hour, hourAfter });
 
 	function onHourChange(e: Event) {
 		const target = e.target as HTMLInputElement;
 		hour.set(parseInt(target.value.split(':')[0], 10));
 	}
+
+	function onHourUp() {
+		const newHour = $hour + 1 > 23 ? 0 : $hour + 1;
+		hour.set(newHour);
+	}
+
+	function onHourDown() {
+		const newHour = $hour - 1 < 0 ? 23 : $hour - 1;
+		hour.set(newHour);
+	}
 </script>
 
 <div
 	class={cn(
-		'relative overflow-clip rounded bg-background',
-		'[&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',
-		'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background'
+		'relative grid grid-cols-[auto_2rem] grid-rows-2 rounded bg-background',
+		'rounded border border-border',
+		classes.container
 	)}
 >
-	<div class="relative contents">
-		{#if hourBefore}
-			<span
-				class={cn(
-					'absolute inset-x-0 top-0 flex h-1/3 items-end justify-center text-xl',
-					'pointer-events-none translate-y-0.5 scale-95 text-center opacity-20'
-				)}
-				aria-hidden="true"
-			>
-				{`${hourBefore}`.padStart(2, '0')}:00
-			</span>
-		{/if}
-		<input
-			type="time"
-			min="0"
-			max="23"
-			value={`${`${$hour}`.padStart(2, '0')}:00`}
-			pattern="[0-9]{2}:0{2}"
-			step="3600"
-			on:input={onHourChange}
-			class={cn(
-				'pointer-events-auto size-[4rem] rounded border border-border',
-				'bg-background px-0 py-0 text-center text-xl text-foreground',
-				'outline-none'
-			)}
-		/>
-		{#if hourAfter}
-			<span
-				class={cn(
-					'absolute inset-x-0 bottom-0 flex h-1/3 items-end justify-center text-xl',
-					'pointer-events-none scale-95 text-center opacity-20'
-				)}
-				aria-hidden="true"
-			>
-				{`${hourAfter}`.padStart(2, '0')}:00
-			</span>
-		{/if}
-	</div>
+	<input
+		type="time"
+		min="0"
+		max="23"
+		value={`${`${$hour}`.padStart(2, '0')}:00`}
+		pattern="[0-9]{2}:0{2}"
+		step="3600"
+		on:input={onHourChange}
+		class={cn(
+			'pointer-events-auto rounded border border-border',
+			'bg-background px-3 py-2 text-center text-xl text-foreground',
+			'row-span-2 border-none outline-none',
+			'focus-visible:ring-2 focus-visible:ring-ring',
+			'focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+			'relative focus-visible:z-10 focus-visible:rounded',
+			classes.input
+		)}
+		aria-label={$LL.generic.hourInput.inputAriaLabel()}
+	/>
+	<Button
+		size="icon"
+		variant="ghost"
+		class={cn(
+			'size-full rounded-none rounded-tr border-b border-l border-border',
+			'relative focus-visible:z-10 focus-visible:rounded',
+			classes.button,
+			classes.buttonUp
+		)}
+		on:click={onHourUp}
+		aria-label={$LL.generic.hourInput.buttonUpAriaLabel()}
+	>
+		<ArrowUp class={cn('size-4', classes.icon, classes.iconUp)} />
+	</Button>
+	<Button
+		size="icon"
+		variant="ghost"
+		class={cn(
+			'size-full rounded-none rounded-br border-l border-border',
+			'relative focus-visible:z-10 focus-visible:rounded',
+			classes.button,
+			classes.buttonDown
+		)}
+		on:click={onHourDown}
+		aria-label={$LL.generic.hourInput.buttonDownAriaLabel()}
+	>
+		<ArrowDown class={cn('size-4', classes.icon, classes.iconDown)} />
+	</Button>
 </div>
 
 <style>
 	input[type='time']::-webkit-calendar-picker-indicator {
 		display: none;
+	}
+	input[type='time']:focus::-webkit-datetime-edit-hour-field {
+		background-color: hsl(var(--primary) / 0.5);
+		color: hsl(var(--foreground));
+	}
+	input[type='time']::-webkit-datetime-edit-text,
+	input[type='time']::-webkit-datetime-edit-minute-field {
+		opacity: 0.7;
+		color: hsl(var(--muted-foreground));
 	}
 </style>

@@ -85,7 +85,7 @@
 
 <div class="min-h-full bg-muted">
 	<div class="container flex min-h-full flex-col gap-6 py-8">
-		<h1 class="text-xl font-semibold">{$LL.pages.stations.title()}</h1>
+		<h1 class="text-xl font-semibold">{$LL.pages.stations.titleTable()}</h1>
 		<div class="rounded border border-border bg-background">
 			<Table data={$query.data} {columns} />
 		</div>

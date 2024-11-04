@@ -1136,6 +1136,10 @@ type RootTranslation = {
 			 * W​i​e​ ​m​e​s​s​e​n​ ​w​i​r​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​?
 			 */
 			title: string
+			/**
+			 * A​l​l​e​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​i​m​ ​Ü​b​e​r​b​l​i​c​k
+			 */
+			titleTable: string
 			intro: {
 				/**
 				 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
@@ -2584,6 +2588,10 @@ export type TranslationFunctions = {
 			 * Wie messen wir thermischen Komfort?
 			 */
 			title: () => LocalizedString
+			/**
+			 * Alle Messstationen im Überblick
+			 */
+			titleTable: () => LocalizedString
 			intro: {
 				/**
 				 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.

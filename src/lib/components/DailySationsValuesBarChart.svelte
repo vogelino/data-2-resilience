@@ -64,8 +64,15 @@
 		hour: $hour
 	});
 
-	$: data = $query.data || [];
-	$: chartData = data.filter((d) => typeof d.value === 'number');
+	$: data = ($query.data || []).sort((a, b) => {
+		const aValue = a.value;
+		const bValue = b.value;
+		if (aValue === undefined && bValue === undefined)
+			return b.label.localeCompare(a.label, $locale);
+		if (aValue === undefined) return -1;
+		if (bValue === undefined) return 1;
+		return b.label.localeCompare(a.label, $locale);
+	});
 	$: insufficientDataIds = data
 		.filter((d) => d.supported && d.value === undefined)
 		.map((d) => d.id);
@@ -82,29 +89,55 @@
 		stations: stations.features,
 		LL: $LL
 	});
+	$: validIds = data
+		.filter((d) => !unsupportedIds.includes(d.id) && !insufficientDataIds.includes(d.id))
+		.map((d) => d.id);
 
-	const y = (d: DataRecord) => d.value;
+	$: firstValidValue = data.find((d) => d.value !== undefined)?.value;
+	$: maxValue = data.reduce((acc, item) => Math.max(acc, item.value ?? 0), 0);
+	const y = (d: DataRecord) => (typeof d.value === 'number' ? d.value : maxValue);
 	const x = (d: DataRecord, idx: number) => idx;
-	const yTickFormat = (idx: number) => chartData[idx]?.label ?? '';
+	const color = (d: DataRecord) =>
+		typeof d.value === 'number' ? undefined : 'hsl(var(--muted-foreground) / 0.1)';
+	const yTickFormat = (idx: number) => data[idx]?.label ?? '';
 	$: xTickFormat = (value: number) =>
 		value.toLocaleString($locale, {
 			maximumFractionDigits: 1
 		});
-	$: yTickValues = chartData.map(x);
+	$: yTickValues = data.map(x);
 	$: triggers = {
 		[StackedBar.selectors.bar]: (d: DataRecord) => `
-			<span class="flex flex-col text-xs">
-				<strong>${d.label}</strong>
+			<span class="flex flex-col text-xs max-w-48">
+				${
+					unsupportedIds.includes(d.id) || insufficientDataIds.includes(d.id)
+						? ''
+						: `<strong>${d.label}</strong>`
+				}
 				<span>
-					${d.value?.toLocaleString($locale, {
-						maximumFractionDigits: 1
-					})}
-					${unitOnly}
+					${cn(
+						d.value !== undefined &&
+							d.value.toLocaleString($locale, {
+								maximumFractionDigits: 1
+							}),
+						d.value === undefined &&
+							unsupportedIds.includes(d.id) &&
+							$LL.pages.measurements.singleUnsupportedStation({
+								unit: unitLabel,
+								station: d.label
+							}),
+						d.value === undefined &&
+							insufficientDataIds.includes(d.id) &&
+							$LL.pages.measurements.singleInsufficientDataStation({
+								unit: unitLabel,
+								station: d.label
+							})
+					)}
+					${d.value ? unitOnly : ''}
 				</span>
 			</span>
 		`
 	};
-	$: chartHeight = Math.max(240, 60 + chartData.length * 22);
+	$: chartHeight = validIds.length === 0 ? 0 : 60 + data.length * 22;
 
 	const dateLongFormatter = new Intl.DateTimeFormat($locale, {
 		year: 'numeric',
@@ -150,8 +183,8 @@
 		<strong class="text-3xl leading-tight">
 			{#if $query.isLoading}
 				<span class="inline-block h-6 w-24 animate-pulse rounded-sm bg-muted-foreground/20"></span>
-			{:else if data[0]?.value !== undefined}
-				{data[0]?.value?.toLocaleString($locale, {
+			{:else if firstValidValue !== undefined}
+				{firstValidValue?.toLocaleString($locale, {
 					maximumFractionDigits: 1
 				})}
 				{unitOnly}
@@ -166,22 +199,20 @@
 		>
 	</div>
 {:else}
-	{#if $query.isLoading || ($query.isSuccess && chartData.length > 0)}
+	{#if $query.isLoading || ($query.isSuccess && validIds.length > 0)}
 		<h3 class="font-semibold">{unitLabel} {unitOnly ? `(${unitOnly})` : ''}</h3>
 	{/if}
-	<UnovisChartContainer
-		className={cn('relative', !data || (data.length === 0 && 'min-h-[240px]'))}
-		style={`height: ${chartHeight}px`}
-	>
-		{#if !noneSufficientData && !noneSupportedData}
+	<UnovisChartContainer className={cn('relative')} style={`height: ${chartHeight}px`}>
+		{#if validIds.length > 0}
 			<VisXYContainer padding={{ top: 8, bottom: 8, right: 16 }} height={chartHeight}>
-				{#if $query.isSuccess && chartData.length > 0}
+				{#if $query.isSuccess && data.length > 0}
 					<VisStackedBar
-						data={chartData}
+						{data}
 						{x}
 						{y}
-						numTicks={Math.max(2, chartData.length)}
-						tickValues={chartData.length === 1 && chartData[0].value === 0 ? [0, 5] : undefined}
+						{color}
+						numTicks={Math.max(2, data.length)}
+						tickValues={data.length === 1 && firstValidValue === 0 ? [0, 5] : undefined}
 						orientation="horizontal"
 						barPadding={0.2}
 						barMinHeight1Px
@@ -192,12 +223,12 @@
 						tickFormat={yTickFormat}
 						tickValues={yTickValues}
 						gridLine={false}
-						numTicks={chartData.length}
+						numTicks={data.length}
 						tickTextFitMode="trim"
 						tickTextTrimType="end"
 					/>
 					<VisTooltip {triggers} />
-				{:else if $query.isSuccess && chartData.length === 0}
+				{:else if $query.isSuccess && data.length === 0}
 					<div class="absolute inset-0 flex items-center justify-center">
 						{$LL.pages.measurements.noDataAvailable()}
 					</div>

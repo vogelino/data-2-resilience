@@ -560,6 +560,7 @@ const de = {
 			showHealthRisks: 'Gesundheitsrisiken einblenden',
 			hideHealthRisks: 'Gesundheitsrisiken ausblenden',
 			title: 'Gesundheitsrisiken',
+			noValueAvailable: 'Keine Daten verfügbar',
 			heatStressCategories: {
 				'extreme cold stress': 'Extremer Kältestress',
 				'very strong cold stress': 'Sehr starker Kältestress',

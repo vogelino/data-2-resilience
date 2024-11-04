@@ -1328,6 +1328,10 @@ type RootTranslation = {
 			 * G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n
 			 */
 			title: string
+			/**
+			 * K​e​i​n​e​ ​D​a​t​e​n​ ​v​e​r​f​ü​g​b​a​r
+			 */
+			noValueAvailable: string
 			heatStressCategories: {
 				/**
 				 * E​x​t​r​e​m​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
@@ -2780,6 +2784,10 @@ export type TranslationFunctions = {
 			 * Gesundheitsrisiken
 			 */
 			title: () => LocalizedString
+			/**
+			 * Keine Daten verfügbar
+			 */
+			noValueAvailable: () => LocalizedString
 			heatStressCategories: {
 				/**
 				 * Extremer Kältestress

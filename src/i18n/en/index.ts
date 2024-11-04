@@ -558,6 +558,7 @@ const en = {
 			showHealthRisks: 'Show health risks',
 			hideHealthRisks: 'Hide health risks',
 			title: 'Heath risks',
+			noValueAvailable: 'No value available',
 			heatStressCategories: {
 				'extreme cold stress': 'Extreme Cold Stress',
 				'very strong cold stress': 'Very Strong Cold Stress',
@@ -576,24 +577,24 @@ const en = {
 					title: 'Very cold',
 					description: 'Risk of hypothermia and frostbite with prolonged exposure',
 					ranges: {
-						pet: '(below 8 °C)',
-						utci: '(below -27 °C)'
+						pet: 'below 8 °C',
+						utci: 'below -27 °C'
 					}
 				},
 				cold: {
 					title: 'Cold',
 					description: 'Risk of lowered body temperature and discomfort',
 					ranges: {
-						pet: '(8 to 18 °C)',
-						utci: '(-27 to 9 °C)'
+						pet: '8 to 18 °C',
+						utci: '-27 to 9 °C'
 					}
 				},
 				slightlyWarm: {
 					title: 'Slightly warm',
 					description: 'Risk of discomfort and increased sweating',
 					ranges: {
-						pet: '(23 to 29 °C)',
-						utci: '(26 to 32 °C)'
+						pet: '23 to 29 °C',
+						utci: '26 to 32 °C'
 					}
 				},
 				warm: {
@@ -601,16 +602,16 @@ const en = {
 					description:
 						'Risk of heat cramps, heat exhaustion and other heat-related illnesses, especially during physical activity',
 					ranges: {
-						pet: '(29 to 35 °C)',
-						utci: '(32 to 38 °C)'
+						pet: '29 to 35 °C',
+						utci: '32 to 38 °C'
 					}
 				},
 				veryWarm: {
 					title: 'Very warm',
 					description: 'Risk of heat stroke and organ failure',
 					ranges: {
-						pet: '(above 35 °C)',
-						utci: '(above 38 °C)'
+						pet: 'above 35 °C',
+						utci: 'above 38 °C'
 					}
 				}
 			}

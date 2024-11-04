@@ -71,13 +71,29 @@
 				)`}
 			/>
 		{/if}
-		{#if min && max}
-			<div class="opacity- flex w-full items-center justify-between text-muted-foreground">
-				<span>{min}</span>
-				<span>{max}</span>
-			</div>
-		{/if}
+		<div class="flex w-full items-center justify-between pt-1 leading-4 text-muted-foreground">
+			<span>
+				{isOrdinal
+					? $LL.map.choroplethLegend.healthRisks.veryCold.ranges[
+							unitWithoutCategory === 'pet' ? 'pet' : 'utci'
+						]()
+					: min}
+			</span>
+			<span class="text-right">
+				{isOrdinal
+					? $LL.map.choroplethLegend.healthRisks.veryWarm.ranges[
+							unitWithoutCategory === 'pet' ? 'pet' : 'utci'
+						]()
+					: max}
+			</span>
+		</div>
 	</div>
+	<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
+		<span class="size-3 rounded-full bg-muted-foreground" />
+		<span class="text-sm text-muted-foreground">
+			{$LL.map.choroplethLegend.noValueAvailable()}
+		</span>
+	</span>
 	<Popover.Root bind:open>
 		<Popover.Trigger asChild let:builder>
 			<Button
@@ -85,7 +101,7 @@
 				variant="link"
 				role="combobox"
 				aria-expanded={open}
-				class={cn('flex h-fit items-center justify-start gap-1 p-0 transition-all')}
+				class={cn('flex h-fit items-center justify-start gap-2 p-0 transition-all')}
 			>
 				<HeartPulse class="size-5 shrink-0 text-pink-700" />
 				<span
@@ -110,9 +126,9 @@
 					<li class="border-t border-border pt-2">
 						<p>
 							<strong>{title()}</strong>
-							<span class="text-muted-foreground">
-								{ranges[unitWithoutCategory === 'pet' ? 'pet' : 'utci']()}{': '}
-							</span>
+							<span class="text-muted-foreground"
+								>({ranges[unitWithoutCategory === 'pet' ? 'pet' : 'utci']()})</span
+							>{': '}
 						</p>
 						{@html description()}
 					</li>

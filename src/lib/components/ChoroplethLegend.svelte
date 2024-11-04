@@ -32,7 +32,8 @@
 	$: finalUnit = currentPage === 'measurements' ? ($unit as Unit) : ($heatStressUnit as Unit);
 	$: isCategoryUnit = finalUnit.endsWith('_category');
 	$: labels = getUnitLabelsByUnit(finalUnit, isCategoryUnit);
-	$: unitWithoutCategory = finalUnit.replace(/_category$/, '') === 'pet' ? 'pet' : 'utci';
+	$: unitWithoutCategory =
+		finalUnit.replace(/_category$/, '') === 'pet' ? ('pet' as const) : ('utci' as const);
 
 	$: scale =
 		unitsToScalesMap[finalUnit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default;
@@ -74,16 +75,12 @@
 		<div class="flex w-full items-center justify-between pt-1 leading-4 text-muted-foreground">
 			<span>
 				{isOrdinal
-					? $LL.map.choroplethLegend.healthRisks.veryCold.ranges[
-							unitWithoutCategory === 'pet' ? 'pet' : 'utci'
-						]()
+					? $LL.map.choroplethLegend.healthRisks.veryCold.ranges[unitWithoutCategory]()
 					: min}
 			</span>
 			<span class="text-right">
 				{isOrdinal
-					? $LL.map.choroplethLegend.healthRisks.veryWarm.ranges[
-							unitWithoutCategory === 'pet' ? 'pet' : 'utci'
-						]()
+					? $LL.map.choroplethLegend.healthRisks.veryWarm.ranges[unitWithoutCategory]()
 					: max}
 			</span>
 		</div>
@@ -126,9 +123,7 @@
 					<li class="border-t border-border pt-2">
 						<p>
 							<strong>{title()}</strong>
-							<span class="text-muted-foreground"
-								>({ranges[unitWithoutCategory === 'pet' ? 'pet' : 'utci']()})</span
-							>{': '}
+							<span class="text-muted-foreground">({ranges[unitWithoutCategory]()})</span>{': '}
 						</p>
 						{@html description()}
 					</li>

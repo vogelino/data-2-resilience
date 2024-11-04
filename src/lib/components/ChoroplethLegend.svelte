@@ -4,7 +4,7 @@
 	import * as Popover from '$lib/components/ui/popover';
 	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { schemeTurbo, unitsToScalesMap } from '$lib/utils/colorScaleUtil';
+	import { unitsToScalesMap } from '$lib/utils/colorScaleUtil';
 	import { HeartPulse, X } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import { Button } from './ui/button';
@@ -36,8 +36,9 @@
 
 	$: scale =
 		unitsToScalesMap[finalUnit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default;
-	$: range = scale.fn.range() as string[];
 	$: isOrdinal = scale.type === 'ordinal';
+	$: min = scale.type === 'sequential' ? `${scale.min} ${labels.unitOnlyLabel}` : '';
+	$: max = scale.type === 'sequential' ? `${scale.max} ${labels.unitOnlyLabel}` : '';
 </script>
 
 <div
@@ -56,7 +57,7 @@
 			<div
 				class="rounded-xs flex h-2 w-full max-w-96 overflow-clip shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 			>
-				{#each range as color}
+				{#each scale.scheme as color}
 					<span class={cn('size-full')} style={`background-color: ${color}`} />
 				{/each}
 			</div>
@@ -66,14 +67,16 @@
 				style={`
 					background-image: linear-gradient(
 						to right,
-						${schemeTurbo.join(', ')}
+						${scale.scheme.join(', ')}
 				)`}
 			/>
 		{/if}
-		<div class="opacity- flex w-full items-center justify-between text-muted-foreground">
-			<span>0 {labels.unitOnlyLabel}</span>
-			<span>100 {labels.unitOnlyLabel}</span>
-		</div>
+		{#if min && max}
+			<div class="opacity- flex w-full items-center justify-between text-muted-foreground">
+				<span>{min}</span>
+				<span>{max}</span>
+			</div>
+		{/if}
 	</div>
 	<Popover.Root bind:open>
 		<Popover.Trigger asChild let:builder>
@@ -107,7 +110,9 @@
 					<li class="border-t border-border pt-2">
 						<p>
 							<strong>{title()}</strong>
-							<span class="text-muted-foreground">{ranges[unitWithoutCategory]()}{': '}</span>
+							<span class="text-muted-foreground">
+								{ranges[unitWithoutCategory === 'pet' ? 'pet' : 'utci']()}{': '}
+							</span>
 						</p>
 						{@html description()}
 					</li>

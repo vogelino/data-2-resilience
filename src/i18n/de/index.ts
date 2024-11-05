@@ -71,19 +71,18 @@ const de = {
 	},
 	pages: {
 		heatStress: {
-			title: 'Wie warm fühlt sich deine Stadt an?',
+			title: 'Wie warm fühlt sich die Stadt an?',
 			intro: [
-				'Hitzestress ist der Zustand von Unbehagen und körperlicher Belastung, der auftritt, wenn die thermische Umgebung die Fähigkeit einer Person übersteigt, Wärme abzuleiten. Das bedeutet, dass Temperatur, Luftfeuchtigkeit, Luftbewegung und Strahlungswärme auf einem Niveau liegen, das Unbehagen oder Gesundheitsrisiken verursachen kann. Hitzestress kann anhand verschiedener Indikatoren bewertet werden:'
+				'Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.'
 			],
 			timeRangeAlert: `Daten nur verfügbar im Zeitraum vom {startDate:string} bis {endDate:string}.`,
 			indicatorsNavAriaLabel:
 				'Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.'
 		},
 		measurements: {
-			title: 'Was wird aktuell gemessen?',
+			title: 'Was wird gemessen?',
 			intro: [
-				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
-				'Aktuell Messwerte können sowohl für die Messstationen als auch für die einzelnen Stadtbezirke angezeigt werden.'
+				'Die Messwerte zeigen Wetterdaten aus verschiedenen Teilen Dortmunds, die durch Messstationen ermittelt werden. Diese Daten, wie z. B. Lufttemperatur und Luftfeuchtigkeit, helfen dabei, die aktuelle Hitzebelastung in der Stadt zu verstehen. Sie können die Messstationen als Punkte in der Karte sehen und aktuelle sowie vergangene Werte verfolgen.'
 			],
 			noDataAvailable: 'Keine Daten für die ausgewählte Konfiguration verfügbar',
 			noStationsSelected:
@@ -480,7 +479,7 @@ const de = {
 			title: 'Wie messen wir thermischen Komfort?',
 			titleTable: 'Alle Messstationen im Überblick',
 			intro: [
-				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+				'Im Folgenden finden Sie technische Informationen zu den Messstationen sowie eine Zusammenfassung der Kriterien zur Standortauswahl der Messstationen.'
 			],
 			stationsDescriptions: {
 				weather: {

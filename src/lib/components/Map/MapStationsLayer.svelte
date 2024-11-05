@@ -84,7 +84,9 @@
 				<h3 class="whitespace-nowrap text-sm font-bold">{feature.properties?.longName}</h3>
 				<p class="text-xs">
 					{#if getValueById(feature.properties?.id)}
-						{getValueById(feature.properties?.id)?.valueOf().toLocaleString($locale)}
+						{getValueById(feature.properties?.id)?.valueOf().toLocaleString($locale, {
+							maximumFractionDigits: 1
+						})}
 						{unitOnlyLabel}
 					{:else}
 						{@html $LL.pages.measurements.singleUnsupportedStationShort({

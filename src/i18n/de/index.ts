@@ -64,8 +64,8 @@ const de = {
 			about: 'Über dieses Dashboard'
 		},
 		tabs: {
-			actualMeasurements: 'Aktuelle Messwerte',
-			heatStress: 'Hitzestress',
+			actualMeasurements: 'Messwerte',
+			heatStress: 'Hitzeatlas',
 			stations: 'Messstationen'
 		}
 	},
@@ -525,12 +525,12 @@ const de = {
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.',
 			types: {
 				byClass: {
-					title: 'Nach Klasse',
+					title: 'Nach Hitzestresskategorie',
 					description:
 						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
 				},
 				byValue: {
-					title: 'Nach Wert',
+					title: 'Nach Temperatur in °C',
 					description:
 						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
 				}

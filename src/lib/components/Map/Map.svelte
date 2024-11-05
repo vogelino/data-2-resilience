@@ -46,6 +46,7 @@
 		zoom={mapZoom}
 		dragRotate={false}
 		maxPitch={0}
+		maxZoom={15.5}
 		maxBounds={[
 			[7.090650277147461, 51.400616267063896],
 			[7.826598237576263, 51.61374377792475]

@@ -42,6 +42,7 @@ const de = {
 			hideAriaLabel: 'Linke Sidebar ausblenden'
 		},
 		hourInput: {
+			label: 'Stunde des Tages',
 			inputAriaLabel: 'Stunde des Tages auswählen',
 			buttonUpAriaLabel: 'Eine Stunde später auswahlen',
 			buttonDownAriaLabel: 'Eine Stunde früher auswahlen'

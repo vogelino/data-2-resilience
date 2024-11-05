@@ -137,7 +137,7 @@
 			</span>
 		`
 	};
-	$: chartHeight = validIds.length === 0 ? 0 : 60 + data.length * 22;
+	$: chartHeight = validIds.length === 0 ? 0 : Math.max(96, 60 + data.length * 22);
 
 	const dateLongFormatter = new Intl.DateTimeFormat($locale, {
 		year: 'numeric',

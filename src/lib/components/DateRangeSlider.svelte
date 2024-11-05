@@ -6,7 +6,7 @@
 	import { addDays } from 'date-fns';
 	import { RangeSlider } from 'svelte-range-slider-pips';
 	import { queryParam, ssp } from 'sveltekit-search-params';
-	import DatavisHourInput from './HourInput.svelte';
+	import HourInput from './HourInput.svelte';
 	import Button from './ui/button/button.svelte';
 
 	const dateRangeStart = -30;
@@ -73,16 +73,21 @@
 			first="label"
 		/>
 	{:else}
-		<div class="grid grid-cols-[1fr_auto] items-center gap-2">
-			<RangeSlider
-				value={$dayValue}
-				on:change={onValueChange}
-				range={false}
-				{...commonProps}
-				{formatter}
-			/>
+		<div class="grid grid-cols-[1fr_auto] gap-2">
+			<div class="pt-2">
+				<RangeSlider
+					value={$dayValue}
+					on:change={onValueChange}
+					range={false}
+					{...commonProps}
+					{formatter}
+				/>
+			</div>
 			{#if datavisType === 'hour'}
-				<DatavisHourInput />
+				<div class="flex flex-col gap-1">
+					<span class="text-xs font-semibold">{$LL.generic.hourInput.label()}</span>
+					<HourInput />
+				</div>
 			{/if}
 		</div>
 	{/if}

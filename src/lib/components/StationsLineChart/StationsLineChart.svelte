@@ -167,7 +167,7 @@
 	</Alert>
 {/if}
 <UnovisChartContainer
-	className={cn('relative', $query.isSuccess && data && data.length === 0 ? '' : 'h-[340px]')}
+	className={cn('relative', $query.isSuccess && data && data.length === 0 ? '' : 'h-[360px]')}
 >
 	<VisXYContainer
 		padding={{ top: 8, bottom: 8, right: 16 }}

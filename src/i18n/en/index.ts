@@ -42,6 +42,7 @@ const en = {
 			hideAriaLabel: 'Collapse left sidebar'
 		},
 		hourInput: {
+			label: 'Hour of the day',
 			inputAriaLabel: 'Select hour of the day',
 			buttonUpAriaLabel: 'Select an hour later',
 			buttonDownAriaLabel: 'Select an hour earlier'

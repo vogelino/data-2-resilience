@@ -124,6 +124,10 @@ type RootTranslation = {
 		}
 		hourInput: {
 			/**
+			 * S​t​u​n​d​e​ ​d​e​s​ ​T​a​g​e​s
+			 */
+			label: string
+			/**
 			 * S​t​u​n​d​e​ ​d​e​s​ ​T​a​g​e​s​ ​a​u​s​w​ä​h​l​e​n
 			 */
 			inputAriaLabel: string
@@ -1598,6 +1602,10 @@ export type TranslationFunctions = {
 			hideAriaLabel: () => LocalizedString
 		}
 		hourInput: {
+			/**
+			 * Stunde des Tages
+			 */
+			label: () => LocalizedString
 			/**
 			 * Stunde des Tages auswählen
 			 */

@@ -18,7 +18,7 @@ export function useSationsSnapshotData({
 		queryFn: async () => {
 			if (!date || !unit) return;
 			const itemResults = await api().getStationsSnapshot({
-				date: date.toISOString(),
+				date,
 				param: unit as unknown as WeatherMeasurementKeyNoMinMax,
 				scale
 			});

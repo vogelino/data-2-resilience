@@ -1,4 +1,5 @@
 import { PUBLIC_API_BASE_URL } from '$env/static/public';
+import { startOfDay, startOfHour } from 'date-fns';
 import { z } from 'zod';
 import { fromError } from 'zod-validation-error';
 import {
@@ -26,13 +27,19 @@ export const api = (customFetch = fetch) => ({
 	},
 	getStationData: async (params: {
 		id: string;
-		start_date: string;
-		end_date: string;
+		start_date: Date;
+		end_date: Date;
 		param: WeatherMeasurementKey;
 		scale?: 'hourly' | 'daily' | 'max';
 		hour?: string;
 	}) => {
-		const urlParams = new URLSearchParams(params);
+		const normalizedStartDate = normalizeDateByScale(params.start_date, params.scale);
+		const normalizedEndDate = normalizeDateByScale(params.end_date, params.scale);
+		const urlParams = new URLSearchParams({
+			...params,
+			start_date: normalizedStartDate.toISOString(),
+			end_date: normalizedEndDate.toISOString()
+		});
 		const response = await customFetch(`${PUBLIC_API_BASE_URL}/v1/data/${params.id}?${urlParams}`);
 
 		if (!response.ok && response.status === 422) return null;
@@ -42,11 +49,15 @@ export const api = (customFetch = fetch) => ({
 		return data;
 	},
 	getStationsSnapshot: async (params: {
-		date: string;
+		date: Date;
 		param: WeatherMeasurementKey;
 		scale?: 'hourly' | 'daily';
 	}) => {
-		const urlParams = new URLSearchParams(params);
+		const normalizedDate = normalizeDateByScale(params.date, params.scale);
+		const urlParams = new URLSearchParams({
+			...params,
+			date: normalizedDate.toISOString()
+		});
 		const response = await customFetch(`${PUBLIC_API_BASE_URL}/v1/network-snapshot?${urlParams}`);
 
 		if (!response.ok && response.status === 422) return null;
@@ -69,5 +80,16 @@ async function parseData<S extends z.ZodSchema>(response: Response, schema: S) {
 			throw new Error(e.message);
 		}
 		throw e;
+	}
+}
+
+function normalizeDateByScale(date: Date, scale: 'hourly' | 'daily' | 'max' | undefined) {
+	switch (scale) {
+		case 'hourly':
+			return startOfHour(date);
+		case 'daily':
+			return startOfDay(date);
+		default:
+			return date;
 	}
 }

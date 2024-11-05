@@ -40,7 +40,8 @@
 	$: isOrdinal = scale.type === 'ordinal';
 	$: min = scale.type === 'sequential' ? `${scale.min} ${labels.unitOnlyLabel}` : '';
 	$: max = scale.type === 'sequential' ? `${scale.max} ${labels.unitOnlyLabel}` : '';
-	$: showHealthRisks = unitWithoutCategory === 'utci' || unitWithoutCategory === 'pet';
+	$: showHealthRisks = finalUnit.startsWith('utci') || finalUnit.startsWith('pet');
+	$: healthRisks = Object.values($LL.map.choroplethLegend.healthRisks);
 </script>
 
 <div
@@ -110,7 +111,7 @@
 					>
 				</Button>
 			</Popover.Trigger>
-			<Popover.Content class="w-72 -translate-y-[7rem] rounded">
+			<Popover.Content class="w-72 -translate-y-[7.5rem] rounded">
 				<strong
 					class="grid grid-cols-[1.25rem_1fr_1.25rem] items-center gap-2 text-base font-semibold"
 				>
@@ -121,10 +122,12 @@
 					</Button>
 				</strong>
 				<ul class="flex flex-col pt-2 text-sm">
-					{#each Object.values($LL.map.choroplethLegend.healthRisks) as { title, description, ranges }, i}
+					{#each healthRisks.toReversed() as { title, description, ranges }, i}
 						<li
 							class={cn('border-l-4 border-t py-2 pl-4')}
-							style={`border-left-color: ${unitsToScalesMap.utci_category.scheme[i]}`}
+							style={`border-left-color: ${
+								unitsToScalesMap.utci_category.scheme[healthRisks.length - 1 - i]
+							}`}
 						>
 							<p>
 								<strong>{title()}</strong>

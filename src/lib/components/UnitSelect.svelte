@@ -9,7 +9,7 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import CollapsibleParagraph from './CollapsibleParagraph.svelte';
 
-	const units = Object.entries($LL.pages.measurements.unitSelect.units)
+	$: units = Object.entries($LL.pages.measurements.unitSelect.units)
 		.filter(([key]) => !(key.endsWith('_min') || key.endsWith('_max')))
 		.map(([key, value]) => ({
 			value: key,

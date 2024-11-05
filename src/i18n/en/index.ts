@@ -97,6 +97,8 @@ const en = {
 				'None of the selected stations collect data for the indicator <strong>{unit}</strong>.',
 			singleUnsupportedStation:
 				'The station <strong>{station}</strong> does not collect data for the indicator <strong>{unit}</strong>.',
+			singleUnsupportedStationShort:
+				'This station does not collect data for the indicator <strong>{unit}</strong>.',
 			stationsSelect: {
 				placeholder: 'Select one or more stations',
 				label: 'Selected stations'

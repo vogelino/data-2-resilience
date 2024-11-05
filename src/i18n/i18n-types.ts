@@ -265,6 +265,11 @@ type RootTranslation = {
 			 * @param {string} unit
 			 */
 			singleUnsupportedStation: RequiredParams<'station' | 'unit'>
+			/**
+			 * D​i​e​s​e​ ​S​t​a​t​i​o​n​ ​e​r​h​e​b​t​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
+			 * @param {string} unit
+			 */
+			singleUnsupportedStationShort: RequiredParams<'unit'>
 			stationsSelect: {
 				/**
 				 * E​i​n​e​ ​o​d​e​r​ ​m​e​h​r​e​r​e​ ​S​t​a​t​i​o​n​e​n​ ​a​u​s​w​ä​h​l​e​n
@@ -1390,11 +1395,11 @@ type RootTranslation = {
 					description: string
 					ranges: {
 						/**
-						 * (​u​n​t​e​r​ ​8​ ​°​C​)
+						 * u​n​t​e​r​ ​8​ ​°​C
 						 */
 						pet: string
 						/**
-						 * (​u​n​t​e​r​ ​-​2​7​ ​°​C​)
+						 * u​n​t​e​r​ ​-​2​7​ ​°​C
 						 */
 						utci: string
 					}
@@ -1410,11 +1415,11 @@ type RootTranslation = {
 					description: string
 					ranges: {
 						/**
-						 * (​8​ ​b​i​s​ ​1​8​ ​°​C​)
+						 * 8​ ​b​i​s​ ​1​8​ ​°​C
 						 */
 						pet: string
 						/**
-						 * (​-​2​7​ ​b​i​s​ ​9​ ​°​C​)
+						 * -​2​7​ ​b​i​s​ ​9​ ​°​C
 						 */
 						utci: string
 					}
@@ -1430,11 +1435,11 @@ type RootTranslation = {
 					description: string
 					ranges: {
 						/**
-						 * (​2​3​ ​b​i​s​ ​2​9​ ​°​C​)
+						 * 2​3​ ​b​i​s​ ​2​9​ ​°​C
 						 */
 						pet: string
 						/**
-						 * (​2​6​ ​b​i​s​ ​3​2​ ​°​C​)
+						 * 2​6​ ​b​i​s​ ​3​2​ ​°​C
 						 */
 						utci: string
 					}
@@ -1450,11 +1455,11 @@ type RootTranslation = {
 					description: string
 					ranges: {
 						/**
-						 * (​2​9​ ​b​i​s​ ​3​5​ ​°​C​)
+						 * 2​9​ ​b​i​s​ ​3​5​ ​°​C
 						 */
 						pet: string
 						/**
-						 * (​3​2​ ​b​i​s​ ​3​8​ ​°​C​)
+						 * 3​2​ ​b​i​s​ ​3​8​ ​°​C
 						 */
 						utci: string
 					}
@@ -1470,11 +1475,11 @@ type RootTranslation = {
 					description: string
 					ranges: {
 						/**
-						 * (​ü​b​e​r​ ​3​5​ ​°​C​)
+						 * ü​b​e​r​ ​3​5​ ​°​C
 						 */
 						pet: string
 						/**
-						 * (​ü​b​e​r​ ​3​8​ ​°​C​)
+						 * ü​b​e​r​ ​3​8​ ​°​C
 						 */
 						utci: string
 					}
@@ -1723,6 +1728,10 @@ export type TranslationFunctions = {
 			 * Die Station <strong>{station}</strong> erhebt keine Daten für den Indikator <strong>{unit}</strong>.
 			 */
 			singleUnsupportedStation: (arg: { station: string, unit: string }) => LocalizedString
+			/**
+			 * Diese Station erhebt keine Daten für den Indikator <strong>{unit}</strong>.
+			 */
+			singleUnsupportedStationShort: (arg: { unit: string }) => LocalizedString
 			stationsSelect: {
 				/**
 				 * Eine oder mehrere Stationen auswählen
@@ -2846,11 +2855,11 @@ export type TranslationFunctions = {
 					description: () => LocalizedString
 					ranges: {
 						/**
-						 * (unter 8 °C)
+						 * unter 8 °C
 						 */
 						pet: () => LocalizedString
 						/**
-						 * (unter -27 °C)
+						 * unter -27 °C
 						 */
 						utci: () => LocalizedString
 					}
@@ -2866,11 +2875,11 @@ export type TranslationFunctions = {
 					description: () => LocalizedString
 					ranges: {
 						/**
-						 * (8 bis 18 °C)
+						 * 8 bis 18 °C
 						 */
 						pet: () => LocalizedString
 						/**
-						 * (-27 bis 9 °C)
+						 * -27 bis 9 °C
 						 */
 						utci: () => LocalizedString
 					}
@@ -2886,11 +2895,11 @@ export type TranslationFunctions = {
 					description: () => LocalizedString
 					ranges: {
 						/**
-						 * (23 bis 29 °C)
+						 * 23 bis 29 °C
 						 */
 						pet: () => LocalizedString
 						/**
-						 * (26 bis 32 °C)
+						 * 26 bis 32 °C
 						 */
 						utci: () => LocalizedString
 					}
@@ -2906,11 +2915,11 @@ export type TranslationFunctions = {
 					description: () => LocalizedString
 					ranges: {
 						/**
-						 * (29 bis 35 °C)
+						 * 29 bis 35 °C
 						 */
 						pet: () => LocalizedString
 						/**
-						 * (32 bis 38 °C)
+						 * 32 bis 38 °C
 						 */
 						utci: () => LocalizedString
 					}
@@ -2926,11 +2935,11 @@ export type TranslationFunctions = {
 					description: () => LocalizedString
 					ranges: {
 						/**
-						 * (über 35 °C)
+						 * über 35 °C
 						 */
 						pet: () => LocalizedString
 						/**
-						 * (über 38 °C)
+						 * über 38 °C
 						 */
 						utci: () => LocalizedString
 					}

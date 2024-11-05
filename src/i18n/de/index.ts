@@ -99,6 +99,8 @@ const de = {
 				'Keine der ausgewählten Stationen erhebt Daten für den Indikator <strong>{unit:string}</strong>.',
 			singleUnsupportedStation:
 				'Die Station <strong>{station:string}</strong> erhebt keine Daten für den Indikator <strong>{unit:string}</strong>.',
+			singleUnsupportedStationShort:
+				'Diese Station erhebt keine Daten für den Indikator <strong>{unit:string}</strong>.',
 			stationsSelect: {
 				placeholder: 'Eine oder mehrere Stationen auswählen',
 				label: 'Ausgewählte Messstationen'
@@ -579,24 +581,24 @@ const de = {
 					title: 'Sehr kalt',
 					description: 'Risiko von Unterkühlung und Erfrierungen bei längerer Exposition',
 					ranges: {
-						pet: '(unter 8 °C)',
-						utci: '(unter -27 °C)'
+						pet: 'unter 8 °C',
+						utci: 'unter -27 °C'
 					}
 				},
 				cold: {
 					title: 'Kalt',
 					description: 'Risiko von erniedrigter Körpertemperatur und Unbehagen',
 					ranges: {
-						pet: '(8 bis 18 °C)',
-						utci: '(-27 bis 9 °C)'
+						pet: '8 bis 18 °C',
+						utci: '-27 bis 9 °C'
 					}
 				},
 				slightlyWarm: {
 					title: 'Leicht warm',
 					description: 'Risiko von Unbehagen und erhöhtem Schweißausstoß',
 					ranges: {
-						pet: '(23 bis 29 °C)',
-						utci: '(26 bis 32 °C)'
+						pet: '23 bis 29 °C',
+						utci: '26 bis 32 °C'
 					}
 				},
 				warm: {
@@ -604,16 +606,16 @@ const de = {
 					description:
 						'Risiko von Hitzekrämpfen, Hitzeerschöpfung und anderen hitzebedingten Erkrankungen, besonders bei körperlicher Aktivität',
 					ranges: {
-						pet: '(29 bis 35 °C)',
-						utci: '(32 bis 38 °C)'
+						pet: '29 bis 35 °C',
+						utci: '32 bis 38 °C'
 					}
 				},
 				veryWarm: {
 					title: 'Sehr warm',
 					description: 'Risiko von Hitzschlag und Organversagen',
 					ranges: {
-						pet: '(über 35 °C)',
-						utci: '(über 38 °C)'
+						pet: 'über 35 °C',
+						utci: 'über 38 °C'
 					}
 				}
 			}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LL, locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
@@ -20,12 +21,25 @@
 	});
 	$: idToItemMap = $query.data || {};
 
+	$: unitLabel =
+		$LL.pages.measurements.unitSelect.units[
+			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
+		].label();
+	$: unitOnlyLabel =
+		$LL.pages.measurements.unitSelect.units[
+			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
+		].unitOnly();
+
+	$: getValueById = (id?: string) => {
+		if (!id || !$unit) return;
+		const item = idToItemMap[id];
+		if (!item) return;
+		const value = item[$unit as keyof typeof item];
+		return value as { valueOf(): number } & string;
+	};
 	$: getBgColorById = (id?: string) => {
 		const defaultColor = 'hsl(var(--muted-foreground))';
-		if (!id || !$unit) return defaultColor;
-		const item = idToItemMap[id];
-		if (!item) return defaultColor;
-		const value = item[$unit as keyof typeof item];
+		const value = getValueById(id);
 		if (!value) return defaultColor;
 		const colorScale =
 			unitsToScalesMap[$unit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default;
@@ -38,7 +52,7 @@
 		<button
 			type="button"
 			class={cn(
-				'grid h-4 w-4 place-items-center rounded-full border-2 border-background bg-foreground outline-none',
+				'relative grid h-4 w-4 place-items-center rounded-full border-2 border-background bg-foreground outline-none',
 				'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
 				$selectedStations.includes(feature.properties?.id) && [
 					'ring-2 ring-background ring-offset-2 ring-offset-foreground'
@@ -56,7 +70,9 @@
 					zoom: 10.5
 				});
 			}}
-		/>
+		>
+			<span class="absolute inset-0 rounded-full border border-black/20 mix-blend-multiply" />
+		</button>
 		<div
 			class={cn(
 				'pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 group-hover:-translate-y-2',
@@ -66,7 +82,16 @@
 		>
 			<div class="relative flex flex-col">
 				<h3 class="whitespace-nowrap text-sm font-bold">{feature.properties?.longName}</h3>
-				<p class="text-xs">{feature.properties?.district}</p>
+				<p class="text-xs">
+					{#if getValueById(feature.properties?.id)}
+						{getValueById(feature.properties?.id)?.valueOf().toLocaleString($locale)}
+						{unitOnlyLabel}
+					{:else}
+						{@html $LL.pages.measurements.singleUnsupportedStationShort({
+							unit: unitLabel
+						})}
+					{/if}
+				</p>
 			</div>
 		</div>
 	</MarkerLayer>

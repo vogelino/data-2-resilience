@@ -11,8 +11,8 @@ import {
 	interpolateYlOrBr
 } from 'd3-scale-chromatic';
 
-const [, ...schemeTurboSquential]: readonly string[] = quantize(interpolateTurbo, 10);
-const [, ...schemeTurboOrdinal]: readonly string[] = quantize(interpolateTurbo, 6);
+const schemeTurboSquential: readonly string[] = quantize(interpolateTurbo, 10);
+const schemeTurboOrdinal: readonly string[] = quantize(interpolateTurbo, 5);
 const schemeBrBG: readonly string[] = quantize(interpolateBrBG, 10).toReversed();
 
 type SequentialScapeType = {
@@ -39,8 +39,8 @@ export const unitsToScalesMap = {
 	},
 	air_temperature: {
 		type: 'sequential',
-		fn: scaleSequential(interpolateSpectral).domain([-20, 50]),
-		scheme: quantize(interpolateSpectral, 10),
+		fn: scaleSequential(interpolateSpectral).domain([50, -20]),
+		scheme: quantize(interpolateSpectral, 10).toReversed(),
 		min: -20,
 		max: 50
 	},
@@ -102,8 +102,8 @@ export const unitsToScalesMap = {
 	},
 	mrt: {
 		type: 'sequential',
-		fn: scaleSequential(interpolateSpectral).domain([-10, 50]),
-		scheme: quantize(interpolateSpectral, 10),
+		fn: scaleSequential(interpolateSpectral).domain([50, -10]),
+		scheme: quantize(interpolateSpectral, 10).toReversed(),
 		min: -10,
 		max: 50
 	},

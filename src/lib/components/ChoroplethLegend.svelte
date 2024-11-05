@@ -40,6 +40,7 @@
 	$: isOrdinal = scale.type === 'ordinal';
 	$: min = scale.type === 'sequential' ? `${scale.min} ${labels.unitOnlyLabel}` : '';
 	$: max = scale.type === 'sequential' ? `${scale.max} ${labels.unitOnlyLabel}` : '';
+	$: showHealthRisks = unitWithoutCategory === 'utci' || unitWithoutCategory === 'pet';
 </script>
 
 <div
@@ -91,44 +92,49 @@
 			{$LL.map.choroplethLegend.noValueAvailable()}
 		</span>
 	</span>
-	<Popover.Root bind:open>
-		<Popover.Trigger asChild let:builder>
-			<Button
-				builders={[builder]}
-				variant="link"
-				role="combobox"
-				aria-expanded={open}
-				class={cn('flex h-fit items-center justify-start gap-2 p-0 transition-all')}
-			>
-				<HeartPulse class="size-5 shrink-0 text-pink-700" />
-				<span
-					>{open
-						? $LL.map.choroplethLegend.hideHealthRisks()
-						: $LL.map.choroplethLegend.showHealthRisks()}</span
+	{#if showHealthRisks}
+		<Popover.Root bind:open>
+			<Popover.Trigger asChild let:builder>
+				<Button
+					builders={[builder]}
+					variant="link"
+					role="combobox"
+					aria-expanded={open}
+					class={cn('flex h-fit items-center justify-start gap-2 p-0 transition-all')}
 				>
-			</Button>
-		</Popover.Trigger>
-		<Popover.Content class="w-72 -translate-y-24 rounded">
-			<strong
-				class="grid grid-cols-[1.25rem_1fr_1.25rem] items-center gap-2 text-base font-semibold"
-			>
-				<HeartPulse class="size-5 text-pink-700" />
-				<span>{$LL.map.choroplethLegend.title()}</span>
-				<Button variant="ghost" size="icon" class="size-5 p-0" on:click={() => (open = false)}>
-					<X class="size-5 text-muted-foreground" />
+					<HeartPulse class="size-5 shrink-0 text-pink-700" />
+					<span
+						>{open
+							? $LL.map.choroplethLegend.hideHealthRisks()
+							: $LL.map.choroplethLegend.showHealthRisks()}</span
+					>
 				</Button>
-			</strong>
-			<ul class="flex flex-col gap-2 pt-2 text-sm">
-				{#each Object.values($LL.map.choroplethLegend.healthRisks) as { title, description, ranges }, i}
-					<li class="border-t border-border pt-2">
-						<p>
-							<strong>{title()}</strong>
-							<span class="text-muted-foreground">({ranges[unitWithoutCategory]()})</span>{': '}
-						</p>
-						{@html description()}
-					</li>
-				{/each}
-			</ul>
-		</Popover.Content>
-	</Popover.Root>
+			</Popover.Trigger>
+			<Popover.Content class="w-72 -translate-y-[7rem] rounded">
+				<strong
+					class="grid grid-cols-[1.25rem_1fr_1.25rem] items-center gap-2 text-base font-semibold"
+				>
+					<HeartPulse class="size-5 text-pink-700" />
+					<span>{$LL.map.choroplethLegend.title()}</span>
+					<Button variant="ghost" size="icon" class="size-5 p-0" on:click={() => (open = false)}>
+						<X class="size-5 text-muted-foreground" />
+					</Button>
+				</strong>
+				<ul class="flex flex-col pt-2 text-sm">
+					{#each Object.values($LL.map.choroplethLegend.healthRisks) as { title, description, ranges }, i}
+						<li
+							class={cn('border-l-4 border-t py-2 pl-4')}
+							style={`border-left-color: ${unitsToScalesMap.utci_category.scheme[i]}`}
+						>
+							<p>
+								<strong>{title()}</strong>
+								<span class="text-muted-foreground">({ranges[unitWithoutCategory]()})</span>{': '}
+							</p>
+							{@html description()}
+						</li>
+					{/each}
+				</ul>
+			</Popover.Content>
+		</Popover.Root>
+	{/if}
 </div>

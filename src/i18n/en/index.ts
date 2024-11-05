@@ -64,8 +64,8 @@ const en = {
 			about: 'About this dashboard'
 		},
 		tabs: {
-			actualMeasurements: 'Current measurements',
-			heatStress: 'Heat stress',
+			actualMeasurements: 'Measurements',
+			heatStress: 'Heat atlas',
 			stations: 'Weather stations'
 		}
 	},
@@ -523,12 +523,12 @@ const en = {
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.',
 			types: {
 				byClass: {
-					title: 'By class',
+					title: 'By heat stress category',
 					description:
 						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
 				},
 				byValue: {
-					title: 'By value',
+					title: 'By temperature in °C',
 					description:
 						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
 				}

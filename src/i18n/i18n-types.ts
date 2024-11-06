@@ -192,12 +192,12 @@ type RootTranslation = {
 	pages: {
 		heatStress: {
 			/**
-			 * W​i​e​ ​w​a​r​m​ ​f​ü​h​l​t​ ​s​i​c​h​ ​d​e​i​n​e​ ​S​t​a​d​t​ ​a​n​?
+			 * W​i​e​ ​w​a​r​m​ ​f​ü​h​l​t​ ​s​i​c​h​ ​d​i​e​ ​S​t​a​d​t​ ​a​n​?
 			 */
 			title: string
 			intro: {
 				/**
-				 * H​i​t​z​e​s​t​r​e​s​s​ ​i​s​t​ ​d​e​r​ ​Z​u​s​t​a​n​d​ ​v​o​n​ ​U​n​b​e​h​a​g​e​n​ ​u​n​d​ ​k​ö​r​p​e​r​l​i​c​h​e​r​ ​B​e​l​a​s​t​u​n​g​,​ ​d​e​r​ ​a​u​f​t​r​i​t​t​,​ ​w​e​n​n​ ​d​i​e​ ​t​h​e​r​m​i​s​c​h​e​ ​U​m​g​e​b​u​n​g​ ​d​i​e​ ​F​ä​h​i​g​k​e​i​t​ ​e​i​n​e​r​ ​P​e​r​s​o​n​ ​ü​b​e​r​s​t​e​i​g​t​,​ ​W​ä​r​m​e​ ​a​b​z​u​l​e​i​t​e​n​.​ ​D​a​s​ ​b​e​d​e​u​t​e​t​,​ ​d​a​s​s​ ​T​e​m​p​e​r​a​t​u​r​,​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​,​ ​L​u​f​t​b​e​w​e​g​u​n​g​ ​u​n​d​ ​S​t​r​a​h​l​u​n​g​s​w​ä​r​m​e​ ​a​u​f​ ​e​i​n​e​m​ ​N​i​v​e​a​u​ ​l​i​e​g​e​n​,​ ​d​a​s​ ​U​n​b​e​h​a​g​e​n​ ​o​d​e​r​ ​G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n​ ​v​e​r​u​r​s​a​c​h​e​n​ ​k​a​n​n​.​ ​H​i​t​z​e​s​t​r​e​s​s​ ​k​a​n​n​ ​a​n​h​a​n​d​ ​v​e​r​s​c​h​i​e​d​e​n​e​r​ ​I​n​d​i​k​a​t​o​r​e​n​ ​b​e​w​e​r​t​e​t​ ​w​e​r​d​e​n​:
+				 * D​e​r​ ​H​i​t​z​e​a​t​l​a​s​ ​f​ü​r​ ​D​o​r​t​m​u​n​d​ ​b​i​e​t​e​t​ ​e​i​n​e​ ​Ü​b​e​r​s​i​c​h​t​ ​z​u​r​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​i​n​ ​d​e​r​ ​S​t​a​d​t​.​ ​D​i​e​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​w​i​r​d​ ​d​u​r​c​h​ ​d​r​e​i​ ​K​a​r​t​e​n​ ​a​b​g​e​b​i​l​d​e​t​:​ ​d​e​n​ ​u​n​i​v​e​r​s​e​l​l​e​n​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​ ​z​u​r​ ​E​i​n​s​c​h​ä​t​z​u​n​g​ ​d​e​s​ ​W​ä​r​m​e​e​m​p​f​i​n​d​e​n​s​ ​v​o​n​ ​B​ü​r​g​e​r​I​n​n​e​n​ ​s​o​w​i​e​ ​d​i​e​ ​r​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​u​n​d​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​a​l​s​ ​z​e​n​t​r​a​l​e​ ​E​i​n​f​l​u​s​s​f​a​k​t​o​r​e​n​.
 				 */
 				'0': string
 			}
@@ -214,18 +214,14 @@ type RootTranslation = {
 		}
 		measurements: {
 			/**
-			 * W​a​s​ ​w​i​r​d​ ​a​k​t​u​e​l​l​ ​g​e​m​e​s​s​e​n​?
+			 * W​a​s​ ​w​i​r​d​ ​g​e​m​e​s​s​e​n​?
 			 */
 			title: string
 			intro: {
 				/**
-				 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
+				 * D​i​e​ ​M​e​s​s​w​e​r​t​e​ ​z​e​i​g​e​n​ ​W​e​t​t​e​r​d​a​t​e​n​ ​a​u​s​ ​v​e​r​s​c​h​i​e​d​e​n​e​n​ ​T​e​i​l​e​n​ ​D​o​r​t​m​u​n​d​s​,​ ​d​i​e​ ​d​u​r​c​h​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​e​r​m​i​t​t​e​l​t​ ​w​e​r​d​e​n​.​ ​D​i​e​s​e​ ​D​a​t​e​n​,​ ​w​i​e​ ​z​.​ ​B​.​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​u​n​d​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​,​ ​h​e​l​f​e​n​ ​d​a​b​e​i​,​ ​d​i​e​ ​a​k​t​u​e​l​l​e​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​i​n​ ​d​e​r​ ​S​t​a​d​t​ ​z​u​ ​v​e​r​s​t​e​h​e​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​a​l​s​ ​P​u​n​k​t​e​ ​i​n​ ​d​e​r​ ​K​a​r​t​e​ ​s​e​h​e​n​ ​u​n​d​ ​a​k​t​u​e​l​l​e​ ​s​o​w​i​e​ ​v​e​r​g​a​n​g​e​n​e​ ​W​e​r​t​e​ ​v​e​r​f​o​l​g​e​n​.
 				 */
 				'0': string
-				/**
-				 * A​k​t​u​e​l​l​ ​M​e​s​s​w​e​r​t​e​ ​k​ö​n​n​e​n​ ​s​o​w​o​h​l​ ​f​ü​r​ ​d​i​e​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​a​l​s​ ​a​u​c​h​ ​f​ü​r​ ​d​i​e​ ​e​i​n​z​e​l​n​e​n​ ​S​t​a​d​t​b​e​z​i​r​k​e​ ​a​n​g​e​z​e​i​g​t​ ​w​e​r​d​e​n​.
-				 */
-				'1': string
 			}
 			/**
 			 * K​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​K​o​n​f​i​g​u​r​a​t​i​o​n​ ​v​e​r​f​ü​g​b​a​r
@@ -1151,7 +1147,7 @@ type RootTranslation = {
 			titleTable: string
 			intro: {
 				/**
-				 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
+				 * I​m​ ​F​o​l​g​e​n​d​e​n​ ​f​i​n​d​e​n​ ​S​i​e​ ​t​e​c​h​n​i​s​c​h​e​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​z​u​ ​d​e​n​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​s​o​w​i​e​ ​e​i​n​e​ ​Z​u​s​a​m​m​e​n​f​a​s​s​u​n​g​ ​d​e​r​ ​K​r​i​t​e​r​i​e​n​ ​z​u​r​ ​S​t​a​n​d​o​r​t​a​u​s​w​a​h​l​ ​d​e​r​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​.
 				 */
 				'0': string
 			}
@@ -1671,12 +1667,12 @@ export type TranslationFunctions = {
 	pages: {
 		heatStress: {
 			/**
-			 * Wie warm fühlt sich deine Stadt an?
+			 * Wie warm fühlt sich die Stadt an?
 			 */
 			title: () => LocalizedString
 			intro: {
 				/**
-				 * Hitzestress ist der Zustand von Unbehagen und körperlicher Belastung, der auftritt, wenn die thermische Umgebung die Fähigkeit einer Person übersteigt, Wärme abzuleiten. Das bedeutet, dass Temperatur, Luftfeuchtigkeit, Luftbewegung und Strahlungswärme auf einem Niveau liegen, das Unbehagen oder Gesundheitsrisiken verursachen kann. Hitzestress kann anhand verschiedener Indikatoren bewertet werden:
+				 * Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.
 				 */
 				'0': () => LocalizedString
 			}
@@ -1691,18 +1687,14 @@ export type TranslationFunctions = {
 		}
 		measurements: {
 			/**
-			 * Was wird aktuell gemessen?
+			 * Was wird gemessen?
 			 */
 			title: () => LocalizedString
 			intro: {
 				/**
-				 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+				 * Die Messwerte zeigen Wetterdaten aus verschiedenen Teilen Dortmunds, die durch Messstationen ermittelt werden. Diese Daten, wie z. B. Lufttemperatur und Luftfeuchtigkeit, helfen dabei, die aktuelle Hitzebelastung in der Stadt zu verstehen. Sie können die Messstationen als Punkte in der Karte sehen und aktuelle sowie vergangene Werte verfolgen.
 				 */
 				'0': () => LocalizedString
-				/**
-				 * Aktuell Messwerte können sowohl für die Messstationen als auch für die einzelnen Stadtbezirke angezeigt werden.
-				 */
-				'1': () => LocalizedString
 			}
 			/**
 			 * Keine Daten für die ausgewählte Konfiguration verfügbar
@@ -2615,7 +2607,7 @@ export type TranslationFunctions = {
 			titleTable: () => LocalizedString
 			intro: {
 				/**
-				 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+				 * Im Folgenden finden Sie technische Informationen zu den Messstationen sowie eine Zusammenfassung der Kriterien zur Standortauswahl der Messstationen.
 				 */
 				'0': () => LocalizedString
 			}

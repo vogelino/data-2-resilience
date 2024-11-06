@@ -71,18 +71,17 @@ const en = {
 	},
 	pages: {
 		heatStress: {
-			title: 'How warm does your city feel?',
+			title: 'How warm does the city feel?',
 			intro: [
-				"Heat stress is the state of discomfort and physiological strain experienced when the thermal environment exceeds a person's ability to dissipate heat. This means that temperature, humidity, air movement, and radiant heat are at levels that can cause discomfort or health risks. It can be assessed using various indicators:"
+				"The heat atlas for Dortmund provides an overview of the city's heat stress. The heat stress is depicted through three maps: the Universal Thermal Climate Index (UTCI) to assess the thermal sensation of residents, as well as relative humidity and air temperature as key influencing factors."
 			],
 			timeRangeAlert: `Data only available from {startDate} to {endDate}.`,
 			indicatorsNavAriaLabel: 'Select an indicator to change the data displayed on the map.'
 		},
 		measurements: {
-			title: 'What is currently being measured?',
+			title: 'What is being measured?',
 			intro: [
-				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
-				'Current measured values can be displayed both for the measuring stations and for the individual city districts.'
+				'The measurements show weather data from various parts of Dortmund, collected by monitoring stations. This data, such as air temperature and humidity, helps to understand the current heat stress in the city. You can see the monitoring stations as points on the map and track both current and past values.'
 			],
 			noDataAvailable: 'No data available for the selected configuration',
 			noStationsSelected: 'Select at least one station to display its data',
@@ -475,10 +474,10 @@ const en = {
 			}
 		},
 		stations: {
-			title: 'How are we measuring heat stress?',
+			title: 'How do we measure thermal comfort?',
 			titleTable: 'Overview of all stations',
 			intro: [
-				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+				'Below you will find technical information about the monitoring stations, as well as a summary of the criteria for selecting their locations.'
 			],
 			stationsDescriptions: {
 				weather: {

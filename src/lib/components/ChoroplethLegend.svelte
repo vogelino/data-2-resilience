@@ -41,7 +41,14 @@
 	$: min = scale.type === 'sequential' ? `${scale.min} ${labels.unitOnlyLabel}` : '';
 	$: max = scale.type === 'sequential' ? `${scale.max} ${labels.unitOnlyLabel}` : '';
 	$: showHealthRisks = finalUnit.startsWith('utci') || finalUnit.startsWith('pet');
-	$: healthRisks = Object.values($LL.map.choroplethLegend.healthRisks);
+	$: allHealthRisks = Object.values($LL.map.choroplethLegend.healthRisks);
+	$: showColdRisks = currentPage === 'measurements' && showHealthRisks;
+	$: titleKey = finalUnit.endsWith('_category')
+		? ('heatStress' as const)
+		: ('thermalComfort' as const);
+	$: healthRisks = (showColdRisks ? allHealthRisks : allHealthRisks.slice(-5)).filter(
+		(item) => !!item.title[titleKey]()
+	);
 </script>
 
 <div
@@ -60,7 +67,7 @@
 			<div
 				class="rounded-xs flex h-2 w-full max-w-96 overflow-clip shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 			>
-				{#each scale.scheme as color}
+				{#each scale.scheme.slice(-healthRisks.length) as color}
 					<span class={cn('size-full')} style={`background-color: ${color}`} />
 				{/each}
 			</div>
@@ -70,20 +77,16 @@
 				style={`
 					background-image: linear-gradient(
 						to right,
-						${scale.scheme.join(', ')}
+						${scale.scheme.slice(-healthRisks.length).join(', ')}
 				)`}
 			/>
 		{/if}
 		<div class="flex w-full items-center justify-between pt-1 leading-4 text-muted-foreground">
 			<span>
-				{isOrdinal
-					? $LL.map.choroplethLegend.healthRisks.veryCold.ranges[unitWithoutCategory]()
-					: min}
+				{isOrdinal ? healthRisks[0].title[titleKey]() : min}
 			</span>
 			<span class="text-right">
-				{isOrdinal
-					? $LL.map.choroplethLegend.healthRisks.veryWarm.ranges[unitWithoutCategory]()
-					: max}
+				{isOrdinal ? healthRisks[healthRisks.length - 1].title[titleKey]() : max}
 			</span>
 		</div>
 	</div>
@@ -125,13 +128,13 @@
 					{#each healthRisks.toReversed() as { title, description, ranges }, i}
 						<li
 							class={cn('border-l-4 border-t py-2 pl-4')}
-							style={`border-left-color: ${
-								unitsToScalesMap.utci_category.scheme[healthRisks.length - 1 - i]
-							}`}
+							style={`border-left-color: ${unitsToScalesMap.utci_category.scheme.toReversed()[i]}`}
 						>
 							<p>
-								<strong>{title()}</strong>
-								<span class="text-muted-foreground">({ranges[unitWithoutCategory]()})</span>{': '}
+								<strong>{title[titleKey]()}</strong>
+								<span class="whitespace-nowrap text-muted-foreground"
+									>({ranges[unitWithoutCategory]()})</span
+								>{': '}
 							</p>
 							{@html description()}
 						</li>

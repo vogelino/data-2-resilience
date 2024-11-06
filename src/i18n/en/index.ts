@@ -575,45 +575,116 @@ const en = {
 				'extreme heat stress': 'Extreme Heat Stress'
 			},
 			healthRisks: {
-				veryCold: {
-					title: 'Very cold',
-					description: 'Risk of hypothermia and frostbite with prolonged exposure',
+				extremeCold: {
+					title: {
+						heatStress: 'Extremely cold',
+						thermalComfort: ''
+					},
+					description: 'Life-threatening hypothermia, severe frostbite possible within minutes.',
 					ranges: {
-						pet: 'below 8 °C',
-						utci: 'below -27 °C'
+						pet: '',
+						utci: 'below -40 °C'
 					}
 				},
-				cold: {
-					title: 'Cold',
-					description: 'Risk of lowered body temperature and discomfort',
+				veryStrongCold: {
+					title: {
+						heatStress: 'Very cold',
+						thermalComfort: 'Very strong cold stress'
+					},
+					description: 'Life-threatening hypothermia, severe frostbite possible within minutes.',
 					ranges: {
-						pet: '8 to 18 °C',
-						utci: '-27 to 9 °C'
+						pet: 'below 4 °C',
+						utci: '-40 to -27 °C'
 					}
 				},
-				slightlyWarm: {
-					title: 'Slightly warm',
-					description: 'Risk of discomfort and increased sweating',
+				strongCold: {
+					title: {
+						heatStress: 'Cold',
+						thermalComfort: 'Strong cold stress'
+					},
+					description: 'Risk of frostbite for exposed skin areas, increased risk of cold injuries.',
+					ranges: {
+						pet: '4 to 8 °C',
+						utci: '-27 to -13 °C'
+					}
+				},
+				moderateCold: {
+					title: {
+						heatStress: 'Cool',
+						thermalComfort: 'Moderate cold stress'
+					},
+					description: 'Shivering, discomfort, risk of frostbite with prolonged exposure.',
+					ranges: {
+						pet: '8 to 13 °C',
+						utci: '-13 to 0 °C'
+					}
+				},
+				slightCold: {
+					title: {
+						heatStress: 'Slightly cool',
+						thermalComfort: 'Slight cold stress'
+					},
+					description: 'Mild discomfort, temporary shivering.',
+					ranges: {
+						pet: '13 to 18 °C',
+						utci: '0 to 9 °C'
+					}
+				},
+				none: {
+					title: {
+						heatStress: 'No thermal stress',
+						thermalComfort: 'Neutral'
+					},
+					description: 'Thermal comfort, no significant health risks.',
+					ranges: {
+						pet: '18 to 23 °C',
+						utci: '9 to 26 °C'
+					}
+				},
+				moderateWarmth: {
+					title: {
+						heatStress: 'Slightly warm',
+						thermalComfort: 'Moderate heat stress'
+					},
+					description: 'Mild discomfort, increased sweating.',
 					ranges: {
 						pet: '23 to 29 °C',
 						utci: '26 to 32 °C'
 					}
 				},
-				warm: {
-					title: 'Warm',
-					description:
-						'Risk of heat cramps, heat exhaustion and other heat-related illnesses, especially during physical activity',
+				strongWarmth: {
+					title: {
+						heatStress: 'Warm',
+						thermalComfort: 'Strong heat stress'
+					},
+					description: 'Increased cardiovascular strain, risk of dehydration and exhaustion.',
 					ranges: {
 						pet: '29 to 35 °C',
 						utci: '32 to 38 °C'
 					}
 				},
-				veryWarm: {
-					title: 'Very warm',
-					description: 'Risk of heat stroke and organ failure',
+				veryStrongWarmth: {
+					title: {
+						heatStress: 'Hot',
+						thermalComfort: 'Very strong heat stress'
+					},
+					description:
+						'Risk of heat cramps, heat exhaustion, increased risk of heat-related illnesses, especially during physical activity.',
 					ranges: {
-						pet: 'above 35 °C',
-						utci: 'above 38 °C'
+						pet: '35 to 41 °C',
+						utci: '38 to 46 °C'
+					}
+				},
+				extremeWarmth: {
+					title: {
+						heatStress: 'Very hot',
+						thermalComfort: 'Extreme heat stress'
+					},
+					description:
+						'Life-threatening heat stroke, acute cardiovascular strain, high risk of severe heat-related illnesses and death.',
+					ranges: {
+						pet: 'above 41 °C',
+						utci: 'above 46 °C'
 					}
 				}
 			}

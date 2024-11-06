@@ -1384,53 +1384,169 @@ type RootTranslation = {
 				'extreme heat stress': string
 			}
 			healthRisks: {
-				veryCold: {
+				extremeCold: {
+					title: {
+						/**
+						 * E​x​t​r​e​m​ ​k​a​l​t
+						 */
+						heatStress: string
+						thermalComfort: string
+					}
 					/**
-					 * S​e​h​r​ ​k​a​l​t
-					 */
-					title: string
-					/**
-					 * R​i​s​i​k​o​ ​v​o​n​ ​U​n​t​e​r​k​ü​h​l​u​n​g​ ​u​n​d​ ​E​r​f​r​i​e​r​u​n​g​e​n​ ​b​e​i​ ​l​ä​n​g​e​r​e​r​ ​E​x​p​o​s​i​t​i​o​n
+					 * L​e​b​e​n​s​b​e​d​r​o​h​l​i​c​h​e​ ​H​y​p​o​t​h​e​r​m​i​e​,​ ​s​c​h​w​e​r​e​ ​E​r​f​r​i​e​r​u​n​g​e​n​ ​i​n​n​e​r​h​a​l​b​ ​v​o​n​ ​M​i​n​u​t​e​n​ ​m​ö​g​l​i​c​h​.
 					 */
 					description: string
 					ranges: {
-						/**
-						 * u​n​t​e​r​ ​8​ ​°​C
-						 */
 						pet: string
 						/**
-						 * u​n​t​e​r​ ​-​2​7​ ​°​C
+						 * u​n​t​e​r​ ​-​4​0​ ​°​C
 						 */
 						utci: string
 					}
 				}
-				cold: {
+				veryStrongCold: {
+					title: {
+						/**
+						 * S​e​h​r​ ​k​a​l​t
+						 */
+						heatStress: string
+						/**
+						 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+						 */
+						thermalComfort: string
+					}
 					/**
-					 * K​a​l​t
-					 */
-					title: string
-					/**
-					 * R​i​s​i​k​o​ ​v​o​n​ ​e​r​n​i​e​d​r​i​g​t​e​r​ ​K​ö​r​p​e​r​t​e​m​p​e​r​a​t​u​r​ ​u​n​d​ ​U​n​b​e​h​a​g​e​n
+					 * L​e​b​e​n​s​b​e​d​r​o​h​l​i​c​h​e​ ​H​y​p​o​t​h​e​r​m​i​e​,​ ​s​c​h​w​e​r​e​ ​E​r​f​r​i​e​r​u​n​g​e​n​ ​i​n​n​e​r​h​a​l​b​ ​v​o​n​ ​M​i​n​u​t​e​n​ ​m​ö​g​l​i​c​h​.
 					 */
 					description: string
 					ranges: {
 						/**
-						 * 8​ ​b​i​s​ ​1​8​ ​°​C
+						 * u​n​t​e​r​ ​4​ ​°​C
 						 */
 						pet: string
 						/**
-						 * -​2​7​ ​b​i​s​ ​9​ ​°​C
+						 * -​4​0​ ​b​i​s​ ​-​2​7​ ​°​C
 						 */
 						utci: string
 					}
 				}
-				slightlyWarm: {
+				strongCold: {
+					title: {
+						/**
+						 * K​a​l​t
+						 */
+						heatStress: string
+						/**
+						 * S​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+						 */
+						thermalComfort: string
+					}
 					/**
-					 * L​e​i​c​h​t​ ​w​a​r​m
+					 * E​r​f​r​i​e​r​u​n​g​s​g​e​f​a​h​r​ ​f​ü​r​ ​e​x​p​o​n​i​e​r​t​e​ ​H​a​u​t​b​e​r​e​i​c​h​e​,​ ​e​r​h​ö​h​t​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​K​ä​l​t​e​s​c​h​ä​d​e​n​.
 					 */
-					title: string
+					description: string
+					ranges: {
+						/**
+						 * 4​ ​b​i​s​ ​8​ ​°​C
+						 */
+						pet: string
+						/**
+						 * -​2​7​ ​b​i​s​ ​-​1​3​ ​°​C
+						 */
+						utci: string
+					}
+				}
+				moderateCold: {
+					title: {
+						/**
+						 * K​ü​h​l
+						 */
+						heatStress: string
+						/**
+						 * M​o​d​e​r​a​t​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+						 */
+						thermalComfort: string
+					}
 					/**
-					 * R​i​s​i​k​o​ ​v​o​n​ ​U​n​b​e​h​a​g​e​n​ ​u​n​d​ ​e​r​h​ö​h​t​e​m​ ​S​c​h​w​e​i​ß​a​u​s​s​t​o​ß
+					 * K​ä​l​t​e​z​i​t​t​e​r​n​,​ ​U​n​b​e​h​a​g​e​n​,​ ​R​i​s​i​k​o​ ​v​o​n​ ​E​r​f​r​i​e​r​u​n​g​e​n​ ​b​e​i​ ​l​ä​n​g​e​r​e​r​ ​E​x​p​o​s​i​t​i​o​n​.
+					 */
+					description: string
+					ranges: {
+						/**
+						 * 8​ ​b​i​s​ ​1​3​ ​°​C
+						 */
+						pet: string
+						/**
+						 * -​1​3​ ​b​i​s​ ​0​ ​°​C
+						 */
+						utci: string
+					}
+				}
+				slightCold: {
+					title: {
+						/**
+						 * L​e​i​c​h​t​ ​k​ü​h​l
+						 */
+						heatStress: string
+						/**
+						 * L​e​i​c​h​t​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
+						 */
+						thermalComfort: string
+					}
+					/**
+					 * L​e​i​c​h​t​e​ ​U​n​a​n​n​e​h​m​l​i​c​h​k​e​i​t​e​n​,​ ​v​o​r​ü​b​e​r​g​e​h​e​n​d​e​s​ ​K​ä​l​t​e​z​i​t​t​e​r​n​.
+					 */
+					description: string
+					ranges: {
+						/**
+						 * 1​3​ ​b​i​s​ ​1​8​ ​°​C
+						 */
+						pet: string
+						/**
+						 * 0​ ​b​i​s​ ​9​ ​°​C
+						 */
+						utci: string
+					}
+				}
+				none: {
+					title: {
+						/**
+						 * K​e​i​n​ ​t​h​e​r​m​i​s​c​h​e​r​ ​S​t​r​e​s​s
+						 */
+						heatStress: string
+						/**
+						 * N​e​u​t​r​a​l
+						 */
+						thermalComfort: string
+					}
+					/**
+					 * T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t​,​ ​k​e​i​n​e​ ​s​i​g​n​i​f​i​k​a​n​t​e​n​ ​g​e​s​u​n​d​h​e​i​t​l​i​c​h​e​n​ ​R​i​s​i​k​e​n​.
+					 */
+					description: string
+					ranges: {
+						/**
+						 * 1​8​ ​b​i​s​ ​2​3​ ​°​C
+						 */
+						pet: string
+						/**
+						 * 9​ ​b​i​s​ ​2​6​ ​°​C
+						 */
+						utci: string
+					}
+				}
+				moderateWarmth: {
+					title: {
+						/**
+						 * L​e​i​c​h​t​ ​w​a​r​m
+						 */
+						heatStress: string
+						/**
+						 * M​o​d​e​r​a​t​e​r​ ​H​i​t​z​e​s​t​r​e​s​s
+						 */
+						thermalComfort: string
+					}
+					/**
+					 * L​e​i​c​h​t​e​ ​U​n​a​n​n​e​h​m​l​i​c​h​k​e​i​t​e​n​,​ ​e​r​h​ö​h​t​e​r​ ​S​c​h​w​e​i​ß​a​u​s​s​t​o​ß​.
 					 */
 					description: string
 					ranges: {
@@ -1444,13 +1560,19 @@ type RootTranslation = {
 						utci: string
 					}
 				}
-				warm: {
+				strongWarmth: {
+					title: {
+						/**
+						 * W​a​r​m
+						 */
+						heatStress: string
+						/**
+						 * S​t​a​r​k​e​r​ ​H​i​t​z​e​s​t​r​e​s​s
+						 */
+						thermalComfort: string
+					}
 					/**
-					 * W​a​r​m
-					 */
-					title: string
-					/**
-					 * R​i​s​i​k​o​ ​v​o​n​ ​H​i​t​z​e​k​r​ä​m​p​f​e​n​,​ ​H​i​t​z​e​e​r​s​c​h​ö​p​f​u​n​g​ ​u​n​d​ ​a​n​d​e​r​e​n​ ​h​i​t​z​e​b​e​d​i​n​g​t​e​n​ ​E​r​k​r​a​n​k​u​n​g​e​n​,​ ​b​e​s​o​n​d​e​r​s​ ​b​e​i​ ​k​ö​r​p​e​r​l​i​c​h​e​r​ ​A​k​t​i​v​i​t​ä​t
+					 * E​r​h​ö​h​t​e​ ​B​e​l​a​s​t​u​n​g​ ​d​e​s​ ​H​e​r​z​-​K​r​e​i​s​l​a​u​f​-​S​y​s​t​e​m​s​,​ ​R​i​s​i​k​o​ ​v​o​n​ ​D​e​h​y​d​r​a​t​i​o​n​ ​u​n​d​ ​E​r​s​c​h​ö​p​f​u​n​g​.
 					 */
 					description: string
 					ranges: {
@@ -1464,22 +1586,54 @@ type RootTranslation = {
 						utci: string
 					}
 				}
-				veryWarm: {
+				veryStrongWarmth: {
+					title: {
+						/**
+						 * H​e​i​ß
+						 */
+						heatStress: string
+						/**
+						 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​H​i​t​z​e​s​t​r​e​s​s
+						 */
+						thermalComfort: string
+					}
 					/**
-					 * S​e​h​r​ ​w​a​r​m
-					 */
-					title: string
-					/**
-					 * R​i​s​i​k​o​ ​v​o​n​ ​H​i​t​z​s​c​h​l​a​g​ ​u​n​d​ ​O​r​g​a​n​v​e​r​s​a​g​e​n
+					 * G​e​f​a​h​r​ ​v​o​n​ ​H​i​t​z​e​k​r​ä​m​p​f​e​n​,​ ​H​i​t​z​e​r​s​c​h​ö​p​f​u​n​g​,​ ​e​r​h​ö​h​t​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​h​i​t​z​e​b​e​d​i​n​g​t​e​ ​E​r​k​r​a​n​k​u​n​g​e​n​,​ ​b​e​s​o​n​d​e​r​s​ ​b​e​i​ ​k​ö​r​p​e​r​l​i​c​h​e​r​ ​A​k​t​i​v​i​t​ä​t​.
 					 */
 					description: string
 					ranges: {
 						/**
-						 * ü​b​e​r​ ​3​5​ ​°​C
+						 * 3​5​ ​b​i​s​ ​4​1​ ​°​C
 						 */
 						pet: string
 						/**
-						 * ü​b​e​r​ ​3​8​ ​°​C
+						 * 3​8​ ​b​i​s​ ​4​6​ ​°​C
+						 */
+						utci: string
+					}
+				}
+				extremeWarmth: {
+					title: {
+						/**
+						 * S​e​h​r​ ​h​e​i​ß
+						 */
+						heatStress: string
+						/**
+						 * E​x​t​r​e​m​e​r​ ​H​i​t​z​e​s​t​r​e​s​s
+						 */
+						thermalComfort: string
+					}
+					/**
+					 * L​e​b​e​n​s​b​e​d​r​o​h​l​i​c​h​e​ ​H​i​t​z​s​c​h​l​ä​g​e​,​ ​a​k​u​t​e​ ​B​e​l​a​s​t​u​n​g​ ​d​e​s​ ​H​e​r​z​-​K​r​e​i​s​l​a​u​f​-​S​y​s​t​e​m​s​,​ ​h​o​h​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​s​c​h​w​e​r​e​ ​h​i​t​z​e​b​e​d​i​n​g​t​e​ ​E​r​k​r​a​n​k​u​n​g​e​n​ ​u​n​d​ ​T​o​d​.
+					 */
+					description: string
+					ranges: {
+						/**
+						 * ü​b​e​r​ ​4​1​ ​°​C
+						 */
+						pet: string
+						/**
+						 * ü​b​e​r​ ​4​6​ ​°​C
 						 */
 						utci: string
 					}
@@ -2844,53 +2998,169 @@ export type TranslationFunctions = {
 				'extreme heat stress': () => LocalizedString
 			}
 			healthRisks: {
-				veryCold: {
+				extremeCold: {
+					title: {
+						/**
+						 * Extrem kalt
+						 */
+						heatStress: () => LocalizedString
+						thermalComfort: () => LocalizedString
+					}
 					/**
-					 * Sehr kalt
-					 */
-					title: () => LocalizedString
-					/**
-					 * Risiko von Unterkühlung und Erfrierungen bei längerer Exposition
+					 * Lebensbedrohliche Hypothermie, schwere Erfrierungen innerhalb von Minuten möglich.
 					 */
 					description: () => LocalizedString
 					ranges: {
-						/**
-						 * unter 8 °C
-						 */
 						pet: () => LocalizedString
 						/**
-						 * unter -27 °C
+						 * unter -40 °C
 						 */
 						utci: () => LocalizedString
 					}
 				}
-				cold: {
+				veryStrongCold: {
+					title: {
+						/**
+						 * Sehr kalt
+						 */
+						heatStress: () => LocalizedString
+						/**
+						 * Sehr starker Kältestress
+						 */
+						thermalComfort: () => LocalizedString
+					}
 					/**
-					 * Kalt
-					 */
-					title: () => LocalizedString
-					/**
-					 * Risiko von erniedrigter Körpertemperatur und Unbehagen
+					 * Lebensbedrohliche Hypothermie, schwere Erfrierungen innerhalb von Minuten möglich.
 					 */
 					description: () => LocalizedString
 					ranges: {
 						/**
-						 * 8 bis 18 °C
+						 * unter 4 °C
 						 */
 						pet: () => LocalizedString
 						/**
-						 * -27 bis 9 °C
+						 * -40 bis -27 °C
 						 */
 						utci: () => LocalizedString
 					}
 				}
-				slightlyWarm: {
+				strongCold: {
+					title: {
+						/**
+						 * Kalt
+						 */
+						heatStress: () => LocalizedString
+						/**
+						 * Starker Kältestress
+						 */
+						thermalComfort: () => LocalizedString
+					}
 					/**
-					 * Leicht warm
+					 * Erfrierungsgefahr für exponierte Hautbereiche, erhöhtes Risiko für Kälteschäden.
 					 */
-					title: () => LocalizedString
+					description: () => LocalizedString
+					ranges: {
+						/**
+						 * 4 bis 8 °C
+						 */
+						pet: () => LocalizedString
+						/**
+						 * -27 bis -13 °C
+						 */
+						utci: () => LocalizedString
+					}
+				}
+				moderateCold: {
+					title: {
+						/**
+						 * Kühl
+						 */
+						heatStress: () => LocalizedString
+						/**
+						 * Moderater Kältestress
+						 */
+						thermalComfort: () => LocalizedString
+					}
 					/**
-					 * Risiko von Unbehagen und erhöhtem Schweißausstoß
+					 * Kältezittern, Unbehagen, Risiko von Erfrierungen bei längerer Exposition.
+					 */
+					description: () => LocalizedString
+					ranges: {
+						/**
+						 * 8 bis 13 °C
+						 */
+						pet: () => LocalizedString
+						/**
+						 * -13 bis 0 °C
+						 */
+						utci: () => LocalizedString
+					}
+				}
+				slightCold: {
+					title: {
+						/**
+						 * Leicht kühl
+						 */
+						heatStress: () => LocalizedString
+						/**
+						 * Leichter Kältestress
+						 */
+						thermalComfort: () => LocalizedString
+					}
+					/**
+					 * Leichte Unannehmlichkeiten, vorübergehendes Kältezittern.
+					 */
+					description: () => LocalizedString
+					ranges: {
+						/**
+						 * 13 bis 18 °C
+						 */
+						pet: () => LocalizedString
+						/**
+						 * 0 bis 9 °C
+						 */
+						utci: () => LocalizedString
+					}
+				}
+				none: {
+					title: {
+						/**
+						 * Kein thermischer Stress
+						 */
+						heatStress: () => LocalizedString
+						/**
+						 * Neutral
+						 */
+						thermalComfort: () => LocalizedString
+					}
+					/**
+					 * Thermischer Komfort, keine signifikanten gesundheitlichen Risiken.
+					 */
+					description: () => LocalizedString
+					ranges: {
+						/**
+						 * 18 bis 23 °C
+						 */
+						pet: () => LocalizedString
+						/**
+						 * 9 bis 26 °C
+						 */
+						utci: () => LocalizedString
+					}
+				}
+				moderateWarmth: {
+					title: {
+						/**
+						 * Leicht warm
+						 */
+						heatStress: () => LocalizedString
+						/**
+						 * Moderater Hitzestress
+						 */
+						thermalComfort: () => LocalizedString
+					}
+					/**
+					 * Leichte Unannehmlichkeiten, erhöhter Schweißausstoß.
 					 */
 					description: () => LocalizedString
 					ranges: {
@@ -2904,13 +3174,19 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
-				warm: {
+				strongWarmth: {
+					title: {
+						/**
+						 * Warm
+						 */
+						heatStress: () => LocalizedString
+						/**
+						 * Starker Hitzestress
+						 */
+						thermalComfort: () => LocalizedString
+					}
 					/**
-					 * Warm
-					 */
-					title: () => LocalizedString
-					/**
-					 * Risiko von Hitzekrämpfen, Hitzeerschöpfung und anderen hitzebedingten Erkrankungen, besonders bei körperlicher Aktivität
+					 * Erhöhte Belastung des Herz-Kreislauf-Systems, Risiko von Dehydration und Erschöpfung.
 					 */
 					description: () => LocalizedString
 					ranges: {
@@ -2924,22 +3200,54 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
-				veryWarm: {
+				veryStrongWarmth: {
+					title: {
+						/**
+						 * Heiß
+						 */
+						heatStress: () => LocalizedString
+						/**
+						 * Sehr starker Hitzestress
+						 */
+						thermalComfort: () => LocalizedString
+					}
 					/**
-					 * Sehr warm
-					 */
-					title: () => LocalizedString
-					/**
-					 * Risiko von Hitzschlag und Organversagen
+					 * Gefahr von Hitzekrämpfen, Hitzerschöpfung, erhöhtes Risiko für hitzebedingte Erkrankungen, besonders bei körperlicher Aktivität.
 					 */
 					description: () => LocalizedString
 					ranges: {
 						/**
-						 * über 35 °C
+						 * 35 bis 41 °C
 						 */
 						pet: () => LocalizedString
 						/**
-						 * über 38 °C
+						 * 38 bis 46 °C
+						 */
+						utci: () => LocalizedString
+					}
+				}
+				extremeWarmth: {
+					title: {
+						/**
+						 * Sehr heiß
+						 */
+						heatStress: () => LocalizedString
+						/**
+						 * Extremer Hitzestress
+						 */
+						thermalComfort: () => LocalizedString
+					}
+					/**
+					 * Lebensbedrohliche Hitzschläge, akute Belastung des Herz-Kreislauf-Systems, hohes Risiko für schwere hitzebedingte Erkrankungen und Tod.
+					 */
+					description: () => LocalizedString
+					ranges: {
+						/**
+						 * über 41 °C
+						 */
+						pet: () => LocalizedString
+						/**
+						 * über 46 °C
 						 */
 						utci: () => LocalizedString
 					}

@@ -12,7 +12,7 @@ import {
 } from 'd3-scale-chromatic';
 
 const schemeTurboSquential: readonly string[] = quantize(interpolateTurbo, 10);
-const schemeTurboOrdinal: readonly string[] = quantize(interpolateTurbo, 5);
+const schemeTurboOrdinal: readonly string[] = quantize(interpolateTurbo, 10);
 const schemeBrBG: readonly string[] = quantize(interpolateBrBG, 10).toReversed();
 
 type SequentialScapeType = {

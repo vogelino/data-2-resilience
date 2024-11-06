@@ -577,45 +577,120 @@ const de = {
 				'extreme heat stress': 'Extremer Wärmestress'
 			},
 			healthRisks: {
-				veryCold: {
-					title: 'Sehr kalt',
-					description: 'Risiko von Unterkühlung und Erfrierungen bei längerer Exposition',
+				extremeCold: {
+					title: {
+						heatStress: 'Extrem kalt',
+						thermalComfort: ''
+					},
+					description:
+						'Lebensbedrohliche Hypothermie, schwere Erfrierungen innerhalb von Minuten möglich.',
 					ranges: {
-						pet: 'unter 8 °C',
-						utci: 'unter -27 °C'
+						pet: '',
+						utci: 'unter -40 °C'
 					}
 				},
-				cold: {
-					title: 'Kalt',
-					description: 'Risiko von erniedrigter Körpertemperatur und Unbehagen',
+				veryStrongCold: {
+					title: {
+						heatStress: 'Sehr kalt',
+						thermalComfort: 'Sehr starker Kältestress'
+					},
+					description:
+						'Lebensbedrohliche Hypothermie, schwere Erfrierungen innerhalb von Minuten möglich.',
 					ranges: {
-						pet: '8 bis 18 °C',
-						utci: '-27 bis 9 °C'
+						pet: 'unter 4 °C',
+						utci: '-40 bis -27 °C'
 					}
 				},
-				slightlyWarm: {
-					title: 'Leicht warm',
-					description: 'Risiko von Unbehagen und erhöhtem Schweißausstoß',
+				strongCold: {
+					title: {
+						heatStress: 'Kalt',
+						thermalComfort: 'Starker Kältestress'
+					},
+					description:
+						'Erfrierungsgefahr für exponierte Hautbereiche, erhöhtes Risiko für Kälteschäden.',
+					ranges: {
+						pet: '4 bis 8 °C',
+						utci: '-27 bis -13 °C'
+					}
+				},
+				moderateCold: {
+					title: {
+						heatStress: 'Kühl',
+						thermalComfort: 'Moderater Kältestress'
+					},
+					description: 'Kältezittern, Unbehagen, Risiko von Erfrierungen bei längerer Exposition.',
+					ranges: {
+						pet: '8 bis 13 °C',
+						utci: '-13 bis 0 °C'
+					}
+				},
+				slightCold: {
+					title: {
+						heatStress: 'Leicht kühl',
+						thermalComfort: 'Leichter Kältestress'
+					},
+					description: 'Leichte Unannehmlichkeiten, vorübergehendes Kältezittern.',
+					ranges: {
+						pet: '13 bis 18 °C',
+						utci: '0 bis 9 °C'
+					}
+				},
+				none: {
+					title: {
+						heatStress: 'Kein thermischer Stress',
+						thermalComfort: 'Neutral'
+					},
+					description: 'Thermischer Komfort, keine signifikanten gesundheitlichen Risiken.',
+					ranges: {
+						pet: '18 bis 23 °C',
+						utci: '9 bis 26 °C'
+					}
+				},
+				moderateWarmth: {
+					title: {
+						heatStress: 'Leicht warm',
+						thermalComfort: 'Moderater Hitzestress'
+					},
+					description: 'Leichte Unannehmlichkeiten, erhöhter Schweißausstoß.',
 					ranges: {
 						pet: '23 bis 29 °C',
 						utci: '26 bis 32 °C'
 					}
 				},
-				warm: {
-					title: 'Warm',
+				strongWarmth: {
+					title: {
+						heatStress: 'Warm',
+						thermalComfort: 'Starker Hitzestress'
+					},
 					description:
-						'Risiko von Hitzekrämpfen, Hitzeerschöpfung und anderen hitzebedingten Erkrankungen, besonders bei körperlicher Aktivität',
+						'Erhöhte Belastung des Herz-Kreislauf-Systems, Risiko von Dehydration und Erschöpfung.',
 					ranges: {
 						pet: '29 bis 35 °C',
 						utci: '32 bis 38 °C'
 					}
 				},
-				veryWarm: {
-					title: 'Sehr warm',
-					description: 'Risiko von Hitzschlag und Organversagen',
+				veryStrongWarmth: {
+					title: {
+						heatStress: 'Heiß',
+						thermalComfort: 'Sehr starker Hitzestress'
+					},
+					description:
+						'Gefahr von Hitzekrämpfen, Hitzerschöpfung, erhöhtes Risiko für hitzebedingte Erkrankungen, besonders bei körperlicher Aktivität.',
 					ranges: {
-						pet: 'über 35 °C',
-						utci: 'über 38 °C'
+						pet: '35 bis 41 °C',
+						utci: '38 bis 46 °C'
+					}
+				},
+				extremeWarmth: {
+					title: {
+						heatStress: 'Sehr heiß',
+						thermalComfort: 'Extremer Hitzestress'
+					},
+					description:
+						'Lebensbedrohliche Hitzschläge, akute Belastung des Herz-Kreislauf-Systems, hohes Risiko für schwere hitzebedingte Erkrankungen und Tod.',
+					ranges: {
+						pet: 'über 41 °C',
+						utci: 'über 46 °C'
 					}
 				}
 			}

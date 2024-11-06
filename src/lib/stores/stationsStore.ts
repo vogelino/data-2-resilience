@@ -1,14 +1,19 @@
+import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
 import { queryParam, ssp } from 'sveltekit-search-params';
 
 const defaultStations = ['DEC005304', 'DEC005476', 'DEC00546E'];
 const urlStations = writable(defaultStations);
 const queryParamStations = queryParam('selectedStations', ssp.string(defaultStations.join(',')));
+let initialized = false;
 
 export function useStations() {
 	queryParamStations.subscribe((value) => {
-		const parsedIds = parseUrlStations(value);
-		urlStations.set(parsedIds);
+		if (browser && !initialized) {
+			const parsedIds = parseUrlStations(value);
+			urlStations.set(parsedIds);
+			initialized = true;
+		}
 	});
 	return urlStations;
 }

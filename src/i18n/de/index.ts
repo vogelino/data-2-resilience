@@ -563,21 +563,8 @@ const de = {
 			hideHealthRisks: 'Gesundheitsrisiken ausblenden',
 			title: 'Gesundheitsrisiken',
 			noValueAvailable: 'Keine Daten verfügbar',
-			heatStressCategories: {
-				'extreme cold stress': 'Extremer Kältestress',
-				'very strong cold stress': 'Sehr starker Kältestress',
-				'strong cold stress': 'Starker Kältestress',
-				'moderate cold stress': 'Mäßiger Kältestress',
-				'slight cold stress': 'Leichter Kältestress',
-				'no thermal stress': 'Kein thermischer Stress',
-				'slight heat stress': 'Leichter Wärmestress',
-				'moderate heat stress': 'Mäßiger Wärmestress',
-				'strong heat stress': 'Starker Wärmestress',
-				'very strong heat stress': 'Sehr starker Wärmestress',
-				'extreme heat stress': 'Extremer Wärmestress'
-			},
 			healthRisks: {
-				extremeCold: {
+				'extreme cold stress': {
 					title: {
 						heatStress: 'Extrem kalt',
 						thermalComfort: ''
@@ -589,7 +576,7 @@ const de = {
 						utci: 'unter -40 °C'
 					}
 				},
-				veryStrongCold: {
+				'very strong cold stress': {
 					title: {
 						heatStress: 'Sehr kalt',
 						thermalComfort: 'Sehr starker Kältestress'
@@ -601,7 +588,7 @@ const de = {
 						utci: '-40 bis -27 °C'
 					}
 				},
-				strongCold: {
+				'strong cold stress': {
 					title: {
 						heatStress: 'Kalt',
 						thermalComfort: 'Starker Kältestress'
@@ -613,7 +600,7 @@ const de = {
 						utci: '-27 bis -13 °C'
 					}
 				},
-				moderateCold: {
+				'moderate cold stress': {
 					title: {
 						heatStress: 'Kühl',
 						thermalComfort: 'Moderater Kältestress'
@@ -624,7 +611,7 @@ const de = {
 						utci: '-13 bis 0 °C'
 					}
 				},
-				slightCold: {
+				'slight cold stress': {
 					title: {
 						heatStress: 'Leicht kühl',
 						thermalComfort: 'Leichter Kältestress'
@@ -635,7 +622,7 @@ const de = {
 						utci: '0 bis 9 °C'
 					}
 				},
-				none: {
+				'no thermal stress': {
 					title: {
 						heatStress: 'Kein thermischer Stress',
 						thermalComfort: 'Neutral'
@@ -646,7 +633,7 @@ const de = {
 						utci: '9 bis 26 °C'
 					}
 				},
-				moderateWarmth: {
+				'moderate heat stress': {
 					title: {
 						heatStress: 'Leicht warm',
 						thermalComfort: 'Moderater Hitzestress'
@@ -657,7 +644,7 @@ const de = {
 						utci: '26 bis 32 °C'
 					}
 				},
-				strongWarmth: {
+				'strong heat stress': {
 					title: {
 						heatStress: 'Warm',
 						thermalComfort: 'Starker Hitzestress'
@@ -669,7 +656,7 @@ const de = {
 						utci: '32 bis 38 °C'
 					}
 				},
-				veryStrongWarmth: {
+				'very strong heat stress': {
 					title: {
 						heatStress: 'Heiß',
 						thermalComfort: 'Sehr starker Hitzestress'
@@ -681,7 +668,7 @@ const de = {
 						utci: '38 bis 46 °C'
 					}
 				},
-				extremeWarmth: {
+				'extreme heat stress': {
 					title: {
 						heatStress: 'Sehr heiß',
 						thermalComfort: 'Extremer Hitzestress'

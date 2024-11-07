@@ -5,6 +5,7 @@
 	import { cn } from '$lib/utils';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { useSationsSnapshotData } from '$lib/utils/queryUtils/stationsLatestData';
+	import { getHeatStressLabel } from '$lib/utils/textUtil';
 	import { subDays } from 'date-fns';
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
@@ -75,17 +76,23 @@
 			class={cn(
 				'pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 group-hover:-translate-y-2',
 				'w-fit max-w-96 rounded-md bg-background px-4 py-3 opacity-0 transition group-hover:opacity-100',
-				'border border-border shadow-lg'
+				'w-48 border border-border shadow-lg'
 			)}
 		>
 			<div class="relative flex flex-col">
-				<h3 class="whitespace-nowrap text-sm font-bold">{feature.properties?.longName}</h3>
+				<h3 class="text-sm font-bold">{feature.properties?.longName}</h3>
 				<p class="text-xs">
-					{#if getValueById(feature.properties?.id)}
+					{#if getValueById(feature.properties?.id) && typeof getValueById(feature.properties?.id) === 'number'}
 						{getValueById(feature.properties?.id)?.valueOf().toLocaleString($locale, {
 							maximumFractionDigits: 1
 						})}
 						{unitOnlyLabel}
+					{:else if getValueById(feature.properties?.id) && typeof getValueById(feature.properties?.id) === 'string'}
+						{getHeatStressLabel({
+							unit: $unit,
+							LL: $LL,
+							value: String(getValueById(feature.properties?.id))
+						})}
 					{:else}
 						{@html $LL.pages.measurements.singleUnsupportedStationShort({
 							unit: unitLabel

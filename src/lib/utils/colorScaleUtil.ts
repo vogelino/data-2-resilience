@@ -180,7 +180,7 @@ export function getColorScaleValue(params: {
 }) {
 	const { unit, LL, value } = params;
 	const scale = getColorScaleFn(params);
-	const categories = Object.keys(LL.map.choroplethLegend.heatStressCategories);
+	const categories = Object.keys(LL.map.choroplethLegend.healthRisks);
 	const { colors } = getColorsByUnit({ unit, LL });
 	if (unit.endsWith('_category')) {
 		const categoryIndex = categories.indexOf(value as string);

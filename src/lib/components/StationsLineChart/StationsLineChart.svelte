@@ -10,6 +10,7 @@
 	} from '$lib/utils/heatStressCategoriesUtil';
 	import { useSationsRangeData } from '$lib/utils/queryUtils/stationsDataRange';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
+	import { getHeatStressLabel } from '$lib/utils/textUtil';
 	import { VisAxis, VisCrosshair, VisLine, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { Position } from '@unovis/ts';
 	import Alert from 'components/ui/alert/alert.svelte';
@@ -94,11 +95,11 @@
 	$: xTickFormat = (d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d);
 	$: yTickFormat = (d: number) =>
 		isCatChart
-			? $LL.map.choroplethLegend.heatStressCategories[
-					getHeatStressCategoryByValue(
-						d
-					) as keyof typeof $LL.map.choroplethLegend.heatStressCategories
-				]()
+			? getHeatStressLabel({
+					unit: $unit,
+					LL: $LL,
+					value: getHeatStressCategoryByValue(d)
+				})
 			: d.toLocaleString($locale, {
 					maximumFractionDigits: 1
 				});
@@ -131,9 +132,11 @@
 												? value.toLocaleString($locale, {
 														maximumFractionDigits: 1
 													})
-												: $LL.map.choroplethLegend.heatStressCategories[
-														value as keyof typeof $LL.map.choroplethLegend.heatStressCategories
-													]()
+												: getHeatStressLabel({
+														unit: $unit,
+														LL: $LL,
+														value: value as string
+													})
 										}
 										${$LL.pages.measurements.unitSelect.units[
 											$unit as keyof typeof $LL.pages.measurements.unitSelect.units

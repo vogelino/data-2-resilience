@@ -7,6 +7,7 @@
 	import { parseDatavisType } from '$lib/utils/parsingUtil';
 	import { useDailyStationsData } from '$lib/utils/queryUtils/stationsDataDaily';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
+	import { getHeatStressLabel } from '$lib/utils/textUtil';
 	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { StackedBar } from '@unovis/ts';
 	import { addDays } from 'date-fns';
@@ -90,6 +91,11 @@
 		.map((d) => d.id);
 
 	$: firstValidValue = data.find((d) => d.value !== undefined)?.value;
+	$: titleKey = $unit.endsWith('_category') ? ('heatStress' as const) : ('thermalComfort' as const);
+	$: firstValidValueLabel =
+		typeof firstValidValue === 'string'
+			? getHeatStressLabel({ unit: $unit, LL: $LL, value: firstValidValue })
+			: firstValidValue?.toLocaleString($locale, { maximumFractionDigits: 1 });
 	$: maxValue = data.reduce((acc, item) => Math.max(acc, item.value ?? 0), 0);
 	const y = (d: DataRecord) => (typeof d.value === 'number' ? d.value : maxValue);
 	const x = (d: DataRecord, idx: number) => idx;
@@ -179,11 +185,8 @@
 		<strong class="text-3xl leading-tight">
 			{#if $query.isLoading}
 				<span class="inline-block h-6 w-24 animate-pulse rounded-sm bg-muted-foreground/20"></span>
-			{:else if firstValidValue !== undefined}
-				{firstValidValue?.toLocaleString($locale, {
-					maximumFractionDigits: 1
-				})}
-				{unitOnly}
+			{:else if firstValidValueLabel !== undefined}
+				{firstValidValueLabel}
 			{/if}
 		</strong>
 		<span>

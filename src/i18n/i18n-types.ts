@@ -1337,54 +1337,8 @@ type RootTranslation = {
 			 * K​e​i​n​e​ ​D​a​t​e​n​ ​v​e​r​f​ü​g​b​a​r
 			 */
 			noValueAvailable: string
-			heatStressCategories: {
-				/**
-				 * E​x​t​r​e​m​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
-				 */
-				'extreme cold stress': string
-				/**
-				 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
-				 */
-				'very strong cold stress': string
-				/**
-				 * S​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
-				 */
-				'strong cold stress': string
-				/**
-				 * M​ä​ß​i​g​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
-				 */
-				'moderate cold stress': string
-				/**
-				 * L​e​i​c​h​t​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
-				 */
-				'slight cold stress': string
-				/**
-				 * K​e​i​n​ ​t​h​e​r​m​i​s​c​h​e​r​ ​S​t​r​e​s​s
-				 */
-				'no thermal stress': string
-				/**
-				 * L​e​i​c​h​t​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
-				 */
-				'slight heat stress': string
-				/**
-				 * M​ä​ß​i​g​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
-				 */
-				'moderate heat stress': string
-				/**
-				 * S​t​a​r​k​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
-				 */
-				'strong heat stress': string
-				/**
-				 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
-				 */
-				'very strong heat stress': string
-				/**
-				 * E​x​t​r​e​m​e​r​ ​W​ä​r​m​e​s​t​r​e​s​s
-				 */
-				'extreme heat stress': string
-			}
 			healthRisks: {
-				extremeCold: {
+				'extreme cold stress': {
 					title: {
 						/**
 						 * E​x​t​r​e​m​ ​k​a​l​t
@@ -1404,7 +1358,7 @@ type RootTranslation = {
 						utci: string
 					}
 				}
-				veryStrongCold: {
+				'very strong cold stress': {
 					title: {
 						/**
 						 * S​e​h​r​ ​k​a​l​t
@@ -1430,7 +1384,7 @@ type RootTranslation = {
 						utci: string
 					}
 				}
-				strongCold: {
+				'strong cold stress': {
 					title: {
 						/**
 						 * K​a​l​t
@@ -1456,7 +1410,7 @@ type RootTranslation = {
 						utci: string
 					}
 				}
-				moderateCold: {
+				'moderate cold stress': {
 					title: {
 						/**
 						 * K​ü​h​l
@@ -1482,7 +1436,7 @@ type RootTranslation = {
 						utci: string
 					}
 				}
-				slightCold: {
+				'slight cold stress': {
 					title: {
 						/**
 						 * L​e​i​c​h​t​ ​k​ü​h​l
@@ -1508,7 +1462,7 @@ type RootTranslation = {
 						utci: string
 					}
 				}
-				none: {
+				'no thermal stress': {
 					title: {
 						/**
 						 * K​e​i​n​ ​t​h​e​r​m​i​s​c​h​e​r​ ​S​t​r​e​s​s
@@ -1534,7 +1488,7 @@ type RootTranslation = {
 						utci: string
 					}
 				}
-				moderateWarmth: {
+				'moderate heat stress': {
 					title: {
 						/**
 						 * L​e​i​c​h​t​ ​w​a​r​m
@@ -1560,7 +1514,7 @@ type RootTranslation = {
 						utci: string
 					}
 				}
-				strongWarmth: {
+				'strong heat stress': {
 					title: {
 						/**
 						 * W​a​r​m
@@ -1586,7 +1540,7 @@ type RootTranslation = {
 						utci: string
 					}
 				}
-				veryStrongWarmth: {
+				'very strong heat stress': {
 					title: {
 						/**
 						 * H​e​i​ß
@@ -1612,7 +1566,7 @@ type RootTranslation = {
 						utci: string
 					}
 				}
-				extremeWarmth: {
+				'extreme heat stress': {
 					title: {
 						/**
 						 * S​e​h​r​ ​h​e​i​ß
@@ -2951,54 +2905,8 @@ export type TranslationFunctions = {
 			 * Keine Daten verfügbar
 			 */
 			noValueAvailable: () => LocalizedString
-			heatStressCategories: {
-				/**
-				 * Extremer Kältestress
-				 */
-				'extreme cold stress': () => LocalizedString
-				/**
-				 * Sehr starker Kältestress
-				 */
-				'very strong cold stress': () => LocalizedString
-				/**
-				 * Starker Kältestress
-				 */
-				'strong cold stress': () => LocalizedString
-				/**
-				 * Mäßiger Kältestress
-				 */
-				'moderate cold stress': () => LocalizedString
-				/**
-				 * Leichter Kältestress
-				 */
-				'slight cold stress': () => LocalizedString
-				/**
-				 * Kein thermischer Stress
-				 */
-				'no thermal stress': () => LocalizedString
-				/**
-				 * Leichter Wärmestress
-				 */
-				'slight heat stress': () => LocalizedString
-				/**
-				 * Mäßiger Wärmestress
-				 */
-				'moderate heat stress': () => LocalizedString
-				/**
-				 * Starker Wärmestress
-				 */
-				'strong heat stress': () => LocalizedString
-				/**
-				 * Sehr starker Wärmestress
-				 */
-				'very strong heat stress': () => LocalizedString
-				/**
-				 * Extremer Wärmestress
-				 */
-				'extreme heat stress': () => LocalizedString
-			}
 			healthRisks: {
-				extremeCold: {
+				'extreme cold stress': {
 					title: {
 						/**
 						 * Extrem kalt
@@ -3018,7 +2926,7 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
-				veryStrongCold: {
+				'very strong cold stress': {
 					title: {
 						/**
 						 * Sehr kalt
@@ -3044,7 +2952,7 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
-				strongCold: {
+				'strong cold stress': {
 					title: {
 						/**
 						 * Kalt
@@ -3070,7 +2978,7 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
-				moderateCold: {
+				'moderate cold stress': {
 					title: {
 						/**
 						 * Kühl
@@ -3096,7 +3004,7 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
-				slightCold: {
+				'slight cold stress': {
 					title: {
 						/**
 						 * Leicht kühl
@@ -3122,7 +3030,7 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
-				none: {
+				'no thermal stress': {
 					title: {
 						/**
 						 * Kein thermischer Stress
@@ -3148,7 +3056,7 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
-				moderateWarmth: {
+				'moderate heat stress': {
 					title: {
 						/**
 						 * Leicht warm
@@ -3174,7 +3082,7 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
-				strongWarmth: {
+				'strong heat stress': {
 					title: {
 						/**
 						 * Warm
@@ -3200,7 +3108,7 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
-				veryStrongWarmth: {
+				'very strong heat stress': {
 					title: {
 						/**
 						 * Heiß
@@ -3226,7 +3134,7 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
-				extremeWarmth: {
+				'extreme heat stress': {
 					title: {
 						/**
 						 * Sehr heiß

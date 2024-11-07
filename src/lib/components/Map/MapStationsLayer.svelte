@@ -3,7 +3,7 @@
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
-	import { unitsToScalesMap } from '$lib/utils/colorScaleUtil';
+	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { useSationsSnapshotData } from '$lib/utils/queryUtils/stationsLatestData';
 	import { subDays } from 'date-fns';
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
@@ -41,9 +41,7 @@
 		const defaultColor = 'hsl(var(--muted-foreground))';
 		const value = getValueById(id);
 		if (!value) return defaultColor;
-		const colorScale =
-			unitsToScalesMap[$unit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default;
-		return colorScale.fn(value as { valueOf(): number } & string);
+		return getColorScaleValue({ unit: $unit, LL: $LL, value });
 	};
 </script>
 

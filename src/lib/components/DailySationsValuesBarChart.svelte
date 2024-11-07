@@ -6,10 +6,7 @@
 	import { today } from '$lib/utils/dateUtil';
 	import { parseDatavisType } from '$lib/utils/parsingUtil';
 	import { useDailyStationsData } from '$lib/utils/queryUtils/stationsDataDaily';
-	import {
-		getMessageForUnsupportedStations,
-		isNoStationSupported
-	} from '$lib/utils/stationsDataVisUtil';
+	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
 	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { StackedBar } from '@unovis/ts';
 	import { addDays } from 'date-fns';
@@ -81,7 +78,6 @@
 		.filter((f) => insufficientDataIds.includes(f.properties.id))
 		.sort((a, b) => a.properties.longName.localeCompare(b.properties.longName));
 	$: unsupportedIds = data.filter((d) => !d.supported).map((d) => d.id);
-	$: noneSupportedData = isNoStationSupported({ ids, unsupportedIds });
 	$: unsupportedMsg = getMessageForUnsupportedStations({
 		ids,
 		unsupportedIds,

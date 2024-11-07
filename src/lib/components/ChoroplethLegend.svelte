@@ -38,17 +38,21 @@
 	$: scale =
 		unitsToScalesMap[finalUnit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default;
 	$: isOrdinal = scale.type === 'ordinal';
-	$: min = scale.type === 'sequential' ? `${scale.min} ${labels.unitOnlyLabel}` : '';
-	$: max = scale.type === 'sequential' ? `${scale.max} ${labels.unitOnlyLabel}` : '';
 	$: showHealthRisks = finalUnit.startsWith('utci') || finalUnit.startsWith('pet');
-	$: allHealthRisks = Object.values($LL.map.choroplethLegend.healthRisks);
-	$: showColdRisks = currentPage === 'measurements' && showHealthRisks;
 	$: titleKey = finalUnit.endsWith('_category')
 		? ('heatStress' as const)
 		: ('thermalComfort' as const);
-	$: healthRisks = (showColdRisks ? allHealthRisks : allHealthRisks.slice(-5)).filter(
+	$: allHealthRisks = Object.values($LL.map.choroplethLegend.healthRisks).filter(
 		(item) => !!item.title[titleKey]()
 	);
+	$: showColdRisks = currentPage === 'measurements' && showHealthRisks;
+	$: healthRisks = showColdRisks ? allHealthRisks : allHealthRisks.slice(-5);
+	$: scheme = showHealthRisks ? scale.scheme.slice(-healthRisks.length) : scale.scheme;
+	$: scaleMin = scale.type === 'sequential' ? scale.min : 0;
+	$: scaleMax = scale.type === 'sequential' ? scale.max : 100;
+	$: seqMin = showColdRisks || !showHealthRisks ? scaleMin : scaleMax - (scaleMax - scaleMin) / 5;
+	$: min = scale.type === 'sequential' ? `${seqMin} ${labels.unitOnlyLabel}` : '';
+	$: max = scale.type === 'sequential' ? `${scaleMax} ${labels.unitOnlyLabel}` : '';
 </script>
 
 <div
@@ -67,7 +71,7 @@
 			<div
 				class="rounded-xs flex h-2 w-full max-w-96 overflow-clip shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 			>
-				{#each scale.scheme.slice(-healthRisks.length) as color}
+				{#each scheme as color}
 					<span class={cn('size-full')} style={`background-color: ${color}`} />
 				{/each}
 			</div>
@@ -77,7 +81,7 @@
 				style={`
 					background-image: linear-gradient(
 						to right,
-						${scale.scheme.slice(-healthRisks.length).join(', ')}
+						${scheme.join(', ')}
 				)`}
 			/>
 		{/if}
@@ -114,9 +118,14 @@
 					>
 				</Button>
 			</Popover.Trigger>
-			<Popover.Content class="w-72 -translate-y-[7.5rem] rounded">
+			<Popover.Content
+				class="max-h-[calc(100vh-20rem)] w-72 -translate-y-[7.5rem] overflow-y-auto rounded p-0 pb-2"
+			>
 				<strong
-					class="grid grid-cols-[1.25rem_1fr_1.25rem] items-center gap-2 text-base font-semibold"
+					class={cn(
+						'grid grid-cols-[1.25rem_1fr_1.25rem] items-center gap-2 text-base font-semibold',
+						'sticky top-0 border-b border-border bg-background/80 px-4 py-3 backdrop-blur-[2px]'
+					)}
 				>
 					<HeartPulse class="size-5 text-pink-700" />
 					<span>{$LL.map.choroplethLegend.title()}</span>
@@ -124,10 +133,10 @@
 						<X class="size-5 text-muted-foreground" />
 					</Button>
 				</strong>
-				<ul class="flex flex-col pt-2 text-sm">
+				<ul class="flex flex-col p-4 text-sm">
 					{#each healthRisks.toReversed() as { title, description, ranges }, i}
 						<li
-							class={cn('border-l-4 border-t py-2 pl-4')}
+							class={cn('border-b border-l-4 py-2 pl-4 last-of-type:border-b-0')}
 							style={`border-left-color: ${unitsToScalesMap.utci_category.scheme.toReversed()[i]}`}
 						>
 							<p>

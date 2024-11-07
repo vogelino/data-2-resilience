@@ -28,7 +28,7 @@
 			categoryToClassMap.utci;
 		return {
 			layerHour: h,
-			tilesUrl: `${PUBLIC_API_BASE_URL}/tms/singleband/${unit}/${year}/${dayOfYearToday}/${paddedHour}/{z}/{x}/{y}.png?colormap=jet&tile_size=[256,256]`
+			tilesUrl: `${PUBLIC_API_BASE_URL}/tms/singleband/${unit}/${year}/${dayOfYearToday}/${paddedHour}/{z}/{x}/{y}.png?colormap=turbo&tile_size=[256,256]`
 		};
 	});
 </script>

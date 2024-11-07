@@ -3,6 +3,7 @@
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { useStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
+	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { today } from '$lib/utils/dateUtil';
 	import { parseDatavisType } from '$lib/utils/parsingUtil';
 	import { useDailyStationsData } from '$lib/utils/queryUtils/stationsDataDaily';
@@ -91,7 +92,6 @@
 		.map((d) => d.id);
 
 	$: firstValidValue = data.find((d) => d.value !== undefined)?.value;
-	$: titleKey = $unit.endsWith('_category') ? ('heatStress' as const) : ('thermalComfort' as const);
 	$: firstValidValueLabel =
 		typeof firstValidValue === 'string'
 			? getHeatStressLabel({ unit: $unit, LL: $LL, value: firstValidValue })
@@ -182,10 +182,20 @@
 				{dateLongFormatter.format(date)}
 			{/if}
 		</span>
-		<strong class="text-3xl leading-tight">
+		<strong class="flex items-center justify-center gap-2 text-3xl leading-tight">
 			{#if $query.isLoading}
 				<span class="inline-block h-6 w-24 animate-pulse rounded-sm bg-muted-foreground/20"></span>
 			{:else if firstValidValueLabel !== undefined}
+				{#if typeof firstValidValue === 'string'}
+					<span
+						class="inline-block size-6 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
+						style={`background-color: ${getColorScaleValue({
+							unit: $unit,
+							LL: $LL,
+							value: firstValidValue
+						})}`}
+					/>
+				{/if}
 				{firstValidValueLabel}
 			{/if}
 		</strong>

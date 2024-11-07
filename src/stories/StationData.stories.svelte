@@ -32,8 +32,8 @@
 	const queryFn: QueryFunction = ({ queryKey }) => {
 		return api().getStationData({
 			id: queryKey[1] as string,
-			start_date: new Date(queryKey[2] as string).toISOString(),
-			end_date: new Date(queryKey[3] as string).toISOString(),
+			start_date: new Date(queryKey[2] as string),
+			end_date: new Date(queryKey[3] as string),
 			param: queryKey[4] as WeatherMeasurementKeyNoMinMax,
 			scale: queryKey[5] as 'hourly' | 'daily'
 		});

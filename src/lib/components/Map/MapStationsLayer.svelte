@@ -4,9 +4,10 @@
 	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
+	import { today } from '$lib/utils/dateUtil';
 	import { useSationsSnapshotData } from '$lib/utils/queryUtils/stationsLatestData';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
-	import { subDays } from 'date-fns';
+	import { startOfHour } from 'date-fns';
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 
@@ -16,7 +17,7 @@
 	const unit = queryParam('unit', ssp.string('air_temperature'));
 	const selectedStations = useStations();
 	$: query = useSationsSnapshotData({
-		date: subDays(new Date(), 18),
+		date: startOfHour(today()),
 		unit: $unit,
 		scale: 'hourly'
 	});
@@ -82,12 +83,12 @@
 			<div class="relative flex flex-col">
 				<h3 class="text-sm font-bold">{feature.properties?.longName}</h3>
 				<p class="text-xs">
-					{#if getValueById(feature.properties?.id) && typeof getValueById(feature.properties?.id) === 'number'}
+					{#if typeof getValueById(feature.properties?.id) === 'number'}
 						{getValueById(feature.properties?.id)?.valueOf().toLocaleString($locale, {
 							maximumFractionDigits: 1
 						})}
 						{unitOnlyLabel}
-					{:else if getValueById(feature.properties?.id) && typeof getValueById(feature.properties?.id) === 'string'}
+					{:else if typeof getValueById(feature.properties?.id) === 'string'}
 						{getHeatStressLabel({
 							unit: $unit,
 							LL: $LL,

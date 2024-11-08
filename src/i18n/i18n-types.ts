@@ -1340,11 +1340,11 @@ type RootTranslation = {
 			healthRisks: {
 				'extreme cold stress': {
 					title: {
+						thermalComfort: string
 						/**
-						 * E​x​t​r​e​m​ ​k​a​l​t
+						 * E​x​t​r​e​m​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
 						 */
 						heatStress: string
-						thermalComfort: string
 					}
 					/**
 					 * L​e​b​e​n​s​b​e​d​r​o​h​l​i​c​h​e​ ​H​y​p​o​t​h​e​r​m​i​e​,​ ​s​c​h​w​e​r​e​ ​E​r​f​r​i​e​r​u​n​g​e​n​ ​i​n​n​e​r​h​a​l​b​ ​v​o​n​ ​M​i​n​u​t​e​n​ ​m​ö​g​l​i​c​h​.
@@ -1363,11 +1363,11 @@ type RootTranslation = {
 						/**
 						 * S​e​h​r​ ​k​a​l​t
 						 */
-						heatStress: string
+						thermalComfort: string
 						/**
 						 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
 						 */
-						thermalComfort: string
+						heatStress: string
 					}
 					/**
 					 * L​e​b​e​n​s​b​e​d​r​o​h​l​i​c​h​e​ ​H​y​p​o​t​h​e​r​m​i​e​,​ ​s​c​h​w​e​r​e​ ​E​r​f​r​i​e​r​u​n​g​e​n​ ​i​n​n​e​r​h​a​l​b​ ​v​o​n​ ​M​i​n​u​t​e​n​ ​m​ö​g​l​i​c​h​.
@@ -1389,11 +1389,11 @@ type RootTranslation = {
 						/**
 						 * K​a​l​t
 						 */
-						heatStress: string
+						thermalComfort: string
 						/**
 						 * S​t​a​r​k​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
 						 */
-						thermalComfort: string
+						heatStress: string
 					}
 					/**
 					 * E​r​f​r​i​e​r​u​n​g​s​g​e​f​a​h​r​ ​f​ü​r​ ​e​x​p​o​n​i​e​r​t​e​ ​H​a​u​t​b​e​r​e​i​c​h​e​,​ ​e​r​h​ö​h​t​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​K​ä​l​t​e​s​c​h​ä​d​e​n​.
@@ -1415,11 +1415,11 @@ type RootTranslation = {
 						/**
 						 * K​ü​h​l
 						 */
-						heatStress: string
+						thermalComfort: string
 						/**
 						 * M​o​d​e​r​a​t​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
 						 */
-						thermalComfort: string
+						heatStress: string
 					}
 					/**
 					 * K​ä​l​t​e​z​i​t​t​e​r​n​,​ ​U​n​b​e​h​a​g​e​n​,​ ​R​i​s​i​k​o​ ​v​o​n​ ​E​r​f​r​i​e​r​u​n​g​e​n​ ​b​e​i​ ​l​ä​n​g​e​r​e​r​ ​E​x​p​o​s​i​t​i​o​n​.
@@ -1441,11 +1441,11 @@ type RootTranslation = {
 						/**
 						 * L​e​i​c​h​t​ ​k​ü​h​l
 						 */
-						heatStress: string
+						thermalComfort: string
 						/**
 						 * L​e​i​c​h​t​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
 						 */
-						thermalComfort: string
+						heatStress: string
 					}
 					/**
 					 * L​e​i​c​h​t​e​ ​U​n​a​n​n​e​h​m​l​i​c​h​k​e​i​t​e​n​,​ ​v​o​r​ü​b​e​r​g​e​h​e​n​d​e​s​ ​K​ä​l​t​e​z​i​t​t​e​r​n​.
@@ -1465,13 +1465,13 @@ type RootTranslation = {
 				'no thermal stress': {
 					title: {
 						/**
-						 * K​e​i​n​ ​t​h​e​r​m​i​s​c​h​e​r​ ​S​t​r​e​s​s
-						 */
-						heatStress: string
-						/**
 						 * N​e​u​t​r​a​l
 						 */
 						thermalComfort: string
+						/**
+						 * K​e​i​n​ ​t​h​e​r​m​i​s​c​h​e​r​ ​S​t​r​e​s​s
+						 */
+						heatStress: string
 					}
 					/**
 					 * T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t​,​ ​k​e​i​n​e​ ​s​i​g​n​i​f​i​k​a​n​t​e​n​ ​g​e​s​u​n​d​h​e​i​t​l​i​c​h​e​n​ ​R​i​s​i​k​e​n​.
@@ -1493,11 +1493,11 @@ type RootTranslation = {
 						/**
 						 * L​e​i​c​h​t​ ​w​a​r​m
 						 */
-						heatStress: string
+						thermalComfort: string
 						/**
 						 * M​o​d​e​r​a​t​e​r​ ​H​i​t​z​e​s​t​r​e​s​s
 						 */
-						thermalComfort: string
+						heatStress: string
 					}
 					/**
 					 * L​e​i​c​h​t​e​ ​U​n​a​n​n​e​h​m​l​i​c​h​k​e​i​t​e​n​,​ ​e​r​h​ö​h​t​e​r​ ​S​c​h​w​e​i​ß​a​u​s​s​t​o​ß​.
@@ -1519,11 +1519,11 @@ type RootTranslation = {
 						/**
 						 * W​a​r​m
 						 */
-						heatStress: string
+						thermalComfort: string
 						/**
 						 * S​t​a​r​k​e​r​ ​H​i​t​z​e​s​t​r​e​s​s
 						 */
-						thermalComfort: string
+						heatStress: string
 					}
 					/**
 					 * E​r​h​ö​h​t​e​ ​B​e​l​a​s​t​u​n​g​ ​d​e​s​ ​H​e​r​z​-​K​r​e​i​s​l​a​u​f​-​S​y​s​t​e​m​s​,​ ​R​i​s​i​k​o​ ​v​o​n​ ​D​e​h​y​d​r​a​t​i​o​n​ ​u​n​d​ ​E​r​s​c​h​ö​p​f​u​n​g​.
@@ -1545,11 +1545,11 @@ type RootTranslation = {
 						/**
 						 * H​e​i​ß
 						 */
-						heatStress: string
+						thermalComfort: string
 						/**
 						 * S​e​h​r​ ​s​t​a​r​k​e​r​ ​H​i​t​z​e​s​t​r​e​s​s
 						 */
-						thermalComfort: string
+						heatStress: string
 					}
 					/**
 					 * G​e​f​a​h​r​ ​v​o​n​ ​H​i​t​z​e​k​r​ä​m​p​f​e​n​,​ ​H​i​t​z​e​r​s​c​h​ö​p​f​u​n​g​,​ ​e​r​h​ö​h​t​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​h​i​t​z​e​b​e​d​i​n​g​t​e​ ​E​r​k​r​a​n​k​u​n​g​e​n​,​ ​b​e​s​o​n​d​e​r​s​ ​b​e​i​ ​k​ö​r​p​e​r​l​i​c​h​e​r​ ​A​k​t​i​v​i​t​ä​t​.
@@ -1571,11 +1571,11 @@ type RootTranslation = {
 						/**
 						 * S​e​h​r​ ​h​e​i​ß
 						 */
-						heatStress: string
+						thermalComfort: string
 						/**
 						 * E​x​t​r​e​m​e​r​ ​H​i​t​z​e​s​t​r​e​s​s
 						 */
-						thermalComfort: string
+						heatStress: string
 					}
 					/**
 					 * L​e​b​e​n​s​b​e​d​r​o​h​l​i​c​h​e​ ​H​i​t​z​s​c​h​l​ä​g​e​,​ ​a​k​u​t​e​ ​B​e​l​a​s​t​u​n​g​ ​d​e​s​ ​H​e​r​z​-​K​r​e​i​s​l​a​u​f​-​S​y​s​t​e​m​s​,​ ​h​o​h​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​s​c​h​w​e​r​e​ ​h​i​t​z​e​b​e​d​i​n​g​t​e​ ​E​r​k​r​a​n​k​u​n​g​e​n​ ​u​n​d​ ​T​o​d​.
@@ -2908,11 +2908,11 @@ export type TranslationFunctions = {
 			healthRisks: {
 				'extreme cold stress': {
 					title: {
+						thermalComfort: () => LocalizedString
 						/**
-						 * Extrem kalt
+						 * Extremer Kältestress
 						 */
 						heatStress: () => LocalizedString
-						thermalComfort: () => LocalizedString
 					}
 					/**
 					 * Lebensbedrohliche Hypothermie, schwere Erfrierungen innerhalb von Minuten möglich.
@@ -2931,11 +2931,11 @@ export type TranslationFunctions = {
 						/**
 						 * Sehr kalt
 						 */
-						heatStress: () => LocalizedString
+						thermalComfort: () => LocalizedString
 						/**
 						 * Sehr starker Kältestress
 						 */
-						thermalComfort: () => LocalizedString
+						heatStress: () => LocalizedString
 					}
 					/**
 					 * Lebensbedrohliche Hypothermie, schwere Erfrierungen innerhalb von Minuten möglich.
@@ -2957,11 +2957,11 @@ export type TranslationFunctions = {
 						/**
 						 * Kalt
 						 */
-						heatStress: () => LocalizedString
+						thermalComfort: () => LocalizedString
 						/**
 						 * Starker Kältestress
 						 */
-						thermalComfort: () => LocalizedString
+						heatStress: () => LocalizedString
 					}
 					/**
 					 * Erfrierungsgefahr für exponierte Hautbereiche, erhöhtes Risiko für Kälteschäden.
@@ -2983,11 +2983,11 @@ export type TranslationFunctions = {
 						/**
 						 * Kühl
 						 */
-						heatStress: () => LocalizedString
+						thermalComfort: () => LocalizedString
 						/**
 						 * Moderater Kältestress
 						 */
-						thermalComfort: () => LocalizedString
+						heatStress: () => LocalizedString
 					}
 					/**
 					 * Kältezittern, Unbehagen, Risiko von Erfrierungen bei längerer Exposition.
@@ -3009,11 +3009,11 @@ export type TranslationFunctions = {
 						/**
 						 * Leicht kühl
 						 */
-						heatStress: () => LocalizedString
+						thermalComfort: () => LocalizedString
 						/**
 						 * Leichter Kältestress
 						 */
-						thermalComfort: () => LocalizedString
+						heatStress: () => LocalizedString
 					}
 					/**
 					 * Leichte Unannehmlichkeiten, vorübergehendes Kältezittern.
@@ -3033,13 +3033,13 @@ export type TranslationFunctions = {
 				'no thermal stress': {
 					title: {
 						/**
-						 * Kein thermischer Stress
-						 */
-						heatStress: () => LocalizedString
-						/**
 						 * Neutral
 						 */
 						thermalComfort: () => LocalizedString
+						/**
+						 * Kein thermischer Stress
+						 */
+						heatStress: () => LocalizedString
 					}
 					/**
 					 * Thermischer Komfort, keine signifikanten gesundheitlichen Risiken.
@@ -3061,11 +3061,11 @@ export type TranslationFunctions = {
 						/**
 						 * Leicht warm
 						 */
-						heatStress: () => LocalizedString
+						thermalComfort: () => LocalizedString
 						/**
 						 * Moderater Hitzestress
 						 */
-						thermalComfort: () => LocalizedString
+						heatStress: () => LocalizedString
 					}
 					/**
 					 * Leichte Unannehmlichkeiten, erhöhter Schweißausstoß.
@@ -3087,11 +3087,11 @@ export type TranslationFunctions = {
 						/**
 						 * Warm
 						 */
-						heatStress: () => LocalizedString
+						thermalComfort: () => LocalizedString
 						/**
 						 * Starker Hitzestress
 						 */
-						thermalComfort: () => LocalizedString
+						heatStress: () => LocalizedString
 					}
 					/**
 					 * Erhöhte Belastung des Herz-Kreislauf-Systems, Risiko von Dehydration und Erschöpfung.
@@ -3113,11 +3113,11 @@ export type TranslationFunctions = {
 						/**
 						 * Heiß
 						 */
-						heatStress: () => LocalizedString
+						thermalComfort: () => LocalizedString
 						/**
 						 * Sehr starker Hitzestress
 						 */
-						thermalComfort: () => LocalizedString
+						heatStress: () => LocalizedString
 					}
 					/**
 					 * Gefahr von Hitzekrämpfen, Hitzerschöpfung, erhöhtes Risiko für hitzebedingte Erkrankungen, besonders bei körperlicher Aktivität.
@@ -3139,11 +3139,11 @@ export type TranslationFunctions = {
 						/**
 						 * Sehr heiß
 						 */
-						heatStress: () => LocalizedString
+						thermalComfort: () => LocalizedString
 						/**
 						 * Extremer Hitzestress
 						 */
-						thermalComfort: () => LocalizedString
+						heatStress: () => LocalizedString
 					}
 					/**
 					 * Lebensbedrohliche Hitzschläge, akute Belastung des Herz-Kreislauf-Systems, hohes Risiko für schwere hitzebedingte Erkrankungen und Tod.

@@ -564,8 +564,8 @@ const en = {
 			healthRisks: {
 				'extreme cold stress': {
 					title: {
-						heatStress: 'Extremely cold',
-						thermalComfort: ''
+						thermalComfort: '',
+						heatStress: 'Extreme cold stress'
 					},
 					description: 'Life-threatening hypothermia, severe frostbite possible within minutes.',
 					ranges: {
@@ -575,8 +575,8 @@ const en = {
 				},
 				'very strong cold stress': {
 					title: {
-						heatStress: 'Very cold',
-						thermalComfort: 'Very strong cold stress'
+						thermalComfort: 'Very cold',
+						heatStress: 'Very strong cold stress'
 					},
 					description: 'Life-threatening hypothermia, severe frostbite possible within minutes.',
 					ranges: {
@@ -586,8 +586,8 @@ const en = {
 				},
 				'strong cold stress': {
 					title: {
-						heatStress: 'Cold',
-						thermalComfort: 'Strong cold stress'
+						thermalComfort: 'Cold',
+						heatStress: 'Strong cold stress'
 					},
 					description: 'Risk of frostbite for exposed skin areas, increased risk of cold injuries.',
 					ranges: {
@@ -597,8 +597,8 @@ const en = {
 				},
 				'moderate cold stress': {
 					title: {
-						heatStress: 'Cool',
-						thermalComfort: 'Moderate cold stress'
+						thermalComfort: 'Cool',
+						heatStress: 'Moderate cold stress'
 					},
 					description: 'Shivering, discomfort, risk of frostbite with prolonged exposure.',
 					ranges: {
@@ -608,8 +608,8 @@ const en = {
 				},
 				'slight cold stress': {
 					title: {
-						heatStress: 'Slightly cool',
-						thermalComfort: 'Slight cold stress'
+						thermalComfort: 'Slightly cool',
+						heatStress: 'Slight cold stress'
 					},
 					description: 'Mild discomfort, temporary shivering.',
 					ranges: {
@@ -619,8 +619,8 @@ const en = {
 				},
 				'no thermal stress': {
 					title: {
-						heatStress: 'No thermal stress',
-						thermalComfort: 'Neutral'
+						thermalComfort: 'No thermal stress',
+						heatStress: 'Neutral'
 					},
 					description: 'Thermal comfort, no significant health risks.',
 					ranges: {
@@ -630,8 +630,8 @@ const en = {
 				},
 				'moderate heat stress': {
 					title: {
-						heatStress: 'Slightly warm',
-						thermalComfort: 'Moderate heat stress'
+						thermalComfort: 'Slightly warm',
+						heatStress: 'Moderate heat stress'
 					},
 					description: 'Mild discomfort, increased sweating.',
 					ranges: {
@@ -641,8 +641,8 @@ const en = {
 				},
 				'strong heat stress': {
 					title: {
-						heatStress: 'Warm',
-						thermalComfort: 'Strong heat stress'
+						thermalComfort: 'Warm',
+						heatStress: 'Strong heat stress'
 					},
 					description: 'Increased cardiovascular strain, risk of dehydration and exhaustion.',
 					ranges: {
@@ -652,8 +652,8 @@ const en = {
 				},
 				'very strong heat stress': {
 					title: {
-						heatStress: 'Hot',
-						thermalComfort: 'Very strong heat stress'
+						thermalComfort: 'Hot',
+						heatStress: 'Very strong heat stress'
 					},
 					description:
 						'Risk of heat cramps, heat exhaustion, increased risk of heat-related illnesses, especially during physical activity.',
@@ -664,8 +664,8 @@ const en = {
 				},
 				'extreme heat stress': {
 					title: {
-						heatStress: 'Very hot',
-						thermalComfort: 'Extreme heat stress'
+						thermalComfort: 'Very hot',
+						heatStress: 'Extreme heat stress'
 					},
 					description:
 						'Life-threatening heat stroke, acute cardiovascular strain, high risk of severe heat-related illnesses and death.',

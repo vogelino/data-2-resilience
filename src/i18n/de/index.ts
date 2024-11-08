@@ -566,8 +566,8 @@ const de = {
 			healthRisks: {
 				'extreme cold stress': {
 					title: {
-						heatStress: 'Extrem kalt',
-						thermalComfort: ''
+						thermalComfort: '',
+						heatStress: 'Extremer Kältestress'
 					},
 					description:
 						'Lebensbedrohliche Hypothermie, schwere Erfrierungen innerhalb von Minuten möglich.',
@@ -578,8 +578,8 @@ const de = {
 				},
 				'very strong cold stress': {
 					title: {
-						heatStress: 'Sehr kalt',
-						thermalComfort: 'Sehr starker Kältestress'
+						thermalComfort: 'Sehr kalt',
+						heatStress: 'Sehr starker Kältestress'
 					},
 					description:
 						'Lebensbedrohliche Hypothermie, schwere Erfrierungen innerhalb von Minuten möglich.',
@@ -590,8 +590,8 @@ const de = {
 				},
 				'strong cold stress': {
 					title: {
-						heatStress: 'Kalt',
-						thermalComfort: 'Starker Kältestress'
+						thermalComfort: 'Kalt',
+						heatStress: 'Starker Kältestress'
 					},
 					description:
 						'Erfrierungsgefahr für exponierte Hautbereiche, erhöhtes Risiko für Kälteschäden.',
@@ -602,8 +602,8 @@ const de = {
 				},
 				'moderate cold stress': {
 					title: {
-						heatStress: 'Kühl',
-						thermalComfort: 'Moderater Kältestress'
+						thermalComfort: 'Kühl',
+						heatStress: 'Moderater Kältestress'
 					},
 					description: 'Kältezittern, Unbehagen, Risiko von Erfrierungen bei längerer Exposition.',
 					ranges: {
@@ -613,8 +613,8 @@ const de = {
 				},
 				'slight cold stress': {
 					title: {
-						heatStress: 'Leicht kühl',
-						thermalComfort: 'Leichter Kältestress'
+						thermalComfort: 'Leicht kühl',
+						heatStress: 'Leichter Kältestress'
 					},
 					description: 'Leichte Unannehmlichkeiten, vorübergehendes Kältezittern.',
 					ranges: {
@@ -624,8 +624,8 @@ const de = {
 				},
 				'no thermal stress': {
 					title: {
-						heatStress: 'Kein thermischer Stress',
-						thermalComfort: 'Neutral'
+						thermalComfort: 'Neutral',
+						heatStress: 'Kein thermischer Stress'
 					},
 					description: 'Thermischer Komfort, keine signifikanten gesundheitlichen Risiken.',
 					ranges: {
@@ -635,8 +635,8 @@ const de = {
 				},
 				'moderate heat stress': {
 					title: {
-						heatStress: 'Leicht warm',
-						thermalComfort: 'Moderater Hitzestress'
+						thermalComfort: 'Leicht warm',
+						heatStress: 'Moderater Hitzestress'
 					},
 					description: 'Leichte Unannehmlichkeiten, erhöhter Schweißausstoß.',
 					ranges: {
@@ -646,8 +646,8 @@ const de = {
 				},
 				'strong heat stress': {
 					title: {
-						heatStress: 'Warm',
-						thermalComfort: 'Starker Hitzestress'
+						thermalComfort: 'Warm',
+						heatStress: 'Starker Hitzestress'
 					},
 					description:
 						'Erhöhte Belastung des Herz-Kreislauf-Systems, Risiko von Dehydration und Erschöpfung.',
@@ -658,8 +658,8 @@ const de = {
 				},
 				'very strong heat stress': {
 					title: {
-						heatStress: 'Heiß',
-						thermalComfort: 'Sehr starker Hitzestress'
+						thermalComfort: 'Heiß',
+						heatStress: 'Sehr starker Hitzestress'
 					},
 					description:
 						'Gefahr von Hitzekrämpfen, Hitzerschöpfung, erhöhtes Risiko für hitzebedingte Erkrankungen, besonders bei körperlicher Aktivität.',
@@ -670,8 +670,8 @@ const de = {
 				},
 				'extreme heat stress': {
 					title: {
-						heatStress: 'Sehr heiß',
-						thermalComfort: 'Extremer Hitzestress'
+						thermalComfort: 'Sehr heiß',
+						heatStress: 'Extremer Hitzestress'
 					},
 					description:
 						'Lebensbedrohliche Hitzschläge, akute Belastung des Herz-Kreislauf-Systems, hohes Risiko für schwere hitzebedingte Erkrankungen und Tod.',

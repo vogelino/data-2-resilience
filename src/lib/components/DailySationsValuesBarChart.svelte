@@ -178,7 +178,7 @@
 		<span class="text-muted-foreground">
 			{#if $query.isLoading}
 				<span class="inline-block h-4 w-40 animate-pulse rounded-sm bg-muted-foreground/20"></span>
-			{:else if date}
+			{:else if date && firstValidValueLabel}
 				{dateLongFormatter.format(date)}
 			{/if}
 		</span>
@@ -202,7 +202,7 @@
 		<span>
 			{#if $query.isLoading}
 				<span class="inline-block h-4 w-48 animate-pulse rounded-sm bg-muted-foreground/20"></span>
-			{:else if date}
+			{:else if date && firstValidValueLabel}
 				{unitLabel}
 			{/if}</span
 		>

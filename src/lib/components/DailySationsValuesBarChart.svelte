@@ -31,7 +31,7 @@
 	let date: Date | undefined;
 	const options = { debounceHistory: 500 };
 	const dayVlaue = queryParam('day_value', ssp.number(0), options);
-	const unit = queryParam('unit', ssp.string('air_temperature'));
+	const unit = queryParam('unit', ssp.string('utci'));
 	const hour = queryParam('hour', ssp.number(12));
 	const selectedStations = useStations();
 	const rawDatavisType = queryParam('datavisType', ssp.string('day'));

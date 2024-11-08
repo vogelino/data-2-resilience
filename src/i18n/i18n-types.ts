@@ -304,6 +304,59 @@ type RootTranslation = {
 				 */
 				stationsHeaderLabel: string
 				units: {
+					utci_max: {
+						/**
+						 * M​a​x​i​m​a​l​e​r​ ​U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)
+						 */
+						label: string
+						/**
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​U​n​i​v​e​r​s​e​l​l​e​ ​T​h​e​r​m​i​s​c​h​e​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​U​T​C​I​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
+						 */
+						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
+					}
+					utci_min: {
+						/**
+						 * M​i​n​i​m​a​l​e​r​ ​U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)
+						 */
+						label: string
+						/**
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​U​n​i​v​e​r​s​e​l​l​e​ ​T​h​e​r​m​i​s​c​h​e​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​U​T​C​I​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
+						 */
+						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
+					}
+					utci: {
+						/**
+						 * U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)
+						 */
+						label: string
+						/**
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​U​n​i​v​e​r​s​e​l​l​e​ ​T​h​e​r​m​i​s​c​h​e​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​e​i​n​e​n​ ​I​n​d​e​x​,​ ​d​e​r​ ​d​i​e​ ​t​h​e​r​m​i​s​c​h​e​n​ ​B​e​d​i​n​g​u​n​g​e​n​ ​f​ü​r​ ​e​i​n​e​ ​S​t​a​n​d​a​r​d​p​e​r​s​o​n​ ​i​n​ ​e​i​n​e​r​ ​s​t​a​n​d​a​r​d​i​s​i​e​r​t​e​n​ ​U​m​g​e​b​u​n​g​ ​d​a​r​s​t​e​l​l​t​.
+						 */
+						description: string
+						/**
+						 * °​C
+						 */
+						unitOnly: string
+					}
+					utci_category: {
+						/**
+						 * U​T​C​I​-​K​a​t​e​g​o​r​i​e
+						 */
+						label: string
+						/**
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​U​T​C​I​-​K​a​t​e​g​o​r​i​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​K​l​a​s​s​i​f​i​z​i​e​r​u​n​g​ ​d​e​s​ ​u​n​i​v​e​r​s​e​l​l​e​n​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​l​i​m​a​i​n​d​e​x​e​s​ ​i​n​ ​B​e​z​u​g​ ​a​u​f​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​.
+						 */
+						description: string
+						unitOnly: string
+					}
 					absolute_humidity_max: {
 						/**
 						 * M​a​x​i​m​a​l​e​ ​a​b​s​o​l​u​t​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t
@@ -891,59 +944,6 @@ type RootTranslation = {
 						description: string
 						/**
 						 * W​/​m​²
-						 */
-						unitOnly: string
-					}
-					utci_category: {
-						/**
-						 * U​T​C​I​-​K​a​t​e​g​o​r​i​e
-						 */
-						label: string
-						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​U​T​C​I​-​K​a​t​e​g​o​r​i​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​K​l​a​s​s​i​f​i​z​i​e​r​u​n​g​ ​d​e​s​ ​u​n​i​v​e​r​s​e​l​l​e​n​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​i​n​ ​B​e​z​u​g​ ​a​u​f​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​.
-						 */
-						description: string
-						unitOnly: string
-					}
-					utci_max: {
-						/**
-						 * M​a​x​i​m​a​l​e​r​ ​U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)
-						 */
-						label: string
-						/**
-						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​U​n​i​v​e​r​s​e​l​l​e​ ​T​h​e​r​m​i​s​c​h​e​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​U​T​C​I​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
-						 */
-						description: string
-						/**
-						 * °​C
-						 */
-						unitOnly: string
-					}
-					utci_min: {
-						/**
-						 * M​i​n​i​m​a​l​e​r​ ​U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)
-						 */
-						label: string
-						/**
-						 * D​e​r​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​U​n​i​v​e​r​s​e​l​l​e​ ​T​h​e​r​m​i​s​c​h​e​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​U​T​C​I​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
-						 */
-						description: string
-						/**
-						 * °​C
-						 */
-						unitOnly: string
-					}
-					utci: {
-						/**
-						 * U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)
-						 */
-						label: string
-						/**
-						 * D​e​r​ ​<​s​t​r​o​n​g​>​U​n​i​v​e​r​s​e​l​l​e​ ​T​h​e​r​m​i​s​c​h​e​ ​K​o​m​f​o​r​t​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​e​i​n​e​n​ ​I​n​d​e​x​,​ ​d​e​r​ ​d​i​e​ ​t​h​e​r​m​i​s​c​h​e​n​ ​B​e​d​i​n​g​u​n​g​e​n​ ​f​ü​r​ ​e​i​n​e​ ​S​t​a​n​d​a​r​d​p​e​r​s​o​n​ ​i​n​ ​e​i​n​e​r​ ​s​t​a​n​d​a​r​d​i​s​i​e​r​t​e​n​ ​U​m​g​e​b​u​n​g​ ​d​a​r​s​t​e​l​l​t​.
-						 */
-						description: string
-						/**
-						 * °​C
 						 */
 						unitOnly: string
 					}
@@ -1880,6 +1880,59 @@ export type TranslationFunctions = {
 				 */
 				stationsHeaderLabel: () => LocalizedString
 				units: {
+					utci_max: {
+						/**
+						 * Maximaler Universeller Thermischer Klimaindex (UTCI)
+						 */
+						label: () => LocalizedString
+						/**
+						 * Der <strong>Maximale Universelle Thermische Klimaindex (UTCI)</strong> beschreibt die höchste gemessene UTCI in einem bestimmten Zeitraum.
+						 */
+						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
+					}
+					utci_min: {
+						/**
+						 * Minimaler Universeller Thermischer Klimaindex (UTCI)
+						 */
+						label: () => LocalizedString
+						/**
+						 * Der <strong>Minimale Universelle Thermische Klimaindex (UTCI)</strong> beschreibt die niedrigste gemessene UTCI in einem bestimmten Zeitraum.
+						 */
+						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
+					}
+					utci: {
+						/**
+						 * Universeller Thermischer Klimaindex (UTCI)
+						 */
+						label: () => LocalizedString
+						/**
+						 * Der <strong>Universelle Thermische Klimaindex (UTCI)</strong> beschreibt einen Index, der die thermischen Bedingungen für eine Standardperson in einer standardisierten Umgebung darstellt.
+						 */
+						description: () => LocalizedString
+						/**
+						 * °C
+						 */
+						unitOnly: () => LocalizedString
+					}
+					utci_category: {
+						/**
+						 * UTCI-Kategorie
+						 */
+						label: () => LocalizedString
+						/**
+						 * Die <strong>UTCI-Kategorie</strong> beschreibt die Klassifizierung des universellen thermischen Klimaindexes in Bezug auf thermischen Komfort.
+						 */
+						description: () => LocalizedString
+						unitOnly: () => LocalizedString
+					}
 					absolute_humidity_max: {
 						/**
 						 * Maximale absolute Luftfeuchtigkeit
@@ -2467,59 +2520,6 @@ export type TranslationFunctions = {
 						description: () => LocalizedString
 						/**
 						 * W/m²
-						 */
-						unitOnly: () => LocalizedString
-					}
-					utci_category: {
-						/**
-						 * UTCI-Kategorie
-						 */
-						label: () => LocalizedString
-						/**
-						 * Die <strong>UTCI-Kategorie</strong> beschreibt die Klassifizierung des universellen thermischen Komfortindex in Bezug auf thermischen Komfort.
-						 */
-						description: () => LocalizedString
-						unitOnly: () => LocalizedString
-					}
-					utci_max: {
-						/**
-						 * Maximaler Universeller Thermischer Komfortindex (UTCI)
-						 */
-						label: () => LocalizedString
-						/**
-						 * Der <strong>Maximale Universelle Thermische Komfortindex (UTCI)</strong> beschreibt die höchste gemessene UTCI in einem bestimmten Zeitraum.
-						 */
-						description: () => LocalizedString
-						/**
-						 * °C
-						 */
-						unitOnly: () => LocalizedString
-					}
-					utci_min: {
-						/**
-						 * Minimaler Universeller Thermischer Komfortindex (UTCI)
-						 */
-						label: () => LocalizedString
-						/**
-						 * Der <strong>Minimale Universelle Thermische Komfortindex (UTCI)</strong> beschreibt die niedrigste gemessene UTCI in einem bestimmten Zeitraum.
-						 */
-						description: () => LocalizedString
-						/**
-						 * °C
-						 */
-						unitOnly: () => LocalizedString
-					}
-					utci: {
-						/**
-						 * Universeller Thermischer Komfortindex (UTCI)
-						 */
-						label: () => LocalizedString
-						/**
-						 * Der <strong>Universelle Thermische Komfortindex (UTCI)</strong> beschreibt einen Index, der die thermischen Bedingungen für eine Standardperson in einer standardisierten Umgebung darstellt.
-						 */
-						description: () => LocalizedString
-						/**
-						 * °C
 						 */
 						unitOnly: () => LocalizedString
 					}

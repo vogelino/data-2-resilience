@@ -10,7 +10,7 @@
 	import { Button } from './ui/button';
 
 	const heatStressUnit = queryParam('heatStress', ssp.string('utci'));
-	const unit = queryParam('unit', ssp.string('air_temperature'));
+	const unit = queryParam('unit', ssp.string('utci'));
 
 	let open = false;
 

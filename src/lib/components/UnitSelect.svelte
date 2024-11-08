@@ -19,7 +19,7 @@
 
 	let open = false;
 
-	let unit = queryParam('unit', ssp.string('air_temperature'));
+	let unit = queryParam('unit', ssp.string('utci'));
 	$: selectedValue = units.find((f) => f.value === $unit);
 	$: selectedValueLabel = selectedValue?.label ?? $LL.pages.measurements.unitSelect.placeholder();
 	$: selectedValueDescription = selectedValue?.value

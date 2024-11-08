@@ -110,6 +110,30 @@ const en = {
 				xOutOfY: '{part} of {total} stations',
 				stationsHeaderLabel: `Station name`,
 				units: {
+					utci_max: {
+						label: 'Maximum Universal Thermic Climate Index (UTCI)',
+						description:
+							'The <strong>Maximum Universal Thermic Climate Index (UTCI)</strong> describes the highest recorded UTCI during a specific time period.',
+						unitOnly: '°C'
+					},
+					utci_min: {
+						label: 'Minimum Universal Thermic Climate Index (UTCI)',
+						description:
+							'The <strong>Minimum Universal Thermic Climate Index (UTCI)</strong> describes the lowest recorded UTCI during a specific time period.',
+						unitOnly: '°C'
+					},
+					utci: {
+						label: 'Universal Thermic Climate Index (UTCI)',
+						description:
+							'The <strong>Universal Thermic Climate Index (UTCI)</strong> describes a measure of human heat stress that combines air temperature, humidity, wind speed, and radiation.',
+						unitOnly: '°C'
+					},
+					utci_category: {
+						label: 'UTCI category',
+						description:
+							'The <strong>UTCI category</strong> describes the classification of the universal heat stress index in terms of heat stress.',
+						unitOnly: ''
+					},
 					absolute_humidity_max: {
 						label: 'Maximum absolute humidity',
 						description:
@@ -368,30 +392,7 @@ const en = {
 							'The <strong>Solar radiation</strong> describes the amount of energy received from the sun per unit area, measured in watts per square meter.',
 						unitOnly: 'W/m²'
 					},
-					utci_category: {
-						label: 'UTCI category',
-						description:
-							'The <strong>UTCI category</strong> describes the classification of the universal heat stress index in terms of heat stress.',
-						unitOnly: ''
-					},
-					utci_max: {
-						label: 'Maximum Universal Thermic Comfort Index (UTCI)',
-						description:
-							'The <strong>Maximum Universal Thermic Comfort Index (UTCI)</strong> describes the highest recorded UTCI during a specific time period.',
-						unitOnly: '°C'
-					},
-					utci_min: {
-						label: 'Minimum Universal Thermic Comfort Index (UTCI)',
-						description:
-							'The <strong>Minimum Universal Thermic Comfort Index (UTCI)</strong> describes the lowest recorded UTCI during a specific time period.',
-						unitOnly: '°C'
-					},
-					utci: {
-						label: 'Universal Thermic Comfort Index (UTCI)',
-						description:
-							'The <strong>Universal Thermic Comfort Index (UTCI)</strong> describes a measure of human heat stress that combines air temperature, humidity, wind speed, and radiation.',
-						unitOnly: '°C'
-					},
+
 					vapor_pressure_max: {
 						label: 'Maximum vapor pressure',
 						description:
@@ -520,7 +521,7 @@ const en = {
 	},
 	indicators: {
 		utci: {
-			title: 'Universal Thermic Comfort Index (UTCI)',
+			title: 'Universal Thermic Climate Index (UTCI)',
 			description:
 				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.',
 			types: {

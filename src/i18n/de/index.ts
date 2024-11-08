@@ -112,6 +112,30 @@ const de = {
 				xOutOfY: '{part} von {total}',
 				stationsHeaderLabel: `Stationnamen`,
 				units: {
+					utci_max: {
+						label: 'Maximaler Universeller Thermischer Klimaindex (UTCI)',
+						description:
+							'Der <strong>Maximale Universelle Thermische Klimaindex (UTCI)</strong> beschreibt die höchste gemessene UTCI in einem bestimmten Zeitraum.',
+						unitOnly: '°C'
+					},
+					utci_min: {
+						label: 'Minimaler Universeller Thermischer Klimaindex (UTCI)',
+						description:
+							'Der <strong>Minimale Universelle Thermische Klimaindex (UTCI)</strong> beschreibt die niedrigste gemessene UTCI in einem bestimmten Zeitraum.',
+						unitOnly: '°C'
+					},
+					utci: {
+						label: 'Universeller Thermischer Klimaindex (UTCI)',
+						description:
+							'Der <strong>Universelle Thermische Klimaindex (UTCI)</strong> beschreibt einen Index, der die thermischen Bedingungen für eine Standardperson in einer standardisierten Umgebung darstellt.',
+						unitOnly: '°C'
+					},
+					utci_category: {
+						label: 'UTCI-Kategorie',
+						description:
+							'Die <strong>UTCI-Kategorie</strong> beschreibt die Klassifizierung des universellen thermischen Klimaindexes in Bezug auf thermischen Komfort.',
+						unitOnly: ''
+					},
 					absolute_humidity_max: {
 						label: 'Maximale absolute Luftfeuchtigkeit',
 						description:
@@ -370,30 +394,7 @@ const de = {
 							'Die <strong>Solarstrahlung</strong> beschreibt die Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.',
 						unitOnly: 'W/m²'
 					},
-					utci_category: {
-						label: 'UTCI-Kategorie',
-						description:
-							'Die <strong>UTCI-Kategorie</strong> beschreibt die Klassifizierung des universellen thermischen Komfortindex in Bezug auf thermischen Komfort.',
-						unitOnly: ''
-					},
-					utci_max: {
-						label: 'Maximaler Universeller Thermischer Komfortindex (UTCI)',
-						description:
-							'Der <strong>Maximale Universelle Thermische Komfortindex (UTCI)</strong> beschreibt die höchste gemessene UTCI in einem bestimmten Zeitraum.',
-						unitOnly: '°C'
-					},
-					utci_min: {
-						label: 'Minimaler Universeller Thermischer Komfortindex (UTCI)',
-						description:
-							'Der <strong>Minimale Universelle Thermische Komfortindex (UTCI)</strong> beschreibt die niedrigste gemessene UTCI in einem bestimmten Zeitraum.',
-						unitOnly: '°C'
-					},
-					utci: {
-						label: 'Universeller Thermischer Komfortindex (UTCI)',
-						description:
-							'Der <strong>Universelle Thermische Komfortindex (UTCI)</strong> beschreibt einen Index, der die thermischen Bedingungen für eine Standardperson in einer standardisierten Umgebung darstellt.',
-						unitOnly: '°C'
-					},
+
 					vapor_pressure_max: {
 						label: 'Maximaler Dampfdruck',
 						description:

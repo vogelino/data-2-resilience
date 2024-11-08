@@ -14,7 +14,7 @@
 	export let stations: StationsGeoJSONType;
 	export let map: maplibregl.Map;
 
-	const unit = queryParam('unit', ssp.string('air_temperature'));
+	const unit = queryParam('unit', ssp.string('utci'));
 	const selectedStations = useStations();
 	$: query = useSationsSnapshotData({
 		date: startOfHour(today()),

@@ -50,7 +50,7 @@
 	const options = { debounceHistory: 500 };
 	const rangeStart = queryParam('range_start', ssp.number(-10), options);
 	const rangeEnd = queryParam('range_end', ssp.number(0), options);
-	const unit = queryParam('unit', ssp.string('air_temperature'));
+	const unit = queryParam('unit', ssp.string('utci'));
 	const selectedStations = useStations();
 
 	const updateStartDate = debounce((d: number) => {

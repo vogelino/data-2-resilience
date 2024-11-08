@@ -7,6 +7,7 @@
 	import { RangeSlider } from 'svelte-range-slider-pips';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import HourInput from './HourInput.svelte';
+	import InfoTooltip from './InfoTooltip.svelte';
 	import Button from './ui/button/button.svelte';
 
 	const dateRangeStart = -30;
@@ -116,6 +117,12 @@
 		>
 			{$LL.pages.measurements.dateRangeSlider.range()}
 		</Button>
+		<span class="flex aspect-square items-center justify-center pl-2">
+			<InfoTooltip
+				title={$LL.pages.measurements.dateRangeSlider.infoTitle()}
+				description={$LL.pages.measurements.dateRangeSlider.infoDescription()}
+			/>
+		</span>
 	</div>
 </div>
 

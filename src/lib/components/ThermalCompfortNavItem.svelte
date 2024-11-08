@@ -16,9 +16,8 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
-	import { Info } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
-	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+	import InfoTooltip from './InfoTooltip.svelte';
 
 	export let indicator: IndicatorType;
 
@@ -46,20 +45,7 @@
 		<div class="relative flex w-full items-center justify-between gap-4 pr-8 font-semibold">
 			<div class="inline-flex items-center gap-1.5">
 				{indicator.title}
-				<Tooltip openDelay={100}>
-					<TooltipTrigger
-						class={cn(
-							'focusable hover-hover:hover:bg-foreground hover-hover:hover:text-background',
-							'rounded-full p-1 transition'
-						)}
-					>
-						<Info class="size-4"></Info>
-					</TooltipTrigger>
-					<TooltipContent class="flex w-96 max-w-full flex-col gap-1 px-4 pb-4 pt-3 leading-tight">
-						<strong class="block text-base font-semibold leading-5">{indicator.title}</strong>
-						<p class="text-sm leading-4 text-muted-foreground">{indicator.description}</p>
-					</TooltipContent>
-				</Tooltip>
+				<InfoTooltip title={indicator.title} description={indicator.description} />
 			</div>
 			<span
 				class={cn(

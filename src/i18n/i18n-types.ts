@@ -1134,6 +1134,14 @@ type RootTranslation = {
 				 * Z​e​i​t​s​p​a​n​n​e
 				 */
 				range: string
+				/**
+				 * W​i​e​ ​f​u​n​k​t​i​o​n​i​e​r​t​ ​d​i​e​ ​Z​e​i​t​s​p​a​n​n​e​?
+				 */
+				infoTitle: string
+				/**
+				 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
+				 */
+				infoDescription: string
 			}
 		}
 		stations: {
@@ -2702,6 +2710,14 @@ export type TranslationFunctions = {
 				 * Zeitspanne
 				 */
 				range: () => LocalizedString
+				/**
+				 * Wie funktioniert die Zeitspanne?
+				 */
+				infoTitle: () => LocalizedString
+				/**
+				 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+				 */
+				infoDescription: () => LocalizedString
 			}
 		}
 		stations: {

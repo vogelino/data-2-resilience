@@ -6,7 +6,7 @@ import Title from './alert-title.svelte';
 import Root from './alert.svelte';
 
 export const alertVariants = tv({
-	base: cn('flex gap-3', 'relative w-full rounded-lg border p-4'),
+	base: cn('flex gap-3 justify-between', 'relative w-full rounded-lg border p-4'),
 
 	variants: {
 		variant: {

@@ -562,7 +562,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​g​r​ö​ß​t​e​ ​m​i​t​t​l​e​r​e​ ​E​n​t​f​e​r​n​u​n​g​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​z​u​ ​e​i​n​e​m​ ​B​e​z​u​g​s​p​u​n​k​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​g​r​ö​ß​t​e​ ​m​i​t​t​l​e​r​e​ ​E​n​t​f​e​r​n​u​n​g​ ​v​o​n​ ​B​l​i​t​z​e​ ​z​u​ ​e​i​n​e​m​ ​B​e​z​u​g​s​p​u​n​k​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​.
 						 */
 						description: string
 						/**
@@ -576,7 +576,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​k​l​e​i​n​s​t​e​ ​m​i​t​t​l​e​r​e​ ​E​n​t​f​e​r​n​u​n​g​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​z​u​ ​e​i​n​e​m​ ​B​e​z​u​g​s​p​u​n​k​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​k​l​e​i​n​s​t​e​ ​m​i​t​t​l​e​r​e​ ​E​n​t​f​e​r​n​u​n​g​ ​v​o​n​ ​B​l​i​t​z​e​ ​z​u​ ​e​i​n​e​m​ ​B​e​z​u​g​s​p​u​n​k​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​.
 						 */
 						description: string
 						/**
@@ -590,7 +590,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​D​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​m​i​t​t​l​e​r​e​ ​E​n​t​f​e​r​n​u​n​g​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​z​u​ ​e​i​n​e​m​ ​B​e​z​u​g​s​p​u​n​k​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​D​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​m​i​t​t​l​e​r​e​ ​E​n​t​f​e​r​n​u​n​g​ ​v​o​n​ ​B​l​i​t​z​e​ ​z​u​ ​e​i​n​e​m​ ​B​e​z​u​g​s​p​u​n​k​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​.
 						 */
 						description: string
 						/**
@@ -600,33 +600,33 @@ type RootTranslation = {
 					}
 					lightning_strike_count_max: {
 						/**
-						 * M​a​x​i​m​a​l​e​ ​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e
+						 * M​a​x​i​m​a​l​e​ ​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​H​ä​u​f​i​g​k​e​i​t​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​G​e​b​i​e​t​ ​u​n​d​ ​Z​e​i​t​r​a​u​m​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​H​ä​u​f​i​g​k​e​i​t​ ​v​o​n​ ​B​l​i​t​z​e​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​G​e​b​i​e​t​ ​u​n​d​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
 						unitOnly: string
 					}
 					lightning_strike_count_min: {
 						/**
-						 * M​i​n​i​m​a​l​e​ ​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e
+						 * M​i​n​i​m​a​l​e​ ​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​H​ä​u​f​i​g​k​e​i​t​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​G​e​b​i​e​t​ ​u​n​d​ ​Z​e​i​t​r​a​u​m​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​H​ä​u​f​i​g​k​e​i​t​ ​v​o​n​ ​B​l​i​t​z​e​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​G​e​b​i​e​t​ ​u​n​d​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
 						unitOnly: string
 					}
 					lightning_strike_count: {
 						/**
-						 * A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e
+						 * A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​H​ä​u​f​i​g​k​e​i​t​ ​v​o​n​ ​B​l​i​t​z​e​i​n​s​c​h​l​ä​g​e​n​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​G​e​b​i​e​t​ ​u​n​d​ ​Z​e​i​t​r​a​u​m​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​H​ä​u​f​i​g​k​e​i​t​ ​v​o​n​ ​B​l​i​t​z​e​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​G​e​b​i​e​t​ ​u​n​d​ ​Z​e​i​t​r​a​u​m​.
 						 */
 						description: string
 						unitOnly: string
@@ -991,11 +991,11 @@ type RootTranslation = {
 					}
 					wet_bulb_temperature_max: {
 						/**
-						 * M​a​x​i​m​a​l​e​ ​F​e​u​c​h​t​k​u​g​e​l​t​e​m​p​e​r​a​t​u​r
+						 * M​a​x​i​m​a​l​e​ ​K​ü​h​l​g​r​e​n​z​t​e​m​p​e​r​a​t​u​r
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​F​e​u​c​h​t​k​u​g​e​l​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​d​i​e​ ​e​i​n​ ​T​h​e​r​m​o​m​e​t​e​r​ ​a​n​z​e​i​g​e​n​ ​w​ü​r​d​e​,​ ​w​e​n​n​ ​e​s​ ​m​i​t​ ​e​i​n​e​m​ ​f​e​u​c​h​t​e​n​ ​T​u​c​h​ ​u​m​w​i​c​k​e​l​t​ ​u​n​d​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​g​e​s​e​t​z​t​ ​i​s​t​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​K​ü​h​l​g​r​e​n​z​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​d​i​e​ ​e​i​n​ ​T​h​e​r​m​o​m​e​t​e​r​ ​a​n​z​e​i​g​e​n​ ​w​ü​r​d​e​,​ ​w​e​n​n​ ​e​s​ ​m​i​t​ ​e​i​n​e​m​ ​f​e​u​c​h​t​e​n​ ​T​u​c​h​ ​u​m​w​i​c​k​e​l​t​ ​u​n​d​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​g​e​s​e​t​z​t​ ​i​s​t​.
 						 */
 						description: string
 						/**
@@ -1005,11 +1005,11 @@ type RootTranslation = {
 					}
 					wet_bulb_temperature_min: {
 						/**
-						 * M​i​n​i​m​a​l​e​ ​F​e​u​c​h​t​k​u​g​e​l​t​e​m​p​e​r​a​t​u​r
+						 * M​i​n​i​m​a​l​e​ ​K​ü​h​l​g​r​e​n​z​t​e​m​p​e​r​a​t​u​r
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​F​e​u​c​h​t​k​u​g​e​l​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​d​i​e​ ​e​i​n​ ​T​h​e​r​m​o​m​e​t​e​r​ ​a​n​z​e​i​g​e​n​ ​w​ü​r​d​e​,​ ​w​e​n​n​ ​e​s​ ​m​i​t​ ​e​i​n​e​m​ ​f​e​u​c​h​t​e​n​ ​T​u​c​h​ ​u​m​w​i​c​k​e​l​t​ ​u​n​d​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​g​e​s​e​t​z​t​ ​i​s​t​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​n​i​m​a​l​e​ ​K​ü​h​l​g​r​e​n​z​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​d​i​e​ ​e​i​n​ ​T​h​e​r​m​o​m​e​t​e​r​ ​a​n​z​e​i​g​e​n​ ​w​ü​r​d​e​,​ ​w​e​n​n​ ​e​s​ ​m​i​t​ ​e​i​n​e​m​ ​f​e​u​c​h​t​e​n​ ​T​u​c​h​ ​u​m​w​i​c​k​e​l​t​ ​u​n​d​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​g​e​s​e​t​z​t​ ​i​s​t​.
 						 */
 						description: string
 						/**
@@ -1019,11 +1019,11 @@ type RootTranslation = {
 					}
 					wet_bulb_temperature: {
 						/**
-						 * F​e​u​c​h​t​k​u​g​e​l​t​e​m​p​e​r​a​t​u​r
+						 * K​ü​h​l​g​r​e​n​z​t​e​m​p​e​r​a​t​u​r
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​F​e​u​c​h​t​k​u​g​e​l​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​d​i​e​ ​e​i​n​ ​T​h​e​r​m​o​m​e​t​e​r​ ​a​n​z​e​i​g​e​n​ ​w​ü​r​d​e​,​ ​w​e​n​n​ ​e​s​ ​m​i​t​ ​e​i​n​e​m​ ​f​e​u​c​h​t​e​n​ ​T​u​c​h​ ​u​m​w​i​c​k​e​l​t​ ​u​n​d​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​g​e​s​e​t​z​t​ ​i​s​t​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​K​ü​h​l​g​r​e​n​z​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​d​i​e​ ​e​i​n​ ​T​h​e​r​m​o​m​e​t​e​r​ ​a​n​z​e​i​g​e​n​ ​w​ü​r​d​e​,​ ​w​e​n​n​ ​e​s​ ​m​i​t​ ​e​i​n​e​m​ ​f​e​u​c​h​t​e​n​ ​T​u​c​h​ ​u​m​w​i​c​k​e​l​t​ ​u​n​d​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​g​e​s​e​t​z​t​ ​i​s​t​.
 						 */
 						description: string
 						/**
@@ -2138,7 +2138,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Maximale durchschnittliche Blitzentfernung</strong> beschreibt die größte mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.
+						 * Die <strong>Maximale durchschnittliche Blitzentfernung</strong> beschreibt die größte mittlere Entfernung von Blitze zu einem Bezugspunkt, gemessen in Metern.
 						 */
 						description: () => LocalizedString
 						/**
@@ -2152,7 +2152,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Minimale durchschnittliche Blitzentfernung</strong> beschreibt die kleinste mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.
+						 * Die <strong>Minimale durchschnittliche Blitzentfernung</strong> beschreibt die kleinste mittlere Entfernung von Blitze zu einem Bezugspunkt, gemessen in Metern.
 						 */
 						description: () => LocalizedString
 						/**
@@ -2166,7 +2166,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Durchschnittliche Blitzentfernung</strong> beschreibt die mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.
+						 * Die <strong>Durchschnittliche Blitzentfernung</strong> beschreibt die mittlere Entfernung von Blitze zu einem Bezugspunkt, gemessen in Metern.
 						 */
 						description: () => LocalizedString
 						/**
@@ -2176,33 +2176,33 @@ export type TranslationFunctions = {
 					}
 					lightning_strike_count_max: {
 						/**
-						 * Maximale Anzahl der Blitzeinschläge
+						 * Maximale Anzahl der Blitze
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Maximale Anzahl der Blitzeinschläge</strong> beschreibt die höchste Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.
+						 * Die <strong>Maximale Anzahl der Blitze</strong> beschreibt die höchste Häufigkeit von Blitze in einem bestimmten Gebiet und Zeitraum.
 						 */
 						description: () => LocalizedString
 						unitOnly: () => LocalizedString
 					}
 					lightning_strike_count_min: {
 						/**
-						 * Minimale Anzahl der Blitzeinschläge
+						 * Minimale Anzahl der Blitze
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Minimale Anzahl der Blitzeinschläge</strong> beschreibt die niedrigste Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.
+						 * Die <strong>Minimale Anzahl der Blitze</strong> beschreibt die niedrigste Häufigkeit von Blitze in einem bestimmten Gebiet und Zeitraum.
 						 */
 						description: () => LocalizedString
 						unitOnly: () => LocalizedString
 					}
 					lightning_strike_count: {
 						/**
-						 * Anzahl der Blitzeinschläge
+						 * Anzahl der Blitze
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Anzahl der Blitzeinschläge</strong> beschreibt die Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.
+						 * Die <strong>Anzahl der Blitze</strong> beschreibt die Häufigkeit von Blitze in einem bestimmten Gebiet und Zeitraum.
 						 */
 						description: () => LocalizedString
 						unitOnly: () => LocalizedString
@@ -2567,11 +2567,11 @@ export type TranslationFunctions = {
 					}
 					wet_bulb_temperature_max: {
 						/**
-						 * Maximale Feuchtkugeltemperatur
+						 * Maximale Kühlgrenztemperatur
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Maximale Feuchtkugeltemperatur</strong> beschreibt die höchste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.
+						 * Die <strong>Maximale Kühlgrenztemperatur</strong> beschreibt die höchste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.
 						 */
 						description: () => LocalizedString
 						/**
@@ -2581,11 +2581,11 @@ export type TranslationFunctions = {
 					}
 					wet_bulb_temperature_min: {
 						/**
-						 * Minimale Feuchtkugeltemperatur
+						 * Minimale Kühlgrenztemperatur
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Minimale Feuchtkugeltemperatur</strong> beschreibt die niedrigste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.
+						 * Die <strong>Minimale Kühlgrenztemperatur</strong> beschreibt die niedrigste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.
 						 */
 						description: () => LocalizedString
 						/**
@@ -2595,11 +2595,11 @@ export type TranslationFunctions = {
 					}
 					wet_bulb_temperature: {
 						/**
-						 * Feuchtkugeltemperatur
+						 * Kühlgrenztemperatur
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Feuchtkugeltemperatur</strong> beschreibt die Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.
+						 * Die <strong>Kühlgrenztemperatur</strong> beschreibt die Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.
 						 */
 						description: () => LocalizedString
 						/**

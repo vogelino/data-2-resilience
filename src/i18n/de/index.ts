@@ -223,37 +223,37 @@ const de = {
 					lightning_average_distance_max: {
 						label: 'Maximale durchschnittliche Blitzentfernung',
 						description:
-							'Die <strong>Maximale durchschnittliche Blitzentfernung</strong> beschreibt die größte mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.',
+							'Die <strong>Maximale durchschnittliche Blitzentfernung</strong> beschreibt die größte mittlere Entfernung von Blitze zu einem Bezugspunkt, gemessen in Metern.',
 						unitOnly: 'm'
 					},
 					lightning_average_distance_min: {
 						label: 'Minimale durchschnittliche Blitzentfernung',
 						description:
-							'Die <strong>Minimale durchschnittliche Blitzentfernung</strong> beschreibt die kleinste mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.',
+							'Die <strong>Minimale durchschnittliche Blitzentfernung</strong> beschreibt die kleinste mittlere Entfernung von Blitze zu einem Bezugspunkt, gemessen in Metern.',
 						unitOnly: 'm'
 					},
 					lightning_average_distance: {
 						label: 'Durchschnittliche Blitzentfernung',
 						description:
-							'Die <strong>Durchschnittliche Blitzentfernung</strong> beschreibt die mittlere Entfernung von Blitzeinschlägen zu einem Bezugspunkt, gemessen in Metern.',
+							'Die <strong>Durchschnittliche Blitzentfernung</strong> beschreibt die mittlere Entfernung von Blitze zu einem Bezugspunkt, gemessen in Metern.',
 						unitOnly: 'm'
 					},
 					lightning_strike_count_max: {
-						label: 'Maximale Anzahl der Blitzeinschläge',
+						label: 'Maximale Anzahl der Blitze',
 						description:
-							'Die <strong>Maximale Anzahl der Blitzeinschläge</strong> beschreibt die höchste Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.',
+							'Die <strong>Maximale Anzahl der Blitze</strong> beschreibt die höchste Häufigkeit von Blitze in einem bestimmten Gebiet und Zeitraum.',
 						unitOnly: ''
 					},
 					lightning_strike_count_min: {
-						label: 'Minimale Anzahl der Blitzeinschläge',
+						label: 'Minimale Anzahl der Blitze',
 						description:
-							'Die <strong>Minimale Anzahl der Blitzeinschläge</strong> beschreibt die niedrigste Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.',
+							'Die <strong>Minimale Anzahl der Blitze</strong> beschreibt die niedrigste Häufigkeit von Blitze in einem bestimmten Gebiet und Zeitraum.',
 						unitOnly: ''
 					},
 					lightning_strike_count: {
-						label: 'Anzahl der Blitzeinschläge',
+						label: 'Anzahl der Blitze',
 						description:
-							'Die <strong>Anzahl der Blitzeinschläge</strong> beschreibt die Häufigkeit von Blitzeinschlägen in einem bestimmten Gebiet und Zeitraum.',
+							'Die <strong>Anzahl der Blitze</strong> beschreibt die Häufigkeit von Blitze in einem bestimmten Gebiet und Zeitraum.',
 						unitOnly: ''
 					},
 					maximum_wind_speed_max: {
@@ -413,21 +413,21 @@ const de = {
 						unitOnly: 'hPa'
 					},
 					wet_bulb_temperature_max: {
-						label: 'Maximale Feuchtkugeltemperatur',
+						label: 'Maximale Kühlgrenztemperatur',
 						description:
-							'Die <strong>Maximale Feuchtkugeltemperatur</strong> beschreibt die höchste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.',
+							'Die <strong>Maximale Kühlgrenztemperatur</strong> beschreibt die höchste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.',
 						unitOnly: '°C'
 					},
 					wet_bulb_temperature_min: {
-						label: 'Minimale Feuchtkugeltemperatur',
+						label: 'Minimale Kühlgrenztemperatur',
 						description:
-							'Die <strong>Minimale Feuchtkugeltemperatur</strong> beschreibt die niedrigste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.',
+							'Die <strong>Minimale Kühlgrenztemperatur</strong> beschreibt die niedrigste Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.',
 						unitOnly: '°C'
 					},
 					wet_bulb_temperature: {
-						label: 'Feuchtkugeltemperatur',
+						label: 'Kühlgrenztemperatur',
 						description:
-							'Die <strong>Feuchtkugeltemperatur</strong> beschreibt die Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.',
+							'Die <strong>Kühlgrenztemperatur</strong> beschreibt die Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.',
 						unitOnly: '°C'
 					},
 					wind_direction_max: {

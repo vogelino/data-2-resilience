@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LL from '$i18n/i18n-svelte';
+	import { LL, locale } from '$i18n/i18n-svelte';
 	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
 	import ThermalCompfortNavItem from 'components/ThermalCompfortNavItem.svelte';
 	import Alert from 'components/ui/alert/alert.svelte';
@@ -43,12 +43,12 @@
 
 <Alert class="mt-4 rounded-3xl bg-muted px-4 pb-2 pt-1.5 text-center text-sm font-semibold">
 	{$LL.pages.heatStress.timeRangeAlert({
-		startDate: new Date('2024-07-01').toLocaleDateString('en-GB', {
+		startDate: new Date('2024-07-01').toLocaleDateString($locale, {
 			day: '2-digit',
 			month: 'long',
 			year: undefined
 		}),
-		endDate: new Date('2024-07-31').toLocaleDateString('en-GB', {
+		endDate: new Date('2024-07-31').toLocaleDateString($locale, {
 			day: '2-digit',
 			month: 'long',
 			year: 'numeric'

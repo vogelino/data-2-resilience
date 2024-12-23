@@ -2,6 +2,9 @@
 	import { LL } from '$i18n/i18n-svelte';
 	import { isLeftSidebarOpened, toggleLeftSidebar } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { SidebarClose, SidebarOpen } from 'lucide-svelte';
+	import Button from './ui/button/button.svelte';
+	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
 </script>
 
 <div
@@ -34,28 +37,38 @@
 			>
 				<slot name="left-sidebar" />
 			</div>
-			<button
-				type="button"
-				class={cn(
-					'group absolute right-0 top-[50vh] z-50 translate-x-full',
-					' py-8 pr-6 transition-opacity focus-visible:outline-none'
-				)}
-				on:click={toggleLeftSidebar}
-				aria-label={$isLeftSidebarOpened
-					? $LL.generic.leftSidebar.hideAriaLabel()
-					: $LL.generic.leftSidebar.showAriaLabel()}
-			>
-				<span
-					class={cn(
-						'rounded-r-sm border border-l-0 border-border bg-background py-3 pl-1 pr-1.5',
-						'group-focus-visible:ring-2 group-focus-visible:ring-background',
-						'group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-primary',
-						'transition group-hover:bg-muted'
-					)}
-				>
-					{$isLeftSidebarOpened ? '←' : '→'}
-				</span>
-			</button>
+			<div class={cn('absolute right-0 top-0 z-50 -translate-y-px translate-x-full')}>
+				<div class={cn('group relative')}>
+					<Button
+						size="icon"
+						variant="outline"
+						class={cn(' rounded-none rounded-br-sm', 'size-12')}
+						on:click={toggleLeftSidebar}
+						aria-label={$isLeftSidebarOpened
+							? $LL.generic.leftSidebar.hideAriaLabel()
+							: $LL.generic.leftSidebar.showAriaLabel()}
+					>
+						{#if $isLeftSidebarOpened}
+							<SidebarClose />
+						{:else}
+							<SidebarOpen />
+						{/if}
+					</Button>
+					<div
+						aria-hidden="true"
+						class={cn(
+							'absolute left-full top-1/2 w-fit max-w-56 -translate-y-1/2 translate-x-2',
+							'whitespace-nowrap border border-border bg-background px-3 py-1.5 shadow-lg',
+							'pointer-events-none rounded-sm opacity-0 hover-hover:group-hover:opacity-100',
+							'text-sm transition-opacity'
+						)}
+					>
+						{$isLeftSidebarOpened
+							? $LL.generic.leftSidebar.hideAriaLabel()
+							: $LL.generic.leftSidebar.showAriaLabel()}
+					</div>
+				</div>
+			</div>
 		</div>
 	</aside>
 	<main class="relative z-10 h-[calc(100vh-var(--headerHeight,5rem))] overflow-y-auto">

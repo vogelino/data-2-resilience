@@ -36,24 +36,26 @@
 		variant="ghost"
 		aria-label={$LL.map.zoom.zoomIn()}
 		class={cn(
-			'relative size-10 rounded-b-none bg-background',
-			'focusable focus-visible:z-50 focus-visible:rounded'
+			'relative h-9 w-full rounded-b-none bg-background',
+			'focusable focus-visible:z-50 focus-visible:rounded',
+			'p-0'
 		)}
 		disabled={maxZoomReached}
 		on:click={() => map.zoomIn()}
 	>
-		<Plus class="h-5 w-5" />
+		<Plus class="size-5" />
 	</Button>
 	<Button
 		size="icon"
 		variant="ghost"
 		aria-label={$LL.map.zoom.zoomOut()}
 		class={cn(
-			'relative rounded-t-none bg-background',
-			'focusable focus-visible:z-50 focus-visible:rounded'
+			'relative h-9 w-full rounded-t-none bg-background',
+			'focusable focus-visible:z-50 focus-visible:rounded',
+			'p-0'
 		)}
 		on:click={() => map.zoomOut()}
 	>
-		<Minus class="h-5 w-5" />
+		<Minus class="size-5" />
 	</Button>
 </nav>

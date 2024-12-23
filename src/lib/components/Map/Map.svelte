@@ -37,6 +37,19 @@
 		$mode === 'dark'
 			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
 			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
+
+	function disableMapRotation(map: maplibregl.Map) {
+		// disable map rotation using right click + drag
+		map.dragRotate.disable();
+		// disable map rotation using keyboard
+		map.keyboard.disable();
+		// disable map rotation using touch rotation gesture
+		map.touchZoomRotate.disableRotation();
+	}
+
+	function onMapLoad(e: CustomEvent<maplibregl.Map>) {
+		disableMapRotation(e.detail);
+	}
 </script>
 
 <div class="main-map relative grid h-full w-full items-center justify-center overflow-clip">
@@ -45,6 +58,7 @@
 		center={[mapLon, mapLat]}
 		zoom={mapZoom}
 		dragRotate={false}
+		pitchWithRotate={false}
 		maxPitch={0}
 		maxZoom={15.5}
 		maxBounds={[
@@ -63,6 +77,7 @@
 			if (!e.detail.map.getZoom()) return;
 			zoom.set(e.detail.map.getZoom());
 		}}
+		on:load={onMapLoad}
 	>
 		<MapZoomControl {map} />
 		<MapLayerSelection />

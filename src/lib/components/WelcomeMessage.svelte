@@ -28,7 +28,11 @@
 </script>
 
 <section
-	class={cn('relative flex flex-col gap-2 p-6 transition-all', opened ? 'py-6' : 'pb-0 pt-4')}
+	class={cn(
+		'relative flex flex-col gap-2 p-6 transition-all',
+		'bg-muted',
+		opened ? 'py-6' : 'pb-0 pt-4'
+	)}
 >
 	{#if opened}
 		<h2 class="text-2xl font-semibold">{$LL.welcome.title()}</h2>

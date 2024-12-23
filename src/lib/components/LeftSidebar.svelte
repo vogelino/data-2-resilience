@@ -46,7 +46,10 @@
 
 <WelcomeMessage />
 <nav
-	class="sticky top-0 z-50 border-b border-r border-border bg-background pt-1 shadow-black/10 transition-shadow duration-1000"
+	class={cn(
+		'sticky top-0 z-50 border-b border-border bg-muted',
+		'pt-1 shadow-black/10 transition-shadow duration-1000'
+	)}
 	bind:this={navElement}
 >
 	<ul
@@ -74,7 +77,8 @@
 						tab.isActive && tab.slug === tabs[0].slug && 'border-l-background',
 						!tab.isActive &&
 							cn(
-								'hover-hover:hover:border-border hover-hover:hover:border-b-border hover-hover:hover:bg-muted',
+								'hover-hover:hover:border-border hover-hover:hover:border-b-border',
+								'hover-hover:hover:bg-background',
 								'border-b-2 focus-visible:border-b'
 							)
 					)}>{tab.name}</a
@@ -83,4 +87,4 @@
 		{/each}
 	</ul>
 </nav>
-<section class="p-6"><slot /></section>
+<section class="bg-background p-6"><slot /></section>

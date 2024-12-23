@@ -24,7 +24,11 @@
 			)}
 		>
 			<div
-				class="h-[calc(100vh-var(--headerHeight,5rem))] w-[var(--leftSidebarWidth)] overflow-y-auto overflow-x-clip"
+				class={cn(
+					'h-[calc(100vh-var(--headerHeight,5rem))]',
+					'w-[var(--leftSidebarWidth)] overflow-y-auto overflow-x-clip',
+					'border-r border-border'
+				)}
 				id="left-sidebar-scroll-container"
 				inert={!$isLeftSidebarOpened}
 			>

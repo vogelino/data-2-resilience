@@ -7,7 +7,5 @@
 <ErrorPage
 	status={$page.status}
 	title={$LL.errors.unexpectedError.label()}
-	message={$LL.errors.unexpectedError.description({
-		errorMessage: $page.error?.message || 'N/A'
-	})}
+	message={$LL.errors.unexpectedError.description()}
 />

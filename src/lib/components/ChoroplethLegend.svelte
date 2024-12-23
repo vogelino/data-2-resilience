@@ -69,7 +69,7 @@
 	<div class="flex flex-col gap-0">
 		{#if isOrdinal}
 			<div
-				class="rounded-xs flex h-2 w-full max-w-96 overflow-clip shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
+				class="flex h-4 w-full max-w-96 overflow-clip rounded-sm shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 			>
 				{#each scheme as color}
 					<span class={cn('size-full')} style={`background-color: ${color}`} />
@@ -77,7 +77,7 @@
 			</div>
 		{:else}
 			<div
-				class="rounded-xs h-2 w-full max-w-96 bg-gradient-to-r from-yellow-50 via-yellow-500 to-yellow-950 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
+				class="h-4 w-full max-w-96 rounded-sm bg-gradient-to-r from-yellow-50 via-yellow-500 to-yellow-950 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 				style={`
 					background-image: linear-gradient(
 						to right,

@@ -8,6 +8,13 @@
 	import { loadLocaleAsync } from '$i18n/i18n-util.async';
 	import { cn } from '$lib/utils';
 	import { replaceLocaleInUrl } from '../../utils';
+	import {
+		DropdownMenu,
+		DropdownMenuContent,
+		DropdownMenuItem,
+		DropdownMenuTrigger
+	} from '$lib/components/ui/dropdown-menu';
+	import { Button } from './ui/button';
 
 	const switchLocale = async (newLocale: Locales, updateHistoryState = true) => {
 		if (!newLocale || $locale === newLocale) return;
@@ -43,21 +50,29 @@
 			replaceLocaleInUrl($page.url, lang)
 		);
 	}
+
+	function getLocaleName(l: string) {
+		const localeFullName = new Intl.DisplayNames([l], { type: 'language' });
+		return localeFullName.of(l);
+	}
 </script>
 
 <svelte:window on:popstate={handlePopStateEvent} />
 
-<ul class="flex items-center gap-1" aria-label="Language switcher">
-	{#each locales as l}
-		<li
-			class="flex border-l border-border pl-1 transition first-of-type:border-none first-of-type:pl-0 hover:hover-hover:font-bold"
-		>
-			<a
-				class={cn('focusable rounded px-2 py-1', l === $locale && 'font-bold')}
+<DropdownMenu>
+	<DropdownMenuTrigger class={cn('focusable')}>
+		<Button size="icon" variant="outline">
+			{$locale.toUpperCase()}
+		</Button>
+	</DropdownMenuTrigger>
+	<DropdownMenuContent class="w-fit min-w-0">
+		{#each locales as l}
+			<DropdownMenuItem
 				href={replaceLocaleInUrl($page.url, l)}
+				class={cn(l === $locale && 'font-bold')}
 			>
-				{l}
-			</a>
-		</li>
-	{/each}
-</ul>
+				{getLocaleName(l)}
+			</DropdownMenuItem>
+		{/each}
+	</DropdownMenuContent>
+</DropdownMenu>

@@ -61,8 +61,10 @@
 	class={cn(
 		'flex w-72 flex-col gap-2 bg-background/80 text-sm backdrop-blur-[2px]',
 		'fixed bottom-4 left-4 z-10 overflow-clip rounded border border-border shadow-lg',
-		showLeftSidebar ? 'translate-x-[var(--leftSidebarWidth)]' : 'translate-x-0',
-		'p-4 transition-transform duration-300 ease-in-out',
+		showLeftSidebar
+			? 'opacity-0 sm:translate-x-[var(--leftSidebarWidth)] sm:opacity-100'
+			: 'translate-x-0',
+		'p-4 transition duration-300 ease-in-out',
 		'[&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',
 		'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background'
 	)}

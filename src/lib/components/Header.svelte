@@ -7,13 +7,26 @@
 	import Logo from './Logo.svelte';
 	import { Button } from './ui/button';
 	import { LL } from '$i18n/i18n-svelte';
+	import { onMount } from 'svelte';
+	import { Info, MessageCircleQuestion } from 'lucide-svelte';
 
 	export let title = '';
 	export let subtitle = '';
+	let showMobileMenu = true;
+
+	function onMediaQueryChange(e: MediaQueryListEvent) {
+		showMobileMenu = e.matches;
+	}
+	onMount(() => {
+		const mediaQuery = window.matchMedia('(max-width: 460px)');
+		mediaQuery.addEventListener('change', onMediaQueryChange);
+
+		return () => {
+			mediaQuery.removeEventListener('change', onMediaQueryChange);
+		};
+	});
 
 	const urlQuery = $page.url.searchParams.toString();
-
-	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
 </script>
 
 <header
@@ -32,17 +45,27 @@
 		<Logo className="size-10 -translate-y-0.5 shrink-0" />
 		<span class="flex h-full flex-col justify-around">
 			<h1 class="font-semibold">{title}</h1>
-			<p class="text-balance text-sm leading-4 text-muted-foreground">{subtitle}</p>
+			<p class="hidden text-balance text-sm leading-4 text-muted-foreground sm:inline-block">
+				{subtitle}
+			</p>
 		</span>
 	</a>
 
 	<nav
 		id="secondary-nav"
 		aria-label="Light/Dark theme- and language switchers"
-		class="flex w-full items-center justify-end gap-4"
+		class="flex w-full items-center justify-end gap-2 sm:gap-4"
 	>
-		<Button variant="ghost" href="/{$locale}/about?{urlQuery}">
-			{$LL.navigation.header.about()}
+		<Button
+			variant={showMobileMenu ? 'outline' : 'ghost'}
+			size={showMobileMenu ? 'icon' : undefined}
+			href="/{$locale}/about?{urlQuery}"
+		>
+			{#if showMobileMenu}
+				<Info class="size-5" />
+			{:else}
+				{$LL.navigation.header.about()}
+			{/if}
 		</Button>
 		<LocaleSwitcher />
 		<DarkModeToggle />

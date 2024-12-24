@@ -92,7 +92,7 @@
 			{/if}
 		</div>
 	{/if}
-	<div class="flex justify-center">
+	<div class="max-xs:flex-col flex justify-center">
 		<Button
 			variant={datavisType === 'hour' ? 'default' : 'outline'}
 			size="sm"
@@ -117,7 +117,7 @@
 		>
 			{$LL.pages.measurements.dateRangeSlider.range()}
 		</Button>
-		<span class="flex aspect-square items-center justify-center pl-2">
+		<span class="max-xs:pt-3 flex items-center justify-center pl-2 sm:aspect-square">
 			<InfoTooltip
 				title={$LL.pages.measurements.dateRangeSlider.infoTitle()}
 				description={$LL.pages.measurements.dateRangeSlider.infoDescription()}

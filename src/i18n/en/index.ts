@@ -48,6 +48,11 @@ const en = {
 			buttonDownAriaLabel: 'Select an hour earlier'
 		}
 	},
+	themeSwitch: {
+		light: 'Light',
+		dark: 'Dark',
+		system: 'System'
+	},
 	welcome: {
 		title: 'Welcome',
 		text: [

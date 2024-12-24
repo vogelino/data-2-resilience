@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { LL } from '$i18n/i18n-svelte';
+	import { LL, locale } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import { Minus, Plus } from 'lucide-svelte';
 	import type { Map as MapLibreMap } from 'maplibre-gl';
 	import { Button } from '../ui/button';
+	import { page } from '$app/stores';
+	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 
 	export let map: MapLibreMap;
 
@@ -21,6 +23,8 @@
 	}
 
 	$: initZoomControl(map);
+	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
+	$: showLeftSidebar = !isAboutPage && $isLeftSidebarOpened;
 </script>
 
 <nav
@@ -28,7 +32,8 @@
 	class={cn(
 		'fixed right-4 top-[calc(var(--headerHeight,5rem)+1rem)] z-50 flex flex-col gap-px',
 		'w-10 rounded-md border border-border bg-border',
-		'shadow-lg transition-transform duration-300 ease-in-out'
+		'shadow-lg transition duration-300 ease-in-out',
+		showLeftSidebar && 'max-sm:pointer-events-none max-sm:opacity-0'
 	)}
 >
 	<Button

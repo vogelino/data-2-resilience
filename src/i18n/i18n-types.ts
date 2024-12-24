@@ -141,6 +141,20 @@ type RootTranslation = {
 			buttonDownAriaLabel: string
 		}
 	}
+	themeSwitch: {
+		/**
+		 * H​e​l​l
+		 */
+		light: string
+		/**
+		 * D​u​n​k​e​l
+		 */
+		dark: string
+		/**
+		 * S​y​s​t​e​m
+		 */
+		system: string
+	}
 	welcome: {
 		/**
 		 * H​e​r​z​l​i​c​h​ ​w​i​l​l​k​o​m​m​e​n
@@ -1811,6 +1825,20 @@ export type TranslationFunctions = {
 			 */
 			buttonDownAriaLabel: () => LocalizedString
 		}
+	}
+	themeSwitch: {
+		/**
+		 * Hell
+		 */
+		light: () => LocalizedString
+		/**
+		 * Dunkel
+		 */
+		dark: () => LocalizedString
+		/**
+		 * System
+		 */
+		system: () => LocalizedString
 	}
 	welcome: {
 		/**

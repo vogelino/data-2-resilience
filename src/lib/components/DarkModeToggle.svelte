@@ -1,10 +1,11 @@
 <script lang="ts">
-	import Moon from 'lucide-svelte/icons/moon';
-	import Sun from 'lucide-svelte/icons/sun';
+	import { LL } from '$i18n/i18n-svelte';
 
 	import { Button } from '$lib/components/ui/button';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { resetMode, setMode } from 'mode-watcher';
+	import { resetMode, setMode, mode } from 'mode-watcher';
+	import { Moon, Sun, Monitor } from 'lucide-svelte';
+	import { cn } from '$lib/utils';
 </script>
 
 <DropdownMenu.Root>
@@ -20,8 +21,17 @@
 		</Button>
 	</DropdownMenu.Trigger>
 	<DropdownMenu.Content align="end">
-		<DropdownMenu.Item on:click={() => setMode('light')}>Light</DropdownMenu.Item>
-		<DropdownMenu.Item on:click={() => setMode('dark')}>Dark</DropdownMenu.Item>
-		<DropdownMenu.Item on:click={() => resetMode()}>System</DropdownMenu.Item>
+		<DropdownMenu.Item on:click={() => setMode('light')} class="flex items-center gap-2">
+			<Sun class="size-5" />
+			<span class={cn($mode === 'light' && 'font-semibold')}>{$LL.themeSwitch.light()}</span>
+		</DropdownMenu.Item>
+		<DropdownMenu.Item on:click={() => setMode('dark')} class="flex items-center gap-2">
+			<Moon class="size-5" />
+			<span class={cn($mode === 'dark' && 'font-semibold')}>{$LL.themeSwitch.dark()}</span>
+		</DropdownMenu.Item>
+		<DropdownMenu.Item on:click={() => resetMode()} class="flex items-center gap-2">
+			<Monitor class="size-5" />
+			<span class={cn(!$mode && 'font-semibold')}>{$LL.themeSwitch.system()}</span>
+		</DropdownMenu.Item>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

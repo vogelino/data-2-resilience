@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { LL } from '$i18n/i18n-svelte';
+	import { page } from '$app/stores';
+	import { LL, locale } from '$i18n/i18n-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import CheckboxIcon from 'components/CheckboxIcon.svelte';
 	import Button from 'components/ui/button/button.svelte';
@@ -10,6 +12,8 @@
 	let showDistricts = queryParam('showDistricts', ssp.boolean(true));
 	let showLors = queryParam('showLors', ssp.boolean(false));
 	let showSatellite = queryParam('showSatellite', ssp.boolean(false));
+	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
+	$: showLeftSidebar = !isAboutPage && $isLeftSidebarOpened;
 </script>
 
 <DropdownMenu.Root closeOnItemClick={false}>
@@ -21,9 +25,10 @@
 			class={cn(
 				'fixed right-4 top-[calc(var(--headerHeight,5rem)+6rem)] z-50 flex flex-col gap-px',
 				'rounded-md border border-border bg-border',
-				'shadow-lg transition-transform duration-300 ease-in-out',
+				'shadow-lg transition duration-300 ease-in-out',
 				'size-10 bg-background',
-				'focusable focus-visible:z-50 focus-visible:rounded'
+				'focusable focus-visible:z-50 focus-visible:rounded',
+				showLeftSidebar && 'max-sm:pointer-events-none max-sm:opacity-0'
 			)}
 		>
 			<Layers3 class="size-5" />

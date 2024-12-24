@@ -79,5 +79,12 @@
 	</aside>
 	<main class="relative z-10 h-[calc(100vh-var(--headerHeight,5rem))] overflow-y-auto">
 		<slot />
+		{#if showLeftSidebar}
+			<button
+				class={cn('absolute inset-0 z-50 bg-muted/50 backdrop-blur-sm md:hidden', 'transition-all')}
+				on:click={toggleLeftSidebar}
+				aria-hidden="true"
+			></button>
+		{/if}
 	</main>
 </div>

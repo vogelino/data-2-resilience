@@ -1,16 +1,26 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { locale } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import DarkModeToggle from './DarkModeToggle.svelte';
 	import LocaleSwitcher from './LocaleSwitcher.svelte';
 	import Logo from './Logo.svelte';
+	import { Button } from './ui/button';
+	import { LL } from '$i18n/i18n-svelte';
 
 	export let title = '';
 	export let subtitle = '';
+
+	const urlQuery = $page.url.searchParams.toString();
+
+	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
 </script>
 
 <header
-	class="grid h-[var(--headerHeight,5rem)] w-screen grid-cols-[auto,1fr] items-center gap-x-4 gap-y-4 border-b border-border px-6"
+	class={cn(
+		'grid h-[var(--headerHeight,5rem)] w-screen grid-cols-[auto,1fr]',
+		'items-center gap-x-4 gap-y-4 border-b border-border px-6'
+	)}
 >
 	<a
 		href={`/${$locale}`}
@@ -31,6 +41,9 @@
 		aria-label="Light/Dark theme- and language switchers"
 		class="flex w-full items-center justify-end gap-4"
 	>
+		<Button variant="ghost" href="/{$locale}/about?{urlQuery}">
+			{$LL.navigation.header.about()}
+		</Button>
 		<LocaleSwitcher />
 		<DarkModeToggle />
 	</nav>

@@ -174,6 +174,12 @@ type RootTranslation = {
 			 */
 			about: string
 		}
+		aboutModal: {
+			/**
+			 * Z​u​r​ ​S​t​a​r​t​s​e​i​t​e
+			 */
+			backToHome: string
+		}
 		tabs: {
 			/**
 			 * M​e​s​s​w​e​r​t​e
@@ -1240,6 +1246,80 @@ type RootTranslation = {
 				}
 			}
 		}
+		about: {
+			/**
+			 * Ü​b​e​r​ ​d​i​e​s​e​s​ ​P​r​o​j​e​k​t
+			 */
+			title: string
+			/**
+			 * D​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d​ ​w​u​r​d​e​ ​i​m​ ​R​a​h​m​e​n​ ​d​e​s​ ​P​r​o​j​e​k​t​e​s​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​e​n​t​w​i​c​k​e​l​t​,​ ​e​i​n​e​m​ ​g​e​m​e​i​n​s​a​m​e​n​ ​F​o​r​s​c​h​u​n​g​s​p​r​o​j​e​k​t​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​ä​t​ ​B​o​c​h​u​m​ ​u​n​d​ ​d​e​r​ ​L​e​i​b​n​i​z​ ​U​n​i​v​e​r​s​i​t​ä​t​ ​H​a​n​n​o​v​e​r​.​ ​D​a​s​ ​P​r​o​j​e​k​t​ ​z​i​e​l​t​ ​d​a​r​a​u​f​ ​a​b​,​ ​d​i​e​ ​R​e​s​i​l​i​e​n​z​ ​D​o​r​t​m​u​n​d​s​ ​g​e​g​e​n​ü​b​e​r​ ​d​e​m​ ​K​l​i​m​a​w​a​n​d​e​l​ ​z​u​ ​v​e​r​b​e​s​s​e​r​n​,​ ​i​n​d​e​m​ ​i​n​n​o​v​a​t​i​v​e​ ​T​e​c​h​n​o​l​o​g​i​e​n​ ​u​n​d​ ​B​ü​r​g​e​r​b​e​t​e​i​l​i​g​u​n​g​ ​g​e​n​u​t​z​t​ ​w​e​r​d​e​n​,​ ​u​m​ ​d​i​e​ ​A​u​s​w​i​r​k​u​n​g​e​n​ ​e​x​t​r​e​m​e​r​ ​H​i​t​z​e​ ​a​u​f​ ​d​a​s​ ​S​t​a​d​t​l​e​b​e​n​ ​z​u​ ​m​i​n​i​m​i​e​r​e​n​.​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​w​i​r​d​ ​v​o​n​ ​P​r​o​f​.​ ​D​r​.​ ​B​e​n​j​a​m​i​n​ ​B​e​c​h​t​e​l​ ​u​n​d​ ​P​r​o​f​.​ ​D​r​.​ ​C​h​r​i​s​t​i​a​n​ ​A​l​b​e​r​t​ ​g​e​l​e​i​t​e​t​ ​u​n​d​ ​v​o​m​ ​<​a​ ​h​r​e​f​=​'​h​t​t​p​s​:​/​/​i​c​l​e​i​.​o​r​g​/​a​c​t​i​v​i​t​y​/​i​c​l​e​i​-​a​c​t​i​o​n​-​f​u​n​d​-​2​-​0​/​'​ ​t​a​r​g​e​t​=​'​_​b​l​a​n​k​'​ ​r​e​l​=​'​n​o​o​p​e​n​e​r​ ​n​o​r​e​f​e​r​r​e​r​'​>​I​C​L​E​I​ ​A​c​t​i​o​n​ ​F​u​n​d​ ​2​.​0​<​/​a​>​ ​s​o​w​i​e​ ​<​a​ ​h​r​e​f​=​'​h​t​t​p​s​:​/​/​w​w​w​.​g​o​o​g​l​e​.​o​r​g​/​'​ ​t​a​r​g​e​t​=​'​_​b​l​a​n​k​'​ ​r​e​l​=​'​n​o​o​p​e​n​e​r​ ​n​o​r​e​f​e​r​r​e​r​'​>​G​o​o​g​l​e​.​o​r​g​<​/​a​>​ ​f​i​n​a​n​z​i​e​r​t​.
+			 */
+			description: string
+			links: {
+				'0': {
+					/**
+					 * I​m​p​r​e​s​s​u​m
+					 */
+					label: string
+					/**
+					 * /​i​m​p​r​i​n​t
+					 */
+					url: string
+				}
+				'1': {
+					/**
+					 * D​a​t​e​n​s​c​h​u​t​z​e​r​k​l​ä​r​u​n​g
+					 */
+					label: string
+					/**
+					 * /​p​r​i​v​a​c​y​-​p​o​l​i​c​y
+					 */
+					url: string
+				}
+			}
+			logos: {
+				RUB: {
+					/**
+					 * L​o​g​o​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​ä​t​ ​B​o​c​h​u​m​ ​(​R​U​B​)
+					 */
+					title: string
+					/**
+					 * h​t​t​p​s​:​/​/​w​w​w​.​r​u​h​r​-​u​n​i​-​b​o​c​h​u​m​.​d​e​/
+					 */
+					url: string
+				}
+				LUH: {
+					/**
+					 * L​o​g​o​ ​d​e​r​ ​L​e​i​b​n​i​z​ ​U​n​i​v​e​r​s​i​t​ä​t​ ​H​a​n​n​o​v​e​r​ ​(​L​U​H​)
+					 */
+					title: string
+					/**
+					 * h​t​t​p​s​:​/​/​w​w​w​.​u​n​i​-​h​a​n​n​o​v​e​r​.​d​e​/
+					 */
+					url: string
+				}
+				ICLEI: {
+					/**
+					 * L​o​g​o​ ​d​e​s​ ​L​o​c​a​l​ ​G​o​v​e​r​n​m​e​n​t​ ​f​o​r​ ​S​u​s​t​a​i​n​a​b​i​l​i​t​y​ ​E​U​R​O​P​E​ ​(​I​C​L​E​I​)
+					 */
+					title: string
+					/**
+					 * h​t​t​p​s​:​/​/​i​c​l​e​i​.​o​r​g​/
+					 */
+					url: string
+				}
+				googleOrg: {
+					/**
+					 * L​o​g​o​ ​v​o​n​ ​G​o​o​g​l​e​.​o​r​g
+					 */
+					title: string
+					/**
+					 * h​t​t​p​s​:​/​/​w​w​w​.​g​o​o​g​l​e​.​o​r​g​/
+					 */
+					url: string
+				}
+			}
+		}
 	}
 	indicators: {
 		utci: {
@@ -1764,6 +1844,12 @@ export type TranslationFunctions = {
 			 * Über dieses Dashboard
 			 */
 			about: () => LocalizedString
+		}
+		aboutModal: {
+			/**
+			 * Zur Startseite
+			 */
+			backToHome: () => LocalizedString
 		}
 		tabs: {
 			/**
@@ -2813,6 +2899,80 @@ export type TranslationFunctions = {
 						 */
 						inactive: () => LocalizedString
 					}
+				}
+			}
+		}
+		about: {
+			/**
+			 * Über dieses Projekt
+			 */
+			title: () => LocalizedString
+			/**
+			 * Dieses Dashboard wurde im Rahmen des Projektes Data2Resilience entwickelt, einem gemeinsamen Forschungsprojekt der Ruhr-Universität Bochum und der Leibniz Universität Hannover. Das Projekt zielt darauf ab, die Resilienz Dortmunds gegenüber dem Klimawandel zu verbessern, indem innovative Technologien und Bürgerbeteiligung genutzt werden, um die Auswirkungen extremer Hitze auf das Stadtleben zu minimieren. Data2Resilience wird von Prof. Dr. Benjamin Bechtel und Prof. Dr. Christian Albert geleitet und vom <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> sowie <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a> finanziert.
+			 */
+			description: () => LocalizedString
+			links: {
+				'0': {
+					/**
+					 * Impressum
+					 */
+					label: () => LocalizedString
+					/**
+					 * /imprint
+					 */
+					url: () => LocalizedString
+				}
+				'1': {
+					/**
+					 * Datenschutzerklärung
+					 */
+					label: () => LocalizedString
+					/**
+					 * /privacy-policy
+					 */
+					url: () => LocalizedString
+				}
+			}
+			logos: {
+				RUB: {
+					/**
+					 * Logo der Ruhr-Universität Bochum (RUB)
+					 */
+					title: () => LocalizedString
+					/**
+					 * https://www.ruhr-uni-bochum.de/
+					 */
+					url: () => LocalizedString
+				}
+				LUH: {
+					/**
+					 * Logo der Leibniz Universität Hannover (LUH)
+					 */
+					title: () => LocalizedString
+					/**
+					 * https://www.uni-hannover.de/
+					 */
+					url: () => LocalizedString
+				}
+				ICLEI: {
+					/**
+					 * Logo des Local Government for Sustainability EUROPE (ICLEI)
+					 */
+					title: () => LocalizedString
+					/**
+					 * https://iclei.org/
+					 */
+					url: () => LocalizedString
+				}
+				googleOrg: {
+					/**
+					 * Logo von Google.org
+					 */
+					title: () => LocalizedString
+					/**
+					 * https://www.google.org/
+					 */
+					url: () => LocalizedString
 				}
 			}
 		}

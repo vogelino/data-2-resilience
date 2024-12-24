@@ -12,6 +12,7 @@
 	$: stations = data?.stationsGeoJson;
 
 	$: isStationsPage = $page.url.pathname.replace(`/${$locale}`, '') === '/stations';
+	$: isAboutPage = $page.url.pathname.replace(`/${$locale}`, '') === '/about';
 </script>
 
 <Header title={$LL.siteNameShort()} subtitle={$LL.siteSubtitle()} />
@@ -25,3 +26,6 @@
 		<Map {stations} />
 	{/if}
 </SidebarsLayout>
+{#if isAboutPage}
+	<slot />
+{/if}

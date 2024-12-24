@@ -4,14 +4,18 @@
 	import { cn } from '$lib/utils';
 	import { SidebarClose, SidebarOpen } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
-	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
+	import { page } from '$app/stores';
+	import { locale } from '$i18n/i18n-svelte';
+
+	$: isAboutPage = $page.url.pathname.replace(`/${$locale}`, '') === '/about';
+	$: showLeftSidebar = $isLeftSidebarOpened && !isAboutPage;
 </script>
 
 <div
 	class={cn(
 		'h-[calc(100vh-var(--headerHeight,5rem))]',
 		'grid grid-cols-[0,1fr] transition-all duration-300 ease-in-out',
-		$isLeftSidebarOpened && 'xl:grid-cols-[var(--leftSidebarWidth),1fr]'
+		showLeftSidebar && 'xl:grid-cols-[var(--leftSidebarWidth),1fr]'
 	)}
 >
 	<aside class="relative z-50">
@@ -21,7 +25,7 @@
 				'flex min-h-full w-[var(--leftSidebarWidth)] flex-col gap-4',
 				'transition duration-300 ease-in-out',
 				'absolute left-0 top-0 z-50',
-				$isLeftSidebarOpened
+				showLeftSidebar
 					? 'translate-x-0 opacity-100 shadow-2xl'
 					: '-translate-x-[var(--leftSidebarWidth)] shadow-none'
 			)}
@@ -33,42 +37,44 @@
 					'border-r border-border'
 				)}
 				id="left-sidebar-scroll-container"
-				inert={!$isLeftSidebarOpened}
+				inert={!showLeftSidebar}
 			>
 				<slot name="left-sidebar" />
 			</div>
-			<div class={cn('absolute right-0 top-0 z-50 -translate-y-px translate-x-full')}>
-				<div class={cn('group relative')}>
-					<Button
-						size="icon"
-						variant="outline"
-						class={cn(' rounded-none rounded-br-sm', 'size-12')}
-						on:click={toggleLeftSidebar}
-						aria-label={$isLeftSidebarOpened
-							? $LL.generic.leftSidebar.hideAriaLabel()
-							: $LL.generic.leftSidebar.showAriaLabel()}
-					>
-						{#if $isLeftSidebarOpened}
-							<SidebarClose />
-						{:else}
-							<SidebarOpen />
-						{/if}
-					</Button>
-					<div
-						aria-hidden="true"
-						class={cn(
-							'absolute left-full top-1/2 w-fit max-w-56 -translate-y-1/2 translate-x-2',
-							'whitespace-nowrap border border-border bg-background px-3 py-1.5 shadow-lg',
-							'pointer-events-none rounded-sm opacity-0 hover-hover:group-hover:opacity-100',
-							'text-sm transition-opacity'
-						)}
-					>
-						{$isLeftSidebarOpened
-							? $LL.generic.leftSidebar.hideAriaLabel()
-							: $LL.generic.leftSidebar.showAriaLabel()}
+			{#if !isAboutPage}
+				<div class={cn('absolute right-0 top-0 z-50 -translate-y-px translate-x-full')}>
+					<div class={cn('group relative')}>
+						<Button
+							size="icon"
+							variant="outline"
+							class={cn(' rounded-none rounded-br-sm', 'size-12')}
+							on:click={toggleLeftSidebar}
+							aria-label={showLeftSidebar
+								? $LL.generic.leftSidebar.hideAriaLabel()
+								: $LL.generic.leftSidebar.showAriaLabel()}
+						>
+							{#if showLeftSidebar}
+								<SidebarClose />
+							{:else}
+								<SidebarOpen />
+							{/if}
+						</Button>
+						<div
+							aria-hidden="true"
+							class={cn(
+								'absolute left-full top-1/2 w-fit max-w-56 -translate-y-1/2 translate-x-2',
+								'whitespace-nowrap border border-border bg-background px-3 py-1.5 shadow-lg',
+								'pointer-events-none rounded-sm opacity-0 hover-hover:group-hover:opacity-100',
+								'text-sm transition-opacity'
+							)}
+						>
+							{showLeftSidebar
+								? $LL.generic.leftSidebar.hideAriaLabel()
+								: $LL.generic.leftSidebar.showAriaLabel()}
+						</div>
 					</div>
 				</div>
-			</div>
+			{/if}
 		</div>
 	</aside>
 	<main class="relative z-10 h-[calc(100vh-var(--headerHeight,5rem))] overflow-y-auto">

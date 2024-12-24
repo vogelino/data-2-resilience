@@ -53,13 +53,15 @@
 	$: seqMin = showColdRisks || !showHealthRisks ? scaleMin : scaleMax - (scaleMax - scaleMin) / 5;
 	$: min = scale.type === 'sequential' ? `${seqMin} ${labels.unitOnlyLabel}` : '';
 	$: max = scale.type === 'sequential' ? `${scaleMax} ${labels.unitOnlyLabel}` : '';
+	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
+	$: showLeftSidebar = !isAboutPage && $isLeftSidebarOpened;
 </script>
 
 <div
 	class={cn(
 		'flex w-72 flex-col gap-2 bg-background/80 text-sm backdrop-blur-[2px]',
 		'fixed bottom-4 left-4 z-10 overflow-clip rounded border border-border shadow-lg',
-		$isLeftSidebarOpened ? 'translate-x-[var(--leftSidebarWidth)]' : 'translate-x-0',
+		showLeftSidebar ? 'translate-x-[var(--leftSidebarWidth)]' : 'translate-x-0',
 		'p-4 transition-transform duration-300 ease-in-out',
 		'[&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',
 		'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background'

@@ -63,6 +63,9 @@ const de = {
 		header: {
 			about: 'Über dieses Dashboard'
 		},
+		aboutModal: {
+			backToHome: 'Zur Startseite'
+		},
 		tabs: {
 			actualMeasurements: 'Messwerte',
 			heatStress: 'Hitzeatlas',
@@ -517,6 +520,39 @@ const de = {
 						active: 'Aktiv',
 						inactive: 'Inaktiv'
 					}
+				}
+			}
+		},
+		about: {
+			title: 'Über dieses Projekt',
+			description:
+				"Dieses Dashboard wurde im Rahmen des Projektes Data2Resilience entwickelt, einem gemeinsamen Forschungsprojekt der Ruhr-Universität Bochum und der Leibniz Universität Hannover. Das Projekt zielt darauf ab, die Resilienz Dortmunds gegenüber dem Klimawandel zu verbessern, indem innovative Technologien und Bürgerbeteiligung genutzt werden, um die Auswirkungen extremer Hitze auf das Stadtleben zu minimieren. Data2Resilience wird von Prof. Dr. Benjamin Bechtel und Prof. Dr. Christian Albert geleitet und vom <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> sowie <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a> finanziert.",
+			links: [
+				{
+					label: 'Impressum',
+					url: '/imprint'
+				},
+				{
+					label: 'Datenschutzerklärung',
+					url: '/privacy-policy'
+				}
+			],
+			logos: {
+				RUB: {
+					title: 'Logo der Ruhr-Universität Bochum (RUB)',
+					url: 'https://www.ruhr-uni-bochum.de/'
+				},
+				LUH: {
+					title: 'Logo der Leibniz Universität Hannover (LUH)',
+					url: 'https://www.uni-hannover.de/'
+				},
+				ICLEI: {
+					title: 'Logo des Local Government for Sustainability EUROPE (ICLEI)',
+					url: 'https://iclei.org/'
+				},
+				googleOrg: {
+					title: 'Logo von Google.org',
+					url: 'https://www.google.org/'
 				}
 			}
 		}

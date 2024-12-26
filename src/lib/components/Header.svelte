@@ -8,7 +8,7 @@
 	import { Button } from './ui/button';
 	import { LL } from '$i18n/i18n-svelte';
 	import { onMount } from 'svelte';
-	import { Info, MessageCircleQuestion } from 'lucide-svelte';
+	import { Info } from 'lucide-svelte';
 
 	export let title = '';
 	export let subtitle = '';
@@ -20,6 +20,7 @@
 	onMount(() => {
 		const mediaQuery = window.matchMedia('(max-width: 460px)');
 		mediaQuery.addEventListener('change', onMediaQueryChange);
+		showMobileMenu = mediaQuery.matches;
 
 		return () => {
 			mediaQuery.removeEventListener('change', onMediaQueryChange);

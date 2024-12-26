@@ -7,7 +7,8 @@
 	import { unitsToScalesMap } from '$lib/utils/colorScaleUtil';
 	import { HeartPulse, X } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
-	import { Button } from './ui/button';
+	import { Button } from '$lib/components/ui/button';
+	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
 
 	const heatStressUnit = queryParam('heatStress', ssp.string('utci'));
 	const unit = queryParam('unit', ssp.string('utci'));
@@ -73,10 +74,26 @@
 	<div class="flex flex-col gap-0">
 		{#if isOrdinal}
 			<div
-				class="flex h-4 w-full max-w-96 overflow-clip rounded-sm shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
+				class="group flex h-4 w-full max-w-96 overflow-clip rounded-sm shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 			>
-				{#each scheme as color}
-					<span class={cn('size-full')} style={`background-color: ${color}`} />
+				{#each scheme as color, i}
+					<Tooltip openDelay={0} closeDelay={0} disableHoverableContent>
+						<TooltipTrigger
+							class={cn(
+								'focusable size-full',
+								'transition-opacity hover-hover:group-has-[button:hover]:opacity-20 hover-hover:group-has-[button:hover]:hover:opacity-100'
+							)}
+							style={`background-color: ${color}`}
+						/>
+						<TooltipContent
+							class={cn('flex w-96 max-w-full flex-col gap-1 px-4 pb-4 pt-3 leading-tight')}
+						>
+							{#if healthRisks[i]}
+								<strong>{healthRisks[i].title[titleKey]()}</strong>
+								<span>{@html healthRisks[i].description()}</span>
+							{/if}
+						</TooltipContent>
+					</Tooltip>
 				{/each}
 			</div>
 		{:else}

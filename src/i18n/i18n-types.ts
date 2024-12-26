@@ -228,6 +228,14 @@ type RootTranslation = {
 			 */
 			timeRangeAlert: RequiredParams<'endDate' | 'startDate'>
 			/**
+			 * D​i​e​s​e​ ​K​a​r​t​e​ ​i​s​t​ ​n​u​r​ ​v​e​r​f​ü​g​b​a​r​ ​f​ü​r​ ​d​i​e​ ​l​e​t​z​t​e​n​ ​3​0​ ​T​a​g​e​.
+			 */
+			timeRangeAlertTooltipTitle: string
+			/**
+			 * D​i​e​ ​D​a​t​e​n​ ​b​e​n​ö​t​i​g​e​n​ ​g​r​o​ß​e​ ​M​e​n​g​e​ ​v​o​n​ ​S​p​e​i​c​h​e​r​p​l​a​t​z​,​ ​d​a​h​e​r​ ​i​s​t​ ​d​i​e​s​e​ ​K​a​r​t​e​ ​n​u​r​ ​v​e​r​f​ü​g​b​a​r​e​ ​f​ü​r​ ​d​i​e​ ​l​e​t​z​t​e​n​ ​3​0​ ​T​a​g​e​.
+			 */
+			timeRangeAlertTooltipContent: string
+			/**
 			 * W​ä​h​l​e​ ​e​i​n​e​n​ ​I​n​d​i​k​a​t​o​r​,​ ​u​m​ ​d​i​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​D​a​t​e​n​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​z​u​ ​ä​n​d​e​r​n​.
 			 */
 			indicatorsNavAriaLabel: string
@@ -1934,6 +1942,14 @@ export type TranslationFunctions = {
 			 * Daten nur verfügbar im Zeitraum vom {startDate} bis {endDate}.
 			 */
 			timeRangeAlert: (arg: { endDate: string, startDate: string }) => LocalizedString
+			/**
+			 * Diese Karte ist nur verfügbar für die letzten 30 Tage.
+			 */
+			timeRangeAlertTooltipTitle: () => LocalizedString
+			/**
+			 * Die Daten benötigen große Menge von Speicherplatz, daher ist diese Karte nur verfügbare für die letzten 30 Tage.
+			 */
+			timeRangeAlertTooltipContent: () => LocalizedString
 			/**
 			 * Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.
 			 */

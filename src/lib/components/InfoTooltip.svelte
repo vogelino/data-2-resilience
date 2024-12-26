@@ -29,10 +29,10 @@
 		</TooltipTrigger>
 		<TooltipContent class="flex w-96 max-w-full flex-col gap-1 px-4 pb-4 pt-3 leading-tight">
 			{#if title}
-				<strong class="block text-base font-semibold leading-5">{title}</strong>
+				<strong class="block text-balance text-base font-semibold leading-5">{title}</strong>
 			{/if}
 			{#if description}
-				<p class="text-sm leading-4 text-muted-foreground">{description}</p>
+				<p class="text-pretty text-sm leading-4 text-muted-foreground">{description}</p>
 			{/if}
 		</TooltipContent>
 	</Tooltip>

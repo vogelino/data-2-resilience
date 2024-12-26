@@ -84,6 +84,8 @@ const de = {
 				"Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.",
 			],
 			timeRangeAlert: `Daten nur verfügbar im Zeitraum vom {startDate:string} bis {endDate:string}.`,
+			timeRangeAlertTooltipTitle: `Diese Karte ist nur verfügbar für die letzten 30 Tage.`,
+			timeRangeAlertTooltipContent: `Die Daten benötigen große Menge von Speicherplatz, daher ist diese Karte nur verfügbare für die letzten 30 Tage.`,
 			indicatorsNavAriaLabel:
 				"Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.",
 		},

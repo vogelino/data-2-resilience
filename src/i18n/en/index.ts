@@ -84,6 +84,8 @@ const en = {
 				"The heat atlas for Dortmund provides an overview of the city's heat stress. The heat stress is depicted through three maps: the Universal Thermal Climate Index (UTCI) to assess the thermal sensation of residents, as well as relative humidity and air temperature as key influencing factors.",
 			],
 			timeRangeAlert: `Data only available from {startDate} to {endDate}.`,
+			timeRangeAlertTooltipTitle: `This visualization is only available for the last 30 days.`,
+			timeRangeAlertTooltipContent: `The data necessary for the heat map visualization of the map requires large amount of storage that therefore includes only the last 30 days.`,
 			indicatorsNavAriaLabel:
 				"Select an indicator to change the data displayed on the map.",
 		},

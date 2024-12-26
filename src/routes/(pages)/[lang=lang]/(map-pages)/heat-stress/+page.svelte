@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
+	import { cn } from '$lib/utils';
 	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
+	import InfoTooltip from 'components/InfoTooltip.svelte';
 	import ThermalCompfortNavItem from 'components/ThermalCompfortNavItem.svelte';
 	import Alert from 'components/ui/alert/alert.svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
@@ -41,20 +43,32 @@
 	{/each}
 </CollapsibleParagraph>
 
-<Alert class="mt-4 rounded-3xl bg-muted px-4 pb-2 pt-1.5 text-center text-sm font-semibold">
-	{$LL.pages.heatStress.timeRangeAlert({
-		startDate: new Date('2024-07-01').toLocaleDateString($locale, {
-			day: '2-digit',
-			month: 'long',
-			year: undefined
-		}),
-		endDate: new Date('2024-07-31').toLocaleDateString($locale, {
-			day: '2-digit',
-			month: 'long',
-			year: 'numeric'
-		})
-	})}
-</Alert>
+<div
+	class={cn(
+		'mt-4 rounded bg-muted px-4 pb-2 pt-1.5 text-sm font-semibold',
+		'grid grid-cols-[1fr,auto] items-center gap-2'
+	)}
+	role="alert"
+>
+	<span class="text-balance">
+		{$LL.pages.heatStress.timeRangeAlert({
+			startDate: new Date('2024-07-01').toLocaleDateString($locale, {
+				day: '2-digit',
+				month: 'long',
+				year: undefined
+			}),
+			endDate: new Date('2024-07-31').toLocaleDateString($locale, {
+				day: '2-digit',
+				month: 'long',
+				year: 'numeric'
+			})
+		})}
+	</span>
+	<InfoTooltip
+		title={$LL.pages.heatStress.timeRangeAlertTooltipTitle()}
+		description={$LL.pages.heatStress.timeRangeAlertTooltipContent()}
+	/>
+</div>
 <nav aria-label={$LL.pages.heatStress.indicatorsNavAriaLabel()} class="mb-6 mt-4">
 	<ul class="flex flex-col gap-px rounded-xl border border-border bg-border">
 		{#each indicatorValues as indicator (indicator.slug)}

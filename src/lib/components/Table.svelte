@@ -114,7 +114,7 @@
 		on:click={() => $table.firstPage()}
 		disabled={!$table.getCanPreviousPage()}
 	>
-		<ChevronFirst />
+		<ChevronFirst class="size-5" />
 	</Button>
 	<Button
 		variant="outline"
@@ -122,9 +122,9 @@
 		on:click={() => $table.previousPage()}
 		disabled={!$table.getCanPreviousPage()}
 	>
-		<ChevronLeft />
+		<ChevronLeft class="size-5" />
 	</Button>
-	<span class="flex items-center gap-1">
+	<span class="flex items-center gap-1 px-4">
 		<div>Page</div>
 		<strong>
 			{$table.getState().pagination.pageIndex + 1} of{' '}
@@ -139,7 +139,7 @@
 		on:click={() => $table.nextPage()}
 		disabled={!$table.getCanNextPage()}
 	>
-		<ChevronRight />
+		<ChevronRight class="size-5" />
 	</Button>
 	<Button
 		variant="outline"
@@ -147,6 +147,6 @@
 		on:click={() => $table.lastPage()}
 		disabled={!$table.getCanNextPage()}
 	>
-		<ChevronLast />
+		<ChevronLast class="size-5" />
 	</Button>
 </div>

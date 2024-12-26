@@ -5,6 +5,7 @@
 	import { cn } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import WelcomeMessage from './WelcomeMessage.svelte';
+	import { queryParameters } from 'sveltekit-search-params';
 
 	let navElement: HTMLElement;
 	$: fullPath = $page.url.pathname.replace(`/${$locale}`, '');
@@ -30,7 +31,8 @@
 	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
 	$: showLeftSidebar = !isAboutPage && $isLeftSidebarOpened;
 
-	const urlQuery = $page.url.searchParams.toString();
+	$: queryParams = queryParameters();
+	$: urlQuery = new URLSearchParams($queryParams).toString();
 
 	onMount(() => {
 		document.getElementById('left-sidebar-scroll-container')?.addEventListener('scroll', () => {

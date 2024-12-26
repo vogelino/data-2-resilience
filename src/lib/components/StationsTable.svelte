@@ -3,8 +3,11 @@
 	import { api } from '$lib/utils/api';
 	import type { StationMetadata } from '$lib/utils/schemas';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { type ColumnDef } from '@tanstack/svelte-table';
+	import { renderComponent, type ColumnDef } from '@tanstack/svelte-table';
 	import Table from './Table.svelte';
+	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
+	import InfoTooltip from './InfoTooltip.svelte';
+	import SensorTypeWithTooltip from './SensorTypeWithTooltip.svelte';
 
 	const query = createQuery({
 		queryKey: ['stations'],
@@ -21,19 +24,19 @@
 		{
 			header: () => $LL.pages.stations.table.headers.stationType(),
 			accessorKey: 'stationType',
-			cell: (info) =>
-				info.getValue() === 'biomet'
-					? $LL.pages.stations.table.cells.stationTypes.biomet()
-					: $LL.pages.stations.table.cells.stationTypes.temprh(),
+			cell: (info) => {
+				const type = info.getValue() === 'biomet' ? 'biomet' : 'temprh';
+				return renderComponent(SensorTypeWithTooltip, { type });
+			},
 			sortingFn: (a, b) => {
 				const aLabel =
 					a.original.stationType === 'biomet'
-						? $LL.pages.stations.table.cells.stationTypes.biomet()
-						: $LL.pages.stations.table.cells.stationTypes.temprh();
+						? $LL.pages.stations.table.cells.stationTypes.biomet.title()
+						: $LL.pages.stations.table.cells.stationTypes.temprh.title();
 				const bLabel =
 					b.original.stationType === 'biomet'
-						? $LL.pages.stations.table.cells.stationTypes.biomet()
-						: $LL.pages.stations.table.cells.stationTypes.temprh();
+						? $LL.pages.stations.table.cells.stationTypes.biomet.title()
+						: $LL.pages.stations.table.cells.stationTypes.temprh.title();
 				return aLabel.localeCompare(bLabel, $locale);
 			}
 		},

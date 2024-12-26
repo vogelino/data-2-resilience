@@ -1239,13 +1239,37 @@ type RootTranslation = {
 				cells: {
 					stationTypes: {
 						/**
-						 * W​e​t​t​e​r​s​t​a​t​i​o​n​ ​(​i​n​k​l​.​ ​B​l​a​c​k​g​l​o​b​e​ ​S​e​n​s​o​r​)
+						 * D​i​e​s​e​ ​S​t​a​t​i​o​n​ ​m​i​s​t​ ​f​o​l​g​e​n​d​e​ ​M​e​s​s​w​e​r​t​e​:
 						 */
-						biomet: string
-						/**
-						 * T​e​m​p​e​r​a​t​u​r​-​u​n​d​ ​F​e​u​c​h​t​i​g​k​e​i​t​s​s​e​n​s​o​r
-						 */
-						temprh: string
+						thisStationMeasures: string
+						biomet: {
+							/**
+							 * W​e​t​t​e​r​s​t​a​t​i​o​n
+							 */
+							nameShort: string
+							/**
+							 * W​e​t​t​e​r​s​t​a​t​i​o​n​ ​(​i​n​k​l​.​ ​B​l​a​c​k​g​l​o​b​e​ ​S​e​n​s​o​r​)
+							 */
+							title: string
+							/**
+							 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.
+							 */
+							description: string
+						}
+						temprh: {
+							/**
+							 * T​e​m​p​e​r​a​t​u​r
+							 */
+							nameShort: string
+							/**
+							 * T​e​m​p​e​r​a​t​u​r​-​u​n​d​ ​F​e​u​c​h​t​i​g​k​e​i​t​s​s​e​n​s​o​r
+							 */
+							title: string
+							/**
+							 * E​x​ ​c​o​n​s​e​q​u​a​t​ ​d​u​i​s​ ​d​o​ ​a​d​i​p​i​s​i​c​i​n​g​ ​i​p​s​u​m​ ​v​e​l​i​t​ ​m​i​n​i​m​ ​a​l​i​q​u​a​.​ ​L​a​b​o​r​e​ ​c​i​l​l​u​m​ ​n​o​s​t​r​u​d​ ​i​d​ ​t​e​m​p​o​r​ ​i​d​ ​i​n​ ​s​i​n​t​ ​q​u​i​ ​s​u​n​t​ ​q​u​i​.
+							 */
+							description: string
+						}
 					}
 					status: {
 						/**
@@ -2909,13 +2933,37 @@ export type TranslationFunctions = {
 				cells: {
 					stationTypes: {
 						/**
-						 * Wetterstation (inkl. Blackglobe Sensor)
+						 * Diese Station mist folgende Messwerte:
 						 */
-						biomet: () => LocalizedString
-						/**
-						 * Temperatur-und Feuchtigkeitssensor
-						 */
-						temprh: () => LocalizedString
+						thisStationMeasures: () => LocalizedString
+						biomet: {
+							/**
+							 * Wetterstation
+							 */
+							nameShort: () => LocalizedString
+							/**
+							 * Wetterstation (inkl. Blackglobe Sensor)
+							 */
+							title: () => LocalizedString
+							/**
+							 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+							 */
+							description: () => LocalizedString
+						}
+						temprh: {
+							/**
+							 * Temperatur
+							 */
+							nameShort: () => LocalizedString
+							/**
+							 * Temperatur-und Feuchtigkeitssensor
+							 */
+							title: () => LocalizedString
+							/**
+							 * Ex consequat duis do adipisicing ipsum velit minim aliqua. Labore cillum nostrud id tempor id in sint qui sunt qui.
+							 */
+							description: () => LocalizedString
+						}
 					}
 					status: {
 						/**

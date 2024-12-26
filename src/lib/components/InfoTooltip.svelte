@@ -5,6 +5,7 @@
 
 	export let title = '';
 	export let description = '';
+	export let triggerLabel = '';
 </script>
 
 {#if title || description}
@@ -12,10 +13,19 @@
 		<TooltipTrigger
 			class={cn(
 				'focusable hover-hover:hover:bg-foreground hover-hover:hover:text-background',
-				'rounded-full p-1 transition'
+				'group flex items-center gap-2 rounded-full p-1 transition',
+				triggerLabel && '-ml-2.5 pl-2.5 pr-1.5'
 			)}
 		>
-			<Info class="size-4"></Info>
+			{#if triggerLabel}
+				<span>{triggerLabel}</span>
+			{/if}
+			<Info
+				class={cn(
+					'size-4',
+					triggerLabel && 'text-muted-foreground hover-hover:group-hover:text-background'
+				)}
+			></Info>
 		</TooltipTrigger>
 		<TooltipContent class="flex w-96 max-w-full flex-col gap-1 px-4 pb-4 pt-3 leading-tight">
 			{#if title}

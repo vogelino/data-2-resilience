@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { locale } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import DarkModeToggle from './DarkModeToggle.svelte';
@@ -9,6 +8,7 @@
 	import { LL } from '$i18n/i18n-svelte';
 	import { onMount } from 'svelte';
 	import { Info } from 'lucide-svelte';
+	import { queryParameters } from 'sveltekit-search-params';
 
 	export let title = '';
 	export let subtitle = '';
@@ -27,7 +27,8 @@
 		};
 	});
 
-	const urlQuery = $page.url.searchParams.toString();
+	$: queryParams = queryParameters();
+	$: urlQuery = new URLSearchParams($queryParams).toString();
 </script>
 
 <header

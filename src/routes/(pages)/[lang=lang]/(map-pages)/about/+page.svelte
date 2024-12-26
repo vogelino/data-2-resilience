@@ -2,7 +2,6 @@
 	import { cn } from '$lib/utils';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { page } from '$app/stores';
-	import { Button } from 'components/ui/button';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { goto } from '$app/navigation';
 	import RUBLogo from './RUBLogo.svelte';
@@ -10,8 +9,10 @@
 	import ICLEILogo from './ICLEILogo.svelte';
 	import GoogleOrgLogo from './GoogleOrgLogo.svelte';
 	import { X } from 'lucide-svelte';
+	import { queryParameters } from 'sveltekit-search-params';
 
-	const urlQuery = $page.url.searchParams.toString();
+	$: queryParams = queryParameters();
+	$: urlQuery = new URLSearchParams($queryParams).toString();
 	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
 </script>
 

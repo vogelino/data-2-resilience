@@ -1,28 +1,38 @@
 <script lang="ts">
 	import { districts } from '$lib/stores/mapData';
 	import { mode } from 'mode-watcher';
-	import { GeoJSON, LineLayer } from 'svelte-maplibre';
+	import { type ComponentProps } from 'svelte';
+	import { GeoJSON, Popup, FillLayer, LineLayer } from 'svelte-maplibre';
+
+	type LineLayerProps = ComponentProps<LineLayer>;
 
 	export let visible = true;
+
+	$: paint = {
+		'line-color': $mode === 'dark' ? 'white' : 'black',
+		'line-opacity': 1
+	} satisfies LineLayerProps['paint'];
 </script>
 
-<GeoJSON id="districts-dark" data={districts}>
+<GeoJSON id="districts" data={districts}>
+	<FillLayer
+		layout={{
+			visibility: visible ? 'visible' : 'none'
+		}}
+		paint={{
+			'fill-color': 'transparent'
+		}}
+		hoverCursor="pointer"
+		manageHoverState
+	>
+		<Popup closeOnClickOutside openOn="hover">Hola!</Popup>
+	</FillLayer>
 	<LineLayer
 		layout={{
 			'line-cap': 'round',
 			'line-join': 'round',
-			visibility: visible && $mode === 'dark' ? 'visible' : 'none'
+			visibility: visible ? 'visible' : 'none'
 		}}
-		paint={{ 'line-color': 'white', 'line-width': 1 }}
-	/>
-</GeoJSON>
-<GeoJSON id="districts-light" data={districts}>
-	<LineLayer
-		layout={{
-			'line-cap': 'round',
-			'line-join': 'round',
-			visibility: visible && $mode !== 'dark' ? 'visible' : 'none'
-		}}
-		paint={{ 'line-color': 'black', 'line-width': 1 }}
+		{paint}
 	/>
 </GeoJSON>

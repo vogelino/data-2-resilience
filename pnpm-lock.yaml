@@ -65,6 +65,9 @@ dependencies:
   tailwind-variants:
     specifier: 0.2.1
     version: 0.2.1(tailwindcss@3.4.4)
+  topojson-client:
+    specifier: 3.1.0
+    version: 3.1.0
   typesafe-i18n:
     specifier: 5.26.2
     version: 5.26.2(typescript@5.5.4)

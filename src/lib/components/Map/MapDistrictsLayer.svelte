@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { districts } from '$lib/stores/mapData';
+
 	import { mode } from 'mode-watcher';
 	import { GeoJSON, LineLayer } from 'svelte-maplibre';
 

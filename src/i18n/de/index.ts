@@ -612,8 +612,8 @@ const de = {
 		},
 		layersSelection: {
 			ariaLabel: 'Auswahl der Kartenebene',
-			districts: 'Bezirksgrenzen',
-			lors: 'Vulnerable Gebiete',
+			districts: 'Bezirke',
+			lors: 'Stadtteile',
 			satellite: 'Satellitenbilder'
 		},
 		choroplethLegend: {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { lors } from '$lib/stores/mapData';
 	import { mode } from 'mode-watcher';
-	import { GeoJSON, LineLayer } from 'svelte-maplibre';
+	import { GeoJSON, LineLayer, FillLayer } from 'svelte-maplibre';
 
 	interface Props {
 		visible?: boolean;
@@ -10,23 +10,33 @@
 	let { visible = false }: Props = $props();
 </script>
 
-<GeoJSON id="lors-dark" data={lors}>
-	<LineLayer
+<GeoJSON id="lors" data={lors}>
+	<FillLayer
 		layout={{
-			'line-cap': 'round',
-			'line-join': 'round',
-			visibility: visible && $mode === 'dark' ? 'visible' : 'none'
+			visibility: visible ? 'visible' : 'none'
 		}}
-		paint={{ 'line-color': 'white', 'line-width': 0.5 }}
+		paint={{
+			'fill-color': [
+				'match',
+				['get', 'vulnerable'],
+				1,
+				'#FACC13', // Yellow for vulnerable: 1
+				0,
+				'transparent', // Transparent for vulnerable: 0
+				'#CCCCCC' // Gray for any other value or missing property
+			],
+			'fill-opacity': 0.8
+		}}
 	/>
-</GeoJSON>
-<GeoJSON id="lors-light" data={lors}>
 	<LineLayer
 		layout={{
 			'line-cap': 'round',
 			'line-join': 'round',
-			visibility: visible && $mode !== 'dark' ? 'visible' : 'none'
+			visibility: visible ? 'visible' : 'none'
 		}}
-		paint={{ 'line-color': 'black', 'line-width': 0.5 }}
+		paint={{
+			'line-color': $mode === 'dark' ? 'white' : 'black',
+			'line-width': 0.5
+		}}
 	/>
 </GeoJSON>

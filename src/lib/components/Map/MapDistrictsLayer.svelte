@@ -1,21 +1,13 @@
 <script lang="ts">
 	import { districts } from '$lib/stores/mapData';
 	import { mode } from 'mode-watcher';
-	import { type ComponentProps } from 'svelte';
 	import { GeoJSON, Popup, FillLayer, LineLayer } from 'svelte-maplibre';
-
-	type LineLayerProps = ComponentProps<LineLayer>;
 
 	interface Props {
 		visible?: boolean;
 	}
 
 	let { visible = true }: Props = $props();
-
-	let paint = $derived({
-		'line-color': $mode === 'dark' ? 'white' : 'black',
-		'line-opacity': 1
-	} satisfies LineLayerProps['paint']);
 </script>
 
 <GeoJSON id="districts" data={districts}>
@@ -37,6 +29,9 @@
 			'line-join': 'round',
 			visibility: visible ? 'visible' : 'none'
 		}}
-		{paint}
+		paint={{
+			'line-color': $mode === 'dark' ? 'white' : 'black',
+			'line-opacity': 1
+		}}
 	/>
 </GeoJSON>

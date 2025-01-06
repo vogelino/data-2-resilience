@@ -28,26 +28,35 @@
 	let { indicator }: Props = $props();
 
 	let selectedIndicatorSlugParam = queryParam('heatStress', ssp.string('utci'));
-	let selectedIndicatorSlug =
-		$derived($selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam);
+	let selectedIndicatorSlug = $derived(
+		$selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam
+	);
 	let slugWithCategory = $derived(`${indicator.slug}_category`);
 	let valueSelected = $derived(indicator.isSelected && selectedIndicatorSlug !== slugWithCategory);
-	let categorySelected = $derived(indicator.isSelected && selectedIndicatorSlug === slugWithCategory);
+	let categorySelected = $derived(
+		indicator.isSelected && selectedIndicatorSlug === slugWithCategory
+	);
 </script>
 
 <li class="group/indicators relative focus-within:z-10">
-	<button
-		type="button"
+	<div
 		class={cn(
-			'focusable flex w-full flex-col bg-background p-4 text-left',
-			'transition hover:bg-muted focus-visible:rounded-xl',
+			'relative flex w-full flex-col bg-background p-4 text-left',
+			'transition hover:bg-muted ',
 			'group-first-of-type/indicators:rounded-t-xl group-last-of-type/indicators:rounded-b-xl',
 			indicator.isSelected && indicator.hasCategory && 'pb-5'
 		)}
-		onclick={() => {
-			$selectedIndicatorSlugParam = indicator.hasCategory ? slugWithCategory : indicator.slug;
-		}}
 	>
+		<button
+			aria-label={indicator.title}
+			type="button"
+			onclick={() => {
+				$selectedIndicatorSlugParam = indicator.hasCategory ? slugWithCategory : indicator.slug;
+			}}
+			class={cn(
+				'focusable absolute inset-0 z-10 focus-visible:rounded-xl focus-visible:bg-transparent'
+			)}
+		></button>
 		<div class="relative flex w-full items-center justify-between gap-4 pr-8 font-semibold">
 			<div class="inline-flex items-center gap-1.5">
 				{indicator.title}
@@ -67,9 +76,11 @@
 					<li class="group/utci flex">
 						<button
 							type="button"
-							onclick={stopPropagation(preventDefault(() => {
+							onclick={(evt) => {
+								evt.preventDefault();
+								evt.stopPropagation();
 								$selectedIndicatorSlugParam = slugWithCategory;
-							}))}
+							}}
 							class={cn(
 								'border border-r-0 border-border px-3 py-1.5 text-center',
 								'rounded-l bg-background transition group-hover/indicators:bg-muted',
@@ -85,9 +96,11 @@
 					<li class="group/utci flex">
 						<button
 							type="button"
-							onclick={stopPropagation(preventDefault(() => {
+							onclick={(evt) => {
+								evt.preventDefault();
+								evt.stopPropagation();
 								$selectedIndicatorSlugParam = indicator.slug;
-							}))}
+							}}
 							class={cn(
 								'border border-l-0 border-border px-3 py-1.5 text-center',
 								'rounded-r bg-background transition group-hover/indicators:bg-muted',
@@ -103,5 +116,5 @@
 				</ul>
 			</nav>
 		{/if}
-	</button>
+	</div>
 </li>

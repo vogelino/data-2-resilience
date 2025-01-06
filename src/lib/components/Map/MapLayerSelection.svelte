@@ -12,28 +12,30 @@
 	let showDistricts = queryParam('showDistricts', ssp.boolean(true));
 	let showLors = queryParam('showLors', ssp.boolean(false));
 	let showSatellite = queryParam('showSatellite', ssp.boolean(false));
-	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
-	$: showLeftSidebar = !isAboutPage && $isLeftSidebarOpened;
+	let isAboutPage = $derived($page.url.pathname.startsWith(`/${$locale}/about`));
+	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 </script>
 
 <DropdownMenu.Root closeOnItemClick={false}>
-	<DropdownMenu.Trigger asChild aria-label={$LL.map.layersSelection.ariaLabel()} let:builder>
-		<Button
-			builders={[builder]}
-			variant="ghost"
-			size="icon"
-			class={cn(
-				'fixed right-4 top-[calc(var(--headerHeight,5rem)+6rem)] z-50 flex flex-col gap-px',
-				'rounded-md border border-border bg-border',
-				'shadow-lg transition duration-300 ease-in-out',
-				'size-10 bg-background',
-				'focusable focus-visible:z-50 focus-visible:rounded',
-				showLeftSidebar && 'max-sm:pointer-events-none max-sm:opacity-0'
-			)}
-		>
-			<Layers3 class="size-5" />
-		</Button>
-	</DropdownMenu.Trigger>
+	<DropdownMenu.Trigger asChild aria-label={$LL.map.layersSelection.ariaLabel()} >
+		{#snippet children({ builder })}
+				<Button
+				builders={[builder]}
+				variant="ghost"
+				size="icon"
+				class={cn(
+					'fixed right-4 top-[calc(var(--headerHeight,5rem)+6rem)] z-50 flex flex-col gap-px',
+					'rounded-md border border-border bg-border',
+					'shadow-lg transition duration-300 ease-in-out',
+					'size-10 bg-background',
+					'focusable focus-visible:z-50 focus-visible:rounded',
+					showLeftSidebar && 'max-sm:pointer-events-none max-sm:opacity-0'
+				)}
+			>
+				<Layers3 class="size-5" />
+			</Button>
+					{/snippet}
+		</DropdownMenu.Trigger>
 	<DropdownMenu.Content align="end" class="w-56">
 		<DropdownMenu.Item
 			on:click={() => ($showDistricts = !$showDistricts)}

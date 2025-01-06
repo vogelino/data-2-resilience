@@ -27,7 +27,7 @@
 		}
 	});
 
-	$: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : '';
+	let webManifestLink = $derived(pwaInfo ? pwaInfo.webManifest.linkTag : '');
 
 	const baseUrl = import.meta.env.VITE_BASE_URL || 'http://localhost:5173';
 </script>

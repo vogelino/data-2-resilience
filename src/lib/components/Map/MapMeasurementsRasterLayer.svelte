@@ -4,8 +4,12 @@
 	import { RasterLayer, RasterTileSource } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 
-	export let hour: number;
-	export let visible = false;
+	interface Props {
+		hour: number;
+		visible?: boolean;
+	}
+
+	let { hour, visible = false }: Props = $props();
 
 	const heatStressUnit = queryParam('heatStress', ssp.string('utci'));
 
@@ -19,7 +23,7 @@
 	const date = parseISO('2024-08-13T00:00:00.000Z'); // TODO: Replace with today as soon as supported
 	const dayOfYearToday = getDayOfYear(date);
 	const year = getYear(date);
-	$: tilesUrls = hours.map((h) => {
+	let tilesUrls = $derived(hours.map((h) => {
 		const paddedHour = `${h}`.padStart(2, '0');
 		const unit =
 			// @ts-ignore
@@ -30,7 +34,7 @@
 			layerHour: h,
 			tilesUrl: `${PUBLIC_API_BASE_URL}/tms/singleband/${unit}/${year}/${dayOfYearToday}/${paddedHour}/{z}/{x}/{y}.png?colormap=turbo&tile_size=[256,256]`
 		};
-	});
+	}));
 </script>
 
 {#each tilesUrls as { layerHour, tilesUrl } (layerHour)}

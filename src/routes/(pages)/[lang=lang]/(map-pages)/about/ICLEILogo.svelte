@@ -2,7 +2,11 @@
 	import LL from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 
-	export let className = '';
+	interface Props {
+		className?: string;
+	}
+
+	let { className = '' }: Props = $props();
 </script>
 
 <svg

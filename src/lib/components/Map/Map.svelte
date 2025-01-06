@@ -16,7 +16,11 @@
 	import MapZoomControl from './MapZoomControl.svelte';
 	import SatelliteRasterLayer from './SatelliteRasterLayer.svelte';
 
-	export let stations: StationsGeoJSONType;
+	interface Props {
+		stations: StationsGeoJSONType;
+	}
+
+	let { stations }: Props = $props();
 
 	const config = { debounceHistory: 500 };
 	const lon = queryParam('lon', ssp.number(7.467), config);
@@ -31,12 +35,12 @@
 	let mapLon = $lon;
 	let mapZoom = $zoom;
 
-	$: p = $page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
-	$: currentPage = p === '' ? 'measurements' : p;
-	$: vectorTilesUrl =
-		$mode === 'dark'
+	let p = $derived($page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', ''));
+	let currentPage = $derived(p === '' ? 'measurements' : p);
+	let vectorTilesUrl =
+		$derived($mode === 'dark'
 			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
-			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
+			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json');
 
 	function disableMapRotation(map: maplibregl.Map) {
 		// disable map rotation using right click + drag
@@ -54,7 +58,7 @@
 
 <div class="main-map relative grid h-full w-full items-center justify-center overflow-clip">
 	<MapLibre
-		let:map
+		
 		center={[mapLon, mapLat]}
 		zoom={mapZoom}
 		dragRotate={false}
@@ -79,17 +83,19 @@
 		}}
 		on:load={onMapLoad}
 	>
-		<MapZoomControl {map} />
-		<MapLayerSelection />
+		{#snippet children({ map })}
+				<MapZoomControl {map} />
+			<MapLayerSelection />
 
-		<SatelliteRasterLayer visible={$showSatellite} />
-		{#if currentPage === 'measurements'}
-			<MapStationsLayer {stations} {map} />
-		{/if}
-		<MapMeasurementsRasterLayer hour={$hour} visible={currentPage === 'heat-stress'} />
-		<MapDistrictsLayer visible={$showDistricts} />
-		<MapLorsLayer visible={$showLors} />
-	</MapLibre>
+			<SatelliteRasterLayer visible={$showSatellite} />
+			{#if currentPage === 'measurements'}
+				<MapStationsLayer {stations} {map} />
+			{/if}
+			<MapMeasurementsRasterLayer hour={$hour} visible={currentPage === 'heat-stress'} />
+			<MapDistrictsLayer visible={$showDistricts} />
+			<MapLorsLayer visible={$showLors} />
+					{/snippet}
+		</MapLibre>
 
 	<ChoroplethLegend />
 	{#if currentPage === 'heat-stress'}
@@ -104,7 +110,7 @@
 		outline: none;
 	}
 
-	.main-map:has(.maplibregl-canvas:focus-visible)::after {
+	.main-map:has(:global(.maplibregl-canvas:focus-visible))::after {
 		content: '';
 		position: absolute;
 		inset: -4px;

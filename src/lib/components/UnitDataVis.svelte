@@ -7,7 +7,11 @@
 	import DateRangeSlider from './DateRangeSlider.svelte';
 	import StationsValuesLineChart from './StationsLineChart/StationsLineChart.svelte';
 
-	export let stations: StationsGeoJSONType;
+	interface Props {
+		stations: StationsGeoJSONType;
+	}
+
+	let { stations }: Props = $props();
 
 	const datavisType = queryParam('datavisType', ssp.string('day'));
 	const selectedStations = useStations();

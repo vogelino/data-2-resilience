@@ -3,9 +3,13 @@
 	import { Frown } from 'lucide-svelte';
 	import { Alert } from './ui/alert';
 
-	export let errorObject: Error | undefined | null;
-	export let label = $LL.errors.unexpectedError.label();
-	export let description = $LL.errors.unexpectedError.description();
+	interface Props {
+		errorObject: Error | undefined | null;
+		label?: any;
+		description?: any;
+	}
+
+	let { errorObject, label = $LL.errors.unexpectedError.label(), description = $LL.errors.unexpectedError.description() }: Props = $props();
 </script>
 
 <Alert class="flex max-h-72 max-w-sm flex-col gap-2 overflow-y-auto" variant="destructive">

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { page } from '$app/stores';
 	import LL, { locale } from '$i18n/i18n-svelte';
 	import { isLeftSidebarOpened, tabActive } from '$lib/stores/uiStore';
@@ -6,10 +8,15 @@
 	import { onMount } from 'svelte';
 	import WelcomeMessage from './WelcomeMessage.svelte';
 	import { queryParameters } from 'sveltekit-search-params';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
 
-	let navElement: HTMLElement;
-	$: fullPath = $page.url.pathname.replace(`/${$locale}`, '');
-	$: tabs = [
+	let { children }: Props = $props();
+
+	let navElement: HTMLElement = $state();
+	let fullPath = $derived($page.url.pathname.replace(`/${$locale}`, ''));
+	let tabs = $derived([
 		{
 			slug: 'measurements',
 			name: $LL.navigation.tabs.actualMeasurements(),
@@ -25,14 +32,16 @@
 			name: $LL.navigation.tabs.stations(),
 			isActive: fullPath === '/stations'
 		}
-	];
+	]);
 
-	$: $tabActive = tabs.find((tab) => tab.isActive)?.slug || tabs[0].slug;
-	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
-	$: showLeftSidebar = !isAboutPage && $isLeftSidebarOpened;
+	run(() => {
+		$tabActive = tabs.find((tab) => tab.isActive)?.slug || tabs[0].slug;
+	});
+	let isAboutPage = $derived($page.url.pathname.startsWith(`/${$locale}/about`));
+	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 
-	$: queryParams = queryParameters();
-	$: urlQuery = new URLSearchParams($queryParams).toString();
+	let queryParams = $derived(queryParameters());
+	let urlQuery = $derived(new URLSearchParams($queryParams).toString());
 
 	onMount(() => {
 		document.getElementById('left-sidebar-scroll-container')?.addEventListener('scroll', () => {
@@ -98,7 +107,7 @@
 			</ul>
 		</nav>
 		<section class="bg-background p-6">
-			<slot />
+			{@render children?.()}
 		</section>
 	</div>
 {/if}

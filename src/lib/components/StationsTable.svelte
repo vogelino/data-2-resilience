@@ -3,18 +3,16 @@
 	import { api } from '$lib/utils/api';
 	import type { StationMetadata } from '$lib/utils/schemas';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { renderComponent, type ColumnDef } from '@tanstack/svelte-table';
+	import { renderComponent, type ColumnDef } from '$lib/components/table';
 	import Table from './Table.svelte';
-	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
-	import InfoTooltip from './InfoTooltip.svelte';
 	import SensorTypeWithTooltip from './SensorTypeWithTooltip.svelte';
 
 	const query = createQuery({
 		queryKey: ['stations'],
 		queryFn: () => api().getStationsMetadata()
 	});
-
-	$: columns = [
+	let data = $derived($query?.data || []);
+	let columns = [
 		{
 			header: () => $LL.pages.stations.table.headers.name(),
 			accessorKey: 'longName',
@@ -86,11 +84,11 @@
 	] satisfies ColumnDef<StationMetadata>[];
 </script>
 
-<div class="min-h-full bg-muted">
+<div class="min-h-full bg-muted pt-8">
 	<div class="container flex min-h-full flex-col gap-6 py-8">
 		<h1 class="text-xl font-semibold">{$LL.pages.stations.titleTable()}</h1>
 		<div class="rounded border border-border bg-background">
-			<Table data={$query.data} {columns} />
+			<Table {data} {columns} />
 		</div>
 	</div>
 </div>

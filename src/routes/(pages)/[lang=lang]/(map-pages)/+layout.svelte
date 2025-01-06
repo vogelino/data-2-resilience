@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import Header from '$lib/components/Header.svelte';
 	import LeftSidebar from '$lib/components/LeftSidebar.svelte';
@@ -8,17 +8,23 @@
 	import StationsTable from '$lib/components/StationsTable.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
-	$: stations = data?.stationsGeoJson;
+	interface Props {
+		data: PageData;
+		children?: import('svelte').Snippet;
+	}
 
-	$: isStationsPage = $page.url.pathname.replace(`/${$locale}`, '') === '/stations';
-	$: isAboutPage = $page.url.pathname.replace(`/${$locale}`, '') === '/about';
+	let { data, children }: Props = $props();
+	let stations = $derived(data?.stationsGeoJson);
+
+	let isStationsPage = $derived(page.url.pathname.replace(`/${$locale}`, '') === '/stations');
+	let isAboutPage = $derived(page.url.pathname.replace(`/${$locale}`, '') === '/about');
 </script>
 
 <Header title={$LL.siteNameShort()} subtitle={$LL.siteSubtitle()} />
 <SidebarsLayout>
+	<!-- @migration-task: migrate this slot by hand, `left-sidebar` is an invalid identifier -->
 	<LeftSidebar slot="left-sidebar">
-		<slot />
+		{@render children?.()}
 	</LeftSidebar>
 	{#if isStationsPage}
 		<StationsTable />
@@ -27,5 +33,5 @@
 	{/if}
 </SidebarsLayout>
 {#if isAboutPage}
-	<slot />
+	{@render children?.()}
 {/if}

@@ -43,10 +43,14 @@
 		'#607D8B'
 	];
 
-	export let stations: StationsGeoJSONType;
+	interface Props {
+		stations: StationsGeoJSONType;
+	}
 
-	let start_date: Date | undefined;
-	let end_date: Date | undefined;
+	let { stations }: Props = $props();
+
+	let start_date: Date | undefined = $state();
+	let end_date: Date | undefined = $state();
 	const options = { debounceHistory: 500 };
 	const rangeStart = queryParam('range_start', ssp.number(-10), options);
 	const rangeEnd = queryParam('range_end', ssp.number(0), options);
@@ -65,35 +69,36 @@
 	rangeStart.subscribe(updateStartDate);
 	rangeEnd.subscribe(updateEndDate);
 
-	$: query = useSationsRangeData({
-		ids: $selectedStations,
-		start_date,
-		end_date,
-		unit: $unit,
-		stations
-	});
 
 	type DataRecord = Record<string, unknown> & {
 		date: Date;
 	};
 
-	$: data = $query.data?.lineChartData || ([] as DataRecord[]).filter(Boolean);
 
-	$: isCatChart = $unit.endsWith('_category');
-	$: y = $selectedStations.map(
+	const x = (d: DataRecord) => d.date.getTime();
+	const color = (d: DataRecord, idx: number) => CHART_COLORS[idx];
+
+	let query = $derived(useSationsRangeData({
+		ids: $selectedStations,
+		start_date,
+		end_date,
+		unit: $unit,
+		stations
+	}));
+	let data = $derived($query.data?.lineChartData || ([] as DataRecord[]).filter(Boolean));
+	let isCatChart = $derived($unit.endsWith('_category'));
+	let y = $derived($selectedStations.map(
 		(id) => (d: DataRecord) =>
 			isCatChart
 				? getHeatStressValueByCategory(`${d[id as keyof typeof d]}` as string)
 				: (d[id as keyof typeof d] as number)
-	);
-	$: idsColors = $selectedStations.reduce(
+	));
+	let idsColors = $derived($selectedStations.reduce(
 		(acc, id, idx) => ({ ...acc, [id]: CHART_COLORS[idx] }),
 		{}
-	);
-	const x = (d: DataRecord) => d.date.getTime();
-	const color = (d: DataRecord, idx: number) => CHART_COLORS[idx];
-	$: xTickFormat = (d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d);
-	$: yTickFormat = (d: number) =>
+	));
+	let xTickFormat = $derived((d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d));
+	let yTickFormat = $derived((d: number) =>
 		isCatChart
 			? getHeatStressLabel({
 					unit: $unit,
@@ -102,16 +107,17 @@
 				})
 			: d.toLocaleString($locale, {
 					maximumFractionDigits: 1
-				});
-	$: legendItems = $selectedStations
+				}));
+	let unsupportedIds = $derived($query.data?.unsupportedIds || []);
+	let legendItems = $derived($selectedStations
 		.filter((id) => !unsupportedIds.includes(id))
 		.map((id) => ({
 			id,
 			name: stations.features.find((f) => f.properties.id === id)?.properties.longName || id,
 			color: idsColors[id as keyof typeof idsColors]
 		}))
-		.sort((a, b) => a.name.localeCompare(b.name));
-	$: tooltipTemplate = (d: DataRecord) => `
+		.sort((a, b) => a.name.localeCompare(b.name)));
+	let tooltipTemplate = $derived((d: DataRecord) => `
 		<span class="flex flex-col text-xs min-w-56">
 			<strong class="pb-1 mb-1 border-b border-border text-sm">
 				${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short' }).format(d.date)}
@@ -147,20 +153,18 @@
 					.join('')}
 			</span>
 		</span>
-	`;
-	$: unsupportedIds = $query.data?.unsupportedIds || [];
-	$: unsupportedMsg = getMessageForUnsupportedStations({
+	`);
+	let unsupportedMsg = $derived(getMessageForUnsupportedStations({
 		ids: $selectedStations,
 		unsupportedIds,
 		unit: $unit,
 		stations: stations.features,
 		LL: $LL
-	});
-
-	$: selectedUnitLabel =
-		$LL.pages.measurements.unitSelect.units[
+	}));
+	let selectedUnitLabel =
+		$derived($LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].label();
+		].label());
 </script>
 
 <h3 class="font-semibold">{selectedUnitLabel}</h3>
@@ -201,7 +205,7 @@
 		>
 			{#each legendItems as { id, name, color }}
 				<li class="flex items-center gap-2">
-					<span style="background-color: {color}" class="inline-block h-0.5 w-3" />
+					<span style="background-color: {color}" class="inline-block h-0.5 w-3"></span>
 					{name}
 				</li>
 			{/each}

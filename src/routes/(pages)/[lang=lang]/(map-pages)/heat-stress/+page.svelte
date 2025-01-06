@@ -8,10 +8,10 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 
 	let selectedIndicatorSlugParam = queryParam('heatStress', ssp.string('utci'));
-	$: selectedIndicatorSlug =
-		$selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam;
+	let selectedIndicatorSlug =
+		$derived($selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam);
 
-	$: indicatorValues = [
+	let indicatorValues = $derived([
 		{
 			slug: 'utci' as const,
 			title: $LL.indicators.utci.title(),
@@ -33,7 +33,7 @@
 			hasCategory: false,
 			isSelected: selectedIndicatorSlug === 'air_temperature'
 		}
-	];
+	]);
 </script>
 
 <h1 class="mb-2 text-xl font-semibold">{$LL.pages.heatStress.title()}</h1>

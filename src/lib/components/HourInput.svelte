@@ -15,7 +15,11 @@
 		iconUp?: string;
 		iconDown?: string;
 	};
-	export let classes: ClassesType = {};
+	interface Props {
+		classes?: ClassesType;
+	}
+
+	let { classes = {} }: Props = $props();
 
 	let hour = queryParam('hour', ssp.number(12));
 
@@ -49,7 +53,7 @@
 		value={`${`${$hour}`.padStart(2, '0')}:00`}
 		pattern="[0-9]{2}:0{2}"
 		step="3600"
-		on:input={onHourChange}
+		oninput={onHourChange}
 		class={cn(
 			'pointer-events-auto rounded border border-border',
 			'bg-background px-3 py-2 text-center text-xl text-foreground',

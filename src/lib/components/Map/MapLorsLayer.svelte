@@ -3,7 +3,11 @@
 	import { mode } from 'mode-watcher';
 	import { GeoJSON, LineLayer } from 'svelte-maplibre';
 
-	export let visible = false;
+	interface Props {
+		visible?: boolean;
+	}
+
+	let { visible = false }: Props = $props();
 </script>
 
 <GeoJSON id="lors-dark" data={lors}>

@@ -11,9 +11,9 @@
 	import { X } from 'lucide-svelte';
 	import { queryParameters } from 'sveltekit-search-params';
 
-	$: queryParams = queryParameters();
-	$: urlQuery = new URLSearchParams($queryParams).toString();
-	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
+	let queryParams = $derived(queryParameters());
+	let urlQuery = $derived(new URLSearchParams($queryParams).toString());
+	let isAboutPage = $derived($page.url.pathname.startsWith(`/${$locale}/about`));
 </script>
 
 <Dialog.Root

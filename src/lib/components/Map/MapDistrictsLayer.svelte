@@ -6,12 +6,16 @@
 
 	type LineLayerProps = ComponentProps<LineLayer>;
 
-	export let visible = true;
+	interface Props {
+		visible?: boolean;
+	}
 
-	$: paint = {
+	let { visible = true }: Props = $props();
+
+	let paint = $derived({
 		'line-color': $mode === 'dark' ? 'white' : 'black',
 		'line-opacity': 1
-	} satisfies LineLayerProps['paint'];
+	} satisfies LineLayerProps['paint']);
 </script>
 
 <GeoJSON id="districts" data={districts}>

@@ -6,8 +6,12 @@
 	import UnitSelect from 'components/UnitSelect.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
-	$: stationsGeoJson = data.stationsGeoJson;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
+	let stationsGeoJson = $derived(data.stationsGeoJson);
 </script>
 
 <h1 class="mb-2 text-xl font-semibold">{$LL.pages.measurements.title()}</h1>

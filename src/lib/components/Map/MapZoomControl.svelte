@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import { Minus, Plus } from 'lucide-svelte';
@@ -7,9 +9,13 @@
 	import { page } from '$app/stores';
 	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 
-	export let map: MapLibreMap;
+	interface Props {
+		map: MapLibreMap;
+	}
 
-	let maxZoomReached = map?.getZoom() >= map?.getMaxZoom();
+	let { map }: Props = $props();
+
+	let maxZoomReached = $state(map?.getZoom() >= map?.getMaxZoom());
 	let zoomInitialized = false;
 
 	function initZoomControl(mp: MapLibreMap) {
@@ -22,9 +28,11 @@
 		});
 	}
 
-	$: initZoomControl(map);
-	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
-	$: showLeftSidebar = !isAboutPage && $isLeftSidebarOpened;
+	run(() => {
+		initZoomControl(map);
+	});
+	let isAboutPage = $derived($page.url.pathname.startsWith(`/${$locale}/about`));
+	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 </script>
 
 <nav

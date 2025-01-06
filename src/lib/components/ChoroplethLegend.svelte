@@ -13,14 +13,14 @@
 	const heatStressUnit = queryParam('heatStress', ssp.string('utci'));
 	const unit = queryParam('unit', ssp.string('utci'));
 
-	let open = false;
+	let open = $state(false);
 
-	$: p = $page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
-	$: currentPage = p === '' ? 'measurements' : p;
+	let p = $derived($page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', ''));
+	let currentPage = $derived(p === '' ? 'measurements' : p);
 
 	type Unit = keyof typeof $LL.pages.measurements.unitSelect.units;
 
-	$: getUnitLabelsByUnit = function (unit: Unit, isCategoryUnit = false) {
+	let getUnitLabelsByUnit = $derived(function (unit: Unit, isCategoryUnit = false) {
 		return {
 			unitOnlyLabel:
 				$LL.pages.measurements.unitSelect.units[
@@ -29,33 +29,33 @@
 			label: $LL.pages.measurements.unitSelect.units[unit].label(),
 			description: $LL.pages.measurements.unitSelect.units[unit].description()
 		};
-	};
-	$: finalUnit = currentPage === 'measurements' ? ($unit as Unit) : ($heatStressUnit as Unit);
-	$: isCategoryUnit = finalUnit.endsWith('_category');
-	$: labels = getUnitLabelsByUnit(finalUnit, isCategoryUnit);
-	$: unitWithoutCategory =
-		finalUnit.replace(/_category$/, '') === 'pet' ? ('pet' as const) : ('utci' as const);
+	});
+	let finalUnit = $derived(currentPage === 'measurements' ? ($unit as Unit) : ($heatStressUnit as Unit));
+	let isCategoryUnit = $derived(finalUnit.endsWith('_category'));
+	let labels = $derived(getUnitLabelsByUnit(finalUnit, isCategoryUnit));
+	let unitWithoutCategory =
+		$derived(finalUnit.replace(/_category$/, '') === 'pet' ? ('pet' as const) : ('utci' as const));
 
-	$: scale =
-		unitsToScalesMap[finalUnit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default;
-	$: isOrdinal = scale.type === 'ordinal';
-	$: showHealthRisks = finalUnit.startsWith('utci') || finalUnit.startsWith('pet');
-	$: titleKey = finalUnit.endsWith('_category')
+	let scale =
+		$derived(unitsToScalesMap[finalUnit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default);
+	let isOrdinal = $derived(scale.type === 'ordinal');
+	let showHealthRisks = $derived(finalUnit.startsWith('utci') || finalUnit.startsWith('pet'));
+	let titleKey = $derived(finalUnit.endsWith('_category')
 		? ('heatStress' as const)
-		: ('thermalComfort' as const);
-	$: allHealthRisks = Object.values($LL.map.choroplethLegend.healthRisks).filter(
+		: ('thermalComfort' as const));
+	let allHealthRisks = $derived(Object.values($LL.map.choroplethLegend.healthRisks).filter(
 		(item) => !!item.title[titleKey]()
-	);
-	$: showColdRisks = currentPage === 'measurements' && showHealthRisks;
-	$: healthRisks = showColdRisks ? allHealthRisks : allHealthRisks.slice(-5);
-	$: scheme = showHealthRisks ? scale.scheme.slice(-healthRisks.length) : scale.scheme;
-	$: scaleMin = scale.type === 'sequential' ? scale.min : 0;
-	$: scaleMax = scale.type === 'sequential' ? scale.max : 100;
-	$: seqMin = showColdRisks || !showHealthRisks ? scaleMin : scaleMax - (scaleMax - scaleMin) / 5;
-	$: min = scale.type === 'sequential' ? `${seqMin} ${labels.unitOnlyLabel}` : '';
-	$: max = scale.type === 'sequential' ? `${scaleMax} ${labels.unitOnlyLabel}` : '';
-	$: isAboutPage = $page.url.pathname.startsWith(`/${$locale}/about`);
-	$: showLeftSidebar = !isAboutPage && $isLeftSidebarOpened;
+	));
+	let showColdRisks = $derived(currentPage === 'measurements' && showHealthRisks);
+	let healthRisks = $derived(showColdRisks ? allHealthRisks : allHealthRisks.slice(-5));
+	let scheme = $derived(showHealthRisks ? scale.scheme.slice(-healthRisks.length) : scale.scheme);
+	let scaleMin = $derived(scale.type === 'sequential' ? scale.min : 0);
+	let scaleMax = $derived(scale.type === 'sequential' ? scale.max : 100);
+	let seqMin = $derived(showColdRisks || !showHealthRisks ? scaleMin : scaleMax - (scaleMax - scaleMin) / 5);
+	let min = $derived(scale.type === 'sequential' ? `${seqMin} ${labels.unitOnlyLabel}` : '');
+	let max = $derived(scale.type === 'sequential' ? `${scaleMax} ${labels.unitOnlyLabel}` : '');
+	let isAboutPage = $derived($page.url.pathname.startsWith(`/${$locale}/about`));
+	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 </script>
 
 <div
@@ -104,7 +104,7 @@
 						to right,
 						${scheme.join(', ')}
 				)`}
-			/>
+			></div>
 		{/if}
 		<div class="flex w-full items-center justify-between pt-1 leading-4 text-muted-foreground">
 			<span>
@@ -116,29 +116,31 @@
 		</div>
 	</div>
 	<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
-		<span class="size-3 rounded-full bg-muted-foreground" />
+		<span class="size-3 rounded-full bg-muted-foreground"></span>
 		<span class="text-sm text-muted-foreground">
 			{$LL.map.choroplethLegend.noValueAvailable()}
 		</span>
 	</span>
 	{#if showHealthRisks}
 		<Popover.Root bind:open>
-			<Popover.Trigger asChild let:builder>
-				<Button
-					builders={[builder]}
-					variant="link"
-					role="combobox"
-					aria-expanded={open}
-					class={cn('flex h-fit items-center justify-start gap-2 p-0 transition-all')}
-				>
-					<HeartPulse class="size-5 shrink-0 text-pink-700" />
-					<span
-						>{open
-							? $LL.map.choroplethLegend.hideHealthRisks()
-							: $LL.map.choroplethLegend.showHealthRisks()}</span
+			<Popover.Trigger asChild >
+				{#snippet children({ builder })}
+								<Button
+						builders={[builder]}
+						variant="link"
+						role="combobox"
+						aria-expanded={open}
+						class={cn('flex h-fit items-center justify-start gap-2 p-0 transition-all')}
 					>
-				</Button>
-			</Popover.Trigger>
+						<HeartPulse class="size-5 shrink-0 text-pink-700" />
+						<span
+							>{open
+								? $LL.map.choroplethLegend.hideHealthRisks()
+								: $LL.map.choroplethLegend.showHealthRisks()}</span
+						>
+					</Button>
+											{/snippet}
+						</Popover.Trigger>
 			<Popover.Content
 				class="max-h-[calc(100vh-20rem)] w-72 -translate-y-[7.5rem] overflow-y-auto rounded p-0 pb-2"
 			>

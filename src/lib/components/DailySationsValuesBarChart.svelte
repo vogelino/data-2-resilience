@@ -19,7 +19,11 @@
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
 	import { Alert } from './ui/alert';
 
-	export let stations: StationsGeoJSONType;
+	interface Props {
+		stations: StationsGeoJSONType;
+	}
+
+	let { stations }: Props = $props();
 
 	type DataRecord = {
 		id: string;
@@ -28,14 +32,14 @@
 		supported: boolean;
 	};
 
-	let date: Date | undefined;
+	let date: Date | undefined = $state();
 	const options = { debounceHistory: 500 };
 	const dayVlaue = queryParam('day_value', ssp.number(0), options);
 	const unit = queryParam('unit', ssp.string('utci'));
 	const hour = queryParam('hour', ssp.number(12));
 	const selectedStations = useStations();
 	const rawDatavisType = queryParam('datavisType', ssp.string('day'));
-	$: datavisType = parseDatavisType($rawDatavisType);
+	let datavisType = $derived(parseDatavisType($rawDatavisType));
 
 	const updateDay = debounce((d: number) => {
 		updateDay?.cancel();
@@ -44,26 +48,26 @@
 
 	dayVlaue.subscribe(updateDay);
 
-	$: unitLabel =
-		$LL.pages.measurements.unitSelect.units[
+	let unitLabel =
+		$derived($LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].label();
-	$: unitOnly =
-		$LL.pages.measurements.unitSelect.units[
+		].label());
+	let unitOnly =
+		$derived($LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].unitOnly();
+		].unitOnly());
 
-	$: ids = $selectedStations.toSorted();
-	$: query = useDailyStationsData({
+	let ids = $derived($selectedStations.toSorted());
+	let query = $derived(useDailyStationsData({
 		ids,
 		date,
 		unit: $unit,
 		stations,
 		scale: datavisType === 'day' ? 'daily' : 'hourly',
 		hour: $hour
-	});
+	}));
 
-	$: data = ($query.data || []).sort((a, b) => {
+	let data = $derived(($query.data || []).sort((a, b) => {
 		const aValue = a.value;
 		const bValue = b.value;
 		if (aValue === undefined && bValue === undefined)
@@ -71,43 +75,43 @@
 		if (aValue === undefined) return -1;
 		if (bValue === undefined) return 1;
 		return b.label.localeCompare(a.label, $locale);
-	});
-	$: insufficientDataIds = data
+	}));
+	let insufficientDataIds = $derived(data
 		.filter((d) => d.supported && d.value === undefined)
-		.map((d) => d.id);
-	$: noneSufficientData = insufficientDataIds.length === ids.length;
-	$: insufficientDataStations = stations.features
+		.map((d) => d.id));
+	let noneSufficientData = $derived(insufficientDataIds.length === ids.length);
+	let insufficientDataStations = $derived(stations.features
 		.filter((f) => insufficientDataIds.includes(f.properties.id))
-		.sort((a, b) => a.properties.longName.localeCompare(b.properties.longName));
-	$: unsupportedIds = data.filter((d) => !d.supported).map((d) => d.id);
-	$: unsupportedMsg = getMessageForUnsupportedStations({
+		.sort((a, b) => a.properties.longName.localeCompare(b.properties.longName)));
+	let unsupportedIds = $derived(data.filter((d) => !d.supported).map((d) => d.id));
+	let unsupportedMsg = $derived(getMessageForUnsupportedStations({
 		ids,
 		unsupportedIds,
 		unit: $unit,
 		stations: stations.features,
 		LL: $LL
-	});
-	$: validIds = data
+	}));
+	let validIds = $derived(data
 		.filter((d) => !unsupportedIds.includes(d.id) && !insufficientDataIds.includes(d.id))
-		.map((d) => d.id);
+		.map((d) => d.id));
 
-	$: firstValidValue = data.find((d) => d.value !== undefined)?.value;
-	$: firstValidValueLabel =
-		typeof firstValidValue === 'string'
+	let firstValidValue = $derived(data.find((d) => d.value !== undefined)?.value);
+	let firstValidValueLabel =
+		$derived(typeof firstValidValue === 'string'
 			? getHeatStressLabel({ unit: $unit, LL: $LL, value: firstValidValue })
-			: firstValidValue?.toLocaleString($locale, { maximumFractionDigits: 1 });
-	$: maxValue = data.reduce((acc, item) => Math.max(acc, item.value ?? 0), 0);
+			: firstValidValue?.toLocaleString($locale, { maximumFractionDigits: 1 }));
+	let maxValue = $derived(data.reduce((acc, item) => Math.max(acc, item.value ?? 0), 0));
 	const y = (d: DataRecord) => (typeof d.value === 'number' ? d.value : maxValue);
 	const x = (d: DataRecord, idx: number) => idx;
 	const color = (d: DataRecord) =>
 		typeof d.value === 'number' ? undefined : 'hsl(var(--muted-foreground) / 0.1)';
 	const yTickFormat = (idx: number) => data[idx]?.label ?? '';
-	$: xTickFormat = (value: number) =>
+	let xTickFormat = $derived((value: number) =>
 		value.toLocaleString($locale, {
 			maximumFractionDigits: 1
-		});
-	$: yTickValues = data.map(x);
-	$: triggers = {
+		}));
+	let yTickValues = $derived(data.map(x));
+	let triggers = $derived({
 		[StackedBar.selectors.bar]: (d: DataRecord) => `
 			<span class="flex flex-col text-xs max-w-48">
 				${
@@ -138,8 +142,8 @@
 				</span>
 			</span>
 		`
-	};
-	$: chartHeight = validIds.length === 0 ? 0 : Math.max(96, 60 + data.length * 22);
+	});
+	let chartHeight = $derived(validIds.length === 0 ? 0 : Math.max(96, 60 + data.length * 22));
 
 	const dateLongFormatter = new Intl.DateTimeFormat($locale, {
 		year: 'numeric',
@@ -194,7 +198,7 @@
 							LL: $LL,
 							value: firstValidValue
 						})}`}
-					/>
+					></span>
 				{/if}
 				{firstValidValueLabel}
 			{/if}

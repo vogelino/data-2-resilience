@@ -2,7 +2,11 @@
 	import { cn } from '$lib/utils';
 	import { Check } from 'lucide-svelte';
 
-	export let checked = false;
+	interface Props {
+		checked?: boolean;
+	}
+
+	let { checked = false }: Props = $props();
 </script>
 
 <span

@@ -3,9 +3,13 @@
 	import { cn } from '$lib/utils';
 	import { Info } from 'lucide-svelte';
 
-	export let title = '';
-	export let description = '';
-	export let triggerLabel = '';
+	interface Props {
+		title?: string;
+		description?: string;
+		triggerLabel?: string;
+	}
+
+	let { title = '', description = '', triggerLabel = '' }: Props = $props();
 </script>
 
 {#if title || description}

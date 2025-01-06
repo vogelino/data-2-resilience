@@ -1,12 +1,16 @@
 <script lang="ts">
 	import CollapsibleParagraph from './CollapsibleParagraph.svelte';
 
-	export let title: string;
-	export let description: string;
-	export let image: {
+	interface Props {
+		title: string;
+		description: string;
+		image: {
 		src: string;
 		alt: string;
 	};
+	}
+
+	let { title, description, image }: Props = $props();
 </script>
 
 <li class="rounded-xl border border-border bg-background">

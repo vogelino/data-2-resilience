@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	export type SelectedIndicatorSlugType =
 		| 'relative_humidity'
 		| 'utci'
@@ -14,19 +14,25 @@
 </script>
 
 <script lang="ts">
+	import { preventDefault, stopPropagation } from 'svelte/legacy';
+
 	import { LL } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import InfoTooltip from './InfoTooltip.svelte';
 
-	export let indicator: IndicatorType;
+	interface Props {
+		indicator: IndicatorType;
+	}
+
+	let { indicator }: Props = $props();
 
 	let selectedIndicatorSlugParam = queryParam('heatStress', ssp.string('utci'));
-	$: selectedIndicatorSlug =
-		$selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam;
-	$: slugWithCategory = `${indicator.slug}_category`;
-	$: valueSelected = indicator.isSelected && selectedIndicatorSlug !== slugWithCategory;
-	$: categorySelected = indicator.isSelected && selectedIndicatorSlug === slugWithCategory;
+	let selectedIndicatorSlug =
+		$derived($selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam);
+	let slugWithCategory = $derived(`${indicator.slug}_category`);
+	let valueSelected = $derived(indicator.isSelected && selectedIndicatorSlug !== slugWithCategory);
+	let categorySelected = $derived(indicator.isSelected && selectedIndicatorSlug === slugWithCategory);
 </script>
 
 <li class="group/indicators relative focus-within:z-10">
@@ -38,7 +44,7 @@
 			'group-first-of-type/indicators:rounded-t-xl group-last-of-type/indicators:rounded-b-xl',
 			indicator.isSelected && indicator.hasCategory && 'pb-5'
 		)}
-		on:click={() => {
+		onclick={() => {
 			$selectedIndicatorSlugParam = indicator.hasCategory ? slugWithCategory : indicator.slug;
 		}}
 	>
@@ -61,9 +67,9 @@
 					<li class="group/utci flex">
 						<button
 							type="button"
-							on:click|preventDefault|stopPropagation={() => {
+							onclick={stopPropagation(preventDefault(() => {
 								$selectedIndicatorSlugParam = slugWithCategory;
-							}}
+							}))}
 							class={cn(
 								'border border-r-0 border-border px-3 py-1.5 text-center',
 								'rounded-l bg-background transition group-hover/indicators:bg-muted',
@@ -79,9 +85,9 @@
 					<li class="group/utci flex">
 						<button
 							type="button"
-							on:click|preventDefault|stopPropagation={() => {
+							onclick={stopPropagation(preventDefault(() => {
 								$selectedIndicatorSlugParam = indicator.slug;
-							}}
+							}))}
 							class={cn(
 								'border border-l-0 border-border px-3 py-1.5 text-center',
 								'rounded-r bg-background transition group-hover/indicators:bg-muted',

@@ -20,9 +20,9 @@
 	const selectedRangeEnd = queryParam('range_end', ssp.number(0), options);
 	const dayValue = queryParam('day_value', ssp.number(0), options);
 	const rawDatavisType = queryParam('datavisType', ssp.string('day'));
-	$: datavisType = parseDatavisType($rawDatavisType);
+	let datavisType = $derived(parseDatavisType($rawDatavisType));
 
-	$: formatter = (value: number) => {
+	let formatter = $derived((value: number) => {
 		if (Number.isNaN(value)) return '';
 		const date = addDays(today(), value === -0 ? 0 : value);
 		if (isToday(date)) return $LL.pages.measurements.dateRangeSlider.today();
@@ -31,7 +31,7 @@
 			month: 'short',
 			year: 'numeric'
 		}).format(date);
-	};
+	});
 
 	const onRangeChange = (event: CustomEvent<{ values: [number, number] }>) => {
 		const [startV, endV] = event.detail.values;

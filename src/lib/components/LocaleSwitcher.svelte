@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { browser } from '$app/environment';
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -35,21 +37,25 @@
 	};
 
 	// update `lang` attribute
-	$: browser && document.querySelector('html')!.setAttribute('lang', $locale);
+	run(() => {
+		browser && document.querySelector('html')!.setAttribute('lang', $locale);
+	});
 
 	// update locale when navigating via browser back/forward buttons
 	const handlePopStateEvent = async ({ state }: PopStateEvent) => switchLocale(state.locale, false);
 
 	// update locale when page store changes
-	$: if (browser) {
-		const lang = $page.params.lang as Locales;
-		switchLocale(lang, false);
-		history.replaceState(
-			{ ...history.state, locale: lang },
-			'',
-			replaceLocaleInUrl($page.url, lang)
-		);
-	}
+	run(() => {
+		if (browser) {
+			const lang = $page.params.lang as Locales;
+			switchLocale(lang, false);
+			history.replaceState(
+				{ ...history.state, locale: lang },
+				'',
+				replaceLocaleInUrl($page.url, lang)
+			);
+		}
+	});
 
 	function getLocaleName(l: string) {
 		const localeFullName = new Intl.DisplayNames([l], { type: 'language' });
@@ -57,7 +63,7 @@
 	}
 </script>
 
-<svelte:window on:popstate={handlePopStateEvent} />
+<svelte:window onpopstate={handlePopStateEvent} />
 
 <DropdownMenu>
 	<DropdownMenuTrigger class={cn('focusable')}>

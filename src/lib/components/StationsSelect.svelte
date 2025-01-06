@@ -10,25 +10,29 @@
 	import type { StationMetadata } from '$lib/utils/schemas';
 	import MultiSelect, { type MultiSelectEvents, type ObjectOption } from 'svelte-multiselect';
 
-	export let stations: {
+	interface Props {
+		stations: {
 		type: 'FeatureCollection';
 		features: GeoJSON.Feature<GeoJSON.Point, StationMetadata>[];
 	};
+	}
+
+	let { stations }: Props = $props();
 
 	const selectedStations = useStations();
 
-	$: formattedStations = stations.features
+	let formattedStations = $derived(stations.features
 		.map((s) => ({
 			value: s.properties.id,
 			label: s.properties.longName
 		}))
-		.sort((a, b) => a.label.localeCompare(b.label));
-	$: formattedSelectedStations = $selectedStations
+		.sort((a, b) => a.label.localeCompare(b.label)));
+	let formattedSelectedStations = $derived($selectedStations
 		.map((id) => ({
 			value: id,
 			label: formattedStations.find((s) => s.value === id)?.label || id
 		}))
-		.sort((a, b) => a.label.localeCompare(b.label));
+		.sort((a, b) => a.label.localeCompare(b.label)));
 
 	function onAdd(e: MultiSelectEvents['add']) {
 		const opt = e.detail.option as ObjectOption;

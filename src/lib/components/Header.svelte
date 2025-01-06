@@ -10,9 +10,13 @@
 	import { Info } from 'lucide-svelte';
 	import { queryParameters } from 'sveltekit-search-params';
 
-	export let title = '';
-	export let subtitle = '';
-	let showMobileMenu = true;
+	interface Props {
+		title?: string;
+		subtitle?: string;
+	}
+
+	let { title = '', subtitle = '' }: Props = $props();
+	let showMobileMenu = $state(true);
 
 	function onMediaQueryChange(e: MediaQueryListEvent) {
 		showMobileMenu = e.matches;
@@ -27,8 +31,8 @@
 		};
 	});
 
-	$: queryParams = queryParameters();
-	$: urlQuery = new URLSearchParams($queryParams).toString();
+	let queryParams = $derived(queryParameters());
+	let urlQuery = $derived(new URLSearchParams($queryParams).toString());
 </script>
 
 <header

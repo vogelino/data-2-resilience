@@ -3,20 +3,17 @@
 	import Button from './ui/button/button.svelte';
 	import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 
-	import { writable } from 'svelte/store';
-
 	import {
 		createSvelteTable,
-		flexRender,
 		getCoreRowModel,
 		getPaginationRowModel,
 		getSortedRowModel,
 		type ColumnDef,
 		type OnChangeFn,
 		type PaginationState,
-		type SortingState,
-		type TableOptions
-	} from '@tanstack/svelte-table';
+		type SortingState
+	} from '$lib/components/table';
+
 	import {
 		ArrowDownAZ,
 		ArrowDownZA,
@@ -25,12 +22,17 @@
 		ChevronLeft,
 		ChevronRight
 	} from 'lucide-svelte';
+	import FlexRender from './table/flex-render.svelte';
 
-	export let data: T[] | undefined;
-	export let columns: ColumnDef<T>[];
+	interface Props {
+		data: T[] | undefined;
+		columns: ColumnDef<T>[];
+	}
 
-	let sorting: SortingState = [];
-	let pagination: PaginationState = { pageIndex: 0, pageSize: 13 };
+	let { data, columns }: Props = $props();
+
+	let sorting: SortingState = $state([]);
+	let pagination: PaginationState = $state({ pageIndex: 0, pageSize: 13 });
 
 	const setSorting: OnChangeFn<SortingState> = (updater) => {
 		if (updater instanceof Function) {
@@ -38,7 +40,6 @@
 		} else {
 			sorting = updater;
 		}
-		options.update((old) => ({ ...old, state: { ...old.state, sorting } }));
 	};
 
 	const setPagination: OnChangeFn<PaginationState> = (updater) => {
@@ -49,26 +50,31 @@
 		}
 	};
 
-	$: options.update((old) => ({ ...old, data: data || [] }));
-	$: options.update((old) => ({ ...old, columns }));
-	$: options.update((old) => ({ ...old, state: { ...old.state, pagination } }));
-
-	const options = writable<TableOptions<T>>({
-		data: data || [],
+	let options = {
+		get data() {
+			return data || [];
+		},
 		columns,
-		state: { sorting, pagination },
+		state: {
+			get sorting() {
+				return sorting;
+			},
+			get pagination() {
+				return pagination;
+			}
+		},
 		getCoreRowModel: getCoreRowModel<T>(),
 		getSortedRowModel: getSortedRowModel<T>(),
 		getPaginationRowModel: getPaginationRowModel<T>(),
 		onSortingChange: setSorting,
 		onPaginationChange: setPagination
-	});
-	const table = createSvelteTable(options);
+	};
+	let table = createSvelteTable(options);
 </script>
 
 <Table>
 	<TableHeader>
-		{#each $table.getHeaderGroups() as headerGroup}
+		{#each table.getHeaderGroups() as headerGroup}
 			<TableRow>
 				{#each headerGroup.headers as header}
 					<TableHead colspan={header.colSpan}>
@@ -77,11 +83,12 @@
 								type="button"
 								class:cursor-pointer={header.column.getCanSort()}
 								class:select-none={header.column.getCanSort()}
-								on:click={header.column.getToggleSortingHandler()}
+								onclick={header.column.getToggleSortingHandler()}
 								class="flex items-center gap-2"
 							>
-								<svelte:component
-									this={flexRender(header.column.columnDef.header, header.getContext())}
+								<FlexRender
+									context={header.getContext()}
+									content={header.column.columnDef.header}
 								/>
 								{#if header.column.getIsSorted().toString() === 'asc'}
 									<ArrowDownAZ />
@@ -96,11 +103,11 @@
 		{/each}
 	</TableHeader>
 	<TableBody>
-		{#each $table.getRowModel().rows.slice(0, pagination.pageSize) as row}
+		{#each table.getRowModel().rows.slice(0, pagination.pageSize) as row}
 			<TableRow>
 				{#each row.getVisibleCells() as cell}
 					<TableCell>
-						<svelte:component this={flexRender(cell.column.columnDef.cell, cell.getContext())} />
+						<FlexRender context={cell.getContext()} content={cell.column.columnDef.cell} />
 					</TableCell>
 				{/each}
 			</TableRow>
@@ -111,24 +118,24 @@
 	<Button
 		variant="outline"
 		size="icon"
-		on:click={() => $table.firstPage()}
-		disabled={!$table.getCanPreviousPage()}
+		on:click={() => table.firstPage()}
+		disabled={!table.getCanPreviousPage()}
 	>
 		<ChevronFirst class="size-5" />
 	</Button>
 	<Button
 		variant="outline"
 		size="icon"
-		on:click={() => $table.previousPage()}
-		disabled={!$table.getCanPreviousPage()}
+		on:click={() => table.previousPage()}
+		disabled={!table.getCanPreviousPage()}
 	>
 		<ChevronLeft class="size-5" />
 	</Button>
 	<span class="flex items-center gap-1 px-4">
 		<div>Page</div>
 		<strong>
-			{$table.getState().pagination.pageIndex + 1} of{' '}
-			{$table.getPageCount().toLocaleString($locale, {
+			{table.getState().pagination.pageIndex + 1} of{' '}
+			{table.getPageCount().toLocaleString($locale, {
 				maximumFractionDigits: 0
 			})}
 		</strong>
@@ -136,16 +143,16 @@
 	<Button
 		variant="outline"
 		size="icon"
-		on:click={() => $table.nextPage()}
-		disabled={!$table.getCanNextPage()}
+		on:click={() => table.nextPage()}
+		disabled={!table.getCanNextPage()}
 	>
 		<ChevronRight class="size-5" />
 	</Button>
 	<Button
 		variant="outline"
 		size="icon"
-		on:click={() => $table.lastPage()}
-		disabled={!$table.getCanNextPage()}
+		on:click={() => table.lastPage()}
+		disabled={!table.getCanNextPage()}
 	>
 		<ChevronLast class="size-5" />
 	</Button>

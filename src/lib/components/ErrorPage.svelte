@@ -1,20 +1,29 @@
 <script lang="ts">
 	import LL, { locale } from '$i18n/i18n-svelte';
 
-	export let status = 404;
-	export let title: string;
-	export let message: string;
-	export let links: { href: string; text: string }[] = [
+	interface Props {
+		status?: number;
+		title: string;
+		message: string;
+		links?: { href: string; text: string }[];
+	}
+
+	let {
+		status = 404,
+		title,
+		message,
+		links = [
 		{
 			href: `/${$locale}`,
 			text: $LL.errors.fourOhFour.homepageLinkText()
 		}
-	];
+	]
+	}: Props = $props();
 </script>
 
 <main class="flex items-center justify-center">
 	<div class="mx-auto max-w-md p-6 pb-[10vh]">
-		<div class="mx-auto h-12 w-12 text-primary" />
+		<div class="mx-auto h-12 w-12 text-primary"></div>
 		<h1 class="mt-4 text-5xl font-bold tracking-tight text-foreground sm:text-6xl">
 			{status}
 			<br />

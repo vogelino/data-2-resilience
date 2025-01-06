@@ -6,12 +6,24 @@
 
 	type $$Props = DialogPrimitive.ContentProps;
 
-	let className: $$Props['class'] = undefined;
-	export let transition: $$Props['transition'] = flyAndScale;
-	export let transitionConfig: $$Props['transitionConfig'] = {
+	interface Props {
+		class?: $$Props['class'];
+		transition?: $$Props['transition'];
+		transitionConfig?: $$Props['transitionConfig'];
+		children?: import('svelte').Snippet;
+		[key: string]: any
+	}
+
+	let {
+		class: className = undefined,
+		transition = flyAndScale,
+		transitionConfig = {
 		duration: 200
-	};
-	export { className as class };
+	},
+		children,
+		...rest
+	}: Props = $props();
+	
 </script>
 
 <Dialog.Portal>
@@ -25,8 +37,8 @@
 			'gap-4 border p-6 shadow-lg sm:rounded-lg md:w-full',
 			className
 		)}
-		{...$$restProps}
+		{...rest}
 	>
-		<slot />
+		{@render children?.()}
 	</DialogPrimitive.Content>
 </Dialog.Portal>

@@ -614,7 +614,7 @@ const de = {
 			ariaLabel: 'Auswahl der Kartenebene',
 			districts: 'Bezirke',
 			lors: 'Stadtteile',
-			satellite: 'Satellitenbilder'
+			satellite: 'Digitale Orthophotos'
 		},
 		choroplethLegend: {
 			showHealthRisks: 'Gesundheitsrisiken einblenden',

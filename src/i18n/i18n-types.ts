@@ -3154,7 +3154,7 @@ export type TranslationFunctions = {
 			 */
 			lors: () => LocalizedString;
 			/**
-			 * Satellitenbilder
+			 * Digitale Orthophotos
 			 */
 			satellite: () => LocalizedString;
 		};

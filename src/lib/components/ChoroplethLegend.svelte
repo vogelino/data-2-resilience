@@ -30,28 +30,34 @@
 			description: $LL.pages.measurements.unitSelect.units[unit].description()
 		};
 	});
-	let finalUnit = $derived(currentPage === 'measurements' ? ($unit as Unit) : ($heatStressUnit as Unit));
+	let finalUnit = $derived(
+		currentPage === 'measurements' ? ($unit as Unit) : ($heatStressUnit as Unit)
+	);
 	let isCategoryUnit = $derived(finalUnit.endsWith('_category'));
 	let labels = $derived(getUnitLabelsByUnit(finalUnit, isCategoryUnit));
-	let unitWithoutCategory =
-		$derived(finalUnit.replace(/_category$/, '') === 'pet' ? ('pet' as const) : ('utci' as const));
+	let unitWithoutCategory = $derived(
+		finalUnit.replace(/_category$/, '') === 'pet' ? ('pet' as const) : ('utci' as const)
+	);
 
-	let scale =
-		$derived(unitsToScalesMap[finalUnit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default);
+	let scale = $derived(
+		unitsToScalesMap[finalUnit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default
+	);
 	let isOrdinal = $derived(scale.type === 'ordinal');
 	let showHealthRisks = $derived(finalUnit.startsWith('utci') || finalUnit.startsWith('pet'));
-	let titleKey = $derived(finalUnit.endsWith('_category')
-		? ('heatStress' as const)
-		: ('thermalComfort' as const));
-	let allHealthRisks = $derived(Object.values($LL.map.choroplethLegend.healthRisks).filter(
-		(item) => !!item.title[titleKey]()
-	));
+	let titleKey = $derived(
+		finalUnit.endsWith('_category') ? ('heatStress' as const) : ('thermalComfort' as const)
+	);
+	let allHealthRisks = $derived(
+		Object.values($LL.map.choroplethLegend.healthRisks).filter((item) => !!item.title[titleKey]())
+	);
 	let showColdRisks = $derived(currentPage === 'measurements' && showHealthRisks);
 	let healthRisks = $derived(showColdRisks ? allHealthRisks : allHealthRisks.slice(-5));
 	let scheme = $derived(showHealthRisks ? scale.scheme.slice(-healthRisks.length) : scale.scheme);
 	let scaleMin = $derived(scale.type === 'sequential' ? scale.min : 0);
 	let scaleMax = $derived(scale.type === 'sequential' ? scale.max : 100);
-	let seqMin = $derived(showColdRisks || !showHealthRisks ? scaleMin : scaleMax - (scaleMax - scaleMin) / 5);
+	let seqMin = $derived(
+		showColdRisks || !showHealthRisks ? scaleMin : scaleMax - (scaleMax - scaleMin) / 5
+	);
 	let min = $derived(scale.type === 'sequential' ? `${seqMin} ${labels.unitOnlyLabel}` : '');
 	let max = $derived(scale.type === 'sequential' ? `${scaleMax} ${labels.unitOnlyLabel}` : '');
 	let isAboutPage = $derived($page.url.pathname.startsWith(`/${$locale}/about`));
@@ -89,7 +95,14 @@
 							class={cn('flex w-96 max-w-full flex-col gap-1 px-4 pb-4 pt-3 leading-tight')}
 						>
 							{#if healthRisks[i]}
-								<strong>{healthRisks[i].title[titleKey]()}</strong>
+								<strong class="flex gap-2 font-semibold">
+									<span>{healthRisks[i].title[titleKey]()}</span>
+									{#if healthRisks[i].ranges[unitWithoutCategory]()}
+										<span class="whitespace-nowrap font-normal text-muted-foreground">
+											({healthRisks[i].ranges[unitWithoutCategory]()})
+										</span>
+									{/if}
+								</strong>
 								<span>{@html healthRisks[i].description()}</span>
 							{/if}
 						</TooltipContent>
@@ -123,9 +136,9 @@
 	</span>
 	{#if showHealthRisks}
 		<Popover.Root bind:open>
-			<Popover.Trigger asChild >
+			<Popover.Trigger asChild>
 				{#snippet children({ builder })}
-								<Button
+					<Button
 						builders={[builder]}
 						variant="link"
 						role="combobox"
@@ -139,8 +152,8 @@
 								: $LL.map.choroplethLegend.showHealthRisks()}</span
 						>
 					</Button>
-											{/snippet}
-						</Popover.Trigger>
+				{/snippet}
+			</Popover.Trigger>
 			<Popover.Content
 				class="max-h-[calc(100vh-20rem)] w-72 -translate-y-[7.5rem] overflow-y-auto rounded p-0 pb-2"
 			>

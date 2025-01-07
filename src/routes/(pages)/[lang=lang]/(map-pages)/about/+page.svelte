@@ -32,7 +32,7 @@
 		<Dialog.Header class={cn('relative')}>
 			<div
 				class={cn(
-					'top-0 grid grid-cols-[1fr,auto] bg-background px-6 py-4 ring-1 ring-background max-sm:sticky',
+					'top-0 grid grid-cols-[1fr,auto] bg-background px-6 py-4 ring-1 ring-background max-sm:sticky sm:px-8 sm:pt-6 md:px-10 md:pt-8 lg:px-12 lg:pt-10',
 					'border-border max-sm:border-b'
 				)}
 			>
@@ -51,12 +51,14 @@
 			</div>
 			<Dialog.Description
 				class={cn(
-					'[&>a]:focusable px-6 max-sm:pt-4 [&>a]:underline',
+					'[&>a]:focusable px-6 max-sm:pt-4 sm:px-8 md:px-10 lg:px-12 [&>a]:underline',
 					'max-w-full text-left text-base text-foreground'
 				)}>{@html $LL.pages.about.description()}</Dialog.Description
 			>
 		</Dialog.Header>
-		<div class="flex flex-wrap justify-between gap-x-8 gap-y-6 px-6 pb-6 pt-10">
+		<div
+			class="flex flex-wrap justify-between gap-x-8 gap-y-6 px-6 pb-6 pt-10 max-sm:pt-4 sm:px-8 md:px-10 lg:px-12"
+		>
 			<div class={cn('flex flex-col gap-4')}>
 				<a
 					href={$LL.pages.about.logos.RUB.url()}
@@ -96,7 +98,7 @@
 		</div>
 		<Dialog.Footer
 			class={cn(
-				'w-full border-t border-border bg-muted px-6 py-4 sm:rounded-b-lg',
+				'w-full border-t border-border bg-muted px-6 py-4 max-sm:pt-4 sm:rounded-b-lg sm:px-8 md:px-10 lg:px-12',
 				'text-muted-foreground'
 			)}
 		>

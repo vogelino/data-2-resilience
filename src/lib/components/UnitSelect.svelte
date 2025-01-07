@@ -10,25 +10,31 @@
 	import CollapsibleParagraph from './CollapsibleParagraph.svelte';
 	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
-	let units = $derived(Object.entries($LL.pages.measurements.unitSelect.units)
-		.filter(([key]) => !(key.endsWith('_min') || key.endsWith('_max')))
-		.map(([key, value]) => ({
-			value: key,
-			label: value.label(),
-			unitOnly: value.unitOnly(),
-			description: value.description()
-		})));
+	let units = $derived(
+		Object.entries($LL.pages.measurements.unitSelect.units)
+			.filter(([key]) => !(key.endsWith('_min') || key.endsWith('_max')))
+			.map(([key, value]) => ({
+				value: key,
+				label: value.label(),
+				unitOnly: value.unitOnly(),
+				description: value.description()
+			}))
+	);
 
 	let open = $state(false);
 
 	let unit = queryParam('unit', ssp.string('utci'));
 	let selectedValue = $derived(units.find((f) => f.value === $unit));
-	let selectedValueLabel = $derived(selectedValue?.label ?? $LL.pages.measurements.unitSelect.placeholder());
-	let selectedValueDescription = $derived(selectedValue?.value
-		? $LL.pages.measurements.unitSelect.units[
-				selectedValue.value as keyof typeof $LL.pages.measurements.unitSelect.units
-			]?.description()
-		: '');
+	let selectedValueLabel = $derived(
+		selectedValue?.label ?? $LL.pages.measurements.unitSelect.placeholder()
+	);
+	let selectedValueDescription = $derived(
+		selectedValue?.value
+			? $LL.pages.measurements.unitSelect.units[
+					selectedValue.value as keyof typeof $LL.pages.measurements.unitSelect.units
+				]?.description()
+			: ''
+	);
 
 	function closeAndFocusTrigger(triggerId: string) {
 		open = false;
@@ -38,9 +44,9 @@
 	}
 </script>
 
-<Popover.Root bind:open >
+<Popover.Root bind:open>
 	{#snippet children({ ids })}
-		<Popover.Trigger asChild >
+		<Popover.Trigger asChild>
 			{#snippet children({ builder })}
 				<Button
 					builders={[builder]}
@@ -54,10 +60,13 @@
 				>
 					<span class="truncate">{selectedValueLabel}</span>
 					<ChevronDown
-						class={cn('ml-2 h-4 w-4 shrink-0 opacity-50 transition-transform', open && 'rotate-180')}
+						class={cn(
+							'ml-2 h-4 w-4 shrink-0 opacity-50 transition-transform',
+							open && 'rotate-180'
+						)}
 					/>
 				</Button>
-						{/snippet}
+			{/snippet}
 		</Popover.Trigger>
 		<Popover.Content class="w-[calc(var(--leftSidebarWidth)-3rem)] -translate-y-px p-0">
 			<Command.Root>
@@ -76,7 +85,7 @@
 							}}
 						>
 							<Tooltip disableHoverableContent openDelay={0} closeDelay={0}>
-								<TooltipTrigger class="grid w-full grid-cols-[auto_1fr_auto] gap-2 text-left">
+								<TooltipTrigger class="grid w-fit grid-cols-[auto_1fr_auto] gap-2 text-left">
 									<Check class={cn('h-4 w-4 shrink-0', $unit !== value && 'text-transparent')} />
 									<span>{label} {unitOnly ? `(${unitOnly})` : ''}</span>
 									<!-- <span class="shrink-0 text-xs text-muted-foreground">

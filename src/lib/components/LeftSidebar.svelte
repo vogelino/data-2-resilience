@@ -72,7 +72,7 @@
 			bind:this={navElement}
 		>
 			<ul
-				class="flex w-[var(--leftSidebarWidth)] translate-y-px overflow-x-auto overflow-y-clip [&:has(:focus-visible)]:overflow-visible"
+				class="flex w-[var(--leftSidebarWidth)] translate-y-px overflow-x-auto overflow-y-clip pt-2 [&:has(:focus-visible)]:overflow-visible"
 			>
 				{#each tabs as tab (tab.slug)}
 					<li
@@ -92,7 +92,11 @@
 								'focusable px-4 pb-2 pt-3 transition focus-visible:rounded-lg',
 								'text-nowrap border border-transparent focus-visible:z-10 hover-hover:hover:z-50',
 								tab.slug === tabs[0].slug ? 'rounded-tr-lg pl-6' : ' rounded-t-lg',
-								tab.isActive && cn('border-border border-b-background bg-background font-semibold'),
+								tab.isActive &&
+									cn(
+										'border-border border-b-background border-t-primary bg-background font-semibold',
+										'shadow-[inset_0_1px_0_0_hsl(var(--primary)),0_-1px_0_0_hsl(var(--primary))]'
+									),
 								tab.isActive && tab.slug === tabs[0].slug && 'border-l-background',
 								!tab.isActive &&
 									cn(

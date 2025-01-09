@@ -1,12 +1,12 @@
-import { browser } from '$app/environment';
-import type { Locales } from '$i18n/i18n-types';
-import { loadLocaleAsync } from '$i18n/i18n-util.async';
-import { QueryClient } from '@tanstack/svelte-query';
+import { browser } from "$app/environment";
+import type { Locales } from "$i18n/i18n-types";
+import { loadLocaleAsync } from "$i18n/i18n-util.async";
+import { QueryClient } from "@tanstack/svelte-query";
 
-import type { LayoutLoad } from './$types';
+import type { LayoutLoad } from "./$types";
 
 export const load: LayoutLoad<{ locale: Locales }> = async ({
-	data: { locale = 'en', stationsGeoJson } = { locale: 'en' }
+	data: { locale = "en", stationsGeoJson, stationsMetadata } = { locale: "en" },
 }) => {
 	await loadLocaleAsync(locale);
 
@@ -14,10 +14,10 @@ export const load: LayoutLoad<{ locale: Locales }> = async ({
 		defaultOptions: {
 			queries: {
 				enabled: browser,
-				staleTime: 60 * 1000
-			}
-		}
+				staleTime: 60 * 1000,
+			},
+		},
 	});
 
-	return { locale, queryClient, stationsGeoJson };
+	return { locale, queryClient, stationsGeoJson, stationsMetadata };
 };

@@ -7,9 +7,11 @@
 	import Table from './Table.svelte';
 	import SensorTypeWithTooltip from './SensorTypeWithTooltip.svelte';
 
+	let { stations }: { stations: StationMetadata[] } = $props();
 	const query = createQuery({
 		queryKey: ['stations'],
-		queryFn: () => api().getStationsMetadata()
+		queryFn: () => api().getStationsMetadata(),
+		initialData: stations
 	});
 	let data = $derived($query?.data || []);
 	let columns = [

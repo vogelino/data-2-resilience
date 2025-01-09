@@ -14,7 +14,8 @@
 	}
 
 	let { data, children }: Props = $props();
-	let stations = $derived(data?.stationsGeoJson);
+	let stationsGeoJson = $derived(data?.stationsGeoJson);
+	let stationsMetadata = $derived(data?.stationsMetadata);
 
 	let isStationsPage = $derived(page.url.pathname.replace(`/${$locale}`, '') === '/stations');
 	let isAboutPage = $derived(page.url.pathname.replace(`/${$locale}`, '') === '/about');
@@ -27,9 +28,9 @@
 		{@render children?.()}
 	</LeftSidebar>
 	{#if isStationsPage}
-		<StationsTable />
+		<StationsTable stations={stationsMetadata} />
 	{:else}
-		<Map {stations} />
+		<Map stations={stationsGeoJson} />
 	{/if}
 </SidebarsLayout>
 {#if isAboutPage}

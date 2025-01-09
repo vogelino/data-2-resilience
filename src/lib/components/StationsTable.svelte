@@ -183,7 +183,7 @@
 	});
 </script>
 
-<div class="min-h-full bg-muted pt-2">
+<div class="min-h-full bg-muted pt-6 sm:pt-2">
 	<div class="container flex min-h-full flex-col gap-6 py-8">
 		<div class="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
 			<h1 class="text-xl font-semibold">{$LL.pages.stations.titleTable()}</h1>

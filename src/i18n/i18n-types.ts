@@ -1210,6 +1210,16 @@ type RootTranslation = {
 				}
 			}
 			table: {
+				search: {
+					/**
+					 * S​u​c​h​e​.​.​.
+					 */
+					placeholder: string
+					/**
+					 * T​a​b​e​l​l​e​ ​d​u​r​c​h​s​u​c​h​e​n
+					 */
+					label: string
+				}
 				headers: {
 					/**
 					 * S​t​a​t​i​o​n​s​n​a​m​e
@@ -2928,6 +2938,16 @@ export type TranslationFunctions = {
 				}
 			}
 			table: {
+				search: {
+					/**
+					 * Suche...
+					 */
+					placeholder: () => LocalizedString
+					/**
+					 * Tabelle durchsuchen
+					 */
+					label: () => LocalizedString
+				}
 				headers: {
 					/**
 					 * Stationsname

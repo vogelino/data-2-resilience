@@ -507,6 +507,10 @@ const en = {
 				},
 			},
 			table: {
+				search: {
+					placeholder: "Search...",
+					label: "Search table",
+				},
 				headers: {
 					name: "Station name",
 					stationType: "Station type",

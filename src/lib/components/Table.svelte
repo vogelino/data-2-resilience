@@ -2,17 +2,7 @@
 	import { locale } from '$i18n/i18n-svelte';
 	import Button from './ui/button/button.svelte';
 	import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
-
-	import {
-		createSvelteTable,
-		getCoreRowModel,
-		getPaginationRowModel,
-		getSortedRowModel,
-		type ColumnDef,
-		type OnChangeFn,
-		type PaginationState,
-		type SortingState
-	} from '$lib/components/table';
+	import type { Table as TableType } from '@tanstack/table-core';
 
 	import {
 		ArrowDownAZ,
@@ -25,51 +15,10 @@
 	import FlexRender from './table/flex-render.svelte';
 
 	interface Props {
-		data: T[] | undefined;
-		columns: ColumnDef<T>[];
+		table: TableType<T>;
 	}
 
-	let { data, columns }: Props = $props();
-
-	let sorting: SortingState = $state([]);
-	let pagination: PaginationState = $state({ pageIndex: 0, pageSize: 13 });
-
-	const setSorting: OnChangeFn<SortingState> = (updater) => {
-		if (updater instanceof Function) {
-			sorting = updater(sorting);
-		} else {
-			sorting = updater;
-		}
-	};
-
-	const setPagination: OnChangeFn<PaginationState> = (updater) => {
-		if (updater instanceof Function) {
-			pagination = updater(pagination);
-		} else {
-			pagination = updater;
-		}
-	};
-
-	let options = {
-		get data() {
-			return data || [];
-		},
-		columns,
-		state: {
-			get sorting() {
-				return sorting;
-			},
-			get pagination() {
-				return pagination;
-			}
-		},
-		getCoreRowModel: getCoreRowModel<T>(),
-		getSortedRowModel: getSortedRowModel<T>(),
-		getPaginationRowModel: getPaginationRowModel<T>(),
-		onSortingChange: setSorting,
-		onPaginationChange: setPagination
-	};
-	let table = createSvelteTable(options);
+	let { table }: Props = $props();
 </script>
 
 <Table>
@@ -103,7 +52,7 @@
 		{/each}
 	</TableHeader>
 	<TableBody>
-		{#each table.getRowModel().rows.slice(0, pagination.pageSize) as row}
+		{#each table.getRowModel().rows.slice(0, table.getState().pagination.pageSize) as row}
 			<TableRow>
 				{#each row.getVisibleCells() as cell}
 					<TableCell>

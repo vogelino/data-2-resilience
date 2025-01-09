@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@tanstack/match-sorter-utils':
+        specifier: 8.19.4
+        version: 8.19.4
       '@tanstack/svelte-query':
         specifier: 5.62.9
         version: 5.62.9(svelte@5.16.0)
@@ -724,6 +727,10 @@ packages:
     resolution: {integrity: sha512-AqhlCXl+8grUz8uqExv5OTtgpjuVIwFTSXTrh8y9/pw6q2ek7fJ+Y8ZEVw7EB2DCcuCOtEjf9w3+J3rzts01uA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20'
+
+  '@tanstack/match-sorter-utils@8.19.4':
+    resolution: {integrity: sha512-Wo1iKt2b9OT7d+YGhvEPD3DXvPv2etTusIMhMUoG7fbhmxcXCtIjJDEygy91Y2JFlwGyjqiBPRozme7UD8hoqg==}
+    engines: {node: '>=12'}
 
   '@tanstack/query-core@5.62.9':
     resolution: {integrity: sha512-lwePd8hNYhyQ4nM/iRQ+Wz2cDtspGeZZHFZmCzHJ7mfKXt+9S301fULiY2IR2byJYY6Z03T427E5PoVfMexHjw==}
@@ -2231,6 +2238,9 @@ packages:
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
+  remove-accents@0.5.0:
+    resolution: {integrity: sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A==}
+
   resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
@@ -3202,6 +3212,10 @@ snapshots:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.17
+
+  '@tanstack/match-sorter-utils@8.19.4':
+    dependencies:
+      remove-accents: 0.5.0
 
   '@tanstack/query-core@5.62.9': {}
 
@@ -4746,6 +4760,8 @@ snapshots:
   readdirp@4.0.2: {}
 
   regenerator-runtime@0.14.1: {}
+
+  remove-accents@0.5.0: {}
 
   resolve-from@4.0.0: {}
 

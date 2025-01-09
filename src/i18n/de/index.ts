@@ -509,6 +509,10 @@ const de = {
 				},
 			},
 			table: {
+				search: {
+					placeholder: "Suche...",
+					label: "Tabelle durchsuchen",
+				},
 				headers: {
 					name: "Stationsname",
 					stationType: "Stationstyp",

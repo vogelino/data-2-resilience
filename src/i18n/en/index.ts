@@ -612,15 +612,15 @@ const en = {
 		},
 		layersSelection: {
 			ariaLabel: "Map layer selection",
-			districts: "District boundaries",
-			lors: "Neighborhood areas",
+			districts: "City districts",
+			lors: "Social areas",
 			satellite: "Digital Orthophotos",
 		},
 		layersTooltips: {
 			vulnerableArea: "Vulnerable area",
 			type: {
 				stadtbezirk: "City district",
-				statistischer_bezirk: "Statistical district",
+				statistischer_bezirk: "Social area",
 			},
 		},
 		choroplethLegend: {

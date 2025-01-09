@@ -613,15 +613,15 @@ const de = {
 		},
 		layersSelection: {
 			ariaLabel: "Auswahl der Kartenebene",
-			districts: "Bezirke",
-			lors: "Stadtteile",
+			districts: "Stadtbezirke",
+			lors: "Sozialräume",
 			satellite: "Digitale Orthophotos",
 		},
 		layersTooltips: {
 			vulnerableArea: "Vulnerablenbereich",
 			type: {
 				stadtbezirk: "Stadtbezirk",
-				statistischer_bezirk: "Statistischer Bezirk",
+				statistischer_bezirk: "Sozialraum",
 			},
 		},
 		choroplethLegend: {

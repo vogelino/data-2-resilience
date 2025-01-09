@@ -1442,11 +1442,11 @@ type RootTranslation = {
 			 */
 			ariaLabel: string
 			/**
-			 * B​e​z​i​r​k​e
+			 * S​t​a​d​t​b​e​z​i​r​k​e
 			 */
 			districts: string
 			/**
-			 * S​t​a​d​t​t​e​i​l​e
+			 * S​o​z​i​a​l​r​ä​u​m​e
 			 */
 			lors: string
 			/**
@@ -1465,7 +1465,7 @@ type RootTranslation = {
 				 */
 				stadtbezirk: string
 				/**
-				 * S​t​a​t​i​s​t​i​s​c​h​e​r​ ​B​e​z​i​r​k
+				 * S​o​z​i​a​l​r​a​u​m
 				 */
 				statistischer_bezirk: string
 			}
@@ -3160,11 +3160,11 @@ export type TranslationFunctions = {
 			 */
 			ariaLabel: () => LocalizedString
 			/**
-			 * Bezirke
+			 * Stadtbezirke
 			 */
 			districts: () => LocalizedString
 			/**
-			 * Stadtteile
+			 * Sozialräume
 			 */
 			lors: () => LocalizedString
 			/**
@@ -3183,7 +3183,7 @@ export type TranslationFunctions = {
 				 */
 				stadtbezirk: () => LocalizedString
 				/**
-				 * Statistischer Bezirk
+				 * Sozialraum
 				 */
 				statistischer_bezirk: () => LocalizedString
 			}

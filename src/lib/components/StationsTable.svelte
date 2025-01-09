@@ -25,6 +25,7 @@
 	import { ArrowLeftToLine, Search } from 'lucide-svelte';
 	import { compareItems, rankItem } from '@tanstack/match-sorter-utils';
 	import { queryParam, ssp } from 'sveltekit-search-params';
+	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
 
 	let { stations }: { stations: StationMetadata[] } = $props();
 
@@ -44,7 +45,11 @@
 		{
 			header: () => $LL.pages.stations.table.headers.name(),
 			accessorKey: 'longName',
-			cell: (info) => info.getValue(),
+			cell: (info) => {
+				const text = info.getValue() as string;
+				const searchQuery = info.table.getState().globalFilter;
+				return renderComponent(HighlightedSearchQuery, { searchQuery, text });
+			},
 			sortingFn: (a, b) => a.original.longName.localeCompare(b.original.longName, $locale)
 		},
 		{
@@ -52,7 +57,8 @@
 			accessorKey: 'stationType',
 			cell: (info) => {
 				const type = info.getValue() === 'biomet' ? 'biomet' : 'temprh';
-				return renderComponent(SensorTypeWithTooltip, { type });
+				const searchQuery = info.table.getState().globalFilter;
+				return renderComponent(SensorTypeWithTooltip, { type, searchQuery });
 			},
 			sortingFn: (a, b) => {
 				const aLabel =
@@ -69,16 +75,21 @@
 		{
 			header: () => $LL.pages.stations.table.headers.id(),
 			accessorKey: 'id',
-			cell: (info) => info.getValue(),
+			cell: (info) => {
+				const text = info.getValue() as string;
+				const searchQuery = info.table.getState().globalFilter;
+				return renderComponent(HighlightedSearchQuery, { searchQuery, text });
+			},
 			sortingFn: (a, b) => a.original.longName.localeCompare(b.original.longName, $locale)
 		},
 		{
 			header: () => $LL.pages.stations.table.headers.district(),
 			accessorKey: 'district',
 			cell: (info) => {
-				const val = info.getValue();
+				const val = info.getValue() as string;
 				if (val === 'unknown') return '-';
-				return val;
+				const searchQuery = info.table.getState().globalFilter;
+				return renderComponent(HighlightedSearchQuery, { searchQuery, text: val });
 			},
 			sortingFn: (a, b) => a.original.longName.localeCompare(b.original.longName, $locale)
 		},
@@ -87,32 +98,23 @@
 			accessorKey: 'latitude',
 			cell: (info) => {
 				const { latitude, longitude } = info.row.original;
-				return `${latitude.toLocaleString($locale)}, ${longitude.toLocaleString($locale)}`;
-			}
-		},
-		{
-			header: () => $LL.pages.stations.table.headers.status(),
-			accessorKey: 'status',
-			cell: ({ row }) =>
-				(row.original.latitude as number) > 51.491
-					? $LL.pages.stations.table.cells.status.active()
-					: $LL.pages.stations.table.cells.status.inactive(),
-			sortingFn: (a, b) => {
-				const aLabel =
-					a.original.latitude > 51.491
-						? $LL.pages.stations.table.cells.status.active()
-						: $LL.pages.stations.table.cells.status.inactive();
-				const bLabel =
-					b.original.latitude > 51.491
-						? $LL.pages.stations.table.cells.status.active()
-						: $LL.pages.stations.table.cells.status.inactive();
-				return aLabel.localeCompare(bLabel, $locale);
+				const searchQuery = info.table.getState().globalFilter;
+				const text = `${latitude.toLocaleString($locale)}, ${longitude.toLocaleString($locale)}`;
+				return renderComponent(HighlightedSearchQuery, { searchQuery, text });
 			}
 		}
 	] satisfies ColumnDef<StationMetadata>[];
 
-	const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-		const itemRank = rankItem(row.getValue(columnId), `${value}`);
+	const fuzzyFilter: FilterFn<any> = (row, columnId, searchTerm, addMeta) => {
+		let value = row.getValue(columnId);
+
+		if (columnId === 'stationType') {
+			value = $LL.pages.stations.table.cells.stationTypes[value as 'biomet' | 'temprh'].title();
+		} else if (typeof value === 'number') {
+			value = value.toLocaleString($locale);
+		}
+
+		const itemRank = rankItem(value, searchTerm);
 		addMeta({ itemRank });
 		return itemRank.passed;
 	};

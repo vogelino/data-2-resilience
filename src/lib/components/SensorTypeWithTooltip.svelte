@@ -3,37 +3,44 @@
 	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
 	import { cn } from '$lib/utils';
 	import { Info } from 'lucide-svelte';
+	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
 
 	interface Props {
 		type: 'biomet' | 'temprh';
+		searchQuery?: string;
 	}
 
-	let { type }: Props = $props();
+	let { type, searchQuery }: Props = $props();
 
-	let title =
-		$derived(type === 'biomet'
+	let title = $derived(
+		type === 'biomet'
 			? $LL.pages.stations.table.cells.stationTypes.biomet.title()
-			: $LL.pages.stations.table.cells.stationTypes.temprh.title());
-	let description =
-		$derived(type === 'biomet'
+			: $LL.pages.stations.table.cells.stationTypes.temprh.title()
+	);
+	let description = $derived(
+		type === 'biomet'
 			? $LL.pages.stations.table.cells.stationTypes.biomet.description()
-			: $LL.pages.stations.table.cells.stationTypes.temprh.description());
-	let triggerLabel =
-		$derived(type === 'biomet'
+			: $LL.pages.stations.table.cells.stationTypes.temprh.description()
+	);
+	let triggerLabel = $derived(
+		type === 'biomet'
 			? $LL.pages.stations.table.cells.stationTypes.biomet.nameShort()
-			: $LL.pages.stations.table.cells.stationTypes.temprh.nameShort());
+			: $LL.pages.stations.table.cells.stationTypes.temprh.nameShort()
+	);
 
-	let units = $derived(Object.entries($LL.pages.measurements.unitSelect.units)
-		.filter(([key]) =>
-			type === 'biomet'
-				? true
-				: ['utci', 'air_temperature', 'pet', 'absolute_humidity'].includes(key)
-		)
-		.map(([key, f]) => {
-			if (key.endsWith('_max') || key.endsWith('_min')) return { label: '', unitOnly: false };
-			return { label: f.label(), unitOnly: f.unitOnly() };
-		})
-		.filter((u) => u.label && u.unitOnly));
+	let units = $derived(
+		Object.entries($LL.pages.measurements.unitSelect.units)
+			.filter(([key]) =>
+				type === 'biomet'
+					? true
+					: ['utci', 'air_temperature', 'pet', 'absolute_humidity'].includes(key)
+			)
+			.map(([key, f]) => {
+				if (key.endsWith('_max') || key.endsWith('_min')) return { label: '', unitOnly: false };
+				return { label: f.label(), unitOnly: f.unitOnly() };
+			})
+			.filter((u) => u.label && u.unitOnly)
+	);
 </script>
 
 <Tooltip openDelay={100}>
@@ -44,7 +51,9 @@
 			triggerLabel && '-ml-2.5 pl-2.5 pr-1.5'
 		)}
 	>
-		<span>{triggerLabel}</span>
+		<span>
+			<HighlightedSearchQuery text={triggerLabel} {searchQuery} />
+		</span>
 		<Info
 			class={cn(
 				'size-4',

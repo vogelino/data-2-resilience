@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { LL } from '$i18n/i18n-svelte';
 	import { districts } from '$lib/stores/mapData';
 	import { mode } from 'mode-watcher';
-	import { GeoJSON, Popup, FillLayer, LineLayer } from 'svelte-maplibre';
+	import { GeoJSON, Popup, FillLayer, LineLayer, hoverStateFilter } from 'svelte-maplibre';
 
 	interface Props {
 		visible?: boolean;
@@ -10,18 +11,30 @@
 	let { visible = true }: Props = $props();
 </script>
 
-<GeoJSON id="districts" data={districts}>
+<GeoJSON id="districts" data={districts} promoteId="DISTRICTS">
 	<FillLayer
 		layout={{
 			visibility: visible ? 'visible' : 'none'
 		}}
 		paint={{
-			'fill-color': 'transparent'
+			'fill-color': hoverStateFilter('#fff', '#000'),
+			'fill-opacity': 0.5
 		}}
 		hoverCursor="pointer"
 		manageHoverState
 	>
-		<Popup closeOnClickOutside openOn="hover">Hola!</Popup>
+		<Popup closeOnClickOutside openOn="hover">
+			{#snippet children({ data })}
+				{#if data}
+					<strong class="text-sm font-semibold">{data.properties?.NAME}</strong>
+					<p>
+						{$LL.map.layersTooltips.type[
+							data.properties?.BEZ_TYP?.toLowerCase() as keyof typeof $LL.map.layersTooltips.type
+						]?.()}
+					</p>
+				{/if}
+			{/snippet}
+		</Popup>
 	</FillLayer>
 	<LineLayer
 		layout={{
@@ -35,3 +48,34 @@
 		}}
 	/>
 </GeoJSON>
+
+<style>
+	/* MAPLIBRE POPUPS */
+	:global(.maplibregl-popup-anchor-top .maplibregl-popup-tip),
+	:global(.maplibregl-popup-anchor-top-left .maplibregl-popup-tip),
+	:global(.maplibregl-popup-anchor-top-right .maplibregl-popup-tip) {
+		border-bottom-color: transparent;
+	}
+	:global(.maplibregl-popup-anchor-bottom .maplibregl-popup-tip),
+	:global(.maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip),
+	:global(.maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip) {
+		border-top-color: transparent;
+	}
+	:global(.maplibregl-popup-anchor-left .maplibregl-popup-tip) {
+		border-right-color: transparent;
+	}
+	:global(.maplibregl-popup-anchor-right .maplibregl-popup-tip) {
+		border-left-color: transparent;
+	}
+	:global(.maplibregl-popup-content) {
+		background-color: hsl(var(--background));
+		border: 1px solid hsl(var(--border));
+		font-size: 0.75rem;
+		line-height: 1rem;
+		padding: 0.75rem 1rem;
+	}
+	:global(.maplibregl-canvas-container:has(.maplibregl-marker:hover) ~ .maplibregl-popup) {
+		opacity: 0;
+		pointer-events: none;
+	}
+</style>

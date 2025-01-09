@@ -1,12 +1,10 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import { Minus, Plus } from 'lucide-svelte';
 	import type { Map as MapLibreMap } from 'maplibre-gl';
 	import { Button } from '../ui/button';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 
 	interface Props {
@@ -28,10 +26,10 @@
 		});
 	}
 
-	run(() => {
+	$effect(() => {
 		initZoomControl(map);
 	});
-	let isAboutPage = $derived($page.url.pathname.startsWith(`/${$locale}/about`));
+	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
 	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 </script>
 

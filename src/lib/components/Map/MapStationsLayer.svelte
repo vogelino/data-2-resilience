@@ -20,21 +20,25 @@
 
 	const unit = queryParam('unit', ssp.string('utci'));
 	const selectedStations = useStations();
-	let query = $derived(useSationsSnapshotData({
-		date: startOfHour(today()),
-		unit: $unit,
-		scale: 'hourly'
-	}));
+	let query = $derived(
+		useSationsSnapshotData({
+			date: startOfHour(today()),
+			unit: $unit,
+			scale: 'hourly'
+		})
+	);
 	let idToItemMap = $derived($query.data || {});
 
-	let unitLabel =
-		$derived($LL.pages.measurements.unitSelect.units[
+	let unitLabel = $derived(
+		$LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].label());
-	let unitOnlyLabel =
-		$derived($LL.pages.measurements.unitSelect.units[
+		].label()
+	);
+	let unitOnlyLabel = $derived(
+		$LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].unitOnly());
+		].unitOnly()
+	);
 
 	let getValueById = $derived((id?: string) => {
 		if (!id || !$unit) return;
@@ -52,9 +56,9 @@
 </script>
 
 <GeoJSON id="stations" data={stations} promoteId="STATEFP">
-	<MarkerLayer interactive  class="group relative hover:z-10">
+	<MarkerLayer interactive class="group relative hover:z-10">
 		{#snippet children({ feature })}
-				<button
+			<button
 				type="button"
 				class={cn(
 					'relative grid h-4 w-4 place-items-center rounded-full border-2 border-background bg-foreground outline-none',
@@ -75,8 +79,10 @@
 						zoom: 10.5
 					});
 				}}
+				aria-label={feature.properties?.longName}
 			>
-				<span class="absolute inset-0 rounded-full border border-black/20 mix-blend-multiply"></span>
+				<span class="absolute inset-0 rounded-full border border-black/20 mix-blend-multiply"
+				></span>
 			</button>
 			<div
 				class={cn(
@@ -107,6 +113,6 @@
 					</p>
 				</div>
 			</div>
-					{/snippet}
-		</MarkerLayer>
+		{/snippet}
+	</MarkerLayer>
 </GeoJSON>

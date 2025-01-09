@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { browser } from '$app/environment';
 	import { invalidateAll } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { locale, setLocale } from '$i18n/i18n-svelte';
 	import type { Locales } from '$i18n/i18n-types';
 	import { locales } from '$i18n/i18n-util';
@@ -29,7 +27,7 @@
 
 		if (updateHistoryState) {
 			// update url to reflect locale changes
-			history.pushState({ locale: newLocale }, '', replaceLocaleInUrl($page.url, newLocale));
+			history.pushState({ locale: newLocale }, '', replaceLocaleInUrl(page.url, newLocale));
 		}
 
 		// run the `load` function again
@@ -37,7 +35,7 @@
 	};
 
 	// update `lang` attribute
-	run(() => {
+	$effect(() => {
 		browser && document.querySelector('html')!.setAttribute('lang', $locale);
 	});
 
@@ -45,14 +43,14 @@
 	const handlePopStateEvent = async ({ state }: PopStateEvent) => switchLocale(state.locale, false);
 
 	// update locale when page store changes
-	run(() => {
+	$effect(() => {
 		if (browser) {
-			const lang = $page.params.lang as Locales;
+			const lang = page.params.lang as Locales;
 			switchLocale(lang, false);
 			history.replaceState(
 				{ ...history.state, locale: lang },
 				'',
-				replaceLocaleInUrl($page.url, lang)
+				replaceLocaleInUrl(page.url, lang)
 			);
 		}
 	});
@@ -74,7 +72,7 @@
 	<DropdownMenuContent class="w-fit min-w-0">
 		{#each locales as l}
 			<DropdownMenuItem
-				href={replaceLocaleInUrl($page.url, l)}
+				href={replaceLocaleInUrl(page.url, l)}
 				class={cn(l === $locale && 'font-bold')}
 			>
 				{getLocaleName(l)}

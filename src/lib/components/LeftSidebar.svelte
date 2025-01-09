@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import LL, { locale } from '$i18n/i18n-svelte';
 	import { isLeftSidebarOpened, tabActive } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
@@ -14,8 +12,8 @@
 
 	let { children }: Props = $props();
 
-	let navElement: HTMLElement = $state();
-	let fullPath = $derived($page.url.pathname.replace(`/${$locale}`, ''));
+	let navElement: HTMLElement | undefined = $state();
+	let fullPath = $derived(page.url.pathname.replace(`/${$locale}`, ''));
 	let tabs = $derived([
 		{
 			slug: 'measurements',
@@ -34,10 +32,10 @@
 		}
 	]);
 
-	run(() => {
+	$effect(() => {
 		$tabActive = tabs.find((tab) => tab.isActive)?.slug || tabs[0].slug;
 	});
-	let isAboutPage = $derived($page.url.pathname.startsWith(`/${$locale}/about`));
+	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
 	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 
 	let queryParams = $derived(queryParameters());

@@ -1,25 +1,26 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import type { Builder } from 'bits-ui';
 	import CheckboxIcon from 'components/CheckboxIcon.svelte';
 	import Button from 'components/ui/button/button.svelte';
-	import { Layers3 } from 'lucide-svelte';
+	import type { Props as ButtonProps } from 'components/ui/button/index.ts';
+	import { Layers3, RadioIcon } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 
-	let showDistricts = queryParam('showDistricts', ssp.boolean(true));
-	let showLors = queryParam('showLors', ssp.boolean(false));
+	let boundariesMode = queryParam('boundariesMode', ssp.string('districts'));
 	let showSatellite = queryParam('showSatellite', ssp.boolean(false));
-	let isAboutPage = $derived($page.url.pathname.startsWith(`/${$locale}/about`));
+	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
 	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 </script>
 
 <DropdownMenu.Root closeOnItemClick={false}>
-	<DropdownMenu.Trigger asChild aria-label={$LL.map.layersSelection.ariaLabel()} >
-		{#snippet children({ builder })}
-				<Button
+	<DropdownMenu.Trigger asChild aria-label={$LL.map.layersSelection.ariaLabel()}>
+		{#snippet children({ builder }: { builder: Builder<ButtonProps> })}
+			<Button
 				builders={[builder]}
 				variant="ghost"
 				size="icon"
@@ -34,24 +35,46 @@
 			>
 				<Layers3 class="size-5" />
 			</Button>
-					{/snippet}
-		</DropdownMenu.Trigger>
+		{/snippet}
+	</DropdownMenu.Trigger>
 	<DropdownMenu.Content align="end" class="w-56">
 		<DropdownMenu.Item
-			on:click={() => ($showDistricts = !$showDistricts)}
+			on:click={() => {
+				if ($boundariesMode === 'districts') {
+					$boundariesMode = 'none';
+				} else {
+					$boundariesMode = 'districts';
+				}
+			}}
 			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
 		>
-			<CheckboxIcon checked={$showDistricts} />
-			<span class={cn($showDistricts && 'font-semibold')}>
+			<span
+				class={cn(
+					'size-4 rounded-full border border-primary',
+					$boundariesMode === 'districts' && 'border-4 bg-foreground'
+				)}
+			></span>
+			<span class={cn($boundariesMode === 'districts' && 'font-semibold')}>
 				{$LL.map.layersSelection.districts()}
 			</span>
 		</DropdownMenu.Item>
 		<DropdownMenu.Item
-			on:click={() => ($showLors = !$showLors)}
+			on:click={() => {
+				if ($boundariesMode === 'lors') {
+					$boundariesMode = 'none';
+				} else {
+					$boundariesMode = 'lors';
+				}
+			}}
 			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
 		>
-			<CheckboxIcon checked={$showLors} />
-			<span class={cn($showLors && 'font-semibold')}>
+			<span
+				class={cn(
+					'size-4 rounded-full border border-primary',
+					$boundariesMode === 'lors' && 'border-4 bg-foreground'
+				)}
+			></span>
+			<span class={cn($boundariesMode === 'lors' && 'font-semibold')}>
 				{$LL.map.layersSelection.lors()}
 			</span>
 		</DropdownMenu.Item>

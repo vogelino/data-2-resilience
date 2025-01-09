@@ -14,8 +14,6 @@
 </script>
 
 <script lang="ts">
-	import { preventDefault, stopPropagation } from 'svelte/legacy';
-
 	import { LL } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import { queryParam, ssp } from 'sveltekit-search-params';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { mode } from 'mode-watcher';
@@ -27,20 +27,22 @@
 	const lat = queryParam('lat', ssp.number(51.511), config);
 	const zoom = queryParam('zoom', ssp.number(10.5), config);
 	const hour = queryParam('hour', ssp.number(12), config);
-	const showDistricts = queryParam('showDistricts', ssp.boolean(true));
-	const showLors = queryParam('showLors', ssp.boolean(false));
+	const boundariesMode = queryParam('boundariesMode', ssp.string('districts'));
 	const showSatellite = queryParam('showSatellite', ssp.boolean(false));
 
 	let mapLat = $lat;
 	let mapLon = $lon;
 	let mapZoom = $zoom;
 
-	let p = $derived($page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', ''));
-	let currentPage = $derived(p === '' ? 'measurements' : p);
-	let vectorTilesUrl =
-		$derived($mode === 'dark'
+	let currentPage = $derived.by(() => {
+		const p = page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
+		return p === '' ? 'measurements' : p;
+	});
+	let vectorTilesUrl = $derived(
+		$mode === 'dark'
 			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
-			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json');
+			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
+	);
 
 	function disableMapRotation(map: maplibregl.Map) {
 		// disable map rotation using right click + drag
@@ -51,14 +53,14 @@
 		map.touchZoomRotate.disableRotation();
 	}
 
-	function onMapLoad(e: CustomEvent<maplibregl.Map>) {
-		disableMapRotation(e.detail);
+	function onMapLoad(map: maplibregl.Map) {
+		if (!map) return;
+		disableMapRotation(map);
 	}
 </script>
 
 <div class="main-map relative grid h-full w-full items-center justify-center overflow-clip">
 	<MapLibre
-		
 		center={[mapLon, mapLat]}
 		zoom={mapZoom}
 		dragRotate={false}
@@ -73,18 +75,18 @@
 		class="relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen"
 		standardControls={false}
 		style={vectorTilesUrl}
-		on:moveend={(e) => {
-			if (!e?.detail?.map) return;
-			const center = e.detail.map.getCenter();
+		onmoveend={(e) => {
+			if (!e.target) return;
+			const center = e.target.getCenter();
 			lon.set(center.lng);
 			lat.set(center.lat);
-			if (!e.detail.map.getZoom()) return;
-			zoom.set(e.detail.map.getZoom());
+			if (!e.target.getZoom()) return;
+			zoom.set(e.target.getZoom());
 		}}
-		on:load={onMapLoad}
+		onload={onMapLoad}
 	>
 		{#snippet children({ map })}
-				<MapZoomControl {map} />
+			<MapZoomControl {map} />
 			<MapLayerSelection />
 
 			<SatelliteRasterLayer visible={$showSatellite} />
@@ -92,10 +94,10 @@
 				<MapStationsLayer {stations} {map} />
 			{/if}
 			<MapMeasurementsRasterLayer hour={$hour} visible={currentPage === 'heat-stress'} />
-			<MapDistrictsLayer visible={$showDistricts} />
-			<MapLorsLayer visible={$showLors} />
-					{/snippet}
-		</MapLibre>
+			<MapDistrictsLayer visible={$boundariesMode === 'districts'} />
+			<MapLorsLayer visible={$boundariesMode === 'lors'} />
+		{/snippet}
+	</MapLibre>
 
 	<ChoroplethLegend />
 	{#if currentPage === 'heat-stress'}

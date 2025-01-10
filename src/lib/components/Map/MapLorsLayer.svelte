@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { locale, LL } from '$i18n/i18n-svelte';
 	import { lors } from '$lib/stores/mapData';
+	import { HandHelping } from 'lucide-svelte';
 	import { mode } from 'mode-watcher';
 	import { GeoJSON, LineLayer, FillLayer, Popup } from 'svelte-maplibre';
 
@@ -36,15 +37,14 @@
 						{data.properties?.NAME}
 					</strong>
 					<p>
-						{$LL.map.layersTooltips.type[
-							data.properties?.BEZ_TYP?.toLowerCase() as keyof typeof $LL.map.layersTooltips.type
-						]?.()}
+						{$LL.map.layersTooltips.type.statistischer_bezirk?.()}
 					</p>
 					{#if data.properties?.vulnerable === 1}
 						<span
 							class="mt-1 block border-t border-border pt-1 underline decoration-primary underline-offset-2"
-							>{$LL.map.layersTooltips.vulnerableArea()}</span
 						>
+							{$LL.map.layersTooltips.vulnerableArea()}
+						</span>
 					{/if}
 				{/if}
 			{/snippet}

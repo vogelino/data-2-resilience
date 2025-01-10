@@ -16,10 +16,7 @@
 		layout={{
 			visibility: visible ? 'visible' : 'none'
 		}}
-		paint={{
-			'fill-color': hoverStateFilter('#fff', '#000'),
-			'fill-opacity': 0.5
-		}}
+		paint={{ 'fill-color': 'transparent' }}
 		hoverCursor="pointer"
 		manageHoverState
 	>
@@ -28,9 +25,7 @@
 				{#if data}
 					<strong class="text-sm font-semibold">{data.properties?.NAME}</strong>
 					<p>
-						{$LL.map.layersTooltips.type[
-							data.properties?.BEZ_TYP?.toLowerCase() as keyof typeof $LL.map.layersTooltips.type
-						]?.()}
+						{$LL.map.layersTooltips.type.stadtbezirk?.()}
 					</p>
 				{/if}
 			{/snippet}

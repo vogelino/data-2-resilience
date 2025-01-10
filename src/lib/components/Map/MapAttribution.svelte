@@ -3,8 +3,8 @@
 
 	const attributions = [
 		{
-			name: 'DW',
-			url: 'https://www.datawrapper.de'
+			name: 'DWD',
+			url: 'https://www.dwd.de/'
 		},
 		{
 			name: 'Maplibre',

@@ -25,7 +25,7 @@
 				{#if data}
 					<strong class="text-sm font-semibold">{data.properties?.NAME}</strong>
 					<p>
-						{$LL.map.layersTooltips.type.stadtbezirk?.()}
+						{$LL.map.layersTooltips.type.stadtbezirk()}
 					</p>
 				{/if}
 			{/snippet}

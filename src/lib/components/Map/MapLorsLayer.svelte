@@ -37,7 +37,7 @@
 						{data.properties?.NAME}
 					</strong>
 					<p>
-						{$LL.map.layersTooltips.type.statistischer_bezirk?.()}
+						{$LL.map.layersTooltips.type.statistischer_bezirk()}
 					</p>
 					{#if data.properties?.vulnerable === 1}
 						<span

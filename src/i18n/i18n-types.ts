@@ -1466,7 +1466,7 @@ type RootTranslation = {
 		}
 		layersTooltips: {
 			/**
-			 * V​u​l​n​e​r​a​b​l​e​n​b​e​r​e​i​c​h
+			 * V​u​l​n​e​r​a​b​l​e​r​ ​A​k​t​i​o​n​s​r​a​u​m
 			 */
 			vulnerableArea: string
 			type: {
@@ -3194,7 +3194,7 @@ export type TranslationFunctions = {
 		}
 		layersTooltips: {
 			/**
-			 * Vulnerablenbereich
+			 * Vulnerabler Aktionsraum
 			 */
 			vulnerableArea: () => LocalizedString
 			type: {

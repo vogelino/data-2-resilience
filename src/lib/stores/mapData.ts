@@ -1,40 +1,40 @@
-import * as topojson from 'topojson-client';
+import * as topojson from "topojson-client";
 
-import { api } from '$lib/utils/api';
-import { writable } from 'svelte/store';
-import { type StationMetadata } from '../utils/schemas';
+import { api } from "$lib/utils/api";
+import { writable } from "svelte/store";
+import { type StationMetadata } from "../utils/schemas";
 
 export type StationsGeoJSONType = {
-	type: 'FeatureCollection';
+	type: "FeatureCollection";
 	features: GeoJSON.Feature<GeoJSON.Point, StationMetadata>[];
 };
 
 export const stations = writable({
-	type: 'FeatureCollection' as const,
-	features: [] as GeoJSON.Feature<GeoJSON.Point, StationMetadata>[]
+	type: "FeatureCollection" as const,
+	features: [] as GeoJSON.Feature<GeoJSON.Point, StationMetadata>[],
 } satisfies StationsGeoJSONType);
 
 export async function fetchStations() {
 	const stationsMetadata = await api().getStationsMetadata();
 	const stationsGeoJSONFeatures = stationsMetadata.map((station) => ({
 		id: station.id,
-		type: 'Feature' as const,
+		type: "Feature" as const,
 		properties: station,
 		geometry: {
-			type: 'Point' as const,
-			coordinates: [station.longitude, station.latitude]
-		}
+			type: "Point" as const,
+			coordinates: [station.longitude, station.latitude],
+		},
 	}));
 	const geoJson = {
-		type: 'FeatureCollection' as const,
-		features: stationsGeoJSONFeatures
+		type: "FeatureCollection" as const,
+		features: stationsGeoJSONFeatures,
 	} satisfies GeoJSON.GeoJSON;
 	stations.set(geoJson);
 	return geoJson;
 }
 
 export const dortmundGeodata = {
-	type: 'Topology',
+	type: "Topology",
 	arcs: [
 		[
 			[3123, 5399],
@@ -58,7 +58,7 @@ export const dortmundGeodata = {
 			[-27, 9],
 			[16, -66],
 			[100, -24],
-			[11, -18]
+			[11, -18],
 		],
 		[
 			[3268, 4242],
@@ -75,7 +75,7 @@ export const dortmundGeodata = {
 			[-127, -39],
 			[25, -72],
 			[20, -15],
-			[-156, -90]
+			[-156, -90],
 		],
 		[
 			[2681, 3246],
@@ -217,7 +217,7 @@ export const dortmundGeodata = {
 			[-22, -42],
 			[8, -16],
 			[116, 54],
-			[127, 22]
+			[127, 22],
 		],
 		[
 			[1691, 5732],
@@ -262,7 +262,7 @@ export const dortmundGeodata = {
 			[-8, 17],
 			[65, 25],
 			[2, 59],
-			[102, 80]
+			[102, 80],
 		],
 		[
 			[10009, 7196],
@@ -302,7 +302,7 @@ export const dortmundGeodata = {
 			[-136, -18],
 			[-216, -90],
 			[-137, -93],
-			[-88, -71]
+			[-88, -71],
 		],
 		[
 			[7009, 6169],
@@ -327,7 +327,7 @@ export const dortmundGeodata = {
 			[-77, -11],
 			[-108, -26],
 			[-92, -4],
-			[-3, 28]
+			[-3, 28],
 		],
 		[
 			[6447, 7212],
@@ -362,7 +362,7 @@ export const dortmundGeodata = {
 			[4, 39],
 			[33, -8],
 			[12, -21],
-			[36, 21]
+			[36, 21],
 		],
 		[
 			[6604, 8707],
@@ -437,7 +437,7 @@ export const dortmundGeodata = {
 			[16, -94],
 			[-88, -4],
 			[-46, -14],
-			[92, -177]
+			[92, -177],
 		],
 		[
 			[7304, 4776],
@@ -446,7 +446,7 @@ export const dortmundGeodata = {
 			[-7, -21],
 			[10, -75],
 			[-14, -31],
-			[-16, -80]
+			[-16, -80],
 		],
 		[
 			[7180, 4347],
@@ -481,12 +481,12 @@ export const dortmundGeodata = {
 			[-106, -4],
 			[-57, 14],
 			[-34, -1],
-			[-53, -35]
+			[-53, -35],
 		],
 		[
 			[5427, 3926],
 			[-181, -113],
-			[-58, -53]
+			[-58, -53],
 		],
 		[
 			[5188, 3760],
@@ -509,7 +509,7 @@ export const dortmundGeodata = {
 			[-6, 42],
 			[15, 139],
 			[2, 67],
-			[-22, 86]
+			[-22, 86],
 		],
 		[
 			[5659, 5510],
@@ -519,7 +519,7 @@ export const dortmundGeodata = {
 			[105, 40],
 			[79, 40],
 			[114, 72],
-			[124, 75]
+			[124, 75],
 		],
 		[
 			[6712, 5876],
@@ -539,7 +539,7 @@ export const dortmundGeodata = {
 			[47, -245],
 			[16, -108],
 			[6, -1],
-			[30, -157]
+			[30, -157],
 		],
 		[
 			[1691, 5732],
@@ -560,7 +560,7 @@ export const dortmundGeodata = {
 			[-27, 93],
 			[41, 12],
 			[-16, 47],
-			[-51, -7]
+			[-51, -7],
 		],
 		[
 			[1894, 6274],
@@ -607,7 +607,7 @@ export const dortmundGeodata = {
 			[109, 1],
 			[17, -59],
 			[53, 1],
-			[150, 12]
+			[150, 12],
 		],
 		[
 			[4406, 7420],
@@ -616,7 +616,7 @@ export const dortmundGeodata = {
 			[-27, -65],
 			[-10, -67],
 			[8, -63],
-			[-36, -292]
+			[-36, -292],
 		],
 		[
 			[4344, 6691],
@@ -633,7 +633,7 @@ export const dortmundGeodata = {
 			[18, -41],
 			[69, -113],
 			[84, -110],
-			[48, -81]
+			[48, -81],
 		],
 		[
 			[4223, 5716],
@@ -660,7 +660,7 @@ export const dortmundGeodata = {
 			[-63, -29],
 			[-20, 21],
 			[-50, -41],
-			[-15, 14]
+			[-15, 14],
 		],
 		[
 			[5426, 998],
@@ -709,7 +709,7 @@ export const dortmundGeodata = {
 			[-146, 96],
 			[-42, 96],
 			[-15, 54],
-			[2, 105]
+			[2, 105],
 		],
 		[
 			[7180, 4347],
@@ -762,7 +762,7 @@ export const dortmundGeodata = {
 			[70, -111],
 			[26, -1],
 			[140, 12],
-			[162, 77]
+			[162, 77],
 		],
 		[
 			[7922, 2402],
@@ -839,7 +839,7 @@ export const dortmundGeodata = {
 			[26, 65],
 			[53, 69],
 			[-2, 71],
-			[-20, 108]
+			[-20, 108],
 		],
 		[
 			[6447, 7212],
@@ -877,7 +877,7 @@ export const dortmundGeodata = {
 			[43, 78],
 			[-29, 20],
 			[-30, -49],
-			[-65, -10]
+			[-65, -10],
 		],
 		[
 			[4406, 7420],
@@ -904,7 +904,7 @@ export const dortmundGeodata = {
 			[63, -13],
 			[47, 2],
 			[51, -16],
-			[6, 25]
+			[6, 25],
 		],
 		[
 			[4429, 8809],
@@ -944,7 +944,7 @@ export const dortmundGeodata = {
 			[11, -36],
 			[-49, -216],
 			[-15, -31],
-			[10, -56]
+			[10, -56],
 		],
 		[
 			[5188, 3760],
@@ -976,7 +976,7 @@ export const dortmundGeodata = {
 			[-161, -36],
 			[-114, -21],
 			[-41, -4],
-			[-104, 24]
+			[-104, 24],
 		],
 		[
 			[4223, 5716],
@@ -996,7 +996,7 @@ export const dortmundGeodata = {
 			[21, -13],
 			[246, 49],
 			[60, 33],
-			[6, -30]
+			[6, -30],
 		],
 		[
 			[1894, 6274],
@@ -1115,7 +1115,7 @@ export const dortmundGeodata = {
 			[64, -12],
 			[154, -51],
 			[75, -29],
-			[208, -73]
+			[208, -73],
 		],
 		[
 			[7304, 4776],
@@ -1140,7 +1140,7 @@ export const dortmundGeodata = {
 			[39, 52],
 			[27, -10],
 			[8, -31],
-			[68, 17]
+			[68, 17],
 		],
 		[
 			[9750, 4893],
@@ -1197,13 +1197,13 @@ export const dortmundGeodata = {
 			[-2, -91],
 			[-77, -61],
 			[-22, -51],
-			[-16, -81]
+			[-16, -81],
 		],
 		[
 			[7009, 6169],
 			[27, -41],
 			[-329, -200],
-			[5, -52]
+			[5, -52],
 		],
 		[
 			[10009, 7196],
@@ -1243,7 +1243,7 @@ export const dortmundGeodata = {
 			[-427, -97],
 			[-69, -32],
 			[-374, -284],
-			[-286, -182]
+			[-286, -182],
 		],
 		[
 			[5426, 998],
@@ -1310,7 +1310,7 @@ export const dortmundGeodata = {
 			[-8, 36],
 			[12, 61],
 			[-76, 14],
-			[-113, 133]
+			[-113, 133],
 		],
 		[
 			[1232, 4960],
@@ -1332,7 +1332,7 @@ export const dortmundGeodata = {
 			[-3, 20],
 			[-44, 27],
 			[-112, -3],
-			[-125, 20]
+			[-125, 20],
 		],
 		[
 			[12, 5165],
@@ -1364,7 +1364,7 @@ export const dortmundGeodata = {
 			[31, 15],
 			[47, -2],
 			[42, -39],
-			[32, -5]
+			[32, -5],
 		],
 		[
 			[1065, 5545],
@@ -1385,7 +1385,7 @@ export const dortmundGeodata = {
 			[-47, 6],
 			[-15, -20],
 			[-139, -68],
-			[-12, -20]
+			[-12, -20],
 		],
 		[
 			[3337, 2851],
@@ -1405,7 +1405,7 @@ export const dortmundGeodata = {
 			[107, 5],
 			[16, -49],
 			[64, 82],
-			[87, 68]
+			[87, 68],
 		],
 		[
 			[4038, 3436],
@@ -1415,7 +1415,7 @@ export const dortmundGeodata = {
 			[5, -61],
 			[70, 4],
 			[24, -11],
-			[10, -25]
+			[10, -25],
 		],
 		[
 			[4243, 3168],
@@ -1424,7 +1424,7 @@ export const dortmundGeodata = {
 			[-1, -133],
 			[-16, -26],
 			[-7, -105],
-			[-15, -98]
+			[-15, -98],
 		],
 		[
 			[4219, 2749],
@@ -1440,7 +1440,7 @@ export const dortmundGeodata = {
 			[-33, 13],
 			[-63, 52],
 			[-98, 71],
-			[-79, 84]
+			[-79, 84],
 		],
 		[
 			[6354, 2419],
@@ -1448,7 +1448,7 @@ export const dortmundGeodata = {
 			[-139, -65],
 			[-79, -28],
 			[-66, -43],
-			[-53, -21]
+			[-53, -21],
 		],
 		[
 			[5984, 2252],
@@ -1457,7 +1457,7 @@ export const dortmundGeodata = {
 			[-19, 97],
 			[-33, 131],
 			[-34, 105],
-			[-25, 144]
+			[-25, 144],
 		],
 		[
 			[5893, 2888],
@@ -1467,11 +1467,11 @@ export const dortmundGeodata = {
 			[50, 83],
 			[21, 20],
 			[45, 12],
-			[72, 30]
+			[72, 30],
 		],
 		[
 			[6264, 3177],
-			[31, 12]
+			[31, 12],
 		],
 		[
 			[6295, 3189],
@@ -1495,13 +1495,13 @@ export const dortmundGeodata = {
 			[28, -80],
 			[-27, -72],
 			[-16, -8],
-			[12, -35]
+			[12, -35],
 		],
 		[
 			[6661, 2477],
 			[-26, -11],
 			[-72, -5],
-			[-209, -42]
+			[-209, -42],
 		],
 		[
 			[8283, 2845],
@@ -1514,7 +1514,7 @@ export const dortmundGeodata = {
 			[37, 103],
 			[228, 229],
 			[-138, 119],
-			[-90, 96]
+			[-90, 96],
 		],
 		[
 			[8030, 3773],
@@ -1552,11 +1552,11 @@ export const dortmundGeodata = {
 			[57, 14],
 			[-24, 98],
 			[-117, -27],
-			[-4, 22]
+			[-4, 22],
 		],
 		[
 			[7685, 4879],
-			[8, 5]
+			[8, 5],
 		],
 		[
 			[7693, 4884],
@@ -1566,7 +1566,7 @@ export const dortmundGeodata = {
 			[91, 14],
 			[77, -1],
 			[207, -34],
-			[13, -13]
+			[13, -13],
 		],
 		[
 			[8507, 4953],
@@ -1574,7 +1574,7 @@ export const dortmundGeodata = {
 			[43, -10],
 			[186, -61],
 			[114, -29],
-			[169, -37]
+			[169, -37],
 		],
 		[
 			[9045, 4819],
@@ -1591,7 +1591,7 @@ export const dortmundGeodata = {
 			[14, -35],
 			[41, -137],
 			[2, -22],
-			[49, -237]
+			[49, -237],
 		],
 		[
 			[9173, 3802],
@@ -1610,7 +1610,7 @@ export const dortmundGeodata = {
 			[-5, -34],
 			[13, -43],
 			[-41, -60],
-			[-15, -5]
+			[-15, -5],
 		],
 		[
 			[8974, 3095],
@@ -1626,7 +1626,7 @@ export const dortmundGeodata = {
 			[-95, -52],
 			[-15, 0],
 			[-203, -42],
-			[-55, -22]
+			[-55, -22],
 		],
 		[
 			[7443, 3695],
@@ -1642,7 +1642,7 @@ export const dortmundGeodata = {
 			[20, 60],
 			[2, 76],
 			[-24, -4],
-			[39, 206]
+			[39, 206],
 		],
 		[
 			[7181, 4347],
@@ -1651,12 +1651,12 @@ export const dortmundGeodata = {
 			[-10, 75],
 			[8, 21],
 			[37, 31],
-			[59, 191]
+			[59, 191],
 		],
 		[
 			[7304, 4776],
 			[201, 61],
-			[180, 42]
+			[180, 42],
 		],
 		[
 			[8030, 3773],
@@ -1669,16 +1669,16 @@ export const dortmundGeodata = {
 			[-62, -47],
 			[-26, -33],
 			[-61, -22],
-			[-23, 77]
+			[-23, 77],
 		],
 		[
 			[5427, 3926],
-			[-19, -11]
+			[-19, -11],
 		],
 		[
 			[5408, 3915],
 			[-163, -102],
-			[-58, -54]
+			[-58, -54],
 		],
 		[
 			[5187, 3759],
@@ -1690,7 +1690,7 @@ export const dortmundGeodata = {
 			[-22, 262],
 			[-12, 256],
 			[31, 48],
-			[19, 70]
+			[19, 70],
 		],
 		[
 			[5200, 4817],
@@ -1700,11 +1700,11 @@ export const dortmundGeodata = {
 			[119, 37],
 			[16, -2],
 			[119, 36],
-			[30, 5]
+			[30, 5],
 		],
 		[
 			[5668, 4945],
-			[5, 0]
+			[5, 0],
 		],
 		[
 			[5673, 4945],
@@ -1727,7 +1727,7 @@ export const dortmundGeodata = {
 			[42, -3],
 			[119, -48],
 			[-38, -85],
-			[-19, -6]
+			[-19, -6],
 		],
 		[
 			[6103, 4052],
@@ -1744,13 +1744,13 @@ export const dortmundGeodata = {
 			[-105, -4],
 			[-58, 13],
 			[-33, -1],
-			[-53, -34]
+			[-53, -34],
 		],
 		[
 			[5064, 2824],
 			[70, -117],
 			[29, -15],
-			[28, -35]
+			[28, -35],
 		],
 		[
 			[5191, 2657],
@@ -1767,7 +1767,7 @@ export const dortmundGeodata = {
 			[5, -62],
 			[54, -35],
 			[-18, -26],
-			[-12, -38]
+			[-12, -38],
 		],
 		[
 			[5335, 1908],
@@ -1789,7 +1789,7 @@ export const dortmundGeodata = {
 			[20, -41],
 			[-6, -87],
 			[83, -82],
-			[22, -41]
+			[22, -41],
 		],
 		[
 			[5425, 998],
@@ -1803,7 +1803,7 @@ export const dortmundGeodata = {
 			[-119, -24],
 			[-123, -47],
 			[-61, -12],
-			[-56, 6]
+			[-56, 6],
 		],
 		[
 			[4605, 1008],
@@ -1840,7 +1840,7 @@ export const dortmundGeodata = {
 			[62, 61],
 			[45, 61],
 			[55, 96],
-			[33, 91]
+			[33, 91],
 		],
 		[
 			[4218, 2730],
@@ -1857,7 +1857,7 @@ export const dortmundGeodata = {
 			[74, 27],
 			[15, 21],
 			[30, -4],
-			[101, 113]
+			[101, 113],
 		],
 		[
 			[5335, 1908],
@@ -1876,7 +1876,7 @@ export const dortmundGeodata = {
 			[88, 64],
 			[16, 6],
 			[40, -26],
-			[24, -2]
+			[24, -2],
 		],
 		[
 			[5982, 2240],
@@ -1891,7 +1891,7 @@ export const dortmundGeodata = {
 			[-14, -4],
 			[-25, -96],
 			[-77, -170],
-			[34, -49]
+			[34, -49],
 		],
 		[
 			[6008, 1276],
@@ -1901,11 +1901,11 @@ export const dortmundGeodata = {
 			[-110, -59],
 			[-51, -37],
 			[-57, -29],
-			[-86, -30]
+			[-86, -30],
 		],
 		[
 			[5427, 998],
-			[-2, 0]
+			[-2, 0],
 		],
 		[
 			[8848, 7572],
@@ -1924,7 +1924,7 @@ export const dortmundGeodata = {
 			[18, -24],
 			[-59, -35],
 			[-61, -55],
-			[-68, -31]
+			[-68, -31],
 		],
 		[
 			[8603, 7033],
@@ -1933,7 +1933,7 @@ export const dortmundGeodata = {
 			[-44, -25],
 			[-255, -162],
 			[-87, -76],
-			[-32, 65]
+			[-32, 65],
 		],
 		[
 			[7812, 6605],
@@ -1954,7 +1954,7 @@ export const dortmundGeodata = {
 			[12, 110],
 			[1, 114],
 			[-3, 48],
-			[-34, 215]
+			[-34, 215],
 		],
 		[
 			[7761, 7536],
@@ -1966,7 +1966,7 @@ export const dortmundGeodata = {
 			[117, -8],
 			[80, 6],
 			[98, 14],
-			[81, 0]
+			[81, 0],
 		],
 		[
 			[2388, 6251],
@@ -1981,7 +1981,7 @@ export const dortmundGeodata = {
 			[-41, 8],
 			[-36, -14],
 			[-30, -38],
-			[3, -36]
+			[3, -36],
 		],
 		[
 			[1893, 6274],
@@ -2002,7 +2002,7 @@ export const dortmundGeodata = {
 			[5, 20],
 			[-38, 99],
 			[24, 16],
-			[-31, 58]
+			[-31, 58],
 		],
 		[
 			[1519, 6819],
@@ -2021,7 +2021,7 @@ export const dortmundGeodata = {
 			[96, 38],
 			[73, 72],
 			[14, -17],
-			[53, 48]
+			[53, 48],
 		],
 		[
 			[2685, 7088],
@@ -2029,7 +2029,7 @@ export const dortmundGeodata = {
 			[56, -120],
 			[84, -152],
 			[43, 9],
-			[134, -79]
+			[134, -79],
 		],
 		[
 			[3008, 6741],
@@ -2040,13 +2040,13 @@ export const dortmundGeodata = {
 			[-83, -31],
 			[-8, 24],
 			[-65, -34],
-			[-56, -51]
+			[-56, -51],
 		],
 		[
 			[2629, 6418],
 			[-111, -100],
 			[-10, 2],
-			[-120, -69]
+			[-120, -69],
 		],
 		[
 			[1691, 5732],
@@ -2073,7 +2073,7 @@ export const dortmundGeodata = {
 			[-30, -9],
 			[5, -75],
 			[-8, -90],
-			[-2, -99]
+			[-2, -99],
 		],
 		[
 			[1951, 4760],
@@ -2083,14 +2083,14 @@ export const dortmundGeodata = {
 			[-90, 9],
 			[-34, 16],
 			[-6, -18],
-			[-38, 17]
+			[-38, 17],
 		],
 		[
 			[1611, 4740],
 			[-91, 57],
 			[-134, 72],
 			[-52, 38],
-			[-102, 53]
+			[-102, 53],
 		],
 		[
 			[1065, 5545],
@@ -2108,7 +2108,7 @@ export const dortmundGeodata = {
 			[-21, -42],
 			[9, -16],
 			[116, 54],
-			[126, 22]
+			[126, 22],
 		],
 		[
 			[3337, 2851],
@@ -2121,7 +2121,7 @@ export const dortmundGeodata = {
 			[-23, -139],
 			[-11, -194],
 			[-87, -24],
-			[-47, -5]
+			[-47, -5],
 		],
 		[
 			[2978, 2340],
@@ -2141,7 +2141,7 @@ export const dortmundGeodata = {
 			[-25, 7],
 			[11, 60],
 			[-75, 15],
-			[-114, 132]
+			[-114, 132],
 		],
 		[
 			[2680, 3246],
@@ -2160,7 +2160,7 @@ export const dortmundGeodata = {
 			[5, 330],
 			[-9, 137],
 			[-7, 20],
-			[7, 45]
+			[7, 45],
 		],
 		[
 			[3268, 4242],
@@ -2173,7 +2173,7 @@ export const dortmundGeodata = {
 			[155, 30],
 			[142, 15],
 			[119, -1],
-			[86, -14]
+			[86, -14],
 		],
 		[
 			[4309, 4335],
@@ -2189,7 +2189,7 @@ export const dortmundGeodata = {
 			[-37, -55],
 			[-15, -59],
 			[2, -28],
-			[21, -83]
+			[21, -83],
 		],
 		[
 			[9897, 4989],
@@ -2212,7 +2212,7 @@ export const dortmundGeodata = {
 			[1, 34],
 			[-12, 59],
 			[-8, 87],
-			[-13, 34]
+			[-13, 34],
 		],
 		[
 			[9683, 6750],
@@ -2220,7 +2220,7 @@ export const dortmundGeodata = {
 			[166, 252],
 			[22, 19],
 			[53, 75],
-			[23, 12]
+			[23, 12],
 		],
 		[
 			[10009, 7196],
@@ -2270,7 +2270,7 @@ export const dortmundGeodata = {
 			[-36, -11],
 			[-34, -21],
 			[-373, -283],
-			[-139, -87]
+			[-139, -87],
 		],
 		[
 			[2274, 3555],
@@ -2285,7 +2285,7 @@ export const dortmundGeodata = {
 			[22, 78],
 			[-85, 98],
 			[-31, 41],
-			[27, 119]
+			[27, 119],
 		],
 		[
 			[2196, 4270],
@@ -2293,19 +2293,19 @@ export const dortmundGeodata = {
 			[55, 13],
 			[74, 7],
 			[100, 3],
-			[-1, 30]
+			[-1, 30],
 		],
 		[
 			[2574, 4376],
 			[144, -9],
 			[84, -13],
 			[191, -40],
-			[164, -30]
+			[164, -30],
 		],
 		[
 			[3157, 4284],
 			[100, -24],
-			[11, -18]
+			[11, -18],
 		],
 		[
 			[2680, 3246],
@@ -2322,7 +2322,7 @@ export const dortmundGeodata = {
 			[16, 51],
 			[7, 67],
 			[35, -10],
-			[-43, 134]
+			[-43, 134],
 		],
 		[
 			[5064, 2824],
@@ -2331,7 +2331,7 @@ export const dortmundGeodata = {
 			[-99, 38],
 			[-31, 16],
 			[-16, 28],
-			[-68, 61]
+			[-68, 61],
 		],
 		[
 			[4696, 3409],
@@ -2344,7 +2344,7 @@ export const dortmundGeodata = {
 			[-58, 52],
 			[-4, 24],
 			[48, 21],
-			[0, 18]
+			[0, 18],
 		],
 		[
 			[4786, 3894],
@@ -2355,7 +2355,7 @@ export const dortmundGeodata = {
 			[37, -29],
 			[69, -27],
 			[35, -7],
-			[37, 11]
+			[37, 11],
 		],
 		[
 			[5408, 3915],
@@ -2373,11 +2373,11 @@ export const dortmundGeodata = {
 			[-5, -147],
 			[-12, -152],
 			[-22, -92],
-			[-47, -105]
+			[-47, -105],
 		],
 		[
 			[5982, 2240],
-			[2, 12]
+			[2, 12],
 		],
 		[
 			[6354, 2419],
@@ -2401,13 +2401,13 @@ export const dortmundGeodata = {
 			[-58, -37],
 			[-257, -138],
 			[-129, -53],
-			[-11, -8]
+			[-11, -8],
 		],
 		[
 			[6292, 1568],
 			[-14, -13],
 			[-125, -166],
-			[-145, -113]
+			[-145, -113],
 		],
 		[
 			[6450, 8320],
@@ -2430,7 +2430,7 @@ export const dortmundGeodata = {
 			[-21, 3],
 			[-45, -27],
 			[-7, -98],
-			[-49, 14]
+			[-49, 14],
 		],
 		[
 			[5357, 7759],
@@ -2450,7 +2450,7 @@ export const dortmundGeodata = {
 			[-56, 265],
 			[-162, 60],
 			[15, 16],
-			[-62, 26]
+			[-62, 26],
 		],
 		[
 			[4742, 8696],
@@ -2492,7 +2492,7 @@ export const dortmundGeodata = {
 			[11, -36],
 			[-49, -216],
 			[-14, -31],
-			[8, -56]
+			[8, -56],
 		],
 		[
 			[6603, 8707],
@@ -2516,14 +2516,14 @@ export const dortmundGeodata = {
 			[57, 3],
 			[14, -11],
 			[60, -127],
-			[30, -76]
+			[30, -76],
 		],
 		[
 			[5738, 6585],
 			[-16, -13],
 			[-57, -10],
 			[-184, -14],
-			[5, 42]
+			[5, 42],
 		],
 		[
 			[5486, 6590],
@@ -2537,7 +2537,7 @@ export const dortmundGeodata = {
 			[3, 162],
 			[-18, 286],
 			[-8, 8],
-			[1, 114]
+			[1, 114],
 		],
 		[
 			[5069, 7558],
@@ -2546,7 +2546,7 @@ export const dortmundGeodata = {
 			[125, 26],
 			[57, 18],
 			[8, 64],
-			[4, 129]
+			[4, 129],
 		],
 		[
 			[6450, 8320],
@@ -2556,7 +2556,7 @@ export const dortmundGeodata = {
 			[5, -43],
 			[-10, -72],
 			[42, -39],
-			[-33, -109]
+			[-33, -109],
 		],
 		[
 			[6558, 7795],
@@ -2571,7 +2571,7 @@ export const dortmundGeodata = {
 			[-2, -61],
 			[-19, -215],
 			[30, -32],
-			[11, -32]
+			[11, -32],
 		],
 		[
 			[6448, 7212],
@@ -2587,11 +2587,11 @@ export const dortmundGeodata = {
 			[-163, -80],
 			[-35, -9],
 			[-102, -59],
-			[-11, -26]
+			[-11, -26],
 		],
 		[
 			[4406, 7418],
-			[-1, 2]
+			[-1, 2],
 		],
 		[
 			[4405, 7420],
@@ -2619,13 +2619,13 @@ export const dortmundGeodata = {
 			[63, -13],
 			[48, 3],
 			[50, -17],
-			[6, 25]
+			[6, 25],
 		],
 		[
 			[4429, 8809],
 			[146, -57],
 			[166, -61],
-			[1, 5]
+			[1, 5],
 		],
 		[
 			[5069, 7558],
@@ -2639,7 +2639,7 @@ export const dortmundGeodata = {
 			[-34, -28],
 			[-83, -4],
 			[-106, -11],
-			[-48, -12]
+			[-48, -12],
 		],
 		[
 			[4786, 3894],
@@ -2653,7 +2653,7 @@ export const dortmundGeodata = {
 			[-43, 58],
 			[-42, 24],
 			[-40, 41],
-			[-68, 12]
+			[-68, 12],
 		],
 		[
 			[4310, 4354],
@@ -2663,7 +2663,7 @@ export const dortmundGeodata = {
 			[-50, 114],
 			[-40, 104],
 			[-8, 52],
-			[12, 32]
+			[12, 32],
 		],
 		[
 			[4157, 4918],
@@ -2681,13 +2681,13 @@ export const dortmundGeodata = {
 			[72, -15],
 			[23, 8],
 			[45, -16],
-			[70, -8]
+			[70, -8],
 		],
 		[
 			[5027, 4844],
 			[103, -12],
 			[74, -2],
-			[-4, -13]
+			[-4, -13],
 		],
 		[
 			[1612, 3602],
@@ -2764,7 +2764,7 @@ export const dortmundGeodata = {
 			[-9, 93],
 			[8, 30],
 			[-4, 74],
-			[8, 40]
+			[8, 40],
 		],
 		[
 			[1611, 4740],
@@ -2788,7 +2788,7 @@ export const dortmundGeodata = {
 			[55, 14],
 			[152, 57],
 			[-5, -47],
-			[3, -88]
+			[3, -88],
 		],
 		[
 			[2196, 4270],
@@ -2808,7 +2808,7 @@ export const dortmundGeodata = {
 			[-8, -27],
 			[-26, -34],
 			[-76, -2],
-			[3, -140]
+			[3, -140],
 		],
 		[
 			[4696, 3409],
@@ -2828,11 +2828,11 @@ export const dortmundGeodata = {
 			[-5, -74],
 			[-10, -10],
 			[-4, -49],
-			[7, -33]
+			[7, -33],
 		],
 		[
 			[4309, 4335],
-			[1, 19]
+			[1, 19],
 		],
 		[
 			[3123, 5399],
@@ -2859,7 +2859,7 @@ export const dortmundGeodata = {
 			[14, -26],
 			[-23, -17],
 			[-28, 9],
-			[17, -66]
+			[17, -66],
 		],
 		[
 			[1951, 4760],
@@ -2872,7 +2872,7 @@ export const dortmundGeodata = {
 			[25, 5],
 			[85, 97],
 			[104, 131],
-			[15, 8]
+			[15, 8],
 		],
 		[
 			[2413, 5307],
@@ -2890,7 +2890,7 @@ export const dortmundGeodata = {
 			[-9, 17],
 			[64, 25],
 			[2, 60],
-			[103, 79]
+			[103, 79],
 		],
 		[
 			[6292, 1568],
@@ -2910,7 +2910,7 @@ export const dortmundGeodata = {
 			[29, -17],
 			[107, -76],
 			[30, -19],
-			[97, -70]
+			[97, -70],
 		],
 		[
 			[7285, 1117],
@@ -2964,7 +2964,7 @@ export const dortmundGeodata = {
 			[26, 65],
 			[53, 69],
 			[-3, 72],
-			[-18, 107]
+			[-18, 107],
 		],
 		[
 			[2274, 3555],
@@ -2986,7 +2986,7 @@ export const dortmundGeodata = {
 			[-8, 75],
 			[-21, 1],
 			[-4, -31],
-			[-54, -8]
+			[-54, -8],
 		],
 		[
 			[3125, 5401],
@@ -3011,7 +3011,7 @@ export const dortmundGeodata = {
 			[-21, 102],
 			[-39, 122],
 			[3, 46],
-			[-30, 12]
+			[-30, 12],
 		],
 		[
 			[3008, 6741],
@@ -3020,7 +3020,7 @@ export const dortmundGeodata = {
 			[8, -4],
 			[126, 89],
 			[81, 37],
-			[18, 35]
+			[18, 35],
 		],
 		[
 			[3509, 7104],
@@ -3033,7 +3033,7 @@ export const dortmundGeodata = {
 			[38, -70],
 			[22, -60],
 			[77, -145],
-			[20, -8]
+			[20, -8],
 		],
 		[
 			[4032, 6253],
@@ -3045,7 +3045,7 @@ export const dortmundGeodata = {
 			[17, -41],
 			[70, -113],
 			[84, -110],
-			[49, -81]
+			[49, -81],
 		],
 		[
 			[4224, 5716],
@@ -3054,7 +3054,7 @@ export const dortmundGeodata = {
 			[-11, -17],
 			[-34, -9],
 			[-29, 19],
-			[-29, -8]
+			[-29, -8],
 		],
 		[
 			[4048, 5669],
@@ -3079,7 +3079,7 @@ export const dortmundGeodata = {
 			[-64, -27],
 			[-21, 21],
 			[-49, -42],
-			[-13, 16]
+			[-13, 16],
 		],
 		[
 			[7693, 4884],
@@ -3097,7 +3097,7 @@ export const dortmundGeodata = {
 			[12, 8],
 			[-27, 116],
 			[-9, 62],
-			[-182, 352]
+			[-182, 352],
 		],
 		[
 			[7278, 6351],
@@ -3109,7 +3109,7 @@ export const dortmundGeodata = {
 			[75, 16],
 			[45, 18],
 			[62, 41],
-			[-4, 26]
+			[-4, 26],
 		],
 		[
 			[8603, 7033],
@@ -3118,7 +3118,7 @@ export const dortmundGeodata = {
 			[151, -152],
 			[20, -140],
 			[-27, -110],
-			[13, -99]
+			[13, -99],
 		],
 		[
 			[8803, 6407],
@@ -3144,7 +3144,7 @@ export const dortmundGeodata = {
 			[-15, -9],
 			[-73, -124],
 			[-11, -25],
-			[-44, -40]
+			[-44, -40],
 		],
 		[
 			[1519, 6819],
@@ -3172,7 +3172,7 @@ export const dortmundGeodata = {
 			[-47, 72],
 			[-42, 75],
 			[-20, -25],
-			[0, 94]
+			[0, 94],
 		],
 		[
 			[1612, 7766],
@@ -3197,19 +3197,19 @@ export const dortmundGeodata = {
 			[33, 40],
 			[22, 43],
 			[20, 78],
-			[12, -5]
+			[12, -5],
 		],
 		[
 			[2498, 7775],
 			[10, -14],
-			[67, -149]
+			[67, -149],
 		],
 		[
 			[2575, 7612],
 			[101, -251],
 			[78, -187],
 			[13, -10],
-			[-82, -76]
+			[-82, -76],
 		],
 		[
 			[1612, 7766],
@@ -3217,7 +3217,7 @@ export const dortmundGeodata = {
 			[81, 104],
 			[-151, 94],
 			[33, 23],
-			[-73, 163]
+			[-73, 163],
 		],
 		[
 			[1505, 8212],
@@ -3238,7 +3238,7 @@ export const dortmundGeodata = {
 			[4, -82],
 			[-26, -139],
 			[-11, -74],
-			[-8, -20]
+			[-8, -20],
 		],
 		[
 			[5427, 3926],
@@ -3246,7 +3246,7 @@ export const dortmundGeodata = {
 			[15, -55],
 			[42, -97],
 			[22, -19],
-			[30, -8]
+			[30, -8],
 		],
 		[
 			[5534, 3643],
@@ -3269,7 +3269,7 @@ export const dortmundGeodata = {
 			[16, -64],
 			[39, -205],
 			[77, 25],
-			[20, -4]
+			[20, -4],
 		],
 		[
 			[9582, 7932],
@@ -3282,7 +3282,7 @@ export const dortmundGeodata = {
 			[-81, 1],
 			[-118, -21],
 			[-107, -34],
-			[-91, -40]
+			[-91, -40],
 		],
 		[
 			[8872, 7727],
@@ -3317,11 +3317,11 @@ export const dortmundGeodata = {
 			[11, 70],
 			[-17, 54],
 			[-43, 32],
-			[-158, 135]
+			[-158, 135],
 		],
 		[
 			[7731, 8723],
-			[-12, 14]
+			[-12, 14],
 		],
 		[
 			[7719, 8737],
@@ -3364,7 +3364,7 @@ export const dortmundGeodata = {
 			[-25, -58],
 			[-47, -16],
 			[50, -42],
-			[19, 1]
+			[19, 1],
 		],
 		[
 			[7922, 2402],
@@ -3396,7 +3396,7 @@ export const dortmundGeodata = {
 			[-53, 1],
 			[-60, 45],
 			[-59, 33],
-			[-61, 55]
+			[-61, 55],
 		],
 		[
 			[6661, 2477],
@@ -3407,7 +3407,7 @@ export const dortmundGeodata = {
 			[178, 89],
 			[155, 37],
 			[83, 76],
-			[26, 51]
+			[26, 51],
 		],
 		[
 			[7357, 2812],
@@ -3419,11 +3419,11 @@ export const dortmundGeodata = {
 			[26, -2],
 			[140, 13],
 			[135, 61],
-			[27, 16]
+			[27, 16],
 		],
 		[
 			[5659, 5510],
-			[-7, 30]
+			[-7, 30],
 		],
 		[
 			[5652, 5540],
@@ -3441,7 +3441,7 @@ export const dortmundGeodata = {
 			[7, 55],
 			[16, 38],
 			[-146, -4],
-			[-30, -5]
+			[-30, -5],
 		],
 		[
 			[6448, 7212],
@@ -3456,7 +3456,7 @@ export const dortmundGeodata = {
 			[-5, -82],
 			[-67, -11],
 			[13, -61],
-			[48, 24]
+			[48, 24],
 		],
 		[
 			[6894, 6996],
@@ -3473,14 +3473,14 @@ export const dortmundGeodata = {
 			[-1, -68],
 			[-15, -55],
 			[-5, -47],
-			[39, 14]
+			[39, 14],
 		],
 		[
 			[7009, 6169],
 			[27, -41],
 			[-329, -200],
 			[12, -33],
-			[-7, -19]
+			[-7, -19],
 		],
 		[
 			[6712, 5876],
@@ -3490,13 +3490,13 @@ export const dortmundGeodata = {
 			[-105, -40],
 			[-117, -29],
 			[-303, -63],
-			[-211, -47]
+			[-211, -47],
 		],
 		[
 			[7278, 6351],
 			[-43, -17],
 			[-137, -94],
-			[-89, -71]
+			[-89, -71],
 		],
 		[
 			[6894, 6996],
@@ -3505,7 +3505,7 @@ export const dortmundGeodata = {
 			[63, 63],
 			[58, 73],
 			[59, 108],
-			[60, 147]
+			[60, 147],
 		],
 		[
 			[7242, 7448],
@@ -3516,7 +3516,7 @@ export const dortmundGeodata = {
 			[27, 56],
 			[19, 70],
 			[275, 33],
-			[11, -7]
+			[11, -7],
 		],
 		[
 			[6877, 5112],
@@ -3528,7 +3528,7 @@ export const dortmundGeodata = {
 			[-62, 166],
 			[-33, 69],
 			[-26, 29],
-			[-71, 138]
+			[-71, 138],
 		],
 		[
 			[7304, 4776],
@@ -3541,11 +3541,11 @@ export const dortmundGeodata = {
 			[-122, -76],
 			[-59, -40],
 			[-80, -42],
-			[-45, -18]
+			[-45, -18],
 		],
 		[
 			[4218, 2730],
-			[1, 19]
+			[1, 19],
 		],
 		[
 			[5486, 6590],
@@ -3557,7 +3557,7 @@ export const dortmundGeodata = {
 			[-126, -93],
 			[-10, 21],
 			[-47, 14],
-			[-11, -8]
+			[-11, -8],
 		],
 		[
 			[5031, 6447],
@@ -3577,7 +3577,7 @@ export const dortmundGeodata = {
 			[-29, -27],
 			[-30, -50],
 			[-35, 1],
-			[-29, -10]
+			[-29, -10],
 		],
 		[
 			[4345, 6691],
@@ -3587,7 +3587,7 @@ export const dortmundGeodata = {
 			[27, 65],
 			[11, 87],
 			[-3, 64],
-			[-11, 89]
+			[-11, 89],
 		],
 		[
 			[4345, 6691],
@@ -3599,7 +3599,7 @@ export const dortmundGeodata = {
 			[-56, -27],
 			[-28, -6],
 			[-197, 26],
-			[-18, -47]
+			[-18, -47],
 		],
 		[
 			[3509, 7104],
@@ -3622,11 +3622,11 @@ export const dortmundGeodata = {
 			[15, -26],
 			[2, -33],
 			[54, 1],
-			[148, 12]
+			[148, 12],
 		],
 		[
 			[3123, 5399],
-			[2, 2]
+			[2, 2],
 		],
 		[
 			[4048, 5669],
@@ -3638,7 +3638,7 @@ export const dortmundGeodata = {
 			[-24, -82],
 			[-10, -52],
 			[6, -27],
-			[73, -37]
+			[73, -37],
 		],
 		[
 			[1505, 8212],
@@ -3685,7 +3685,7 @@ export const dortmundGeodata = {
 			[123, -42],
 			[51, -7],
 			[42, 30],
-			[35, -1]
+			[35, -1],
 		],
 		[
 			[2984, 9118],
@@ -3708,7 +3708,7 @@ export const dortmundGeodata = {
 			[-24, 0],
 			[-32, -42],
 			[-84, -5],
-			[-44, -76]
+			[-44, -76],
 		],
 		[
 			[3094, 7839],
@@ -3718,7 +3718,7 @@ export const dortmundGeodata = {
 			[-173, -55],
 			[-64, -51],
 			[-70, -90],
-			[-49, -28]
+			[-49, -28],
 		],
 		[
 			[7022, 3526],
@@ -3733,7 +3733,7 @@ export const dortmundGeodata = {
 			[-31, -34],
 			[-18, -34],
 			[-30, -35],
-			[-83, -45]
+			[-83, -45],
 		],
 		[
 			[6264, 3177],
@@ -3753,7 +3753,7 @@ export const dortmundGeodata = {
 			[-61, 40],
 			[-19, 20],
 			[-51, 6],
-			[-23, -10]
+			[-23, -10],
 		],
 		[
 			[6103, 4052],
@@ -3775,7 +3775,7 @@ export const dortmundGeodata = {
 			[61, -38],
 			[157, -40],
 			[194, -56],
-			[20, -11]
+			[20, -11],
 		],
 		[
 			[7443, 3695],
@@ -3798,11 +3798,11 @@ export const dortmundGeodata = {
 			[5, -61],
 			[-28, -16],
 			[-83, 8],
-			[-124, 27]
+			[-124, 27],
 		],
 		[
 			[9897, 4989],
-			[-147, -95]
+			[-147, -95],
 		],
 		[
 			[9750, 4894],
@@ -3818,7 +3818,7 @@ export const dortmundGeodata = {
 			[-148, -10],
 			[-120, 9],
 			[-96, 14],
-			[-57, 12]
+			[-57, 12],
 		],
 		[
 			[8803, 6407],
@@ -3833,7 +3833,7 @@ export const dortmundGeodata = {
 			[38, 9],
 			[-8, 46],
 			[272, 55],
-			[19, -60]
+			[19, -60],
 		],
 		[
 			[7022, 3526],
@@ -3853,7 +3853,7 @@ export const dortmundGeodata = {
 			[9, -30],
 			[40, -6],
 			[55, -151],
-			[8, -37]
+			[8, -37],
 		],
 		[
 			[4996, 5460],
@@ -3869,7 +3869,7 @@ export const dortmundGeodata = {
 			[-1, 52],
 			[-16, 61],
 			[-2, 47],
-			[-9, 16]
+			[-9, 16],
 		],
 		[
 			[5652, 5540],
@@ -3878,7 +3878,7 @@ export const dortmundGeodata = {
 			[-21, 13],
 			[-54, 1],
 			[-172, 10],
-			[-104, -22]
+			[-104, -22],
 		],
 		[
 			[2984, 9118],
@@ -3922,7 +3922,7 @@ export const dortmundGeodata = {
 			[154, -50],
 			[75, -29],
 			[181, -67],
-			[27, -7]
+			[27, -7],
 		],
 		[
 			[3509, 7104],
@@ -3932,7 +3932,7 @@ export const dortmundGeodata = {
 			[-139, 251],
 			[-13, 12],
 			[-54, 101],
-			[-43, 62]
+			[-43, 62],
 		],
 		[
 			[8283, 2845],
@@ -3944,7 +3944,7 @@ export const dortmundGeodata = {
 			[-3, -92],
 			[-77, -60],
 			[-21, -51],
-			[-17, -81]
+			[-17, -81],
 		],
 		[
 			[7459, 8014],
@@ -3953,7 +3953,7 @@ export const dortmundGeodata = {
 			[-20, -43],
 			[-7, -44],
 			[-14, -12],
-			[-78, -201]
+			[-78, -201],
 		],
 		[
 			[6558, 7795],
@@ -3971,7 +3971,7 @@ export const dortmundGeodata = {
 			[185, 123],
 			[13, 12],
 			[43, 105],
-			[47, -3]
+			[47, -3],
 		],
 		[
 			[4224, 5716],
@@ -3987,7 +3987,7 @@ export const dortmundGeodata = {
 			[99, 51],
 			[-12, 20],
 			[65, -1],
-			[36, 6]
+			[36, 6],
 		],
 		[
 			[4981, 5456],
@@ -3999,7 +3999,7 @@ export const dortmundGeodata = {
 			[8, -6],
 			[3, -84],
 			[11, -96],
-			[-11, -4]
+			[-11, -4],
 		],
 		[
 			[5659, 5510],
@@ -4008,11 +4008,11 @@ export const dortmundGeodata = {
 			[-15, -139],
 			[7, -42],
 			[1, -73],
-			[-4, -158]
+			[-4, -158],
 		],
 		[
 			[4981, 5456],
-			[15, 4]
+			[15, 4],
 		],
 		[
 			[9732, 4258],
@@ -4020,7 +4020,7 @@ export const dortmundGeodata = {
 			[-4, 1],
 			[-304, -229],
 			[-56, -50],
-			[-55, -71]
+			[-55, -71],
 		],
 		[
 			[9750, 4894],
@@ -4029,7 +4029,7 @@ export const dortmundGeodata = {
 			[11, -269],
 			[29, -200],
 			[-61, -48],
-			[31, 0]
+			[31, 0],
 		],
 		[
 			[2413, 5307],
@@ -4047,7 +4047,7 @@ export const dortmundGeodata = {
 			[-22, 85],
 			[-24, 58],
 			[-26, 50],
-			[-4, 41]
+			[-4, 41],
 		],
 		[
 			[1691, 5732],
@@ -4068,7 +4068,7 @@ export const dortmundGeodata = {
 			[-26, 94],
 			[41, 12],
 			[-16, 46],
-			[-52, -7]
+			[-52, -7],
 		],
 		[
 			[4605, 1008],
@@ -4109,14 +4109,14 @@ export const dortmundGeodata = {
 			[-34, -4],
 			[-1, 76],
 			[-37, 4],
-			[1, 33]
+			[1, 33],
 		],
 		[
 			[8848, 7572],
 			[48, 10],
 			[-18, 77],
 			[-40, 48],
-			[34, 20]
+			[34, 20],
 		],
 		[
 			[9582, 7932],
@@ -4147,7 +4147,7 @@ export const dortmundGeodata = {
 			[16, -93],
 			[-88, -3],
 			[-45, -15],
-			[91, -177]
+			[91, -177],
 		],
 		[
 			[9732, 4258],
@@ -4180,7 +4180,7 @@ export const dortmundGeodata = {
 			[-20, 40],
 			[-64, -42],
 			[-42, 81],
-			[-61, 94]
+			[-61, 94],
 		],
 		[
 			[7459, 8014],
@@ -4190,7 +4190,7 @@ export const dortmundGeodata = {
 			[36, 90],
 			[59, 157],
 			[2, 15],
-			[108, 266]
+			[108, 266],
 		],
 		[
 			[6877, 5112],
@@ -4208,7 +4208,7 @@ export const dortmundGeodata = {
 			[-37, 11],
 			[1, -32],
 			[-97, 13],
-			[-9, -43]
+			[-9, -43],
 		],
 		[
 			[6603, 8707],
@@ -4222,828 +4222,862 @@ export const dortmundGeodata = {
 			[115, 5],
 			[60, 13],
 			[88, 27],
-			[187, 81]
-		]
+			[187, 81],
+		],
 	],
 	transform: {
 		scale: [0.000030294893976441358, 0.000018844065327034558],
-		translate: [7.302450942963471, 51.4157199216248]
+		translate: [7.302450942963471, 51.4157199216248],
 	},
 	objects: {
 		bezirke: {
-			type: 'GeometryCollection',
+			type: "GeometryCollection",
 			geometries: [
 				{
 					arcs: [[0, 1, 2, 3]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 1,
-						NAME: 'Luetgendortmund',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '7'
-					}
+						NAME: "Luetgendortmund",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "7",
+					},
 				},
 				{
 					arcs: [[4, 5, 6, 7]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 2,
-						NAME: 'Schanhorst',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '2'
-					}
+						NAME: "Schanhorst",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "2",
+					},
 				},
 				{
 					arcs: [[8, 9, 10, 11, 12, 13]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 3,
-						NAME: 'Innenstadt Ost',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '07'
-					}
+						NAME: "Innenstadt Ost",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "07",
+					},
 				},
 				{
 					arcs: [[-4, 14, 15, 16, 17, 18]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 4,
-						NAME: 'Huckarde',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '8'
-					}
+						NAME: "Huckarde",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "8",
+					},
 				},
 				{
 					arcs: [[19, -10, 20, 21]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 5,
-						NAME: 'Hoerde',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '5'
-					}
+						NAME: "Hoerde",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "5",
+					},
 				},
 				{
 					arcs: [[22, -17, 23, 24, -7]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 6,
-						NAME: 'Eving',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '1'
-					}
+						NAME: "Eving",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "1",
+					},
 				},
 				{
 					arcs: [[-12, 25, -1, -19, 26]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 7,
-						NAME: 'Innenstadt West',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '00'
-					}
+						NAME: "Innenstadt West",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "00",
+					},
 				},
 				{
 					arcs: [[27, -24, -16]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 8,
-						NAME: 'Mengede',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '9'
-					}
+						NAME: "Mengede",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "9",
+					},
 				},
 				{
 					arcs: [[-21, -9, 28, 29]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 9,
-						NAME: 'Aplerbeck',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '4'
-					}
+						NAME: "Aplerbeck",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "4",
+					},
 				},
 				{
 					arcs: [[-27, -18, -23, -6, 30, -13]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 10,
-						NAME: 'Innenstadt Nord',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '04'
-					}
+						NAME: "Innenstadt Nord",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "04",
+					},
 				},
 				{
 					arcs: [[-29, -14, -31, -5, 31]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 11,
-						NAME: 'Brackel',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '3'
-					}
+						NAME: "Brackel",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "3",
+					},
 				},
 				{
 					arcs: [[-2, -26, -11, -20, 32]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 12,
-						NAME: 'Hombruch',
-						BEZ_TYP: 'Stadtbezirk',
-						FACH_ID: '6'
-					}
-				}
-			]
+						NAME: "Hombruch",
+						BEZ_TYP: "Stadtbezirk",
+						FACH_ID: "6",
+					},
+				},
+			],
 		},
 		stadtteile: {
-			type: 'GeometryCollection',
+			type: "GeometryCollection",
 			geometries: [
 				{
 					arcs: [[33, 34, 35]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 1,
-						NAME: 'BÖVINGHAUSEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '710',
-						vulnerable: 0
-					}
+						NAME: "BÖVINGHAUSEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "710",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[36, 37, 38, 39]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 2,
-						NAME: 'MENGLINGHAUSEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '690',
-						vulnerable: 0
-					}
+						NAME: "MENGLINGHAUSEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "690",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[40, 41, 42, 43, 44, 45]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 3,
-						NAME: 'WELLINGHOFEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '560',
-						vulnerable: 0
-					}
+						NAME: "WELLINGHOFEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "560",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[46, 47, 48, 49, 50, 51, 52, 53]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 4,
-						NAME: 'APLERBECK',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '410',
-						vulnerable: 0
-					}
+						NAME: "APLERBECK",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "410",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[54, 55, 56, -48, 57]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 5,
-						NAME: 'SCHÜREN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '430',
-						vulnerable: 0
-					}
+						NAME: "SCHÜREN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "430",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[58, 59, 60, 61, 62, 63, 64]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 6,
-						NAME: 'RUHRALLEE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '090',
-						vulnerable: 0
-					}
+						NAME: "RUHRALLEE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "090",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[65, 66, 67, 68, 69, 70]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 7,
-						NAME: 'KIRCHHÖRDE-LÖTTRINGHAUSEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '670',
-						vulnerable: 0
-					}
+						NAME: "KIRCHHÖRDE-LÖTTRINGHAUSEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "670",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[71, 72, 73, 74, -68]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 8,
-						NAME: 'BITTERMARK',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '620',
-						vulnerable: 0
-					}
+						NAME: "BITTERMARK",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "620",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[75, 76, 77, 78]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 9,
-						NAME: 'SCHARNHORST-OST',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '270',
-						vulnerable: 1
-					}
+						NAME: "SCHARNHORST-OST",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "270",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[79, 80, 81, 82, 83, 84]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 10,
-						NAME: 'WESTERFILDE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '960',
-						vulnerable: 1
-					}
+						NAME: "WESTERFILDE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "960",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[85, 86, 87, -36, 88]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 11,
-						NAME: 'WESTRICH',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '760',
-						vulnerable: 0
-					}
+						NAME: "WESTRICH",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "760",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[89, 90, 91, 92, 93, -37]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 12,
-						NAME: 'EICHLINGHOFEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '640',
-						vulnerable: 0
-					}
+						NAME: "EICHLINGHOFEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "640",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[94, 95, 96]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 13,
-						NAME: 'WICKEDE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '340',
-						vulnerable: 1
-					}
+						NAME: "WICKEDE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "340",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[97, 98, 99, 100, -92, 101]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 14,
-						NAME: 'OESPEL',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '750',
-						vulnerable: 0
-					}
+						NAME: "OESPEL",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "750",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-66, 102, 103, 104, -60, 105]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 15,
-						NAME: 'BRÜNNINGHAUSEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '630',
-						vulnerable: 0
-					}
+						NAME: "BRÜNNINGHAUSEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "630",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-73, 106, -41, 107, 108]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 16,
-						NAME: 'WICHLINGHOFEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '570',
-						vulnerable: 0
-					}
+						NAME: "WICHLINGHOFEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "570",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[109, 110, 111, 112]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 17,
-						NAME: 'BRECHTEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '110',
-						vulnerable: 0
-					}
+						NAME: "BRECHTEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "110",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[113, 114, 115, -110, 116, 117, 118]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 18,
-						NAME: 'EVING',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '120',
-						vulnerable: 1
-					}
+						NAME: "EVING",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "120",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[119, 120, 121, -111, -116, 122]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 19,
-						NAME: 'HOLTHAUSEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '130',
-						vulnerable: 0
-					}
+						NAME: "HOLTHAUSEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "130",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-105, 123, 124, 125, 126, -61]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 20,
-						NAME: 'WESTFALENHALLE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '010',
-						vulnerable: 0
-					}
+						NAME: "WESTFALENHALLE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "010",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[127, -34, -88, 128, -99, 129]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 21,
-						NAME: 'LÜTGENDORTMUND',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '730',
-						vulnerable: 0
-					}
+						NAME: "LÜTGENDORTMUND",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "730",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-104, 130, -38, -94, 131, -124]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 22,
-						NAME: 'BAROP',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '610',
-						vulnerable: 0
-					}
+						NAME: "BAROP",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "610",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[132, -100, -129, -87, 133, 134]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 23,
-						NAME: 'MARTEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '740',
-						vulnerable: 1
-					}
+						NAME: "MARTEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "740",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[-74, -109, 135, 136]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 24,
-						NAME: 'SYBURG',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '550',
-						vulnerable: 0
-					}
+						NAME: "SYBURG",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "550",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-130, -98, 137]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 25,
-						NAME: 'KLEY',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '720',
-						vulnerable: 0
-					}
+						NAME: "KLEY",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "720",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[138, -84, 139, 140, 141, 142, 143]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 26,
-						NAME: 'HUCKARDE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '820',
-						vulnerable: 0
-					}
+						NAME: "HUCKARDE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "820",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[144, 145, -77, 146, 147, -50]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 27,
-						NAME: 'BRACKEL',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '320',
-						vulnerable: 0
-					}
+						NAME: "BRACKEL",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "320",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[148, 149, 150, 151, -82]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 28,
-						NAME: 'BODELSCHWINGH',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '910',
-						vulnerable: 1
-					}
+						NAME: "BODELSCHWINGH",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "910",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[152, 153, -150]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 29,
-						NAME: 'OESTRICH',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '940',
-						vulnerable: 0
-					}
+						NAME: "OESTRICH",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "940",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-67, -106, -59, 154, 155, -42, -107, -72]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 30,
-						NAME: 'ROMBERGPARK-LÜCKLEMBERG',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '680',
-						vulnerable: 0
-					}
+						NAME: "ROMBERGPARK-LÜCKLEMBERG",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "680",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[156, 157, 158, 159]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 31,
-						NAME: 'LANSTROP',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '250',
-						vulnerable: 0
-					}
+						NAME: "LANSTROP",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "250",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[160, -136, -108, -46, 161, 162]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 32,
-						NAME: 'HOLZEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '540',
-						vulnerable: 0
-					}
+						NAME: "HOLZEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "540",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[163, 164, -119, 165, 166, 167, 168]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 33,
-						NAME: 'BORSIGPLATZ',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '060',
-						vulnerable: 1
-					}
+						NAME: "BORSIGPLATZ",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "060",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[169, -167, 170, 171, -78, -146]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 34,
-						NAME: 'ALT-SCHARNHORST',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '260',
-						vulnerable: 1
-					}
+						NAME: "ALT-SCHARNHORST",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "260",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[172, -168, -170, -145, -49, -57, 173]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 35,
-						NAME: 'WAMBEL',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '330',
-						vulnerable: 0
-					}
+						NAME: "WAMBEL",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "330",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-103, -71, 174, -39, -131]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 36,
-						NAME: 'HOMBRUCH',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '650',
-						vulnerable: 0
-					}
+						NAME: "HOMBRUCH",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "650",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[175, 176, 177, -123, -115]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 37,
-						NAME: 'LINDENHORST',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '140',
-						vulnerable: 1
-					}
+						NAME: "LINDENHORST",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "140",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[-120, -178, 178, -141, 179]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 38,
-						NAME: 'DEUSEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '810',
-						vulnerable: 0
-					}
+						NAME: "DEUSEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "810",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-101, -133, 180, -144, 181, -125, -132, -93]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 39,
-						NAME: 'DORSTFELD',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '030',
-						vulnerable: 0
-					}
+						NAME: "DORSTFELD",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "030",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-151, -154, 182, 183, 184]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 40,
-						NAME: 'MENGEDE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '920',
-						vulnerable: 0
-					}
+						NAME: "MENGEDE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "920",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[185, -44, 186, -155, -65, 187, -55, 188]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 41,
-						NAME: 'HÖRDE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '530',
-						vulnerable: 1
-					}
+						NAME: "HÖRDE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "530",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[-95, 189, 190, -51, -148, 191]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 42,
-						NAME: 'ASSELN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '310',
-						vulnerable: 0
-					}
+						NAME: "ASSELN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "310",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-45, -186, 192, -162]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 43,
-						NAME: 'BENNINGHOFEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '510',
-						vulnerable: 0
-					}
+						NAME: "BENNINGHOFEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "510",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[193, -176, -114, -165, 194]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 44,
-						NAME: 'NORDMARKT',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '050',
-						vulnerable: 1
-					}
+						NAME: "NORDMARKT",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "050",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[195, -121, -180, 196, -184]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 45,
-						NAME: 'SCHWIERINGHAUSEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '950',
-						vulnerable: 0
-					}
+						NAME: "SCHWIERINGHAUSEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "950",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-47, 197, -163, -193, -189, -58]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 46,
-						NAME: 'BERGHOFEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '420',
-						vulnerable: 0
-					}
+						NAME: "BERGHOFEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "420",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[198, -171, -166, -118, 199]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 47,
-						NAME: 'KIRCHDERNE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '230',
-						vulnerable: 0
-					}
+						NAME: "KIRCHDERNE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "230",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-126, -182, -143, 200, 201]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 48,
-						NAME: 'DORSTFELDER BRÜCKE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '020',
-						vulnerable: 0
-					}
+						NAME: "DORSTFELDER BRÜCKE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "020",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-164, 202, -62, -127, -202, 203, -195]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 49,
-						NAME: 'CITY',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '000',
-						vulnerable: 0
-					}
+						NAME: "CITY",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "000",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[204, -52, -191, 205]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 50,
-						NAME: 'SÖLDE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '440',
-						vulnerable: 0
-					}
+						NAME: "SÖLDE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "440",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[206, -85, -139, -181, -135]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 51,
-						NAME: 'JUNGFERNTAL-RAHM',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '830',
-						vulnerable: 0
-					}
+						NAME: "JUNGFERNTAL-RAHM",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "830",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-86, 207, -80, -207, -134]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 52,
-						NAME: 'KIRCHLINDE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '840',
-						vulnerable: 0
-					}
+						NAME: "KIRCHLINDE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "840",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-197, -140, -83, -152, -185]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 53,
-						NAME: 'NETTE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '930',
-						vulnerable: 1
-					}
+						NAME: "NETTE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "930",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[208, -90, -40, -175, -70]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 54,
-						NAME: 'PERSEBECK-KRUCKEL-SCHNEE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '660',
-						vulnerable: 0
-					}
+						NAME: "PERSEBECK-KRUCKEL-SCHNEE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "660",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-204, -201, -142, -179, -177, -194]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 55,
-						NAME: 'HAFEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '040',
-						vulnerable: 1
-					}
+						NAME: "HAFEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "040",
+						vulnerable: 1,
+					},
 				},
 				{
 					arcs: [[-96, -192, -147, -76, 209, -157, 210]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 56,
-						NAME: 'KURL-HUSEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '240',
-						vulnerable: 0
-					}
+						NAME: "KURL-HUSEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "240",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-53, -205, 211]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 57,
-						NAME: 'SÖLDERHOLZ',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '450',
-						vulnerable: 0
-					}
+						NAME: "SÖLDERHOLZ",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "450",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-156, -187, -43]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 58,
-						NAME: 'HACHENEY',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '520',
-						vulnerable: 0
-					}
+						NAME: "HACHENEY",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "520",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-172, -199, 212, -158, -210, -79]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 59,
-						NAME: 'HOSTEDDE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '220',
-						vulnerable: 0
-					}
+						NAME: "HOSTEDDE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "220",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-63, -203, -169, -173, 213]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 60,
-						NAME: 'KAISERBRUNNEN',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '070',
-						vulnerable: 0
-					}
+						NAME: "KAISERBRUNNEN",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "070",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-117, -113, 214, -159, -213, -200]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 61,
-						NAME: 'DERNE',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '210',
-						vulnerable: 0
-					}
+						NAME: "DERNE",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "210",
+						vulnerable: 0,
+					},
 				},
 				{
 					arcs: [[-64, -214, -174, -56, -188]],
-					type: 'Polygon',
+					type: "Polygon",
 					properties: {
 						id: 62,
-						NAME: 'WESTFALENDAMM',
-						BEZ_TYP: 'Statistischer_Bezirk',
-						FACH_ID: '080',
-						vulnerable: 0
-					}
-				}
-			]
-		}
-	}
+						NAME: "WESTFALENDAMM",
+						BEZ_TYP: "Statistischer_Bezirk",
+						FACH_ID: "080",
+						vulnerable: 0,
+					},
+				},
+			],
+		},
+	},
 };
 
-export const districts = topojson.feature(dortmundGeodata, dortmundGeodata.objects.bezirke);
-export const lors = topojson.feature(dortmundGeodata, dortmundGeodata.objects.stadtteile);
+export const districts = topojson.feature(
+	dortmundGeodata,
+	dortmundGeodata.objects.bezirke,
+);
+export const lors = topojson.feature(
+	dortmundGeodata,
+	dortmundGeodata.objects.stadtteile,
+);
+
+export const dortmundPostalCodeToDistrictsMap = new Map([
+	["44229", "Hombruch"],
+	["44379", "Lütgendortmund"],
+	["44329", "Eving"],
+	["44357", "Huckarde"],
+	["44369", "Huckarde"],
+	["44359", "Mengede"],
+	["44388", "Lütgendortmund"],
+	["44135", "Innenstadt-West"],
+	["44137", "Innenstadt-Ost"],
+	["44139", "Kaiserbrunnen"],
+	["44141", "Nordstadt"],
+	["44143", "Wambel"],
+	["44145", "Südweststadt"],
+	["44147", "Nordmarkt"],
+	["44149", "Oespel/Kley"],
+	["44225", "Hörde"],
+	["44227", "Schüren"],
+	["44263", "Hörde"],
+	["44265", "Wellinghofen"],
+	["44269", "Schüren"],
+	["44287", "Aplerbeck"],
+	["44289", "Sölde"],
+	["44319", "Wickede"],
+	["44328", "Scharnhorst"],
+	["44339", "Eving"],
+]);

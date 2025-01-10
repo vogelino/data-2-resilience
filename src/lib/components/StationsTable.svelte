@@ -88,9 +88,7 @@
 			accessorKey: 'district',
 			cell: (info) => {
 				const postalCode = info.getValue() as string;
-				const districtName = dortmundPostalCodeToDistrictsMap.get(postalCode);
-				const val =
-					postalCode && districtName ? `${districtName} (${postalCode})` : postalCode || 'unknown';
+				const val = postalCode || 'unknown';
 				if (val === 'unknown') return '-';
 				const searchQuery = info.table.getState().globalFilter;
 				return renderComponent(HighlightedSearchQuery, { searchQuery, text: val });
@@ -114,9 +112,6 @@
 
 		if (columnId === 'stationType') {
 			value = $LL.pages.stations.table.cells.stationTypes[value as 'biomet' | 'temprh'].title();
-		} else if (columnId === 'district') {
-			let districtName = dortmundPostalCodeToDistrictsMap.get(value as string);
-			value = districtName ? `${districtName} (${value})` : value || 'unknown';
 		} else if (typeof value === 'number') {
 			value = value.toLocaleString($locale);
 		}

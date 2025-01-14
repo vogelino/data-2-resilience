@@ -92,14 +92,25 @@
 				)}
 			>
 				<div class="relative flex flex-col">
-					<h3 class="text-sm font-bold">{feature.properties?.longName}</h3>
+					<h3 class="text-sm font-bold leading-4">{feature.properties?.longName}</h3>
+					{#if feature.properties?.stationType}
+						<span class="block leading-4 text-muted-foreground"> </span>
+					{/if}
 					<p class="text-xs">
+						{#if typeof getValueById(feature.properties?.id) !== 'undefined'}
+							{$LL.pages.stations.table.cells.stationTypes[
+								feature.properties
+									?.stationType as keyof typeof $LL.pages.stations.table.cells.stationTypes
+							].nameShort()}
+						{/if}
 						{#if typeof getValueById(feature.properties?.id) === 'number'}
+							{` ・ `}
 							{getValueById(feature.properties?.id)?.valueOf().toLocaleString($locale, {
 								maximumFractionDigits: 1
 							})}
 							{unitOnlyLabel}
 						{:else if typeof getValueById(feature.properties?.id) === 'string'}
+							<br />
 							{getHeatStressLabel({
 								unit: $unit,
 								LL: $LL,

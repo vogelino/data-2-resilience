@@ -5046,10 +5046,12 @@ export const dortmundGeodata = {
 };
 
 export const districts = topojson.feature(
+	// @ts-ignore
 	dortmundGeodata,
 	dortmundGeodata.objects.bezirke,
 );
 export const lors = topojson.feature(
+	// @ts-ignore
 	dortmundGeodata,
 	dortmundGeodata.objects.stadtteile,
 );

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import * as Popover from '$lib/components/ui/popover';
 	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
@@ -15,7 +15,7 @@
 
 	let open = $state(false);
 
-	let p = $derived($page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', ''));
+	let p = $derived(page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', ''));
 	let currentPage = $derived(p === '' ? 'measurements' : p);
 
 	type Unit = keyof typeof $LL.pages.measurements.unitSelect.units;
@@ -60,14 +60,14 @@
 	);
 	let min = $derived(scale.type === 'sequential' ? `${seqMin} ${labels.unitOnlyLabel}` : '');
 	let max = $derived(scale.type === 'sequential' ? `${scaleMax} ${labels.unitOnlyLabel}` : '');
-	let isAboutPage = $derived($page.url.pathname.startsWith(`/${$locale}/about`));
+	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
 	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 </script>
 
 <div
 	class={cn(
 		'flex w-72 flex-col gap-2 bg-background/80 text-sm backdrop-blur-[2px]',
-		'fixed bottom-4 left-4 z-10 overflow-clip rounded border border-border shadow-lg',
+		'fixed bottom-4 left-4 z-10 overflow-clip rounded border border-border shadow-lg dark:shadow-black/80',
 		showLeftSidebar
 			? 'opacity-0 sm:translate-x-[var(--leftSidebarWidth)] sm:opacity-100'
 			: 'translate-x-0',

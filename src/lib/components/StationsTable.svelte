@@ -20,17 +20,13 @@
 	} from '$lib/components/table';
 	import Table from './Table.svelte';
 	import SensorTypeWithTooltip from './SensorTypeWithTooltip.svelte';
-	import { cn } from '$lib/utils';
-	import { Button } from './ui/button';
-	import { ArrowLeftToLine, Search } from 'lucide-svelte';
 	import { compareItems, rankItem } from '@tanstack/match-sorter-utils';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
-	import { dortmundPostalCodeToDistrictsMap } from '$lib/stores/mapData';
+	import SearchInputField from './SearchInputField.svelte';
 
 	let { stations }: { stations: StationMetadata[] } = $props();
 
-	let inputElement: HTMLInputElement | undefined = $state();
 	const searchQuery = queryParam('stationsSearch', ssp.string(''), {
 		debounceHistory: 500
 	});
@@ -189,43 +185,14 @@
 	<div class="container flex min-h-full flex-col gap-6 py-8">
 		<div class="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
 			<h1 class="text-xl font-semibold">{$LL.pages.stations.titleTable()}</h1>
-			<label class="flex translate-y-1 flex-col gap-1">
-				<span class="text-sm font-semibold">{$LL.pages.stations.table.search.label()}</span>
-				<div class="relative">
-					<input
-						type="text"
-						bind:value={$searchQuery}
-						bind:this={inputElement}
-						placeholder={$LL.pages.stations.table.search.placeholder()}
-						class={cn(
-							'px-4 py-2 text-base placeholder-muted-foreground',
-							'w-64 max-w-full rounded border border-border bg-background',
-							'focusable focus-visible:border-muted-foreground'
-						)}
-					/>
-					<Button
-						size="icon"
-						variant="ghost"
-						on:click={() => {
-							if ($searchQuery.length === 0) {
-								inputElement?.focus();
-							} else {
-								$searchQuery = '';
-							}
-						}}
-						class={cn(
-							'absolute right-px top-1/2 h-[calc(100%-2px)] -translate-y-1/2',
-							'rounded-none rounded-r-sm focus-visible:rounded'
-						)}
-					>
-						{#if $searchQuery.length === 0}
-							<Search class="size-5" />
-						{:else}
-							<ArrowLeftToLine class="size-5" />
-						{/if}
-					</Button>
-				</div>
-			</label>
+			<SearchInputField
+				label={$LL.pages.stations.table.search.label()}
+				placeholder={$LL.pages.stations.table.search.placeholder()}
+				value={$searchQuery}
+				onchange={(newValue) => {
+					$searchQuery = newValue;
+				}}
+			/>
 		</div>
 		<div class="rounded border border-border bg-background">
 			<Table {table} />

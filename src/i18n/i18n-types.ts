@@ -1432,6 +1432,24 @@ type RootTranslation = {
 		}
 	}
 	map: {
+		search: {
+			/**
+			 * O​r​t​ ​s​u​c​h​e​n
+			 */
+			label: string
+			/**
+			 * O​r​t​ ​e​i​n​g​e​b​e​n​.​.​.
+			 */
+			placeholder: string
+			/**
+			 * E​r​g​e​b​n​i​s​s​e​ ​w​e​r​d​e​n​ ​g​e​l​a​d​e​n​.​.​.
+			 */
+			loading: string
+			/**
+			 * K​e​i​n​e​ ​E​r​g​e​b​n​i​s​s​e​ ​g​e​f​u​n​d​e​n
+			 */
+			noResults: string
+		}
 		zoom: {
 			/**
 			 * Z​o​o​m​-​N​a​v​i​g​a​t​i​o​n
@@ -3160,6 +3178,24 @@ export type TranslationFunctions = {
 		}
 	}
 	map: {
+		search: {
+			/**
+			 * Ort suchen
+			 */
+			label: () => LocalizedString
+			/**
+			 * Ort eingeben...
+			 */
+			placeholder: () => LocalizedString
+			/**
+			 * Ergebnisse werden geladen...
+			 */
+			loading: () => LocalizedString
+			/**
+			 * Keine Ergebnisse gefunden
+			 */
+			noResults: () => LocalizedString
+		}
 		zoom: {
 			/**
 			 * Zoom-Navigation

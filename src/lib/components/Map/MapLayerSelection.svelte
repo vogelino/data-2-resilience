@@ -27,7 +27,7 @@
 				class={cn(
 					'fixed right-4 top-[calc(var(--headerHeight,5rem)+6rem)] z-50 flex flex-col gap-px',
 					'rounded-md border border-border bg-border',
-					'shadow-lg transition duration-300 ease-in-out',
+					'shadow-lg transition duration-300 ease-in-out dark:shadow-black/80',
 					'size-10 bg-background',
 					'focusable focus-visible:z-50 focus-visible:rounded',
 					showLeftSidebar && 'max-sm:pointer-events-none max-sm:opacity-0'

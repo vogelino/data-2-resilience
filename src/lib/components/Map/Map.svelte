@@ -15,6 +15,7 @@
 	import MapStationsLayer from './MapStationsLayer.svelte';
 	import MapZoomControl from './MapZoomControl.svelte';
 	import SatelliteRasterLayer from './SatelliteRasterLayer.svelte';
+	import MapSearchInput from './MapSearchInput.svelte';
 
 	interface Props {
 		stations: StationsGeoJSONType;
@@ -86,6 +87,9 @@
 		onload={onMapLoad}
 	>
 		{#snippet children({ map })}
+			{#if currentPage === 'measurements'}
+				<MapSearchInput {map} {stations} />
+			{/if}
 			<MapZoomControl {map} />
 			<MapLayerSelection />
 

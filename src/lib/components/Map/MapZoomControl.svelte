@@ -38,7 +38,7 @@
 	class={cn(
 		'fixed right-4 top-[calc(var(--headerHeight,5rem)+1rem)] z-50 flex flex-col gap-px',
 		'w-10 rounded-md border border-border bg-border',
-		'shadow-lg transition duration-300 ease-in-out',
+		'shadow-lg transition duration-300 ease-in-out dark:shadow-black/80',
 		showLeftSidebar && 'max-sm:pointer-events-none max-sm:opacity-0'
 	)}
 >

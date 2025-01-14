@@ -1,15 +1,15 @@
 <script lang="ts">
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import SearchInputField from 'components/SearchInputField.svelte';
-	import { LL, locale } from '$i18n/i18n-svelte';
+	import { LL } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import * as Popover from '$lib/components/ui/popover';
-	import { point } from '@turf/helpers';
-	import { distance } from '@turf/distance';
 	import { Command, CommandEmpty, CommandGroup, CommandItem } from 'components/ui/command';
 	import { createQuery, type QueryFunctionContext, type QueryKey } from '@tanstack/svelte-query';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils/queryUtils.svelte';
-	import { searchAddress } from '$lib/utils/queryUtils/addressSearchQuery';
+	import { debounceState } from '$lib/utils/runeUtil.svelte';
+	import { z } from 'zod';
+	import { PUBLIC_GEOCODING_URL } from '$env/static/public';
 
 	let {
 		map,
@@ -19,61 +19,100 @@
 		stations: StationsGeoJSONType;
 	} = $props();
 
-	function debounce<T>(getter: () => T, delay: number) {
-		let value = $state();
-		let timer: ReturnType<typeof setTimeout>;
-		$effect(() => {
-			const newValue = getter(); // read here to subscribe to it
-			clearTimeout(timer);
-			timer = setTimeout(() => (value = newValue), delay);
-			return () => clearTimeout(timer);
-		});
-		return () => value;
-	}
-
 	let searchQuery = $state('');
-	let debouncedQuery = $derived.by(debounce(() => searchQuery, 300));
-
-	const distanceFormatter = new Intl.NumberFormat($locale, {
-		maximumFractionDigits: 1,
-		unit: 'kilometer',
-		style: 'unit'
-	});
+	let debouncedQuery = $derived.by(debounceState(() => searchQuery, 300)) as string;
 
 	// --------------
+
+	const responseSchema = z.object({
+		type: z.literal('FeatureCollection'),
+		features: z.array(
+			z.object({
+				id: z.string(),
+				type: z.literal('Feature'),
+				bbox: z.array(z.number()).length(4),
+				properties: z.object({
+					text: z.string(),
+					score: z.number()
+				}),
+				geometry: z.object({
+					type: z.literal('Point'),
+					coordinates: z.array(z.number())
+				})
+			})
+		)
+	});
 
 	const searchResultsQuery = createQuery(
 		reactiveQueryArgs(() => ({
-			queryKey: ['address-search', debouncedQuery],
-			queryFn: ({ queryKey }: QueryFunctionContext<QueryKey>) => searchAddress(`${queryKey.at(-1)}`)
+			queryKey: ['addressSearch', debouncedQuery],
+			queryFn: async ({ queryKey: [_, searchTerm] }: QueryFunctionContext<QueryKey>) => {
+				if (typeof searchTerm === undefined) return [];
+				if (!searchTerm) return [];
+				const query = encodeURIComponent(`${searchTerm}`);
+				const response = await fetch(`${PUBLIC_GEOCODING_URL}?query=${query}&outputformat=JSON`);
+
+				if (!response.ok) {
+					console.error(`Geocoding error: ${response.status} ${response.statusText}`);
+					return [];
+				}
+
+				const data = await response.json();
+				const parsedData = responseSchema.safeParse(data).data?.features || [];
+				if (parsedData.length === 0) return [];
+				const validResults = parsedData
+					.filter((f) => f.properties.text && f.geometry.coordinates.length === 2)
+					.sort((f1, f2) => f2.properties.score - f1.properties.score)
+					.map((f) => ({
+						id: f.id,
+						address: f.properties.text,
+						coordinates: f.geometry.coordinates
+					}));
+				return validResults;
+			}
 		}))
 	);
-	const isLoading = $derived($searchResultsQuery.isPending);
-	const isEmpty = $derived(!isLoading && !$searchResultsQuery.data);
-	const isError = $derived(!isLoading && !$searchResultsQuery.isError);
+	const { isPending, isError, data = [] } = $derived($searchResultsQuery);
+	const isEmpty = $derived(!isPending && data.length === 0);
 	const showPopover = $derived(
-		Boolean($searchResultsQuery.data || isEmpty || isError || isLoading)
+		searchQuery.length > 0 &&
+			debouncedQuery?.trim().length > 0 &&
+			Boolean(data || isEmpty || isError || isPending)
 	);
 
-	type StationFeatureWithDistance = StationsGeoJSONType['features'][0] & {
-		distance: number;
-	};
-	const closestStations = $derived.by(() => {
-		const addressFound = $searchResultsQuery.data;
-		if (!addressFound) return [];
-		const addressPoint = point(addressFound.coordinates);
-		const stationsSortedByDistance = stations.features
-			.map((f) => ({ ...f, distance: distance(addressPoint, point(f.geometry.coordinates)) }))
-			.sort((a, b) => a.distance - b.distance) satisfies StationFeatureWithDistance[];
-		return stationsSortedByDistance.slice(0, 5);
+	// --------------
+
+	let command: string | undefined = $state();
+
+	$effect(() => {
+		const firstResult = data[0];
+		if (!firstResult) return;
+		command = firstResult.id;
 	});
 
 	// --------------
+
+	function onKeyDown(event: KeyboardEvent) {
+		if (event.key === 'ArrowDown') {
+			const limitedData = data.slice(0, 5);
+			const index = limitedData.findIndex((result) => result.id === command);
+			const nextIndex = index + 1 > limitedData.length - 1 ? 0 : index + 1;
+			command = data[nextIndex].id || limitedData[0].id;
+		} else if (event.key === 'ArrowUp') {
+			const limitedData = data.slice(0, 5);
+			const index = limitedData.findIndex((result) => result.id === command);
+			const nextIndex = index - 1 < 0 ? limitedData.length - 1 : index - 1;
+			command = data[nextIndex].id || limitedData[limitedData.length - 1].id;
+		} else if (event.key === 'Escape') {
+			command = undefined;
+			searchQuery = '';
+		}
+	}
 </script>
 
 <div class={cn('fixed right-20 top-[calc(var(--headerHeight,5rem)+0.75rem)] z-10 w-64 transition')}>
 	<div class="relative">
-		<Popover.Root open={searchQuery?.length > 0 && showPopover}>
+		<Popover.Root open={showPopover}>
 			<Popover.Trigger asChild>
 				<SearchInputField
 					placeholder={$LL.map.search.placeholder()}
@@ -83,6 +122,7 @@
 						input: cn('shadow-lg shadow-black/5 dark:shadow-black/80'),
 						container: cn('max-w-64 justify-end')
 					}}
+					{onKeyDown}
 				/>
 			</Popover.Trigger>
 			<Popover.Content
@@ -90,52 +130,24 @@
 				side="bottom"
 				align="end"
 			>
-				<Command>
-					{#if isEmpty}
-						<CommandEmpty>{$LL.map.search.noResults()}</CommandEmpty>
-					{:else if isLoading}
+				<Command bind:value={command}>
+					{#if isPending}
 						<CommandEmpty>{$LL.map.search.loading()}</CommandEmpty>
+					{:else if isEmpty}
+						<CommandEmpty>{$LL.map.search.noResults()}</CommandEmpty>
 					{/if}
-					{#if $searchResultsQuery.data}
-						<CommandGroup class="flex flex-col" heading="Address">
-							<CommandItem
-								class={cn(
-									'border-t border-border px-4 py-3 text-base leading-5',
-									'focusable text-left hover-hover:hover:bg-muted',
-									'focus-visible:z-50 focus-visible:border-background'
-								)}
-								value="address"
-							>
-								{$searchResultsQuery.data.address}
-							</CommandItem>
-						</CommandGroup>
-					{/if}
-					{#if closestStations.length > 0}
-						<CommandGroup class="flex flex-col" heading="Closet stations">
-							{#each closestStations as station}
-								<CommandItem
-									type="button"
-									class={cn(
-										'flex flex-col items-start rounded-none border-t border-border',
-										'focusable px-4 py-2 text-left hover-hover:hover:bg-muted',
-										'focus-visible:z-50 focus-visible:border-background'
-									)}
-									value={station.id}
-								>
-									<strong class="text-sm leading-4">
-										{station.properties.longName}
-									</strong>
-									<span class="text-xs font-normal text-muted-foreground">
-										{$LL.pages.stations.table.cells.stationTypes[
-											station.properties.stationType
-										].nameShort()}
-										{` ・ `}
-										{distanceFormatter.format(station.distance)}
-									</span>
-								</CommandItem>
-							{/each}
-						</CommandGroup>
-					{/if}
+					{#each data.slice(0, 5) as { id, address }}
+						<CommandItem
+							class={cn(
+								'border-t border-border px-4 py-3 text-base leading-5',
+								'focusable text-left hover-hover:hover:bg-muted',
+								'focus-visible:z-50 focus-visible:border-background'
+							)}
+							value={id}
+						>
+							{address}
+						</CommandItem>
+					{/each}
 				</Command>
 			</Popover.Content>
 		</Popover.Root>

@@ -10,7 +10,8 @@
 		onchange = () => {},
 		classNames,
 		onFocus = () => {},
-		onBlur = () => {}
+		onBlur = () => {},
+		onKeyDown = () => {}
 	}: {
 		label?: string;
 		placeholder: string;
@@ -25,6 +26,7 @@
 		};
 		onFocus?: () => void;
 		onBlur?: () => void;
+		onKeyDown?: (e: KeyboardEvent) => void;
 	} = $props();
 	let inputElement: HTMLInputElement | undefined = $state();
 </script>
@@ -37,11 +39,13 @@
 		<input
 			type="text"
 			{value}
-			oninput={() => {
-				if (!inputElement) return;
-				onchange(inputElement.value);
+			oninput={(evt) => {
+				onchange(evt.currentTarget.value);
 			}}
 			bind:this={inputElement}
+			onkeydown={(e) => {
+				onKeyDown && onKeyDown(e);
+			}}
 			onfocus={() => {
 				onFocus && onFocus();
 			}}

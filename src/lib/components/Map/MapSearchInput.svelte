@@ -7,7 +7,6 @@
 	import { createQuery, type QueryFunctionContext, type QueryKey } from '@tanstack/svelte-query';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils/queryUtils.svelte';
 	import { debounceState } from '$lib/utils/runeUtil.svelte';
-	import { z } from 'zod';
 	import { PUBLIC_GEOCODING_URL } from '$env/static/public';
 	import { responseSchema, type AddressFeature } from '$lib/utils/searchUtil';
 
@@ -134,6 +133,8 @@
 				<Command bind:value={command}>
 					{#if isPending}
 						<CommandEmpty>{$LL.map.search.loading()}</CommandEmpty>
+					{:else if isError}
+						<CommandEmpty>{$LL.map.search.error()}</CommandEmpty>
 					{:else if isEmpty}
 						<CommandEmpty>{$LL.map.search.noResults()}</CommandEmpty>
 					{/if}

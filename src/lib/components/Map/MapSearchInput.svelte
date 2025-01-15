@@ -1,47 +1,27 @@
 <script lang="ts">
-	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import SearchInputField from 'components/SearchInputField.svelte';
 	import { LL } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import * as Popover from '$lib/components/ui/popover';
-	import { Command, CommandEmpty, CommandGroup, CommandItem } from 'components/ui/command';
+	import { Command, CommandEmpty, CommandItem } from 'components/ui/command';
 	import { createQuery, type QueryFunctionContext, type QueryKey } from '@tanstack/svelte-query';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils/queryUtils.svelte';
 	import { debounceState } from '$lib/utils/runeUtil.svelte';
 	import { z } from 'zod';
 	import { PUBLIC_GEOCODING_URL } from '$env/static/public';
+	import { responseSchema, type AddressFeature } from '$lib/utils/searchUtil';
 
-	let {
-		map,
-		stations
+	const {
+		onFeatureSearched
 	}: {
-		map: maplibregl.Map;
-		stations: StationsGeoJSONType;
+		onFeatureSearched: (feature: undefined | AddressFeature) => void;
 	} = $props();
 
 	let searchQuery = $state('');
+	let suggesitonsOpened = $state(false);
 	let debouncedQuery = $derived.by(debounceState(() => searchQuery, 300)) as string;
 
 	// --------------
-
-	const responseSchema = z.object({
-		type: z.literal('FeatureCollection'),
-		features: z.array(
-			z.object({
-				id: z.string(),
-				type: z.literal('Feature'),
-				bbox: z.array(z.number()).length(4),
-				properties: z.object({
-					text: z.string(),
-					score: z.number()
-				}),
-				geometry: z.object({
-					type: z.literal('Point'),
-					coordinates: z.array(z.number())
-				})
-			})
-		)
-	});
 
 	const searchResultsQuery = createQuery(
 		reactiveQueryArgs(() => ({
@@ -54,7 +34,7 @@
 
 				if (!response.ok) {
 					console.error(`Geocoding error: ${response.status} ${response.statusText}`);
-					return [];
+					throw new Error(`Geocoding error: ${response.status} ${response.statusText}`);
 				}
 
 				const data = await response.json();
@@ -62,12 +42,7 @@
 				if (parsedData.length === 0) return [];
 				const validResults = parsedData
 					.filter((f) => f.properties.text && f.geometry.coordinates.length === 2)
-					.sort((f1, f2) => f2.properties.score - f1.properties.score)
-					.map((f) => ({
-						id: f.id,
-						address: f.properties.text,
-						coordinates: f.geometry.coordinates
-					}));
+					.sort((f1, f2) => f2.properties.score - f1.properties.score);
 				return validResults;
 			}
 		}))
@@ -80,6 +55,10 @@
 			Boolean(data || isEmpty || isError || isPending)
 	);
 
+	$effect(() => {
+		suggesitonsOpened = showPopover;
+	});
+
 	// --------------
 
 	let command: string | undefined = $state();
@@ -91,6 +70,12 @@
 	});
 
 	// --------------
+
+	$effect(() => {
+		if (searchQuery.length === 0) {
+			handleSelect(undefined);
+		}
+	});
 
 	function onKeyDown(event: KeyboardEvent) {
 		if (event.key === 'ArrowDown') {
@@ -105,14 +90,28 @@
 			command = data[nextIndex].id || limitedData[limitedData.length - 1].id;
 		} else if (event.key === 'Escape') {
 			command = undefined;
-			searchQuery = '';
+			suggesitonsOpened = false;
+		} else if (event.key === 'Enter') {
+			const limitedData = data.slice(0, 5);
+			const index = limitedData.findIndex((result) => result.id === command);
+			searchQuery = limitedData[index].properties.text;
+			command = limitedData[index].id;
+			suggesitonsOpened = false;
+			handleSelect(limitedData[index]);
 		}
+	}
+
+	// --------------
+
+	function handleSelect(feature: undefined | AddressFeature) {
+		searchQuery = feature?.properties.text || '';
+		onFeatureSearched(feature);
 	}
 </script>
 
 <div class={cn('fixed right-20 top-[calc(var(--headerHeight,5rem)+0.75rem)] z-10 w-64 transition')}>
 	<div class="relative">
-		<Popover.Root open={showPopover}>
+		<Popover.Root open={suggesitonsOpened}>
 			<Popover.Trigger asChild>
 				<SearchInputField
 					placeholder={$LL.map.search.placeholder()}
@@ -123,6 +122,8 @@
 						container: cn('max-w-64 justify-end')
 					}}
 					{onKeyDown}
+					onFocus={() => (suggesitonsOpened = showPopover)}
+					onBlur={() => (suggesitonsOpened = false)}
 				/>
 			</Popover.Trigger>
 			<Popover.Content
@@ -136,16 +137,17 @@
 					{:else if isEmpty}
 						<CommandEmpty>{$LL.map.search.noResults()}</CommandEmpty>
 					{/if}
-					{#each data.slice(0, 5) as { id, address }}
+					{#each data.slice(0, 5) as feature}
 						<CommandItem
 							class={cn(
 								'border-t border-border px-4 py-3 text-base leading-5',
 								'focusable text-left hover-hover:hover:bg-muted',
 								'focus-visible:z-50 focus-visible:border-background'
 							)}
-							value={id}
+							value={feature.id}
+							onclick={() => handleSelect(feature)}
 						>
-							{address}
+							{feature.properties.text}
 						</CommandItem>
 					{/each}
 				</Command>

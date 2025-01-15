@@ -1449,6 +1449,14 @@ type RootTranslation = {
 			 * K​e​i​n​e​ ​E​r​g​e​b​n​i​s​s​e​ ​g​e​f​u​n​d​e​n
 			 */
 			noResults: string
+			/**
+			 * S​i​e​ ​h​a​b​e​n​ ​n​a​c​h​e​ ​f​o​l​g​e​n​d​e​r​ ​O​r​t​ ​g​e​s​u​c​h​t
+			 */
+			tooltip: string
+			/**
+			 * B​e​i​m​ ​L​a​d​e​n​ ​d​e​r​ ​S​u​c​h​e​r​g​e​b​n​i​s​s​e​ ​i​s​t​ ​e​i​n​ ​F​e​h​l​e​r​ ​a​u​f​g​e​t​r​e​t​e​n
+			 */
+			error: string
 		}
 		zoom: {
 			/**
@@ -3195,6 +3203,14 @@ export type TranslationFunctions = {
 			 * Keine Ergebnisse gefunden
 			 */
 			noResults: () => LocalizedString
+			/**
+			 * Sie haben nache folgender Ort gesucht
+			 */
+			tooltip: () => LocalizedString
+			/**
+			 * Beim Laden der Suchergebnisse ist ein Fehler aufgetreten
+			 */
+			error: () => LocalizedString
 		}
 		zoom: {
 			/**

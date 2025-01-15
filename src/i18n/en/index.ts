@@ -614,6 +614,8 @@ const en = {
 			placeholder: "Enter a location...",
 			loading: "Searching for results...",
 			noResults: "No results found",
+			tooltip: "You searched for the following place",
+			error: "An error occurred while searching for results",
 		},
 		zoom: {
 			navAlt: "Zoom navigation",

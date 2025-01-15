@@ -615,6 +615,8 @@ const de = {
 			placeholder: "Ort eingeben...",
 			loading: "Ergebnisse werden geladen...",
 			noResults: "Keine Ergebnisse gefunden",
+			tooltip: "Sie haben nache folgender Ort gesucht",
+			error: "Beim Laden der Suchergebnisse ist ein Fehler aufgetreten",
 		},
 		zoom: {
 			navAlt: "Zoom-Navigation",

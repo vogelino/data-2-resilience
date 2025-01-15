@@ -16,6 +16,8 @@
 	import MapZoomControl from './MapZoomControl.svelte';
 	import SatelliteRasterLayer from './SatelliteRasterLayer.svelte';
 	import MapSearchInput from './MapSearchInput.svelte';
+	import type { AddressFeature } from '$lib/utils/searchUtil';
+	import MapSearchedFeatureLayer from './MapSearchedFeatureLayer.svelte';
 
 	interface Props {
 		stations: StationsGeoJSONType;
@@ -34,6 +36,15 @@
 	let mapLat = $lat;
 	let mapLon = $lon;
 	let mapZoom = $zoom;
+
+	let searchedFeature: AddressFeature | undefined = $state();
+
+	const showSearchedFeature = (map: maplibregl.Map, feature: AddressFeature | undefined) => {
+		searchedFeature = feature;
+		if (!feature) return;
+		const [lng, lat] = feature.geometry.coordinates;
+		map.flyTo({ center: [lng, lat] });
+	};
 
 	let currentPage = $derived.by(() => {
 		const p = page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
@@ -88,7 +99,7 @@
 	>
 		{#snippet children({ map })}
 			{#if currentPage === 'measurements'}
-				<MapSearchInput {map} {stations} />
+				<MapSearchInput onFeatureSearched={(f) => showSearchedFeature(map, f)} />
 			{/if}
 			<MapZoomControl {map} />
 			<MapLayerSelection />
@@ -100,6 +111,9 @@
 			<MapMeasurementsRasterLayer hour={$hour} visible={currentPage === 'heat-stress'} />
 			<MapDistrictsLayer visible={$boundariesMode === 'districts'} />
 			<MapLorsLayer visible={$boundariesMode === 'lors'} />
+			{#if searchedFeature}
+				<MapSearchedFeatureLayer feature={searchedFeature} />
+			{/if}
 		{/snippet}
 	</MapLibre>
 

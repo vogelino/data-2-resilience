@@ -2,6 +2,7 @@
 	import { cn } from '$lib/utils';
 	import { Search, ArrowLeftToLine } from 'lucide-svelte';
 	import { Button } from './ui/button';
+	import { shortcut } from '@svelte-put/shortcut';
 
 	let {
 		label,
@@ -29,9 +30,26 @@
 		onKeyDown?: (e: KeyboardEvent) => void;
 	} = $props();
 	let inputElement: HTMLInputElement | undefined = $state();
+
+	let hasFocus = $state(false);
+
+	function handleK() {
+		inputElement?.focus();
+	}
 </script>
 
-<label class={cn('flex translate-y-1 flex-col gap-1', classNames?.container)}>
+<svelte:window
+	use:shortcut={{
+		trigger: {
+			key: 'k',
+			modifier: ['ctrl', 'meta'],
+			callback: handleK,
+			preventDefault: true
+		}
+	}}
+/>
+
+<label class={cn('group flex translate-y-1 flex-col gap-1', classNames?.container)}>
 	{#if label && label.length > 0}
 		<span class={cn('text-sm font-semibold', classNames?.label)}>{label}</span>
 	{/if}
@@ -48,13 +66,15 @@
 			}}
 			onfocus={() => {
 				onFocus && onFocus();
+				hasFocus = true;
 			}}
 			onblur={() => {
 				onBlur && onBlur();
+				hasFocus = false;
 			}}
 			{placeholder}
 			class={cn(
-				'px-4 py-2 text-base placeholder-muted-foreground',
+				'py-2 pl-3 pr-12 text-base placeholder-muted-foreground',
 				'w-64 max-w-full rounded border border-border bg-background',
 				'focusable focus-visible:border-muted-foreground',
 				classNames?.input
@@ -73,6 +93,7 @@
 			class={cn(
 				'absolute right-px top-1/2 h-[calc(100%-2px)] -translate-y-1/2',
 				'rounded-none rounded-r-sm focus-visible:rounded',
+				'border-l border-muted',
 				classNames?.button
 			)}
 		>
@@ -82,5 +103,17 @@
 				<ArrowLeftToLine class="size-5" />
 			{/if}
 		</Button>
+		<span
+			aria-hidden="true"
+			class={cn(
+				'absolute right-12 top-1/2 -translate-y-1/2 px-1',
+				'inline-flex items-center gap-0.5 text-muted-foreground',
+				'transition-opacity',
+				hasFocus || value.length > 0 ? 'opacity-0' : 'opacity-100'
+			)}
+		>
+			<kbd class="text-xl">⌘</kbd>
+			<kbd class="scale-[85%] text-lg">K</kbd>
+		</span>
 	</div>
 </label>

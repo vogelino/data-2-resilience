@@ -2,13 +2,13 @@
 	import { LL } from '$i18n/i18n-svelte';
 	import { districts } from '$lib/stores/mapData';
 	import { mode } from 'mode-watcher';
-	import { GeoJSON, Popup, FillLayer, LineLayer, hoverStateFilter } from 'svelte-maplibre';
+	import { FillLayer, GeoJSON, LineLayer, Popup } from 'svelte-maplibre';
 
 	interface Props {
 		visible?: boolean;
 	}
 
-	let { visible = true }: Props = $props();
+	const { visible = true }: Props = $props();
 </script>
 
 <GeoJSON id="districts" data={districts} promoteId="DISTRICTS">

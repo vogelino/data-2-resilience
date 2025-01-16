@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { locale, LL } from '$i18n/i18n-svelte';
+	import { LL } from '$i18n/i18n-svelte';
 	import { lors } from '$lib/stores/mapData';
-	import { HandHelping } from 'lucide-svelte';
 	import { mode } from 'mode-watcher';
-	import { GeoJSON, LineLayer, FillLayer, Popup } from 'svelte-maplibre';
+	import { FillLayer, GeoJSON, LineLayer, Popup } from 'svelte-maplibre';
 
 	interface Props {
 		visible?: boolean;
 	}
 
-	let { visible = false }: Props = $props();
+	const { visible = false }: Props = $props();
 </script>
 
 <GeoJSON id="lors" data={lors} promoteId="LORS">

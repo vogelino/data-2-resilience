@@ -140,6 +140,16 @@ type RootTranslation = {
 			 */
 			buttonDownAriaLabel: string
 		}
+		combobox: {
+			/**
+			 * O​p​t​i​o​n​ ​a​u​s​w​ä​h​l​e​n
+			 */
+			selectOption: string
+			/**
+			 * K​e​i​n​e​ ​E​r​g​e​b​n​i​s​s​e
+			 */
+			noResults: string
+		}
 	}
 	themeSwitch: {
 		/**
@@ -1145,6 +1155,20 @@ type RootTranslation = {
 					}
 				}
 			}
+			minMaxAvgSelect: {
+				/**
+				 * M​i​n​i​m​u​m
+				 */
+				min: string
+				/**
+				 * M​i​t​t​e​l​w​e​r
+				 */
+				avg: string
+				/**
+				 * M​a​x​i​m​u​m
+				 */
+				max: string
+			}
 			dateRangeSlider: {
 				/**
 				 * H​e​u​t​e
@@ -1908,6 +1932,16 @@ export type TranslationFunctions = {
 			 * Eine Stunde früher auswahlen
 			 */
 			buttonDownAriaLabel: () => LocalizedString
+		}
+		combobox: {
+			/**
+			 * Option auswählen
+			 */
+			selectOption: () => LocalizedString
+			/**
+			 * Keine Ergebnisse
+			 */
+			noResults: () => LocalizedString
 		}
 	}
 	themeSwitch: {
@@ -2898,6 +2932,20 @@ export type TranslationFunctions = {
 						unitOnly: () => LocalizedString
 					}
 				}
+			}
+			minMaxAvgSelect: {
+				/**
+				 * Minimum
+				 */
+				min: () => LocalizedString
+				/**
+				 * Mittelwer
+				 */
+				avg: () => LocalizedString
+				/**
+				 * Maximum
+				 */
+				max: () => LocalizedString
 			}
 			dateRangeSlider: {
 				/**

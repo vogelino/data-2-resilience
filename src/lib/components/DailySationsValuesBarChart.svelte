@@ -6,18 +6,22 @@
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { today } from '$lib/utils/dateUtil';
 	import { parseDatavisType } from '$lib/utils/parsingUtil';
-	import { useDailyStationsData } from '$lib/utils/queryUtils/stationsDataDaily';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
 	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { StackedBar } from '@unovis/ts';
-	import { addDays } from 'date-fns';
+	import { addDays, format, setHours } from 'date-fns';
 	import { debounce } from 'es-toolkit';
 	import { LoaderCircle } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ErrorAlert from './ErrorAlert.svelte';
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
 	import { Alert } from './ui/alert';
+	import Combobox from './Combobox.svelte';
+	import { createQuery, type QueryFunctionContext } from '@tanstack/svelte-query';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils/queryUtils.svelte';
+	import { api } from '$lib/utils/api';
+	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 
 	interface Props {
 		stations: StationsGeoJSONType;
@@ -40,6 +44,10 @@
 	const selectedStations = useStations();
 	const rawDatavisType = queryParam('datavisType', ssp.string('day'));
 	let datavisType = $derived(parseDatavisType($rawDatavisType));
+	let minMaxAvg: 'min' | 'max' | 'avg' = $state('avg');
+	let unitWithMinMaxAvg = $derived(
+		datavisType === 'day' ? (minMaxAvg === 'avg' ? $unit : `${$unit}_${minMaxAvg}`) : $unit
+	);
 
 	const updateDay = debounce((d: number) => {
 		updateDay?.cancel();
@@ -48,68 +56,138 @@
 
 	dayVlaue.subscribe(updateDay);
 
-	let unitLabel =
-		$derived($LL.pages.measurements.unitSelect.units[
+	let unitLabel = $derived(
+		$LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].label());
-	let unitOnly =
-		$derived($LL.pages.measurements.unitSelect.units[
+		].label()
+	);
+	let unitOnly = $derived(
+		$LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].unitOnly());
+		].unitOnly()
+	);
 
-	let ids = $derived($selectedStations.toSorted());
-	let query = $derived(useDailyStationsData({
-		ids,
-		date,
-		unit: $unit,
-		stations,
-		scale: datavisType === 'day' ? 'daily' : 'hourly',
-		hour: $hour
-	}));
+	let ids = $derived($selectedStations.filter(Boolean).toSorted());
+	const scale = $derived(datavisType === 'day' ? 'daily' : 'hourly');
+	const hourParam = $derived(scale === 'hourly' ? $hour : undefined);
+	type QueryKey = [
+		key: string,
+		ids: string,
+		date: Date | undefined,
+		unit: string,
+		scale: 'daily' | 'hourly',
+		hour: number | undefined
+	];
+	let query = createQuery(
+		reactiveQueryArgs(() => ({
+			queryKey: [
+				'stationsData-daily',
+				ids.join('-'),
+				date,
+				unitWithMinMaxAvg,
+				scale,
+				hourParam
+			] satisfies QueryKey,
+			queryFn: async ({ queryKey: qK }: QueryFunctionContext<QueryKey>) => {
+				const [_, idsString, d, u, s, h] = qK;
+				const idss = idsString.split('-');
+				if (idss.length === 0 || !d || !u) return [];
+				const promises = idss.map(async (id) => {
+					if (idss.length === 0 || !d || !u) return;
+					const isHour = s === 'hourly' && typeof h === 'number';
+					const startDate = isHour ? setHours(d, h) : addDays(d, -1);
+					const endDate = isHour ? setHours(d, h) : d || '';
+					const itemResults = await api().getStationData({
+						id,
+						start_date: startDate,
+						end_date: endDate,
+						param: u as unknown as WeatherMeasurementKeyNoMinMax,
+						scale: s
+					});
+					const label =
+						stations.features.find((f) => f.properties.id === id)?.properties.longName || id;
+					if (itemResults === null) {
+						return {
+							id,
+							label,
+							value: undefined,
+							supported: false
+						};
+					}
+					const i = itemResults[0];
+					return {
+						id,
+						label,
+						value: i ? (i[u as keyof typeof i] as unknown as number) : undefined,
+						supported: true
+					};
+				});
 
-	let data = $derived(($query.data || []).sort((a, b) => {
-		const aValue = a.value;
-		const bValue = b.value;
-		if (aValue === undefined && bValue === undefined)
+				const results = await Promise.all(promises);
+				return results as DataRecord[];
+			},
+			enabled: Boolean(ids.length > 0 && date && unitWithMinMaxAvg)
+		}))
+	);
+
+	let data = $derived(
+		($query.data || []).sort((a, b) => {
+			const aValue = a.value;
+			const bValue = b.value;
+			if (aValue === undefined && bValue === undefined)
+				return b.label.localeCompare(a.label, $locale);
+			if (aValue === undefined) return -1;
+			if (bValue === undefined) return 1;
 			return b.label.localeCompare(a.label, $locale);
-		if (aValue === undefined) return -1;
-		if (bValue === undefined) return 1;
-		return b.label.localeCompare(a.label, $locale);
-	}));
-	let insufficientDataIds = $derived(data
-		.filter((d) => d.supported && d.value === undefined)
-		.map((d) => d.id));
+		})
+	);
+
+	$effect(() => {
+		console.log(data);
+	});
+
+	let insufficientDataIds = $derived(
+		data.filter((d) => d.supported && d.value === undefined).map((d) => d.id)
+	);
 	let noneSufficientData = $derived(insufficientDataIds.length === ids.length);
-	let insufficientDataStations = $derived(stations.features
-		.filter((f) => insufficientDataIds.includes(f.properties.id))
-		.sort((a, b) => a.properties.longName.localeCompare(b.properties.longName)));
+	let insufficientDataStations = $derived(
+		stations.features
+			.filter((f) => insufficientDataIds.includes(f.properties.id))
+			.sort((a, b) => a.properties.longName.localeCompare(b.properties.longName))
+	);
 	let unsupportedIds = $derived(data.filter((d) => !d.supported).map((d) => d.id));
-	let unsupportedMsg = $derived(getMessageForUnsupportedStations({
-		ids,
-		unsupportedIds,
-		unit: $unit,
-		stations: stations.features,
-		LL: $LL
-	}));
-	let validIds = $derived(data
-		.filter((d) => !unsupportedIds.includes(d.id) && !insufficientDataIds.includes(d.id))
-		.map((d) => d.id));
+	let unsupportedMsg = $derived(
+		getMessageForUnsupportedStations({
+			ids,
+			unsupportedIds,
+			unit: $unit,
+			stations: stations.features,
+			LL: $LL
+		})
+	);
+	let validIds = $derived(
+		data
+			.filter((d) => !unsupportedIds.includes(d.id) && !insufficientDataIds.includes(d.id))
+			.map((d) => d.id)
+	);
 
 	let firstValidValue = $derived(data.find((d) => d.value !== undefined)?.value);
-	let firstValidValueLabel =
-		$derived(typeof firstValidValue === 'string'
+	let firstValidValueLabel = $derived(
+		typeof firstValidValue === 'string'
 			? getHeatStressLabel({ unit: $unit, LL: $LL, value: firstValidValue })
-			: firstValidValue?.toLocaleString($locale, { maximumFractionDigits: 1 }));
+			: firstValidValue?.toLocaleString($locale, { maximumFractionDigits: 1 })
+	);
 	let maxValue = $derived(data.reduce((acc, item) => Math.max(acc, item.value ?? 0), 0));
 	const y = (d: DataRecord) => (typeof d.value === 'number' ? d.value : maxValue);
-	const x = (d: DataRecord, idx: number) => idx;
+	const x = (_d: DataRecord, idx: number) => idx;
 	const color = (d: DataRecord) =>
 		typeof d.value === 'number' ? undefined : 'hsl(var(--muted-foreground) / 0.1)';
 	const yTickFormat = (idx: number) => data[idx]?.label ?? '';
 	let xTickFormat = $derived((value: number) =>
 		value.toLocaleString($locale, {
 			maximumFractionDigits: 1
-		}));
+		})
+	);
 	let yTickValues = $derived(data.map(x));
 	let triggers = $derived({
 		[StackedBar.selectors.bar]: (d: DataRecord) => `
@@ -215,6 +293,28 @@
 	{#if $query.isLoading || ($query.isSuccess && validIds.length > 0)}
 		<h3 class="font-semibold">{unitLabel} {unitOnly ? `(${unitOnly})` : ''}</h3>
 	{/if}
+
+	{#if datavisType === 'day'}
+		<Combobox
+			defaultValue={minMaxAvg}
+			onChange={(value) => (minMaxAvg = value as 'min' | 'avg' | 'max')}
+			options={[
+				{
+					value: 'min',
+					label: $LL.pages.measurements.minMaxAvgSelect.min()
+				},
+				{
+					value: 'avg',
+					label: $LL.pages.measurements.minMaxAvgSelect.avg()
+				},
+				{
+					value: 'max',
+					label: $LL.pages.measurements.minMaxAvgSelect.max()
+				}
+			]}
+		/>
+	{/if}
+
 	<UnovisChartContainer className={cn('relative')} style={`height: ${chartHeight}px`}>
 		{#if validIds.length > 0}
 			<VisXYContainer padding={{ top: 8, bottom: 8, right: 16 }} height={chartHeight}>

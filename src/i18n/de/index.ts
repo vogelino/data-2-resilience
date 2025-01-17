@@ -47,6 +47,10 @@ const de = {
 			buttonUpAriaLabel: "Eine Stunde später auswahlen",
 			buttonDownAriaLabel: "Eine Stunde früher auswahlen",
 		},
+		combobox: {
+			selectOption: "Option auswählen",
+			noResults: "Keine Ergebnisse",
+		},
 	},
 	themeSwitch: {
 		light: "Hell",
@@ -479,6 +483,11 @@ const de = {
 						unitOnly: "m/s",
 					},
 				},
+			},
+			minMaxAvgSelect: {
+				min: "Minimum",
+				avg: "Mittelwer",
+				max: "Maximum",
 			},
 			dateRangeSlider: {
 				today: "Heute",

@@ -20,10 +20,12 @@
 		hoverCursor="pointer"
 		manageHoverState
 	>
-		<Popup closeOnClickOutside openOn="hover">
+		<Popup closeOnClickOutside openOn="click" closeOnMove closeOnClickInside>
 			{#snippet children({ data })}
 				{#if data}
-					<strong class="text-sm font-semibold">{data.properties?.NAME}</strong>
+					<strong class="text-sm font-semibold">
+						{data.properties?.name}
+					</strong>
 					<p>
 						{$LL.map.layersTooltips.type.stadtbezirk()}
 					</p>

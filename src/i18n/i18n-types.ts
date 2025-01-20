@@ -1482,7 +1482,7 @@ type RootTranslation = {
 			 */
 			districts: string
 			/**
-			 * S​o​z​i​a​l​r​ä​u​m​e
+			 * A​k​t​i​o​n​s​r​ä​u​m​e
 			 */
 			lors: string
 			/**
@@ -1501,7 +1501,7 @@ type RootTranslation = {
 				 */
 				stadtbezirk: string
 				/**
-				 * S​o​z​i​a​l​r​a​u​m
+				 * A​k​t​i​o​n​s​r​a​u​m
 				 */
 				statistischer_bezirk: string
 			}
@@ -3236,7 +3236,7 @@ export type TranslationFunctions = {
 			 */
 			districts: () => LocalizedString
 			/**
-			 * Sozialräume
+			 * Aktionsräume
 			 */
 			lors: () => LocalizedString
 			/**
@@ -3255,7 +3255,7 @@ export type TranslationFunctions = {
 				 */
 				stadtbezirk: () => LocalizedString
 				/**
-				 * Sozialraum
+				 * Aktionsraum
 				 */
 				statistischer_bezirk: () => LocalizedString
 			}

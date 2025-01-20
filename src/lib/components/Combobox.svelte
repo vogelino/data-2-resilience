@@ -13,13 +13,17 @@
 		searchable = false,
 		options,
 		defaultValue = '' as T,
-		onChange = () => {}
+		onChange = () => {},
+		classes = {}
 	}: {
 		selectOptionText?: string;
 		searchable?: boolean;
 		options: { value: T; label: string }[];
 		defaultValue?: T;
 		onChange?: (value: T) => void;
+		classes?: {
+			trigger?: string;
+		};
 	} = $props();
 
 	let open = $state(false);
@@ -45,7 +49,7 @@
 			variant="outline"
 			role="combobox"
 			aria-expanded={open}
-			class="w-[200px] justify-between"
+			class={cn('w-[200px] justify-between', classes.trigger)}
 		>
 			{selectedValue}
 			<ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />

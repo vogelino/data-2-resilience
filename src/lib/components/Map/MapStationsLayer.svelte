@@ -3,11 +3,14 @@
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
+	import { api } from '$lib/utils/api';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { today } from '$lib/utils/dateUtil';
-	import { useSationsSnapshotData } from '$lib/utils/queryUtils/stationsLatestData';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
-	import { startOfHour } from 'date-fns';
+	import { createQuery } from '@tanstack/svelte-query';
+	import { format, startOfHour } from 'date-fns';
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 
@@ -20,12 +23,26 @@
 
 	const unit = queryParam('unit', ssp.string('utci'));
 	const selectedStations = useStations();
-	let query = $derived(
-		useSationsSnapshotData({
-			date: startOfHour(today()),
-			unit: $unit,
-			scale: 'hourly'
-		})
+	const date = startOfHour(today());
+	const dateKey = $derived(date && format(date, 'yyyy-MM-dd'));
+	const query = createQuery(
+		reactiveQueryArgs(() => ({
+			queryKey: ['stations-snapshot', dateKey, $unit],
+			queryFn: async () => {
+				if (!date || !$unit) return;
+				const itemResults = await api().getStationsSnapshot({
+					date,
+					param: $unit as unknown as WeatherMeasurementKeyNoMinMax,
+					scale: 'hourly'
+				});
+				if (itemResults === null) return {};
+				return itemResults.reduce(
+					(acc, item) => ({ ...acc, ...(item.id ? { [item.id]: item } : {}) }),
+					{} as Record<string, (typeof itemResults)[0]>
+				);
+			},
+			enabled: Boolean(date && $unit)
+		}))
 	);
 	let idToItemMap = $derived($query.data || {});
 

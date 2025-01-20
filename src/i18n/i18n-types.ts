@@ -1161,7 +1161,7 @@ type RootTranslation = {
 				 */
 				min: string
 				/**
-				 * M​i​t​t​e​l​w​e​r
+				 * M​i​t​t​e​l​w​e​r​t
 				 */
 				avg: string
 				/**
@@ -2939,7 +2939,7 @@ export type TranslationFunctions = {
 				 */
 				min: () => LocalizedString
 				/**
-				 * Mittelwer
+				 * Mittelwert
 				 */
 				avg: () => LocalizedString
 				/**

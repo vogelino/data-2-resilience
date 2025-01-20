@@ -24,6 +24,7 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
 	import SearchInputField from './SearchInputField.svelte';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 
 	let { stations }: { stations: StationMetadata[] } = $props();
 
@@ -31,11 +32,13 @@
 		debounceHistory: 500
 	});
 
-	const query = createQuery({
-		queryKey: ['stations'],
-		queryFn: () => api().getStationsMetadata(),
-		initialData: stations
-	});
+	const query = createQuery(
+		reactiveQueryArgs(() => ({
+			queryKey: ['stations'],
+			queryFn: () => api().getStationsMetadata(),
+			initialData: stations
+		}))
+	);
 	let data = $derived($query?.data || []);
 
 	let columns = [

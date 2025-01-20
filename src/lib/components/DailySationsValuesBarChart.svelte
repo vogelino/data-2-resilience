@@ -19,7 +19,7 @@
 	import { Alert } from './ui/alert';
 	import Combobox from './Combobox.svelte';
 	import { createQuery, type QueryFunctionContext } from '@tanstack/svelte-query';
-	import { reactiveQueryArgs } from '$lib/utils/queryUtils/queryUtils.svelte';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { api } from '$lib/utils/api';
 	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 
@@ -70,39 +70,23 @@
 	let ids = $derived($selectedStations.filter(Boolean).toSorted());
 	const scale = $derived(datavisType === 'day' ? 'daily' : 'hourly');
 	const hourParam = $derived(scale === 'hourly' ? $hour : undefined);
-	type QueryKey = [
-		key: string,
-		ids: string,
-		date: Date | undefined,
-		unit: string,
-		scale: 'daily' | 'hourly',
-		hour: number | undefined
-	];
+	const dateKey = $derived(date && format(date, 'yyyy-MM-dd'));
 	let query = createQuery(
 		reactiveQueryArgs(() => ({
-			queryKey: [
-				'stationsData-daily',
-				ids.join('-'),
-				date,
-				unitWithMinMaxAvg,
-				scale,
-				hourParam
-			] satisfies QueryKey,
-			queryFn: async ({ queryKey: qK }: QueryFunctionContext<QueryKey>) => {
-				const [_, idsString, d, u, s, h] = qK;
-				const idss = idsString.split('-');
-				if (idss.length === 0 || !d || !u) return [];
-				const promises = idss.map(async (id) => {
-					if (idss.length === 0 || !d || !u) return;
-					const isHour = s === 'hourly' && typeof h === 'number';
-					const startDate = isHour ? setHours(d, h) : addDays(d, -1);
-					const endDate = isHour ? setHours(d, h) : d || '';
+			queryKey: ['stationsData-daily', ids.join('-'), dateKey, unitWithMinMaxAvg, scale, hourParam],
+			queryFn: async () => {
+				if (ids.length === 0 || !date || !unitWithMinMaxAvg) return [];
+				const promises = ids.map(async (id) => {
+					if (ids.length === 0 || !date || !unitWithMinMaxAvg) return;
+					const isHour = scale === 'hourly' && typeof $hour === 'number';
+					const startDate = isHour ? setHours(date, $hour) : addDays(date, -1);
+					const endDate = isHour ? setHours(date, $hour) : date || '';
 					const itemResults = await api().getStationData({
 						id,
 						start_date: startDate,
 						end_date: endDate,
-						param: u as unknown as WeatherMeasurementKeyNoMinMax,
-						scale: s
+						param: unitWithMinMaxAvg as unknown as WeatherMeasurementKeyNoMinMax,
+						scale
 					});
 					const label =
 						stations.features.find((f) => f.properties.id === id)?.properties.longName || id;
@@ -118,7 +102,7 @@
 					return {
 						id,
 						label,
-						value: i ? (i[u as keyof typeof i] as unknown as number) : undefined,
+						value: i ? (i[unitWithMinMaxAvg as keyof typeof i] as unknown as number) : undefined,
 						supported: true
 					};
 				});
@@ -141,10 +125,6 @@
 			return b.label.localeCompare(a.label, $locale);
 		})
 	);
-
-	$effect(() => {
-		console.log(data);
-	});
 
 	let insufficientDataIds = $derived(
 		data.filter((d) => d.supported && d.value === undefined).map((d) => d.id)
@@ -291,77 +271,82 @@
 	</div>
 {:else}
 	{#if $query.isLoading || ($query.isSuccess && validIds.length > 0)}
-		<h3 class="font-semibold">{unitLabel} {unitOnly ? `(${unitOnly})` : ''}</h3>
+		<h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
+			{unitLabel}
+			{unitOnly ? `(${unitOnly})` : ''}
+			{#if datavisType === 'day'}
+				<Combobox
+					defaultValue={minMaxAvg}
+					onChange={(value) => (minMaxAvg = value as 'min' | 'avg' | 'max')}
+					classes={{ trigger: 'w-fit' }}
+					options={[
+						{
+							value: 'min',
+							label: $LL.pages.measurements.minMaxAvgSelect.min()
+						},
+						{
+							value: 'avg',
+							label: $LL.pages.measurements.minMaxAvgSelect.avg()
+						},
+						{
+							value: 'max',
+							label: $LL.pages.measurements.minMaxAvgSelect.max()
+						}
+					]}
+				/>
+			{/if}
+		</h3>
 	{/if}
 
-	{#if datavisType === 'day'}
-		<Combobox
-			defaultValue={minMaxAvg}
-			onChange={(value) => (minMaxAvg = value as 'min' | 'avg' | 'max')}
-			options={[
-				{
-					value: 'min',
-					label: $LL.pages.measurements.minMaxAvgSelect.min()
-				},
-				{
-					value: 'avg',
-					label: $LL.pages.measurements.minMaxAvgSelect.avg()
-				},
-				{
-					value: 'max',
-					label: $LL.pages.measurements.minMaxAvgSelect.max()
-				}
-			]}
-		/>
-	{/if}
+	{#key data}
+		<UnovisChartContainer className={cn('relative')} style={`height: ${chartHeight}px`}>
+			{#if validIds.length > 0}
+				<VisXYContainer padding={{ top: 8, bottom: 8, right: 16 }} height={chartHeight}>
+					{#if $query.isSuccess && data.length > 0}
+						<VisStackedBar
+							{data}
+							{x}
+							{y}
+							{color}
+							numTicks={Math.max(2, data.length)}
+							tickValues={data.length === 1 && firstValidValue === 0 ? [0, 5] : undefined}
+							orientation="horizontal"
+							barPadding={0.2}
+							barMinHeight1Px
+						/>
+						<VisAxis type="x" tickFormat={xTickFormat} numTicks={5} />
+						<VisAxis
+							type="y"
+							tickFormat={yTickFormat}
+							tickValues={yTickValues}
+							gridLine={false}
+							numTicks={data.length}
+							tickTextFitMode="trim"
+							tickTextTrimType="end"
+						/>
+						<VisTooltip {triggers} />
+					{:else if $query.isSuccess && data.length === 0}
+						<div class="absolute inset-0 flex items-center justify-center">
+							{$LL.pages.measurements.noDataAvailable()}
+						</div>
+					{/if}
 
-	<UnovisChartContainer className={cn('relative')} style={`height: ${chartHeight}px`}>
-		{#if validIds.length > 0}
-			<VisXYContainer padding={{ top: 8, bottom: 8, right: 16 }} height={chartHeight}>
-				{#if $query.isSuccess && data.length > 0}
-					<VisStackedBar
-						{data}
-						{x}
-						{y}
-						{color}
-						numTicks={Math.max(2, data.length)}
-						tickValues={data.length === 1 && firstValidValue === 0 ? [0, 5] : undefined}
-						orientation="horizontal"
-						barPadding={0.2}
-						barMinHeight1Px
-					/>
-					<VisAxis type="x" tickFormat={xTickFormat} numTicks={5} />
-					<VisAxis
-						type="y"
-						tickFormat={yTickFormat}
-						tickValues={yTickValues}
-						gridLine={false}
-						numTicks={data.length}
-						tickTextFitMode="trim"
-						tickTextTrimType="end"
-					/>
-					<VisTooltip {triggers} />
-				{:else if $query.isSuccess && data.length === 0}
-					<div class="absolute inset-0 flex items-center justify-center">
-						{$LL.pages.measurements.noDataAvailable()}
-					</div>
-				{/if}
-
-				{#if $query.error}
-					<div class="absolute inset-0 flex items-center justify-center">
-						<ErrorAlert errorObject={$query.error} />
-					</div>
-				{/if}
-			</VisXYContainer>
-		{/if}
-		<div
-			class={cn(
-				'absolute inset-0 flex items-center justify-center',
-				'pointer-events-none opacity-100',
-				!$query.isFetching && 'opacity-0'
-			)}
-		>
-			<LoaderCircle class="size-6 animate-spin" />
-		</div>
-	</UnovisChartContainer>
+					{#if $query.error}
+						<div class="absolute inset-0 flex items-center justify-center">
+							<ErrorAlert errorObject={$query.error} />
+						</div>
+					{/if}
+				</VisXYContainer>
+			{/if}
+			<div
+				class={cn(
+					'absolute inset-0 flex items-center justify-center',
+					'pointer-events-none opacity-100',
+					!$query.isFetching && 'opacity-0'
+				)}
+			>
+				<LoaderCircle class="size-6 animate-spin" />
+			</div>
+		</UnovisChartContainer>
+	{/key}
 {/if}

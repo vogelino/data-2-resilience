@@ -5,7 +5,7 @@
 	import * as Popover from '$lib/components/ui/popover';
 	import { Command, CommandEmpty, CommandItem } from 'components/ui/command';
 	import { createQuery, type QueryFunctionContext, type QueryKey } from '@tanstack/svelte-query';
-	import { reactiveQueryArgs } from '$lib/utils/queryUtils/queryUtils.svelte';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { debounceState } from '$lib/utils/runeUtil.svelte';
 	import { PUBLIC_GEOCODING_URL } from '$env/static/public';
 	import { responseSchema, type AddressFeature } from '$lib/utils/searchUtil';

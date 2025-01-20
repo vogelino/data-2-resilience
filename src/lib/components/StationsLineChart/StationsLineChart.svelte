@@ -8,18 +8,20 @@
 		getHeatStressCategoryByValue,
 		getHeatStressValueByCategory
 	} from '$lib/utils/heatStressCategoriesUtil';
-	import { useSationsRangeData } from '$lib/utils/queryUtils/stationsDataRange';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
 	import { VisAxis, VisCrosshair, VisLine, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { Position } from '@unovis/ts';
 	import Alert from 'components/ui/alert/alert.svelte';
-	import { addDays } from 'date-fns';
+	import { addDays, format } from 'date-fns';
 	import { debounce } from 'es-toolkit';
 	import { LoaderCircle } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ErrorAlert from '../ErrorAlert.svelte';
 	import UnovisChartContainer from '../UnovisChartContainer.svelte';
+	import { createQuery } from '@tanstack/svelte-query';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+	import { getStationDataFetcher } from './stationsLineChartUtil';
 
 	const CHART_COLORS = [
 		'hsl(var(--primary))',
@@ -69,36 +71,52 @@
 	rangeStart.subscribe(updateStartDate);
 	rangeEnd.subscribe(updateEndDate);
 
-
 	type DataRecord = Record<string, unknown> & {
 		date: Date;
 	};
 
-
 	const x = (d: DataRecord) => d.date.getTime();
-	const color = (d: DataRecord, idx: number) => CHART_COLORS[idx];
+	const color = (_d: DataRecord, idx: number) => CHART_COLORS[idx];
 
-	let query = $derived(useSationsRangeData({
-		ids: $selectedStations,
-		start_date,
-		end_date,
-		unit: $unit,
-		stations
-	}));
-	let data = $derived($query.data?.lineChartData || ([] as DataRecord[]).filter(Boolean));
-	let isCatChart = $derived($unit.endsWith('_category'));
-	let y = $derived($selectedStations.map(
-		(id) => (d: DataRecord) =>
-			isCatChart
-				? getHeatStressValueByCategory(`${d[id as keyof typeof d]}` as string)
-				: (d[id as keyof typeof d] as number)
-	));
-	let idsColors = $derived($selectedStations.reduce(
-		(acc, id, idx) => ({ ...acc, [id]: CHART_COLORS[idx] }),
-		{}
-	));
-	let xTickFormat = $derived((d: Date) => new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d));
-	let yTickFormat = $derived((d: number) =>
+	const ids = $derived($selectedStations.filter(Boolean).toSorted());
+	const startDateKey = $derived(start_date && format(start_date, 'yyyy-MM-dd'));
+	const endDateKey = $derived(end_date && format(end_date, 'yyyy-MM-dd'));
+	const queryFn = $derived.by(() =>
+		getStationDataFetcher({
+			ids,
+			start_date,
+			end_date,
+			unit: $unit,
+			stations: stations.features
+		})
+	);
+	let query = createQuery(
+		reactiveQueryArgs(() => ({
+			queryKey: ['stationsData-range', ids?.join('-'), startDateKey, endDateKey, $unit],
+			queryFn,
+			enabled: Boolean(
+				ids?.length > 0 && stations?.features?.length > 0 && start_date && end_date && unit
+			)
+		}))
+	);
+	const { data: queryData, isLoading, isFetching, isSuccess, error } = $derived($query);
+	const data = $derived(queryData?.lineChartData || ([] as DataRecord[]).filter(Boolean));
+	const isCatChart = $derived($unit.endsWith('_category'));
+	const y = $derived(
+		$selectedStations.map(
+			(id) => (d: DataRecord) =>
+				isCatChart
+					? getHeatStressValueByCategory(`${d[id as keyof typeof d]}` as string)
+					: (d[id as keyof typeof d] as number)
+		)
+	);
+	const idsColors = $derived(
+		$selectedStations.reduce((acc, id, idx) => ({ ...acc, [id]: CHART_COLORS[idx] }), {})
+	);
+	const xTickFormat = $derived((d: Date) =>
+		new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d)
+	);
+	const yTickFormat = $derived((d: number) =>
 		isCatChart
 			? getHeatStressLabel({
 					unit: $unit,
@@ -107,17 +125,21 @@
 				})
 			: d.toLocaleString($locale, {
 					maximumFractionDigits: 1
-				}));
-	let unsupportedIds = $derived($query.data?.unsupportedIds || []);
-	let legendItems = $derived($selectedStations
-		.filter((id) => !unsupportedIds.includes(id))
-		.map((id) => ({
-			id,
-			name: stations.features.find((f) => f.properties.id === id)?.properties.longName || id,
-			color: idsColors[id as keyof typeof idsColors]
-		}))
-		.sort((a, b) => a.name.localeCompare(b.name)));
-	let tooltipTemplate = $derived((d: DataRecord) => `
+				})
+	);
+	let unsupportedIds = $derived(queryData?.unsupportedIds || []);
+	let legendItems = $derived(
+		$selectedStations
+			.filter((id) => !unsupportedIds.includes(id))
+			.map((id) => ({
+				id,
+				name: stations.features.find((f) => f.properties.id === id)?.properties.longName || id,
+				color: idsColors[id as keyof typeof idsColors]
+			}))
+			.sort((a, b) => a.name.localeCompare(b.name))
+	);
+	let tooltipTemplate = $derived(
+		(d: DataRecord) => `
 		<span class="flex flex-col text-xs min-w-56">
 			<strong class="pb-1 mb-1 border-b border-border text-sm">
 				${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short' }).format(d.date)}
@@ -153,18 +175,22 @@
 					.join('')}
 			</span>
 		</span>
-	`);
-	let unsupportedMsg = $derived(getMessageForUnsupportedStations({
-		ids: $selectedStations,
-		unsupportedIds,
-		unit: $unit,
-		stations: stations.features,
-		LL: $LL
-	}));
-	let selectedUnitLabel =
-		$derived($LL.pages.measurements.unitSelect.units[
+	`
+	);
+	let unsupportedMsg = $derived(
+		getMessageForUnsupportedStations({
+			ids: $selectedStations,
+			unsupportedIds,
+			unit: $unit,
+			stations: stations.features,
+			LL: $LL
+		})
+	);
+	let selectedUnitLabel = $derived(
+		$LL.pages.measurements.unitSelect.units[
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].label());
+		].label()
+	);
 </script>
 
 <h3 class="font-semibold">{selectedUnitLabel}</h3>
@@ -173,51 +199,54 @@
 		{@html unsupportedMsg}
 	</Alert>
 {/if}
-<UnovisChartContainer
-	className={cn('relative', $query.isSuccess && data && data.length === 0 ? '' : 'h-[360px]')}
->
-	<VisXYContainer
-		padding={{ top: 8, bottom: 8, right: 16 }}
-		{data}
-		height={$query.isSuccess && data && data.length === 0 ? 64 : 300}
-		class={cn('relative transition-opacity', $query.isFetching && 'opacity-20')}
+
+{#key data}
+	<UnovisChartContainer
+		className={cn('relative', isSuccess && data && data.length === 0 ? '' : 'h-[360px]')}
 	>
-		{#if data && data.length > 0 && !$query.error}
-			<VisLine {x} {y} fallbackValue={undefined} {color} />
-			<VisAxis type="x" tickFormat={xTickFormat} />
-			<VisAxis type="y" tickFormat={yTickFormat} />
-			<VisCrosshair template={tooltipTemplate} {x} {y} />
-			<VisTooltip verticalShift={300} horizontalPlacement={Position.Center} />
-		{:else if $query.isSuccess && data && data.length === 0}
-			<div class="absolute inset-0 flex items-center justify-center">
-				{$LL.pages.measurements.noDataAvailable()}
-			</div>
-		{/if}
-		{#if $query.error}
-			<div class="absolute inset-0 flex items-center justify-center">
-				<ErrorAlert errorObject={$query.error} />
-			</div>
-		{/if}
-	</VisXYContainer>
-	{#if data && data.length > 0 && !$query.error}
-		<ul
-			class="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-4 text-xs text-muted-foreground"
+		<VisXYContainer
+			padding={{ top: 8, bottom: 8, right: 16 }}
+			{data}
+			height={isSuccess && data && data.length === 0 ? 64 : 300}
+			class={cn('relative transition-opacity', isFetching && 'opacity-20')}
 		>
-			{#each legendItems as { id, name, color }}
-				<li class="flex items-center gap-2">
-					<span style="background-color: {color}" class="inline-block h-0.5 w-3"></span>
-					{name}
-				</li>
-			{/each}
-		</ul>
-	{/if}
-	<div
-		class={cn(
-			'absolute inset-0 flex items-center justify-center',
-			'pointer-events-none opacity-0',
-			$query.isLoading && 'opacity-100'
-		)}
-	>
-		<LoaderCircle class="size-6 animate-spin" />
-	</div>
-</UnovisChartContainer>
+			{#if data && data.length > 0 && !error}
+				<VisLine {x} {y} fallbackValue={undefined} {color} />
+				<VisAxis type="x" tickFormat={xTickFormat} />
+				<VisAxis type="y" tickFormat={yTickFormat} />
+				<VisCrosshair template={tooltipTemplate} {x} {y} />
+				<VisTooltip verticalShift={300} horizontalPlacement={Position.Center} />
+			{:else if isSuccess && data && data.length === 0}
+				<div class="absolute inset-0 flex items-center justify-center">
+					{$LL.pages.measurements.noDataAvailable()}
+				</div>
+			{/if}
+			{#if error}
+				<div class="absolute inset-0 flex items-center justify-center">
+					<ErrorAlert errorObject={error} />
+				</div>
+			{/if}
+		</VisXYContainer>
+		{#if data && data.length > 0 && !error}
+			<ul
+				class="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-4 text-xs text-muted-foreground"
+			>
+				{#each legendItems as { name, color }}
+					<li class="flex items-center gap-2">
+						<span style="background-color: {color}" class="inline-block h-0.5 w-3"></span>
+						{name}
+					</li>
+				{/each}
+			</ul>
+		{/if}
+		<div
+			class={cn(
+				'absolute inset-0 flex items-center justify-center',
+				'pointer-events-none opacity-0',
+				isLoading && 'opacity-100'
+			)}
+		>
+			<LoaderCircle class="size-6 animate-spin" />
+		</div>
+	</UnovisChartContainer>
+{/key}

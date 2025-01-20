@@ -1,29 +1,30 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { locale } from '$i18n/i18n-svelte';
-	import { type StationsGeoJSONType } from '$lib/stores/mapData';
+	import type { StationsGeoJSONType } from '$lib/stores/mapData';
+	import type { AddressFeature } from '$lib/utils/searchUtil';
 	import { mode } from 'mode-watcher';
 	import { MapLibre } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ChoroplethLegend from '../ChoroplethLegend.svelte';
+	import MapActionAreasLayer from './MapActionAreasLayer.svelte';
 	import MapAttribution from './MapAttribution.svelte';
 	import MapDistrictsLayer from './MapDistrictsLayer.svelte';
 	import MapHourFilter from './MapHourFilter.svelte';
 	import MapLayerSelection from './MapLayerSelection.svelte';
 	import MapLorsLayer from './MapLorsLayer.svelte';
 	import MapMeasurementsRasterLayer from './MapMeasurementsRasterLayer.svelte';
+	import MapSearchInput from './MapSearchInput.svelte';
+	import MapSearchedFeatureLayer from './MapSearchedFeatureLayer.svelte';
 	import MapStationsLayer from './MapStationsLayer.svelte';
 	import MapZoomControl from './MapZoomControl.svelte';
 	import SatelliteRasterLayer from './SatelliteRasterLayer.svelte';
-	import MapSearchInput from './MapSearchInput.svelte';
-	import type { AddressFeature } from '$lib/utils/searchUtil';
-	import MapSearchedFeatureLayer from './MapSearchedFeatureLayer.svelte';
 
 	interface Props {
 		stations: StationsGeoJSONType;
 	}
 
-	let { stations }: Props = $props();
+	const { stations }: Props = $props();
 
 	const config = { debounceHistory: 500 };
 	const lon = queryParam('lon', ssp.number(7.467), config);
@@ -33,9 +34,9 @@
 	const boundariesMode = queryParam('boundariesMode', ssp.string('districts'));
 	const showSatellite = queryParam('showSatellite', ssp.boolean(false));
 
-	let mapLat = $lat;
-	let mapLon = $lon;
-	let mapZoom = $zoom;
+	const mapLat = $lat;
+	const mapLon = $lon;
+	const mapZoom = $zoom;
 
 	let searchedFeature: AddressFeature | undefined = $state();
 
@@ -46,11 +47,11 @@
 		map.flyTo({ center: [lng, lat] });
 	};
 
-	let currentPage = $derived.by(() => {
+	const currentPage = $derived.by(() => {
 		const p = page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
 		return p === '' ? 'measurements' : p;
 	});
-	let vectorTilesUrl = $derived(
+	const vectorTilesUrl = $derived(
 		$mode === 'dark'
 			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
 			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
@@ -114,6 +115,7 @@
 			{#if searchedFeature}
 				<MapSearchedFeatureLayer feature={searchedFeature} />
 			{/if}
+			<MapActionAreasLayer visible={$boundariesMode === 'lors'} />
 		{/snippet}
 	</MapLibre>
 

@@ -1,17 +1,19 @@
 import type { BaseTranslation } from "../i18n-types";
 
-const siteNameShort = `Data2Resilience`;
-const siteSubtitle = `Dashboard für Thermischen Komfort in Dortmund`;
+const siteNameShort = "Data2Resilience";
+const siteSubtitle = "Dashboard für Thermischen Komfort in Dortmund";
 const de = {
 	siteNameShort,
-	author: `Data2Resilience Team`,
+	author: "Data2Resilience Team",
 	siteSubtitle,
 	siteNameLong: `${siteNameShort} | ${siteSubtitle}`,
-	siteDescription: `Data2Resilience ist ein Projekt, das darauf abzielt, die urbane Widerstandsfähigkeit gegen extreme Hitze in Dortmund durch innovative biometeorologische Messnetze und bürgerschaftliches Engagement zu verbessern. Erfahren Sie mehr über unsere Initiativen und Ergebnisse.`,
-	keywords: `Data2Resilience, urbane Resilienz, extreme Hitze, Dortmund, Klimawandel, biometeorologische Messung, gesellschaftliches Engagement, Hitzeresilienz, Stadtklima, Klimaanpassung`,
-	twitterHandle: `RUBclim`,
-	log: `Dieses Logging wurde von '{fileName:string}' aufgerufen`,
-	themeColor: `#007bff`,
+	siteDescription:
+		"Data2Resilience ist ein Projekt, das darauf abzielt, die urbane Widerstandsfähigkeit gegen extreme Hitze in Dortmund durch innovative biometeorologische Messnetze und bürgerschaftliches Engagement zu verbessern. Erfahren Sie mehr über unsere Initiativen und Ergebnisse.",
+	keywords:
+		"Data2Resilience, urbane Resilienz, extreme Hitze, Dortmund, Klimawandel, biometeorologische Messung, gesellschaftliches Engagement, Hitzeresilienz, Stadtklima, Klimaanpassung",
+	twitterHandle: "RUBclim",
+	log: "Dieses Logging wurde von '{fileName:string}' aufgerufen",
+	themeColor: "#007bff",
 	headImages: {
 		og: {
 			large: "Screenshot des Data2Resilience-Karten-Dashboards",
@@ -23,11 +25,13 @@ const de = {
 		genericErrorLabel: "Fehler",
 		unexpectedError: {
 			label: "Unerwarteter Fehler",
-			description: `Ups, es scheint, dass etwas schiefgelaufen ist. Wir entschuldigen uns. Bitte versuchen Sie es erneut oder navigieren Sie zur Startseite.`,
+			description:
+				"Ups, es scheint, dass etwas schiefgelaufen ist. Wir entschuldigen uns. Bitte versuchen Sie es erneut oder navigieren Sie zur Startseite.",
 		},
 		fourOhFour: {
 			label: "Seite nicht gefunden",
-			description: `Ups, es scheint, dass die von Ihnen gesuchte Seite nicht existiert. Nichts ist schiefgelaufen, wir helfen Ihnen, auf den Weg zu kommen.`,
+			description:
+				"Ups, es scheint, dass die von Ihnen gesuchte Seite nicht existiert. Nichts ist schiefgelaufen, wir helfen Ihnen, auf den Weg zu kommen.",
 			homepageLinkText: "Zur Startseite",
 		},
 		unsupported: {
@@ -87,9 +91,12 @@ const de = {
 			intro: [
 				"Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.",
 			],
-			timeRangeAlert: `Daten nur verfügbar im Zeitraum vom {startDate:string} bis {endDate:string}.`,
-			timeRangeAlertTooltipTitle: `Diese Karte ist nur verfügbar für die letzten 30 Tage.`,
-			timeRangeAlertTooltipContent: `Die Daten benötigen große Menge von Speicherplatz, daher ist diese Karte nur verfügbare für die letzten 30 Tage.`,
+			timeRangeAlert:
+				"Daten nur verfügbar im Zeitraum vom {startDate:string} bis {endDate:string}.",
+			timeRangeAlertTooltipTitle:
+				"Diese Karte ist nur verfügbar für die letzten 30 Tage.",
+			timeRangeAlertTooltipContent:
+				"Die Daten benötigen große Menge von Speicherplatz, daher ist diese Karte nur verfügbare für die letzten 30 Tage.",
 			indicatorsNavAriaLabel:
 				"Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.",
 		},
@@ -125,7 +132,7 @@ const de = {
 				placeholder: "Einheit auswählen",
 				searchPlaceholder: "Einheit suchen...",
 				xOutOfY: "{part} von {total}",
-				stationsHeaderLabel: `Stationnamen`,
+				stationsHeaderLabel: "Stationnamen",
 				units: {
 					utci_max: {
 						label: "Maximaler Universeller Thermischer Klimaindex (UTCI)",
@@ -635,14 +642,14 @@ const de = {
 		layersSelection: {
 			ariaLabel: "Auswahl der Kartenebene",
 			districts: "Stadtbezirke",
-			lors: "Sozialräume",
+			lors: "Aktionsräume",
 			satellite: "Digitale Orthophotos",
 		},
 		layersTooltips: {
 			vulnerableArea: "Vulnerabler Aktionsraum",
 			type: {
 				stadtbezirk: "Stadtbezirk",
-				statistischer_bezirk: "Sozialraum",
+				statistischer_bezirk: "Aktionsraum",
 			},
 		},
 		choroplethLegend: {

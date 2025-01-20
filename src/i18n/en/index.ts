@@ -1,17 +1,19 @@
 import type { Translation } from "../i18n-types";
 
-const siteNameShort = `Data2Resilience`;
-const siteSubtitle = `Dashboard for heat stress in Dortmund`;
+const siteNameShort = "Data2Resilience";
+const siteSubtitle = "Dashboard for heat stress in Dortmund";
 const en = {
 	siteNameShort,
-	author: `Data2Resilience Team`,
+	author: "Data2Resilience Team",
 	siteSubtitle,
 	siteNameLong: `${siteNameShort} | ${siteSubtitle}`,
-	siteDescription: `Data2Resilience is a project aimed at improving urban resilience against extreme heat in Dortmund through innovative biometeorological measurement networks and community engagement. Learn more about our initiatives and results.`,
-	keywords: `Data2Resilience, urban resilience, extreme heat, Dortmund, climate change, biometeorological measurement, community engagement, heat resilience, urban climate, climate adaptation`,
-	twitterHandle: `RUBclim`,
-	log: `This log was called from '{fileName}'`,
-	themeColor: `#007bff`,
+	siteDescription:
+		"Data2Resilience is a project aimed at improving urban resilience against extreme heat in Dortmund through innovative biometeorological measurement networks and community engagement. Learn more about our initiatives and results.",
+	keywords:
+		"Data2Resilience, urban resilience, extreme heat, Dortmund, climate change, biometeorological measurement, community engagement, heat resilience, urban climate, climate adaptation",
+	twitterHandle: "RUBclim",
+	log: "This log was called from '{fileName}'",
+	themeColor: "#007bff",
 	headImages: {
 		og: {
 			large: "Screenshot of the Data2Resilience map dashboard",
@@ -23,11 +25,13 @@ const en = {
 		genericErrorLabel: "Error",
 		unexpectedError: {
 			label: "Unexpected error",
-			description: `Oops, it looks like something unexpected has went wrong. We're sorry. Please try again or navigate to the homepage.`,
+			description:
+				"Oops, it looks like something unexpected has went wrong. We're sorry. Please try again or navigate to the homepage.",
 		},
 		fourOhFour: {
 			label: "Page not found",
-			description: `Oops, it looks like the page you were looking for doesn't exist. Don't worry, we can help you get back on track.`,
+			description:
+				"Oops, it looks like the page you were looking for doesn't exist. Don't worry, we can help you get back on track.",
 			homepageLinkText: "To the homepage",
 		},
 		unsupported: {
@@ -87,9 +91,11 @@ const en = {
 			intro: [
 				"The heat atlas for Dortmund provides an overview of the city's heat stress. The heat stress is depicted through three maps: the Universal Thermal Climate Index (UTCI) to assess the thermal sensation of residents, as well as relative humidity and air temperature as key influencing factors.",
 			],
-			timeRangeAlert: `Data only available from {startDate} to {endDate}.`,
-			timeRangeAlertTooltipTitle: `This visualization is only available for the last 30 days.`,
-			timeRangeAlertTooltipContent: `The data necessary for the heat map visualization of the map requires large amount of storage that therefore includes only the last 30 days.`,
+			timeRangeAlert: "Data only available from {startDate} to {endDate}.",
+			timeRangeAlertTooltipTitle:
+				"This visualization is only available for the last 30 days.",
+			timeRangeAlertTooltipContent:
+				"The data necessary for the heat map visualization of the map requires large amount of storage that therefore includes only the last 30 days.",
 			indicatorsNavAriaLabel:
 				"Select an indicator to change the data displayed on the map.",
 		},
@@ -123,7 +129,7 @@ const en = {
 				placeholder: "Select a unit",
 				searchPlaceholder: "Search unit...",
 				xOutOfY: "{part} of {total} stations",
-				stationsHeaderLabel: `Station name`,
+				stationsHeaderLabel: "Station name",
 				units: {
 					utci_max: {
 						label: "Maximum Universal Thermic Climate Index (UTCI)",
@@ -634,14 +640,14 @@ const en = {
 		layersSelection: {
 			ariaLabel: "Map layer selection",
 			districts: "City districts",
-			lors: "Social areas",
+			lors: "Action areas",
 			satellite: "Digital Orthophotos",
 		},
 		layersTooltips: {
 			vulnerableArea: "Vulnerable action area",
 			type: {
 				stadtbezirk: "City district",
-				statistischer_bezirk: "Social area",
+				statistischer_bezirk: "Action area",
 			},
 		},
 		choroplethLegend: {

@@ -3,6 +3,7 @@
 	import { districts } from '$lib/stores/mapData';
 	import { mode } from 'mode-watcher';
 	import { FillLayer, GeoJSON, LineLayer, Popup } from 'svelte-maplibre';
+	import { addPopup } from '$lib/stores/mapPopupsStore.svelte';
 
 	interface Props {
 		visible?: boolean;
@@ -20,7 +21,7 @@
 		hoverCursor="pointer"
 		manageHoverState
 	>
-		<Popup closeOnClickOutside openOn="click" closeOnMove closeOnClickInside>
+		<Popup closeOnClickOutside openOn="click" closeOnMove closeOnClickInside onopen={addPopup}>
 			{#snippet children({ data })}
 				{#if data}
 					<strong class="text-sm font-semibold">

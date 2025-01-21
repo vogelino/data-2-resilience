@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
 	import { actionareas } from '$lib/stores/mapData';
+	import { addPopup } from '$lib/stores/mapPopupsStore.svelte';
 	import { mode } from 'mode-watcher';
 	import { FillLayer, GeoJSON, LineLayer, Popup } from 'svelte-maplibre';
 
@@ -21,7 +22,7 @@
 			'fill-opacity': 0.5
 		}}
 	>
-		<Popup closeOnClickOutside openOn="click" closeOnClickInside closeOnMove>
+		<Popup closeOnClickOutside openOn="click" closeOnClickInside closeOnMove onopen={addPopup}>
 			{#snippet children({ data })}
 				{#if data}
 					<strong class="text-sm font-semibold">

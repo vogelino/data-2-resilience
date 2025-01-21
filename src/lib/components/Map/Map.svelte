@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { page as storePage } from '$app/stores';
 	import { locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import type { AddressFeature } from '$lib/utils/searchUtil';
@@ -19,6 +20,8 @@
 	import MapStationsLayer from './MapStationsLayer.svelte';
 	import MapZoomControl from './MapZoomControl.svelte';
 	import SatelliteRasterLayer from './SatelliteRasterLayer.svelte';
+	import { shortcut } from '@svelte-put/shortcut';
+	import { closePopup } from '$lib/stores/mapPopupsStore.svelte';
 
 	interface Props {
 		stations: StationsGeoJSONType;
@@ -70,8 +73,24 @@
 		if (!map) return;
 		disableMapRotation(map);
 	}
+
+	function handleEscape() {
+		closePopup();
+	}
+
+	boundariesMode.subscribe(() => closePopup());
+	storePage.subscribe(() => closePopup());
 </script>
 
+<svelte:window
+	use:shortcut={{
+		trigger: {
+			key: 'Escape',
+			callback: handleEscape,
+			preventDefault: false
+		}
+	}}
+/>
 <div class="main-map relative grid h-full w-full items-center justify-center overflow-clip">
 	<MapLibre
 		center={[mapLon, mapLat]}

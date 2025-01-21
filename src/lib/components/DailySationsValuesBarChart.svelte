@@ -235,8 +235,39 @@
 	</Alert>
 {/if}
 
+{#snippet minMaxAvgCombobox()}
+	{#if datavisType === 'day'}
+		<Combobox
+			defaultValue={minMaxAvg}
+			onChange={(value) => (minMaxAvg = value as 'min' | 'avg' | 'max')}
+			classes={{ trigger: 'w-fit' }}
+			options={[
+				{
+					value: 'min',
+					label: $LL.pages.measurements.minMaxAvgSelect.min()
+				},
+				{
+					value: 'avg',
+					label: $LL.pages.measurements.minMaxAvgSelect.avg()
+				},
+				{
+					value: 'max',
+					label: $LL.pages.measurements.minMaxAvgSelect.max()
+				}
+			]}
+		/>
+	{/if}
+{/snippet}
+
+{#if $query.isLoading || ($query.isSuccess && validIds.length > 0)}
+	<h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
+		{unitLabel}
+		{unitOnly ? `(${unitOnly})` : ''}
+		{@render minMaxAvgCombobox()}
+	</h3>
+{/if}
 {#if ids.length === 1}
-	<div class="flex flex-col justify-center gap-2 text-center">
+	<div class="relative flex flex-col gap-2 pb-6 pt-2 text-center">
 		<span class="text-muted-foreground">
 			{#if $query.isLoading}
 				<span class="inline-block h-4 w-40 animate-pulse rounded-sm bg-muted-foreground/20"></span>
@@ -259,45 +290,11 @@
 					></span>
 				{/if}
 				{firstValidValueLabel}
+				{unitOnly}
 			{/if}
 		</strong>
-		<span>
-			{#if $query.isLoading}
-				<span class="inline-block h-4 w-48 animate-pulse rounded-sm bg-muted-foreground/20"></span>
-			{:else if date && firstValidValueLabel}
-				{unitLabel}
-			{/if}</span
-		>
 	</div>
 {:else}
-	{#if $query.isLoading || ($query.isSuccess && validIds.length > 0)}
-		<h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
-			{unitLabel}
-			{unitOnly ? `(${unitOnly})` : ''}
-			{#if datavisType === 'day'}
-				<Combobox
-					defaultValue={minMaxAvg}
-					onChange={(value) => (minMaxAvg = value as 'min' | 'avg' | 'max')}
-					classes={{ trigger: 'w-fit' }}
-					options={[
-						{
-							value: 'min',
-							label: $LL.pages.measurements.minMaxAvgSelect.min()
-						},
-						{
-							value: 'avg',
-							label: $LL.pages.measurements.minMaxAvgSelect.avg()
-						},
-						{
-							value: 'max',
-							label: $LL.pages.measurements.minMaxAvgSelect.max()
-						}
-					]}
-				/>
-			{/if}
-		</h3>
-	{/if}
-
 	{#key data}
 		<UnovisChartContainer className={cn('relative')} style={`height: ${chartHeight}px`}>
 			{#if validIds.length > 0}

@@ -71,6 +71,7 @@
 
 	function onMapLoad(map: maplibregl.Map) {
 		if (!map) return;
+		map.zoomTo(map.getZoom() ?? 10);
 		disableMapRotation(map);
 	}
 
@@ -79,6 +80,9 @@
 	}
 
 	boundariesMode.subscribe(() => closePopup());
+	// Using the legacy $page store instead of the svelte 5 page state
+	// because using $effect with the page state is triggered way too often
+	// and prevents the popups from opening
 	storePage.subscribe(() => closePopup());
 </script>
 

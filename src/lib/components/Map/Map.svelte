@@ -44,10 +44,10 @@
 	let searchedFeature: AddressFeature | undefined = $state();
 
 	const showSearchedFeature = (map: maplibregl.Map, feature: AddressFeature | undefined) => {
-		searchedFeature = feature;
 		if (!feature) return;
+		searchedFeature = feature;
 		const [lng, lat] = feature.geometry.coordinates;
-		map.flyTo({ center: [lng, lat] });
+		map.flyTo({ center: [lng, lat], zoom: 10 });
 	};
 
 	const currentPage = $derived.by(() => {
@@ -123,7 +123,10 @@
 	>
 		{#snippet children({ map })}
 			{#if currentPage === 'measurements'}
-				<MapSearchInput onFeatureSearched={(f) => showSearchedFeature(map, f)} />
+				<MapSearchInput
+					onFeatureSearched={(f) => showSearchedFeature(map, f)}
+					onSearchCleared={() => (searchedFeature = undefined)}
+				/>
 			{/if}
 			<MapZoomControl {map} />
 			<MapLayerSelection />

@@ -9,26 +9,46 @@
 	import { debounceState } from '$lib/utils/runeUtil.svelte';
 	import { PUBLIC_GEOCODING_URL } from '$env/static/public';
 	import { responseSchema, type AddressFeature } from '$lib/utils/searchUtil';
+	import { onMount, onDestroy } from 'svelte';
+	import { browser } from '$app/environment';
 
 	const {
-		onFeatureSearched
+		onFeatureSearched,
+		onSearchCleared
 	}: {
-		onFeatureSearched: (feature: undefined | AddressFeature) => void;
+		onFeatureSearched: (feature: AddressFeature) => void;
+		onSearchCleared: () => void;
 	} = $props();
 
+	let container: HTMLDivElement | null = $state(null);
 	let searchQuery = $state('');
 	let suggesitonsOpened = $state(false);
 	let debouncedQuery = $derived.by(debounceState(() => searchQuery, 300)) as string;
 
+	function onClickAnywhere(evt: MouseEvent) {
+		if (!container || !evt.target) return;
+		const targetIsContainer = evt.target === container;
+		const targetIsWithinContainer = container.contains(evt.target as Node);
+		if (targetIsContainer || targetIsWithinContainer) return;
+		suggesitonsOpened = false;
+	}
+	onMount(() => {
+		if (!browser) return;
+		document.addEventListener('click', onClickAnywhere);
+	});
+	onDestroy(() => {
+		if (!browser) return;
+		document.removeEventListener('click', onClickAnywhere);
+	});
 	// --------------
 
 	const searchResultsQuery = createQuery(
 		reactiveQueryArgs(() => ({
-			queryKey: ['addressSearch', debouncedQuery],
+			queryKey: ['addressSearch', debouncedQuery?.trim()],
 			queryFn: async ({ queryKey: [_, searchTerm] }: QueryFunctionContext<QueryKey>) => {
 				if (typeof searchTerm === undefined) return [];
 				if (!searchTerm) return [];
-				const query = encodeURIComponent(`${searchTerm}`);
+				const query = encodeURIComponent(`${searchTerm}`.trim());
 				const response = await fetch(`${PUBLIC_GEOCODING_URL}?query=${query}&outputformat=JSON`);
 
 				if (!response.ok) {
@@ -46,12 +66,12 @@
 			}
 		}))
 	);
-	const { isPending, isError, data = [] } = $derived($searchResultsQuery);
-	const isEmpty = $derived(!isPending && data.length === 0);
+	const { isLoading, isError, data = [] } = $derived($searchResultsQuery);
+	const isEmpty = $derived(!isLoading && data.length === 0);
 	const showPopover = $derived(
-		searchQuery.length > 0 &&
+		searchQuery?.trim().length > 0 &&
 			debouncedQuery?.trim().length > 0 &&
-			Boolean(data || isEmpty || isError || isPending)
+			Boolean(data || isEmpty || isError || isLoading)
 	);
 
 	$effect(() => {
@@ -81,12 +101,12 @@
 			const limitedData = data.slice(0, 5);
 			const index = limitedData.findIndex((result) => result.id === command);
 			const nextIndex = index + 1 > limitedData.length - 1 ? 0 : index + 1;
-			command = data[nextIndex].id || limitedData[0].id;
+			command = data[nextIndex]?.id || limitedData[0]?.id;
 		} else if (event.key === 'ArrowUp') {
 			const limitedData = data.slice(0, 5);
 			const index = limitedData.findIndex((result) => result.id === command);
 			const nextIndex = index - 1 < 0 ? limitedData.length - 1 : index - 1;
-			command = data[nextIndex].id || limitedData[limitedData.length - 1].id;
+			command = data[nextIndex]?.id || limitedData[limitedData.length - 1]?.id;
 		} else if (event.key === 'Escape') {
 			command = undefined;
 			suggesitonsOpened = false;
@@ -94,8 +114,7 @@
 			const limitedData = data.slice(0, 5);
 			const index = limitedData.findIndex((result) => result.id === command);
 			searchQuery = limitedData[index].properties.text;
-			command = limitedData[index].id;
-			suggesitonsOpened = false;
+			command = limitedData[index]?.id;
 			handleSelect(limitedData[index]);
 		}
 	}
@@ -103,26 +122,36 @@
 	// --------------
 
 	function handleSelect(feature: undefined | AddressFeature) {
-		searchQuery = feature?.properties.text || '';
-		onFeatureSearched(feature);
+		if (feature) {
+			searchQuery = feature.properties.text || '';
+			onFeatureSearched(feature);
+		} else if (searchQuery.length === 0) {
+			onSearchCleared();
+		}
+		suggesitonsOpened = false;
 	}
 </script>
 
-<div class={cn('fixed right-20 top-[calc(var(--headerHeight,5rem)+0.75rem)] z-10 w-64 transition')}>
+<div
+	class={cn('fixed right-20 top-[calc(var(--headerHeight,5rem)+0.75rem)] z-10 w-64 transition')}
+	bind:this={container}
+>
 	<div class="relative">
 		<Popover.Root open={suggesitonsOpened}>
 			<Popover.Trigger asChild>
 				<SearchInputField
 					placeholder={$LL.map.search.placeholder()}
 					value={searchQuery}
-					onchange={(newVal) => (searchQuery = newVal)}
+					onchange={(newVal) => {
+						searchQuery = newVal;
+						suggesitonsOpened = showPopover;
+					}}
 					classNames={{
 						input: cn('shadow-lg shadow-black/5 dark:shadow-black/80'),
 						container: cn('max-w-64 justify-end')
 					}}
 					{onKeyDown}
 					onFocus={() => (suggesitonsOpened = showPopover)}
-					onBlur={() => (suggesitonsOpened = false)}
 				/>
 			</Popover.Trigger>
 			<Popover.Content
@@ -131,7 +160,7 @@
 				align="end"
 			>
 				<Command bind:value={command}>
-					{#if isPending}
+					{#if isLoading}
 						<CommandEmpty>{$LL.map.search.loading()}</CommandEmpty>
 					{:else if isError}
 						<CommandEmpty>{$LL.map.search.error()}</CommandEmpty>
@@ -140,13 +169,14 @@
 					{/if}
 					{#each data.slice(0, 5) as feature}
 						<CommandItem
+							value={feature.id}
 							class={cn(
+								'bg-none font-sans text-base',
 								'border-t border-border px-4 py-3 text-base leading-5',
 								'focusable text-left hover-hover:hover:bg-muted',
 								'focus-visible:z-50 focus-visible:border-background'
 							)}
-							value={feature.id}
-							onclick={() => handleSelect(feature)}
+							onSelect={() => handleSelect(feature)}
 						>
 							{feature.properties.text}
 						</CommandItem>

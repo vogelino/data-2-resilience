@@ -1525,7 +1525,7 @@ type RootTranslation = {
 				 */
 				stadtbezirk: string
 				/**
-				 * A​k​t​i​o​n​s​r​a​u​m
+				 * S​t​a​d​t​t​e​i​l
 				 */
 				statistischer_bezirk: string
 			}
@@ -3303,7 +3303,7 @@ export type TranslationFunctions = {
 				 */
 				stadtbezirk: () => LocalizedString
 				/**
-				 * Aktionsraum
+				 * Stadtteil
 				 */
 				statistischer_bezirk: () => LocalizedString
 			}

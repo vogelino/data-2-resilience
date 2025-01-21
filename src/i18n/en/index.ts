@@ -647,7 +647,7 @@ const en = {
 			vulnerableArea: "Vulnerable action area",
 			type: {
 				stadtbezirk: "City district",
-				statistischer_bezirk: "Action area",
+				statistischer_bezirk: "Neighborhood",
 			},
 		},
 		choroplethLegend: {

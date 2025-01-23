@@ -6,11 +6,13 @@
 	import { api } from '$lib/utils/api';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { today } from '$lib/utils/dateUtil';
+	import { parseDatavisType } from '$lib/utils/parsingUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { format, startOfHour } from 'date-fns';
+	import { addDays, format, setHours } from 'date-fns';
+	import { debounce } from 'es-toolkit';
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 
@@ -21,19 +23,50 @@
 
 	let { stations, map }: Props = $props();
 
+	let rangeDate: Date | undefined = $state();
+	let dayDate: Date | undefined = $state();
+	const options = { debounceHistory: 500 };
 	const unit = queryParam('unit', ssp.string('utci'));
+	const rangeEnd = queryParam('range_end', ssp.number(0), options);
+	const dayVlaue = queryParam('day_value', ssp.number(0), options);
+	const hour = queryParam('hour', ssp.number(12));
+	const rawDatavisType = queryParam('datavisType', ssp.string('day'));
+	const datavisType = $derived(parseDatavisType($rawDatavisType));
+	const scale = $derived(datavisType === 'hour' ? 'hourly' : 'daily');
+
+	const updateEndDate = debounce((d: number) => {
+		updateEndDate?.cancel();
+		rangeDate = addDays(today(), d);
+	}, 500);
+
+	const updateDay = debounce((d: number) => {
+		updateDay?.cancel();
+		dayDate = addDays(today(), d);
+	}, 500);
+
+	rangeEnd.subscribe(updateEndDate);
+	dayVlaue.subscribe(updateDay);
+
+	const date = $derived.by(() => {
+		const refDate = datavisType === 'range' ? rangeDate : dayDate;
+		if (!refDate) return;
+		return setHours(refDate, $hour);
+	});
+
+	const dateKey = $derived(
+		date && (scale === 'hourly' ? date.toISOString() : format(date, 'yyyy-MM-dd'))
+	);
+
 	const selectedStations = useStations();
-	const date = startOfHour(today());
-	const dateKey = $derived(date && format(date, 'yyyy-MM-dd'));
 	const query = createQuery(
 		reactiveQueryArgs(() => ({
-			queryKey: ['stations-snapshot', dateKey, $unit],
+			queryKey: ['stations-snapshot', dateKey, scale, $unit],
 			queryFn: async () => {
-				if (!date || !$unit) return;
+				if (!date || !$unit || !scale) return;
 				const itemResults = await api().getStationsSnapshot({
 					date,
 					param: $unit as unknown as WeatherMeasurementKeyNoMinMax,
-					scale: 'hourly'
+					scale
 				});
 				if (itemResults === null) return {};
 				return itemResults.reduce(

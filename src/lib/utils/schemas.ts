@@ -11,7 +11,7 @@ export const RawStationMetadataSchema = z.object({
 	longitude: z.number(),
 	altitude: z.number(),
 	district: z.string(),
-	lcz: z.number().nullable(),
+	lcz: z.string().nullable(),
 	measured_at: z.string().optional(),
 	station_type: StationTypeSchema
 });

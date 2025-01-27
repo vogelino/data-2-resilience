@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { page as storePage } from '$app/stores';
+	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 	import { locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import type { AddressFeature } from '$lib/utils/searchUtil';
 	import { mode } from 'mode-watcher';
-	import { MapLibre } from 'svelte-maplibre';
+	import { MapLibre, ScaleControl } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ChoroplethLegend from '../ChoroplethLegend.svelte';
 	import MapActionAreasLayer from './MapActionAreasLayer.svelte';
@@ -22,6 +23,7 @@
 	import SatelliteRasterLayer from './SatelliteRasterLayer.svelte';
 	import { shortcut } from '@svelte-put/shortcut';
 	import { closePopup } from '$lib/stores/mapPopupsStore.svelte';
+	import { cn } from '$lib/utils';
 
 	interface Props {
 		stations: StationsGeoJSONType;
@@ -42,6 +44,8 @@
 	const mapZoom = $zoom;
 
 	let searchedFeature: AddressFeature | undefined = $state();
+	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
+	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 
 	const showSearchedFeature = (map: maplibregl.Map, feature: AddressFeature | undefined) => {
 		if (!feature) return;
@@ -95,7 +99,12 @@
 		}
 	}}
 />
-<div class="main-map relative grid h-full w-full items-center justify-center overflow-clip">
+<div
+	class={cn(
+		'main-map relative grid h-full w-full items-center justify-center overflow-clip',
+		showLeftSidebar ? 'left-sidebar-open' : 'left-sidebar-closed'
+	)}
+>
 	<MapLibre
 		center={[mapLon, mapLat]}
 		zoom={mapZoom}
@@ -142,6 +151,7 @@
 				<MapSearchedFeatureLayer feature={searchedFeature} />
 			{/if}
 			<MapActionAreasLayer visible={$boundariesMode === 'lors'} />
+			<ScaleControl unit="metric" position="bottom-right" />
 		{/snippet}
 	</MapLibre>
 
@@ -167,5 +177,13 @@
 		box-shadow:
 			inset 0 0 0 6px hsl(var(--background)),
 			inset 0 0 0 8px hsl(var(--ring));
+	}
+
+	.main-map :global(.maplibregl-ctrl-bottom-right .maplibregl-ctrl) {
+		margin: 0;
+		position: fixed;
+		bottom: 2rem;
+		right: 0.5rem;
+		z-index: 0;
 	}
 </style>

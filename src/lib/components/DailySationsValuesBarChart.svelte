@@ -41,13 +41,18 @@
 	const options = { debounceHistory: 500 };
 	const dayVlaue = queryParam('day_value', ssp.number(0), options);
 	const unit = queryParam('unit', ssp.string('utci'));
+	const isCategoryUnit = $derived($unit?.endsWith('_category'));
 	const hour = queryParam('hour', ssp.number(12));
 	const selectedStations = useStations();
 	const rawDatavisType = queryParam('datavisType', ssp.string('day'));
 	let datavisType = $derived(parseDatavisType($rawDatavisType));
 	let minMaxAvg: 'min' | 'max' | 'avg' = $state('avg');
 	let unitWithMinMaxAvg = $derived(
-		datavisType === 'day' ? (minMaxAvg === 'avg' ? $unit : `${$unit}_${minMaxAvg}`) : $unit
+		datavisType === 'day'
+			? minMaxAvg === 'avg' || isCategoryUnit
+				? $unit
+				: `${$unit}_${minMaxAvg}`
+			: $unit
 	);
 
 	const updateDay = debounce((d: number) => {
@@ -67,7 +72,6 @@
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 		].unitOnly()
 	);
-	const isCategoryUnit = $derived($unit?.endsWith('_category'));
 	const unitWithoutCategory = $derived(
 		$unit.replace(/_category$/, '') === 'pet' ? ('pet' as const) : ('utci' as const)
 	);
@@ -208,7 +212,7 @@
 			</span>
 		`
 	});
-	let chartHeight = $derived(validIds.length === 0 ? 0 : Math.max(96, 60 + data.length * 22));
+	let chartHeight = $derived(Math.max(96, 60 + ids.length * 22));
 
 	const dateLongFormatter = new Intl.DateTimeFormat($locale, {
 		year: 'numeric',
@@ -223,6 +227,38 @@
 		data.every((d) => d.value !== undefined && d.value < 0)
 	);
 </script>
+
+{#snippet minMaxAvgCombobox()}
+	{#if datavisType === 'day' && !isCategoryUnit}
+		<Combobox
+			defaultValue={minMaxAvg}
+			onChange={(value) => (minMaxAvg = value as 'min' | 'avg' | 'max')}
+			classes={{ trigger: 'w-fit' }}
+			options={[
+				{
+					value: 'min',
+					label: $LL.pages.measurements.minMaxAvgSelect.min()
+				},
+				{
+					value: 'avg',
+					label: $LL.pages.measurements.minMaxAvgSelect.avg()
+				},
+				{
+					value: 'max',
+					label: $LL.pages.measurements.minMaxAvgSelect.max()
+				}
+			]}
+		/>
+	{/if}
+{/snippet}
+
+{#if $query.isLoading || $query.isSuccess}
+	<h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
+		{unitLabel}
+		{unitOnly ? `(${unitOnly})` : ''}
+		{@render minMaxAvgCombobox()}
+	</h3>
+{/if}
 
 {#if unsupportedMsg}
 	<Alert variant="destructive">
@@ -249,39 +285,6 @@
 	</Alert>
 {/if}
 
-{#snippet minMaxAvgCombobox()}
-	{#if datavisType === 'day'}
-		<Combobox
-			defaultValue={minMaxAvg}
-			onChange={(value) => (minMaxAvg = value as 'min' | 'avg' | 'max')}
-			classes={{ trigger: 'w-fit' }}
-			options={[
-				{
-					value: 'min',
-					label: $LL.pages.measurements.minMaxAvgSelect.min()
-				},
-				{
-					value: 'avg',
-					label: $LL.pages.measurements.minMaxAvgSelect.avg()
-				},
-				{
-					value: 'max',
-					label: $LL.pages.measurements.minMaxAvgSelect.max()
-				}
-			]}
-		/>
-	{/if}
-{/snippet}
-
-{#snippet singleItemValue()}{/snippet}
-
-{#if $query.isLoading || ($query.isSuccess && validIds.length > 0)}
-	<h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
-		{unitLabel}
-		{unitOnly ? `(${unitOnly})` : ''}
-		{@render minMaxAvgCombobox()}
-	</h3>
-{/if}
 {#if ids.length === 1}
 	<div class="relative flex flex-col gap-2 pb-6 pt-2 text-center">
 		<span class="text-muted-foreground">
@@ -382,7 +385,10 @@
 				{/if}
 			</div>
 		{:else}
-			<UnovisChartContainer className={cn('relative')} style={`height: ${chartHeight}px`}>
+			<UnovisChartContainer
+				className={cn('relative')}
+				style={!$query.isLoading && validIds.length === 0 ? '' : `height: ${chartHeight}px`}
+			>
 				{#if validIds.length > 0}
 					<VisXYContainer
 						padding={{

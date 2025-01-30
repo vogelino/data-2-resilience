@@ -24,6 +24,7 @@
 	let hour = queryParam('hour', ssp.number(12));
 
 	function onHourChange(e: Event) {
+		e.preventDefault();
 		const target = e.target as HTMLInputElement;
 		hour.set(parseInt(target.value.split(':')[0], 10));
 	}

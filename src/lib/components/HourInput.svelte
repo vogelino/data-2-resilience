@@ -28,12 +28,14 @@
 		hour.set(parseInt(target.value.split(':')[0], 10));
 	}
 
-	function onHourUp() {
+	function onHourUp(evt: MouseEvent) {
+		evt.preventDefault();
 		const newHour = $hour + 1 > 23 ? 0 : $hour + 1;
 		hour.set(newHour);
 	}
 
-	function onHourDown() {
+	function onHourDown(evt: MouseEvent) {
+		evt.preventDefault();
 		const newHour = $hour - 1 < 0 ? 23 : $hour - 1;
 		hour.set(newHour);
 	}

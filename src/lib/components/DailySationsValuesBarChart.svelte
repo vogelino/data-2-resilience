@@ -343,7 +343,7 @@
 				{:else}
 					{#each data as d}
 						{@const healthRisk = healthRisks[d.value as unknown as keyof typeof healthRisks]}
-						<strong class="font-semibold">{d.label}</strong>
+						<strong class="max-w-48 font-semibold">{d.label}</strong>
 						<Tooltip openDelay={0} disableHoverableContent>
 							<TooltipTrigger
 								class={cn(

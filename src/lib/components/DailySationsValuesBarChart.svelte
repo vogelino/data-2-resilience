@@ -208,6 +208,13 @@
 		month: 'long',
 		day: 'numeric'
 	});
+
+	const dataContainsNegativeValues = $derived(
+		data.some((d) => d.value !== undefined && d.value < 0)
+	);
+	const dataContainsOnlyNegativeValues = $derived(
+		data.every((d) => d.value !== undefined && d.value < 0)
+	);
 </script>
 
 {#if unsupportedMsg}
@@ -298,7 +305,15 @@
 	{#key data}
 		<UnovisChartContainer className={cn('relative')} style={`height: ${chartHeight}px`}>
 			{#if validIds.length > 0}
-				<VisXYContainer padding={{ top: 8, bottom: 8, right: 16 }} height={chartHeight}>
+				<VisXYContainer
+					padding={{
+						top: 8,
+						bottom: 8,
+						right: dataContainsOnlyNegativeValues ? 0 : 16,
+						left: dataContainsNegativeValues ? 16 : 0
+					}}
+					height={chartHeight}
+				>
 					{#if $query.isSuccess && data.length > 0}
 						<VisStackedBar
 							{data}

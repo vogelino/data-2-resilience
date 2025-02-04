@@ -58,6 +58,7 @@
 		const p = page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
 		return p === '' ? 'measurements' : p;
 	});
+	const displayMode = $derived(currentPage === 'heat-stress' ? 'stroke' : 'fill');
 	const vectorTilesUrl = $derived(
 		$mode === 'dark'
 			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
@@ -145,12 +146,12 @@
 				<MapStationsLayer {stations} {map} />
 			{/if}
 			<MapMeasurementsRasterLayer hour={$hour} visible={currentPage === 'heat-stress'} />
-			<MapDistrictsLayer visible={$boundariesMode === 'districts'} />
-			<MapLorsLayer visible={$boundariesMode === 'lors'} />
+			<MapDistrictsLayer visible={$boundariesMode === 'districts'} {displayMode} />
+			<MapLorsLayer visible={$boundariesMode === 'lors'} {displayMode} />
+			<MapActionAreasLayer visible={$boundariesMode === 'lors'} {displayMode} />
 			{#if searchedFeature}
 				<MapSearchedFeatureLayer feature={searchedFeature} />
 			{/if}
-			<MapActionAreasLayer visible={$boundariesMode === 'lors'} />
 			<ScaleControl unit="metric" position="bottom-right" />
 		{/snippet}
 	</MapLibre>

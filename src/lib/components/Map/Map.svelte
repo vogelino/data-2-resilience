@@ -6,7 +6,7 @@
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import type { AddressFeature } from '$lib/utils/searchUtil';
 	import { mode } from 'mode-watcher';
-	import { MapLibre, ScaleControl } from 'svelte-maplibre';
+	import { MapLibre, ScaleControl, type Map } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ChoroplethLegend from '../ChoroplethLegend.svelte';
 	import MapActionAreasLayer from './MapActionAreasLayer.svelte';
@@ -31,6 +31,7 @@
 
 	const { stations }: Props = $props();
 
+	let map: Map | undefined = $state();
 	const config = { debounceHistory: 500 };
 	const lon = queryParam('lon', ssp.number(7.467), config);
 	const lat = queryParam('lat', ssp.number(51.511), config);
@@ -64,6 +65,11 @@
 			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
 			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
 	);
+
+	$effect(() => {
+		if (!map || !currentPage) return;
+		map.zoomTo(map.getZoom() || 10);
+	});
 
 	function disableMapRotation(map: maplibregl.Map) {
 		// disable map rotation using right click + drag
@@ -107,6 +113,7 @@
 	)}
 >
 	<MapLibre
+		bind:map
 		center={[mapLon, mapLat]}
 		zoom={mapZoom}
 		dragRotate={false}

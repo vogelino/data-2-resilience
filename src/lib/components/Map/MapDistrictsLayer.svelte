@@ -44,7 +44,7 @@
 		paint={{
 			'line-color': $mode === 'dark' ? 'black' : 'white',
 			'line-opacity': 1,
-			'line-width': displayMode === 'fill' ? 3 : 6
+			'line-width': displayMode === 'fill' ? 1 : 6
 		}}
 	/>
 	<LineLayer

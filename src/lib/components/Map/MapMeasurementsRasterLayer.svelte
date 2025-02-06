@@ -22,8 +22,10 @@
 	};
 	const hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23] // prettier-ignore
 	const date = today().setHours(hour, 0, 0, 0);
-	const dayOfYearToday = getDayOfYear(date);
-	const year = getYear(date);
+	let dayOfYearToday = getDayOfYear(date);
+	let year = getYear(date);
+	dayOfYearToday = 177;
+	year = 2024;
 	let tilesUrls = $derived(
 		hours.map((h) => {
 			const paddedHour = `${h}`.padStart(2, '0');

@@ -49,9 +49,9 @@
 			visibility: visible ? 'visible' : 'none'
 		}}
 		paint={{
-			'line-color': $mode === 'dark' ? 'black' : 'white',
+			'line-color': $mode === 'dark' || displayMode === 'stroke' ? 'black' : 'white',
 			'line-opacity': 1,
-			'line-width': displayMode === 'fill' ? 1.5 : 3
+			'line-width': displayMode === 'fill' ? 1.5 : 5
 		}}
 	/>
 	<LineLayer
@@ -61,9 +61,9 @@
 			visibility: visible ? 'visible' : 'none'
 		}}
 		paint={{
-			'line-color': $mode === 'dark' ? '#7b828f' : '#9da5b4',
+			'line-color': displayMode === 'stroke' ? 'white' : $mode === 'dark' ? '#7b828f' : '#9da5b4',
 			'line-opacity': 1,
-			'line-width': displayMode === 'stroke' ? 1 : 0.5
+			'line-width': 1
 		}}
 	/>
 </GeoJSON>

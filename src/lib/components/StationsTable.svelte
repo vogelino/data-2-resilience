@@ -1,8 +1,5 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { api } from '$lib/utils/api';
-	import type { StationMetadata } from '$lib/utils/schemas';
-	import { createQuery } from '@tanstack/svelte-query';
 	import {
 		createSvelteTable,
 		getCoreRowModel,
@@ -18,13 +15,16 @@
 		type SortingFn,
 		type SortingState
 	} from '$lib/components/table';
-	import Table from './Table.svelte';
-	import SensorTypeWithTooltip from './SensorTypeWithTooltip.svelte';
+	import { api } from '$lib/utils/api';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+	import type { StationMetadata } from '$lib/utils/schemas';
 	import { compareItems, rankItem } from '@tanstack/match-sorter-utils';
+	import { createQuery } from '@tanstack/svelte-query';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
 	import SearchInputField from './SearchInputField.svelte';
-	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+	import SensorTypeWithTooltip from './SensorTypeWithTooltip.svelte';
+	import Table from './Table.svelte';
 
 	let { stations }: { stations: StationMetadata[] } = $props();
 

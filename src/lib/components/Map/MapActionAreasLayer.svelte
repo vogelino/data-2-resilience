@@ -18,12 +18,11 @@
 		layout={{
 			'line-cap': 'round',
 			'line-join': 'round',
-			visibility: visible ? 'visible' : 'none'
+			visibility: visible && displayMode === 'stroke' ? 'visible' : 'none'
 		}}
 		paint={{
-			'line-color': $mode === 'dark' ? 'black' : 'white',
-			'line-opacity': 1,
-			'line-width': displayMode === 'fill' ? 3.5 : 7
+			'line-color': 'black',
+			'line-width': 10
 		}}
 	/>
 	<FillLayer
@@ -32,7 +31,7 @@
 		}}
 		paint={{
 			'fill-color': displayMode === 'fill' ? '#FACC13' : 'transparent',
-			'fill-opacity': 0.2
+			'fill-opacity': 0.3
 		}}
 	>
 		<Popup closeOnClickOutside openOn="click" closeOnClickInside closeOnMove onopen={addPopup}>
@@ -57,8 +56,8 @@
 			visibility: visible ? 'visible' : 'none'
 		}}
 		paint={{
-			'line-color': '#FACC13',
-			'line-width': displayMode === 'stroke' ? 3 : 1.5
+			'line-color': displayMode === 'stroke' ? 'white' : '#FACC13',
+			'line-width': displayMode === 'stroke' ? 4 : 1
 		}}
 	/>
 </GeoJSON>

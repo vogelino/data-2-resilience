@@ -3,7 +3,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Command from '$lib/components/ui/command';
 	import * as Popover from '$lib/components/ui/popover';
-	import { unit } from '$lib/stores/uiStore';
+	import { unit, updateUnit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils.js';
 	import { Check, ChevronDown } from 'lucide-svelte';
 	import { tick } from 'svelte';
@@ -79,7 +79,7 @@
 						<Command.Item
 							{value}
 							onSelect={() => {
-								$unit = value;
+								updateUnit(value);
 								closeAndFocusTrigger(ids.trigger);
 							}}
 						>

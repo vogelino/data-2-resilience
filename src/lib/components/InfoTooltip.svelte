@@ -7,9 +7,10 @@
 		title?: string;
 		description?: string;
 		triggerLabel?: string;
+		class?: string;
 	}
 
-	let { title = '', description = '', triggerLabel = '' }: Props = $props();
+	let { title = '', description = '', triggerLabel = '', class: className = '' }: Props = $props();
 </script>
 
 {#if title || description}
@@ -18,7 +19,8 @@
 			class={cn(
 				'focusable hover-hover:hover:bg-foreground hover-hover:hover:text-background',
 				'group flex items-center gap-2 rounded-full p-1 transition',
-				triggerLabel && '-ml-2.5 pl-2.5 pr-1.5'
+				triggerLabel && '-ml-2.5 pl-2.5 pr-1.5',
+				className
 			)}
 		>
 			{#if triggerLabel}

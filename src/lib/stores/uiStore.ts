@@ -99,12 +99,13 @@ export const updateUnit = (value: string) => {
 	unitQueryParam.set(value);
 };
 
+export const isCategoryUnit = derived(unit, (u) => u.endsWith('_category'));
 export const minMaxAvg = writable<'min' | 'max' | 'avg'>('avg');
 export const unitWithMinMaxAvg = derived(
-	[unit, datavisType, minMaxAvg],
-	([unit, datavisType, minMaxAvgState]) => {
-		if (datavisType !== 'day') return unit;
-		return minMaxAvgState === 'avg' ? unit : `${unit}_${minMaxAvgState}`;
+	[unit, datavisType, minMaxAvg, isCategoryUnit],
+	([u, dT, mMA, iCU]) => {
+		if (dT !== 'day') return u;
+		return mMA === 'avg' || iCU ? u : `${u}_${mMA}`;
 	}
 );
 export const unitLabel = derived([unit, LL], ([u, ll]) => {

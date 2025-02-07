@@ -9,7 +9,7 @@
 	import type { AddressFeature } from '$lib/utils/searchUtil';
 	import { shortcut } from '@svelte-put/shortcut';
 	import { mode } from 'mode-watcher';
-	import { MapLibre, ScaleControl } from 'svelte-maplibre';
+	import { MapLibre, ScaleControl, type Map } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ChoroplethLegend from '../ChoroplethLegend.svelte';
 	import MapActionAreasLayer from './MapActionAreasLayer.svelte';
@@ -31,6 +31,7 @@
 
 	const { stations }: Props = $props();
 
+	let map: Map | undefined = $state();
 	const config = { debounceHistory: 500 };
 	const lon = queryParam('lon', ssp.number(7.467), config);
 	const lat = queryParam('lat', ssp.number(51.511), config);
@@ -58,11 +59,17 @@
 		const p = page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
 		return p === '' ? 'measurements' : p;
 	});
+	const displayMode = $derived(currentPage === 'heat-stress' ? 'stroke' : 'fill');
 	const vectorTilesUrl = $derived(
 		$mode === 'dark'
 			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
 			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
 	);
+
+	$effect(() => {
+		if (!map || !currentPage) return;
+		map.zoomTo(map.getZoom() || 10);
+	});
 
 	function disableMapRotation(map: maplibregl.Map) {
 		// disable map rotation using right click + drag
@@ -106,6 +113,7 @@
 	)}
 >
 	<MapLibre
+		bind:map
 		center={[mapLon, mapLat]}
 		zoom={mapZoom}
 		dragRotate={false}
@@ -145,12 +153,12 @@
 				<MapStationsLayer {stations} {map} />
 			{/if}
 			<MapMeasurementsRasterLayer hour={$hour} visible={currentPage === 'heat-stress'} />
-			<MapDistrictsLayer visible={$boundariesMode === 'districts'} />
-			<MapLorsLayer visible={$boundariesMode === 'lors'} />
+			<MapDistrictsLayer visible={$boundariesMode === 'districts'} {displayMode} />
+			<MapLorsLayer visible={$boundariesMode === 'lors'} {displayMode} />
+			<MapActionAreasLayer visible={$boundariesMode === 'lors'} {displayMode} />
 			{#if searchedFeature}
 				<MapSearchedFeatureLayer feature={searchedFeature} />
 			{/if}
-			<MapActionAreasLayer visible={$boundariesMode === 'lors'} />
 			<ScaleControl unit="metric" position="bottom-right" />
 		{/snippet}
 	</MapLibre>

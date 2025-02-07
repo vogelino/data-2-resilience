@@ -17,9 +17,16 @@ export const rangeStart = derived(rangeStartQueryParam, (value: number) =>
 );
 export const rangeStartDate = writable<Date>(addDays(today(), rangeStartDefault));
 export const rangeStartKey = derived(rangeStartDate, (d) => d && format(d, 'yyyy-MM-dd'));
-export const udpateRangeStart = debounce((d: number) => {
+
+export const udpateRangeStart = (d: number) => {
 	if (!browser) return;
-	udpateRangeStart?.cancel();
+	debouncedUpdateRangeStart?.cancel();
+	rangeStartQueryParam.set(d);
+};
+
+const debouncedUpdateRangeStart = debounce((d: number) => {
+	if (!browser) return;
+	debouncedUpdateRangeStart?.cancel();
 	rangeStartDate.set(addDays(today(), d));
 }, 500);
 
@@ -36,9 +43,15 @@ export const rangeEnd = derived(rangeEndQueryParam, (value: number) =>
 export const rangeEndDate = writable<Date>(addDays(today(), rangeEndDefault));
 export const rangeEndKey = derived(rangeEndDate, (d) => d && format(d, 'yyyy-MM-dd'));
 
-export const updateRangeEnd = debounce((d: number) => {
+export const updateRangeEnd = (d: number) => {
 	if (!browser) return;
-	updateRangeEnd?.cancel();
+	debouncedUpdateRangeEnd?.cancel();
+	rangeEndQueryParam.set(d);
+};
+
+const debouncedUpdateRangeEnd = debounce((d: number) => {
+	if (!browser) return;
+	debouncedUpdateRangeEnd?.cancel();
 	rangeEndDate.set(addDays(today(), d));
 }, 500);
 
@@ -68,15 +81,21 @@ export const dayStartDate = writable<Date>(addDays(today(), dayValueDefault - 1)
 export const dayEndDate = writable<Date>(addDays(today(), dayValueDefault));
 export const dayKey = derived(dayEndDate, (d) => d && format(d, 'yyyy-MM-dd'));
 
-export const udpateDay = debounce((d: number) => {
+export const udpateDay = (d: number) => {
 	if (!browser) return;
-	udpateRangeStart?.cancel();
+	debouncedUpdateDay?.cancel();
+	dayValueQueryParam.set(d);
+};
+
+const debouncedUpdateDay = debounce((d: number) => {
+	if (!browser) return;
+	debouncedUpdateDay?.cancel();
 	dayStartDate.set(addDays(today(), d - 1));
 	dayEndDate.set(addDays(today(), d));
 }, 500);
 
 if (browser) {
-	dayValue.subscribe(udpateDay);
+	dayValue.subscribe(debouncedUpdateDay);
 }
 
 // DATAVIS TYPE
@@ -165,34 +184,37 @@ export const updateSearchQuery = (value: string) => {
 const lonDefault = 7.467;
 const latDefault = 51.511;
 const zoomDefault = 10.5;
+
+type MapViewport = [longitude: number, latitude: number, zoom: number];
+const defaultViewport: MapViewport = [lonDefault, latDefault, zoomDefault];
 const boundariesModeDefault = 'districts' as const;
 const showSatelliteDefault = false;
 
-const lonQueryParam = queryParam('lon', ssp.number(lonDefault), options);
-const latQueryParam = queryParam('lat', ssp.number(latDefault), options);
-const zoomQueryParam = queryParam('zoom', ssp.number(zoomDefault), options);
-const boundariesModeQueryParam = queryParam('boundariesMode', ssp.string(boundariesModeDefault));
-const showSatelliteQueryParam = queryParam('showSatellite', ssp.boolean(showSatelliteDefault));
-
-export const coords = derived(
-	[lonQueryParam, latQueryParam],
-	([lon, lat]) =>
-		[
-			validateQueryParam(lon, z.number(), lonDefault),
-			validateQueryParam(lat, z.number(), latDefault)
-		] as [number, number]
+const latitudeQueryParam = queryParam('lat', ssp.number(defaultViewport[1]), options);
+export const mapLatitude = derived(latitudeQueryParam, (value: number) =>
+	validateQueryParam(value, z.number(), latDefault)
 );
-export const setCoords = (coords: [number, number]) => {
-	lonQueryParam.set(coords[0]);
-	latQueryParam.set(coords[1]);
-};
-
-export const zoom = derived(zoomQueryParam, (value: number) =>
+const longitudeQueryParam = queryParam('lng', ssp.number(defaultViewport[0]), options);
+export const mapLongitude = derived(longitudeQueryParam, (value: number) =>
+	validateQueryParam(value, z.number(), lonDefault)
+);
+const zoomQueryParam = queryParam('zoom', ssp.number(defaultViewport[2]), options);
+export const mapZoom = derived(zoomQueryParam, (value: number) =>
 	validateQueryParam(value, z.number(), zoomDefault)
 );
-export const setZoom = (value: number) => {
-	zoomQueryParam.set(value);
-};
+
+export const updateMapCoordinates = debounce((coords: [longitude: number, latitude: number]) => {
+	longitudeQueryParam.set(coords[0]);
+	latitudeQueryParam.set(coords[1]);
+}, 500);
+
+export const updateMapZoom = debounce((zoom: number) => {
+	zoomQueryParam.set(zoom);
+}, 500);
+
+// MAP SETTINGS
+const boundariesModeQueryParam = queryParam('boundariesMode', ssp.string(boundariesModeDefault));
+const showSatelliteQueryParam = queryParam('showSatellite', ssp.boolean(showSatelliteDefault));
 
 export const boundariesMode = derived(boundariesModeQueryParam, (value: string) =>
 	validateQueryParam(value, z.string(), boundariesModeDefault)
@@ -206,9 +228,7 @@ export const showSatellite = derived(showSatelliteQueryParam, (value: boolean) =
 );
 export const setShowSatellite = (value: boolean) => {
 	showSatelliteQueryParam.set(value);
-};	
-
-
+};
 
 // UTILS
 function validateQueryParam<T>(queryParam: unknown, schema: z.ZodSchema<T>, defaultValue: T): T {

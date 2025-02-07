@@ -4,13 +4,23 @@
 	import { locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { closePopup } from '$lib/stores/mapPopupsStore.svelte';
-	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
+	import {
+		boundariesMode,
+		hour,
+		isLeftSidebarOpened,
+		mapLatitude,
+		mapLongitude,
+		mapZoom,
+		showSatellite,
+		updateMapCoordinates,
+		updateMapZoom
+	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import type { AddressFeature } from '$lib/utils/searchUtil';
 	import { shortcut } from '@svelte-put/shortcut';
 	import { mode } from 'mode-watcher';
+	import { onMount } from 'svelte';
 	import { MapLibre, ScaleControl, type Map } from 'svelte-maplibre';
-	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ChoroplethLegend from '../ChoroplethLegend.svelte';
 	import MapActionAreasLayer from './MapActionAreasLayer.svelte';
 	import MapAttribution from './MapAttribution.svelte';
@@ -32,21 +42,20 @@
 	const { stations }: Props = $props();
 
 	let map: Map | undefined = $state();
-	const config = { debounceHistory: 500 };
-	const lon = queryParam('lon', ssp.number(7.467), config);
-	const lat = queryParam('lat', ssp.number(51.511), config);
-	const zoom = queryParam('zoom', ssp.number(10.5), config);
-	const hour = queryParam('hour', ssp.number(12), config);
-	const boundariesMode = queryParam('boundariesMode', ssp.string('districts'));
-	const showSatellite = queryParam('showSatellite', ssp.boolean(false));
-
-	const mapLat = $lat;
-	const mapLon = $lon;
-	const mapZoom = $zoom;
 
 	let searchedFeature: AddressFeature | undefined = $state();
 	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
 	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
+
+	let mapLng = $state($mapLongitude);
+	let mapLat = $state($mapLatitude);
+	let mapZ = $state($mapZoom);
+
+	onMount(() => {
+		mapLng = $mapLongitude;
+		mapLat = $mapLatitude;
+		mapZ = $mapZoom;
+	});
 
 	const showSearchedFeature = (map: maplibregl.Map, feature: AddressFeature | undefined) => {
 		if (!feature) return;
@@ -114,8 +123,8 @@
 >
 	<MapLibre
 		bind:map
-		center={[mapLon, mapLat]}
-		zoom={mapZoom}
+		center={[mapLng, mapLat]}
+		zoom={mapZ}
 		dragRotate={false}
 		pitchWithRotate={false}
 		maxPitch={0}
@@ -131,10 +140,9 @@
 		onmoveend={(e) => {
 			if (!e.target) return;
 			const center = e.target.getCenter();
-			lon.set(center.lng);
-			lat.set(center.lat);
-			if (!e.target.getZoom()) return;
-			zoom.set(e.target.getZoom());
+			const zoom = e.target.getZoom();
+			center && updateMapCoordinates([center.lng, center.lat]);
+			zoom && updateMapZoom(zoom);
 		}}
 		onload={onMapLoad}
 	>

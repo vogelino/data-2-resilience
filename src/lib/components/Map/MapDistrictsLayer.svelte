@@ -7,9 +7,10 @@
 
 	interface Props {
 		visible?: boolean;
+		displayMode?: 'fill' | 'stroke';
 	}
 
-	const { visible = true }: Props = $props();
+	const { visible = true, displayMode = 'fill' }: Props = $props();
 </script>
 
 <GeoJSON id="districts" data={districts} promoteId="DISTRICTS">
@@ -41,8 +42,21 @@
 			visibility: visible ? 'visible' : 'none'
 		}}
 		paint={{
+			'line-color': $mode === 'dark' ? 'black' : 'white',
+			'line-opacity': 1,
+			'line-width': displayMode === 'fill' ? 1 : 6
+		}}
+	/>
+	<LineLayer
+		layout={{
+			'line-cap': 'round',
+			'line-join': 'round',
+			visibility: visible ? 'visible' : 'none'
+		}}
+		paint={{
 			'line-color': $mode === 'dark' ? 'white' : 'black',
-			'line-opacity': 1
+			'line-opacity': 1,
+			'line-width': displayMode === 'fill' ? 1 : 2
 		}}
 	/>
 </GeoJSON>

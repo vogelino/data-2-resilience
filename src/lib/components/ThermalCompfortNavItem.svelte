@@ -58,7 +58,11 @@
 		<div class="relative flex w-full items-center justify-between gap-4 pr-8 font-semibold">
 			<div class="inline-flex items-center gap-1.5">
 				{indicator.title}
-				<InfoTooltip title={indicator.title} description={indicator.description} />
+				<InfoTooltip
+					title={indicator.title}
+					description={indicator.description}
+					class="relative z-20"
+				/>
 			</div>
 			<span
 				class={cn(
@@ -83,6 +87,7 @@
 								'border border-r-0 border-border px-3 py-1.5 text-center',
 								'rounded-l bg-background transition group-hover/indicators:bg-muted',
 								'focusable focus-visible:z-10 focus-visible:rounded focus-visible:border',
+								'relative z-20',
 								categorySelected &&
 									'border-primary bg-primary font-semibold text-primary-foreground group-hover/indicators:bg-primary group-hover/indicators:text-primary-foreground',
 								!categorySelected && 'group-hover/indicators:hover:bg-background'
@@ -103,6 +108,7 @@
 								'border border-l-0 border-border px-3 py-1.5 text-center',
 								'rounded-r bg-background transition group-hover/indicators:bg-muted',
 								'focusable focus-visible:z-10 focus-visible:rounded focus-visible:border',
+								'relative z-20',
 								valueSelected &&
 									'border-primary bg-primary font-semibold text-primary-foreground group-hover/indicators:bg-primary group-hover/indicators:text-primary-foreground',
 								!valueSelected && 'group-hover/indicators:hover:bg-background'

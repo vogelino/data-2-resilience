@@ -7,19 +7,31 @@
 
 	interface Props {
 		visible?: boolean;
+		displayMode?: 'fill' | 'stroke';
 	}
 
-	const { visible = false }: Props = $props();
+	const { visible = false, displayMode = 'fill' }: Props = $props();
 </script>
 
 <GeoJSON id="action-areas" data={actionareas} promoteId="ACTION_AREAS">
+	<LineLayer
+		layout={{
+			'line-cap': 'round',
+			'line-join': 'round',
+			visibility: visible && displayMode === 'stroke' ? 'visible' : 'none'
+		}}
+		paint={{
+			'line-color': 'black',
+			'line-width': 10
+		}}
+	/>
 	<FillLayer
 		layout={{
 			visibility: visible ? 'visible' : 'none'
 		}}
 		paint={{
-			'fill-color': '#FACC13',
-			'fill-opacity': 0.5
+			'fill-color': displayMode === 'fill' ? '#FACC13' : 'transparent',
+			'fill-opacity': 0.3
 		}}
 	>
 		<Popup closeOnClickOutside openOn="click" closeOnClickInside closeOnMove onopen={addPopup}>
@@ -44,8 +56,8 @@
 			visibility: visible ? 'visible' : 'none'
 		}}
 		paint={{
-			'line-color': $mode === 'dark' ? 'white' : 'black',
-			'line-width': 0.5
+			'line-color': displayMode === 'stroke' ? 'white' : '#FACC13',
+			'line-width': displayMode === 'stroke' ? 4 : 1
 		}}
 	/>
 </GeoJSON>

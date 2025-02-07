@@ -1,26 +1,24 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
+	import { rangeEndDate, rangeEndKey, rangeStartDate, rangeStartKey, udpateRangeStart, updateRangeEnd } from '$lib/stores/queryPatamsStore.svelte';
 	import { useStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
-	import { today } from '$lib/utils/dateUtil';
 	import {
 		getHeatStressCategoryByValue,
 		getHeatStressValueByCategory
 	} from '$lib/utils/heatStressCategoriesUtil';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
+	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisCrosshair, VisLine, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { Position } from '@unovis/ts';
 	import Alert from 'components/ui/alert/alert.svelte';
-	import { addDays, format } from 'date-fns';
-	import { debounce } from 'es-toolkit';
 	import { LoaderCircle } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ErrorAlert from '../ErrorAlert.svelte';
 	import UnovisChartContainer from '../UnovisChartContainer.svelte';
-	import { createQuery } from '@tanstack/svelte-query';
-	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { getStationDataFetcher } from './stationsLineChartUtil';
 
 	const CHART_COLORS = [
@@ -51,25 +49,14 @@
 
 	let { stations }: Props = $props();
 
-	let start_date: Date | undefined = $state();
-	let end_date: Date | undefined = $state();
 	const options = { debounceHistory: 500 };
 	const rangeStart = queryParam('range_start', ssp.number(-10), options);
 	const rangeEnd = queryParam('range_end', ssp.number(0), options);
 	const unit = queryParam('unit', ssp.string('utci'));
-	const selectedStations = useStations();
+	const ids = useStations();
 
-	const updateStartDate = debounce((d: number) => {
-		updateStartDate?.cancel();
-		start_date = addDays(today(), d);
-	}, 500);
-	const updateEndDate = debounce((d: number) => {
-		updateEndDate?.cancel();
-		end_date = addDays(today(), d);
-	}, 500);
-
-	rangeStart.subscribe(updateStartDate);
-	rangeEnd.subscribe(updateEndDate);
+	rangeStart.subscribe(udpateRangeStart);
+	rangeEnd.subscribe(updateRangeEnd);
 
 	type DataRecord = Record<string, unknown> & {
 		date: Date;
@@ -78,24 +65,21 @@
 	const x = (d: DataRecord) => d.date.getTime();
 	const color = (_d: DataRecord, idx: number) => CHART_COLORS[idx];
 
-	const ids = $derived($selectedStations.filter(Boolean).toSorted());
-	const startDateKey = $derived(start_date && format(start_date, 'yyyy-MM-dd'));
-	const endDateKey = $derived(end_date && format(end_date, 'yyyy-MM-dd'));
 	const queryFn = $derived.by(() =>
 		getStationDataFetcher({
-			ids,
-			start_date,
-			end_date,
+			ids: $ids,
+			start_date: $rangeStartDate,
+			end_date: $rangeEndDate,
 			unit: $unit,
 			stations: stations.features
 		})
 	);
 	let query = createQuery(
 		reactiveQueryArgs(() => ({
-			queryKey: ['stationsData-range', ids?.join('-'), startDateKey, endDateKey, $unit],
+			queryKey: ['stationsData-range', $ids?.join('-'), $rangeStartKey, $rangeEndKey, $unit],
 			queryFn,
 			enabled: Boolean(
-				ids?.length > 0 && stations?.features?.length > 0 && start_date && end_date && unit
+				$ids?.length > 0 && stations?.features?.length > 0 && $rangeStartDate && $rangeEndDate && $unit
 			)
 		}))
 	);
@@ -103,7 +87,7 @@
 	const data = $derived(queryData?.lineChartData || ([] as DataRecord[]).filter(Boolean));
 	const isCatChart = $derived($unit.endsWith('_category'));
 	const y = $derived(
-		$selectedStations.map(
+		$ids.map(
 			(id) => (d: DataRecord) =>
 				isCatChart
 					? getHeatStressValueByCategory(`${d[id as keyof typeof d]}` as string)
@@ -111,7 +95,7 @@
 		)
 	);
 	const idsColors = $derived(
-		$selectedStations.reduce((acc, id, idx) => ({ ...acc, [id]: CHART_COLORS[idx] }), {})
+		$ids.reduce((acc, id, idx) => ({ ...acc, [id]: CHART_COLORS[idx] }), {})
 	);
 	const xTickFormat = $derived((d: Date) =>
 		new Intl.DateTimeFormat($locale, { dateStyle: 'long' }).format(d)
@@ -129,7 +113,7 @@
 	);
 	let unsupportedIds = $derived(queryData?.unsupportedIds || []);
 	let legendItems = $derived(
-		$selectedStations
+		$ids
 			.filter((id) => !unsupportedIds.includes(id))
 			.map((id) => ({
 				id,
@@ -179,7 +163,7 @@
 	);
 	let unsupportedMsg = $derived(
 		getMessageForUnsupportedStations({
-			ids: $selectedStations,
+			ids: $ids,
 			unsupportedIds,
 			unit: $unit,
 			stations: stations.features,

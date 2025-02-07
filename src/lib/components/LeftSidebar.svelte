@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import LL, { locale } from '$i18n/i18n-svelte';
-	import { isLeftSidebarOpened, tabActive } from '$lib/stores/uiStore';
+	import { isLeftSidebarOpened } from '$lib/stores/queryPatamsStore.svelte';
 	import { cn } from '$lib/utils';
 	import { onMount } from 'svelte';
-	import WelcomeMessage from './WelcomeMessage.svelte';
 	import { queryParameters } from 'sveltekit-search-params';
+	import WelcomeMessage from './WelcomeMessage.svelte';
 	interface Props {
 		children?: import('svelte').Snippet;
 	}
@@ -32,9 +32,6 @@
 		}
 	]);
 
-	$effect(() => {
-		$tabActive = tabs.find((tab) => tab.isActive)?.slug || tabs[0].slug;
-	});
 	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
 	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 

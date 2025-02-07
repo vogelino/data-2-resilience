@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { page as storePage } from '$app/stores';
-	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 	import { locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
+	import { closePopup } from '$lib/stores/mapPopupsStore.svelte';
+	import { isLeftSidebarOpened } from '$lib/stores/queryPatamsStore.svelte';
+	import { cn } from '$lib/utils';
 	import type { AddressFeature } from '$lib/utils/searchUtil';
+	import { shortcut } from '@svelte-put/shortcut';
 	import { mode } from 'mode-watcher';
 	import { MapLibre, ScaleControl } from 'svelte-maplibre';
 	import { queryParam, ssp } from 'sveltekit-search-params';
@@ -21,9 +24,6 @@
 	import MapStationsLayer from './MapStationsLayer.svelte';
 	import MapZoomControl from './MapZoomControl.svelte';
 	import SatelliteRasterLayer from './SatelliteRasterLayer.svelte';
-	import { shortcut } from '@svelte-put/shortcut';
-	import { closePopup } from '$lib/stores/mapPopupsStore.svelte';
-	import { cn } from '$lib/utils';
 
 	interface Props {
 		stations: StationsGeoJSONType;

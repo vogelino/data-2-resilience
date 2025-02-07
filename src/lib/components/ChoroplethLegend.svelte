@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
+	import { Button } from '$lib/components/ui/button';
 	import * as Popover from '$lib/components/ui/popover';
-	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
+	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
+	import { isLeftSidebarOpened } from '$lib/stores/queryPatamsStore.svelte';
 	import { cn } from '$lib/utils';
 	import { unitsToScalesMap } from '$lib/utils/colorScaleUtil';
 	import { HeartPulse, X } from 'lucide-svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
-	import { Button } from '$lib/components/ui/button';
-	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
 
 	const heatStressUnit = queryParam('heatStress', ssp.string('utci'));
 	const unit = queryParam('unit', ssp.string('utci'));

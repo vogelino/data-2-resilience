@@ -1,12 +1,11 @@
 <!-- @migration-task Error while migrating Svelte code: This migration would change the name of a slot making the component unusable -->
 <script lang="ts">
-	import { LL } from '$i18n/i18n-svelte';
-	import { isLeftSidebarOpened, toggleLeftSidebar } from '$lib/stores/uiStore';
+	import { page } from '$app/stores';
+	import { LL, locale } from '$i18n/i18n-svelte';
+	import { isLeftSidebarOpened, toggleLeftSidebar } from '$lib/stores/queryPatamsStore.svelte';
 	import { cn } from '$lib/utils';
 	import { SidebarClose, SidebarOpen } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
-	import { page } from '$app/stores';
-	import { locale } from '$i18n/i18n-svelte';
 
 	$: isAboutPage = $page.url.pathname.replace(`/${$locale}`, '') === '/about';
 	$: showLeftSidebar = $isLeftSidebarOpened && !isAboutPage;

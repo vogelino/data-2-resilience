@@ -1,27 +1,23 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
+	import { datavisType, dayEndDate, dayKey, dayStartDate, hourKey, minMaxAvg, scale, unit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/queryPatamsStore.svelte';
 	import { useStations } from '$lib/stores/stationsStore';
 	import { cn } from '$lib/utils';
+	import { api } from '$lib/utils/api';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
-	import { today } from '$lib/utils/dateUtil';
-	import { parseDatavisType } from '$lib/utils/parsingUtil';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
+	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { StackedBar } from '@unovis/ts';
-	import { addDays, format, setHours } from 'date-fns';
-	import { debounce } from 'es-toolkit';
 	import { LoaderCircle } from 'lucide-svelte';
-	import { queryParam, ssp } from 'sveltekit-search-params';
+	import Combobox from './Combobox.svelte';
 	import ErrorAlert from './ErrorAlert.svelte';
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
 	import { Alert } from './ui/alert';
-	import Combobox from './Combobox.svelte';
-	import { createQuery, type QueryFunctionContext } from '@tanstack/svelte-query';
-	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
-	import { api } from '$lib/utils/api';
-	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 
 	interface Props {
 		stations: StationsGeoJSONType;
@@ -36,57 +32,28 @@
 		supported: boolean;
 	};
 
-	let date: Date | undefined = $state();
-	const options = { debounceHistory: 500 };
-	const dayVlaue = queryParam('day_value', ssp.number(0), options);
-	const unit = queryParam('unit', ssp.string('utci'));
-	const hour = queryParam('hour', ssp.number(12));
-	const selectedStations = useStations();
-	const rawDatavisType = queryParam('datavisType', ssp.string('day'));
-	let datavisType = $derived(parseDatavisType($rawDatavisType));
-	let minMaxAvg: 'min' | 'max' | 'avg' = $state('avg');
-	let unitWithMinMaxAvg = $derived(
-		datavisType === 'day' ? (minMaxAvg === 'avg' ? $unit : `${$unit}_${minMaxAvg}`) : $unit
-	);
+	const ids = useStations();
 
-	const updateDay = debounce((d: number) => {
-		updateDay?.cancel();
-		date = addDays(today(), d);
-	}, 500);
-
-	dayVlaue.subscribe(updateDay);
-
-	let unitLabel = $derived(
-		$LL.pages.measurements.unitSelect.units[
-			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].label()
-	);
-	let unitOnly = $derived(
-		$LL.pages.measurements.unitSelect.units[
-			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].unitOnly()
-	);
-
-	let ids = $derived($selectedStations.filter(Boolean).toSorted());
-	const scale = $derived(datavisType === 'day' ? 'daily' : 'hourly');
-	const hourParam = $derived(scale === 'hourly' ? $hour : undefined);
-	const dateKey = $derived(date && format(date, 'yyyy-MM-dd'));
 	let query = createQuery(
 		reactiveQueryArgs(() => ({
-			queryKey: ['stationsData-daily', ids.join('-'), dateKey, unitWithMinMaxAvg, scale, hourParam],
+			queryKey: [
+				'stationsData-daily',
+				$ids.join('-'),
+				$dayKey,
+				$unitWithMinMaxAvg,
+				$scale,
+				$hourKey
+			],
 			queryFn: async () => {
-				if (ids.length === 0 || !date || !unitWithMinMaxAvg) return [];
-				const promises = ids.map(async (id) => {
-					if (ids.length === 0 || !date || !unitWithMinMaxAvg) return;
-					const isHour = scale === 'hourly' && typeof $hour === 'number';
-					const startDate = isHour ? setHours(date, $hour) : addDays(date, -1);
-					const endDate = isHour ? setHours(date, $hour) : date || '';
+				if ($ids.length === 0 || !$dayStartDate || !$dayEndDate || !$unitWithMinMaxAvg) return [];
+				const promises = $ids.map(async (id) => {
+					if ($ids.length === 0 || !$dayStartDate || !$dayEndDate || !$unitWithMinMaxAvg) return;
 					const itemResults = await api().getStationData({
 						id,
-						start_date: startDate,
-						end_date: endDate,
-						param: unitWithMinMaxAvg as unknown as WeatherMeasurementKeyNoMinMax,
-						scale
+						start_date: $dayStartDate,
+						end_date: $dayEndDate,
+						param: $unitWithMinMaxAvg as unknown as WeatherMeasurementKeyNoMinMax,
+						scale: $scale
 					});
 					const label =
 						stations.features.find((f) => f.properties.id === id)?.properties.longName || id;
@@ -102,7 +69,7 @@
 					return {
 						id,
 						label,
-						value: i ? (i[unitWithMinMaxAvg as keyof typeof i] as unknown as number) : undefined,
+						value: i ? (i[$unitWithMinMaxAvg as keyof typeof i] as unknown as number) : undefined,
 						supported: true
 					};
 				});
@@ -110,7 +77,7 @@
 				const results = await Promise.all(promises);
 				return results as DataRecord[];
 			},
-			enabled: Boolean(ids.length > 0 && date && unitWithMinMaxAvg)
+			enabled: Boolean($ids.length > 0 && $dayStartDate && $dayEndDate && $unitWithMinMaxAvg)
 		}))
 	);
 
@@ -129,7 +96,7 @@
 	let insufficientDataIds = $derived(
 		data.filter((d) => d.supported && d.value === undefined).map((d) => d.id)
 	);
-	let noneSufficientData = $derived(insufficientDataIds.length === ids.length);
+	let noneSufficientData = $derived(insufficientDataIds.length === $ids.length);
 	let insufficientDataStations = $derived(
 		stations.features
 			.filter((f) => insufficientDataIds.includes(f.properties.id))
@@ -138,7 +105,7 @@
 	let unsupportedIds = $derived(data.filter((d) => !d.supported).map((d) => d.id));
 	let unsupportedMsg = $derived(
 		getMessageForUnsupportedStations({
-			ids,
+			ids: $ids,
 			unsupportedIds,
 			unit: $unit,
 			stations: stations.features,
@@ -186,17 +153,17 @@
 						d.value === undefined &&
 							unsupportedIds.includes(d.id) &&
 							$LL.pages.measurements.singleUnsupportedStation({
-								unit: unitLabel,
+								unit: $unitLabel,
 								station: d.label
 							}),
 						d.value === undefined &&
 							insufficientDataIds.includes(d.id) &&
 							$LL.pages.measurements.singleInsufficientDataStation({
-								unit: unitLabel,
+								unit: $unitLabel,
 								station: d.label
 							})
 					)}
-					${d.value ? unitOnly : ''}
+					${d.value ? $unitOnly : ''}
 				</span>
 			</span>
 		`
@@ -226,16 +193,16 @@
 	<Alert variant="warning">
 		{#if $query.isSuccess && noneSufficientData}
 			{@html $LL.pages.measurements.allInsufficientDataStations({
-				unit: unitLabel
+				unit: $unitLabel
 			})}
 		{:else if $query.isSuccess && insufficientDataIds.length === 1}
 			{@html $LL.pages.measurements.singleInsufficientDataStation({
-				unit: unitLabel,
+				unit: $unitLabel,
 				station: insufficientDataStations[0].properties.longName
 			})}
 		{:else if $query.isSuccess && insufficientDataIds.length > 1}
 			{@html $LL.pages.measurements.someInsufficientDataStations({
-				unit: unitLabel,
+				unit: $unitLabel,
 				stations: insufficientDataStations.map(({ properties }) => properties.longName).join(', ')
 			})}
 		{/if}
@@ -243,10 +210,10 @@
 {/if}
 
 {#snippet minMaxAvgCombobox()}
-	{#if datavisType === 'day'}
+	{#if $datavisType === 'day'}
 		<Combobox
-			defaultValue={minMaxAvg}
-			onChange={(value) => (minMaxAvg = value as 'min' | 'avg' | 'max')}
+			defaultValue={$minMaxAvg}
+			onChange={(value) => ($minMaxAvg = value as 'min' | 'avg' | 'max')}
 			classes={{ trigger: 'w-fit' }}
 			options={[
 				{
@@ -268,18 +235,18 @@
 
 {#if $query.isLoading || ($query.isSuccess && validIds.length > 0)}
 	<h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
-		{unitLabel}
-		{unitOnly ? `(${unitOnly})` : ''}
+		{$unitLabel}
+		{$unitOnly ? `(${$unitOnly})` : ''}
 		{@render minMaxAvgCombobox()}
 	</h3>
 {/if}
-{#if ids.length === 1}
+{#if $ids.length === 1}
 	<div class="relative flex flex-col gap-2 pb-6 pt-2 text-center">
 		<span class="text-muted-foreground">
 			{#if $query.isLoading}
 				<span class="inline-block h-4 w-40 animate-pulse rounded-sm bg-muted-foreground/20"></span>
-			{:else if date && firstValidValueLabel}
-				{dateLongFormatter.format(date)}
+			{:else if $dayStartDate && firstValidValueLabel}
+				{dateLongFormatter.format($dayStartDate)}
 			{/if}
 		</span>
 		<strong class="flex items-center justify-center gap-2 text-3xl leading-tight">

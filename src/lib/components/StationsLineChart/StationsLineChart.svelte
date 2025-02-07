@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
-	import { rangeEndDate, rangeEndKey, rangeStartDate, rangeStartKey, udpateRangeStart, updateRangeEnd } from '$lib/stores/queryPatamsStore.svelte';
 	import { useStations } from '$lib/stores/stationsStore';
+	import { rangeEndDate, rangeEndKey, rangeStartDate, rangeStartKey, udpateRangeStart, updateRangeEnd } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import {
 		getHeatStressCategoryByValue,

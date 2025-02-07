@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
-	import { datavisType, dayEndDate, dayKey, dayStartDate, hourKey, minMaxAvg, scale, unit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/queryPatamsStore.svelte';
 	import { useStations } from '$lib/stores/stationsStore';
+	import { datavisType, dayEndDate, dayKey, dayStartDate, hourKey, minMaxAvg, scale, unit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { api } from '$lib/utils/api';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';

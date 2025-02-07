@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
-	import { datavisType } from '$lib/stores/queryPatamsStore.svelte';
 	import { useStations } from '$lib/stores/stationsStore';
+	import { datavisType } from '$lib/stores/uiStore';
 	import DailySationsValuesBarChart from './DailySationsValuesBarChart.svelte';
 	import DateRangeSlider from './DateRangeSlider.svelte';
 	import StationsValuesLineChart from './StationsLineChart/StationsLineChart.svelte';

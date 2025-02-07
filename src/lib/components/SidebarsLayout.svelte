@@ -2,7 +2,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { isLeftSidebarOpened, toggleLeftSidebar } from '$lib/stores/queryPatamsStore.svelte';
+	import { isLeftSidebarOpened, toggleLeftSidebar } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { SidebarClose, SidebarOpen } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';

@@ -4,7 +4,7 @@
 	import { locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { closePopup } from '$lib/stores/mapPopupsStore.svelte';
-	import { isLeftSidebarOpened } from '$lib/stores/queryPatamsStore.svelte';
+	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import type { AddressFeature } from '$lib/utils/searchUtil';
 	import { shortcut } from '@svelte-put/shortcut';

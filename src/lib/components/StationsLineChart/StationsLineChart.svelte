@@ -2,7 +2,7 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { useStations } from '$lib/stores/stationsStore';
-	import { rangeEndDate, rangeEndKey, rangeStartDate, rangeStartKey, udpateRangeStart, updateRangeEnd } from '$lib/stores/uiStore';
+	import { rangeEndDate, rangeEndKey, rangeStartDate, rangeStartKey, unit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import {
 		getHeatStressCategoryByValue,
@@ -16,7 +16,6 @@
 	import { Position } from '@unovis/ts';
 	import Alert from 'components/ui/alert/alert.svelte';
 	import { LoaderCircle } from 'lucide-svelte';
-	import { queryParam, ssp } from 'sveltekit-search-params';
 	import ErrorAlert from '../ErrorAlert.svelte';
 	import UnovisChartContainer from '../UnovisChartContainer.svelte';
 	import { getStationDataFetcher } from './stationsLineChartUtil';
@@ -49,14 +48,7 @@
 
 	let { stations }: Props = $props();
 
-	const options = { debounceHistory: 500 };
-	const rangeStart = queryParam('range_start', ssp.number(-10), options);
-	const rangeEnd = queryParam('range_end', ssp.number(0), options);
-	const unit = queryParam('unit', ssp.string('utci'));
 	const ids = useStations();
-
-	rangeStart.subscribe(udpateRangeStart);
-	rangeEnd.subscribe(updateRangeEnd);
 
 	type DataRecord = Record<string, unknown> & {
 		date: Date;

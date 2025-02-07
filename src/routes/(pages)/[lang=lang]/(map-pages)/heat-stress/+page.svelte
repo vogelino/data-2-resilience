@@ -1,15 +1,10 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
+	import { heatStressUnit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
 	import InfoTooltip from 'components/InfoTooltip.svelte';
 	import ThermalCompfortNavItem from 'components/ThermalCompfortNavItem.svelte';
-	import Alert from 'components/ui/alert/alert.svelte';
-	import { queryParam, ssp } from 'sveltekit-search-params';
-
-	let selectedIndicatorSlugParam = queryParam('heatStress', ssp.string('utci'));
-	let selectedIndicatorSlug =
-		$derived($selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam);
 
 	let indicatorValues = $derived([
 		{
@@ -17,21 +12,21 @@
 			title: $LL.indicators.utci.title(),
 			description: $LL.indicators.utci.description(),
 			hasCategory: true,
-			isSelected: selectedIndicatorSlug === 'utci_category' || selectedIndicatorSlug === 'utci'
+			isSelected: $heatStressUnit === 'utci_category' || $heatStressUnit === 'utci'
 		},
 		{
 			slug: 'relative_humidity' as const,
 			title: $LL.indicators.relative_humidity.title(),
 			description: $LL.indicators.relative_humidity.description(),
 			hasCategory: false,
-			isSelected: selectedIndicatorSlug === 'relative_humidity'
+			isSelected: $heatStressUnit === 'relative_humidity'
 		},
 		{
 			slug: 'air_temperature' as const,
 			title: $LL.indicators.air_temperature.title(),
 			description: $LL.indicators.air_temperature.description(),
 			hasCategory: false,
-			isSelected: selectedIndicatorSlug === 'air_temperature'
+			isSelected: $heatStressUnit === 'air_temperature'
 		}
 	]);
 </script>

@@ -2,17 +2,14 @@
 	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
+	import { boundariesMode, isLeftSidebarOpened, showSatellite } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import type { Builder } from 'bits-ui';
 	import CheckboxIcon from 'components/CheckboxIcon.svelte';
 	import Button from 'components/ui/button/button.svelte';
 	import type { Props as ButtonProps } from 'components/ui/button/index.ts';
 	import { Layers3 } from 'lucide-svelte';
-	import { queryParam, ssp } from 'sveltekit-search-params';
 
-	let boundariesMode = queryParam('boundariesMode', ssp.string('districts'));
-	let showSatellite = queryParam('showSatellite', ssp.boolean(false));
 	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
 	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 </script>

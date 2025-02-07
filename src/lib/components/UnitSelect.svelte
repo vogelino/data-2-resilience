@@ -3,10 +3,10 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Command from '$lib/components/ui/command';
 	import * as Popover from '$lib/components/ui/popover';
+	import { unit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils.js';
 	import { Check, ChevronDown } from 'lucide-svelte';
 	import { tick } from 'svelte';
-	import { queryParam, ssp } from 'sveltekit-search-params';
 	import CollapsibleParagraph from './CollapsibleParagraph.svelte';
 	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
@@ -23,7 +23,6 @@
 
 	let open = $state(false);
 
-	let unit = queryParam('unit', ssp.string('utci'));
 	let selectedValue = $derived(units.find((f) => f.value === $unit));
 	let selectedValueLabel = $derived(
 		selectedValue?.label ?? $LL.pages.measurements.unitSelect.placeholder()

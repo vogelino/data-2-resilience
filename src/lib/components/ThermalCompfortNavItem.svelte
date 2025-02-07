@@ -15,8 +15,8 @@
 
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
+	import { heatStressUnit, updateHeatStressUnit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { queryParam, ssp } from 'sveltekit-search-params';
 	import InfoTooltip from './InfoTooltip.svelte';
 
 	interface Props {
@@ -25,9 +25,8 @@
 
 	let { indicator }: Props = $props();
 
-	let selectedIndicatorSlugParam = queryParam('heatStress', ssp.string('utci'));
 	let selectedIndicatorSlug = $derived(
-		$selectedIndicatorSlugParam === null ? 'utci' : $selectedIndicatorSlugParam
+		$heatStressUnit === null ? 'utci' : $heatStressUnit
 	);
 	let slugWithCategory = $derived(`${indicator.slug}_category`);
 	let valueSelected = $derived(indicator.isSelected && selectedIndicatorSlug !== slugWithCategory);
@@ -49,7 +48,7 @@
 			aria-label={indicator.title}
 			type="button"
 			onclick={() => {
-				$selectedIndicatorSlugParam = indicator.hasCategory ? slugWithCategory : indicator.slug;
+				updateHeatStressUnit(indicator.hasCategory ? slugWithCategory : indicator.slug)
 			}}
 			class={cn(
 				'focusable absolute inset-0 z-10 focus-visible:rounded-xl focus-visible:bg-transparent'
@@ -77,7 +76,7 @@
 							onclick={(evt) => {
 								evt.preventDefault();
 								evt.stopPropagation();
-								$selectedIndicatorSlugParam = slugWithCategory;
+								updateHeatStressUnit(slugWithCategory);
 							}}
 							class={cn(
 								'border border-r-0 border-border px-3 py-1.5 text-center',
@@ -97,7 +96,7 @@
 							onclick={(evt) => {
 								evt.preventDefault();
 								evt.stopPropagation();
-								$selectedIndicatorSlugParam = indicator.slug;
+								updateHeatStressUnit(indicator.slug);
 							}}
 							class={cn(
 								'border border-l-0 border-border px-3 py-1.5 text-center',

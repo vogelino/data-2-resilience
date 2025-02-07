@@ -1,8 +1,5 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { api } from '$lib/utils/api';
-	import type { StationMetadata } from '$lib/utils/schemas';
-	import { createQuery } from '@tanstack/svelte-query';
 	import {
 		createSvelteTable,
 		getCoreRowModel,
@@ -18,19 +15,18 @@
 		type SortingFn,
 		type SortingState
 	} from '$lib/components/table';
-	import Table from './Table.svelte';
-	import SensorTypeWithTooltip from './SensorTypeWithTooltip.svelte';
+	import { searchQuery, updateSearchQuery } from '$lib/stores/uiStore';
+	import { api } from '$lib/utils/api';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+	import type { StationMetadata } from '$lib/utils/schemas';
 	import { compareItems, rankItem } from '@tanstack/match-sorter-utils';
-	import { queryParam, ssp } from 'sveltekit-search-params';
+	import { createQuery } from '@tanstack/svelte-query';
 	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
 	import SearchInputField from './SearchInputField.svelte';
-	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+	import SensorTypeWithTooltip from './SensorTypeWithTooltip.svelte';
+	import Table from './Table.svelte';
 
 	let { stations }: { stations: StationMetadata[] } = $props();
-
-	const searchQuery = queryParam('stationsSearch', ssp.string(''), {
-		debounceHistory: 500
-	});
 
 	const query = createQuery(
 		reactiveQueryArgs(() => ({
@@ -192,9 +188,7 @@
 				label={$LL.pages.stations.table.search.label()}
 				placeholder={$LL.pages.stations.table.search.placeholder()}
 				value={$searchQuery}
-				onchange={(newValue) => {
-					$searchQuery = newValue;
-				}}
+				onchange={updateSearchQuery}
 			/>
 		</div>
 		<div class="rounded border border-border bg-background">

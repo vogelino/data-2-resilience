@@ -4,14 +4,10 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Popover from '$lib/components/ui/popover';
 	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
-	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
+	import { heatStressUnit, isLeftSidebarOpened, unit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { unitsToScalesMap } from '$lib/utils/colorScaleUtil';
 	import { HeartPulse, X } from 'lucide-svelte';
-	import { queryParam, ssp } from 'sveltekit-search-params';
-
-	const heatStressUnit = queryParam('heatStress', ssp.string('utci'));
-	const unit = queryParam('unit', ssp.string('utci'));
 
 	let open = $state(false);
 

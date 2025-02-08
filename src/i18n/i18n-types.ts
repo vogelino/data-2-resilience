@@ -1200,6 +1200,16 @@ type RootTranslation = {
 				 * A​l​l​e​ ​S​t​a​t​i​o​n​e​n​ ​i​m​ ​Ü​b​e​r​b​l​i​c​k
 				 */
 				title: string
+				tooltip: {
+					/**
+					 * E​s​ ​g​i​b​t​ ​<​s​t​r​o​n​g​>​{​c​o​u​n​t​}​<​/​s​t​r​o​n​g​>​ ​S​t​a​t​i​o​n​e​n​ ​m​i​t​ ​W​e​r​t​e​n​ ​z​w​i​s​c​h​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​r​t​}​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​u​n​d​ ​<​s​t​r​o​n​g​>​{​e​n​d​}​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
+					 * @param {string} count
+					 * @param {string} end
+					 * @param {string} start
+					 * @param {string} unit
+					 */
+					text: RequiredParams<'count' | 'end' | 'start' | 'unit' | 'unit'>
+				}
 			}
 		}
 		stations: {
@@ -2984,6 +2994,12 @@ export type TranslationFunctions = {
 				 * Alle Stationen im Überblick
 				 */
 				title: () => LocalizedString
+				tooltip: {
+					/**
+					 * Es gibt <strong>{count}</strong> Stationen mit Werten zwischen <strong>{start}{unit}</strong> und <strong>{end}{unit}</strong>.
+					 */
+					text: (arg: { count: string, end: string, start: string, unit: string }) => LocalizedString
+				}
 			}
 		}
 		stations: {

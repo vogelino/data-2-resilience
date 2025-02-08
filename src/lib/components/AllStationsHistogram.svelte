@@ -24,7 +24,9 @@
 
 	type DataRecord = {
 		id: string;
-		value: number;
+		valueStart: number;
+		valueEnd: number;
+		valueRounded: number;
 		label: string;
 		count: number;
 	};
@@ -51,7 +53,7 @@
 
 	function roundToAdaptivePrecision(value: number, precision: number) {
 		const factor = Math.pow(10, precision);
-		return Math.round(value * factor) / factor;
+		return Math.ceil(value * factor) / factor;
 	}
 
 	let query = createQuery(
@@ -81,21 +83,24 @@
 
 				const dataRecords = []
 				for (let i = 0; i <= binCount; i++) {
-					const value = roundToAdaptivePrecision(roundedMin + i * binIncrement, precision);
+					const value = (roundedMin + i * binIncrement);
+					const valueRounded = roundToAdaptivePrecision(value, precision);
 					const ids = itemResults.filter((item) => {
 						const itemValue = item[$unitWithMinMaxAvg as keyof typeof item] as unknown as number;
 						const roundedValue = roundToAdaptivePrecision(itemValue, precision);
-						return roundedValue === value;
+						return roundedValue === valueRounded;
 					})
 					dataRecords.push({
 						id: `histogram-bin-${i}`,
-						value,
+						valueStart: value,
+						valueEnd: value + binIncrement,
+						valueRounded,
 						label: value.toLocaleString($locale),
 						count: ids.length,
 					} satisfies DataRecord);
 				}
 
-				return dataRecords.sort((a, b) => a.value - b.value);
+				return dataRecords.sort((a, b) => a.valueStart - b.valueEnd);
 			},
 			enabled: Boolean($ids.length > 0 && $dayStartDate && $dayEndDate && $unitWithMinMaxAvg)
 		})));
@@ -103,15 +108,20 @@
 	let data = $derived(($query.data || []));
 
 	const y = (d: DataRecord) => d.count;
-	const x = (d: DataRecord) => d.value;
-	const xTickFormat = (value: DataRecord['value']) =>
+	const x = (d: DataRecord) => d.valueStart;
+	const xTickFormat = (value: ReturnType<typeof x>) =>
 		`${value.toLocaleString($locale)}${$unitOnly}`;
+	const xTickValues = $derived(data.map(x));
 
 	const triggers = $derived({
 		[StackedBar.selectors.bar]: (d: DataRecord) => `
-			<span class="flex flex-col text-xs max-w-48">
-				Count: ${d.count.toLocaleString($locale)}
-				Value: ${d.value.toLocaleString($locale)}
+			<span class="text-xs max-w-56 block">
+				${$LL.pages.measurements.histogram.tooltip.text({
+					count: d.count.toLocaleString($locale),
+					start: d.valueStart.toLocaleString($locale),
+					end: d.valueEnd.toLocaleString($locale),
+					unit: $unitOnly
+				})}
 			</span>
 		`
 	});
@@ -140,8 +150,6 @@
 					{data}
 					{x}
 					{y}
-					numTicks={Math.max(2, data.length)}
-					tickValues={data.length === 1 ? [0, 5] : undefined}
 					orientation="vertical"
 					barPadding={0.2}
 				/>
@@ -149,7 +157,10 @@
 					type="x"
 					gridLine={false}
 					tickFormat={xTickFormat}
-					minMaxTicksOnly={true} 
+					tickValues={xTickValues}
+					tickTextHideOverlapping={true}
+					tickTextAlign="center"
+					tickTextWidth={50}
 				/>
 			{:else if $query.isSuccess && data.length === 0}
 				<div class="absolute inset-0 flex items-center justify-center">

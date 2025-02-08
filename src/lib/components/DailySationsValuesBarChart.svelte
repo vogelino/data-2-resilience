@@ -15,9 +15,7 @@
 		unitLabel,
 		unitOnly,
 		unitWithMinMaxAvg,
-
 		unitWithoutCategory,
-
 		updateMinMaxAvg
 	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';

@@ -503,7 +503,10 @@ const en = {
 			histogram: {
 				title: 'Overview of all stations',
 				tooltip: {
-					text: 'There are <strong>{count}</strong> stations with values between <strong>{start}{unit}</strong> and <strong>{end}{unit}</strong>.'
+					numberic:
+						'There are <strong>{count}</strong> station{{s}} with values between <strong>{start}{unit}</strong> and <strong>{end}{unit}</strong>.',
+					category:
+						'There are <strong>{count}</strong> station{{s}} values in the category <strong>{category}</strong>.'
 				}
 			}
 		},

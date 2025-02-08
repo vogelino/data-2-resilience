@@ -150,7 +150,7 @@
 	const x = (_d: DataRecord, idx: number) => idx;
 	const color = (d: DataRecord) =>
 		typeof d.value === 'number' ? undefined : 'hsl(var(--muted-foreground) / 0.1)';
-	const yTickFormat = (idx: number) => data[idx]?.label ?? '';
+	const yTickFormat = $derived((idx: number) => `${data[idx]?.label ?? ''}${$unitOnly}`);
 	let xTickFormat = $derived((value: number) =>
 		value.toLocaleString($locale, {
 			maximumFractionDigits: 1
@@ -385,7 +385,9 @@
 								barPadding={0.2}
 								barMinHeight1Px
 							/>
-							<VisAxis type="x" tickFormat={xTickFormat} numTicks={5} />
+							{#key $locale}
+								<VisAxis type="x" tickFormat={xTickFormat} numTicks={5} />
+							{/key}
 							<VisAxis
 								type="y"
 								tickFormat={yTickFormat}

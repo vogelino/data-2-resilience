@@ -1202,13 +1202,19 @@ type RootTranslation = {
 				title: string
 				tooltip: {
 					/**
-					 * E​s​ ​g​i​b​t​ ​<​s​t​r​o​n​g​>​{​c​o​u​n​t​}​<​/​s​t​r​o​n​g​>​ ​S​t​a​t​i​o​n​e​n​ ​m​i​t​ ​W​e​r​t​e​n​ ​z​w​i​s​c​h​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​r​t​}​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​u​n​d​ ​<​s​t​r​o​n​g​>​{​e​n​d​}​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
+					 * E​s​ ​g​i​b​t​ ​<​s​t​r​o​n​g​>​{​c​o​u​n​t​}​<​/​s​t​r​o​n​g​>​ ​S​t​a​t​i​o​n​{​{​e​n​}​}​ ​m​i​t​ ​{​{​e​i​n​e​n​ ​W​e​r​t​|​W​e​r​t​e​n​}​}​ ​z​w​i​s​c​h​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​r​t​}​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​u​n​d​ ​<​s​t​r​o​n​g​>​{​e​n​d​}​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
 					 * @param {string} count
 					 * @param {string} end
 					 * @param {string} start
 					 * @param {string} unit
 					 */
-					text: RequiredParams<'count' | 'end' | 'start' | 'unit' | 'unit'>
+					numberic: RequiredParams<'count' | 'end' | 'start' | 'unit' | 'unit'>
+					/**
+					 * E​s​ ​g​i​b​t​ ​<​s​t​r​o​n​g​>​{​c​o​u​n​t​}​<​/​s​t​r​o​n​g​>​ ​S​t​a​t​i​o​n​{​{​e​n​}​}​ ​m​i​t​ ​{​{​e​i​n​e​n​ ​W​e​r​t​|​W​e​r​t​e​n​}​}​ ​i​n​ ​d​e​r​ ​K​a​t​e​g​o​r​i​e​ ​<​s​t​r​o​n​g​>​{​c​a​t​e​g​o​r​y​}​<​/​s​t​r​o​n​g​>​.
+					 * @param {string} category
+					 * @param {string} count
+					 */
+					category: RequiredParams<'category' | 'count'>
 				}
 			}
 		}
@@ -2996,9 +3002,13 @@ export type TranslationFunctions = {
 				title: () => LocalizedString
 				tooltip: {
 					/**
-					 * Es gibt <strong>{count}</strong> Stationen mit Werten zwischen <strong>{start}{unit}</strong> und <strong>{end}{unit}</strong>.
+					 * Es gibt <strong>{count}</strong> Station{{en}} mit {{einen Wert|Werten}} zwischen <strong>{start}{unit}</strong> und <strong>{end}{unit}</strong>.
 					 */
-					text: (arg: { count: string, end: string, start: string, unit: string }) => LocalizedString
+					numberic: (arg: { count: string, end: string, start: string, unit: string }) => LocalizedString
+					/**
+					 * Es gibt <strong>{count}</strong> Station{{en}} mit {{einen Wert|Werten}} in der Kategorie <strong>{category}</strong>.
+					 */
+					category: (arg: { category: string, count: string }) => LocalizedString
 				}
 			}
 		}

@@ -12,10 +12,6 @@
 	const dateRangeStart = -30;
 	const dateRangeEnd = 0;
 
-	const options = {
-		debounceHistory: 500
-	};
-
 	let formatter = $derived((value: number) => {
 		if (Number.isNaN(value)) return '';
 		const date = addDays(today(), value === -0 ? 0 : value);

@@ -1,9 +1,8 @@
-import { browser } from '$app/environment';
 import LL from '$i18n/i18n-svelte';
 import { today } from '$lib/utils/dateUtil';
 import { addDays, format } from 'date-fns';
 import { debounce } from 'es-toolkit';
-import { derived, writable } from 'svelte/store';
+import { derived } from 'svelte/store';
 import { queryParam, ssp } from 'sveltekit-search-params';
 import { z } from 'zod';
 
@@ -13,51 +12,27 @@ const options = { debounceHistory: 500 };
 const rangeStartDefault = -10;
 const rangeStartQueryParam = queryParam('range_start', ssp.number(rangeStartDefault), options);
 export const rangeStart = derived(rangeStartQueryParam, (value: number) =>
-	validateQueryParam(value, z.number(), rangeStartDefault)
+	validateQueryParam(value, z.coerce.number(), rangeStartDefault)
 );
-export const rangeStartDate = writable<Date>(addDays(today(), rangeStartDefault));
+export const rangeStartDate = derived(rangeStart, (d) => addDays(today(), d));
 export const rangeStartKey = derived(rangeStartDate, (d) => d && format(d, 'yyyy-MM-dd'));
 
-export const udpateRangeStart = (d: number) => {
-	if (!browser) return;
-	debouncedUpdateRangeStart?.cancel();
+export const udpateRangeStart = debounce((d: number) => {
 	rangeStartQueryParam.set(d);
-};
-
-const debouncedUpdateRangeStart = debounce((d: number) => {
-	if (!browser) return;
-	debouncedUpdateRangeStart?.cancel();
-	rangeStartDate.set(addDays(today(), d));
 }, 500);
-
-if (browser) {
-	rangeStart.subscribe(udpateRangeStart);
-}
 
 // RANGE END
 const rangeEndDefault = 0;
 const rangeEndQueryParam = queryParam('range_end', ssp.number(rangeEndDefault), options);
 export const rangeEnd = derived(rangeEndQueryParam, (value: number) =>
-	validateQueryParam(value, z.number(), rangeEndDefault)
+	validateQueryParam(value, z.coerce.number(), rangeEndDefault)
 );
-export const rangeEndDate = writable<Date>(addDays(today(), rangeEndDefault));
+export const rangeEndDate = derived(rangeEnd, (d) => addDays(today(), d));
 export const rangeEndKey = derived(rangeEndDate, (d) => d && format(d, 'yyyy-MM-dd'));
 
-export const updateRangeEnd = (d: number) => {
-	if (!browser) return;
-	debouncedUpdateRangeEnd?.cancel();
+export const updateRangeEnd = debounce((d: number) => {
 	rangeEndQueryParam.set(d);
-};
-
-const debouncedUpdateRangeEnd = debounce((d: number) => {
-	if (!browser) return;
-	debouncedUpdateRangeEnd?.cancel();
-	rangeEndDate.set(addDays(today(), d));
 }, 500);
-
-if (browser) {
-	rangeEnd.subscribe(updateRangeEnd);
-}
 
 // SIDEBAR
 const isLeftSidebarOpenedDefault = true;
@@ -74,29 +49,16 @@ export const toggleLeftSidebar = () =>
 // DAY VALUE
 const dayValueDefault = 0;
 const dayValueQueryParam = queryParam('day_value', ssp.number(dayValueDefault), options);
-export const dayValue = derived(dayValueQueryParam, (value: number) =>
-	validateQueryParam(value, z.number(), dayValueDefault)
-);
-export const dayStartDate = writable<Date>(addDays(today(), dayValueDefault - 1));
-export const dayEndDate = writable<Date>(addDays(today(), dayValueDefault));
+export const dayValue = derived(dayValueQueryParam, (value: number) => {
+	return validateQueryParam(value, z.coerce.number(), dayValueDefault);
+});
+export const dayStartDate = derived(dayValue, (d) => addDays(today(), d - 1));
+export const dayEndDate = derived(dayValue, (d) => addDays(today(), d));
 export const dayKey = derived(dayEndDate, (d) => d && format(d, 'yyyy-MM-dd'));
 
-export const udpateDay = (d: number) => {
-	if (!browser) return;
-	debouncedUpdateDay?.cancel();
+export const udpateDay = debounce((d: number) => {
 	dayValueQueryParam.set(d);
-};
-
-const debouncedUpdateDay = debounce((d: number) => {
-	if (!browser) return;
-	debouncedUpdateDay?.cancel();
-	dayStartDate.set(addDays(today(), d - 1));
-	dayEndDate.set(addDays(today(), d));
 }, 500);
-
-if (browser) {
-	dayValue.subscribe(debouncedUpdateDay);
-}
 
 // DATAVIS TYPE
 const datavisTypeDefault = 'day' as const;
@@ -104,9 +66,9 @@ const datavisTypeQueryParam = queryParam('datavisType', ssp.string(datavisTypeDe
 export const datavisType = derived(datavisTypeQueryParam, (value: string) =>
 	validateQueryParam(value, z.enum(['day', 'hour', 'range']), datavisTypeDefault)
 );
-export const udpateDatavisType = (value: 'day' | 'hour' | 'range') => {
+export const udpateDatavisType = debounce((value: 'day' | 'hour' | 'range') => {
 	datavisTypeQueryParam.set(value);
-};
+}, 500);
 
 // UNIT
 const unitDefault = 'utci' as const;
@@ -119,13 +81,23 @@ export const updateUnit = (value: string) => {
 };
 
 export const isCategoryUnit = derived(unit, (u) => u.endsWith('_category'));
-export const minMaxAvg = writable<'min' | 'max' | 'avg'>('avg');
+const minMaxAvgDefault = 'avg' as const;
+const minMaxAvgQueryParam = queryParam('minMaxAvg', ssp.string(minMaxAvgDefault));
+export const minMaxAvg = derived(minMaxAvgQueryParam, (value: string) =>
+	validateQueryParam(value, z.enum(['min', 'max', 'avg']), minMaxAvgDefault)
+);
+export const updateMinMaxAvg = (value: 'min' | 'max' | 'avg') => {
+	minMaxAvgQueryParam.set(value);
+};
 export const unitWithMinMaxAvg = derived(
 	[unit, datavisType, minMaxAvg, isCategoryUnit],
 	([u, dT, mMA, iCU]) => {
 		if (dT !== 'day') return u;
 		return mMA === 'avg' || iCU ? u : `${u}_${mMA}`;
 	}
+);
+export const unitWithoutCategory = derived(unit, (u) =>
+	u.replace(/_category$/, '') === 'pet' ? ('pet' as const) : ('utci' as const)
 );
 export const unitLabel = derived([unit, LL], ([u, ll]) => {
 	return ll.pages.measurements.unitSelect.units[
@@ -147,7 +119,7 @@ export const scale = derived(datavisType, (val) =>
 const hourDefault = 12;
 const hourQueryParam = queryParam('hour', ssp.number(hourDefault));
 export const hour = derived(hourQueryParam, (value: number) =>
-	validateQueryParam(value, z.number(), hourDefault)
+	validateQueryParam(value, z.coerce.number(), hourDefault)
 );
 export const isHourScale = derived(
 	[scale, hour],
@@ -176,9 +148,9 @@ const searchQueryQueryParam = queryParam('stationsSearch', ssp.string(searchQuer
 export const searchQuery = derived(searchQueryQueryParam, (value: string) =>
 	validateQueryParam(value, z.string(), searchQueryDefault)
 );
-export const updateSearchQuery = (value: string) => {
+export const updateSearchQuery = debounce((value: string) => {
 	searchQueryQueryParam.set(value);
-};
+}, 500);
 
 // MAP
 const lonDefault = 7.467;
@@ -192,15 +164,15 @@ const showSatelliteDefault = false;
 
 const latitudeQueryParam = queryParam('lat', ssp.number(defaultViewport[1]), options);
 export const mapLatitude = derived(latitudeQueryParam, (value: number) =>
-	validateQueryParam(value, z.number(), latDefault)
+	validateQueryParam(value, z.coerce.number(), latDefault)
 );
 const longitudeQueryParam = queryParam('lng', ssp.number(defaultViewport[0]), options);
 export const mapLongitude = derived(longitudeQueryParam, (value: number) =>
-	validateQueryParam(value, z.number(), lonDefault)
+	validateQueryParam(value, z.coerce.number(), lonDefault)
 );
 const zoomQueryParam = queryParam('zoom', ssp.number(defaultViewport[2]), options);
 export const mapZoom = derived(zoomQueryParam, (value: number) =>
-	validateQueryParam(value, z.number(), zoomDefault)
+	validateQueryParam(value, z.coerce.number(), zoomDefault)
 );
 
 export const updateMapCoordinates = debounce((coords: [longitude: number, latitude: number]) => {
@@ -219,14 +191,14 @@ const showSatelliteQueryParam = queryParam('showSatellite', ssp.boolean(showSate
 export const boundariesMode = derived(boundariesModeQueryParam, (value: string) =>
 	validateQueryParam(value, z.string(), boundariesModeDefault)
 );
-export const setBoundariesMode = (value: string) => {
+export const updateBoundariesMode = (value: string) => {
 	boundariesModeQueryParam.set(value);
 };
 
 export const showSatellite = derived(showSatelliteQueryParam, (value: boolean) =>
 	validateQueryParam(value, z.boolean(), showSatelliteDefault)
 );
-export const setShowSatellite = (value: boolean) => {
+export const updateShowSatellite = (value: boolean) => {
 	showSatelliteQueryParam.set(value);
 };
 

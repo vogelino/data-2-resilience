@@ -2,12 +2,12 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
-	import { datavisType, dayEndDate, hour, rangeEndDate, scale, unit, unitLabel, unitOnly } from '$lib/stores/uiStore';
+	import { datavisType, dayEndDate, hour, rangeEndDate, scale, unit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { api } from '$lib/utils/api';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
-	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
+	import type { WeatherMeasurementKey } from '$lib/utils/schemas';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { format, setHours } from 'date-fns';
@@ -33,12 +33,12 @@
 	const selectedStations = useStations();
 	const query = createQuery(
 		reactiveQueryArgs(() => ({
-			queryKey: ['stations-snapshot', dateKey, $scale, $unit],
+			queryKey: ['stations-snapshot', dateKey, $scale, $unitWithMinMaxAvg],
 			queryFn: async () => {
-				if (!date || !$unit || !$scale) return;
+				if (!date || !$unitWithMinMaxAvg || !$scale) return;
 				const itemResults = await api().getStationsSnapshot({
 					date,
-					param: $unit as unknown as WeatherMeasurementKeyNoMinMax,
+					param: $unitWithMinMaxAvg as unknown as WeatherMeasurementKey,
 					scale: $scale
 				});
 				if (itemResults === null) return {};

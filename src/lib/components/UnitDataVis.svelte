@@ -3,6 +3,7 @@
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { useStations } from '$lib/stores/stationsStore';
 	import { datavisType } from '$lib/stores/uiStore';
+	import AllStationsHistogram from './AllStationsHistogram.svelte';
 	import DailySationsValuesBarChart from './DailySationsValuesBarChart.svelte';
 	import DateRangeSlider from './DateRangeSlider.svelte';
 	import StationsValuesLineChart from './StationsLineChart/StationsLineChart.svelte';
@@ -34,3 +35,11 @@
 		<DateRangeSlider />
 	</div>
 </div>
+
+{#if $datavisType !== 'range'}
+	<div class="mt-4 flex flex-col rounded-md border border-border">
+		<div class="flex flex-col gap-4 p-4">
+			<AllStationsHistogram />
+		</div>
+	</div>
+{/if}

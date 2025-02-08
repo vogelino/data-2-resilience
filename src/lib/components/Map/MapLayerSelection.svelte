@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { boundariesMode, isLeftSidebarOpened, showSatellite } from '$lib/stores/uiStore';
+	import { boundariesMode, isLeftSidebarOpened, showSatellite, updateBoundariesMode, updateShowSatellite } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import type { Builder } from 'bits-ui';
 	import CheckboxIcon from 'components/CheckboxIcon.svelte';
@@ -38,9 +38,9 @@
 		<DropdownMenu.Item
 			on:click={() => {
 				if ($boundariesMode === 'districts') {
-					$boundariesMode = 'none';
+					updateBoundariesMode('none');
 				} else {
-					$boundariesMode = 'districts';
+					updateBoundariesMode('districts');
 				}
 			}}
 			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
@@ -58,9 +58,9 @@
 		<DropdownMenu.Item
 			on:click={() => {
 				if ($boundariesMode === 'lors') {
-					$boundariesMode = 'none';
+					updateBoundariesMode('none');
 				} else {
-					$boundariesMode = 'lors';
+					updateBoundariesMode('lors');
 				}
 			}}
 			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
@@ -77,7 +77,7 @@
 		</DropdownMenu.Item>
 		<DropdownMenu.Separator />
 		<DropdownMenu.Item
-			on:click={() => ($showSatellite = !$showSatellite)}
+			on:click={() => updateShowSatellite(!$showSatellite)}
 			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
 		>
 			<CheckboxIcon checked={$showSatellite} />

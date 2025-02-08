@@ -14,7 +14,11 @@
 		unit,
 		unitLabel,
 		unitOnly,
-		unitWithMinMaxAvg
+		unitWithMinMaxAvg,
+
+		unitWithoutCategory,
+
+		updateMinMaxAvg
 	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { api } from '$lib/utils/api';
@@ -46,9 +50,6 @@
 		supported: boolean;
 	};
 
-	const unitWithoutCategory = $derived(
-		$unit.replace(/_category$/, '') === 'pet' ? ('pet' as const) : ('utci' as const)
-	);
 	const titleKey = $derived(
 		$isCategoryUnit ? ('heatStress' as const) : ('thermalComfort' as const)
 	);
@@ -210,7 +211,7 @@
 	{#if $datavisType === 'day' && !$isCategoryUnit}
 		<Combobox
 			defaultValue={$minMaxAvg}
-			onChange={(value) => ($minMaxAvg = value as 'min' | 'avg' | 'max')}
+			onChange={(value) => updateMinMaxAvg(value as 'min' | 'avg' | 'max')}
 			classes={{ trigger: 'w-fit' }}
 			options={[
 				{
@@ -345,9 +346,9 @@
 									{#if healthRisk}
 										<strong class="flex gap-2 font-semibold">
 											<span>{healthRisk.title[titleKey]()}</span>
-											{#if healthRisk.ranges[unitWithoutCategory]()}
+											{#if healthRisk.ranges[$unitWithoutCategory]()}
 												<span class="whitespace-nowrap font-normal text-muted-foreground">
-													({healthRisk.ranges[unitWithoutCategory]()})
+													({healthRisk.ranges[$unitWithoutCategory]()})
 												</span>
 											{/if}
 										</strong>

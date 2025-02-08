@@ -2,15 +2,13 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
-	import { datavisType, dayEndDate, hour, rangeEndDate, scale, unit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
+	import { unit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { api } from '$lib/utils/api';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
-	import type { WeatherMeasurementKey } from '$lib/utils/schemas';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
+	import { stationsSnapshotQueryConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { format, setHours } from 'date-fns';
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
 
 	interface Props {
@@ -20,43 +18,22 @@
 
 	let { stations, map }: Props = $props();
 
-	const date = $derived.by(() => {
-		const refDate = $datavisType === 'range' ? $rangeEndDate : $dayEndDate;
-		if (!refDate) return;
-		return setHours(refDate, $hour);
+	const selectedStations = useStations();
+	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
+	const apiResponseData = $derived($snapshotQuery.data || []);
+
+	const idToItemMap = $derived.by(() => {
+		return apiResponseData.reduce(
+			(acc, item) => ({ ...acc, ...(item.id ? { [item.id]: item } : {}) }),
+			{} as Record<string, (typeof apiResponseData)[0]>
+		);
 	});
 
-	const dateKey = $derived(
-		date && ($scale === 'hourly' ? date.toISOString() : format(date, 'yyyy-MM-dd'))
-	);
-
-	const selectedStations = useStations();
-	const query = createQuery(
-		reactiveQueryArgs(() => ({
-			queryKey: ['stations-snapshot', dateKey, $scale, $unitWithMinMaxAvg],
-			queryFn: async () => {
-				if (!date || !$unitWithMinMaxAvg || !$scale) return;
-				const itemResults = await api().getStationsSnapshot({
-					date,
-					param: $unitWithMinMaxAvg as unknown as WeatherMeasurementKey,
-					scale: $scale
-				});
-				if (itemResults === null) return {};
-				return itemResults.reduce(
-					(acc, item) => ({ ...acc, ...(item.id ? { [item.id]: item } : {}) }),
-					{} as Record<string, (typeof itemResults)[0]>
-				);
-			},
-			enabled: Boolean(date && $unit)
-		}))
-	);
-	let idToItemMap = $derived($query.data || {});
-
 	let getValueById = $derived((id?: string) => {
-		if (!id || !$unit) return;
+		if (!id || !$unitWithMinMaxAvg) return;
 		const item = idToItemMap[id];
 		if (!item) return;
-		const value = item[$unit as keyof typeof item];
+		const value = item[$unitWithMinMaxAvg as keyof typeof item];
 		return value as { valueOf(): number } & string;
 	});
 	let getBgColorById = $derived((id?: string) => {

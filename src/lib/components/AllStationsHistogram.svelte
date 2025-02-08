@@ -1,24 +1,17 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { useStations } from '$lib/stores/stationsStore';
 	import {
-		dayEndDate,
-		dayStartDate,
-		hour,
 		isCategoryUnit,
-		scale,
 		unitLabel,
 		unitOnly,
 		unitWithMinMaxAvg
 	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { api } from '$lib/utils/api';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
-	import type { WeatherMeasurementKey } from '$lib/utils/schemas';
+	import { stationsSnapshotQueryConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { StackedBar } from '@unovis/ts';
-	import { format, setHours } from 'date-fns';
 	import { LoaderCircle } from 'lucide-svelte';
 	import ErrorAlert from './ErrorAlert.svelte';
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
@@ -31,8 +24,6 @@
 		label: string;
 		count: number;
 	};
-
-	let ids = useStations();
 
 	function calculateBinningPrecision(values: number[], range: number) {
 		if (values.length === 0) return 20;
@@ -91,31 +82,16 @@
 		);
 	}
 
-	const date = $derived.by(() => {
-		return setHours($dayEndDate, $hour);
-	});
-
-	const dateKey = $derived(
-		date && ($scale === 'hourly' ? date.toISOString() : format(date, 'yyyy-MM-dd'))
-	);
-
-	let query = createQuery(
-		reactiveQueryArgs(() => ({
-			queryKey: ['histogram', $ids.join('-'), dateKey, $unitWithMinMaxAvg, $scale],
-			queryFn: async () => {
-				if (!$dayEndDate || !$unitWithMinMaxAvg || !$scale) return [];
-				const itemResults = await api().getStationsSnapshot({
-					date,
-					param: $unitWithMinMaxAvg as unknown as WeatherMeasurementKey,
-					scale: $scale
-				});
-				if (!itemResults || itemResults.length === 0) return [] as DataRecord[];
-
+	const snapshotQuery = createQuery(
+		reactiveQueryArgs(() => $stationsSnapshotQueryConfig)
+)
+	const apiResponseData = $derived($snapshotQuery.data || []);
+	const data = $derived.by(() => {
 				if ($isCategoryUnit) {
-					return createCategoryBins(itemResults);
+					return createCategoryBins(apiResponseData);
 				}
 
-				const numericValues = itemResults
+				const numericValues = apiResponseData
 					.map((item) => {
 						const value = item[$unitWithMinMaxAvg as keyof typeof item] as unknown as number;
 						if (typeof value === 'number' && !isNaN(value)) return value;
@@ -133,7 +109,7 @@
 				for (let i = 0; i <= binCount; i++) {
 					const value = roundedMin + i * binIncrement;
 					const valueRounded = roundToAdaptivePrecision(value, precision);
-					const ids = itemResults.filter((item) => {
+					const ids = apiResponseData.filter((item) => {
 						const itemValue = item[$unitWithMinMaxAvg as keyof typeof item] as unknown as number;
 						const roundedValue = roundToAdaptivePrecision(itemValue, precision);
 						return roundedValue === valueRounded;
@@ -149,12 +125,7 @@
 				}
 
 				return dataRecords.sort((a, b) => a.valueStart - b.valueEnd);
-			},
-			enabled: Boolean($ids.length > 0 && $dayStartDate && $dayEndDate && $unitWithMinMaxAvg)
-		}))
-	);
-
-	let data = $derived($query.data || []);
+	})
 
 	const y = (d: DataRecord) => d.count;
 	const x = (d: DataRecord) => d.valueStart;
@@ -162,7 +133,7 @@
 	const xTickFormat = $derived((value: ReturnType<typeof x>) =>
 		$isCategoryUnit
 			? allCategoryLabels[value]
-			: `${roundToMax3DigitFraction(value).toLocaleString($locale)}${$unitOnly}`
+			: `${roundToMax3DigitFraction(value).toLocaleString($locale)} ${$unitOnly}`
 	);
 	const xTickValues = $derived(data.map(x));
 
@@ -209,7 +180,7 @@
 			}}
 			height={chartHeight}
 		>
-			{#if $query.isSuccess && data.length > 0}
+			{#if $snapshotQuery.isSuccess && data.length > 0}
 				<VisStackedBar {data} {x} {y} orientation="vertical" barPadding={0.2} />
 				{#key $locale}
 					<VisAxis
@@ -219,18 +190,18 @@
 						tickValues={xTickValues}
 						tickTextHideOverlapping={true}
 						tickTextAlign="center"
-						tickTextWidth={50}
+						tickTextWidth={70}
 					/>
 				{/key}
-			{:else if $query.isSuccess && data.length === 0}
+			{:else if $snapshotQuery.isSuccess && data.length === 0}
 				<div class="absolute inset-0 flex items-center justify-center">
 					{$LL.pages.measurements.noDataAvailable()}
 				</div>
 			{/if}
 
-			{#if $query.error}
+			{#if $snapshotQuery.error}
 				<div class="absolute inset-0 flex items-center justify-center">
-					<ErrorAlert errorObject={$query.error} />
+					<ErrorAlert errorObject={$snapshotQuery.error} />
 				</div>
 			{/if}
 			<VisTooltip {triggers} />
@@ -239,7 +210,7 @@
 			class={cn(
 				'absolute inset-0 flex items-center justify-center',
 				'pointer-events-none opacity-100',
-				!$query.isFetching && 'opacity-0'
+				!$snapshotQuery.isFetching && 'opacity-0'
 			)}
 		>
 			<LoaderCircle class="size-6 animate-spin" />

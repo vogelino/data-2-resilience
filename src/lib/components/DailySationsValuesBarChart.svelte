@@ -150,11 +150,12 @@
 	const x = (_d: DataRecord, idx: number) => idx;
 	const color = (d: DataRecord) =>
 		typeof d.value === 'number' ? undefined : 'hsl(var(--muted-foreground) / 0.1)';
-	const yTickFormat = $derived((idx: number) => `${data[idx]?.label ?? ''}${$unitOnly}`);
-	let xTickFormat = $derived((value: number) =>
-		value.toLocaleString($locale, {
-			maximumFractionDigits: 1
-		})
+	const yTickFormat = $derived((idx: number) => `${data[idx]?.label ?? ''}`);
+	let xTickFormat = $derived(
+		(value: number) =>
+			`${value.toLocaleString($locale, {
+				maximumFractionDigits: 1
+			})} ${$unitOnly}`
 	);
 	let yTickValues = $derived(data.map(x));
 	let triggers = $derived({
@@ -396,6 +397,9 @@
 								numTicks={data.length}
 								tickTextFitMode="trim"
 								tickTextTrimType="end"
+								tickTextHideOverlapping={true}
+								tickTextAlign="center"
+								tickTextWidth={70}
 							/>
 							<VisTooltip {triggers} />
 						{:else if $query.isSuccess && data.length === 0}

@@ -10,14 +10,17 @@ const queryParamStations = queryParam(
 );
 let initialized = false;
 
-export function useStations() {
-	queryParamStations.subscribe((value) => {
-		if (browser && !initialized) {
-			const parsedIds = parseUrlStations(value);
-			urlStations.set(parsedIds.filter(Boolean).toSorted());
-			initialized = true;
-		}
-	});
+export function useStations(initialData: string[] = []) {
+	if (!browser) return writable(initialData);
+	if (browser) {
+		queryParamStations.subscribe((value) => {
+			if (!initialized) {
+				const parsedIds = parseUrlStations(value);
+				urlStations.set(parsedIds.filter(Boolean).toSorted());
+				initialized = true;
+			}
+		});
+	}
 	return urlStations;
 }
 

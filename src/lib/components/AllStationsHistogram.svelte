@@ -1,20 +1,28 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import {
-		isCategoryUnit,
-		unitLabel,
-		unitOnly,
-		unitWithMinMaxAvg
-	} from '$lib/stores/uiStore';
+	import { isCategoryUnit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
-	import { stationsSnapshotQueryConfig } from '$lib/utils/useStationsSnapshot';
+	import { useStationsDailyConfig } from '$lib/utils/useStationsDaily';
+	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
-	import { StackedBar } from '@unovis/ts';
+	import {
+		VisAnnotations,
+		VisAxis,
+		VisStackedBar,
+		VisTooltip,
+		VisXYContainer
+	} from '@unovis/svelte';
+	import { StackedBar, type AnnotationItem } from '@unovis/ts';
 	import { LoaderCircle } from 'lucide-svelte';
 	import ErrorAlert from './ErrorAlert.svelte';
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
+
+	type Props = {
+		initialStationIds?: string[];
+	};
+	
+	let { initialStationIds = [] }: Props = $props();
 
 	type DataRecord = {
 		id: string;
@@ -82,50 +90,52 @@
 		);
 	}
 
-	const snapshotQuery = createQuery(
-		reactiveQueryArgs(() => $stationsSnapshotQueryConfig)
-)
-	const apiResponseData = $derived($snapshotQuery.data || []);
+	const stationsSnapshotQueryConfig = useStationsSnapshotConfig(initialStationIds);
+	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
+	const stationsDailyQueryConfig = useStationsDailyConfig(initialStationIds);
+	const dailyStationsQuery = createQuery(reactiveQueryArgs(() => $stationsDailyQueryConfig));
+	const dailyStationsData = $derived($dailyStationsQuery.data || []);
+	const snapshotApiResponseData = $derived($snapshotQuery.data || []);
 	const data = $derived.by(() => {
-				if ($isCategoryUnit) {
-					return createCategoryBins(apiResponseData);
-				}
+		if ($isCategoryUnit) {
+			return createCategoryBins(snapshotApiResponseData);
+		}
 
-				const numericValues = apiResponseData
-					.map((item) => {
-						const value = item[$unitWithMinMaxAvg as keyof typeof item] as unknown as number;
-						if (typeof value === 'number' && !isNaN(value)) return value;
-					})
-					.filter((i) => typeof i === 'number' && !isNaN(i)) as number[];
-				const min = Math.min(...numericValues);
-				const max = Math.max(...numericValues);
-				const range = max - min;
-				const precision = calculateBinningPrecision(numericValues, range);
-				const roundedMin = roundToAdaptivePrecision(min, precision);
-				const binCount = 20;
-				const binIncrement = range / binCount;
+		const numericValues = snapshotApiResponseData
+			.map((item) => {
+				const value = item[$unitWithMinMaxAvg as keyof typeof item] as unknown as number;
+				if (typeof value === 'number' && !isNaN(value)) return value;
+			})
+			.filter((i) => typeof i === 'number' && !isNaN(i)) as number[];
+		const min = Math.min(...numericValues);
+		const max = Math.max(...numericValues);
+		const range = max - min;
+		const precision = calculateBinningPrecision(numericValues, range);
+		const roundedMin = roundToAdaptivePrecision(min, precision);
+		const binCount = 20;
+		const binIncrement = range / binCount;
 
-				const dataRecords = [];
-				for (let i = 0; i <= binCount; i++) {
-					const value = roundedMin + i * binIncrement;
-					const valueRounded = roundToAdaptivePrecision(value, precision);
-					const ids = apiResponseData.filter((item) => {
-						const itemValue = item[$unitWithMinMaxAvg as keyof typeof item] as unknown as number;
-						const roundedValue = roundToAdaptivePrecision(itemValue, precision);
-						return roundedValue === valueRounded;
-					});
-					dataRecords.push({
-						id: `histogram-bin-${i}`,
-						valueStart: value,
-						valueEnd: value + binIncrement,
-						valueRounded,
-						label: value.toLocaleString($locale),
-						count: ids.length
-					} satisfies DataRecord);
-				}
+		const dataRecords = [];
+		for (let i = 0; i <= binCount; i++) {
+			const value = roundedMin + i * binIncrement;
+			const valueRounded = roundToAdaptivePrecision(value, precision);
+			const ids = snapshotApiResponseData.filter((item) => {
+				const itemValue = item[$unitWithMinMaxAvg as keyof typeof item] as unknown as number;
+				const roundedValue = roundToAdaptivePrecision(itemValue, precision);
+				return roundedValue === valueRounded;
+			});
+			dataRecords.push({
+				id: `histogram-bin-${i}`,
+				valueStart: value,
+				valueEnd: value + binIncrement,
+				valueRounded,
+				label: value.toLocaleString($locale),
+				count: ids.length
+			} satisfies DataRecord);
+		}
 
-				return dataRecords.sort((a, b) => a.valueStart - b.valueEnd);
-	})
+		return dataRecords.sort((a, b) => a.valueStart - b.valueEnd);
+	});
 
 	const y = (d: DataRecord) => d.count;
 	const x = (d: DataRecord) => d.valueStart;
@@ -158,6 +168,13 @@
 			</span>
 		`
 	});
+	const items: AnnotationItem[] = $derived(
+		dailyStationsData.map((d) => ({
+			x: `${d.value || 0}%`,
+			y: `20%`,
+			content: d.label
+		}))
+	);
 
 	const chartHeight = 150;
 </script>
@@ -205,6 +222,7 @@
 				</div>
 			{/if}
 			<VisTooltip {triggers} />
+			<VisAnnotations {items} />
 		</VisXYContainer>
 		<div
 			class={cn(

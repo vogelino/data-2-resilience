@@ -4,27 +4,21 @@
 	import { useStations } from '$lib/stores/stationsStore';
 	import {
 		datavisType,
-		dayEndDate,
-		dayKey,
 		dayStartDate,
-		hourKey,
 		isCategoryUnit,
 		minMaxAvg,
-		scale,
 		unit,
 		unitLabel,
 		unitOnly,
-		unitWithMinMaxAvg,
 		unitWithoutCategory,
 		updateMinMaxAvg
 	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { api } from '$lib/utils/api';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
-	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
+	import { useStationsDailyConfig, type DailyStationRecord } from '$lib/utils/useStationsDaily';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { StackedBar } from '@unovis/ts';
@@ -37,82 +31,23 @@
 
 	interface Props {
 		stations: StationsGeoJSONType;
+		initialStationIds?: string[];
 	}
 
-	let { stations }: Props = $props();
-
-	type DataRecord = {
-		id: string;
-		label: string;
-		value: number | undefined;
-		supported: boolean;
-	};
+	let { stations, initialStationIds = [] }: Props = $props();
 
 	const titleKey = $derived(
 		$isCategoryUnit ? ('heatStress' as const) : ('thermalComfort' as const)
 	);
 	const healthRisks = $derived($LL.map.choroplethLegend.healthRisks);
 
-	let ids = useStations();
-
-	let query = createQuery(
-		reactiveQueryArgs(() => ({
-			queryKey: [
-				'stationsData-daily',
-				$ids.join('-'),
-				$dayKey,
-				$unitWithMinMaxAvg,
-				$scale,
-				$hourKey
-			],
-			queryFn: async () => {
-				if ($ids.length === 0 || !$dayStartDate || !$dayEndDate || !$unitWithMinMaxAvg) return [];
-				const promises = $ids.map(async (id) => {
-					if ($ids.length === 0 || !$dayStartDate || !$dayEndDate || !$unitWithMinMaxAvg) return;
-					const itemResults = await api().getStationData({
-						id,
-						start_date: $dayStartDate,
-						end_date: $dayEndDate,
-						param: $unitWithMinMaxAvg as unknown as WeatherMeasurementKeyNoMinMax,
-						scale: $scale
-					});
-					const label =
-						stations.features.find((f) => f.properties.id === id)?.properties.longName || id;
-					if (itemResults === null) {
-						return {
-							id,
-							label,
-							value: undefined,
-							supported: false
-						};
-					}
-					const i = itemResults[0];
-					return {
-						id,
-						label,
-						value: i ? (i[$unitWithMinMaxAvg as keyof typeof i] as unknown as number) : undefined,
-						supported: true
-					};
-				});
-
-				const results = await Promise.all(promises);
-				return results as DataRecord[];
-			},
-			enabled: Boolean($ids.length > 0 && $dayStartDate && $dayEndDate && $unitWithMinMaxAvg)
-		}))
+	const ids = useStations(initialStationIds);
+	const stationsDailyQueryConfig = useStationsDailyConfig(initialStationIds);
+	const query = createQuery(
+		reactiveQueryArgs(() => $stationsDailyQueryConfig)
 	);
 
-	let data = $derived(
-		($query.data || []).sort((a, b) => {
-			const aValue = a.value;
-			const bValue = b.value;
-			if (aValue === undefined && bValue === undefined)
-				return b.label.localeCompare(a.label, $locale);
-			if (aValue === undefined) return -1;
-			if (bValue === undefined) return 1;
-			return b.label.localeCompare(a.label, $locale);
-		})
-	);
+	let data = $derived($query.data || []);
 
 	let insufficientDataIds = $derived(
 		data.filter((d) => d.supported && d.value === undefined).map((d) => d.id)
@@ -146,9 +81,9 @@
 			: firstValidValue?.toLocaleString($locale, { maximumFractionDigits: 1 })
 	);
 	let maxValue = $derived(data.reduce((acc, item) => Math.max(acc, item.value ?? 0), 0));
-	const y = (d: DataRecord) => (typeof d.value === 'number' ? d.value : maxValue);
-	const x = (_d: DataRecord, idx: number) => idx;
-	const color = (d: DataRecord) =>
+	const y = (d: DailyStationRecord) => (typeof d.value === 'number' ? d.value : maxValue);
+	const x = (_d: DailyStationRecord, idx: number) => idx;
+	const color = (d: DailyStationRecord) =>
 		typeof d.value === 'number' ? undefined : 'hsl(var(--muted-foreground) / 0.1)';
 	const yTickFormat = $derived((idx: number) => `${data[idx]?.label ?? ''}`);
 	let xTickFormat = $derived(
@@ -159,7 +94,7 @@
 	);
 	let yTickValues = $derived(data.map(x));
 	let triggers = $derived({
-		[StackedBar.selectors.bar]: (d: DataRecord) => `
+		[StackedBar.selectors.bar]: (d: DailyStationRecord) => `
 			<span class="flex flex-col text-xs max-w-48">
 				${
 					unsupportedIds.includes(d.id) || insufficientDataIds.includes(d.id)

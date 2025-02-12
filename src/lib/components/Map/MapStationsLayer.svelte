@@ -7,18 +7,20 @@
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
-	import { stationsSnapshotQueryConfig } from '$lib/utils/useStationsSnapshot';
+	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
 
 	interface Props {
 		stations: StationsGeoJSONType;
+		initialStationIds?: string[];
 		map: maplibregl.Map;
 	}
 
-	let { stations, map }: Props = $props();
+	let { stations, initialStationIds = [], map }: Props = $props();
 
-	const selectedStations = useStations();
+	const selectedStations = useStations(initialStationIds);
+	const stationsSnapshotQueryConfig = useStationsSnapshotConfig(initialStationIds);
 	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
 	const apiResponseData = $derived($snapshotQuery.data || []);
 

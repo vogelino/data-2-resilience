@@ -12,27 +12,32 @@
 
 	interface Props {
 		stations: {
-		type: 'FeatureCollection';
-		features: GeoJSON.Feature<GeoJSON.Point, StationMetadata>[];
-	};
+			type: 'FeatureCollection';
+			features: GeoJSON.Feature<GeoJSON.Point, StationMetadata>[];
+		};
+		initialStationIds?: string[];
 	}
 
-	let { stations }: Props = $props();
+	let { stations, initialStationIds = [] }: Props = $props();
 
-	const selectedStations = useStations();
+	const selectedStations = useStations(initialStationIds);
 
-	let formattedStations = $derived(stations.features
-		.map((s) => ({
-			value: s.properties.id,
-			label: s.properties.longName
-		}))
-		.sort((a, b) => a.label.localeCompare(b.label)));
-	let formattedSelectedStations = $derived($selectedStations
-		.map((id) => ({
-			value: id,
-			label: formattedStations.find((s) => s.value === id)?.label || id
-		}))
-		.sort((a, b) => a.label.localeCompare(b.label)));
+	let formattedStations = $derived(
+		stations.features
+			.map((s) => ({
+				value: s.properties.id,
+				label: s.properties.longName
+			}))
+			.sort((a, b) => a.label.localeCompare(b.label))
+	);
+	let formattedSelectedStations = $derived(
+		$selectedStations
+			.map((id) => ({
+				value: id,
+				label: formattedStations.find((s) => s.value === id)?.label || id
+			}))
+			.sort((a, b) => a.label.localeCompare(b.label))
+	);
 
 	function onAdd(e: MultiSelectEvents['add']) {
 		const opt = e.detail.option as ObjectOption;

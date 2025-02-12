@@ -44,11 +44,12 @@
 
 	interface Props {
 		stations: StationsGeoJSONType;
+		initialStationIds?: string[];
 	}
 
-	let { stations }: Props = $props();
+	let { stations, initialStationIds = [] }: Props = $props();
 
-	const ids = useStations();
+	const ids = useStations(initialStationIds);
 
 	type DataRecord = Record<string, unknown> & {
 		date: Date;

@@ -10,11 +10,12 @@
 
 	interface Props {
 		stations: StationsGeoJSONType;
+		initialStationIds?: string[];
 	}
 
-	let { stations }: Props = $props();
+	let { stations, initialStationIds = [] }: Props = $props();
 
-	const selectedStations = useStations();
+	const selectedStations = useStations(initialStationIds);
 </script>
 
 <div class="mt-4 flex flex-col rounded-md border border-border">

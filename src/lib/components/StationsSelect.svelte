@@ -25,6 +25,7 @@
 	let formattedStations = $derived(
 		stations.features
 			.map((s) => ({
+				id: s.properties.id,
 				value: s.properties.id,
 				label: s.properties.longName
 			}))
@@ -33,6 +34,7 @@
 	let formattedSelectedStations = $derived(
 		$selectedStations
 			.map((id) => ({
+				id,
 				value: id,
 				label: formattedStations.find((s) => s.value === id)?.label || id
 			}))

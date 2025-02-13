@@ -1,28 +1,25 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
+	import type { StationsGeoJSONType } from '$lib/stores/mapData';
+	import { useStations } from '$lib/stores/stationsStore';
 	import { isCategoryUnit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
-	import { useStationsDailyConfig } from '$lib/utils/useStationsDaily';
+	import { useStationsDailyConfig, type DailyStationRecord } from '$lib/utils/useStationsDaily';
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
-	import {
-		VisAnnotations,
-		VisAxis,
-		VisStackedBar,
-		VisTooltip,
-		VisXYContainer
-	} from '@unovis/svelte';
-	import { StackedBar, type AnnotationItem } from '@unovis/ts';
+	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
+	import { StackedBar } from '@unovis/ts';
 	import { LoaderCircle } from 'lucide-svelte';
 	import ErrorAlert from './ErrorAlert.svelte';
 	import UnovisChartContainer from './UnovisChartContainer.svelte';
 
 	type Props = {
+		stations: StationsGeoJSONType;
 		initialStationIds?: string[];
 	};
-	
-	let { initialStationIds = [] }: Props = $props();
+
+	let { initialStationIds = [], stations }: Props = $props();
 
 	type DataRecord = {
 		id: string;
@@ -31,6 +28,7 @@
 		valueRounded: number;
 		label: string;
 		count: number;
+		ids: string[];
 	};
 
 	function calculateBinningPrecision(values: number[], range: number) {
@@ -58,7 +56,7 @@
 		Object.values($LL.map.choroplethLegend.healthRisks).map(({ title }) => title.heatStress())
 	);
 
-	function createCategoryBins(itemResults: any[]) {
+	function createCategoryBins(itemResults: any[], dailyStationsData: DailyStationRecord[]) {
 		const categoryMap = new Map<string, number>();
 
 		// Initialize all possible categories with 0 count
@@ -74,22 +72,23 @@
 			}
 		});
 
-		return Array.from(categoryMap.entries()).map(
-			([category, count], idx) =>
-				({
-					id: `category-bin-${category}`,
-					valueStart: idx,
-					valueEnd: idx,
-					valueRounded: idx,
-					label:
-						$LL.map.choroplethLegend.healthRisks[
-							category as keyof typeof $LL.map.choroplethLegend.healthRisks
-						].title.heatStress(),
-					count
-				}) satisfies DataRecord
-		);
+		return Array.from(categoryMap.entries()).map(([category, count], idx) => {
+			const label = $LL.map.choroplethLegend.healthRisks[
+				category as keyof typeof $LL.map.choroplethLegend.healthRisks
+			].title.heatStress();
+			return {
+				id: `category-bin-${category}`,
+				valueStart: idx,
+				valueEnd: idx,
+				valueRounded: idx,
+				label,
+				count,
+				ids: dailyStationsData.filter((d) => (d.value as unknown as string) === category).map((d) => d.id)
+			} satisfies DataRecord;
+		});
 	}
 
+	const ids = useStations(initialStationIds);
 	const stationsSnapshotQueryConfig = useStationsSnapshotConfig(initialStationIds);
 	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
 	const stationsDailyQueryConfig = useStationsDailyConfig(initialStationIds);
@@ -98,7 +97,7 @@
 	const snapshotApiResponseData = $derived($snapshotQuery.data || []);
 	const data = $derived.by(() => {
 		if ($isCategoryUnit) {
-			return createCategoryBins(snapshotApiResponseData);
+			return createCategoryBins(snapshotApiResponseData, dailyStationsData);
 		}
 
 		const numericValues = snapshotApiResponseData
@@ -121,8 +120,7 @@
 			const valueRounded = roundToAdaptivePrecision(value, precision);
 			const ids = snapshotApiResponseData.filter((item) => {
 				const itemValue = item[$unitWithMinMaxAvg as keyof typeof item] as unknown as number;
-				const roundedValue = roundToAdaptivePrecision(itemValue, precision);
-				return roundedValue === valueRounded;
+				return itemValue >= value && itemValue < value + binIncrement;
 			});
 			dataRecords.push({
 				id: `histogram-bin-${i}`,
@@ -130,7 +128,10 @@
 				valueEnd: value + binIncrement,
 				valueRounded,
 				label: value.toLocaleString($locale),
-				count: ids.length
+				count: ids.length,
+				ids: dailyStationsData
+					.filter((d) => d.value && d.value >= value && d.value < value + binIncrement)
+					.map((d) => d.id)
 			} satisfies DataRecord);
 		}
 
@@ -148,18 +149,47 @@
 	const xTickValues = $derived(data.map(x));
 
 	const getTootipText = $derived((d: DataRecord) => {
+		const stationIds = $ids.filter((id) => d.ids.includes(id));
+		const stationNames = stationIds.map(
+			(id) => stations.features.find((f) => f.properties.id === id)?.properties.longName || id
+		);
+		let baseTooltipText = '';
 		if ($isCategoryUnit) {
-			return $LL.pages.measurements.histogram.tooltip.category({
+			baseTooltipText = $LL.pages.measurements.histogram.tooltip.category({
 				count: d.count.toLocaleString($locale),
 				category: allCategoryLabels[d.valueStart]
 			});
+		} else {
+			baseTooltipText = $LL.pages.measurements.histogram.tooltip.numberic({
+				count: roundToMax3DigitFraction(d.count).toLocaleString($locale),
+				start: roundToMax3DigitFraction(d.valueStart).toLocaleString($locale),
+				end: roundToMax3DigitFraction(d.valueEnd).toLocaleString($locale),
+				unit: $unitOnly
+			});
 		}
-		return $LL.pages.measurements.histogram.tooltip.numberic({
-			count: roundToMax3DigitFraction(d.count).toLocaleString($locale),
-			start: roundToMax3DigitFraction(d.valueStart).toLocaleString($locale),
-			end: roundToMax3DigitFraction(d.valueEnd).toLocaleString($locale),
-			unit: $unitOnly
-		});
+		const stationsTooltipText = $LL.pages.measurements.histogram.tooltip.stations(
+			stationIds.length
+		);
+		return [
+			baseTooltipText,
+			stationNames.length > 0 &&
+				`
+					<strong class='block border-t border-border mt-1 py-1'>${stationsTooltipText}</strong>
+					<ul class='flex flex-wrap gap-x-1 gap-y-0.5 text-sm list-muted-foreground'>
+						${stationNames
+							.map(
+								(sN) => `
+									<li class='px-1.5 py-0.5 rounded-full border border-border text-xs max-w-48 inline-block text-ellipsis overflow-clip'>
+										${sN}
+									</li>
+								`
+							)
+							.join('\n')}
+					</ul>
+				`
+		]
+			.filter(Boolean)
+			.join('\n');
 	});
 	const triggers = $derived({
 		[StackedBar.selectors.bar]: (d: DataRecord) => `
@@ -168,15 +198,15 @@
 			</span>
 		`
 	});
-	const items: AnnotationItem[] = $derived(
-		dailyStationsData.map((d) => ({
-			x: `${d.value || 0}%`,
-			y: `20%`,
-			content: d.label
-		}))
-	);
 
+	const highestCount = $derived(data.reduce((acc, item) => Math.max(acc, item.count ?? 0), 0));
 	const chartHeight = 150;
+	const chartPadding = {
+		left: 8,
+		right: 8,
+		top: 16,
+		bottom: 0
+	};
 </script>
 
 <h3 class="flex flex-col gap-x-8 gap-y-0.5 font-semibold">
@@ -188,15 +218,7 @@
 </h3>
 {#key data}
 	<UnovisChartContainer className={cn('relative')} style={`height: ${chartHeight}px`}>
-		<VisXYContainer
-			padding={{
-				left: 8,
-				right: 8,
-				top: 16,
-				bottom: 0
-			}}
-			height={chartHeight}
-		>
+		<VisXYContainer padding={chartPadding} height={chartHeight}>
 			{#if $snapshotQuery.isSuccess && data.length > 0}
 				<VisStackedBar {data} {x} {y} orientation="vertical" barPadding={0.2} />
 				{#key $locale}
@@ -222,8 +244,35 @@
 				</div>
 			{/if}
 			<VisTooltip {triggers} />
-			<VisAnnotations {items} />
 		</VisXYContainer>
+		<div class={cn('pointer-events-none absolute inset-0')}>
+			<VisXYContainer padding={chartPadding} height={chartHeight}>
+				{#if $snapshotQuery.isSuccess && data.length > 0}
+					<VisStackedBar
+						{data}
+						{x}
+						y={() => highestCount}
+						orientation="vertical"
+						barWidth={1}
+						color={(d: DataRecord) =>
+							$ids.some((id) => d.ids.includes(id)) ? 'hsl(var(--foreground))' : 'transparent'}
+						roundedCorners={true}
+					/>
+					{#key $locale}
+						<VisAxis
+							type="x"
+							gridLine={false}
+							tickFormat={xTickFormat}
+							tickValues={xTickValues}
+							tickTextHideOverlapping={true}
+							tickTextAlign="center"
+							tickTextWidth={70}
+							tickTextColor="transparent"
+						/>
+					{/key}
+				{/if}
+			</VisXYContainer>
+		</div>
 		<div
 			class={cn(
 				'absolute inset-0 flex items-center justify-center',

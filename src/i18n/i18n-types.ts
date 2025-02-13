@@ -1215,6 +1215,10 @@ type RootTranslation = {
 					 * @param {string} count
 					 */
 					category: RequiredParams<'category' | 'count'>
+					/**
+					 * I​n​k​l​u​s​i​v​ ​f​o​l​g​e​n​d​e​ ​{​{​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​|​?​?​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​e​n​}​}​:
+					 */
+					stations: string
 				}
 			}
 		}
@@ -3009,6 +3013,10 @@ export type TranslationFunctions = {
 					 * Es gibt <strong>{count}</strong> Station{{en}} mit {{einen Wert|Werten}} in der Kategorie <strong>{category}</strong>.
 					 */
 					category: (arg: { category: string, count: string }) => LocalizedString
+					/**
+					 * Inklusiv folgende {{ausgewählte Station|?? ausgewählte Stationen}}:
+					 */
+					stations: (arg0: number | string | boolean) => LocalizedString
 				}
 			}
 		}

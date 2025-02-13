@@ -504,9 +504,10 @@ const en = {
 				title: 'Overview of all stations',
 				tooltip: {
 					numberic:
-						'There are <strong>{count}</strong> station{{s}} with values between <strong>{start}{unit}</strong> and <strong>{end}{unit}</strong>.',
+						'There {{is|are}} <strong>{count}</strong> station{{s}} with values between <strong>{start}{unit}</strong> and <strong>{end}{unit}</strong>.',
 					category:
-						'There are <strong>{count}</strong> station{{s}} values in the category <strong>{category}</strong>.'
+						'There {{is|are}} <strong>{count}</strong> station{{s}} values in the category <strong>{category}</strong>.',
+					stations: `Including the following {{|selected station|?? selected stations}}:`
 				}
 			}
 		},

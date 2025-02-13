@@ -47,7 +47,14 @@
 		reactiveQueryArgs(() => $stationsDailyQueryConfig)
 	);
 
-	let data = $derived($query.data || []);
+	let data = $derived(
+		($query.data || [])
+			.map((d) => ({
+				...d,
+				label: stations.features.find((f) => f.properties.id === d.id)?.properties.longName || d.id
+			}))
+			.sort((a, b) => a.label.localeCompare(b.label))
+	);
 
 	let insufficientDataIds = $derived(
 		data.filter((d) => d.supported && d.value === undefined).map((d) => d.id)
@@ -85,7 +92,8 @@
 	const x = (_d: DailyStationRecord, idx: number) => idx;
 	const color = (d: DailyStationRecord) =>
 		typeof d.value === 'number' ? undefined : 'hsl(var(--muted-foreground) / 0.1)';
-	const yTickFormat = $derived((idx: number) => `${data[idx]?.label ?? ''}`);
+	const yTickFormat = $derived((idx: number) => data[idx].label || '');
+	
 	let xTickFormat = $derived(
 		(value: number) =>
 			`${value.toLocaleString($locale, {
@@ -94,7 +102,8 @@
 	);
 	let yTickValues = $derived(data.map(x));
 	let triggers = $derived({
-		[StackedBar.selectors.bar]: (d: DailyStationRecord) => `
+		[StackedBar.selectors.bar]: (d: DailyStationRecord) => {
+			return `
 			<span class="flex flex-col text-xs max-w-48">
 				${
 					unsupportedIds.includes(d.id) || insufficientDataIds.includes(d.id)
@@ -124,7 +133,7 @@
 				</span>
 			</span>
 		`
-	});
+	}});
 	let chartHeight = $derived(Math.max(96, 60 + $ids.length * 22));
 
 	const dateLongFormatter = new Intl.DateTimeFormat($locale, {
@@ -253,7 +262,9 @@
 				{:else}
 					{#each data as d}
 						{@const healthRisk = healthRisks[d.value as unknown as keyof typeof healthRisks]}
-						<strong class="max-w-48 font-semibold">{d.label}</strong>
+						{@const correspondingFeature = stations.features.find((f) => f.properties.id === d.id)}
+						{@const label = correspondingFeature?.properties.longName || d.label || d.id || ''}
+						<strong class="max-w-48 font-semibold">{label}</strong>
 						<Tooltip openDelay={0} disableHoverableContent>
 							<TooltipTrigger
 								class={cn(

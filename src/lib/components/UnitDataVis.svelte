@@ -40,7 +40,7 @@
 {#if $datavisType !== 'range'}
 	<div class="mt-4 flex flex-col rounded-md border border-border">
 		<div class="flex flex-col gap-4 p-4">
-			<AllStationsHistogram />
+			<AllStationsHistogram {stations} />
 		</div>
 	</div>
 {/if}

@@ -1,6 +1,7 @@
-import LL from '$i18n/i18n-svelte';
+import LL, { locale } from '$i18n/i18n-svelte';
 import { today } from '$lib/utils/dateUtil';
-import { addDays, format } from 'date-fns';
+import { addDays, format, isSameDay, setHours, setMinutes } from 'date-fns';
+import { de, enUS } from 'date-fns/locale';
 import { debounce } from 'es-toolkit';
 import { derived } from 'svelte/store';
 import { queryParam, ssp } from 'sveltekit-search-params';
@@ -129,6 +130,47 @@ export const hourKey = derived([isHourScale, hour], ([isH, h]) => (isH ? h : und
 export const udpateHour = (h: number) => {
 	hourQueryParam.set(h);
 };
+
+// FORMATTED TIME CONFIGURATION
+export const formattedTimeConfiguration = derived(
+	[datavisType, rangeStartDate, rangeEndDate, dayEndDate, hour, locale],
+	([datavisTypeVal, rangeStartVal, rangeEndVal, dayEndVal, hourVal, localeVal]) => {
+		if (!dayEndVal || !rangeStartVal || !rangeEndVal) return '';
+		const dateLocale = localeVal === 'de' ? de : enUS;
+
+		if (datavisTypeVal === 'hour') {
+			const date = setMinutes(setHours(dayEndVal, hourVal), 0);
+			return format(date, 'do MMMM yyyy HH:mm', { locale: dateLocale });
+		}
+
+		if (datavisTypeVal === 'day') {
+			return format(dayEndVal, 'do MMMM yyyy', { locale: dateLocale });
+		}
+
+		if (datavisTypeVal === 'range') {
+			const startMonth = format(rangeStartVal, 'MMMM', { locale: dateLocale });
+			const endMonth = format(rangeEndVal, 'MMMM', { locale: dateLocale });
+			const startYear = format(rangeStartVal, 'yyyy', { locale: dateLocale });
+			const endYear = format(rangeEndVal, 'yyyy', { locale: dateLocale });
+			const startDay = format(rangeStartVal, 'do', { locale: dateLocale });
+			const endDay = format(rangeEndVal, 'do', { locale: dateLocale });
+
+			if (isSameDay(rangeStartVal, rangeEndVal)) {
+				return format(dayEndVal, 'do MMMM yyyy', { locale: dateLocale });
+			}
+
+			if (startYear === endYear) {
+				if (startMonth === endMonth) {
+					return `${startDay} - ${endDay} ${startMonth} ${startYear}`;
+				}
+				return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${startYear}`;
+			}
+			return `${startDay} ${startMonth} ${startYear} - ${endDay} ${endMonth} ${endYear}`;
+		}
+
+		return '';
+	}
+);
 
 // HEAT STRESS UNIT
 const heatStressUnitDefault = 'utci';

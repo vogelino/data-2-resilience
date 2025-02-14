@@ -2,7 +2,13 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { useStations } from '$lib/stores/stationsStore';
-	import { isCategoryUnit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
+	import {
+		formattedTimeConfiguration,
+		isCategoryUnit,
+		unitLabel,
+		unitOnly,
+		unitWithMinMaxAvg
+	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { useStationsDailyConfig, type DailyStationRecord } from '$lib/utils/useStationsDaily';
@@ -73,9 +79,10 @@
 		});
 
 		return Array.from(categoryMap.entries()).map(([category, count], idx) => {
-			const label = $LL.map.choroplethLegend.healthRisks[
-				category as keyof typeof $LL.map.choroplethLegend.healthRisks
-			].title.heatStress();
+			const label =
+				$LL.map.choroplethLegend.healthRisks[
+					category as keyof typeof $LL.map.choroplethLegend.healthRisks
+				].title.heatStress();
 			return {
 				id: `category-bin-${category}`,
 				valueStart: idx,
@@ -83,7 +90,9 @@
 				valueRounded: idx,
 				label,
 				count,
-				ids: dailyStationsData.filter((d) => (d.value as unknown as string) === category).map((d) => d.id)
+				ids: dailyStationsData
+					.filter((d) => (d.value as unknown as string) === category)
+					.map((d) => d.id)
 			} satisfies DataRecord;
 		});
 	}
@@ -209,9 +218,14 @@
 	};
 </script>
 
-<h3 class="flex flex-col gap-x-8 gap-y-0.5 font-semibold">
-	{$LL.pages.measurements.histogram.title()}
-	<span class="text-sm font-normal text-muted-foreground">
+<h3 class="grid grid-cols-[auto,1fr] items-center gap-x-8">
+	<span class="flex flex-col gap-x-8 gap-y-0.5">
+		<strong class="font-semibold">{$LL.pages.measurements.histogram.title()}</strong>
+		<span class="text-sm text-muted-foreground">
+			{$formattedTimeConfiguration}
+		</span>
+	</span>
+	<span class="text-sm font-normal text-muted-foreground text-right">
 		{$unitLabel}
 		{$unitOnly ? `(${$unitOnly})` : ''}
 	</span>

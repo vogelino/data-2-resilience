@@ -5,6 +5,7 @@
 	import {
 		datavisType,
 		dayStartDate,
+		formattedTimeConfiguration,
 		isCategoryUnit,
 		minMaxAvg,
 		unit,
@@ -200,8 +201,13 @@
 {/if}
 
 <h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
-	{$unitLabel}
-	{$unitOnly ? `(${$unitOnly})` : ''}
+	<span class="flex flex-col gap-x-2 gap-y-0.5 font-semibold">
+		{$unitLabel}
+		{$unitOnly ? `(${$unitOnly})` : ''}
+		<span class="text-sm font-normal text-muted-foreground">
+			{$formattedTimeConfiguration}
+		</span>
+	</span>
 	{@render minMaxAvgCombobox()}
 </h3>
 {#if $ids.length === 1}

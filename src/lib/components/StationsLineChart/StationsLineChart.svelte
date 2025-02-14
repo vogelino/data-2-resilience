@@ -2,7 +2,7 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { useStations } from '$lib/stores/stationsStore';
-	import { rangeEndDate, rangeEndKey, rangeStartDate, rangeStartKey, unit } from '$lib/stores/uiStore';
+	import { formattedTimeConfiguration, rangeEndDate, rangeEndKey, rangeStartDate, rangeStartKey, unit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import {
 		getHeatStressCategoryByValue,
@@ -170,7 +170,12 @@
 	);
 </script>
 
-<h3 class="font-semibold">{selectedUnitLabel}</h3>
+<h3 class="flex flex-col gap-x-2 gap-y-0.5">
+	<strong class="font-semibold">{selectedUnitLabel}</strong>
+	<span class="text-muted-foreground text-sm">
+		{$formattedTimeConfiguration}
+	</span>
+</h3>
 {#if unsupportedMsg}
 	<Alert variant="destructive">
 		{@html unsupportedMsg}

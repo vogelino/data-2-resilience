@@ -9,6 +9,7 @@ import {
 	scale,
 	unitWithMinMaxAvg
 } from '$lib/stores/uiStore';
+import { isFuture, setHours, setMinutes } from 'date-fns';
 import { derived, type Readable } from 'svelte/store';
 import { api } from './api';
 import type { WeatherMeasurementKey } from './schemas';
@@ -57,6 +58,10 @@ export function useStationsDailyConfig(initialStationIds: string[] = []) {
 				queryFn: async () => {
 					if (idsVal.length === 0 || !dayStartDateVal || !dayEndDateVal || !unitWithMinMaxAvgVal)
 						return [];
+					if (hourKeyVal) {
+						const dateWithTime = setMinutes(setHours(dayEndDateVal, hourKeyVal - 1), 0);
+						if (isFuture(dateWithTime)) return [];
+					}
 					const promises = idsVal.map(async (id) => {
 						if (idsVal.length === 0 || !dayStartDateVal || !dayEndDateVal || !unitWithMinMaxAvgVal)
 							return;

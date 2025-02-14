@@ -1,6 +1,6 @@
 import LL, { locale } from '$i18n/i18n-svelte';
 import { today } from '$lib/utils/dateUtil';
-import { addDays, format, isSameDay, setHours, setMinutes } from 'date-fns';
+import { addDays, format, isSameDay, isToday, setHours, setMinutes } from 'date-fns';
 import { de, enUS } from 'date-fns/locale';
 import { debounce } from 'es-toolkit';
 import { derived } from 'svelte/store';
@@ -133,18 +133,21 @@ export const udpateHour = (h: number) => {
 
 // FORMATTED TIME CONFIGURATION
 export const formattedTimeConfiguration = derived(
-	[datavisType, rangeStartDate, rangeEndDate, dayEndDate, hour, locale],
-	([datavisTypeVal, rangeStartVal, rangeEndVal, dayEndVal, hourVal, localeVal]) => {
+	[datavisType, rangeStartDate, rangeEndDate, dayEndDate, hour, locale, LL],
+	([datavisTypeVal, rangeStartVal, rangeEndVal, dayEndVal, hourVal, localeVal, LLVal]) => {
 		if (!dayEndVal || !rangeStartVal || !rangeEndVal) return '';
 		const dateLocale = localeVal === 'de' ? de : enUS;
+		const todayString = isToday(rangeEndVal)
+			? `(${LLVal.pages.measurements.dateRangeSlider.today()})`
+			: '';
 
 		if (datavisTypeVal === 'hour') {
 			const date = setMinutes(setHours(dayEndVal, hourVal), 0);
-			return format(date, 'do MMMM yyyy HH:mm', { locale: dateLocale });
+			return `${format(date, 'do MMMM yyyy HH:mm', { locale: dateLocale })} ${todayString}`.trim();
 		}
 
 		if (datavisTypeVal === 'day') {
-			return format(dayEndVal, 'do MMMM yyyy', { locale: dateLocale });
+			return `${format(dayEndVal, 'do MMMM yyyy', { locale: dateLocale })} ${todayString}`.trim();
 		}
 
 		if (datavisTypeVal === 'range') {
@@ -156,16 +159,16 @@ export const formattedTimeConfiguration = derived(
 			const endDay = format(rangeEndVal, 'do', { locale: dateLocale });
 
 			if (isSameDay(rangeStartVal, rangeEndVal)) {
-				return format(dayEndVal, 'do MMMM yyyy', { locale: dateLocale });
+				return `${format(dayEndVal, 'do MMMM yyyy', { locale: dateLocale })} ${todayString}`.trim();
 			}
 
 			if (startYear === endYear) {
 				if (startMonth === endMonth) {
-					return `${startDay} - ${endDay} ${startMonth} ${startYear}`;
+					return `${startDay} - ${endDay} ${startMonth} ${startYear} ${todayString}`;
 				}
-				return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${startYear}`;
+				return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${startYear} ${todayString}`;
 			}
-			return `${startDay} ${startMonth} ${startYear} - ${endDay} ${endMonth} ${endYear}`;
+			return `${startDay} ${startMonth} ${startYear} - ${endDay} ${endMonth} ${endYear} ${todayString}`;
 		}
 
 		return '';

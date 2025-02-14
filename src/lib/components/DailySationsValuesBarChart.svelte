@@ -44,9 +44,7 @@
 
 	const ids = useStations(initialStationIds);
 	const stationsDailyQueryConfig = useStationsDailyConfig(initialStationIds);
-	const query = createQuery(
-		reactiveQueryArgs(() => $stationsDailyQueryConfig)
-	);
+	const query = createQuery(reactiveQueryArgs(() => $stationsDailyQueryConfig));
 
 	let data = $derived(
 		($query.data || [])
@@ -94,7 +92,7 @@
 	const color = (d: DailyStationRecord) =>
 		typeof d.value === 'number' ? undefined : 'hsl(var(--muted-foreground) / 0.1)';
 	const yTickFormat = $derived((idx: number) => data[idx].label || '');
-	
+
 	let xTickFormat = $derived(
 		(value: number) =>
 			`${value.toLocaleString($locale, {
@@ -133,8 +131,9 @@
 					${d.value ? $unitOnly : ''}
 				</span>
 			</span>
-		`
-	}});
+		`;
+		}
+	});
 	let chartHeight = $derived(Math.max(96, 60 + $ids.length * 22));
 
 	const dateLongFormatter = new Intl.DateTimeFormat($locale, {
@@ -316,7 +315,7 @@
 				className={cn('relative')}
 				style={!$query.isLoading && validIds.length === 0 ? '' : `height: ${chartHeight}px`}
 			>
-				{#if validIds.length > 0}
+				{#if validIds.length > 0 || $query.isLoading || $query.isError || ($query.data || []).length === 0}
 					<VisXYContainer
 						padding={{
 							top: 8,
@@ -358,9 +357,7 @@
 							<div class="absolute inset-0 flex items-center justify-center">
 								{$LL.pages.measurements.noDataAvailable()}
 							</div>
-						{/if}
-
-						{#if $query.error}
+						{:else if $query.error}
 							<div class="absolute inset-0 flex items-center justify-center">
 								<ErrorAlert errorObject={$query.error} />
 							</div>

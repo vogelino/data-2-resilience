@@ -1202,7 +1202,7 @@ type RootTranslation = {
 				title: string
 				tooltip: {
 					/**
-					 * E​s​ ​g​i​b​t​ ​<​s​t​r​o​n​g​>​{​c​o​u​n​t​}​<​/​s​t​r​o​n​g​>​ ​S​t​a​t​i​o​n​{​{​e​n​}​}​ ​m​i​t​ ​{​{​e​i​n​e​n​ ​W​e​r​t​|​W​e​r​t​e​n​}​}​ ​z​w​i​s​c​h​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​r​t​}​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​u​n​d​ ​<​s​t​r​o​n​g​>​{​e​n​d​}​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
+					 * E​s​ ​g​i​b​t​ ​<​s​t​r​o​n​g​>​{​c​o​u​n​t​}​<​/​s​t​r​o​n​g​>​ ​S​t​a​t​i​o​n​{​{​e​n​}​}​ ​m​i​t​ ​{​{​e​i​n​e​n​ ​W​e​r​t​|​W​e​r​t​e​n​}​}​ ​z​w​i​s​c​h​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​r​t​}​ ​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​u​n​d​ ​<​s​t​r​o​n​g​>​{​e​n​d​}​ ​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
 					 * @param {string} count
 					 * @param {string} end
 					 * @param {string} start
@@ -3006,7 +3006,7 @@ export type TranslationFunctions = {
 				title: () => LocalizedString
 				tooltip: {
 					/**
-					 * Es gibt <strong>{count}</strong> Station{{en}} mit {{einen Wert|Werten}} zwischen <strong>{start}{unit}</strong> und <strong>{end}{unit}</strong>.
+					 * Es gibt <strong>{count}</strong> Station{{en}} mit {{einen Wert|Werten}} zwischen <strong>{start} {unit}</strong> und <strong>{end} {unit}</strong>.
 					 */
 					numberic: (arg: { count: string, end: string, start: string, unit: string }) => LocalizedString
 					/**

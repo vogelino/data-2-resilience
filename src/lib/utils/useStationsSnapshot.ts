@@ -5,6 +5,11 @@ import { derived, type Readable } from 'svelte/store';
 import { api } from './api';
 import type { WeatherMeasurementKey } from './schemas';
 
+export type SnapshotDataType = {
+	[key: string]: number | string;
+	id: string;
+};
+
 const date = derived([dayEndDate, hour], ([endDate, h]) => setHours(endDate, h));
 
 const dateKey = derived(
@@ -17,7 +22,7 @@ let config:
 	| undefined
 	| Readable<{
 			queryKey: (string | number | undefined)[];
-			queryFn: () => Promise<{ id: string | undefined }[]>;
+			queryFn: () => Promise<SnapshotDataType[]>;
 			enabled: boolean;
 	  }>;
 
@@ -46,7 +51,7 @@ export function useStationsSnapshotConfig(initialStationIds: string[] = []) {
 						param: unitWithMinMaxAvgVal as unknown as WeatherMeasurementKey,
 						scale: scaleVal
 					});
-					return itemResults || [];
+					return (itemResults || []) as SnapshotDataType[];
 				},
 				enabled: Boolean(idsVal.length > 0 && dateVal && unitWithMinMaxAvgVal)
 			};

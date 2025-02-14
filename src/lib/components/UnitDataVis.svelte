@@ -3,7 +3,7 @@
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { useStations } from '$lib/stores/stationsStore';
 	import { datavisType } from '$lib/stores/uiStore';
-	import AllStationsHistogram from './AllStationsHistogram.svelte';
+	import AllStationsHistogram from './AllStationsHistogram/AllStationsHistogram.svelte';
 	import DailySationsValuesBarChart from './DailySationsValuesBarChart.svelte';
 	import DateRangeSlider from './DateRangeSlider.svelte';
 	import StationsValuesLineChart from './StationsLineChart/StationsLineChart.svelte';

@@ -1,6 +1,6 @@
 import { useStations } from '$lib/stores/stationsStore';
-import { dayEndDate, hour, scale, unitWithMinMaxAvg } from '$lib/stores/uiStore';
-import { format, setHours } from 'date-fns';
+import { dayEndDate, hour, hourKey, scale, unitWithMinMaxAvg } from '$lib/stores/uiStore';
+import { format, isFuture, setHours, setMinutes } from 'date-fns';
 import { derived, type Readable } from 'svelte/store';
 import { api } from './api';
 import type { WeatherMeasurementKey } from './schemas';
@@ -25,8 +25,8 @@ export function useStationsSnapshotConfig(initialStationIds: string[] = []) {
 	ids = typeof ids === 'undefined' ? useStations(initialStationIds) : ids;
 	if (config) return config;
 	config = derived(
-		[ids, unitWithMinMaxAvg, scale, date, dateKey],
-		([idsVal, unitWithMinMaxAvgVal, scaleVal, dateVal, dateKeyVal]) => {
+		[ids, unitWithMinMaxAvg, scale, date, dateKey, hourKey],
+		([idsVal, unitWithMinMaxAvgVal, scaleVal, dateVal, dateKeyVal, hourKeyVal]) => {
 			return {
 				queryKey: [
 					'stations-snapshot',
@@ -37,6 +37,10 @@ export function useStationsSnapshotConfig(initialStationIds: string[] = []) {
 				],
 				queryFn: async () => {
 					if (!dateVal || !unitWithMinMaxAvgVal || !scaleVal) return [];
+					if (hourKeyVal) {
+						const dateWithTime = setMinutes(setHours(dateVal, hourKeyVal - 1), 0);
+						if (isFuture(dateWithTime)) return [];
+					}
 					const itemResults = await api().getStationsSnapshot({
 						date: dateVal,
 						param: unitWithMinMaxAvgVal as unknown as WeatherMeasurementKey,

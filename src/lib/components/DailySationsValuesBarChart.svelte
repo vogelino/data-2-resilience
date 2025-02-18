@@ -233,7 +233,7 @@
 					></span>
 				{/if}
 				{firstValidValueLabel}
-				{unitOnly}
+				{$unitOnly}
 			{/if}
 		</strong>
 	</div>

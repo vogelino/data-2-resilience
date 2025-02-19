@@ -126,7 +126,7 @@
 		if (!$isCategoryUnit) {
 			return bins.filter((bin) => bin.find((d) => selectedItems.find((s) => s.id === d.id)))
 		}
-		return ordinalData.filter((d) => d.ids.length > 0)
+		return ordinalData.filter((d) => d.ids.filter((id) => $ids.includes(id)).length > 0)
 	})
 </script>
 

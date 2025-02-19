@@ -3,9 +3,9 @@
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { useStations } from '$lib/stores/stationsStore';
 	import { datavisType } from '$lib/stores/uiStore';
-	import AllStationsHistogram from './AllStationsHistogram/AllStationsHistogram.svelte';
 	import DailySationsValuesBarChart from './DailySationsValuesBarChart.svelte';
 	import DateRangeSlider from './DateRangeSlider.svelte';
+	import Histogram from './Histogram/Histogram.svelte';
 	import StationsValuesLineChart from './StationsLineChart/StationsLineChart.svelte';
 
 	interface Props {
@@ -37,10 +37,11 @@
 	</div>
 </div>
 
+
 {#if $datavisType !== 'range'}
 	<div class="mt-4 flex flex-col rounded-md border border-border">
 		<div class="flex flex-col gap-4 p-4">
-			<AllStationsHistogram {stations} />
+			<Histogram {stations} {initialStationIds} />
 		</div>
 	</div>
 {/if}

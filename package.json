@@ -74,5 +74,9 @@
 		"zod": "^3.24.1",
 		"zod-validation-error": "^3.4.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"d3-array": "3.2.4",
+		"layerchart": "0.99.1"
+	}
 }

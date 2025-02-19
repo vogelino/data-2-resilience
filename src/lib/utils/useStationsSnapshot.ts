@@ -1,6 +1,6 @@
 import { useStations } from '$lib/stores/stationsStore';
 import { dayEndDate, hour, hourKey, scale, unitWithMinMaxAvg } from '$lib/stores/uiStore';
-import { format, isFuture, setHours, setMinutes } from 'date-fns';
+import { format, isFuture, setHours } from 'date-fns';
 import { derived, type Readable } from 'svelte/store';
 import { api } from './api';
 import type { WeatherMeasurementKey } from './schemas';
@@ -30,30 +30,30 @@ export function useStationsSnapshotConfig(initialStationIds: string[] = []) {
 	ids = typeof ids === 'undefined' ? useStations(initialStationIds) : ids;
 	if (config) return config;
 	config = derived(
-		[ids, unitWithMinMaxAvg, scale, date, dateKey, hourKey],
-		([idsVal, unitWithMinMaxAvgVal, scaleVal, dateVal, dateKeyVal, hourKeyVal]) => {
+		[unitWithMinMaxAvg, scale, date, dateKey, hourKey],
+		([unitWithMinMaxAvgVal, scaleVal, dateVal, dateKeyVal, hourKeyVal]) => {
 			return {
 				queryKey: [
 					'stations-snapshot',
-					idsVal.join('-'),
 					dateKeyVal,
 					unitWithMinMaxAvgVal,
 					scaleVal
 				],
 				queryFn: async () => {
 					if (!dateVal || !unitWithMinMaxAvgVal || !scaleVal) return [];
+					const dateWithHour = `${format(dateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`
 					if (hourKeyVal) {
-						const dateWithTime = setMinutes(setHours(dateVal, hourKeyVal - 1), 0);
-						if (isFuture(dateWithTime)) return [];
+						if (isFuture(dateWithHour)) return [];
 					}
 					const itemResults = await api().getStationsSnapshot({
-						date: dateVal,
+						date: new Date(dateWithHour),
 						param: unitWithMinMaxAvgVal as unknown as WeatherMeasurementKey,
 						scale: scaleVal
 					});
+					console.log({ hourKeyVal, itemResults })
 					return (itemResults || []) as SnapshotDataType[];
 				},
-				enabled: Boolean(idsVal.length > 0 && dateVal && unitWithMinMaxAvgVal)
+				enabled: Boolean(dateVal && unitWithMinMaxAvgVal)
 			};
 		}
 	);

@@ -11,6 +11,7 @@
 		unit,
 		unitLabel,
 		unitOnly,
+		unitWithMinMaxAvg,
 		unitWithoutCategory,
 		updateMinMaxAvg
 	} from '$lib/stores/uiStore';
@@ -19,7 +20,8 @@
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
-	import { useStationsDailyConfig, type DailyStationRecord } from '$lib/utils/useStationsDaily';
+	import { type DailyStationRecord } from '$lib/utils/useStationsDaily';
+	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
 	import { StackedBar } from '@unovis/ts';
@@ -43,15 +45,33 @@
 	const healthRisks = $derived($LL.map.choroplethLegend.healthRisks);
 
 	const ids = useStations(initialStationIds);
-	const stationsDailyQueryConfig = useStationsDailyConfig(initialStationIds);
-	const query = createQuery(reactiveQueryArgs(() => $stationsDailyQueryConfig));
+	const stationsSnapshotConfig = useStationsSnapshotConfig(initialStationIds);
+	const query = createQuery(reactiveQueryArgs(() => $stationsSnapshotConfig));
 
+
+	const getValue = $derived(
+		<T,>(item: Record<string, unknown>) => item[$unitWithMinMaxAvg as keyof typeof item] as T
+	);
 	let data = $derived(
-		($query.data || [])
-			.map((d) => ({
-				...d,
-				label: stations.features.find((f) => f.properties.id === d.id)?.properties.longName || d.id
-			}))
+			$ids.map((id) => {
+				const label = stations.features.find((f) => f.properties.id === id)?.properties.longName || id
+				const item = ($query.data || []).find((d) => d.id === id)
+				if (!item) {
+					return {
+						id,
+						value: undefined,
+						supported: false,
+						label
+					}
+				}
+				const value = getValue<number>(item);
+				return {
+					id,
+					value,
+					supported: value !== null,
+					label,
+				}
+			})
 			.sort((a, b) => a.label.localeCompare(b.label))
 	);
 
@@ -87,7 +107,8 @@
 			: firstValidValue?.toLocaleString($locale, { maximumFractionDigits: 1 })
 	);
 	let maxValue = $derived(data.reduce((acc, item) => Math.max(acc, item.value ?? 0), 0));
-	const y = (d: DailyStationRecord) => (typeof d.value === 'number' ? d.value : maxValue);
+	let minValue = $derived(data.reduce((acc, item) => Math.min(acc, item.value ?? 0), 0))
+	const y = (d: DailyStationRecord) => (typeof d.value === 'number' ? d.value : maxValue || minValue);
 	const x = (_d: DailyStationRecord, idx: number) => idx;
 	const color = (d: DailyStationRecord) =>
 		typeof d.value === 'number' ? undefined : 'hsl(var(--muted-foreground) / 0.1)';

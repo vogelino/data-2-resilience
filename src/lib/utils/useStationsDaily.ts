@@ -9,7 +9,7 @@ import {
 	scale,
 	unitWithMinMaxAvg
 } from '$lib/stores/uiStore';
-import { isFuture, setHours, setMinutes } from 'date-fns';
+import { format, isFuture } from 'date-fns';
 import { derived, type Readable } from 'svelte/store';
 import { api } from './api';
 import type { WeatherMeasurementKey } from './schemas';
@@ -58,17 +58,18 @@ export function useStationsDailyConfig(initialStationIds: string[] = []) {
 				queryFn: async () => {
 					if (idsVal.length === 0 || !dayStartDateVal || !dayEndDateVal || !unitWithMinMaxAvgVal)
 						return [];
+					const start = new Date(`${format(dayStartDateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`)
+					const end = new Date(`${format(dayEndDateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`)
 					if (hourKeyVal) {
-						const dateWithTime = setMinutes(setHours(dayEndDateVal, hourKeyVal - 1), 0);
-						if (isFuture(dateWithTime)) return [];
+						if (isFuture(end)) return [];
 					}
 					const promises = idsVal.map(async (id) => {
 						if (idsVal.length === 0 || !dayStartDateVal || !dayEndDateVal || !unitWithMinMaxAvgVal)
 							return;
 						const itemResults = await api().getStationData({
 							id,
-							start_date: dayStartDateVal,
-							end_date: dayEndDateVal,
+							start_date: start,
+							end_date: end,
 							param: unitWithMinMaxAvgVal as unknown as WeatherMeasurementKey,
 							scale: scaleVal
 						});
@@ -82,7 +83,7 @@ export function useStationsDailyConfig(initialStationIds: string[] = []) {
 								supported: false
 							};
 						}
-						const i = itemResults[0];
+						const i = itemResults[0]
 						return {
 							id,
 							label,

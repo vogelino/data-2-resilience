@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
-	import { useStations } from '$lib/stores/stationsStore';
+	import { selectMultipleStations, useStations } from '$lib/stores/stationsStore';
 	import { formattedTimeConfiguration, isCategoryUnit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
@@ -15,6 +15,20 @@
 		stations: StationsGeoJSONType;
 		initialStationIds?: string[];
 	};
+
+	type BaseItemType = {
+    id: string;
+  }
+
+	type QuantitativeType = Array<BaseItemType> & {
+    x0: number | undefined;
+    x1: number | undefined;
+  }
+  type OrdinalType = BaseItemType & {
+    value: number;
+    label: string;
+    ids: string[];
+  }
 
 	let { initialStationIds = [], stations }: Props = $props();
 
@@ -64,6 +78,17 @@
 	type BarchartProps = Parameters<typeof BarChart>[1];
 	const commonChartProps = $derived({
 		bandPadding: 0.15,
+		tooltip: {
+			onclick(e, { data }) {
+				if ($isCategoryUnit) {
+					const item = data as OrdinalType;
+					selectMultipleStations(item.ids);
+				} else {
+					const item = data as QuantitativeType;
+					selectMultipleStations(item.map(({ id }) => id))
+				}
+			},
+		},
 		props: {
 			xAxis: {
 				classes: {
@@ -91,7 +116,9 @@
 				}
 			},
 			rule: { x: 0 },
-			bars: { strokeWidth: 0 },
+			bars: {
+				strokeWidth: 0,
+			},
 		}
 	} satisfies BarchartProps);
 

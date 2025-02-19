@@ -50,7 +50,6 @@ export function useStationsSnapshotConfig(initialStationIds: string[] = []) {
 						param: unitWithMinMaxAvgVal as unknown as WeatherMeasurementKey,
 						scale: scaleVal
 					});
-					console.log({ hourKeyVal, itemResults })
 					return (itemResults || []) as SnapshotDataType[];
 				},
 				enabled: Boolean(dateVal && unitWithMinMaxAvgVal)

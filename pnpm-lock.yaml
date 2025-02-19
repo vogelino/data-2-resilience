@@ -61,8 +61,8 @@ importers:
         specifier: ^9.6.1
         version: 9.6.1
       '@unovis/svelte':
-        specifier: ^1.5.0
-        version: 1.5.0(@unovis/ts@1.5.0)(svelte@5.16.0)
+        specifier: ^1.5.1
+        version: 1.5.1(@unovis/ts@1.5.0)(svelte@5.16.0)
       '@unovis/ts':
         specifier: ^1.5.0
         version: 1.5.0
@@ -1032,10 +1032,10 @@ packages:
   '@unovis/graphlibrary@2.2.0-2':
     resolution: {integrity: sha512-HeEzpd/vDyWiIJt0rnh+2ICXUIuF2N0+Z9OJJiKg0DB+eFUcD+bk+9QPhYHwkFwfxdjDA9fHi1DZ/O/bbV58Nw==}
 
-  '@unovis/svelte@1.5.0':
-    resolution: {integrity: sha512-R6yw+TUr/MKSk8omyV4hAI7oNU81nqd93H844M7CAgVEw/sp8lL2a18J/GdPpQPdHzM7UOYexsD8IJIcO9ctNA==}
+  '@unovis/svelte@1.5.1':
+    resolution: {integrity: sha512-AIKXUbdfg3/Du0sr/o7CTCpjNHFq4WDp7t5GQwNV92VC4YiOEVtBt8k7Z0LcC3JH0rHG4DU5xh8mtrG1uBHPiQ==}
     peerDependencies:
-      '@unovis/ts': 1.5.0
+      '@unovis/ts': 1.5.1
       svelte: '^3.48.0 || ^4.0.0 '
 
   '@unovis/ts@1.5.0':
@@ -3730,7 +3730,7 @@ snapshots:
     dependencies:
       lodash-es: 4.17.21
 
-  '@unovis/svelte@1.5.0(@unovis/ts@1.5.0)(svelte@5.16.0)':
+  '@unovis/svelte@1.5.1(@unovis/ts@1.5.0)(svelte@5.16.0)':
     dependencies:
       '@unovis/ts': 1.5.0
       svelte: 5.16.0

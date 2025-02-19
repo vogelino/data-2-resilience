@@ -47,6 +47,15 @@ export function selectStation(stationId?: string) {
 	});
 }
 
+export function selectMultipleStations(stationIds: string[]) {
+	if (stationIds.length === 0) return
+	urlStations.update(() => {
+		const parsedNewStations = parseStations(stationIds);
+		queryParamStations.set(parsedNewStations.join(","));
+		return parsedNewStations;
+	});
+}
+
 export function deselectStation(stationId?: string) {
 	if (!stationId) return;
 	urlStations.update((stations) => {

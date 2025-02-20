@@ -14,9 +14,24 @@ export const stations = writable({
 	features: [] as GeoJSON.Feature<GeoJSON.Point, StationMetadata>[]
 } satisfies StationsGeoJSONType);
 
+export function filterDoubleStations(stations: StationMetadata[]) {
+	const stationsByName = new Map<string, StationMetadata>();
+	for (const station of stations) {
+		const key = [station.longName, station.longitude, station.latitude].join('-');
+		const existringStation = stationsByName.get(key);
+		if (existringStation && existringStation.stationType === 'biomet') {
+			continue;
+		}
+		stationsByName.set(key, station);
+	}
+	const stationsFiltered = Array.from(stationsByName.values());
+	return stationsFiltered;
+}
+
 export async function fetchStations() {
 	const stationsMetadata = await api().getStationsMetadata();
-	const stationsGeoJSONFeatures = stationsMetadata.map((station) => ({
+	const filteredStations = filterDoubleStations(stationsMetadata)
+	const stationsGeoJSONFeatures = filteredStations.map((station) => ({
 		id: station.id,
 		type: 'Feature' as const,
 		properties: station,

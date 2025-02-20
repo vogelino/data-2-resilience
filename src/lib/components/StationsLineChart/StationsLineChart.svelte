@@ -119,7 +119,7 @@
 		(d: DataRecord) => `
 		<span class="flex flex-col text-xs min-w-56">
 			<strong class="pb-1 mb-1 border-b border-border text-sm">
-				${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short' }).format(d.date)}
+				${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short', hour12: false }).format(d.date)}
 			</strong>
 			<span class="grid grid-cols-[auto_1fr] gap-x-4">
 				${legendItems

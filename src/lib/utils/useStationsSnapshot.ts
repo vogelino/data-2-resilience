@@ -34,7 +34,7 @@ export function useStationsSnapshotConfig({
 	initialStationIds?: string[];
 	stations: StationsGeoJSONType
 }) {
-	ids = typeof ids === 'undefined' ? useStations(initialStationIds) : ids;
+	ids = typeof ids === 'undefined' ? useStations({ initialStationIds, stations }) : ids;
 	if (config) return config;
 	config = derived(
 		[unitWithMinMaxAvg, scale, date, dateKey, hourKey],

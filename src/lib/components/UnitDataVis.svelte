@@ -15,7 +15,7 @@
 
 	let { stations, initialStationIds = [] }: Props = $props();
 
-	const selectedStations = useStations(initialStationIds);
+	const selectedStations = useStations({ initialStationIds, stations });
 </script>
 
 <div class="mt-4 flex flex-col rounded-md border border-border">

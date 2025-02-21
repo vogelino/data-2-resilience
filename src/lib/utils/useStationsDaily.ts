@@ -1,5 +1,5 @@
 import { locale } from '$i18n/i18n-svelte';
-import { stations } from '$lib/stores/mapData';
+import { type StationsGeoJSONType } from '$lib/stores/mapData';
 import { useStations } from '$lib/stores/stationsStore';
 import {
 	dayEndDate,
@@ -30,18 +30,23 @@ let config:
 			enabled: boolean;
 	  }>;
 
-export function useStationsDailyConfig(initialStationIds: string[] = []) {
-	ids = typeof ids === 'undefined' ? useStations(initialStationIds) : ids;
+export function useStationsDailyConfig({
+	initialStationIds = [],
+	stations
+}: {
+	initialStationIds?: string[];
+	stations: StationsGeoJSONType;
+}) {
+	ids = typeof ids === 'undefined' ? useStations({ initialStationIds, stations }) : ids;
 	if (config) return config;
 	config = derived(
-		[ids, dayKey, unitWithMinMaxAvg, scale, hourKey, stations, dayStartDate, dayEndDate, locale],
+		[ids, dayKey, unitWithMinMaxAvg, scale, hourKey, dayStartDate, dayEndDate, locale],
 		([
 			idsVal,
 			dayKeyVal,
 			unitWithMinMaxAvgVal,
 			scaleVal,
 			hourKeyVal,
-			stationsVal,
 			dayStartDateVal,
 			dayEndDateVal,
 			localeVal
@@ -53,7 +58,8 @@ export function useStationsDailyConfig(initialStationIds: string[] = []) {
 					dayKeyVal,
 					unitWithMinMaxAvgVal,
 					scaleVal,
-					hourKeyVal
+					hourKeyVal,
+					localeVal
 				],
 				queryFn: async () => {
 					if (idsVal.length === 0 || !dayStartDateVal || !dayEndDateVal || !unitWithMinMaxAvgVal)
@@ -74,7 +80,7 @@ export function useStationsDailyConfig(initialStationIds: string[] = []) {
 							scale: scaleVal
 						});
 						const label =
-							stationsVal.features.find((f) => f.properties.id === id)?.properties.longName || id;
+							stations.features.find((f) => f.properties.id === id)?.properties.longName || id;
 						if (itemResults === null) {
 							return {
 								id,

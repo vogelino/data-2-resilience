@@ -1,6 +1,7 @@
 import { browser } from "$app/environment";
 import { writable } from "svelte/store";
 import { queryParam, ssp } from "sveltekit-search-params";
+import type { StationsGeoJSONType } from "./mapData";
 
 const defaultStations = ["DEC005304", "DEC005476", "DEC00546E"];
 const urlStations = writable(defaultStations);
@@ -10,13 +11,23 @@ const queryParamStations = queryParam(
 );
 let initialized = false;
 
-export function useStations(initialData: string[] = []) {
-	if (!browser) return writable(initialData);
+export function useStations({
+	initialStationIds = [],
+	stations
+}: {
+	initialStationIds?: string[];
+	stations: StationsGeoJSONType;
+}) {
+	const existInFeatures = (id: string | undefined) =>
+		id && stations.features.some((feature) => feature.id === id);
+	if (!browser) return writable(initialStationIds.filter(existInFeatures));
 	if (browser) {
 		queryParamStations.subscribe((value) => {
 			if (!initialized) {
-				const parsedIds = parseUrlStations(value);
-				urlStations.set(parsedIds.filter(Boolean).toSorted());
+				const parsedIds = parseUrlStations(value)
+					.filter(existInFeatures)
+					.toSorted();
+				urlStations.set(parsedIds);
 				initialized = true;
 			}
 		});

@@ -24,8 +24,9 @@ export const getStationDataFetcher =
 		stations: StationsGeoJSONType["features"];
 	}) =>
 		async () => {
-			if (ids.length === 0 || !start_date || !end_date || !unit) return;
-			const promises = ids.map(async (id) => {
+			const idsInStations = ids.filter((id) => stations.find((f) => f.properties.id === id))
+			if (idsInStations.length === 0 || !start_date || !end_date || !unit) return;
+			const promises = idsInStations.map(async (id) => {
 				const itemResults = await api().getStationData({
 					id,
 					start_date,

@@ -20,7 +20,7 @@
 
 	let { stations, initialStationIds = [] }: Props = $props();
 
-	const selectedStations = useStations(initialStationIds);
+	const selectedStations = useStations({ initialStationIds, stations });
 
 	let formattedStations = $derived(
 		stations.features

@@ -37,7 +37,7 @@
 		Object.values($LL.map.choroplethLegend.healthRisks).map(({ title }) => title.heatStress())
 	);
 
-	const ids = useStations(initialStationIds);
+	const ids = useStations({ initialStationIds, stations });
 	const stationsSnapshotQueryConfig = useStationsSnapshotConfig({ initialStationIds, stations });
 	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
 

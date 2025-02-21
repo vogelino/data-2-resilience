@@ -49,7 +49,7 @@
 
 	let { stations, initialStationIds = [] }: Props = $props();
 
-	const ids = useStations(initialStationIds);
+	const ids = useStations({ stations, initialStationIds});
 
 	type DataRecord = Record<string, unknown> & {
 		date: Date;

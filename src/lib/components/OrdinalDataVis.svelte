@@ -23,7 +23,7 @@
     data,
   }: Props = $props()
 
-  const ids = useStations();
+	const ids = useStations({ stations });
 
 	const titleKey = $derived(
 		$isCategoryUnit ? ('heatStress' as const) : ('thermalComfort' as const)

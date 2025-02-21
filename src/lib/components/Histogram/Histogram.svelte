@@ -118,8 +118,9 @@
 			rule: { x: 0 },
 			bars: {
 				strokeWidth: 0,
+				radius: 2
 			},
-		}
+		},
 	} satisfies BarchartProps);
 
 	const binWithSelectedItems = $derived.by(() => {
@@ -161,7 +162,12 @@
 		data={snapshotApiResponseData}
 	>
 		{#if $isCategoryUnit}
-			<BarChart data={ordinalData} x="label" y="value" {...commonChartProps}>
+			<BarChart
+				data={ordinalData}
+				x="label"
+				y="value"
+				{...commonChartProps}
+			>
 				<svelte:fragment slot="tooltip">
 					<Tooltip.Root let:data classes={tooltipClasses}>
 						<HistogramTooltip item={data} {selectedItems} type="ordinal" />
@@ -172,7 +178,12 @@
 				</svelte:fragment>
 			</BarChart>
 		{:else}
-			<BarChart data={bins} x="x0" y="length" {...commonChartProps}>
+			<BarChart
+				data={bins}
+				x="x0"
+				y="length"
+				{...commonChartProps}
+			>
 				<svelte:fragment slot="tooltip">
 					<Tooltip.Root let:data classes={tooltipClasses}>
 						<HistogramTooltip item={data} {selectedItems} type="quantitative" />

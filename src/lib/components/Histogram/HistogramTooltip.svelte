@@ -7,12 +7,12 @@
   } 
 
   export const tooltipClasses = {
-    root: "max-w-56",
+    root: "max-w-56 bg-transparent",
     container: cn(
       "w-full shadow-none border border-border shadow-lg p-3",
-      "bg-background bg-opacity-80 backdrop-blur-sm",
+      "bg-background dark:bg-background bg-opacity-80 backdrop-blur-sm",
     ),
-    content: "w-full text-xs font-normal text-foreground shadow-none"
+    content: "w-full text-xs font-normal text-foreground shadow-none",
   } satisfies ClassesType
 </script>
 

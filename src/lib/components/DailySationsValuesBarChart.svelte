@@ -4,7 +4,6 @@
 	import { useStations } from '$lib/stores/stationsStore';
 	import {
 		datavisType,
-		dayStartDate,
 		formattedTimeConfiguration,
 		isCategoryUnit,
 		minMaxAvg,
@@ -12,25 +11,21 @@
 		unitLabel,
 		unitOnly,
 		unitWithMinMaxAvg,
-		unitWithoutCategory,
 		updateMinMaxAvg
 	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
-	import { type DailyStationRecord } from '$lib/utils/useStationsDaily';
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { VisAxis, VisStackedBar, VisTooltip, VisXYContainer } from '@unovis/svelte';
-	import { StackedBar } from '@unovis/ts';
-	import { LoaderCircle } from 'lucide-svelte';
+	import { BarChart, Highlight, Tooltip } from 'layerchart';
+	import ChartQueryHull from './ChartQueryHull.svelte';
 	import Combobox from './Combobox.svelte';
-	import ErrorAlert from './ErrorAlert.svelte';
-	import UnovisChartContainer from './UnovisChartContainer.svelte';
+	import { tooltipClasses } from './Histogram/HistogramTooltip.svelte';
+	import OrdinalDataVis from './OrdinalDataVis.svelte';
+	import SingleStationDatavis from './SingleStationDatavis.svelte';
 	import { Alert } from './ui/alert';
-	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
 	interface Props {
 		stations: StationsGeoJSONType;
@@ -39,15 +34,9 @@
 
 	let { stations, initialStationIds = [] }: Props = $props();
 
-	const titleKey = $derived(
-		$isCategoryUnit ? ('heatStress' as const) : ('thermalComfort' as const)
-	);
-	const healthRisks = $derived($LL.map.choroplethLegend.healthRisks);
-
 	const ids = useStations(initialStationIds);
 	const stationsSnapshotConfig = useStationsSnapshotConfig(initialStationIds);
 	const query = createQuery(reactiveQueryArgs(() => $stationsSnapshotConfig));
-
 
 	const getValue = $derived(
 		<T,>(item: Record<string, unknown>) => item[$unitWithMinMaxAvg as keyof typeof item] as T
@@ -100,74 +89,16 @@
 			.map((d) => d.id)
 	);
 
-	let firstValidValue = $derived(data.find((d) => d.value !== undefined)?.value);
+	let firstValidValue = $derived(data.find((d) => d.value !== undefined)?.value as number | string | undefined);
 	let firstValidValueLabel = $derived(
 		typeof firstValidValue === 'string'
 			? getHeatStressLabel({ unit: $unit, LL: $LL, value: firstValidValue })
 			: firstValidValue?.toLocaleString($locale, { maximumFractionDigits: 1 })
 	);
-	let maxValue = $derived(data.reduce((acc, item) => Math.max(acc, item.value ?? 0), 0));
-	let minValue = $derived(data.reduce((acc, item) => Math.min(acc, item.value ?? 0), 0))
-	const y = (d: DailyStationRecord) => (typeof d.value === 'number' ? d.value : maxValue || minValue);
-	const x = (_d: DailyStationRecord, idx: number) => idx;
-	const color = (d: DailyStationRecord) =>
-		typeof d.value === 'number' ? undefined : 'hsl(var(--muted-foreground) / 0.1)';
-	const yTickFormat = $derived((idx: number) => data[idx].label || '');
 
-	let xTickFormat = $derived(
-		(value: number) =>
-			`${value.toLocaleString($locale, {
-				maximumFractionDigits: 1
-			})} ${$unitOnly}`
-	);
-	let yTickValues = $derived(data.map(x));
-	let triggers = $derived({
-		[StackedBar.selectors.bar]: (d: DailyStationRecord) => {
-			return `
-			<span class="flex flex-col text-xs max-w-48">
-				${
-					unsupportedIds.includes(d.id) || insufficientDataIds.includes(d.id)
-						? ''
-						: `<strong>${d.label}</strong>`
-				}
-				<span>
-					${cn(
-						d.value !== undefined &&
-							d.value.toLocaleString($locale, {
-								maximumFractionDigits: 1
-							}),
-						d.value === undefined &&
-							unsupportedIds.includes(d.id) &&
-							$LL.pages.measurements.singleUnsupportedStation({
-								unit: $unitLabel,
-								station: d.label
-							}),
-						d.value === undefined &&
-							insufficientDataIds.includes(d.id) &&
-							$LL.pages.measurements.singleInsufficientDataStation({
-								unit: $unitLabel,
-								station: d.label
-							})
-					)}
-					${d.value ? $unitOnly : ''}
-				</span>
-			</span>
-		`;
-		}
-	});
 	let chartHeight = $derived(Math.max(96, 60 + $ids.length * 22));
-
-	const dateLongFormatter = new Intl.DateTimeFormat($locale, {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric'
-	});
-
-	const dataContainsNegativeValues = $derived(
-		data.some((d) => d.value !== undefined && d.value < 0)
-	);
-	const dataContainsOnlyNegativeValues = $derived(
-		data.every((d) => d.value !== undefined && d.value < 0)
+	const unsupportedDataItems = $derived(
+		data.filter((d) => unsupportedIds.includes(d.id))
 	);
 </script>
 
@@ -195,7 +126,7 @@
 	{/if}
 {/snippet}
 
-{#if unsupportedMsg}
+{#if unsupportedMsg && !$query.isLoading}
 	<Alert variant="destructive">
 		{@html unsupportedMsg}
 	</Alert>
@@ -231,170 +162,111 @@
 	{@render minMaxAvgCombobox()}
 </h3>
 {#if $ids.length === 1}
-	<div class="relative flex flex-col gap-2 pb-6 pt-2 text-center">
-		<span class="text-muted-foreground">
-			{#if $query.isLoading}
-				<span class="inline-block h-4 w-40 animate-pulse rounded-sm bg-muted-foreground/20"></span>
-			{:else if $dayStartDate && firstValidValueLabel}
-				{dateLongFormatter.format($dayStartDate)}
-			{/if}
-		</span>
-		<strong class="flex items-center justify-center gap-2 text-3xl leading-tight">
-			{#if $query.isLoading}
-				<span class="inline-block h-6 w-24 animate-pulse rounded-sm bg-muted-foreground/20"></span>
-			{:else if firstValidValueLabel !== undefined}
-				{#if typeof firstValidValue === 'string'}
-					<span
-						class="inline-block size-6 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
-						style={`background-color: ${getColorScaleValue({
-							unit: $unit,
-							LL: $LL,
-							value: firstValidValue
-						})}`}
-					></span>
-				{/if}
-				{firstValidValueLabel}
-				{$unitOnly}
-			{/if}
-		</strong>
-	</div>
-{:else}
-	{#key data}
-		{#if $isCategoryUnit}
-			<div class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2">
-				{#if $query.isPending}
-					{#each $ids as _d, i}
-						<span
-							class={cn(
-								'inline-block h-5 w-40 animate-pulse rounded-sm bg-muted-foreground/20',
-								['w-24', 'w-20', 'w-32'][i]
-							)}
-						>
-						</span>
-						<span class="grid grid-cols-[0.75rem_1fr] items-center gap-2">
-							<span
-								class={cn('inline-block size-3 animate-pulse rounded-full bg-muted-foreground/20')}
-							>
-							</span>
-							<span
-								class={cn(
-									'inline-block h-5 w-40 animate-pulse rounded-sm bg-muted-foreground/20',
-									['w-32', 'w-24', 'w-40'][i]
-								)}
-							>
-							</span>
-						</span>
-					{/each}
-				{:else}
-					{#each data as d}
-						{@const healthRisk = healthRisks[d.value as unknown as keyof typeof healthRisks]}
-						{@const correspondingFeature = stations.features.find((f) => f.properties.id === d.id)}
-						{@const label = correspondingFeature?.properties.longName || d.label || d.id || ''}
-						<strong class="max-w-48 font-semibold">{label}</strong>
-						<Tooltip openDelay={0} disableHoverableContent>
-							<TooltipTrigger
-								class={cn(
-									'grid w-fit grid-cols-[0.75rem_1fr] items-center gap-2 text-left',
-									d.value && 'transition-colors hover:text-muted-foreground'
-								)}
-							>
-								<span
-									class="inline-block size-3 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
-									{...d.value
-										? {
-												style: `background-color: ${getColorScaleValue({
-													LL: $LL,
-													value: d.value || 0,
-													unit: $unit
-												})};`
-											}
-										: {}}
-								></span>
-								{healthRisk?.title[titleKey]() || $LL.map.choroplethLegend.noValueAvailable()}
-							</TooltipTrigger>
-							{#if d.value}
-								<TooltipContent class="max-w-72">
-									{#if healthRisk}
-										<strong class="flex gap-2 font-semibold">
-											<span>{healthRisk.title[titleKey]()}</span>
-											{#if healthRisk.ranges[$unitWithoutCategory]()}
-												<span class="whitespace-nowrap font-normal text-muted-foreground">
-													({healthRisk.ranges[$unitWithoutCategory]()})
-												</span>
-											{/if}
-										</strong>
-										<span>{@html healthRisk.description()}</span>
-									{/if}
-								</TooltipContent>
-							{/if}
-						</Tooltip>
-					{/each}
-				{/if}
-			</div>
-		{:else}
-			<UnovisChartContainer
-				className={cn('relative')}
-				style={!$query.isLoading && validIds.length === 0 ? '' : `height: ${chartHeight}px`}
+	<SingleStationDatavis
+		isLoading={$query.isLoading}
+		label={firstValidValueLabel}
+		value={firstValidValue}
+	/>
+{:else if (validIds.length > 0 || $query.isLoading || $query.isError || ($query.data || []).length === 0)}
+	{#if $isCategoryUnit}
+		<OrdinalDataVis
+			data={data}
+			isLoading={$query.isLoading}
+			{stations}
+		/>
+	{:else}
+		<div
+			class={cn('relative mb-6')}
+			style={`height: ${chartHeight}px`}
+		>
+			<ChartQueryHull
+				data={data}
+				query={$query}
 			>
-				{#if validIds.length > 0 || $query.isLoading || $query.isError || ($query.data || []).length === 0}
-					<VisXYContainer
-						padding={{
-							top: 8,
-							bottom: 8,
-							right: dataContainsOnlyNegativeValues ? 0 : 16,
-							left: dataContainsNegativeValues ? 16 : 0
-						}}
-						height={chartHeight}
-					>
-						{#if $query.isSuccess && data.length > 0}
-							<VisStackedBar
-								{data}
-								{x}
-								{y}
-								{color}
-								numTicks={Math.max(2, data.length)}
-								tickValues={data.length === 1 && firstValidValue === 0 ? [0, 5] : undefined}
-								orientation="horizontal"
-								barPadding={0.2}
-								barMinHeight1Px
-							/>
-							{#key $locale}
-								<VisAxis type="x" tickFormat={xTickFormat} numTicks={5} />
-							{/key}
-							<VisAxis
-								type="y"
-								tickFormat={yTickFormat}
-								tickValues={yTickValues}
-								gridLine={false}
-								numTicks={data.length}
-								tickTextFitMode="trim"
-								tickTextTrimType="end"
-								tickTextHideOverlapping={true}
-								tickTextAlign="center"
-								tickTextWidth={70}
-							/>
-							<VisTooltip {triggers} />
-						{:else if $query.isSuccess && data.length === 0}
-							<div class="absolute inset-0 flex items-center justify-center">
-								{$LL.pages.measurements.noDataAvailable()}
-							</div>
-						{:else if $query.error}
-							<div class="absolute inset-0 flex items-center justify-center">
-								<ErrorAlert errorObject={$query.error} />
-							</div>
-						{/if}
-					</VisXYContainer>
-				{/if}
-				<div
-					class={cn(
-						'absolute inset-0 flex items-center justify-center',
-						'pointer-events-none opacity-100',
-						!$query.isFetching && 'opacity-0'
-					)}
+				<BarChart
+					{data}
+					bandPadding={0.3}
+					x="value"
+					y="label"
+					orientation="horizontal"
+					padding={{ left: Math.min(130, Math.max(...data.map((d) => d.label.length)) * 8), right: 16 }}
+					props={{
+						yAxis: {
+							tickLength: 0,
+							tickLabelProps: {
+								dx: - 8
+							},
+							classes: {
+								tickLabel: 'fill-muted-foreground text-xs',
+								rule: 'stroke-primary',
+							},
+							format: (v?: string) => (v?.length || 0) > 130 / 8 ? (v || '').slice(0, 130 / 8) + '...' : v || '',
+						},
+						xAxis: {
+							classes: {
+								tickLabel: 'fill-muted-foreground text-xs',
+								rule: 'stroke-muted'
+							},
+							format: (v?: number) => (v === 0 ? '' : `${v?.toLocaleString($locale)} ${$unitOnly}`),
+							ticks: 4
+						},
+						grid: {
+							classes: {
+								line: 'stroke-muted'
+							}
+						},
+						rule: { x: 0 },
+						bars: {
+							strokeWidth: 0,
+							radius: 2
+						},
+					}}
 				>
-					<LoaderCircle class="size-6 animate-spin" />
-				</div>
-			</UnovisChartContainer>
-		{/if}
-	{/key}
+					<svelte:fragment slot="tooltip">
+						<Tooltip.Root let:data={d} classes={tooltipClasses}>
+							<span class="flex flex-col text-xs max-w-48">
+								{@html
+									unsupportedIds.includes(d.id) || insufficientDataIds.includes(d.id)
+										? ''
+										: `<strong>${d.label}</strong>`
+								}
+								<span>
+									{@html cn(
+										d.value !== undefined &&
+											d.value.toLocaleString($locale, {
+												maximumFractionDigits: 1
+											}),
+										d.value === undefined &&
+											unsupportedIds.includes(d.id) &&
+											$LL.pages.measurements.singleUnsupportedStation({
+												unit: $unitLabel,
+												station: d.label
+											}),
+										d.value === undefined &&
+											insufficientDataIds.includes(d.id) &&
+											$LL.pages.measurements.singleInsufficientDataStation({
+												unit: $unitLabel,
+												station: d.label
+											})
+									)}
+									{@html d.value ? $unitOnly : ''}
+								</span>
+							</span>
+						</Tooltip.Root>
+					</svelte:fragment>
+					<svelte:fragment slot="highlight">
+						{#each unsupportedDataItems as item}
+							<Highlight
+								lines={{ 
+									class: "stroke-foreground/5 stroke-[20] [stroke-dasharray:1000,0]",
+								}}
+								data={item}
+							>
+							</Highlight>
+						{/each}
+					</svelte:fragment>
+				</BarChart>
+			</ChartQueryHull>
+		</div>
+	{/if}
 {/if}

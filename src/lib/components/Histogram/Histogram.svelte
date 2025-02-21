@@ -38,7 +38,7 @@
 	);
 
 	const ids = useStations(initialStationIds);
-	const stationsSnapshotQueryConfig = useStationsSnapshotConfig(initialStationIds);
+	const stationsSnapshotQueryConfig = useStationsSnapshotConfig({ initialStationIds, stations });
 	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
 
 	const getValue = $derived(

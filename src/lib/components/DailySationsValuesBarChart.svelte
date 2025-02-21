@@ -35,7 +35,7 @@
 	let { stations, initialStationIds = [] }: Props = $props();
 
 	const ids = useStations(initialStationIds);
-	const stationsSnapshotConfig = useStationsSnapshotConfig(initialStationIds);
+	const stationsSnapshotConfig = useStationsSnapshotConfig({ initialStationIds, stations });
 	const query = createQuery(reactiveQueryArgs(() => $stationsSnapshotConfig));
 
 	const getValue = $derived(

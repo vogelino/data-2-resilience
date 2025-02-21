@@ -20,7 +20,7 @@
 	let { stations, initialStationIds = [], map }: Props = $props();
 
 	const selectedStations = useStations(initialStationIds);
-	const stationsSnapshotQueryConfig = useStationsSnapshotConfig(initialStationIds);
+	const stationsSnapshotQueryConfig = useStationsSnapshotConfig({ initialStationIds, stations });
 	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
 	const apiResponseData = $derived($snapshotQuery.data || []);
 

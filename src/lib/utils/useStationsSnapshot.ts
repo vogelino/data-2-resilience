@@ -1,3 +1,4 @@
+import type { StationsGeoJSONType } from '$lib/stores/mapData';
 import { useStations } from '$lib/stores/stationsStore';
 import { dayEndDate, hour, hourKey, scale, unitWithMinMaxAvg } from '$lib/stores/uiStore';
 import { format, isFuture, setHours } from 'date-fns';
@@ -26,7 +27,13 @@ let config:
 			enabled: boolean;
 	  }>;
 
-export function useStationsSnapshotConfig(initialStationIds: string[] = []) {
+export function useStationsSnapshotConfig({
+	initialStationIds = [],
+	stations
+}: {
+	initialStationIds?: string[];
+	stations: StationsGeoJSONType
+}) {
 	ids = typeof ids === 'undefined' ? useStations(initialStationIds) : ids;
 	if (config) return config;
 	config = derived(
@@ -50,7 +57,10 @@ export function useStationsSnapshotConfig(initialStationIds: string[] = []) {
 						param: unitWithMinMaxAvgVal as unknown as WeatherMeasurementKey,
 						scale: scaleVal
 					});
-					return (itemResults || []) as SnapshotDataType[];
+					return ((itemResults || []) as SnapshotDataType[]).filter((s) => {
+						const station = stations.features.find((f) => f.properties.id === s.id);
+						return !!station;
+					});
 				},
 				enabled: Boolean(dateVal && unitWithMinMaxAvgVal)
 			};

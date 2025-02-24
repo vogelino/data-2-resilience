@@ -190,6 +190,46 @@ type RootTranslation = {
 		 * E​i​n​l​e​i​t​u​n​g​ ​e​r​n​e​u​t​ ​a​n​z​e​i​g​e​n
 		 */
 		expandButtonLabel: string
+		tourSteps: {
+			buttons: {
+				/**
+				 * W​e​i​t​e​r
+				 */
+				next: string
+				/**
+				 * Z​u​r​ü​c​k
+				 */
+				prev: string
+				/**
+				 * A​b​b​r​e​c​h​e​n
+				 */
+				cancel: string
+				/**
+				 * A​b​s​c​h​l​i​e​ß​e​n
+				 */
+				last: string
+			}
+			welcome: {
+				/**
+				 * W​i​l​l​k​o​m​m​e​n
+				 */
+				title: string
+				/**
+				 * W​i​l​l​k​o​m​m​e​n​ ​b​e​i​ ​<​s​t​r​o​n​g​>​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​<​/​s​t​r​o​n​g​>​.​ ​W​i​r​ ​f​r​e​u​e​n​ ​u​n​s​,​ ​d​a​s​s​ ​S​i​e​ ​s​i​c​h​ ​f​ü​r​ ​u​n​s​e​r​ ​P​r​o​j​e​k​t​ ​i​n​t​e​r​e​s​s​i​e​r​e​n​.​ ​W​i​r​ ​h​a​b​e​n​ ​d​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d​ ​e​n​t​w​i​c​k​e​l​t​,​ ​u​m​ ​I​h​n​e​n​ ​e​i​n​e​n​ ​E​i​n​b​l​i​c​k​ ​i​n​ ​d​i​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​n​ ​D​a​t​e​n​ ​z​u​ ​g​e​b​e​n​,​ ​d​i​e​ ​w​i​r​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​s​a​m​m​e​l​n​.​ ​W​i​r​ ​h​o​f​f​e​n​,​ ​d​a​s​s​ ​S​i​e​ ​e​s​ ​n​ü​t​z​l​i​c​h​ ​f​i​n​d​e​n​ ​w​e​r​d​e​n​.
+				 */
+				text: string
+			}
+			unitSelect: {
+				/**
+				 * E​i​n​h​e​i​t​e​n​a​u​s​w​a​h​l
+				 */
+				title: string
+				/**
+				 * W​i​r​ ​h​a​b​e​n​ ​d​i​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​n​ ​D​a​t​e​n​ ​i​n​ ​d​i​e​s​e​m​ ​D​a​s​h​b​o​a​r​d​ ​i​n​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​E​i​n​h​e​i​t​e​n​ ​u​m​g​e​r​e​c​h​n​e​t​,​ ​d​a​m​i​t​ ​S​i​e​ ​s​i​e​ ​b​e​s​s​e​r​ ​v​e​r​s​t​e​h​e​n​ ​k​ö​n​n​e​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​E​i​n​h​e​i​t​e​n​ ​j​e​d​e​r​z​e​i​t​ ​ä​n​d​e​r​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​E​i​n​h​e​i​t​e​n​s​y​m​b​o​l​e​ ​k​l​i​c​k​e​n​.
+				 */
+				text: string
+			}
+		}
 	}
 	navigation: {
 		header: {
@@ -2009,6 +2049,46 @@ export type TranslationFunctions = {
 		 * Einleitung erneut anzeigen
 		 */
 		expandButtonLabel: () => LocalizedString
+		tourSteps: {
+			buttons: {
+				/**
+				 * Weiter
+				 */
+				next: () => LocalizedString
+				/**
+				 * Zurück
+				 */
+				prev: () => LocalizedString
+				/**
+				 * Abbrechen
+				 */
+				cancel: () => LocalizedString
+				/**
+				 * Abschließen
+				 */
+				last: () => LocalizedString
+			}
+			welcome: {
+				/**
+				 * Willkommen
+				 */
+				title: () => LocalizedString
+				/**
+				 * Willkommen bei <strong>Data2Resilience</strong>. Wir freuen uns, dass Sie sich für unser Projekt interessieren. Wir haben dieses Dashboard entwickelt, um Ihnen einen Einblick in die biometeorologischen Daten zu geben, die wir in Dortmund sammeln. Wir hoffen, dass Sie es nützlich finden werden.
+				 */
+				text: () => LocalizedString
+			}
+			unitSelect: {
+				/**
+				 * Einheitenauswahl
+				 */
+				title: () => LocalizedString
+				/**
+				 * Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Einheiten umgerechnet, damit Sie sie besser verstehen können. Sie können die Einheiten jederzeit ändern, indem Sie auf die Einheitensymbole klicken.
+				 */
+				text: () => LocalizedString
+			}
+		}
 	}
 	navigation: {
 		header: {

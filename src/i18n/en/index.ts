@@ -70,7 +70,25 @@ const en = {
 			confirm: "Understood, let's go",
 			launchTour: 'Start the tour'
 		},
-		expandButtonLabel: 'Show the introduction message again'
+		expandButtonLabel: 'Show the introduction message again',
+		tourSteps: {
+			buttons: {
+				next: 'Next',
+				prev: 'Previous',
+				cancel: 'Cancel',
+				last: 'Finish'
+			},
+			welcome: {
+				title: 'Welcome',
+				text:
+					'Welcome to Data2Resilience. We are glad that you are interested in our project. We have developed this dashboard to give you insights into the biometeorological data we collect in Dortmund. We hope you will find it useful.',
+			},
+			unitSelect: {
+				title: 'Unit Selection',
+				text:
+					'We have converted the biometeorological data in this dashboard into different units to help you better understand them. You can change the units at any time by clicking on the unit symbols.',
+			}	
+		}
 	},
 	navigation: {
 		header: {

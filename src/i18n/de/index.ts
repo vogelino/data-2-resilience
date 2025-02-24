@@ -70,7 +70,27 @@ const de = {
 			confirm: "Verstanden, los geht's",
 			launchTour: 'Einführung starten'
 		},
-		expandButtonLabel: 'Einleitung erneut anzeigen'
+		expandButtonLabel: 'Einleitung erneut anzeigen',
+		tourSteps: {
+			buttons: {
+				next: 'Weiter',
+				prev: 'Zurück',
+				cancel: 'Abbrechen',
+				last: 'Abschließen'
+			},
+			welcome: {
+				title: 'Willkommen',
+				text:
+					'Willkommen bei <strong>Data2Resilience</strong>. Wir freuen uns, dass Sie sich für unser Projekt interessieren. Wir haben dieses Dashboard entwickelt, um Ihnen einen Einblick in die biometeorologischen Daten zu geben, die wir in Dortmund sammeln. Wir hoffen, dass Sie es nützlich finden werden.',
+
+			},
+			unitSelect: {
+				title: 'Einheitenauswahl',
+				text:
+					'Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Einheiten umgerechnet, damit Sie sie besser verstehen können. Sie können die Einheiten jederzeit ändern, indem Sie auf die Einheitensymbole klicken.',
+
+			}
+		}
 	},
 	navigation: {
 		header: {

@@ -13,7 +13,7 @@ const en = {
 		'Data2Resilience, urban resilience, extreme heat, Dortmund, climate change, biometeorological measurement, community engagement, heat resilience, urban climate, climate adaptation',
 	twitterHandle: 'RUBclim',
 	log: "This log was called from '{fileName}'",
-	themeColor: '#007bff',
+	themeColor: '#eff3f8',
 	headImages: {
 		og: {
 			large: 'Screenshot of the Data2Resilience map dashboard',
@@ -507,7 +507,7 @@ const en = {
 						'There {{is|are}} <strong>{count}</strong> station{{s}} with values between <strong>{start} {unit}</strong> and <strong>{end} {unit}</strong>.',
 					category:
 						'There {{is|are}} <strong>{count}</strong> station{{s}} values in the category <strong>{category}</strong>.',
-					stations: `Including the following {{|selected station|?? selected stations}}:`
+					stations: `Including the following {{|selected station|?? selected stations}} (click to select):`,
 				}
 			}
 		},

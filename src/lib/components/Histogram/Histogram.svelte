@@ -93,7 +93,7 @@
 			xAxis: {
 				classes: {
 					tickLabel: 'fill-muted-foreground text-xs',
-					rule: 'stroke-muted'
+					rule: 'stroke-muted',
 				},
 				format: (v) => {
 					if (typeof v === 'number') return `${v?.toLocaleString($locale)} ${$unitOnly}`
@@ -104,7 +104,7 @@
 			yAxis: {
 				classes: {
 					tickLabel: 'fill-muted-foreground text-xs',
-					rule: 'stroke-muted'
+					rule: 'stroke-muted',
 				},
 				tickLength: 0,
 				format: (v?: number) => (v === 0 ? '' : `${v?.toLocaleString($locale)}`),
@@ -112,13 +112,13 @@
 			},
 			grid: {
 				classes: {
-					line: 'stroke-muted'
+					line: 'stroke-muted',
 				}
 			},
 			rule: { x: 0 },
 			bars: {
 				strokeWidth: 0,
-				radius: 2
+				radius: 2,
 			},
 		},
 	} satisfies BarchartProps);
@@ -156,7 +156,7 @@
 		{$unitOnly ? `(${$unitOnly})` : ''}
 	</span>
 </h3>
-<div class="h-40 relative">
+<div class="h-40 relative" id="histogram-chart">
 	<ChartQueryHull
 		query={$snapshotQuery}
 		data={snapshotApiResponseData}
@@ -196,3 +196,14 @@
 		{/if}
 	</ChartQueryHull>
 </div>
+
+<style>
+	:global(.layercake-layout-svg .tooltip-rects rect) {
+		transition: fill 100ms ease-out;
+	}
+
+	:global(#histogram-chart .layercake-layout-svg .tooltip-rects rect:hover) {
+		fill: hsl(var(--foreground) / 0.05);
+		cursor: pointer;
+	}
+</style>

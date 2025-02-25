@@ -1,7 +1,7 @@
 import type { StationsGeoJSONType } from '$lib/stores/mapData';
 import { useStations } from '$lib/stores/stationsStore';
 import { dayEndDate, hour, hourKey, scale, unitWithMinMaxAvg } from '$lib/stores/uiStore';
-import { format, isFuture, setHours } from 'date-fns';
+import { addHours, format, isFuture, setHours } from 'date-fns';
 import { derived, type Readable } from 'svelte/store';
 import { api } from './api';
 import type { WeatherMeasurementKey } from './schemas';
@@ -44,12 +44,13 @@ export function useStationsSnapshotConfig({
 					'stations-snapshot',
 					dateKeyVal,
 					unitWithMinMaxAvgVal,
-					scaleVal
+					scaleVal,
 				],
 				queryFn: async () => {
 					if (!dateVal || !unitWithMinMaxAvgVal || !scaleVal) return [];
-					const dateWithHour = `${format(dateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`
-					if (hourKeyVal) {
+					const timeZoneOffsetInHours = dateVal.getTimezoneOffset() / 60;
+					const dateWithHour = addHours(`${format(dateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`, timeZoneOffsetInHours);
+					if (typeof hourKeyVal !== 'undefined') {
 						if (isFuture(dateWithHour)) return [];
 					}
 					const itemResults = await api().getStationsSnapshot({

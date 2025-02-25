@@ -9,7 +9,7 @@ import {
 	scale,
 	unitWithMinMaxAvg
 } from '$lib/stores/uiStore';
-import { format, isFuture } from 'date-fns';
+import { addHours, format, isFuture } from 'date-fns';
 import { derived, type Readable } from 'svelte/store';
 import { api } from './api';
 import type { WeatherMeasurementKey } from './schemas';
@@ -64,8 +64,9 @@ export function useStationsDailyConfig({
 				queryFn: async () => {
 					if (idsVal.length === 0 || !dayStartDateVal || !dayEndDateVal || !unitWithMinMaxAvgVal)
 						return [];
-					const start = new Date(`${format(dayStartDateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`)
-					const end = new Date(`${format(dayEndDateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`)
+					const timeZoneOffsetInHours = dayEndDateVal.getTimezoneOffset() / 60;
+					const start = addHours(new Date(`${format(dayStartDateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`), timeZoneOffsetInHours)
+					const end =  addHours(new Date(`${format(dayEndDateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`), timeZoneOffsetInHours)
 					if (hourKeyVal) {
 						if (isFuture(end)) return [];
 					}

@@ -48,7 +48,7 @@ type RootTranslation = {
 	 */
 	log: RequiredParams<'fileName'>
 	/**
-	 * #​0​0​7​b​f​f
+	 * #​e​f​f​3​f​8
 	 */
 	themeColor: string
 	headImages: {
@@ -1256,7 +1256,7 @@ type RootTranslation = {
 					 */
 					category: RequiredParams<'category' | 'count'>
 					/**
-					 * I​n​k​l​u​s​i​v​ ​f​o​l​g​e​n​d​e​ ​{​{​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​|​?​?​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​e​n​}​}​:
+					 * I​n​k​l​u​s​i​v​ ​f​o​l​g​e​n​d​e​ ​{​{​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​|​?​?​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​e​n​}​}​ ​(​Z​u​m​ ​a​u​s​w​ä​h​l​e​n​ ​k​l​i​c​k​e​n​)​:
 					 */
 					stations: string
 				}
@@ -1907,7 +1907,7 @@ export type TranslationFunctions = {
 	 */
 	log: (arg: { fileName: string }) => LocalizedString
 	/**
-	 * #007bff
+	 * #eff3f8
 	 */
 	themeColor: () => LocalizedString
 	headImages: {
@@ -3094,7 +3094,7 @@ export type TranslationFunctions = {
 					 */
 					category: (arg: { category: string, count: string }) => LocalizedString
 					/**
-					 * Inklusiv folgende {{ausgewählte Station|?? ausgewählte Stationen}}:
+					 * Inklusiv folgende {{ausgewählte Station|?? ausgewählte Stationen}} (Zum auswählen klicken):
 					 */
 					stations: (arg0: number | string | boolean) => LocalizedString
 				}

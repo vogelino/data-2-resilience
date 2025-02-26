@@ -182,7 +182,10 @@
 			<Button on:click={handleClose}>
 				{$LL.welcome.buttons.confirm()}
 			</Button>
-			<Button variant="outline" on:click={() => tour?.start()}>
+			<Button variant="outline" on:click={() => {
+				tour?.start()
+				handleClose();
+			}}>
 				{$LL.welcome.buttons.launchTour()}
 			</Button>
 		</div>

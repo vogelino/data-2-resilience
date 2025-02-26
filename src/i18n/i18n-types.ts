@@ -1216,9 +1216,13 @@ type RootTranslation = {
 					 */
 					category: RequiredParams<'category' | 'count'>
 					/**
-					 * I​n​k​l​u​s​i​v​ ​f​o​l​g​e​n​d​e​ ​{​{​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​|​?​?​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​e​n​}​}​ ​(​Z​u​m​ ​a​u​s​w​ä​h​l​e​n​ ​k​l​i​c​k​e​n​)​:
+					 * I​n​k​l​u​s​i​v​ ​f​o​l​g​e​n​d​e​ ​{​{​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​|​?​?​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​e​n​}​}​:
 					 */
 					stations: string
+					/**
+					 * K​l​i​c​k​e​n​ ​S​i​e​,​ ​u​m​ ​{​{​d​i​e​ ​S​t​a​t​i​o​n​e​n​|​?​?​ ​S​t​a​t​i​o​n​e​n​}​}​ ​a​u​s​z​u​w​ä​h​l​e​n​.
+					 */
+					clickToSelect: string
 				}
 			}
 		}
@@ -3014,9 +3018,13 @@ export type TranslationFunctions = {
 					 */
 					category: (arg: { category: string, count: string }) => LocalizedString
 					/**
-					 * Inklusiv folgende {{ausgewählte Station|?? ausgewählte Stationen}} (Zum auswählen klicken):
+					 * Inklusiv folgende {{ausgewählte Station|?? ausgewählte Stationen}}:
 					 */
 					stations: (arg0: number | string | boolean) => LocalizedString
+					/**
+					 * Klicken Sie, um {{die Stationen|?? Stationen}} auszuwählen.
+					 */
+					clickToSelect: (arg0: number | string | boolean) => LocalizedString
 				}
 			}
 		}

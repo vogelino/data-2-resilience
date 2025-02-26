@@ -20,6 +20,7 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { unitOnly } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { MousePointer } from 'lucide-svelte';
 
   type BaseItemType = {
     id: string;
@@ -45,9 +46,11 @@
 
 	let { item, type, selectedItems }: Props = $props();
 
+  const catItem = $derived(item as OrdinalType);
+  const numItem = $derived(item as QuantitativeType);
+  const totalItems = $derived(type === 'quantitative' ? numItem?.length || 0 : catItem?.value || 0)
+
   const baseTooltipText = $derived.by(() => {
-    const catItem = item as OrdinalType;
-    const numItem = item as QuantitativeType;
     if (type === 'quantitative') {
       return $LL.pages.measurements.histogram.tooltip.numberic({
         count: (numItem?.length || 0).toLocaleString($locale),
@@ -81,8 +84,14 @@
 </script>
 
 {@html baseTooltipText}
+{#if totalItems > 0 && totalItems !== selectedItemsInBin.length}
+  <small class="grid grid-cols-[auto,1fr] gap-x-1 text-xs text-muted-foreground py-1 items-center">
+    <MousePointer class="size-3.5"></MousePointer>
+    <span>{$LL.pages.measurements.histogram.tooltip.clickToSelect(totalItems)}</span>
+  </small>
+{/if}
 {#if selectedItemsInBin.length > 0}
-  <strong class='block border-t border-border mt-1 py-1'>
+  <strong class='block border-t border-border mt-2 py-1'>
     {@html selectedItemsBaseText}
   </strong>
   <ul class='flex flex-wrap gap-x-1 gap-y-0.5 text-sm list-muted-foreground'>

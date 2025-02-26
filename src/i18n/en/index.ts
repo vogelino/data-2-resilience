@@ -507,7 +507,8 @@ const en = {
 						'There {{is|are}} <strong>{count}</strong> station{{s}} with values between <strong>{start} {unit}</strong> and <strong>{end} {unit}</strong>.',
 					category:
 						'There {{is|are}} <strong>{count}</strong> station{{s}} values in the category <strong>{category}</strong>.',
-					stations: `Including the following {{|selected station|?? selected stations}} (click to select):`,
+					stations: `Including the following {{|selected station|?? selected stations}}:`,
+					clickToSelect: `Click to select {{|the station|?? stations}}.`
 				}
 			}
 		},

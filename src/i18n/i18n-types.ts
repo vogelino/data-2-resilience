@@ -219,6 +219,26 @@ type RootTranslation = {
 				 */
 				text: string
 			}
+			map: {
+				/**
+				 * K​a​r​t​e
+				 */
+				title: string
+				/**
+				 * D​i​e​ ​K​a​r​t​e​ ​z​e​i​g​t​ ​d​i​e​ ​a​k​t​u​e​l​l​e​n​ ​M​e​s​s​w​e​r​t​e​ ​f​ü​r​ ​d​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​a​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​a​u​s​w​ä​h​l​e​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​K​r​e​i​s​e​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​k​l​i​c​k​e​n​.
+				 */
+				text: string
+			}
+			stationSelect: {
+				/**
+				 * S​t​a​t​i​o​n​e​n​a​u​s​w​a​h​l
+				 */
+				title: string
+				/**
+				 * W​i​r​ ​h​a​b​e​n​ ​D​a​t​e​n​ ​v​o​n​ ​v​e​r​s​c​h​i​e​d​e​n​e​n​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​e​r​h​o​b​e​n​.​ ​D​u​r​c​h​ ​A​n​k​l​i​c​k​e​n​ ​k​ö​n​n​e​n​ ​S​i​e​ ​a​u​s​w​ä​h​l​e​n​,​ ​w​e​l​c​h​e​ ​S​t​a​t​i​o​n​e​n​ ​S​i​e​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​s​e​h​e​n​ ​m​ö​c​h​t​e​n​.
+				 */
+				text: string
+			}
 			unitSelect: {
 				/**
 				 * E​i​n​h​e​i​t​e​n​a​u​s​w​a​h​l
@@ -226,6 +246,36 @@ type RootTranslation = {
 				title: string
 				/**
 				 * W​i​r​ ​h​a​b​e​n​ ​d​i​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​n​ ​D​a​t​e​n​ ​i​n​ ​d​i​e​s​e​m​ ​D​a​s​h​b​o​a​r​d​ ​i​n​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​E​i​n​h​e​i​t​e​n​ ​u​m​g​e​r​e​c​h​n​e​t​,​ ​d​a​m​i​t​ ​S​i​e​ ​s​i​e​ ​b​e​s​s​e​r​ ​v​e​r​s​t​e​h​e​n​ ​k​ö​n​n​e​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​E​i​n​h​e​i​t​e​n​ ​j​e​d​e​r​z​e​i​t​ ​ä​n​d​e​r​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​E​i​n​h​e​i​t​e​n​s​y​m​b​o​l​e​ ​k​l​i​c​k​e​n​.
+				 */
+				text: string
+			}
+			stationsDatavis: {
+				/**
+				 * D​a​t​e​n​v​i​s​u​a​l​i​s​i​e​r​u​n​g
+				 */
+				title: string
+				/**
+				 * D​i​e​ ​D​a​t​e​n​v​i​s​u​a​l​i​s​i​e​r​u​n​g​ ​z​e​i​g​t​ ​I​h​n​e​n​ ​d​i​e​ ​a​k​t​u​e​l​l​e​n​ ​M​e​s​s​w​e​r​t​e​ ​f​ü​r​ ​d​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​a​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​D​a​t​e​n​ ​f​ü​r​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​Z​e​i​t​r​ä​u​m​e​ ​a​n​z​e​i​g​e​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​S​c​h​a​l​t​f​l​ä​c​h​e​n​ ​i​n​ ​d​e​r​ ​o​b​e​r​e​n​ ​r​e​c​h​t​e​n​ ​E​c​k​e​ ​k​l​i​c​k​e​n​.
+				 */
+				text: string
+			}
+			dateRangeSlider: {
+				/**
+				 * Z​e​i​t​r​a​u​m​ ​a​u​s​w​ä​h​l​e​n
+				 */
+				title: string
+				/**
+				 * S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​D​a​t​e​n​ ​f​ü​r​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​Z​e​i​t​r​ä​u​m​e​ ​a​n​z​e​i​g​e​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​e​r​ ​Z​e​i​t​f​i​l​t​e​r​ ​e​i​n​-​ ​o​d​e​r​ ​a​u​s​w​ä​h​l​e​n​.
+				 */
+				text: string
+			}
+			stationsHistogram: {
+				/**
+				 * D​a​t​e​n​h​i​s​t​o​g​r​a​m​m
+				 */
+				title: string
+				/**
+				 * D​e​r​ ​D​a​t​e​n​h​i​s​t​o​g​r​a​m​m​ ​z​e​i​g​t​ ​I​h​n​e​n​ ​d​i​e​ ​V​e​r​t​e​i​l​u​n​g​ ​d​e​r​ ​M​e​s​s​w​e​r​t​e​ ​f​ü​r​ ​d​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​a​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​V​e​r​t​e​i​l​u​n​g​ ​f​ü​r​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​Z​e​i​t​r​ä​u​m​e​ ​a​n​z​e​i​g​e​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​S​c​h​a​l​t​f​l​ä​c​h​e​n​ ​i​n​ ​d​e​r​ ​o​b​e​r​e​n​ ​r​e​c​h​t​e​n​ ​E​c​k​e​ ​k​l​i​c​k​e​n​.
 				 */
 				text: string
 			}
@@ -2078,6 +2128,26 @@ export type TranslationFunctions = {
 				 */
 				text: () => LocalizedString
 			}
+			map: {
+				/**
+				 * Karte
+				 */
+				title: () => LocalizedString
+				/**
+				 * Die Karte zeigt die aktuellen Messwerte für die ausgewählten Stationen an. Sie können die Stationen auswählen, indem Sie auf die Kreise auf der Karte klicken.
+				 */
+				text: () => LocalizedString
+			}
+			stationSelect: {
+				/**
+				 * Stationenauswahl
+				 */
+				title: () => LocalizedString
+				/**
+				 * Wir haben Daten von verschiedenen Messstationen in Dortmund erhoben. Durch Anklicken können Sie auswählen, welche Stationen Sie auf der Karte sehen möchten.
+				 */
+				text: () => LocalizedString
+			}
 			unitSelect: {
 				/**
 				 * Einheitenauswahl
@@ -2085,6 +2155,36 @@ export type TranslationFunctions = {
 				title: () => LocalizedString
 				/**
 				 * Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Einheiten umgerechnet, damit Sie sie besser verstehen können. Sie können die Einheiten jederzeit ändern, indem Sie auf die Einheitensymbole klicken.
+				 */
+				text: () => LocalizedString
+			}
+			stationsDatavis: {
+				/**
+				 * Datenvisualisierung
+				 */
+				title: () => LocalizedString
+				/**
+				 * Die Datenvisualisierung zeigt Ihnen die aktuellen Messwerte für die ausgewählten Stationen an. Sie können die Daten für verschiedene Zeiträume anzeigen, indem Sie auf die Schaltflächen in der oberen rechten Ecke klicken.
+				 */
+				text: () => LocalizedString
+			}
+			dateRangeSlider: {
+				/**
+				 * Zeitraum auswählen
+				 */
+				title: () => LocalizedString
+				/**
+				 * Sie können die Daten für verschiedene Zeiträume anzeigen, indem Sie auf der Zeitfilter ein- oder auswählen.
+				 */
+				text: () => LocalizedString
+			}
+			stationsHistogram: {
+				/**
+				 * Datenhistogramm
+				 */
+				title: () => LocalizedString
+				/**
+				 * Der Datenhistogramm zeigt Ihnen die Verteilung der Messwerte für die ausgewählten Stationen an. Sie können die Verteilung für verschiedene Zeiträume anzeigen, indem Sie auf die Schaltflächen in der oberen rechten Ecke klicken.
 				 */
 				text: () => LocalizedString
 			}

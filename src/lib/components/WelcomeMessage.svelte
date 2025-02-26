@@ -2,7 +2,7 @@
 	import LL from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
 	import { ArrowDown, X } from 'lucide-svelte';
-	import Shepherd, { type StepOptionsButton, type Tour } from 'shepherd.js';
+	import Shepherd, { type StepOptions, type StepOptionsButton, type Tour } from 'shepherd.js';
 	import 'shepherd.js/dist/css/shepherd.css';
 	import { onMount } from 'svelte';
 	import Button from './ui/button/button.svelte';
@@ -27,6 +27,18 @@
 			}
 		});
 	});
+	
+	function scrollStepIntoView(step: StepOptions) {
+		const selector = step.attachTo?.element as string;
+		if (!selector) return;
+		const el = document.querySelector(selector);
+		if (!el) return;
+		el.scrollIntoView({
+			behavior: 'smooth',
+			block: 'center',
+			inline: 'center',
+		});
+	}
 
 	$effect(() => {
 		if (!tour) return;
@@ -51,22 +63,88 @@
 			text: $LL.welcome.tourSteps.buttons.last(),
 			action: tour.complete
 		} satisfies StepOptionsButton;
-		tour.addStep({
-			id: 'welcome',
-			title: $LL.welcome.tourSteps.welcome.title(),
-			text: $LL.welcome.tourSteps.welcome.text(),
-			buttons: [cancelButton, nextButton]
-		})
-		tour.addStep({
-			id: 'unitSelect',
-			title: $LL.welcome.tourSteps.unitSelect.title(),
-			text: $LL.welcome.tourSteps.unitSelect.text(),
-			attachTo: {
-				element: '[data-id="stations-select"]',
-				on: "right"
-			},
-			buttons: [cancelButton, prevButton, finishButton]
-		})
+
+		const steps = [
+				{
+					id: 'welcome',
+					title: $LL.welcome.tourSteps.welcome.title(),
+					text: $LL.welcome.tourSteps.welcome.text(),
+				} satisfies StepOptions,
+				{
+					id: 'map',
+					title: $LL.welcome.tourSteps.map.title(),
+					text: $LL.welcome.tourSteps.map.text(),
+					attachTo: {
+						element: '#map',
+						on: "left" as const
+					},
+				},
+				{
+					id: 'stationSelect',
+					title: $LL.welcome.tourSteps.stationSelect.title(),
+					text: $LL.welcome.tourSteps.stationSelect.text(),
+					attachTo: {
+						element: '[data-id="stations-select"]',
+						on: "right" as const
+					},
+				},
+				{
+					id: 'unitSelect',
+					title: $LL.welcome.tourSteps.unitSelect.title(),
+					text: $LL.welcome.tourSteps.unitSelect.text(),
+					attachTo: {
+						element: '#unit-select',
+						on: "right" as const
+					},
+				},
+				{
+					id: 'stationsDatavis',
+					title: $LL.welcome.tourSteps.stationsDatavis.title(),
+					text: $LL.welcome.tourSteps.stationsDatavis.text(),
+					attachTo: {
+						element: '#stations-datavis',
+						on: "right" as const
+					},
+				},
+				{
+					id: 'dateRangeSlider',
+					title: $LL.welcome.tourSteps.dateRangeSlider.title(),
+					text: $LL.welcome.tourSteps.dateRangeSlider.text(),
+					attachTo: {
+						element: '#date-range-slider',
+						on: "right" as const
+					},
+				},
+				{
+					id: 'stationsHistogram',
+					title: $LL.welcome.tourSteps.stationsHistogram.title(),
+					text: $LL.welcome.tourSteps.stationsHistogram.text(),
+					attachTo: {
+						element: '#stations-histogram',
+						on: "right" as const
+					},
+				}
+			].map((step, idx, arr) => {
+				const isFirst = idx === 0;
+				const isLast = idx === arr.length - 1;
+				const nextAction= () => {
+					tour?.next();
+					scrollStepIntoView(step);
+				}
+				const prevAction = () => {
+					tour?.back();
+					scrollStepIntoView(step);
+				}
+				return {
+					buttons: [
+						...(isLast ? [] : [cancelButton]),
+						...(isFirst ? [] : [{...prevButton, action: prevAction}]),
+						...(isLast? [finishButton] : [{...nextButton, action: nextAction}]),
+					],
+					...step,
+				} satisfies StepOptions
+			})
+		tour.addSteps(steps)
 	})
 
 	const handleClose = () => {
@@ -127,12 +205,24 @@
 		border: 1px solid hsl(var(--border));
 	}
 
+	:global(.shepherd-element) {
+		--tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+	}
+
 	:global(.shepherd-modal-overlay-container path) {
-		fill: hsl(var(--muted));
+		fill: hsl(var(--foreground));
+		stroke: hsl(var(--primary));
+		stroke-width: 4px;
+	}
+
+	:global(html.dark .shepherd-modal-overlay-container path) {
+		fill: hsl(var(--background));
 	}
 
 	:global(.shepherd-button) {
-		border: 1px solid transparent;
+		border: 1px solid hsl(var(--primary));
 		color: hsl(var(--primary-foreground));
 		background: hsl(var(--primary));
 		border-radius: calc(var(--radius) - 2px);
@@ -144,6 +234,7 @@
 	:global(.shepherd-button:not(:disabled):hover) {
 		background: hsl(var(--primary) / 0.8);
 		color: hsl(var(--primary-foreground));
+		border: 1px solid hsl(var(--primary));
 	}
 
 	:global(.shepherd-button:not(:disabled):focus-visible) {
@@ -164,6 +255,8 @@
 
 	:global(.shepherd-button.shepherd-button-secondary:not(:disabled):hover) {
 		background: hsl(var(--muted));
+		color: hsl(var(--foreground));
+		border: 1px solid hsl(var(--border));
 	}
 
 	:global(
@@ -186,7 +279,10 @@
 	}
 
 	:global(.shepherd-footer) {
-		padding-bottom: var(--shepherd-padding);
+		padding-block: calc(var(--shepherd-padding) * .75);
+		margin-top: var(--shepherd-padding);
+		border-top: 1px solid hsl(var(--border));
+		background: hsl(var(--muted));
 	}
 
 	:global(.shepherd-title) {
@@ -198,5 +294,9 @@
 	:global(.shepherd-text) {
 		font-size: inherit;
 		line-height: inherit;
+	}
+
+	:global(.shepherd-arrow:before) {
+		background: transparent;
 	}
 </style>

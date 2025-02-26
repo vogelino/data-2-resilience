@@ -19,7 +19,7 @@
 </script>
 
 <div class="mt-4 flex flex-col rounded-md border border-border">
-	<div class="flex flex-col gap-4 border-b border-border p-4">
+	<div class="flex flex-col gap-4 border-b border-border p-4" id="stations-datavis">
 		{#if $selectedStations.length > 0}
 			{#if $datavisType === 'range'}
 				<StationsValuesLineChart {stations} />
@@ -32,14 +32,14 @@
 			</p>
 		{/if}
 	</div>
-	<div class="border-border p-4">
+	<div class="border-border p-4" id="date-range-slider">
 		<DateRangeSlider />
 	</div>
 </div>
 
 
 {#if $datavisType !== 'range'}
-	<div class="mt-4 flex flex-col rounded-md border border-border">
+	<div class="mt-4 flex flex-col rounded-md border border-border" id="stations-histogram">
 		<div class="flex flex-col gap-4 p-4">
 			<Histogram {stations} {initialStationIds} />
 		</div>

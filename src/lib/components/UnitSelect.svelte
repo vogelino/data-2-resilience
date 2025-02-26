@@ -48,6 +48,7 @@
 		<Popover.Trigger asChild>
 			{#snippet children({ builder })}
 				<Button
+					id="unit-select"
 					builders={[builder]}
 					variant="outline"
 					role="combobox"

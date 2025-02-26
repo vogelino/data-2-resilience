@@ -116,6 +116,7 @@
 	}}
 />
 <div
+	id="map"
 	class={cn(
 		'main-map relative grid h-full w-full items-center justify-center overflow-clip',
 		showLeftSidebar ? 'left-sidebar-open' : 'left-sidebar-closed'

@@ -2,99 +2,40 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
+	import { unit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { api } from '$lib/utils/api';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
-	import { today } from '$lib/utils/dateUtil';
-	import { parseDatavisType } from '$lib/utils/parsingUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
-	import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
+	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { addDays, format, setHours } from 'date-fns';
-	import { debounce } from 'es-toolkit';
 	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
-	import { queryParam, ssp } from 'sveltekit-search-params';
 
 	interface Props {
 		stations: StationsGeoJSONType;
+		initialStationIds?: string[];
 		map: maplibregl.Map;
 	}
 
-	let { stations, map }: Props = $props();
+	let { stations, initialStationIds = [], map }: Props = $props();
 
-	let rangeDate: Date | undefined = $state();
-	let dayDate: Date | undefined = $state();
-	const options = { debounceHistory: 500 };
-	const unit = queryParam('unit', ssp.string('utci'));
-	const rangeEnd = queryParam('range_end', ssp.number(0), options);
-	const dayVlaue = queryParam('day_value', ssp.number(0), options);
-	const hour = queryParam('hour', ssp.number(12));
-	const rawDatavisType = queryParam('datavisType', ssp.string('day'));
-	const datavisType = $derived(parseDatavisType($rawDatavisType));
-	const scale = $derived(datavisType === 'hour' ? 'hourly' : 'daily');
+	const selectedStations = useStations({ initialStationIds, stations });
+	const stationsSnapshotQueryConfig = useStationsSnapshotConfig({ initialStationIds, stations });
+	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
+	const apiResponseData = $derived($snapshotQuery.data || []);
 
-	const updateEndDate = debounce((d: number) => {
-		updateEndDate?.cancel();
-		rangeDate = addDays(today(), d);
-	}, 500);
-
-	const updateDay = debounce((d: number) => {
-		updateDay?.cancel();
-		dayDate = addDays(today(), d);
-	}, 500);
-
-	rangeEnd.subscribe(updateEndDate);
-	dayVlaue.subscribe(updateDay);
-
-	const date = $derived.by(() => {
-		const refDate = datavisType === 'range' ? rangeDate : dayDate;
-		if (!refDate) return;
-		return setHours(refDate, $hour);
+	const idToItemMap = $derived.by(() => {
+		return apiResponseData.reduce(
+			(acc, item) => ({ ...acc, ...(item.id ? { [item.id]: item } : {}) }),
+			{} as Record<string, (typeof apiResponseData)[0]>
+		);
 	});
 
-	const dateKey = $derived(
-		date && (scale === 'hourly' ? date.toISOString() : format(date, 'yyyy-MM-dd'))
-	);
-
-	const selectedStations = useStations();
-	const query = createQuery(
-		reactiveQueryArgs(() => ({
-			queryKey: ['stations-snapshot', dateKey, scale, $unit],
-			queryFn: async () => {
-				if (!date || !$unit || !scale) return;
-				const itemResults = await api().getStationsSnapshot({
-					date,
-					param: $unit as unknown as WeatherMeasurementKeyNoMinMax,
-					scale
-				});
-				if (itemResults === null) return {};
-				return itemResults.reduce(
-					(acc, item) => ({ ...acc, ...(item.id ? { [item.id]: item } : {}) }),
-					{} as Record<string, (typeof itemResults)[0]>
-				);
-			},
-			enabled: Boolean(date && $unit)
-		}))
-	);
-	let idToItemMap = $derived($query.data || {});
-
-	let unitLabel = $derived(
-		$LL.pages.measurements.unitSelect.units[
-			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].label()
-	);
-	let unitOnlyLabel = $derived(
-		$LL.pages.measurements.unitSelect.units[
-			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].unitOnly()
-	);
-
 	let getValueById = $derived((id?: string) => {
-		if (!id || !$unit) return;
+		if (!id || !$unitWithMinMaxAvg) return;
 		const item = idToItemMap[id];
 		if (!item) return;
-		const value = item[$unit as keyof typeof item];
+		const value = item[$unitWithMinMaxAvg as keyof typeof item];
 		return value as { valueOf(): number } & string;
 	});
 	let getBgColorById = $derived((id?: string) => {
@@ -158,7 +99,7 @@
 							{getValueById(feature.properties?.id)?.valueOf().toLocaleString($locale, {
 								maximumFractionDigits: 1
 							})}
-							{unitOnlyLabel}
+							{$unitOnly}
 						{:else if typeof getValueById(feature.properties?.id) === 'string'}
 							<br />
 							{getHeatStressLabel({
@@ -168,7 +109,7 @@
 							})}
 						{:else}
 							{@html $LL.pages.measurements.singleUnsupportedStationShort({
-								unit: unitLabel
+								unit: $unitLabel
 							})}
 						{/if}
 					</p>

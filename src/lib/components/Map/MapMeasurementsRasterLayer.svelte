@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { heatStressUnit } from '$lib/stores/uiStore';
 	import { today } from '$lib/utils/dateUtil';
-	import { getDayOfYear, getYear, parseISO } from 'date-fns';
+	import { getDayOfYear, getYear } from 'date-fns';
 	import { RasterLayer, RasterTileSource } from 'svelte-maplibre';
-	import { queryParam, ssp } from 'sveltekit-search-params';
 
 	interface Props {
 		hour: number;
@@ -11,8 +11,6 @@
 	}
 
 	let { hour, visible = false }: Props = $props();
-
-	const heatStressUnit = queryParam('heatStress', ssp.string('utci'));
 
 	const categoryToClassMap = {
 		utci: 'UTCI',

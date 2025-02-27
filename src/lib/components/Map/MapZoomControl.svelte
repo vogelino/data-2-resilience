@@ -1,11 +1,11 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
+	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { Minus, Plus } from 'lucide-svelte';
 	import type { Map as MapLibreMap } from 'maplibre-gl';
 	import { Button } from '../ui/button';
-	import { page } from '$app/state';
-	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
 
 	interface Props {
 		map: MapLibreMap;

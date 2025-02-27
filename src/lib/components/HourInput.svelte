@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
+	import { hour, udpateHour } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import Button from 'components/ui/button/button.svelte';
 	import { ArrowDown, ArrowUp } from 'lucide-svelte';
-	import { queryParam, ssp } from 'sveltekit-search-params';
 
 	type ClassesType = {
 		container?: string;
@@ -21,24 +21,22 @@
 
 	let { classes = {} }: Props = $props();
 
-	let hour = queryParam('hour', ssp.number(12));
-
 	function onHourChange(e: Event) {
 		e.preventDefault();
 		const target = e.target as HTMLInputElement;
-		hour.set(parseInt(target.value.split(':')[0], 10));
+		udpateHour(parseInt(target.value.split(':')[0], 10));
 	}
 
 	function onHourUp(evt: MouseEvent) {
 		evt.preventDefault();
 		const newHour = $hour + 1 > 23 ? 0 : $hour + 1;
-		hour.set(newHour);
+		udpateHour(newHour);
 	}
 
 	function onHourDown(evt: MouseEvent) {
 		evt.preventDefault();
 		const newHour = $hour - 1 < 0 ? 23 : $hour - 1;
-		hour.set(newHour);
+		udpateHour(newHour);
 	}
 </script>
 

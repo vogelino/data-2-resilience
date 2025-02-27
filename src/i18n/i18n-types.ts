@@ -48,7 +48,7 @@ type RootTranslation = {
 	 */
 	log: RequiredParams<'fileName'>
 	/**
-	 * #​0​0​7​b​f​f
+	 * #​e​f​f​3​f​8
 	 */
 	themeColor: string
 	headImages: {
@@ -1195,6 +1195,36 @@ type RootTranslation = {
 				 */
 				infoDescription: string
 			}
+			histogram: {
+				/**
+				 * A​l​l​e​ ​S​t​a​t​i​o​n​e​n​ ​i​m​ ​Ü​b​e​r​b​l​i​c​k
+				 */
+				title: string
+				tooltip: {
+					/**
+					 * E​s​ ​g​i​b​t​ ​<​s​t​r​o​n​g​>​{​c​o​u​n​t​}​<​/​s​t​r​o​n​g​>​ ​S​t​a​t​i​o​n​{​{​e​n​}​}​ ​m​i​t​ ​{​{​e​i​n​e​n​ ​W​e​r​t​|​W​e​r​t​e​n​}​}​ ​z​w​i​s​c​h​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​r​t​}​ ​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​u​n​d​ ​<​s​t​r​o​n​g​>​{​e​n​d​}​ ​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
+					 * @param {string} count
+					 * @param {string} end
+					 * @param {string} start
+					 * @param {string} unit
+					 */
+					numberic: RequiredParams<'count' | 'end' | 'start' | 'unit' | 'unit'>
+					/**
+					 * E​s​ ​g​i​b​t​ ​<​s​t​r​o​n​g​>​{​c​o​u​n​t​}​<​/​s​t​r​o​n​g​>​ ​S​t​a​t​i​o​n​{​{​e​n​}​}​ ​m​i​t​ ​{​{​e​i​n​e​n​ ​W​e​r​t​|​W​e​r​t​e​n​}​}​ ​i​n​ ​d​e​r​ ​K​a​t​e​g​o​r​i​e​ ​<​s​t​r​o​n​g​>​{​c​a​t​e​g​o​r​y​}​<​/​s​t​r​o​n​g​>​.
+					 * @param {string} category
+					 * @param {string} count
+					 */
+					category: RequiredParams<'category' | 'count'>
+					/**
+					 * I​n​k​l​u​s​i​v​ ​f​o​l​g​e​n​d​e​ ​{​{​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​|​?​?​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​S​t​a​t​i​o​n​e​n​}​}​:
+					 */
+					stations: string
+					/**
+					 * K​l​i​c​k​e​n​ ​S​i​e​,​ ​u​m​ ​{​{​d​i​e​ ​S​t​a​t​i​o​n​e​n​|​?​?​ ​S​t​a​t​i​o​n​e​n​}​}​ ​a​u​s​z​u​w​ä​h​l​e​n​.
+					 */
+					clickToSelect: string
+				}
+			}
 		}
 		stations: {
 			/**
@@ -1841,7 +1871,7 @@ export type TranslationFunctions = {
 	 */
 	log: (arg: { fileName: string }) => LocalizedString
 	/**
-	 * #007bff
+	 * #eff3f8
 	 */
 	themeColor: () => LocalizedString
 	headImages: {
@@ -2972,6 +3002,30 @@ export type TranslationFunctions = {
 				 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
 				 */
 				infoDescription: () => LocalizedString
+			}
+			histogram: {
+				/**
+				 * Alle Stationen im Überblick
+				 */
+				title: () => LocalizedString
+				tooltip: {
+					/**
+					 * Es gibt <strong>{count}</strong> Station{{en}} mit {{einen Wert|Werten}} zwischen <strong>{start} {unit}</strong> und <strong>{end} {unit}</strong>.
+					 */
+					numberic: (arg: { count: string, end: string, start: string, unit: string }) => LocalizedString
+					/**
+					 * Es gibt <strong>{count}</strong> Station{{en}} mit {{einen Wert|Werten}} in der Kategorie <strong>{category}</strong>.
+					 */
+					category: (arg: { category: string, count: string }) => LocalizedString
+					/**
+					 * Inklusiv folgende {{ausgewählte Station|?? ausgewählte Stationen}}:
+					 */
+					stations: (arg0: number | string | boolean) => LocalizedString
+					/**
+					 * Klicken Sie, um {{die Stationen|?? Stationen}} auszuwählen.
+					 */
+					clickToSelect: (arg0: number | string | boolean) => LocalizedString
+				}
 			}
 		}
 		stations: {

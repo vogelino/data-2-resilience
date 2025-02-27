@@ -13,7 +13,7 @@ const de = {
 		'Data2Resilience, urbane Resilienz, extreme Hitze, Dortmund, Klimawandel, biometeorologische Messung, gesellschaftliches Engagement, Hitzeresilienz, Stadtklima, Klimaanpassung',
 	twitterHandle: 'RUBclim',
 	log: "Dieses Logging wurde von '{fileName:string}' aufgerufen",
-	themeColor: '#007bff',
+	themeColor: '#eff3f8',
 	headImages: {
 		og: {
 			large: 'Screenshot des Data2Resilience-Karten-Dashboards',
@@ -502,6 +502,17 @@ const de = {
 				infoTitle: 'Wie funktioniert die Zeitspanne?',
 				infoDescription:
 					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+			},
+			histogram: {
+				title: 'Alle Stationen im Überblick',
+				tooltip: {
+					numberic:
+						'Es gibt <strong>{count:string}</strong> Station{{en}} mit {{einen Wert|Werten}} zwischen <strong>{start:string} {unit:string}</strong> und <strong>{end:string} {unit:string}</strong>.',
+					category:
+						'Es gibt <strong>{count:string}</strong> Station{{en}} mit {{einen Wert|Werten}} in der Kategorie <strong>{category:string}</strong>.',
+					stations: `Inklusiv folgende {{|ausgewählte Station|?? ausgewählte Stationen}}:`,
+					clickToSelect: 'Klicken Sie, um {{|die Stationen|?? Stationen}} auszuwählen.',
+				}
 			}
 		},
 		stations: {

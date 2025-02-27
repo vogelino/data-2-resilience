@@ -2,17 +2,14 @@
 	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { isLeftSidebarOpened } from '$lib/stores/uiStore';
+	import { boundariesMode, isLeftSidebarOpened, showSatellite, updateBoundariesMode, updateShowSatellite } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import type { Builder } from 'bits-ui';
 	import CheckboxIcon from 'components/CheckboxIcon.svelte';
 	import Button from 'components/ui/button/button.svelte';
 	import type { Props as ButtonProps } from 'components/ui/button/index.ts';
-	import { Layers3, RadioIcon } from 'lucide-svelte';
-	import { queryParam, ssp } from 'sveltekit-search-params';
+	import { Layers3 } from 'lucide-svelte';
 
-	let boundariesMode = queryParam('boundariesMode', ssp.string('districts'));
-	let showSatellite = queryParam('showSatellite', ssp.boolean(false));
 	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
 	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 </script>
@@ -41,9 +38,9 @@
 		<DropdownMenu.Item
 			on:click={() => {
 				if ($boundariesMode === 'districts') {
-					$boundariesMode = 'none';
+					updateBoundariesMode('none');
 				} else {
-					$boundariesMode = 'districts';
+					updateBoundariesMode('districts');
 				}
 			}}
 			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
@@ -61,9 +58,9 @@
 		<DropdownMenu.Item
 			on:click={() => {
 				if ($boundariesMode === 'lors') {
-					$boundariesMode = 'none';
+					updateBoundariesMode('none');
 				} else {
-					$boundariesMode = 'lors';
+					updateBoundariesMode('lors');
 				}
 			}}
 			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
@@ -80,7 +77,7 @@
 		</DropdownMenu.Item>
 		<DropdownMenu.Separator />
 		<DropdownMenu.Item
-			on:click={() => ($showSatellite = !$showSatellite)}
+			on:click={() => updateShowSatellite(!$showSatellite)}
 			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
 		>
 			<CheckboxIcon checked={$showSatellite} />

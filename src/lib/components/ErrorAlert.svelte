@@ -9,11 +9,7 @@
 		description?: any;
 	}
 
-	let {
-		errorObject,
-		label = $LL.errors.unexpectedError.label(),
-		description = $LL.errors.unexpectedError.description()
-	}: Props = $props();
+	let { errorObject, label = $LL.errors.unexpectedError.label(), description = $LL.errors.unexpectedError.description() }: Props = $props();
 </script>
 
 <Alert class="flex max-h-72 max-w-sm flex-col gap-2 overflow-y-auto" variant="destructive">

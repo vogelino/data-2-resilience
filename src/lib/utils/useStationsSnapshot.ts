@@ -32,7 +32,7 @@ export function useStationsSnapshotConfig({
 	stations
 }: {
 	initialStationIds?: string[];
-	stations: StationsGeoJSONType;
+	stations: StationsGeoJSONType
 }) {
 	ids = typeof ids === 'undefined' ? useStations({ initialStationIds, stations }) : ids;
 	if (config) return config;
@@ -40,14 +40,16 @@ export function useStationsSnapshotConfig({
 		[unitWithMinMaxAvg, scale, date, dateKey, hourKey],
 		([unitWithMinMaxAvgVal, scaleVal, dateVal, dateKeyVal, hourKeyVal]) => {
 			return {
-				queryKey: ['stations-snapshot', dateKeyVal, unitWithMinMaxAvgVal, scaleVal],
+				queryKey: [
+					'stations-snapshot',
+					dateKeyVal,
+					unitWithMinMaxAvgVal,
+					scaleVal,
+				],
 				queryFn: async () => {
 					if (!dateVal || !unitWithMinMaxAvgVal || !scaleVal) return [];
 					const timeZoneOffsetInHours = dateVal.getTimezoneOffset() / 60;
-					const dateWithHour = addHours(
-						`${format(dateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`,
-						timeZoneOffsetInHours
-					);
+					const dateWithHour = addHours(`${format(dateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`, timeZoneOffsetInHours);
 					if (typeof hourKeyVal !== 'undefined') {
 						if (isFuture(dateWithHour)) return [];
 					}

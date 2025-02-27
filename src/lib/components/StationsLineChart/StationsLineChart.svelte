@@ -2,14 +2,7 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { type StationsGeoJSONType } from '$lib/stores/mapData';
 	import { useStations } from '$lib/stores/stationsStore';
-	import {
-		formattedTimeConfiguration,
-		rangeEndDate,
-		rangeEndKey,
-		rangeStartDate,
-		rangeStartKey,
-		unit
-	} from '$lib/stores/uiStore';
+	import { formattedTimeConfiguration, rangeEndDate, rangeEndKey, rangeStartDate, rangeStartKey, unit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import {
 		getHeatStressCategoryByValue,
@@ -56,7 +49,7 @@
 
 	let { stations, initialStationIds = [] }: Props = $props();
 
-	const ids = useStations({ stations, initialStationIds });
+	const ids = useStations({ stations, initialStationIds});
 
 	type DataRecord = Record<string, unknown> & {
 		date: Date;
@@ -79,11 +72,7 @@
 			queryKey: ['stationsData-range', $ids?.join('-'), $rangeStartKey, $rangeEndKey, $unit],
 			queryFn,
 			enabled: Boolean(
-				$ids?.length > 0 &&
-					stations?.features?.length > 0 &&
-					$rangeStartDate &&
-					$rangeEndDate &&
-					$unit
+				$ids?.length > 0 && stations?.features?.length > 0 && $rangeStartDate && $rangeEndDate && $unit
 			)
 		}))
 	);
@@ -183,7 +172,7 @@
 
 <h3 class="flex flex-col gap-x-2 gap-y-0.5">
 	<strong class="font-semibold">{selectedUnitLabel}</strong>
-	<span class="text-sm text-muted-foreground">
+	<span class="text-muted-foreground text-sm">
 		{$formattedTimeConfiguration}
 	</span>
 </h3>

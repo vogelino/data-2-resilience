@@ -2,13 +2,7 @@
 	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import {
-		boundariesMode,
-		isLeftSidebarOpened,
-		showSatellite,
-		updateBoundariesMode,
-		updateShowSatellite
-	} from '$lib/stores/uiStore';
+	import { boundariesMode, isLeftSidebarOpened, showSatellite, updateBoundariesMode, updateShowSatellite } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import type { Builder } from 'bits-ui';
 	import CheckboxIcon from 'components/CheckboxIcon.svelte';

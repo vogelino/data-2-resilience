@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
-	import { cn, flyAndScale } from '$lib/utils.js';
+	import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
+	import { cn, flyAndScale } from "$lib/utils.js";
 
 	type $$Props = DropdownMenuPrimitive.ContentProps;
 	type $$Events = DropdownMenuPrimitive.ContentEvents;
 
 	interface Props {
-		class?: $$Props['class'];
-		sideOffset?: $$Props['sideOffset'];
-		transition?: $$Props['transition'];
-		transitionConfig?: $$Props['transitionConfig'];
+		class?: $$Props["class"];
+		sideOffset?: $$Props["sideOffset"];
+		transition?: $$Props["transition"];
+		transitionConfig?: $$Props["transitionConfig"];
 		children?: import('svelte').Snippet;
-		[key: string]: any;
+		[key: string]: any
 	}
 
 	let {
@@ -22,6 +22,7 @@
 		children,
 		...rest
 	}: Props = $props();
+	
 </script>
 
 <DropdownMenuPrimitive.Content
@@ -29,7 +30,7 @@
 	{transitionConfig}
 	{sideOffset}
 	class={cn(
-		'z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md focus:outline-none',
+		"bg-popover text-popover-foreground z-50 min-w-[8rem] rounded-md border p-1 shadow-md focus:outline-none",
 		className
 	)}
 	{...rest}

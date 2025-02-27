@@ -25,9 +25,7 @@
 
 	let { indicator }: Props = $props();
 
-	let selectedIndicatorSlug = $derived(
-		$heatStressUnit === null ? 'utci' : $heatStressUnit
-	);
+	let selectedIndicatorSlug = $derived($heatStressUnit === null ? 'utci' : $heatStressUnit);
 	let slugWithCategory = $derived(`${indicator.slug}_category`);
 	let valueSelected = $derived(indicator.isSelected && selectedIndicatorSlug !== slugWithCategory);
 	let categorySelected = $derived(
@@ -48,7 +46,7 @@
 			aria-label={indicator.title}
 			type="button"
 			onclick={() => {
-				updateHeatStressUnit(indicator.hasCategory ? slugWithCategory : indicator.slug)
+				updateHeatStressUnit(indicator.hasCategory ? slugWithCategory : indicator.slug);
 			}}
 			class={cn(
 				'focusable absolute inset-0 z-10 focus-visible:rounded-xl focus-visible:bg-transparent'

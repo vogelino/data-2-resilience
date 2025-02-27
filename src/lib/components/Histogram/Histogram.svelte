@@ -2,7 +2,13 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { selectMultipleStations, useStations } from '$lib/stores/stationsStore';
-	import { formattedTimeConfiguration, isCategoryUnit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
+	import {
+		formattedTimeConfiguration,
+		isCategoryUnit,
+		unitLabel,
+		unitOnly,
+		unitWithMinMaxAvg
+	} from '$lib/stores/uiStore';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
@@ -17,18 +23,18 @@
 	};
 
 	type BaseItemType = {
-    id: string;
-  }
+		id: string;
+	};
 
 	type QuantitativeType = Array<BaseItemType> & {
-    x0: number | undefined;
-    x1: number | undefined;
-  }
-  type OrdinalType = BaseItemType & {
-    value: number;
-    label: string;
-    ids: string[];
-  }
+		x0: number | undefined;
+		x1: number | undefined;
+	};
+	type OrdinalType = BaseItemType & {
+		value: number;
+		label: string;
+		ids: string[];
+	};
 
 	let { initialStationIds = [], stations }: Props = $props();
 
@@ -44,10 +50,12 @@
 	const getValue = $derived(
 		<T,>(item: Record<string, unknown>) => item[$unitWithMinMaxAvg as keyof typeof item] as T
 	);
-	const snapshotApiResponseData = $derived(($snapshotQuery.data || []).filter((d) => {
-		const value = getValue<number>(d);
-		return typeof value !== 'undefined';
-	}));
+	const snapshotApiResponseData = $derived(
+		($snapshotQuery.data || []).filter((d) => {
+			const value = getValue<number>(d);
+			return typeof value !== 'undefined';
+		})
+	);
 
 	const ordinalData = $derived(
 		allCategoryValues.map((val, idx) => {
@@ -70,10 +78,12 @@
 	);
 	const bins = $derived(binByValue(snapshotApiResponseData));
 
-	const selectedItems = $derived($ids.map((id) => ({
-		id,
-		label: stations.features.find((f) => f.id === id)?.properties.longName || '',
-	})));
+	const selectedItems = $derived(
+		$ids.map((id) => ({
+			id,
+			label: stations.features.find((f) => f.id === id)?.properties.longName || ''
+		}))
+	);
 
 	type BarchartProps = Parameters<typeof BarChart>[1];
 	const commonChartProps = $derived({
@@ -85,26 +95,26 @@
 					selectMultipleStations(item.ids);
 				} else {
 					const item = data as QuantitativeType;
-					selectMultipleStations(item.map(({ id }) => id))
+					selectMultipleStations(item.map(({ id }) => id));
 				}
-			},
+			}
 		},
 		props: {
 			xAxis: {
 				classes: {
 					tickLabel: 'fill-muted-foreground text-xs',
-					rule: 'stroke-muted',
+					rule: 'stroke-muted'
 				},
 				format: (v) => {
-					if (typeof v === 'number') return `${v?.toLocaleString($locale)} ${$unitOnly}`
-					return v
+					if (typeof v === 'number') return `${v?.toLocaleString($locale)} ${$unitOnly}`;
+					return v;
 				},
-				ticks: $isCategoryUnit ? 4 : Math.ceil(bins.length/4)
+				ticks: $isCategoryUnit ? 4 : Math.ceil(bins.length / 4)
 			},
 			yAxis: {
 				classes: {
 					tickLabel: 'fill-muted-foreground text-xs',
-					rule: 'stroke-muted',
+					rule: 'stroke-muted'
 				},
 				tickLength: 0,
 				format: (v?: number) => (v === 0 ? '' : `${v?.toLocaleString($locale)}`),
@@ -112,35 +122,34 @@
 			},
 			grid: {
 				classes: {
-					line: 'stroke-muted',
+					line: 'stroke-muted'
 				}
 			},
 			rule: { x: 0 },
 			bars: {
 				strokeWidth: 0,
-				radius: 2,
-			},
-		},
+				radius: 2
+			}
+		}
 	} satisfies BarchartProps);
 
 	const binWithSelectedItems = $derived.by(() => {
 		if (!$isCategoryUnit) {
-			return bins.filter((bin) => bin.find((d) => selectedItems.find((s) => s.id === d.id)))
+			return bins.filter((bin) => bin.find((d) => selectedItems.find((s) => s.id === d.id)));
 		}
-		return ordinalData.filter((d) => d.ids.filter((id) => $ids.includes(id)).length > 0)
-	})
+		return ordinalData.filter((d) => d.ids.filter((id) => $ids.includes(id)).length > 0);
+	});
 </script>
 
 {#snippet highlights()}
 	{#each binWithSelectedItems as bin}
 		<Highlight
-			lines={{ 
-				class: "stroke-foreground stroke-2 [stroke-dasharray:3,6] [stroke-linecap:round]",
-				marker: "circle"
+			lines={{
+				class: 'stroke-foreground stroke-2 [stroke-dasharray:3,6] [stroke-linecap:round]',
+				marker: 'circle'
 			}}
 			data={bin}
-		>
-		</Highlight>
+		></Highlight>
 	{/each}
 {/snippet}
 
@@ -156,18 +165,10 @@
 		{$unitOnly ? `(${$unitOnly})` : ''}
 	</span>
 </h3>
-<div class="h-40 relative" id="histogram-chart">
-	<ChartQueryHull
-		query={$snapshotQuery}
-		data={snapshotApiResponseData}
-	>
+<div class="relative h-40" id="histogram-chart">
+	<ChartQueryHull query={$snapshotQuery} data={snapshotApiResponseData}>
 		{#if $isCategoryUnit}
-			<BarChart
-				data={ordinalData}
-				x="label"
-				y="value"
-				{...commonChartProps}
-			>
+			<BarChart data={ordinalData} x="label" y="value" {...commonChartProps}>
 				<svelte:fragment slot="tooltip">
 					<Tooltip.Root let:data classes={tooltipClasses}>
 						<HistogramTooltip item={data} {selectedItems} type="ordinal" />
@@ -178,12 +179,7 @@
 				</svelte:fragment>
 			</BarChart>
 		{:else}
-			<BarChart
-				data={bins}
-				x="x0"
-				y="length"
-				{...commonChartProps}
-			>
+			<BarChart data={bins} x="x0" y="length" {...commonChartProps}>
 				<svelte:fragment slot="tooltip">
 					<Tooltip.Root let:data classes={tooltipClasses}>
 						<HistogramTooltip item={data} {selectedItems} type="quantitative" />

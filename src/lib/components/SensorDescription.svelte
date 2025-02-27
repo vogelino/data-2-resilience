@@ -5,9 +5,9 @@
 		title: string;
 		description: string;
 		image: {
-		src: string;
-		alt: string;
-	};
+			src: string;
+			alt: string;
+		};
 	}
 
 	let { title, description, image }: Props = $props();

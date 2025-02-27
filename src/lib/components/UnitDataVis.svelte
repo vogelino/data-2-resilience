@@ -18,7 +18,7 @@
 	const selectedStations = useStations({ initialStationIds, stations });
 </script>
 
-<div class="mt-4 flex flex-col rounded-md border border-border scroll-mt-20">
+<div class="mt-4 flex scroll-mt-20 flex-col rounded-md border border-border">
 	<div class="flex flex-col gap-4 border-b border-border p-4" id="stations-datavis">
 		{#if $selectedStations.length > 0}
 			{#if $datavisType === 'range'}
@@ -32,14 +32,16 @@
 			</p>
 		{/if}
 	</div>
-	<div class="border-border p-4 scroll-mt-20" id="date-range-slider">
+	<div class="scroll-mt-20 border-border p-4" id="date-range-slider">
 		<DateRangeSlider />
 	</div>
 </div>
 
-
 {#if $datavisType !== 'range'}
-	<div class="mt-4 flex flex-col rounded-md border border-border scroll-mt-20" id="stations-histogram">
+	<div
+		class="mt-4 flex scroll-mt-20 flex-col rounded-md border border-border"
+		id="stations-histogram"
+	>
 		<div class="flex flex-col gap-4 p-4">
 			<Histogram {stations} {initialStationIds} />
 		</div>

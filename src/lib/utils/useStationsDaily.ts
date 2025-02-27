@@ -65,8 +65,18 @@ export function useStationsDailyConfig({
 					if (idsVal.length === 0 || !dayStartDateVal || !dayEndDateVal || !unitWithMinMaxAvgVal)
 						return [];
 					const timeZoneOffsetInHours = dayEndDateVal.getTimezoneOffset() / 60;
-					const start = addHours(new Date(`${format(dayStartDateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`), timeZoneOffsetInHours)
-					const end =  addHours(new Date(`${format(dayEndDateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`), timeZoneOffsetInHours)
+					const start = addHours(
+						new Date(
+							`${format(dayStartDateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`
+						),
+						timeZoneOffsetInHours
+					);
+					const end = addHours(
+						new Date(
+							`${format(dayEndDateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`
+						),
+						timeZoneOffsetInHours
+					);
 					if (hourKeyVal) {
 						if (isFuture(end)) return [];
 					}
@@ -90,7 +100,7 @@ export function useStationsDailyConfig({
 								supported: false
 							};
 						}
-						const i = itemResults[0]
+						const i = itemResults[0];
 						return {
 							id,
 							label,

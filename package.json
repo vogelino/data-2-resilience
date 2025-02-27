@@ -16,7 +16,6 @@
 		"node": "20.x"
 	},
 	"devDependencies": {
-		"@layerstack/tailwind": "1.0.0",
 		"@svelte-put/shortcut": "^4.1.0",
 		"@sveltejs/adapter-auto": "^3.3.1",
 		"@sveltejs/adapter-vercel": "^5.5.2",

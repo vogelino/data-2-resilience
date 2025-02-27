@@ -191,7 +191,7 @@
 				onchange={updateSearchQuery}
 			/>
 		</div>
-		<div class="rounded border border-border bg-background">
+		<div class="rounded border border-border bg-background" id="stations-table">
 			<Table {table} />
 		</div>
 	</div>

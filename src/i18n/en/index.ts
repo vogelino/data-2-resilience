@@ -113,6 +113,11 @@ const en = {
 				text:
 					'The data histogram shows you the distribution of measurements for the selected stations. You can view the distribution for different time periods by clicking on the buttons in the upper right corner.'
 			},
+			stationsTable: {
+				title: 'Data table',
+				text:
+					'The data table shows you the current measurements for the selected stations. You can view the data for different time periods by clicking on the buttons in the upper right corner.'
+			}
 		}
 	},
 	navigation: {

@@ -279,6 +279,16 @@ type RootTranslation = {
 				 */
 				text: string
 			}
+			stationsTable: {
+				/**
+				 * D​a​t​e​n​-​T​a​b​e​l​l​e
+				 */
+				title: string
+				/**
+				 * D​i​e​ ​D​a​t​e​n​-​T​a​b​e​l​l​e​ ​z​e​i​g​t​ ​I​h​n​e​n​ ​d​i​e​ ​a​k​t​u​e​l​l​e​n​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​ü​b​e​r​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​a​n​.​ ​D​o​r​t​ ​k​ö​n​n​e​n​ ​s​i​e​ ​S​t​a​t​i​o​n​e​n​ ​d​u​r​c​h​s​u​c​h​e​n​,​ ​s​o​r​t​i​e​r​e​n​ ​u​n​d​ 
+				 */
+				text: string
+			}
 		}
 	}
 	navigation: {
@@ -2189,6 +2199,16 @@ export type TranslationFunctions = {
 				title: () => LocalizedString
 				/**
 				 * Der Datenhistogramm zeigt Ihnen die Verteilung der Messwerte für die ausgewählten Stationen an. Sie können die Verteilung für verschiedene Zeiträume anzeigen, indem Sie auf die Schaltflächen in der oberen rechten Ecke klicken.
+				 */
+				text: () => LocalizedString
+			}
+			stationsTable: {
+				/**
+				 * Daten-Tabelle
+				 */
+				title: () => LocalizedString
+				/**
+				 * Die Daten-Tabelle zeigt Ihnen die aktuellen Informationen über die Stationen an. Dort können sie Stationen durchsuchen, sortieren und 
 				 */
 				text: () => LocalizedString
 			}

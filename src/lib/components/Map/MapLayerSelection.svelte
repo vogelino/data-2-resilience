@@ -10,8 +10,8 @@
 	import type { Props as ButtonProps } from 'components/ui/button/index.ts';
 	import { Layers3 } from 'lucide-svelte';
 
-	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
-	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
+	const isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
+	const showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 </script>
 
 <DropdownMenu.Root closeOnItemClick={false}>

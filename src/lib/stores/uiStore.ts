@@ -41,11 +41,13 @@ const isLeftSidebarOpenedQueryParam = queryParam(
 	'sidebar_open',
 	ssp.boolean(isLeftSidebarOpenedDefault)
 );
-export const isLeftSidebarOpened = derived(isLeftSidebarOpenedQueryParam, (value: boolean) =>
-	validateQueryParam(value, z.boolean(), isLeftSidebarOpenedDefault)
-);
+export const isLeftSidebarOpened = derived(isLeftSidebarOpenedQueryParam, (value: boolean) => Boolean(value));
 export const toggleLeftSidebar = () =>
 	isLeftSidebarOpenedQueryParam.update((value: boolean) => !value);
+export const closeLeftSidebar = () =>
+	isLeftSidebarOpenedQueryParam.set(false);
+export const openLeftSidebar = () =>
+	isLeftSidebarOpenedQueryParam.set(true);
 
 // DAY VALUE
 const dayValueDefault = 0;
@@ -251,5 +253,6 @@ export const updateShowSatellite = (value: boolean) => {
 function validateQueryParam<T>(queryParam: unknown, schema: z.ZodSchema<T>, defaultValue: T): T {
 	const parsed = schema.safeParse(queryParam);
 	const result = parsed.success ? parsed.data : undefined;
+	if (parsed.error) console.log(parsed.error)
 	return result || defaultValue;
 }

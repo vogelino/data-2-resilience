@@ -7,8 +7,8 @@
 	import { SidebarClose, SidebarOpen } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
 
-	$: isAboutPage = $page.url.pathname.replace(`/${$locale}`, '') === '/about';
-	$: showLeftSidebar = $isLeftSidebarOpened && !isAboutPage;
+	const isAboutPage = $derived($page.url.pathname.replace(`/${$locale}`, '') === '/about');
+	const showLeftSidebar = $derived($isLeftSidebarOpened && !isAboutPage);
 </script>
 
 <div
@@ -36,7 +36,7 @@
 					'w-[var(--leftSidebarWidth)] overflow-y-auto overflow-x-clip',
 					'border-r border-border'
 				)}
-				id="left-sidebar-scroll-container"
+				id="left-sidebar-wrapper"
 				inert={!showLeftSidebar}
 			>
 				<slot name="left-sidebar" />
@@ -48,7 +48,7 @@
 							size="icon"
 							variant="outline"
 							class={cn(' rounded-none rounded-br-sm', 'size-12')}
-							on:click={toggleLeftSidebar}
+							onclick={toggleLeftSidebar}
 							aria-label={showLeftSidebar
 								? $LL.generic.leftSidebar.hideAriaLabel()
 								: $LL.generic.leftSidebar.showAriaLabel()}
@@ -82,7 +82,7 @@
 		{#if showLeftSidebar}
 			<button
 				class={cn('absolute inset-0 z-50 bg-muted/50 backdrop-blur-sm md:hidden', 'transition-all')}
-				on:click={toggleLeftSidebar}
+				onclick={toggleLeftSidebar}
 				aria-hidden="true"
 			></button>
 		{/if}

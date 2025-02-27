@@ -82,7 +82,6 @@ const de = {
 				title: 'Willkommen',
 				text:
 					'Willkommen bei <strong>Data2Resilience</strong>. Wir freuen uns, dass Sie sich für unser Projekt interessieren. Wir haben dieses Dashboard entwickelt, um Ihnen einen Einblick in die biometeorologischen Daten zu geben, die wir in Dortmund sammeln. Wir hoffen, dass Sie es nützlich finden werden.',
-
 			},
 			map: {
 				title: 'Karte',
@@ -114,6 +113,11 @@ const de = {
 				text:
 					'Der Datenhistogramm zeigt Ihnen die Verteilung der Messwerte für die ausgewählten Stationen an. Sie können die Verteilung für verschiedene Zeiträume anzeigen, indem Sie auf die Schaltflächen in der oberen rechten Ecke klicken.'
 			},
+			stationsTable: {
+				title: 'Daten-Tabelle',
+				text:
+					'Die Daten-Tabelle zeigt Ihnen die aktuellen Informationen über die Stationen an. Dort können sie Stationen durchsuchen, sortieren und '
+			}
 		}
 	},
 	navigation: {

@@ -10,9 +10,20 @@
 	import { queryParameters } from 'sveltekit-search-params';
 	import Button from './ui/button/button.svelte';
 	import { page } from '$app/state';
+	import { isMonday } from 'date-fns';
 
 	let opened = $state(false);
 	let tour: Tour | undefined;
+	let isMobile = $state(true);
+
+	onMount(() => {
+		const mediaQuery = window.matchMedia('(max-width: 768px)');
+		function setIsMobile(e: MediaQueryListEvent) {
+			isMobile = e.matches;
+		}
+		mediaQuery.addEventListener('change', setIsMobile);
+		return () => mediaQuery.removeEventListener('change', setIsMobile);
+	});
 
 	onMount(() => {
 		const lastValue = localStorage.getItem('welcome-opened');
@@ -57,9 +68,7 @@
 						clearInterval(it);
 					}, 100);
 				}),
-				new Promise<false>((resolve) => {
-					return wait(2000).then(() => resolve(false));
-				})
+				new Promise<false>((resolve) => wait(2000).then(() => resolve(false)))
 			]);
 		} finally {
 			clearInterval(it);
@@ -80,10 +89,6 @@
 			top: targetScrollPosition,
 			behavior: 'smooth'
 		});
-	}
-
-	function isMobile() {
-		return window.matchMedia('(max-width: 768px)').matches;
 	}
 
 	const ensurePage = $derived(async (path: string) => {
@@ -136,8 +141,7 @@
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/');
-					if (!isMobile()) return;
-					closeLeftSidebar();
+					isMobile && closeLeftSidebar();
 				}
 			} satisfies StepOptions,
 			{
@@ -145,7 +149,8 @@
 				title: $LL.welcome.tourSteps.stationSelect.title(),
 				text: $LL.welcome.tourSteps.stationSelect.text(),
 				attachTo: {
-					element: '#stations-select-wrapper'
+					element: '#stations-select-wrapper',
+					on: isMobile ? 'auto' : 'right'
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/');
@@ -158,7 +163,8 @@
 				title: $LL.welcome.tourSteps.unitSelect.title(),
 				text: $LL.welcome.tourSteps.unitSelect.text(),
 				attachTo: {
-					element: '#unit-select'
+					element: '#unit-select',
+					on: isMobile ? 'auto' : 'right'
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/');
@@ -171,7 +177,9 @@
 				title: $LL.welcome.tourSteps.stationsDatavis.title(),
 				text: $LL.welcome.tourSteps.stationsDatavis.text(),
 				attachTo: {
-					element: '#stations-datavis'
+					element: '#stations-datavis',
+					on: isMobile ? 'auto' : 'right'
+
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/');
@@ -184,7 +192,9 @@
 				title: $LL.welcome.tourSteps.dateRangeSlider.title(),
 				text: $LL.welcome.tourSteps.dateRangeSlider.text(),
 				attachTo: {
-					element: '#date-range-slider'
+					element: '#date-range-slider',
+					on: isMobile ? 'auto' : 'right'
+
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/');
@@ -197,7 +207,9 @@
 				title: $LL.welcome.tourSteps.stationsHistogram.title(),
 				text: $LL.welcome.tourSteps.stationsHistogram.text(),
 				attachTo: {
-					element: '#stations-histogram'
+					element: '#stations-histogram',
+					on: isMobile ? 'auto' : 'right'
+
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/');
@@ -214,7 +226,7 @@
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/stations');
-					closeLeftSidebar();
+					isMobile && closeLeftSidebar();
 				}
 			} satisfies StepOptions
 		].map((originalStep, idx, arr) => {
@@ -231,7 +243,7 @@
 				attachTo:
 					step.attachTo &&
 					({
-						on: 'auto-end',
+						on: 'auto',
 						...step.attachTo
 					} satisfies StepOptions['attachTo'])
 			} satisfies StepOptions;
@@ -309,7 +321,7 @@
 			0 4px 6px -4px var(--tw-shadow-color);
 		box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
 			var(--tw-shadow);
-		max-width: calc(100vw - 3rem);
+		max-width: calc(var(--leftSidebarWidth) - 3rem);
 		width: 30rem;
 	}
 

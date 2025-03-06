@@ -118,7 +118,7 @@
 
 			const heatStressColorPill = (val: number) => `
 				<span
-					class="size-2 inline-block"
+					class="size-2.5 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)] inline-block"
 					style="background-color: ${isOrdinal ? heatStressColorByCategory(val) : heatStressColorByValue(val)};"
 				></span>
 			`

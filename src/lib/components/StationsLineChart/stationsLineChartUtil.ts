@@ -1,5 +1,6 @@
 import type { StationsGeoJSONType } from "$lib/stores/mapData";
 import { api } from "$lib/utils/api";
+import { getHeatStressValueByCategory } from "$lib/utils/heatStressCategoriesUtil";
 import type { WeatherMeasurementKeyNoMinMax } from "$lib/utils/schemas";
 import { compareAsc, format, isValid, parseISO } from "date-fns";
 
@@ -56,6 +57,7 @@ export const getStationDataFetcher =
 				.filter(notEmpty);
 			return {
 				lineChartData: mapDataToLayerChartData({
+					unit,
 					data: onlyWithSupported,
 					stations,
 				}),
@@ -102,18 +104,20 @@ type CombinedLayerChartDataItem = {
 	[K in string]: K extends 'date' ? Date : string | null;
 }
 
-function mapDataToLayerChartData({ data, stations }: {
+function mapDataToLayerChartData({ unit, data, stations }: {
+	unit: string;
 	data: ParsedValueType[];
 	stations: StationsGeoJSONType["features"];
 }) {
 	if (!data) return []
+	const isOrdinal = unit.trim().endsWith('_category')
 	const dateToObjects = data.reduce((acc, item) => {
 		const date = parseISO(item?.measured_at || "");
 		if (!item?.measured_at || !isValid(date)) return acc;
 
 		const key = format(date, 'yyyy-MM-dd-HH')
 		const existingItem = acc.get(key) || { date } as CombinedLayerChartDataItem;
-		const parsedVal = !item.value ? null : item.value;
+		const parsedVal = !item.value ? null : isOrdinal ? getHeatStressValueByCategory(item.value) : item.value;
 		const stationName = stations.find((f) => f.properties.id === item.id)?.properties.longName.trim() || item.id;
 		acc.set(key, { ...existingItem, [stationName]: parsedVal } as CombinedLayerChartDataItem)
 		return acc;

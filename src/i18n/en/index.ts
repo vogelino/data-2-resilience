@@ -151,6 +151,7 @@ const en = {
 				'The measurements show weather data from various parts of Dortmund, collected by monitoring stations. This data, such as air temperature and humidity, helps to understand the current heat stress in the city. You can see the monitoring stations as points on the map and track both current and past values.'
 			],
 			noDataAvailable: 'No data available for the selected configuration',
+			noValueMeasured: 'No value measured',
 			noStationsSelected: 'Select at least one station to display its data',
 			someInsufficientDataStations:
 				'Not enought data is collected for the selected indicator <strong>{unit}</strong> at the stations <strong>{stations}</strong> for us to aggregate it.',

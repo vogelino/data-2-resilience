@@ -54,7 +54,7 @@ const de = {
 		combobox: {
 			selectOption: 'Option auswählen',
 			noResults: 'Keine Ergebnisse'
-		}
+		},
 	},
 	themeSwitch: {
 		light: 'Hell',
@@ -153,6 +153,7 @@ const de = {
 				'Die Messwerte zeigen Wetterdaten aus verschiedenen Teilen Dortmunds, die durch Messstationen ermittelt werden. Diese Daten, wie z. B. Lufttemperatur und Luftfeuchtigkeit, helfen dabei, die aktuelle Hitzebelastung in der Stadt zu verstehen. Sie können die Messstationen als Punkte in der Karte sehen und aktuelle sowie vergangene Werte verfolgen.'
 			],
 			noDataAvailable: 'Keine Daten für die ausgewählte Konfiguration verfügbar',
+			noValueMeasured: 'Kein Wert gemessen',
 			noStationsSelected:
 				'Wählen Sie eine Messstation aus, um Daten für die ausgewählte Konfiguration zu erhalten.',
 			someInsufficientDataStations:

@@ -3,7 +3,7 @@
 	import { stations } from '$lib/stores/mapData';
 	import { unit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { getHeatStressCategoryByValue, getHeatStressValueByCategory } from '$lib/utils/heatStressCategoriesUtil';
+	import { getHeatStressCategoryByValue, getHeatStressValueByCategory, valueToCategoryMap } from '$lib/utils/heatStressCategoriesUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
 	import { scaleLinear, scaleOrdinal, scaleTime } from 'd3-scale';
 	import {
@@ -58,19 +58,28 @@
 		isOrdinal,
   }: Props = $props()
 
-	const seriesKeys = $derived(Object.keys(data[0] || {}).filter((k) => k !== 'date'));
+	const stationNames = $derived(
+		Object.keys(data[0] || {})
+			.filter((k) => k !== 'date')
+			.sort((a, b) => a.localeCompare(b, $locale))
+	);
 	const yDomain = $derived.by(() => {
-		if (isOrdinal) return seriesKeys;
+		if (isOrdinal) {
+			return [
+				getHeatStressValueByCategory("extreme cold stress"),
+				getHeatStressValueByCategory("extreme heat stress")
+			]
+		}
 		if (data.length === 0) return [0, 100];
-		const min = Math.min(...data.map((d) => Math.min(...seriesKeys.map((k) => d[k] as number))));
-		const max = Math.max(...data.map((d) => Math.max(...seriesKeys.map((k) => d[k] as number))));
+		const min = Math.min(...data.map((d) => Math.min(...stationNames.map((k) => d[k] as number))));
+		const max = Math.max(...data.map((d) => Math.max(...stationNames.map((k) => d[k] as number))));
 		return [min, max];
 	})
 	const xScale = scaleTime()
-	const yScale = $derived(isOrdinal ? scaleOrdinal() : scaleLinear())
+	const yScale = scaleLinear()
 	const cScale = $derived(
 		scaleOrdinal()
-			.domain(seriesKeys)
+			.domain(stationNames)
 			.range(CHART_COLORS)
 	);
 	const xTickFormat = $derived((d: Date) =>
@@ -78,31 +87,14 @@
 	);
 	const yTickFormat = $derived((d: number) =>
 		isOrdinal
-			? getHeatStressLabel({
+			? `${getHeatStressLabel({
 					unit: $unit,
 					LL: $LL,
 					value: getHeatStressCategoryByValue(d)
-				})
+				})}`
 			: d.toLocaleString($locale, {
 					maximumFractionDigits: 1
 				})
-	);
-	const y = $derived(
-		seriesKeys.map(
-			(id) => (d: DataRecord) =>
-				isOrdinal
-					? getHeatStressValueByCategory(`${d[id as keyof typeof d]}` as string)
-					: (d[id as keyof typeof d] as number)
-		)
-	);
-	const legendItems = $derived(
-		seriesKeys
-			.map((id, idx) => ({
-				id,
-				name: $stations.features.find((f) => f.properties.id === id)?.properties.longName || id,
-				color: CHART_COLORS[idx]
-			}))
-			.sort((a, b) => a.name.localeCompare(b.name))
 	);
 	const tooltipTemplate = $derived(
 		(d: DataRecord) => `
@@ -111,27 +103,25 @@
 				${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short', hour12: false }).format(d.date)}
 			</strong>
 			<span class="grid grid-cols-[1fr_auto] gap-x-4 gap-y-0.5 items-center">
-				${legendItems
-					.filter(({ id }) => d[id as keyof typeof d])
-					.map(({ id, name, color }) => {
-						const value = d[id as keyof typeof d];
+				${stationNames
+					.filter((name) => typeof d[name as keyof typeof d] === 'number')
+					.map((name, idx) => {
+						const value = d[name as keyof typeof d];
 						return `
 							<span class="flex items-center leading-tight">
-								${color && `<span style="background-color: ${color}" class="inline-block w-3 h-0.5 mr-2"></span>`}
+								${CHART_COLORS[idx] && `<span style="background-color: ${CHART_COLORS[idx]}" class="inline-block w-3 h-0.5 mr-2"></span>`}
 								${name}
 							</span>
-							${`<span>
-										${
-											typeof value === 'number'
-												? value.toLocaleString($locale, {
-														maximumFractionDigits: 1
-													})
+							${`<span class="whitespace-nowrap">
+										${(
+											!isOrdinal
+												? value.toLocaleString($locale, { maximumFractionDigits: 1 })
 												: getHeatStressLabel({
 														unit: $unit,
 														LL: $LL,
-														value: value as string
+														value: getHeatStressCategoryByValue(value as number)
 													})
-										}
+										) || `<span class="text-muted-foreground">${$LL.pages.measurements.noValueMeasured()}</span>`}
 										${$LL.pages.measurements.unitSelect.units[
 											$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 										].unitOnly()}
@@ -154,10 +144,8 @@
 			{xScale}
 			{yScale}
 			yNice={!isOrdinal}
-			c="id"
-			{cScale}
-			padding={{ left: isOrdinal ? 100 : 40, bottom: 48 + Math.ceil(seriesKeys.length / 3) * 14 }}
-			tooltip={{ mode: 'bisect-x'  }}
+			padding={{ top: 8, left: isOrdinal ? 150 : 40, bottom: 48 + Math.ceil(stationNames.length / 3) * 14 }}
+			tooltip={{ mode: 'bisect-x' }}
 		>
 			<Svg>
 				<Axis
@@ -165,10 +153,9 @@
 					rule
 					grid
 					classes={{ tickLabel: "text-xs" }} 
-					tickLabelProps={{
-						dx: -8
-					}}
+					tickLabelProps={{ dx: -8 }}
 					format={yTickFormat}
+					ticks={isOrdinal ? valueToCategoryMap.size : undefined}
 				/>
 				<Axis
 					placement="bottom"
@@ -178,17 +165,17 @@
 					tickLabelProps={{ dy: 8 }}
 					ticks={4}
 				/>
-				{#each seriesKeys as _key, idx}
+				{#each stationNames as name, idx}
 					<Spline
 						{data}
 						class="stroke-2"
 						stroke={CHART_COLORS[idx]}
-						{y}
+						y={(d) => d[name]}
 						x="date"
 					/>
 				{/each}
-				{#each seriesKeys as _key, idx}
-					<Highlight {y} points={{ fill: CHART_COLORS[idx] }} />
+				{#each stationNames as name, idx}
+					<Highlight y={(d) => d[name]} points={{ fill: CHART_COLORS[idx] }} />
 				{/each}
 				<Highlight lines points />
 			</Svg>
@@ -204,7 +191,7 @@
 					item: () => "flex items-center gap-x-2"
 				}}
 			/>
-			<Tooltip.Root let:data classes={tooltipClasses}>
+			<Tooltip.Root let:data classes={tooltipClasses} x="data" xOffset={8} contained="container">
 				{@html tooltipTemplate(data)}
 			</Tooltip.Root>
 		</Chart>

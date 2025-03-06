@@ -366,6 +366,10 @@ type RootTranslation = {
 			 */
 			noDataAvailable: string
 			/**
+			 * K​e​i​n​ ​W​e​r​t​ ​g​e​m​e​s​s​e​n
+			 */
+			noValueMeasured: string
+			/**
 			 * W​ä​h​l​e​n​ ​S​i​e​ ​e​i​n​e​ ​M​e​s​s​s​t​a​t​i​o​n​ ​a​u​s​,​ ​u​m​ ​D​a​t​e​n​ ​f​ü​r​ ​d​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​K​o​n​f​i​g​u​r​a​t​i​o​n​ ​z​u​ ​e​r​h​a​l​t​e​n​.
 			 */
 			noStationsSelected: string
@@ -2286,6 +2290,10 @@ export type TranslationFunctions = {
 			 * Keine Daten für die ausgewählte Konfiguration verfügbar
 			 */
 			noDataAvailable: () => LocalizedString
+			/**
+			 * Kein Wert gemessen
+			 */
+			noValueMeasured: () => LocalizedString
 			/**
 			 * Wählen Sie eine Messstation aus, um Daten für die ausgewählte Konfiguration zu erhalten.
 			 */

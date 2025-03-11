@@ -3,6 +3,7 @@
 	import { stations } from '$lib/stores/mapData';
 	import { unit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { CHART_COLORS } from '$lib/utils/chartUtils';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { getHeatStressCategoryByValue, getHeatStressValueByCategory, valueToCategoryMap } from '$lib/utils/heatStressCategoriesUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
@@ -21,28 +22,6 @@
 	import { LoaderCircle } from 'lucide-svelte';
 	import ErrorAlert from './ErrorAlert.svelte';
 	import { tooltipClasses } from './Histogram/HistogramTooltip.svelte';
-
-  const CHART_COLORS = [
-		'hsl(var(--primary))',
-		'#2E7DAF',
-		'#E17C05',
-		'#6CC24A',
-		'#7B2D9B',
-		'#D64545',
-		'#3B8C8C',
-		'#B86B25',
-		'#7F4B91',
-		'#598234',
-		'#3C5BA2',
-		'#8BC34A',
-		'#CDDC39',
-		'#FFEB3B',
-		'#FFC107',
-		'#FF9800',
-		'#FF5722',
-		'#795548',
-		'#607D8B'
-	];
 
   type DataRecord = Record<string, string | number> & {
     date: Date;

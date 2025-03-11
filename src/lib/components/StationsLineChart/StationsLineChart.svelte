@@ -15,6 +15,7 @@
 	import { createQuery } from '@tanstack/svelte-query';
 	import TimeseriesLineChart from 'components/TimeseriesLineChart.svelte';
 	import Alert from 'components/ui/alert/alert.svelte';
+	import WindDirectionChart from 'components/WindDirectionChart.svelte';
 	import { getStationDataFetcher } from './stationsLineChartUtil';
 
 	interface Props {
@@ -70,6 +71,7 @@
 			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
 		].label()
 	);
+	const isWindDirectionUnit = $derived($unit.startsWith('wind_direction'));
 </script>
 
 <h3 class="flex flex-col gap-x-2 gap-y-0.5">
@@ -84,9 +86,17 @@
 	</Alert>
 {/if}
 
-<TimeseriesLineChart
-	{data}
-	{isOrdinal}
-	{isLoading}
-	{error}
-/>
+{#if isWindDirectionUnit}
+	<WindDirectionChart
+		{data}
+		{isLoading}
+		{error}
+	/>
+{:else}
+	<TimeseriesLineChart
+		{data}
+		{isOrdinal}
+		{isLoading}
+		{error}
+	/>
+{/if}

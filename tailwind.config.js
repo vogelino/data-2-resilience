@@ -67,7 +67,7 @@ const config = {
 			}
 		}
 	},
-	plugins: [require('@tailwindcss/typography'), require('tailwindcss-touch')(), layerstack]
+	plugins: [require('@tailwindcss/typography'), require('tailwindcss-touch')(), layerstack()]
 };
 
 export default config;

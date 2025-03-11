@@ -463,7 +463,6 @@ const de = {
 							'Die <strong>Solarstrahlung</strong> beschreibt die Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.',
 						unitOnly: 'W/m²'
 					},
-
 					vapor_pressure_max: {
 						label: 'Maximaler Dampfdruck',
 						description:

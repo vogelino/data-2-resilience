@@ -3,7 +3,7 @@ import { interpolateRgb, quantize } from 'd3-interpolate';
 import { scaleLinear, scaleOrdinal, scaleSequential } from 'd3-scale';
 import {
 	interpolateBlues,
-	interpolateBrBG,
+	interpolateRainbow,
 	interpolateReds,
 	interpolateSpectral,
 	interpolateTurbo,
@@ -14,7 +14,7 @@ import {
 
 const schemeTurboSquential: readonly string[] = quantize(interpolateTurbo, 10);
 const schemeTurboOrdinal: readonly string[] = quantize(interpolateTurbo, 10);
-const schemeBrBG: readonly string[] = quantize(interpolateBrBG, 10).toReversed();
+export const schemeBrBG: readonly string[] = quantize(interpolateRainbow, 10).toReversed();
 
 type SequentialScapeType = {
 	type: 'sequential';
@@ -146,8 +146,10 @@ export const unitsToScalesMap = {
 		max: 50
 	},
 	wind_direction: {
-		type: 'ordinal',
-		scheme: schemeBrBG
+		type: 'sequential',
+		scheme: schemeBrBG,
+		min: 0,
+		max: 360
 	},
 	wind_speed: {
 		type: 'sequential',
@@ -179,12 +181,14 @@ export function getColorScaleValue(params: {
 	value: number | string;
 }) {
 	const { unit, LL, value } = params;
+	const isWindDirectionUnit = unit.startsWith('wind_direction');
+	if (isWindDirectionUnit) return 'hsl(var(--muted-foreground))';
 	const scale = getColorScaleFn(params);
 	const categories = Object.keys(LL.map.choroplethLegend.healthRisks);
 	const { colors } = getColorsByUnit({ unit, LL });
 	if (unit.endsWith('_category')) {
 		const categoryIndex = categories.indexOf(value as string);
-		if (categoryIndex === -1) return '';
+		if (categoryIndex === -1) return 'hsl(var(--muted-foreground))';
 		return colors[categoryIndex];
 	}
 	return scale(value as { valueOf(): number } & string);

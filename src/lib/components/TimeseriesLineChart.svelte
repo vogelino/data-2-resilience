@@ -53,8 +53,16 @@
 			]
 		}
 		if (data.length === 0) return [0, 100];
-		const min = Math.min(...data.map((d) => Math.min(...stationNames.map((k) => d[k] as number))));
-		const max = Math.max(...data.map((d) => Math.max(...stationNames.map((k) => d[k] as number))));
+		const min = data.reduce((acc, item) => {
+			const itemsMinVal = Math.min(...Object.values(item).filter((d) => typeof d === 'number'))
+			if (acc === null) return itemsMinVal
+			return itemsMinVal < acc ? itemsMinVal : acc
+		}, null as null | number)
+		const max = data.reduce((acc, item) => {
+			const itemsMaxVal = Math.max(...Object.values(item).filter((d) => typeof d === 'number'))
+			if (acc === null) return itemsMaxVal
+			return itemsMaxVal > acc ? itemsMaxVal : acc
+		}, null as null | number)
 		return [min, max];
 	})
 	const xScale = scaleTime()
@@ -159,6 +167,7 @@
 			let:height
 		>
 			{@const scaleY = yScale as ScaleLinear<number, number>}
+			{@const scaleYDomain = scaleY.domain()}
 			<Svg>
 				<Axis
 					placement="left"
@@ -191,21 +200,30 @@
 						/>
 					{/each}
 				{:else}
+					{@const minVal = yDomain[0] || scaleYDomain[0]}
+					{@const maxVal = yDomain[1] || scaleYDomain[1]}
+					{@const ticksCount = 10}
+					{@const colorTicks = [...Array.from({ length: ticksCount }, (_, i) => {
+						const tickStep = Math.round(Math.abs(maxVal - minVal) / ticksCount)
+						if (tickStep === 0) return minVal
+						if (tickStep === ticksCount - 1) return maxVal
+						return minVal + i * tickStep
+					})]}
 					<LinearGradient
-						stops={scaleY.ticks(10).toReversed().map((d) => getColorScaleValue({
+						stops={colorTicks.toReversed().map((d) => getColorScaleValue({
 							unit: $unit,
 							LL: $LL,
 							value: d
 						}))}
 						vertical
-						units="userSpaceOnUse"
+						units="objectBoundingBox"
 						let:gradient
 					>
 						<Rect
 							x={width + catAsideWidth}
-							y={0}
+							y={scaleY(yDomain[1] || scaleYDomain[1])}
 							width={catAsideWidth}
-							height={height}
+							height={scaleY(yDomain[0] || scaleYDomain[0]) - scaleY(yDomain[1] || scaleYDomain[1])}
 							class="no-stroke"
 							fill={gradient}
 						/>

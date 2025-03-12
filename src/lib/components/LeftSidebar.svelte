@@ -10,11 +10,12 @@
 		children?: import('svelte').Snippet;
 	}
 
-	let { children }: Props = $props();
+	const { children }: Props = $props();
 
+	// biome-ignore lint/style/useConst: <explanation>
 	let navElement: HTMLElement | undefined = $state();
-	let fullPath = $derived(page.url.pathname.replace(`/${$locale}`, ''));
-	let tabs = $derived([
+	const fullPath = $derived(page.url.pathname.replace(`/${$locale}`, ''));
+	const tabs = $derived([
 		{
 			slug: 'measurements',
 			name: $LL.navigation.tabs.actualMeasurements(),
@@ -32,11 +33,11 @@
 		}
 	]);
 
-	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
-	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
+	const isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
+	const showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 
-	let queryParams = $derived(queryParameters());
-	let urlQuery = $derived(new URLSearchParams($queryParams).toString());
+	const queryParams = $derived(queryParameters());
+	const urlQuery = $derived(new URLSearchParams($queryParams).toString());
 
 	onMount(() => {
 		document.getElementById('left-sidebar-scroll-container')?.addEventListener('scroll', () => {

@@ -54,7 +54,7 @@ const de = {
 		combobox: {
 			selectOption: 'Option auswählen',
 			noResults: 'Keine Ergebnisse'
-		}
+		},
 	},
 	themeSwitch: {
 		light: 'Hell',
@@ -70,7 +70,55 @@ const de = {
 			confirm: "Verstanden, los geht's",
 			launchTour: 'Einführung starten'
 		},
-		expandButtonLabel: 'Einleitung erneut anzeigen'
+		expandButtonLabel: 'Einleitung erneut anzeigen',
+		tourSteps: {
+			buttons: {
+				next: 'Weiter',
+				prev: 'Zurück',
+				cancel: 'Abbrechen',
+				last: 'Abschließen'
+			},
+			welcome: {
+				title: 'Willkommen',
+				text:
+					'Willkommen bei <strong>Data2Resilience</strong>. Wir freuen uns, dass Sie sich für unser Projekt interessieren. Wir haben dieses Dashboard entwickelt, um Ihnen einen Einblick in die biometeorologischen Daten zu geben, die wir in Dortmund sammeln. Wir hoffen, dass Sie es nützlich finden werden.',
+			},
+			map: {
+				title: 'Karte',
+				text:
+					'Die Karte zeigt die aktuellen Messwerte für die ausgewählten Stationen an. Sie können die Stationen auswählen, indem Sie auf die Kreise auf der Karte klicken.'
+			},
+			stationSelect: {
+				title: 'Stationenauswahl',
+				text:
+					'Wir haben Daten von verschiedenen Messstationen in Dortmund erhoben. Durch Anklicken können Sie auswählen, welche Stationen Sie auf der Karte sehen möchten.',
+			},
+			unitSelect: {
+				title: 'Einheitenauswahl',
+				text:
+					'Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Einheiten umgerechnet, damit Sie sie besser verstehen können. Sie können die Einheiten jederzeit ändern, indem Sie auf die Einheitensymbole klicken.',
+			},
+			stationsDatavis: {
+				title: 'Datenvisualisierung',
+				text:
+					'Die Datenvisualisierung zeigt Ihnen die aktuellen Messwerte für die ausgewählten Stationen an. Sie können die Daten für verschiedene Zeiträume anzeigen, indem Sie auf die Schaltflächen in der oberen rechten Ecke klicken.'
+			},
+			dateRangeSlider: {
+				title: 'Zeitraum auswählen',
+				text:
+					'Sie können die Daten für verschiedene Zeiträume anzeigen, indem Sie auf der Zeitfilter ein- oder auswählen.'
+			},
+			stationsHistogram: {
+				title: 'Datenhistogramm',
+				text:
+					'Der Datenhistogramm zeigt Ihnen die Verteilung der Messwerte für die ausgewählten Stationen an. Sie können die Verteilung für verschiedene Zeiträume anzeigen, indem Sie auf die Schaltflächen in der oberen rechten Ecke klicken.'
+			},
+			stationsTable: {
+				title: 'Daten-Tabelle',
+				text:
+					'Die Daten-Tabelle zeigt Ihnen die aktuellen Informationen über die Stationen an. Dort können sie Stationen durchsuchen, sortieren und '
+			}
+		}
 	},
 	navigation: {
 		header: {
@@ -105,6 +153,7 @@ const de = {
 				'Die Messwerte zeigen Wetterdaten aus verschiedenen Teilen Dortmunds, die durch Messstationen ermittelt werden. Diese Daten, wie z. B. Lufttemperatur und Luftfeuchtigkeit, helfen dabei, die aktuelle Hitzebelastung in der Stadt zu verstehen. Sie können die Messstationen als Punkte in der Karte sehen und aktuelle sowie vergangene Werte verfolgen.'
 			],
 			noDataAvailable: 'Keine Daten für die ausgewählte Konfiguration verfügbar',
+			noValueMeasured: 'Kein Wert gemessen',
 			noStationsSelected:
 				'Wählen Sie eine Messstation aus, um Daten für die ausgewählte Konfiguration zu erhalten.',
 			someInsufficientDataStations:

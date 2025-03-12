@@ -70,7 +70,55 @@ const en = {
 			confirm: "Understood, let's go",
 			launchTour: 'Start the tour'
 		},
-		expandButtonLabel: 'Show the introduction message again'
+		expandButtonLabel: 'Show the introduction message again',
+		tourSteps: {
+			buttons: {
+				next: 'Next',
+				prev: 'Previous',
+				cancel: 'Cancel',
+				last: 'Finish'
+			},
+			welcome: {
+				title: 'Welcome',
+				text:
+					'Welcome to Data2Resilience. We are glad that you are interested in our project. We have developed this dashboard to give you insights into the biometeorological data we collect in Dortmund. We hope you will find it useful.',
+			},
+			map: {
+				title: 'Map',
+				text:
+					'The map shows the location of the monitoring stations. You can select stations on the map by clicking on them.',
+			},
+			stationSelect: {
+				title: 'Station Selection',
+				text:
+					'We have collected data from various monitoring stations in Dortmund. You can select which stations you want to see on the map by clicking on them.',
+			},
+			unitSelect: {
+				title: 'Unit Selection',
+				text:
+					'We have converted the biometeorological data in this dashboard into different units to help you better understand them. You can change the units at any time by clicking on the unit symbols.',
+			},
+			stationsDatavis: {
+				title: 'Data visualization',
+				text:
+					'The data visualization shows you the current measurements for the selected stations. You can view the data for different time periods by clicking on the buttons in the upper right corner.'
+			},
+			dateRangeSlider: {
+				title: 'Select time period',
+				text:
+					'You can view the data for different time periods by selecting or deselecting them in the time filter.'
+			},
+			stationsHistogram: {
+				title: 'Data histogram',
+				text:
+					'The data histogram shows you the distribution of measurements for the selected stations. You can view the distribution for different time periods by clicking on the buttons in the upper right corner.'
+			},
+			stationsTable: {
+				title: 'Data table',
+				text:
+					'The data table shows you the current measurements for the selected stations. You can view the data for different time periods by clicking on the buttons in the upper right corner.'
+			}
+		}
 	},
 	navigation: {
 		header: {
@@ -103,6 +151,7 @@ const en = {
 				'The measurements show weather data from various parts of Dortmund, collected by monitoring stations. This data, such as air temperature and humidity, helps to understand the current heat stress in the city. You can see the monitoring stations as points on the map and track both current and past values.'
 			],
 			noDataAvailable: 'No data available for the selected configuration',
+			noValueMeasured: 'No value measured',
 			noStationsSelected: 'Select at least one station to display its data',
 			someInsufficientDataStations:
 				'Not enought data is collected for the selected indicator <strong>{unit}</strong> at the stations <strong>{stations}</strong> for us to aggregate it.',

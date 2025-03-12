@@ -60,29 +60,31 @@
 	}
 </script>
 
-<label for="stations-select" class="mt-7 block border-t border-border pb-3 pt-5">
-	{$LL.pages.measurements.stationsSelect.label()}:
-</label>
-<div
-	class={cn(
-		'multiselect-wrapper mb-4',
-		'[&:has(input:focus-visible)]:outline-none [&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',
-		'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background',
-		'[&:has(input:focus-visible)]:rounded-md [&:has(input:focus-visible)]:bg-background'
-	)}
->
-	<MultiSelect
-		selected={formattedSelectedStations}
-		options={formattedStations}
-		on:add={onAdd}
-		on:remove={onRemove}
-		on:removeAll={onRemoveAll}
-		outerDivClass="multiselect"
-		selectedOptionsDraggable={false}
-		placeholder={$LL.pages.measurements.stationsSelect.placeholder()}
-		id="stations-select"
-		name="stations-select"
-	/>
+<div class="scroll-mt-20" id="stations-select-wrapper">
+	<label for="stations-select" class="mt-7 block border-t border-border pb-3 pt-5">
+		{$LL.pages.measurements.stationsSelect.label()}:
+	</label>
+	<div
+		class={cn(
+			'multiselect-wrapper mb-4',
+			'[&:has(input:focus-visible)]:outline-none [&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',
+			'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background',
+			'[&:has(input:focus-visible)]:rounded-md [&:has(input:focus-visible)]:bg-background'
+		)}
+	>
+		<MultiSelect
+			selected={formattedSelectedStations}
+			options={formattedStations}
+			on:add={onAdd}
+			on:remove={onRemove}
+			on:removeAll={onRemoveAll}
+			outerDivClass="multiselect"
+			selectedOptionsDraggable={false}
+			placeholder={$LL.pages.measurements.stationsSelect.placeholder()}
+			id="stations-select"
+			name="stations-select"
+		/>
+	</div>
 </div>
 
 <style>

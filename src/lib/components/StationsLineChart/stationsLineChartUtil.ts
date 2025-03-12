@@ -1,5 +1,6 @@
 import type { StationsGeoJSONType } from "$lib/stores/mapData";
 import { api } from "$lib/utils/api";
+import { getHeatStressValueByCategory } from "$lib/utils/heatStressCategoriesUtil";
 import type { WeatherMeasurementKeyNoMinMax } from "$lib/utils/schemas";
 import { compareAsc, format, isValid, parseISO } from "date-fns";
 
@@ -55,12 +56,11 @@ export const getStationDataFetcher =
 				.map(({ id }) => id)
 				.filter(notEmpty);
 			return {
-				lineChartData: mapDataToLineChartData({
+				lineChartData: mapDataToLayerChartData({
+					unit,
 					data: onlyWithSupported,
-					unsupportedIds: onlyUnsupported,
 					stations,
 				}),
-				data: onlyWithSupported,
 				unsupportedIds: onlyUnsupported,
 			};
 		};
@@ -98,73 +98,30 @@ function mapStationDataResults<
 	});
 }
 
-type StationsDataItem = Record<string, unknown> & {
-	id: string;
-	measured_at?: string;
-	date: Date;
-};
-function mapDataToLineChartData({
-	data,
-	stations,
-	unsupportedIds,
-}: {
+type CombinedLayerChartDataItem = {
+	date: Date
+} & {
+	[K in string]: K extends 'date' ? Date : string | null;
+}
+
+function mapDataToLayerChartData({ unit, data, stations }: {
+	unit: string;
 	data: ParsedValueType[];
 	stations: StationsGeoJSONType["features"];
-	unsupportedIds: string[];
 }) {
-	if (!data) return [] as StationsDataItem[];
+	if (!data) return []
+	const isOrdinal = unit.trim().endsWith('_category')
 	const dateToObjects = data.reduce((acc, item) => {
 		const date = parseISO(item?.measured_at || "");
 		if (!item?.measured_at || !isValid(date)) return acc;
 
-		const key = format(date, "yyyy-MM-dd-HH");
-		const existingItem =
-			acc.get(key) ||
-			createDefaultValue({ item, unsupportedIds, key, stations, date });
-		acc.set(key, { ...existingItem, ...createItem({ item, stations }) });
+		const key = format(date, 'yyyy-MM-dd-HH')
+		const existingItem = acc.get(key) || { date } as CombinedLayerChartDataItem;
+		const parsedVal = !item.value ? null : isOrdinal ? getHeatStressValueByCategory(item.value) : item.value;
+		const stationName = stations.find((f) => f.properties.id === item.id)?.properties.longName.trim() || item.id;
+		acc.set(key, { ...existingItem, [stationName]: parsedVal } as CombinedLayerChartDataItem)
 		return acc;
-	}, new Map<string, StationsDataItem>());
+	}, new Map<string, CombinedLayerChartDataItem>());
 
 	return [...dateToObjects.values()].sort((a, b) => compareAsc(a.date, b.date));
-}
-
-function createDefaultValue({
-	item,
-	unsupportedIds = [],
-	key,
-	stations,
-	date,
-}: {
-	item: ParsedValueType;
-	unsupportedIds: string[];
-	key: string;
-	stations: StationsGeoJSONType["features"];
-	date: Date;
-}) {
-	return unsupportedIds.reduce(
-		(acc, id) => ({
-			...acc,
-			...createItem({ item: { id, value: null }, stations }),
-		}),
-		{
-			id: key,
-			measured_at: item.measured_at,
-			date,
-		},
-	);
-}
-
-function createItem({
-	item,
-	stations,
-}: {
-	item: { id: string; value: string | null };
-	stations: StationsGeoJSONType["features"];
-}) {
-	const relatedStation = stations.find((f) => f.properties.id === item.id);
-	const stationName = relatedStation?.properties.longName || item.id;
-	return {
-		[item.id]: item.value,
-		[`${item.id}_label`]: stationName,
-	};
 }

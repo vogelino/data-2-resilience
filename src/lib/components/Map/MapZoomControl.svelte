@@ -29,8 +29,8 @@
 	$effect(() => {
 		initZoomControl(map);
 	});
-	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
-	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
+	const isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
+	const showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 </script>
 
 <nav

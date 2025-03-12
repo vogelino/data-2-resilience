@@ -69,7 +69,7 @@ export const unitsToScalesMap = {
 		type: 'sequential',
 		scheme: quantize(interpolateReds, 10),
 		min: 20,
-		max: 50
+		max: 110
 	},
 	lightning_average_distance: {
 		type: 'sequential',
@@ -98,8 +98,8 @@ export const unitsToScalesMap = {
 	pet: {
 		type: 'sequential',
 		scheme: schemeTurboSquential,
-		min: 4,
-		max: 41
+		min: -15,
+		max: 28
 	},
 	pet_category: {
 		type: 'ordinal',

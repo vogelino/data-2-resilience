@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser, dev } from '$app/environment';
 	import { LL } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { useStations } from '$lib/stores/stationsStore';
@@ -18,8 +17,6 @@
 	import TimeseriesLineChart from 'components/TimeseriesLineChart.svelte';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-
-	const DEBUG = $derived(dev && browser);
 
 	interface Props {
 		data: PageData;
@@ -67,11 +64,11 @@
 </script>
 
 <div
+	id="export-container"
 	class={cn(
 		'relative h-[400px] w-[520px] p-6',
 		'[&_*]:select-none! pointer-events-none select-none [&_*]:pointer-events-none',
 		'border',
-		DEBUG ? 'border-border' : 'border-transparent'
 	)}
 >
 	{#if $ids.length > 0 && $datavisType === 'range'}

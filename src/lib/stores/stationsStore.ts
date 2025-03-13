@@ -19,7 +19,7 @@ export function useStations({
 	stations: StationsGeoJSONType;
 }) {
 	const existInFeatures = (id: string | undefined) =>
-		id && stations.features.some((feature) => feature.id === id);
+		id && stations?.features?.some((feature) => feature.id === id);
 	if (!browser) return writable(initialStationIds.filter(existInFeatures));
 	if (browser) {
 		queryParamStations.subscribe((value) => {

@@ -102,6 +102,10 @@ type RootTranslation = {
 			 */
 			unsupportedStation: string
 		}
+		/**
+		 * U​n​g​ü​l​t​i​g​e​ ​E​x​p​o​r​t​k​o​n​f​i​g​u​r​a​t​i​o​n
+		 */
+		invalidExportConfig: string
 	}
 	generic: {
 		/**
@@ -2029,6 +2033,10 @@ export type TranslationFunctions = {
 			 */
 			unsupportedStation: () => LocalizedString
 		}
+		/**
+		 * Ungültige Exportkonfiguration
+		 */
+		invalidExportConfig: () => LocalizedString
 	}
 	generic: {
 		/**

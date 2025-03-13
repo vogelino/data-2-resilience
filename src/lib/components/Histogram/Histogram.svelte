@@ -14,6 +14,7 @@
 	type Props = {
 		stations: StationsGeoJSONType;
 		initialStationIds?: string[];
+		isExport?: boolean;
 	};
 
 	type BaseItemType = {
@@ -30,7 +31,7 @@
     ids: string[];
   }
 
-	let { initialStationIds = [], stations }: Props = $props();
+	let { initialStationIds = [], stations, isExport = false }: Props = $props();
 
 	const allCategoryValues = $derived(Object.keys($LL.map.choroplethLegend.healthRisks));
 	const allCategoryLabels = $derived(
@@ -144,18 +145,20 @@
 	{/each}
 {/snippet}
 
-<h3 class="grid grid-cols-[auto,1fr] items-center gap-x-8">
-	<span class="flex flex-col gap-x-8 gap-y-0.5">
-		<strong class="font-semibold">{$LL.pages.measurements.histogram.title()}</strong>
-		<span class="text-sm text-muted-foreground">
-			{$formattedTimeConfiguration}
+{#if !isExport}
+	<h3 class="grid grid-cols-[auto,1fr] items-center gap-x-8">
+		<span class="flex flex-col gap-x-8 gap-y-0.5">
+			<strong class="font-semibold">{$LL.pages.measurements.histogram.title()}</strong>
+			<span class="text-sm text-muted-foreground">
+				{$formattedTimeConfiguration}
+			</span>
 		</span>
-	</span>
-	<span class="text-right text-sm font-normal text-muted-foreground">
-		{$unitLabel}
-		{$unitOnly ? `(${$unitOnly})` : ''}
-	</span>
-</h3>
+		<span class="text-right text-sm font-normal text-muted-foreground">
+			{$unitLabel}
+			{$unitOnly ? `(${$unitOnly})` : ''}
+		</span>
+	</h3>
+{/if}
 <div class="h-40 relative" id="histogram-chart">
 	<ChartQueryHull
 		query={$snapshotQuery}
@@ -174,7 +177,9 @@
 					</Tooltip.Root>
 				</svelte:fragment>
 				<svelte:fragment slot="highlight">
-					{@render highlights()}
+					{#if !isExport}
+						{@render highlights()}
+					{/if}
 				</svelte:fragment>
 			</BarChart>
 		{:else}
@@ -190,7 +195,9 @@
 					</Tooltip.Root>
 				</svelte:fragment>
 				<svelte:fragment slot="highlight">
-					{@render highlights()}
+					{#if !isExport}
+						{@render highlights()}
+					{/if}
 				</svelte:fragment>
 			</BarChart>
 		{/if}

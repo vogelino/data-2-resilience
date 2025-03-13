@@ -30,9 +30,10 @@
 	interface Props {
 		stations: StationsGeoJSONType;
 		initialStationIds?: string[];
+		isExport?: boolean;
 	}
 
-	let { stations, initialStationIds = [] }: Props = $props();
+	let { stations, initialStationIds = [], isExport = false }: Props = $props();
 
 	const ids = useStations({ initialStationIds, stations });
 	const stationsSnapshotConfig = useStationsSnapshotConfig({ initialStationIds, stations });
@@ -126,12 +127,12 @@
 	{/if}
 {/snippet}
 
-{#if unsupportedMsg && !$query.isLoading}
+{#if !isExport && unsupportedMsg && !$query.isLoading}
 	<Alert variant="destructive">
 		{@html unsupportedMsg}
 	</Alert>
 {/if}
-{#if insufficientDataIds.length > 0}
+{#if !isExport && insufficientDataIds.length > 0}
 	<Alert variant="warning">
 		{#if $query.isSuccess && noneSufficientData}
 			{@html $LL.pages.measurements.allInsufficientDataStations({
@@ -151,16 +152,18 @@
 	</Alert>
 {/if}
 
-<h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
-	<span class="flex flex-col gap-x-2 gap-y-0.5 font-semibold">
-		{$unitLabel}
-		{$unitOnly ? `(${$unitOnly})` : ''}
-		<span class="text-sm font-normal text-muted-foreground">
-			{$formattedTimeConfiguration}
+{#if !isExport}
+	<h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
+		<span class="flex flex-col gap-x-2 gap-y-0.5 font-semibold">
+			{$unitLabel}
+			{$unitOnly ? `(${$unitOnly})` : ''}
+			<span class="text-sm font-normal text-muted-foreground">
+				{$formattedTimeConfiguration}
+			</span>
 		</span>
-	</span>
-	{@render minMaxAvgCombobox()}
-</h3>
+		{@render minMaxAvgCombobox()}
+	</h3>
+{/if}
 {#if $ids.length === 1}
 	<SingleStationDatavis
 		isLoading={$query.isLoading}

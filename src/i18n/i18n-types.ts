@@ -1938,6 +1938,22 @@ type RootTranslation = {
 				}
 			}
 		}
+		tiles: {
+			tilesNotFound: {
+				/**
+				 * {​c​o​u​n​t​}​ ​K​a​c​h​e​l​n​ ​k​o​n​n​t​e​n​ ​n​i​c​h​t​ ​g​e​l​a​d​e​n​ ​w​e​r​d​e​n​.
+				 * @param {string} count
+				 */
+				title: RequiredParams<'count'>
+				/**
+				 * K​e​i​n​e​ ​D​a​t​e​n​ ​v​e​r​f​ü​g​b​a​r​ ​f​ü​r​ ​d​i​e​ ​M​e​s​s​e​i​n​h​e​i​t​ ​"​{​m​e​a​s​u​r​e​}​"​ ​a​m​ ​{​d​a​t​e​}​ ​u​m​ ​{​h​o​u​r​}​U​h​r​.
+				 * @param {string} date
+				 * @param {string} hour
+				 * @param {string} measure
+				 */
+				description: RequiredParams<'date' | 'hour' | 'measure'>
+			}
+		}
 	}
 }
 
@@ -3842,6 +3858,18 @@ export type TranslationFunctions = {
 						utci: () => LocalizedString
 					}
 				}
+			}
+		}
+		tiles: {
+			tilesNotFound: {
+				/**
+				 * {count} Kacheln konnten nicht geladen werden.
+				 */
+				title: (arg: { count: string }) => LocalizedString
+				/**
+				 * Keine Daten verfügbar für die Messeinheit "{measure}" am {date} um {hour}Uhr.
+				 */
+				description: (arg: { date: string, hour: string, measure: string }) => LocalizedString
 			}
 		}
 	}

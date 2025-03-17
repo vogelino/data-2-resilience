@@ -6,7 +6,7 @@
 
 <div
 	class={cn(
-		'fixed bottom-8 right-8 z-10  bg-background/80 shadow-lg backdrop-blur-[2px]',
+		'fixed bottom-16 right-2 z-10  bg-background/80 shadow-lg backdrop-blur-[2px]',
 		'flex flex-col gap-1 rounded'
 	)}
 >

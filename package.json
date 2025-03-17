@@ -57,7 +57,7 @@
 		"svelte-check": "^4.1.1",
 		"svelte-maplibre": "^1.0.0-next.8",
 		"svelte-multiselect": "11.0.0-rc.1",
-		"svelte-range-slider-pips": "^3.1.4",
+		"svelte-range-slider-pips": "next",
 		"svelte-seo": "^1.6.1",
 		"sveltekit-search-params": "^3.0.0",
 		"tailwind-merge": "^2.6.0",

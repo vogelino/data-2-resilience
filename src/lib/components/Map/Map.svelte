@@ -161,7 +161,7 @@
 			{#if currentPage === 'measurements'}
 				<MapStationsLayer {stations} {map} />
 			{/if}
-			<MapMeasurementsRasterLayer hour={$hour} visible={currentPage === 'heat-stress'} />
+			<MapMeasurementsRasterLayer {map} hour={$hour} visible={currentPage === 'heat-stress'} />
 			<MapDistrictsLayer visible={$boundariesMode === 'districts'} {displayMode} />
 			<MapLorsLayer visible={$boundariesMode === 'lors'} {displayMode} />
 			<MapActionAreasLayer visible={$boundariesMode === 'lors'} {displayMode} />

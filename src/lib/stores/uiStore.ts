@@ -187,6 +187,17 @@ export const updateHeatStressUnit = (value: string) => {
 	heatStressUnitQueryParam.set(value);
 };
 
+export const heatStressUnitLabel = derived([heatStressUnit, LL], ([u, ll]) => {
+	return ll.pages.measurements.unitSelect.units[
+		u as keyof typeof ll.pages.measurements.unitSelect.units
+	].label();
+});
+export const heatStressUnitOnly = derived([heatStressUnit, LL], ([u, ll]) => {
+	return ll.pages.measurements.unitSelect.units[
+		u as keyof typeof ll.pages.measurements.unitSelect.units
+	].unitOnly();
+});
+
 // SEARCH QUERY
 const searchQueryDefault = '';
 const searchQueryQueryParam = queryParam('stationsSearch', ssp.string(searchQueryDefault), {

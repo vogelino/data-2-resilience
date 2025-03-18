@@ -1,9 +1,18 @@
 import type { StationsGeoJSONType } from '$lib/stores/mapData';
 import { useStations } from '$lib/stores/stationsStore';
-import { dayEndDate, hour, hourKey, scale, unitWithMinMaxAvg } from '$lib/stores/uiStore';
-import { addHours, format, isFuture, setHours } from 'date-fns';
+import {
+	datavisType,
+	dayEndDate,
+	hour,
+	hourKey,
+	rangeEndDate,
+	scale,
+	unitWithMinMaxAvg
+} from '$lib/stores/uiStore';
+import { endOfDay, format, setHours } from 'date-fns';
 import { derived, type Readable } from 'svelte/store';
 import { api } from './api';
+import { limitDateBoundsToToday } from './dateUtil';
 import type { WeatherMeasurementKey } from './schemas';
 
 export type SnapshotDataType = {
@@ -11,11 +20,15 @@ export type SnapshotDataType = {
 	id: string;
 };
 
-const date = derived([dayEndDate, hour], ([endDate, h]) => setHours(endDate, h));
+const date = derived(
+	[dayEndDate, rangeEndDate, hour, datavisType],
+	([endDate, rangeEndD, h, type]) => (type === 'range' ? endOfDay(rangeEndD) : setHours(endDate, h))
+);
 
 const dateKey = derived(
-	[date, scale],
-	([d, s]) => date && (s === 'hourly' ? d.toISOString() : format(d, 'yyyy-MM-dd'))
+	[date, scale, datavisType],
+	([d, s, dvt]) =>
+		date && (s === 'hourly' && dvt !== 'range' ? d.toISOString() : format(d, 'yyyy-MM-dd'))
 );
 
 let ids: undefined | ReturnType<typeof useStations>;
@@ -32,29 +45,23 @@ export function useStationsSnapshotConfig({
 	stations
 }: {
 	initialStationIds?: string[];
-	stations: StationsGeoJSONType
+	stations: StationsGeoJSONType;
 }) {
 	ids = typeof ids === 'undefined' ? useStations({ initialStationIds, stations }) : ids;
 	if (config) return config;
 	config = derived(
-		[unitWithMinMaxAvg, scale, date, dateKey, hourKey],
-		([unitWithMinMaxAvgVal, scaleVal, dateVal, dateKeyVal, hourKeyVal]) => {
+		[unitWithMinMaxAvg, scale, date, dateKey, hourKey, datavisType],
+		([unitWithMinMaxAvgVal, scaleVal, dateVal, dateKeyVal, hourKeyVal, datavisTypeVal]) => {
 			return {
-				queryKey: [
-					'stations-snapshot',
-					dateKeyVal,
-					unitWithMinMaxAvgVal,
-					scaleVal,
-				],
+				queryKey: ['stations-snapshot', dateKeyVal, unitWithMinMaxAvgVal, scaleVal],
 				queryFn: async () => {
-					if (!dateVal || !unitWithMinMaxAvgVal || !scaleVal) return [];
-					const timeZoneOffsetInHours = dateVal.getTimezoneOffset() / 60;
-					const dateWithHour = addHours(`${format(dateVal, 'yyyy-MM-dd')}T${String(hourKeyVal || 0).padStart(2, '0')}:00:00.000Z`, timeZoneOffsetInHours);
-					if (typeof hourKeyVal !== 'undefined') {
-						if (isFuture(dateWithHour)) return [];
-					}
+					if (!dateVal || !unitWithMinMaxAvgVal || !scaleVal || !datavisTypeVal) return [];
+					const dateWithHour = limitDateBoundsToToday({
+						date: dateVal,
+						hour: datavisTypeVal !== 'range' ? hourKeyVal : 23
+					});
 					const itemResults = await api().getStationsSnapshot({
-						date: new Date(dateWithHour),
+						date: dateWithHour,
 						param: unitWithMinMaxAvgVal as unknown as WeatherMeasurementKey,
 						scale: scaleVal
 					});

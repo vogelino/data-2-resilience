@@ -2,23 +2,23 @@ import { z } from 'zod';
 import type { RawStationMetadata } from './schemas';
 
 export function parseStationMetadata({
-	name,
+	station_id,
 	long_name,
 	station_type,
 	...rest
 }: RawStationMetadata) {
 	return {
 		...rest,
-		id: name,
+		id: station_id,
 		longName: long_name,
 		stationType: station_type
 	};
 }
 
-export function parseRawStationNameToId({ name, ...rest }: { name?: string }) {
+export function parseRawStationNameToId({ station_id, ...rest }: { station_id?: string }) {
 	return {
 		...rest,
-		id: name
+		id: station_id
 	};
 }
 

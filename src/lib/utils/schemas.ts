@@ -2,10 +2,11 @@ import { z } from 'zod';
 import { parseRawStationNameToId, parseStationMetadata } from './parsingUtil';
 
 // STATIONS
-export const StationTypeSchema = z.enum(['biomet', 'temprh']);
+export const StationTypeSchema = z.enum(['biomet', 'temprh', 'double']);
+export type StationType = z.infer<typeof StationTypeSchema>;
 
 export const RawStationMetadataSchema = z.object({
-	name: z.string(),
+	station_id: z.string(),
 	long_name: z.string(),
 	latitude: z.number(),
 	longitude: z.number(),
@@ -23,7 +24,7 @@ export type StationMetadata = z.infer<typeof ParsedStationMetadataSchema>;
 // UNITS
 const meadurementDateSchema = z.object({
 	measured_at: z.string().optional(),
-	name: z.string().optional(),
+	station_id: z.string().optional(),
 	station_type: StationTypeSchema.optional()
 });
 const mD = meadurementDateSchema;

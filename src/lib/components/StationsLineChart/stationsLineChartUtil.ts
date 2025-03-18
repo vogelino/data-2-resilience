@@ -1,8 +1,9 @@
 import type { StationsGeoJSONType } from "$lib/stores/mapData";
 import { api } from "$lib/utils/api";
-import { getHeatStressValueByCategory } from "$lib/utils/heatStressCategoriesUtil";
-import type { WeatherMeasurementKeyNoMinMax } from "$lib/utils/schemas";
-import { compareAsc, format, isValid, parseISO } from "date-fns";
+import { limitDateBoundsToToday } from '$lib/utils/dateUtil';
+import { getHeatStressValueByCategory } from '$lib/utils/heatStressCategoriesUtil';
+import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
+import { compareAsc, format, isValid, parseISO } from 'date-fns';
 
 type ParsedValueType = {
 	id: string;
@@ -16,54 +17,60 @@ export const getStationDataFetcher =
 		start_date,
 		end_date,
 		unit,
-		stations,
+		stations
 	}: {
 		ids: string[];
 		start_date?: Date;
 		end_date?: Date;
 		unit: string | null;
-		stations: StationsGeoJSONType["features"];
+		stations: StationsGeoJSONType['features'];
 	}) =>
-		async () => {
-			const idsInStations = ids.filter((id) => stations.find((f) => f.properties.id === id))
-			if (idsInStations.length === 0 || !start_date || !end_date || !unit) return;
-			const promises = idsInStations.map(async (id) => {
-				const itemResults = await api().getStationData({
-					id,
-					start_date,
-					end_date,
-					param: unit as unknown as WeatherMeasurementKeyNoMinMax,
-					scale: "hourly",
-				});
-
-				if (itemResults === null) return { id, supported: false };
-				return {
-					supported: true,
-					data: mapStationDataResults({ id, unit, results: itemResults }),
-				};
+	async () => {
+		const idsInStations = ids.filter((id) => stations.find((f) => f.properties.id === id));
+		if (idsInStations.length === 0 || !start_date || !end_date || !unit) return;
+		const promises = idsInStations.map(async (id) => {
+			const start = limitDateBoundsToToday({
+				date: start_date,
+				hour: 0
+			});
+			const end = limitDateBoundsToToday({
+				date: end_date,
+				hour: 23
+			});
+			const itemResults = await api().getStationData({
+				id,
+				start_date: start,
+				end_date: end,
+				param: unit as unknown as WeatherMeasurementKeyNoMinMax,
+				scale: 'hourly'
 			});
 
-			const results = (await Promise.all(
-				promises,
-			)) as PromiseResult<ParsedValueType>[];
-			const onlyWithSupported = results
-				.filter(notEmptyAndNotUnsupported)
-				.map(({ data }) => data)
-				.flat();
-			const onlyUnsupported = results
-				.filter((item) => !notEmptyAndNotUnsupported(item))
-				.flat()
-				.map(({ id }) => id)
-				.filter(notEmpty);
+			if (itemResults === null) return { id, supported: false };
 			return {
-				lineChartData: mapDataToLayerChartData({
-					unit,
-					data: onlyWithSupported,
-					stations,
-				}),
-				unsupportedIds: onlyUnsupported,
+				supported: true,
+				data: mapStationDataResults({ id, unit, results: itemResults })
 			};
+		});
+
+		const results = (await Promise.all(promises)) as PromiseResult<ParsedValueType>[];
+		const onlyWithSupported = results
+			.filter(notEmptyAndNotUnsupported)
+			.map(({ data }) => data)
+			.flat();
+		const onlyUnsupported = results
+			.filter((item) => !notEmptyAndNotUnsupported(item))
+			.flat()
+			.map(({ id }) => id)
+			.filter(notEmpty);
+		return {
+			lineChartData: mapDataToLayerChartData({
+				unit,
+				data: onlyWithSupported,
+				stations
+			}),
+			unsupportedIds: onlyUnsupported
 		};
+	};
 
 type PromiseResult<T> =
 	| { id: string; supported: false }

@@ -139,6 +139,10 @@ type RootTranslation = {
 			 * E​i​n​e​ ​S​t​u​n​d​e​ ​f​r​ü​h​e​r​ ​a​u​s​w​a​h​l​e​n
 			 */
 			buttonDownAriaLabel: string
+			/**
+			 * E​i​n​e​ ​s​t​u​n​d​e​ ​i​n​ ​d​e​r​ ​Z​u​k​u​n​f​t​ ​k​a​n​n​ ​n​i​c​h​t​ ​a​u​s​g​e​w​ä​h​l​t​ ​w​e​r​d​e​n​.
+			 */
+			nextHourInFuture: string
 		}
 		combobox: {
 			/**
@@ -2082,6 +2086,10 @@ export type TranslationFunctions = {
 			 * Eine Stunde früher auswahlen
 			 */
 			buttonDownAriaLabel: () => LocalizedString
+			/**
+			 * Eine stunde in der Zukunft kann nicht ausgewählt werden.
+			 */
+			nextHourInFuture: () => LocalizedString
 		}
 		combobox: {
 			/**

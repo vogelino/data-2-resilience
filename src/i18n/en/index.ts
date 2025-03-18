@@ -49,7 +49,8 @@ const en = {
 			label: 'Hour of the day',
 			inputAriaLabel: 'Select hour of the day',
 			buttonUpAriaLabel: 'Select an hour later',
-			buttonDownAriaLabel: 'Select an hour earlier'
+			buttonDownAriaLabel: 'Select an hour earlier',
+			nextHourInFuture: 'An hour in the future cannot be selected'
 		},
 		combobox: {
 			selectOption: 'Select an optionOption auswählen',

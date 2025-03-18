@@ -18,8 +18,8 @@ export function filterDoubleStations(stations: StationMetadata[]) {
 	const stationsByName = new Map<string, StationMetadata>();
 	for (const station of stations) {
 		const key = [station.longName, station.longitude, station.latitude].join('-');
-		const existringStation = stationsByName.get(key);
-		if (existringStation && existringStation.stationType === 'biomet') {
+		const existingStation = stationsByName.get(key);
+		if (existingStation && station.stationType === 'double') {
 			continue;
 		}
 		stationsByName.set(key, station);
@@ -30,7 +30,7 @@ export function filterDoubleStations(stations: StationMetadata[]) {
 
 export async function fetchStations() {
 	const stationsMetadata = await api().getStationsMetadata();
-	const filteredStations = filterDoubleStations(stationsMetadata)
+	const filteredStations = filterDoubleStations(stationsMetadata);
 	const stationsGeoJSONFeatures = filteredStations.map((station) => ({
 		id: station.id,
 		type: 'Feature' as const,

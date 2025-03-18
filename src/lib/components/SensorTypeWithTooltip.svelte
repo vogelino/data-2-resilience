@@ -6,24 +6,24 @@
 	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
 
 	interface Props {
-		type: 'biomet' | 'temprh';
+		type: 'biomet' | 'temprh' | 'double';
 		searchQuery?: string;
 	}
 
 	let { type, searchQuery }: Props = $props();
 
 	let title = $derived(
-		type === 'biomet'
+		type === 'biomet' || type === 'double'
 			? $LL.pages.stations.table.cells.stationTypes.biomet.title()
 			: $LL.pages.stations.table.cells.stationTypes.temprh.title()
 	);
 	let description = $derived(
-		type === 'biomet'
+		type === 'biomet' || type === 'double'
 			? $LL.pages.stations.table.cells.stationTypes.biomet.description()
 			: $LL.pages.stations.table.cells.stationTypes.temprh.description()
 	);
 	let triggerLabel = $derived(
-		type === 'biomet'
+		type === 'biomet' || type === 'double'
 			? $LL.pages.stations.table.cells.stationTypes.biomet.nameShort()
 			: $LL.pages.stations.table.cells.stationTypes.temprh.nameShort()
 	);
@@ -31,7 +31,7 @@
 	let units = $derived(
 		Object.entries($LL.pages.measurements.unitSelect.units)
 			.filter(([key]) =>
-				type === 'biomet'
+				type === 'biomet' || type === 'double'
 					? true
 					: ['utci', 'air_temperature', 'pet', 'absolute_humidity'].includes(key)
 			)

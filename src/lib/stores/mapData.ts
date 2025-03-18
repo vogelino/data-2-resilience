@@ -18,11 +18,8 @@ export function filterDoubleStations(stations: StationMetadata[]) {
 	const stationsByName = new Map<string, StationMetadata>();
 	for (const station of stations) {
 		const key = [station.longName, station.longitude, station.latitude].join('-');
-		const existringStation = stationsByName.get(key);
-		if (
-			existringStation &&
-			(existringStation.stationType === 'biomet' || station.stationType === 'double')
-		) {
+		const existingStation = stationsByName.get(key);
+		if (existingStation && station.stationType === 'double') {
 			continue;
 		}
 		stationsByName.set(key, station);

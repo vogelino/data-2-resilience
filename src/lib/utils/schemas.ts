@@ -3,6 +3,7 @@ import { parseRawStationNameToId, parseStationMetadata } from './parsingUtil';
 
 // STATIONS
 export const StationTypeSchema = z.enum(['biomet', 'temprh', 'double']);
+export type StationType = z.infer<typeof StationTypeSchema>;
 
 export const RawStationMetadataSchema = z.object({
 	station_id: z.string(),

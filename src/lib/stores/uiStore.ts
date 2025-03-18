@@ -1,6 +1,15 @@
 import LL, { locale } from '$i18n/i18n-svelte';
 import { today } from '$lib/utils/dateUtil';
-import { addDays, format, isSameDay, isToday, setHours, setMinutes } from 'date-fns';
+import {
+	addDays,
+	endOfDay,
+	format,
+	isSameDay,
+	isToday,
+	setHours,
+	setMinutes,
+	startOfDay
+} from 'date-fns';
 import { de, enUS } from 'date-fns/locale';
 import { debounce } from 'es-toolkit';
 import { derived } from 'svelte/store';
@@ -41,13 +50,13 @@ const isLeftSidebarOpenedQueryParam = queryParam(
 	'sidebar_open',
 	ssp.boolean(isLeftSidebarOpenedDefault)
 );
-export const isLeftSidebarOpened = derived(isLeftSidebarOpenedQueryParam, (value: boolean) => Boolean(value));
+export const isLeftSidebarOpened = derived(isLeftSidebarOpenedQueryParam, (value: boolean) =>
+	Boolean(value)
+);
 export const toggleLeftSidebar = () =>
 	isLeftSidebarOpenedQueryParam.update((value: boolean) => !value);
-export const closeLeftSidebar = () =>
-	isLeftSidebarOpenedQueryParam.set(false);
-export const openLeftSidebar = () =>
-	isLeftSidebarOpenedQueryParam.set(true);
+export const closeLeftSidebar = () => isLeftSidebarOpenedQueryParam.set(false);
+export const openLeftSidebar = () => isLeftSidebarOpenedQueryParam.set(true);
 
 // DAY VALUE
 const dayValueDefault = 0;
@@ -55,8 +64,8 @@ const dayValueQueryParam = queryParam('day_value', ssp.number(dayValueDefault), 
 export const dayValue = derived(dayValueQueryParam, (value: number) => {
 	return validateQueryParam(value, z.coerce.number(), dayValueDefault);
 });
-export const dayStartDate = derived(dayValue, (d) => addDays(today(), d - 1));
-export const dayEndDate = derived(dayValue, (d) => addDays(today(), d));
+export const dayStartDate = derived(dayValue, (d) => startOfDay(addDays(today(), d - 1)));
+export const dayEndDate = derived(dayValue, (d) => endOfDay(addDays(today(), d)));
 export const dayKey = derived(dayEndDate, (d) => d && format(d, 'yyyy-MM-dd'));
 
 export const udpateDay = debounce((d: number) => {

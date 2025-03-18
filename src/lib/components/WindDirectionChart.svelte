@@ -42,7 +42,7 @@
 		const heatStressColorPill = (val: number, stationIdx: number) => `
 				<span
 					class="size-2.5 inline-block relative transition all text-muted-foreground"
-					style="transform: rotate(${val}deg);"
+					style="transform: rotate(${val + 180}deg);"
 				>
 					<span
 						class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 font-semibold"
@@ -153,7 +153,7 @@
 						<use
 							xlink:href="#windarrow"
 							transform-origin="8 8"
-							transform={`translate(${scaleX(item.date) - 8}, ${scaleY(value) - 8}) rotate(${value})`}
+							transform={`translate(${scaleX(item.date) - 8}, ${scaleY(value) - 8}) rotate(${value + 180})`}
 							style={`fill: ${CHART_COLORS[idx]};`}
 						></use>
 					{/each}

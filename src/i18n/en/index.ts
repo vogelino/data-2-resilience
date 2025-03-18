@@ -41,6 +41,7 @@ const en = {
 	generic: {
 		expand: 'Know more',
 		collapse: 'Collapse',
+		dismiss: 'Dismiss',
 		leftSidebar: {
 			showAriaLabel: 'Expand left sidebar',
 			hideAriaLabel: 'Collapse left sidebar'

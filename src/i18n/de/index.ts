@@ -41,6 +41,7 @@ const de = {
 	generic: {
 		expand: 'Mehr erfahren',
 		collapse: 'Zusammenklappen',
+		dismiss: 'Schließen',
 		leftSidebar: {
 			showAriaLabel: 'Linke Sidebar einblenden',
 			hideAriaLabel: 'Linke Sidebar ausblenden'

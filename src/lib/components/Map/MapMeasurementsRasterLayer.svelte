@@ -1,19 +1,18 @@
 <script lang="ts">
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { heatStressUnit, heatStressUnitLabel } from '$lib/stores/uiStore';
+	import { heatStressUnit, heatStressUnitLabel, hour } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { today } from '$lib/utils/dateUtil';
 	import { Description, Title } from 'components/ui/alert';
 	import Alert from 'components/ui/alert/alert.svelte';
 	import Button from 'components/ui/button/button.svelte';
 	import { getDayOfYear, getYear } from 'date-fns';
-	import { XIcon } from 'lucide-svelte';
+	import { TriangleAlert } from 'lucide-svelte';
 	import type maplibregl from 'maplibre-gl';
 	import { onDestroy, onMount } from 'svelte';
 	import { RasterLayer, RasterTileSource } from 'svelte-maplibre';
 
-	const SOURCE_ID = 'meadurements-raster';
 	interface Props {
 		hour: number;
 		map: maplibregl.Map;
@@ -29,19 +28,18 @@
 	class TileError extends Error {}
 	type TilesErrorsMap = Map<string, Map<string, TileError>>;
 
-	let { hour, visible = false, map }: Props = $props();
+	let { visible = false, map }: Props = $props();
 	let showTilesErrors = $state(true);
-	let tilesErrors = $state<TilesErrorsMap>(
-		new Map(
-			Object.values(categoryToClassMap).reduce((acc, key) => {
-				acc.set(key, new Map());
-				return acc;
-			}, new Map() as TilesErrorsMap)
-		)
+	let defaultTilesErrorMap = new Map(
+		Object.values(categoryToClassMap).reduce((acc, key) => {
+			acc.set(key, new Map());
+			return acc;
+		}, new Map() as TilesErrorsMap)
 	);
+	let tilesErrors = $state<TilesErrorsMap>(defaultTilesErrorMap);
 
 	const hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23] // prettier-ignore
-	const date = $derived(today().setHours(hour, 0, 0, 0));
+	const date = $derived(today().setHours($hour, 0, 0, 0));
 	const dayOfYearToday = $derived(getDayOfYear(date));
 	const year = $derived(getYear(date));
 	const unit = $derived(
@@ -72,14 +70,14 @@
 				const baseUrl = `${url.protocol}//${url.host}`;
 				const isTileUrl = baseUrl === PUBLIC_API_BASE_URL;
 				if (!isTileUrl) return response;
-				const [, , , unit, year, dayOfYear, hour, z, x, yWithExt] = url.pathname.split('/');
+				const [, , , unit, year, dayOfYear, h, z, x, yWithExt] = url.pathname.split('/');
 				const [y] = yWithExt.split('.');
-				const config = { unit, year, dayOfYear, hour, z, x, y };
+				const config = { unit, year, dayOfYear, h, z, x, y };
 				const configAsString = Object.entries(config)
 					.map(([key, value]) => `${key}: ${value}`)
 					.join(', ');
 				const message = `Tile not found for ${configAsString}`;
-				const key = [unit, year, dayOfYear, hour, z, x, y].join('-');
+				const key = [unit, year, dayOfYear, h, z, x, y].join('-');
 				const newTilesErrorMap = new Map(tilesErrors) satisfies TilesErrorsMap;
 				const unitTilesErrors = newTilesErrorMap.get(unit.toUpperCase());
 				if (unitTilesErrors) {
@@ -98,7 +96,7 @@
 		const unitTilesErrors = tilesErrors.get(unit);
 		if (!unitTilesErrors || unitTilesErrors.size === 0) return [];
 		return unitTilesErrors.entries().reduce((acc, [key, tileError]: [string, TileError]) => {
-			const paddedHour = `${hour + 1}`.padStart(2, '0');
+			const paddedHour = `${$hour}`.padStart(2, '0');
 			const keyStart = [unit, year, dayOfYearToday, paddedHour].join('-');
 			if (key.startsWith(keyStart)) return [...acc, tileError];
 			return acc;
@@ -107,12 +105,6 @@
 
 	onDestroy(() => {
 		window.fetch = originalFetch;
-	});
-
-	$effect(() => {
-		if (tilesErrorsForThisTimeAndUnit.length) {
-			showTilesErrors = true;
-		}
 	});
 
 	const numberFormatter = $derived(
@@ -135,44 +127,63 @@
 </script>
 
 {#each tilesUrls as { layerHour, tilesUrl } (layerHour)}
-	<RasterTileSource tiles={[tilesUrl]} tileSize={256} id={SOURCE_ID}>
+	<RasterTileSource tiles={[tilesUrl]} tileSize={256}>
 		<RasterLayer
 			paint={{}}
-			layout={{ visibility: visible && hour === layerHour ? 'visible' : 'none' }}
+			layout={{ visibility: visible && $hour === layerHour ? 'visible' : 'none' }}
 			beforeLayerType="symbol"
 		/>
 	</RasterTileSource>
 {/each}
 
-{#if showTilesErrors && tilesErrorsForThisTimeAndUnit.length > 0}
+{#if tilesErrorsForThisTimeAndUnit.length > 0}
 	<div
 		class={cn(
 			'absolute left-1/2 top-4 z-50 w-fit -translate-x-1/2 bg-background/50 backdrop-blur-sm'
 		)}
 	>
-		<Alert variant="destructive" class="relative w-fit max-w-96 rounded-md text-sm">
-			<Title class="relative pr-16">
-				{$LL.map.tiles.tilesNotFound.title({
-					count: numberFormatter.format(tilesErrorsForThisTimeAndUnit.length)
-				})}
-				<Button
-					onclick={() => {
-						showTilesErrors = false;
-					}}
-					variant="ghost"
-					size="icon"
-					class="absolute right-2 top-2"
-				>
-					<XIcon class="size-6" />
-				</Button>
-			</Title>
-			<Description>
-				{$LL.map.tiles.tilesNotFound.description({
-					date: dateFormatter.format(date),
-					hour: timeFormatter.format(date),
-					measure: $heatStressUnitLabel
-				})}
-			</Description>
-		</Alert>
+		{#if !showTilesErrors}
+			<Button
+				onclick={() => (showTilesErrors = true)}
+				size="icon"
+				variant="outline"
+				class={cn(
+					'border-destructive bg-destructive/10 text-destructive',
+					'hover-hover:hover:bg-destructive hover-hover:hover:text-white'
+				)}
+			>
+				<TriangleAlert class="size-6" />
+			</Button>
+		{:else}
+			<Alert variant="destructive" class="relative w-fit max-w-96 rounded-md text-sm">
+				<Title class="relative">
+					{$LL.map.tiles.tilesNotFound.title({
+						count: numberFormatter.format(tilesErrorsForThisTimeAndUnit.length)
+					})}
+				</Title>
+				<Description>
+					{$LL.map.tiles.tilesNotFound.description({
+						date: dateFormatter.format(date),
+						hour: timeFormatter.format(date),
+						measure: $heatStressUnitLabel
+					})}
+				</Description>
+				<div class="mt-2 flex">
+					<Button
+						onclick={() => {
+							showTilesErrors = false;
+						}}
+						size="sm"
+						variant="outline"
+						class={cn(
+							'border-destructive bg-destructive/10 text-foreground',
+							'hover-hover:hover:bg-destructive hover-hover:hover:text-white'
+						)}
+					>
+						{$LL.generic.dismiss()}
+					</Button>
+				</div>
+			</Alert>
+		{/if}
 	</div>
 {/if}

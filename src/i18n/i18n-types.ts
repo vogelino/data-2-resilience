@@ -112,6 +112,10 @@ type RootTranslation = {
 		 * Z​u​s​a​m​m​e​n​k​l​a​p​p​e​n
 		 */
 		collapse: string
+		/**
+		 * S​c​h​l​i​e​ß​e​n
+		 */
+		dismiss: string
 		leftSidebar: {
 			/**
 			 * L​i​n​k​e​ ​S​i​d​e​b​a​r​ ​e​i​n​b​l​e​n​d​e​n
@@ -2059,6 +2063,10 @@ export type TranslationFunctions = {
 		 * Zusammenklappen
 		 */
 		collapse: () => LocalizedString
+		/**
+		 * Schließen
+		 */
+		dismiss: () => LocalizedString
 		leftSidebar: {
 			/**
 			 * Linke Sidebar einblenden

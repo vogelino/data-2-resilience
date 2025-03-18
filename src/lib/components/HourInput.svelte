@@ -39,9 +39,12 @@
 		inputRef.value = `${`${newHour}`.padStart(2, '0')}:00`;
 	}
 
-	dayEndDate.subscribe((date) => {
-		if (!isToday(date)) return;
-		updateHourWrapper(date, $hour);
+	let prevHour = $hour;
+	$effect(() => {
+		if ($hour !== prevHour && isToday($dayEndDate)) {
+			updateHourWrapper($dayEndDate, $hour);
+		}
+		prevHour = $hour;
 	});
 
 	function onHourChange(e: Event) {

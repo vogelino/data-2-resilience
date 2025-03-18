@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
-	import { hour, udpateHour } from '$lib/stores/uiStore';
+	import { dayEndDate, hour, updateHour } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { isToday, today } from '$lib/utils/dateUtil';
 	import Button from 'components/ui/button/button.svelte';
+	import { getHours } from 'date-fns';
 	import { ArrowDown, ArrowUp } from 'lucide-svelte';
 
 	type ClassesType = {
@@ -20,24 +22,46 @@
 	}
 
 	let { classes = {} }: Props = $props();
+	let inputRef = $state<HTMLInputElement>()
+	let upIsDisabled = $derived.by(() => {
+		const dayEndIsToday = isToday($dayEndDate);
+		return dayEndIsToday && $hour + 1 > getHours(today())
+	});
+
+	function parseInputValue(input: HTMLInputElement) {
+		return parseInt(input.value.split(':')[0], 10);
+	}
+
+	function updateHourWrapper(date: Date, hour: number) {
+		const newHour = updateHour(date, hour);
+		if (!inputRef) return
+		inputRef.value = `${`${newHour}`.padStart(2, '0')}:00`
+	}
+
+	dayEndDate.subscribe((date) => {
+		if (!isToday(date)) return
+		updateHourWrapper(date, $hour);
+	})
 
 	function onHourChange(e: Event) {
 		e.preventDefault();
-		const target = e.target as HTMLInputElement;
-		udpateHour(parseInt(target.value.split(':')[0], 10));
+		const target = e.currentTarget as HTMLInputElement;
+		updateHourWrapper($dayEndDate, parseInputValue(target));
 	}
 
 	function onHourUp(evt: MouseEvent) {
 		evt.preventDefault();
 		const newHour = $hour + 1 > 23 ? 0 : $hour + 1;
-		udpateHour(newHour);
+		updateHourWrapper($dayEndDate, newHour);
 	}
 
 	function onHourDown(evt: MouseEvent) {
 		evt.preventDefault();
 		const newHour = $hour - 1 < 0 ? 23 : $hour - 1;
-		udpateHour(newHour);
+		updateHourWrapper($dayEndDate, newHour);
 	}
+
+	const value = $derived(`${`${$hour}`.padStart(2, '0')}:00`)
 </script>
 
 <div
@@ -48,10 +72,11 @@
 	)}
 >
 	<input
+		bind:this={inputRef}
 		type="time"
 		min="0"
 		max="23"
-		value={`${`${$hour}`.padStart(2, '0')}:00`}
+		{value}
 		pattern="[0-9]{2}:0{2}"
 		step="3600"
 		oninput={onHourChange}
@@ -77,6 +102,7 @@
 		)}
 		on:click={onHourUp}
 		aria-label={$LL.generic.hourInput.buttonUpAriaLabel()}
+		disabled={upIsDisabled}
 	>
 		<ArrowUp class={cn('size-4', classes.icon, classes.iconUp)} />
 	</Button>

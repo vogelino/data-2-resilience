@@ -49,7 +49,8 @@ const en = {
 			label: 'Hour of the day',
 			inputAriaLabel: 'Select hour of the day',
 			buttonUpAriaLabel: 'Select an hour later',
-			buttonDownAriaLabel: 'Select an hour earlier'
+			buttonDownAriaLabel: 'Select an hour earlier',
+			nextHourInFuture: 'An hour in the future cannot be selected'
 		},
 		combobox: {
 			selectOption: 'Select an optionOption auswählen',
@@ -80,43 +81,35 @@ const en = {
 			},
 			welcome: {
 				title: 'Welcome',
-				text:
-					'Welcome to Data2Resilience. We are glad that you are interested in our project. We have developed this dashboard to give you insights into the biometeorological data we collect in Dortmund. We hope you will find it useful.',
+				text: 'Welcome to Data2Resilience. We are glad that you are interested in our project. We have developed this dashboard to give you insights into the biometeorological data we collect in Dortmund. We hope you will find it useful.'
 			},
 			map: {
 				title: 'Map',
-				text:
-					'The map shows the location of the monitoring stations. You can select stations on the map by clicking on them.',
+				text: 'The map shows the location of the monitoring stations. You can select stations on the map by clicking on them.'
 			},
 			stationSelect: {
 				title: 'Station Selection',
-				text:
-					'We have collected data from various monitoring stations in Dortmund. You can select which stations you want to see on the map by clicking on them.',
+				text: 'We have collected data from various monitoring stations in Dortmund. You can select which stations you want to see on the map by clicking on them.'
 			},
 			unitSelect: {
 				title: 'Unit Selection',
-				text:
-					'We have converted the biometeorological data in this dashboard into different units to help you better understand them. You can change the units at any time by clicking on the unit symbols.',
+				text: 'We have converted the biometeorological data in this dashboard into different units to help you better understand them. You can change the units at any time by clicking on the unit symbols.'
 			},
 			stationsDatavis: {
 				title: 'Data visualization',
-				text:
-					'The data visualization shows you the current measurements for the selected stations. You can view the data for different time periods by clicking on the buttons in the upper right corner.'
+				text: 'The data visualization shows you the current measurements for the selected stations. You can view the data for different time periods by clicking on the buttons in the upper right corner.'
 			},
 			dateRangeSlider: {
 				title: 'Select time period',
-				text:
-					'You can view the data for different time periods by selecting or deselecting them in the time filter.'
+				text: 'You can view the data for different time periods by selecting or deselecting them in the time filter.'
 			},
 			stationsHistogram: {
 				title: 'Data histogram',
-				text:
-					'The data histogram shows you the distribution of measurements for the selected stations. You can view the distribution for different time periods by clicking on the buttons in the upper right corner.'
+				text: 'The data histogram shows you the distribution of measurements for the selected stations. You can view the distribution for different time periods by clicking on the buttons in the upper right corner.'
 			},
 			stationsTable: {
 				title: 'Data table',
-				text:
-					'The data table shows you the current measurements for the selected stations. You can view the data for different time periods by clicking on the buttons in the upper right corner.'
+				text: 'The data table shows you the current measurements for the selected stations. You can view the data for different time periods by clicking on the buttons in the upper right corner.'
 			}
 		}
 	},

@@ -6,6 +6,7 @@
 	import Button from 'components/ui/button/button.svelte';
 	import { getHours } from 'date-fns';
 	import { ArrowDown, ArrowUp } from 'lucide-svelte';
+	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
 	type ClassesType = {
 		container?: string;
@@ -22,10 +23,10 @@
 	}
 
 	let { classes = {} }: Props = $props();
-	let inputRef = $state<HTMLInputElement>()
+	let inputRef = $state<HTMLInputElement>();
 	let upIsDisabled = $derived.by(() => {
 		const dayEndIsToday = isToday($dayEndDate);
-		return dayEndIsToday && $hour + 1 > getHours(today())
+		return dayEndIsToday && $hour + 1 > getHours(today());
 	});
 
 	function parseInputValue(input: HTMLInputElement) {
@@ -34,14 +35,14 @@
 
 	function updateHourWrapper(date: Date, hour: number) {
 		const newHour = updateHour(date, hour);
-		if (!inputRef) return
-		inputRef.value = `${`${newHour}`.padStart(2, '0')}:00`
+		if (!inputRef) return;
+		inputRef.value = `${`${newHour}`.padStart(2, '0')}:00`;
 	}
 
 	dayEndDate.subscribe((date) => {
-		if (!isToday(date)) return
+		if (!isToday(date)) return;
 		updateHourWrapper(date, $hour);
-	})
+	});
 
 	function onHourChange(e: Event) {
 		e.preventDefault();
@@ -61,7 +62,7 @@
 		updateHourWrapper($dayEndDate, newHour);
 	}
 
-	const value = $derived(`${`${$hour}`.padStart(2, '0')}:00`)
+	const value = $derived(`${`${$hour}`.padStart(2, '0')}:00`);
 </script>
 
 <div
@@ -91,21 +92,31 @@
 		)}
 		aria-label={$LL.generic.hourInput.inputAriaLabel()}
 	/>
-	<Button
-		size="icon"
-		variant="ghost"
-		class={cn(
-			'size-full rounded-none rounded-tr border-b border-l border-border',
-			'relative focus-visible:z-10 focus-visible:rounded',
-			classes.button,
-			classes.buttonUp
-		)}
-		on:click={onHourUp}
-		aria-label={$LL.generic.hourInput.buttonUpAriaLabel()}
-		disabled={upIsDisabled}
-	>
-		<ArrowUp class={cn('size-4', classes.icon, classes.iconUp)} />
-	</Button>
+	<Tooltip openDelay={0}>
+		<TooltipTrigger>
+			<Button
+				size="icon"
+				variant="ghost"
+				class={cn(
+					'size-full rounded-none rounded-tr border-b border-l border-border',
+					'relative focus-visible:z-10 focus-visible:rounded',
+					classes.button,
+					classes.buttonUp
+				)}
+				on:click={onHourUp}
+				aria-label={$LL.generic.hourInput.buttonUpAriaLabel()}
+				disabled={upIsDisabled}
+			>
+				<ArrowUp class={cn('size-4', classes.icon, classes.iconUp)} />
+			</Button>
+		</TooltipTrigger>
+		{#if upIsDisabled}
+			<TooltipContent class="max-w-40 text-sm">
+				{$LL.generic.hourInput.nextHourInFuture()}
+			</TooltipContent>
+		{/if}
+	</Tooltip>
+
 	<Button
 		size="icon"
 		variant="ghost"

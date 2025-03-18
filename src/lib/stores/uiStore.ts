@@ -1,11 +1,11 @@
 import LL, { locale } from '$i18n/i18n-svelte';
-import { today } from '$lib/utils/dateUtil';
+import { isToday, limitDateBoundsToToday, today } from '$lib/utils/dateUtil';
 import {
 	addDays,
 	endOfDay,
 	format,
+	getHours,
 	isSameDay,
-	isToday,
 	setHours,
 	setMinutes,
 	startOfDay
@@ -138,8 +138,19 @@ export const isHourScale = derived(
 	([s, h]) => s === 'hourly' && typeof h === 'number'
 );
 export const hourKey = derived([isHourScale, hour], ([isH, h]) => (isH ? h : undefined));
-export const udpateHour = (h: number) => {
-	hourQueryParam.set(h);
+export const updateHour = (dateEnd: Date, h: number) => {
+	if (!isToday(dateEnd)) {
+		hourQueryParam.set(h);
+		return h;
+	}
+	const date = limitDateBoundsToToday({
+		date: dateEnd,
+		refDate: today(),
+		hour: h
+	});
+	const newHour = getHours(date);
+	hourQueryParam.set(newHour);
+	return newHour;
 };
 
 // FORMATTED TIME CONFIGURATION

@@ -6,6 +6,7 @@
 	import Button from 'components/ui/button/button.svelte';
 	import { getHours } from 'date-fns';
 	import { ArrowDown, ArrowUp } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
 	type ClassesType = {
@@ -40,12 +41,18 @@
 	}
 
 	let prevHour = $hour;
+	let prevDayEndDate = $dayEndDate;
 	$effect(() => {
-		if ($hour !== prevHour && isToday($dayEndDate)) {
+		const hasChanged = $dayEndDate !== prevDayEndDate || $hour !== prevHour;
+		if (hasChanged && isToday($dayEndDate)) {
 			updateHourWrapper($dayEndDate, $hour);
 		}
 		prevHour = $hour;
 	});
+
+	onMount(() => {
+		updateHourWrapper($dayEndDate, $hour);
+	})
 
 	function onHourChange(e: Event) {
 		e.preventDefault();

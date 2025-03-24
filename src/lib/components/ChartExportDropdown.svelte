@@ -2,6 +2,7 @@
 	import LL from '$i18n/i18n-svelte';
 	import html2canvas from 'html2canvas';
 	import { Download, EllipsisVertical, LoaderCircle } from 'lucide-svelte';
+	import { mode } from 'mode-watcher';
 	import { Button } from './ui/button';
 	import {
 		DropdownMenu,
@@ -45,6 +46,7 @@
 		const canvas = await html2canvas(chart, {
 			scale: 4,
 			removeContainer: true,
+			backgroundColor: $mode === 'dark' ? '#030816' : '#ffffff',
 			ignoreElements: (el) => {
 				return el.classList.contains('chart-export-ignore');
 			},

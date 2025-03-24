@@ -1,6 +1,6 @@
 {
 	"version": 2,
-	"buildCommand": "pnpm exec playwright install chromium && pnpm run build",
+	"buildCommand": "pnpm run build",
 	"installCommand": "pnpm install",
 	"outputDirectory": ".svelte-kit"
 }

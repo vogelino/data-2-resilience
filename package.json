@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
-		"build": "pnpm exec playwright install && svelte-kit sync && vite build",
+		"build": "svelte-kit sync && vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -78,7 +78,6 @@
 		"d3-array": "3.2.4",
 		"html2canvas": "1.4.1",
 		"layerchart": "0.99.1",
-		"playwright": "1.51.0",
 		"plugin": "link:@layerstack/tailwind/plugin",
 		"shepherd.js": "14.5.0"
 	}

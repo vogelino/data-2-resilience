@@ -150,12 +150,14 @@
 				{#each stationNames as name, idx}
 					{#each data as item}
 						{@const value = item[name] as number}
-						<use
-							xlink:href="#windarrow"
+						<path
+							d="M7.39242 13V4.22136L3.86957 7.6068L3 6.78447L8.00558 2L13 6.78447L12.1527 7.6068L8.61873 4.22136V13H7.39242Z"
 							transform-origin="8 8"
 							transform={`translate(${scaleX(item.date) - 8}, ${scaleY(value) - 8}) rotate(${value})`}
 							style={`fill: ${CHART_COLORS[idx]};`}
-						></use>
+							fill={CHART_COLORS[idx]}
+							color={CHART_COLORS[idx]}
+						/>
 					{/each}
 				{/each}
 			</Svg>
@@ -169,7 +171,8 @@
 					root: 'absolute inset-x-0 bottom-0',
 					swatches: 'items-center justify-center w-full flex flex-wrap gap-x-4',
 					swatch: 'w-3 h-0.5',
-					item: () => 'flex items-center gap-x-2'
+					item: () => 'flex items-center gap-x-2',
+					label: 'chart-legend-label' // Needed to offset the labels in the export
 				}}
 			/>
 			<Tooltip.Root let:data classes={tooltipClasses} x="data" xOffset={8} contained="container">

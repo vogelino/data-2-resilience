@@ -61,6 +61,7 @@
 		});
 		const link = document.createElement('a');
 		link.download = chartExportFilename;
+		canvas.setAttribute('preserveDrawingBuffer', 'true');
 		link.href = canvas.toDataURL();
 		link.click();
 		link.remove();

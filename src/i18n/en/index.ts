@@ -56,7 +56,8 @@ const en = {
 		combobox: {
 			selectOption: 'Select an optionOption auswählen',
 			noResults: 'No results'
-		}
+		},
+		chartExportButtonLabel: 'Export chart'
 	},
 	themeSwitch: {
 		light: 'Light',

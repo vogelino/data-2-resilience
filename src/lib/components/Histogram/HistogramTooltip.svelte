@@ -7,7 +7,7 @@
   } 
 
   export const tooltipClasses = {
-    root: "max-w-72 bg-transparent",
+    root: "max-w-72 bg-transparent chart-export-ignore",
     container: cn(
       "w-full border border-border shadow-lg p-3",
       "bg-background dark:bg-background bg-opacity-80 backdrop-blur-sm",

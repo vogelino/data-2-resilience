@@ -56,7 +56,8 @@ const de = {
 		combobox: {
 			selectOption: 'Option auswählen',
 			noResults: 'Keine Ergebnisse'
-		}
+		},
+		chartExportButtonLabel: 'Chart exportieren'
 	},
 	themeSwitch: {
 		light: 'Hell',

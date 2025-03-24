@@ -158,6 +158,10 @@ type RootTranslation = {
 			 */
 			noResults: string
 		}
+		/**
+		 * C​h​a​r​t​ ​e​x​p​o​r​t​i​e​r​e​n
+		 */
+		chartExportButtonLabel: string
 	}
 	themeSwitch: {
 		/**
@@ -2093,6 +2097,10 @@ export type TranslationFunctions = {
 			 */
 			noResults: () => LocalizedString
 		}
+		/**
+		 * Chart exportieren
+		 */
+		chartExportButtonLabel: () => LocalizedString
 	}
 	themeSwitch: {
 		/**

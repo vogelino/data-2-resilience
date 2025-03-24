@@ -20,6 +20,7 @@
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { BarChart, Highlight, Tooltip } from 'layerchart';
+	import ChartExportDropdown from './ChartExportDropdown.svelte';
 	import ChartQueryHull from './ChartQueryHull.svelte';
 	import Combobox from './Combobox.svelte';
 	import { tooltipClasses } from './Histogram/HistogramTooltip.svelte';
@@ -35,32 +36,38 @@
 
 	let { stations, initialStationIds = [], isExport = false }: Props = $props();
 
+	let isExporting = $state(false);
+
 	const ids = useStations({ initialStationIds, stations });
-	const stationsSnapshotConfig = $derived.by(() => useStationsSnapshotConfig({ initialStationIds, stations }));
+	const stationsSnapshotConfig = $derived.by(() =>
+		useStationsSnapshotConfig({ initialStationIds, stations })
+	);
 	const query = createQuery(reactiveQueryArgs(() => $stationsSnapshotConfig));
 
 	const getValue = $derived(
 		<T,>(item: Record<string, unknown>) => item[$unitWithMinMaxAvg as keyof typeof item] as T
 	);
 	let data = $derived(
-			$ids.map((id) => {
-				const label = stations.features.find((f) => f.properties.id === id)?.properties.longName || id
-				const item = ($query.data || []).find((d) => d.id === id)
+		$ids
+			.map((id) => {
+				const label =
+					stations.features.find((f) => f.properties.id === id)?.properties.longName || id;
+				const item = ($query.data || []).find((d) => d.id === id);
 				if (!item) {
 					return {
 						id,
 						value: undefined,
 						supported: false,
 						label
-					}
+					};
 				}
 				const value = getValue<number>(item);
 				return {
 					id,
 					value,
 					supported: value !== null,
-					label,
-				}
+					label
+				};
 			})
 			.sort((a, b) => a.label.localeCompare(b.label))
 	);
@@ -90,7 +97,9 @@
 			.map((d) => d.id)
 	);
 
-	let firstValidValue = $derived(data.find((d) => d.value !== undefined)?.value as number | string | undefined);
+	let firstValidValue = $derived(
+		data.find((d) => d.value !== undefined)?.value as number | string | undefined
+	);
 	let firstValidValueLabel = $derived(
 		typeof firstValidValue === 'string'
 			? getHeatStressLabel({ unit: $unit, LL: $LL, value: firstValidValue })
@@ -98,8 +107,10 @@
 	);
 
 	let chartHeight = $derived(Math.max(96, 60 + $ids.length * 22));
-	const unsupportedDataItems = $derived(
-		data.filter((d) => unsupportedIds.includes(d.id))
+	const unsupportedDataItems = $derived(data.filter((d) => unsupportedIds.includes(d.id)));
+
+	const showChart = $derived(
+		validIds.length > 0 || $query.isLoading || $query.isError || ($query.data || []).length === 0
 	);
 </script>
 
@@ -108,7 +119,7 @@
 		<Combobox
 			defaultValue={$minMaxAvg}
 			onChange={(value) => updateMinMaxAvg(value as 'min' | 'avg' | 'max')}
-			classes={{ trigger: 'w-fit' }}
+			classes={{ trigger: 'w-fit chart-export-ignore', }}
 			options={[
 				{
 					value: 'min',
@@ -128,12 +139,12 @@
 {/snippet}
 
 {#if !isExport && unsupportedMsg && !$query.isLoading}
-	<Alert variant="destructive">
+	<Alert variant="destructive" class="chart-export-ignore">
 		{@html unsupportedMsg}
 	</Alert>
 {/if}
 {#if !isExport && insufficientDataIds.length > 0}
-	<Alert variant="warning">
+	<Alert variant="warning" class="chart-export-ignore">
 		{#if $query.isSuccess && noneSufficientData}
 			{@html $LL.pages.measurements.allInsufficientDataStations({
 				unit: $unitLabel
@@ -161,7 +172,16 @@
 				{$formattedTimeConfiguration}
 			</span>
 		</span>
-		{@render minMaxAvgCombobox()}
+		<span class={cn('flex items-center gap-x-2')}>
+			{@render minMaxAvgCombobox()}
+			<ChartExportDropdown
+				disableExport={!showChart}
+				chartExportFilename="stations-barchart.png"
+				chartExportId="stations-datavis"
+				onChartExportStart={() => (isExporting = true)}
+				onChartExportEnd={() => (isExporting = false)}
+			/>
+		</span>
 	</h3>
 {/if}
 {#if $ids.length === 1}
@@ -170,40 +190,35 @@
 		label={firstValidValueLabel}
 		value={firstValidValue}
 	/>
-{:else if (validIds.length > 0 || $query.isLoading || $query.isError || ($query.data || []).length === 0)}
+{:else if showChart}
 	{#if $isCategoryUnit}
-		<OrdinalDataVis
-			data={data}
-			isLoading={$query.isLoading}
-			{stations}
-		/>
+		<OrdinalDataVis {data} isLoading={$query.isLoading} {stations} />
 	{:else}
-		<div
-			class={cn('relative mb-6')}
-			style={`height: ${chartHeight}px`}
-		>
-			<ChartQueryHull
-				data={data}
-				query={$query}
-			>
+		<div class={cn('relative')} style={`height: ${chartHeight}px`}>
+			<ChartQueryHull {data} query={$query}>
 				<BarChart
 					{data}
 					bandPadding={0.3}
 					x="value"
 					y="label"
 					orientation="horizontal"
-					padding={{ left: Math.min(130, Math.max(...data.map((d) => d.label.length)) * 8), right: 16 }}
+					padding={{
+						left: Math.min(130, Math.max(...data.map((d) => d.label.length)) * 8) + 24,
+						right: 16,
+						bottom: 24,
+					}}
 					props={{
 						yAxis: {
 							tickLength: 0,
 							tickLabelProps: {
-								dx: - 8
+								dx: -8
 							},
 							classes: {
 								tickLabel: 'fill-muted-foreground text-xs',
-								rule: 'stroke-primary',
+								rule: 'stroke-primary'
 							},
-							format: (v?: string) => (v?.length || 0) > 130 / 8 ? (v || '').slice(0, 130 / 8) + '...' : v || '',
+							format: (v?: string) =>
+								(v?.length || 0) > 130 / 8 ? (v || '').slice(0, 130 / 8) + '...' : v || ''
 						},
 						xAxis: {
 							classes: {
@@ -222,17 +237,15 @@
 						bars: {
 							strokeWidth: 0,
 							radius: 2
-						},
+						}
 					}}
 				>
 					<svelte:fragment slot="tooltip">
 						<Tooltip.Root let:data={d} classes={tooltipClasses}>
-							<span class="flex flex-col text-xs max-w-48">
-								{@html
-									unsupportedIds.includes(d.id) || insufficientDataIds.includes(d.id)
-										? ''
-										: `<strong>${d.label}</strong>`
-								}
+							<span class="flex max-w-48 flex-col text-xs">
+								{@html unsupportedIds.includes(d.id) || insufficientDataIds.includes(d.id)
+									? ''
+									: `<strong>${d.label}</strong>`}
 								<span>
 									{@html cn(
 										d.value !== undefined &&
@@ -260,12 +273,11 @@
 					<svelte:fragment slot="highlight">
 						{#each unsupportedDataItems as item}
 							<Highlight
-								lines={{ 
-									class: "stroke-foreground/5 stroke-[20] [stroke-dasharray:1000,0]",
+								lines={{
+									class: 'stroke-foreground/5 stroke-[20] [stroke-dasharray:1000,0]'
 								}}
 								data={item}
-							>
-							</Highlight>
+							></Highlight>
 						{/each}
 					</svelte:fragment>
 				</BarChart>

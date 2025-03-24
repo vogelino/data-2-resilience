@@ -76,6 +76,7 @@
 	"type": "module",
 	"dependencies": {
 		"d3-array": "3.2.4",
+		"html2canvas": "1.4.1",
 		"layerchart": "0.99.1",
 		"playwright": "1.51.0",
 		"plugin": "link:@layerstack/tailwind/plugin",

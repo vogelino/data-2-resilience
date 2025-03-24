@@ -110,7 +110,7 @@
 				></span>
 			`
 			return `
-			<span class="flex flex-col text-xs">
+			<span class="flex flex-col text-xs chart-export-ignore">
 				<strong class="pb-1 mb-1 border-b border-border text-sm">
 					${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short', hour12: false }).format(d.date)}
 				</strong>
@@ -151,7 +151,7 @@
 	})
 </script>
 
-<div class={cn("relative h-[360px] w-full")}>
+<div class={cn("relative h-[360px] w-full")} id="linechart-container">
 	{#if data && data.length > 0 && !error}
 		<Chart
 			{data}
@@ -252,7 +252,8 @@
 					root: 'absolute inset-x-0 bottom-0',
 					swatches: 'items-center justify-center w-full flex flex-wrap gap-x-4',
 					swatch: 'w-3 h-0.5',
-					item: () => "flex items-center gap-x-2"
+					item: () => "flex items-center gap-x-2",
+					label: "chart-legend-label" // Needed to correct a shift in the chart export
 				}}
 			/>
 			<Tooltip.Root let:data classes={tooltipClasses} x="data" xOffset={8} contained="container">

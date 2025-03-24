@@ -22,7 +22,6 @@
 	type Props = {
 		stations: StationsGeoJSONType;
 		initialStationIds?: string[];
-		isExport?: boolean;
 	};
 
 	type BaseItemType = {
@@ -39,7 +38,7 @@
 		ids: string[];
 	};
 
-	let { initialStationIds = [], stations, isExport = false }: Props = $props();
+	let { initialStationIds = [], stations }: Props = $props();
 
 	let isExporting = $state(false);
 
@@ -146,6 +145,8 @@
 		}
 		return ordinalData.filter((d) => d.ids.filter((id) => $ids.includes(id)).length > 0);
 	});
+
+	const isLoading = $derived($snapshotQuery.isLoading || isExporting);
 </script>
 
 {#snippet highlights()}
@@ -160,31 +161,29 @@
 	{/each}
 {/snippet}
 
-{#if !isExport}
-	<h3 class="grid grid-cols-[auto,1fr] items-center gap-x-8">
-		<span class="flex flex-col gap-x-8 gap-y-0.5">
-			<strong class="font-semibold">{$LL.pages.measurements.histogram.title()}</strong>
-			<span class="text-sm text-muted-foreground">
-				{$formattedTimeConfiguration}
-			</span>
+<h3 class="grid grid-cols-[auto,1fr] items-center gap-x-8">
+	<span class="flex flex-col gap-x-8 gap-y-0.5">
+		<strong class="font-semibold">{$LL.pages.measurements.histogram.title()}</strong>
+		<span class="text-sm text-muted-foreground">
+			{$formattedTimeConfiguration}
 		</span>
+	</span>
 
-		<span class={cn('flex items-center gap-x-2 justify-end')}>
-			<span class="text-right text-sm font-normal text-muted-foreground">
-				{$unitLabel}
-				{$unitOnly ? `(${$unitOnly})` : ''}
-			</span>
-			<ChartExportDropdown
-				chartExportFilename="stations-histogram.png"
-				chartExportId="stations-histogram"
-				onChartExportStart={() => (isExporting = true)}
-				onChartExportEnd={() => (isExporting = false)}
-			/>
+	<span class={cn('flex items-center justify-end gap-x-2')}>
+		<span class="text-right text-sm font-normal text-muted-foreground">
+			{$unitLabel}
+			{$unitOnly ? `(${$unitOnly})` : ''}
 		</span>
-	</h3>
-{/if}
+		<ChartExportDropdown
+			chartExportFilename="stations-histogram.png"
+			chartExportId="stations-histogram"
+			onChartExportStart={() => (isExporting = true)}
+			onChartExportEnd={() => (isExporting = false)}
+		/>
+	</span>
+</h3>
 <div class="relative h-40" id="histogram-chart">
-	<ChartQueryHull query={$snapshotQuery} data={snapshotApiResponseData}>
+	<ChartQueryHull {...$snapshotQuery} {isLoading} data={snapshotApiResponseData}>
 		{#if $isCategoryUnit}
 			<BarChart data={ordinalData} x="label" y="value" {...commonChartProps}>
 				<svelte:fragment slot="tooltip">
@@ -193,9 +192,7 @@
 					</Tooltip.Root>
 				</svelte:fragment>
 				<svelte:fragment slot="highlight">
-					{#if !isExport}
-						{@render highlights()}
-					{/if}
+					{@render highlights()}
 				</svelte:fragment>
 			</BarChart>
 		{:else}
@@ -206,9 +203,7 @@
 					</Tooltip.Root>
 				</svelte:fragment>
 				<svelte:fragment slot="highlight">
-					{#if !isExport}
-						{@render highlights()}
-					{/if}
+					{@render highlights()}
 				</svelte:fragment>
 			</BarChart>
 		{/if}

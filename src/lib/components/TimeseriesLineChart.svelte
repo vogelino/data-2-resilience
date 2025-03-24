@@ -152,7 +152,7 @@
 </script>
 
 <div class={cn("relative h-[360px] w-full")} id="linechart-container">
-	{#if data && data.length > 0 && !error}
+	{#if data && data.length > 0 && !error && !isLoading}
 		<Chart
 			{data}
 			x="date"
@@ -265,7 +265,7 @@
 			{$LL.pages.measurements.noDataAvailable()}
 		</div>
 	{/if}
-	{#if error}
+	{#if error && !isLoading}
 		<div class="absolute inset-0 flex items-center justify-center">
 			<ErrorAlert errorObject={error} />
 		</div>
@@ -273,7 +273,7 @@
 	<div
 		class={cn(
 			'absolute inset-0 flex items-center justify-center',
-			'pointer-events-none opacity-0',
+			'pointer-events-none opacity-0 bg-background/50 z-50',
 			isLoading && 'opacity-100'
 		)}
 	>

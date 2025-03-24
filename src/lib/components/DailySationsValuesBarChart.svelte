@@ -109,8 +109,9 @@
 	let chartHeight = $derived(Math.max(96, 60 + $ids.length * 22));
 	const unsupportedDataItems = $derived(data.filter((d) => unsupportedIds.includes(d.id)));
 
+	const isLoading = $derived($query.isLoading || isExporting);
 	const showChart = $derived(
-		validIds.length > 0 || $query.isLoading || $query.isError || ($query.data || []).length === 0
+		validIds.length > 0 || isLoading || $query.isError || ($query.data || []).length === 0
 	);
 </script>
 
@@ -138,7 +139,7 @@
 	{/if}
 {/snippet}
 
-{#if !isExport && unsupportedMsg && !$query.isLoading}
+{#if !isExport && unsupportedMsg && !isLoading}
 	<Alert variant="destructive" class="chart-export-ignore">
 		{@html unsupportedMsg}
 	</Alert>
@@ -186,16 +187,16 @@
 {/if}
 {#if $ids.length === 1}
 	<SingleStationDatavis
-		isLoading={$query.isLoading}
+		{isLoading}
 		label={firstValidValueLabel}
 		value={firstValidValue}
 	/>
 {:else if showChart}
 	{#if $isCategoryUnit}
-		<OrdinalDataVis {data} isLoading={$query.isLoading} {stations} />
+		<OrdinalDataVis {data} {isLoading} {stations} />
 	{:else}
 		<div class={cn('relative')} style={`height: ${chartHeight}px`}>
-			<ChartQueryHull {data} query={$query}>
+			<ChartQueryHull {...$query} {data} {isLoading}>
 				<BarChart
 					{data}
 					bandPadding={0.3}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
 	import html2canvas from 'html2canvas';
-	import { Download, EllipsisVertical } from 'lucide-svelte';
+	import { Download, EllipsisVertical, LoaderCircle } from 'lucide-svelte';
 	import { Button } from './ui/button';
 	import {
 		DropdownMenu,
@@ -26,11 +26,22 @@
 		onChartExportEnd = () => {}
 	}: Props = $props();
 
-	const exportChart = $derived(async () => {
+	let isExporting = $state(false)
+
+	function wrappedOnChartExportStart() {
+		isExporting = true;
 		onChartExportStart();
-		if (!chartExportId) return onChartExportEnd();
+	}
+	function wrappedOnChartExportEnd() {
+		isExporting = false;
+		onChartExportEnd();
+	}
+
+	const exportChart = $derived(async () => {
+		wrappedOnChartExportStart();
+		if (!chartExportId) return wrappedOnChartExportEnd();
 		const chart = document.querySelector(`#${chartExportId}`) as HTMLElement;
-		if (!chart) return onChartExportEnd();
+		if (!chart) return wrappedOnChartExportEnd();
 		const canvas = await html2canvas(chart, {
 			scale: 4,
 			removeContainer: true,
@@ -51,15 +62,19 @@
 		link.href = canvas.toDataURL();
 		link.click();
 		link.remove();
-		onChartExportEnd();
+		wrappedOnChartExportEnd();
 	});
 </script>
 
 {#if chartExportId}
 	<DropdownMenu>
-		<DropdownMenuTrigger disabled={disableExport}>
+		<DropdownMenuTrigger disabled={disableExport || isExporting}>
 			<Button variant="ghost" size="icon" disabled={disableExport} class="chart-export-ignore">
-				<EllipsisVertical class="size-6" />
+				{#if isExporting}
+					<LoaderCircle class="size-6 animate-spin" />
+				{:else}
+					<EllipsisVertical class="size-6" />
+				{/if}
 			</Button>
 		</DropdownMenuTrigger>
 		<DropdownMenuContent class="chart-export-ignore">

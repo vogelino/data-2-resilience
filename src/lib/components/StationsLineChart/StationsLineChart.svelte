@@ -61,7 +61,8 @@
 			)
 		}))
 	);
-	const { data: queryData, isLoading, error } = $derived($query);
+	const { data: queryData, error } = $derived($query);
+	const isLoading = $derived($query.isLoading || isExporting);
 	const data = $derived(queryData?.lineChartData as unknown as DataRecord[] || [])
 	const isOrdinal = $derived($unit.endsWith('_category'));
 	const unsupportedIds = $derived(queryData?.unsupportedIds || []);
@@ -104,14 +105,14 @@
 {#if isWindDirectionUnit}
 	<WindDirectionChart
 		{data}
-		isLoading={isExporting || isLoading}
+		{isLoading}
 		{error}
 	/>
 {:else}
 	<TimeseriesLineChart
 		{data}
 		{isOrdinal}
-		isLoading={isExporting || isLoading}
+		{isLoading}
 		{error}
 	/>
 {/if}

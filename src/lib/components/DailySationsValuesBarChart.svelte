@@ -31,10 +31,9 @@
 	interface Props {
 		stations: StationsGeoJSONType;
 		initialStationIds?: string[];
-		isExport?: boolean;
 	}
 
-	let { stations, initialStationIds = [], isExport = false }: Props = $props();
+	let { stations, initialStationIds = [] }: Props = $props();
 
 	let isExporting = $state(false);
 
@@ -120,7 +119,7 @@
 		<Combobox
 			defaultValue={$minMaxAvg}
 			onChange={(value) => updateMinMaxAvg(value as 'min' | 'avg' | 'max')}
-			classes={{ trigger: 'w-fit chart-export-ignore', }}
+			classes={{ trigger: 'w-fit chart-export-ignore' }}
 			options={[
 				{
 					value: 'min',
@@ -139,12 +138,12 @@
 	{/if}
 {/snippet}
 
-{#if !isExport && unsupportedMsg && !isLoading}
+{#if unsupportedMsg && !isLoading}
 	<Alert variant="destructive" class="chart-export-ignore">
 		{@html unsupportedMsg}
 	</Alert>
 {/if}
-{#if !isExport && insufficientDataIds.length > 0}
+{#if insufficientDataIds.length > 0}
 	<Alert variant="warning" class="chart-export-ignore">
 		{#if $query.isSuccess && noneSufficientData}
 			{@html $LL.pages.measurements.allInsufficientDataStations({
@@ -164,39 +163,33 @@
 	</Alert>
 {/if}
 
-{#if !isExport}
-	<h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
-		<span class="flex flex-col gap-x-2 gap-y-0.5 font-semibold">
-			{$unitLabel}
-			{$unitOnly ? `(${$unitOnly})` : ''}
-			<span class="text-sm font-normal text-muted-foreground">
-				{$formattedTimeConfiguration}
-			</span>
+<h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
+	<span class="flex flex-col gap-x-2 gap-y-0.5 font-semibold">
+		{$unitLabel}
+		{$unitOnly ? `(${$unitOnly})` : ''}
+		<span class="text-sm font-normal text-muted-foreground">
+			{$formattedTimeConfiguration}
 		</span>
-		<span class={cn('flex items-center gap-x-2')}>
-			{@render minMaxAvgCombobox()}
-			<ChartExportDropdown
-				disableExport={!showChart}
-				chartExportFilename="stations-barchart.png"
-				chartExportId="stations-datavis"
-				onChartExportStart={() => (isExporting = true)}
-				onChartExportEnd={() => (isExporting = false)}
-			/>
-		</span>
-	</h3>
-{/if}
+	</span>
+	<span class={cn('flex items-center gap-x-2')}>
+		{@render minMaxAvgCombobox()}
+		<ChartExportDropdown
+			disableExport={!showChart}
+			chartExportFilename="stations-barchart.png"
+			chartExportId="stations-datavis"
+			onChartExportStart={() => (isExporting = true)}
+			onChartExportEnd={() => (isExporting = false)}
+		/>
+	</span>
+</h3>
 {#if $ids.length === 1}
-	<SingleStationDatavis
-		{isLoading}
-		label={firstValidValueLabel}
-		value={firstValidValue}
-	/>
+	<SingleStationDatavis {isLoading} label={firstValidValueLabel} value={firstValidValue} />
 {:else if showChart}
 	{#if $isCategoryUnit}
 		<OrdinalDataVis {data} {isLoading} {stations} />
 	{:else}
 		<div class={cn('relative')} style={`height: ${chartHeight}px`}>
-			<ChartQueryHull {...$query} {data} {isLoading}>
+			<ChartQueryHull isSuccess={$query.isSuccess} error={$query.error} {data} {isLoading}>
 				<BarChart
 					{data}
 					bandPadding={0.3}
@@ -206,7 +199,7 @@
 					padding={{
 						left: Math.min(130, Math.max(...data.map((d) => d.label.length)) * 8) + 24,
 						right: 16,
-						bottom: 24,
+						bottom: 24
 					}}
 					props={{
 						yAxis: {

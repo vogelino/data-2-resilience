@@ -183,7 +183,12 @@
 	</span>
 </h3>
 <div class="relative h-40" id="histogram-chart">
-	<ChartQueryHull {...$snapshotQuery} {isLoading} data={snapshotApiResponseData}>
+	<ChartQueryHull
+		isSuccess={$snapshotQuery.isSuccess}
+		error={$snapshotQuery.error}
+		{isLoading}
+		data={snapshotApiResponseData}
+	>
 		{#if $isCategoryUnit}
 			<BarChart data={ordinalData} x="label" y="value" {...commonChartProps}>
 				<svelte:fragment slot="tooltip">

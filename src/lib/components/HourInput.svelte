@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
-	import { datavisType, dayEndDate, hour, updateHour } from '$lib/stores/uiStore';
+	import { dayEndDate, hour, updateHour } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { isToday, today } from '$lib/utils/dateUtil';
 	import Button from 'components/ui/button/button.svelte';
-	import { getHours, isSameDay } from 'date-fns';
+	import { getHours } from 'date-fns';
 	import { ArrowDown, ArrowUp } from 'lucide-svelte';
-	import { onMount } from 'svelte';
 	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
 	type ClassesType = {
@@ -35,53 +34,35 @@
 		return parseInt(input.value.split(':')[0], 10);
 	}
 
-	let prevHour = $hour;
-	let prevDayEndDate = $dayEndDate;
-	let prevVisMode = $datavisType;
-	const hasChanged = $derived(!isSameDay($dayEndDate, prevDayEndDate) || $hour !== prevHour || prevVisMode !== $datavisType)
-
 	function updateInputValue(val: number) {
 		if (inputRef) {
 			inputRef.value = `${`${val}`.padStart(2, '0')}:00`;
 		}
 	}
 
-	function updateHourWrapper(date: Date, hour: number) {
-		if (hasChanged) {
-			const newHour = updateHour(date, hour);
-			updateInputValue(newHour);
-		}
-		prevHour = hour;
-		prevDayEndDate = date;
-		prevVisMode = $datavisType;
+	function updateHourWrapper(hour: number) {
+		const h = $updateHour(hour);
+		updateInputValue(h);
 	}
 
-	
-	$effect(() => {
-		if (isToday($dayEndDate)) updateHourWrapper($dayEndDate, $hour);
-	});
-
-	onMount(() => {
-		updateInputValue($hour);
+	const onHourChange = $derived((evt: Event) => {
+		evt.preventDefault();
+		const target = evt.currentTarget as HTMLInputElement;
+		const inputValue = parseInputValue(target);
+		updateHourWrapper(inputValue);
 	})
 
-	function onHourChange(e: Event) {
-		e.preventDefault();
-		const target = e.currentTarget as HTMLInputElement;
-		updateHourWrapper($dayEndDate, parseInputValue(target));
-	}
-
-	function onHourUp(evt: MouseEvent) {
+	const onHourUp = $derived((evt: MouseEvent) => {
 		evt.preventDefault();
 		const newHour = $hour + 1 > 23 ? 0 : $hour + 1;
-		updateHourWrapper($dayEndDate, newHour);
-	}
+		updateHourWrapper(newHour);
+	})
 
-	function onHourDown(evt: MouseEvent) {
+	const onHourDown = $derived((evt: MouseEvent) => {
 		evt.preventDefault();
 		const newHour = $hour - 1 < 0 ? 23 : $hour - 1;
-		updateHourWrapper($dayEndDate, newHour);
-	}
+		updateHourWrapper(newHour);
+	})
 
 	const value = $derived(`${`${$hour}`.padStart(2, '0')}:00`);
 </script>

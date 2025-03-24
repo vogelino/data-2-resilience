@@ -50,7 +50,8 @@ const de = {
 			label: 'Tageszeit',
 			inputAriaLabel: 'Tageszeit auswählen',
 			buttonUpAriaLabel: 'Eine Stunde später auswahlen',
-			buttonDownAriaLabel: 'Eine Stunde früher auswahlen'
+			buttonDownAriaLabel: 'Eine Stunde früher auswahlen',
+			nextHourInFuture: 'Eine stunde in der Zukunft kann nicht ausgewählt werden.'
 		},
 		combobox: {
 			selectOption: 'Option auswählen',

@@ -2,28 +2,30 @@
 	import { LL } from '$i18n/i18n-svelte';
 	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
 	import { cn } from '$lib/utils';
+	import type { StationType } from '$lib/utils/schemas';
 	import { Info } from 'lucide-svelte';
 	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
 
 	interface Props {
-		type: 'biomet' | 'temprh';
+		type: StationType;
 		searchQuery?: string;
 	}
 
 	let { type, searchQuery }: Props = $props();
 
+	let isBiomet = $derived(type === 'biomet' || type === 'double');
 	let title = $derived(
-		type === 'biomet'
+		isBiomet
 			? $LL.pages.stations.table.cells.stationTypes.biomet.title()
 			: $LL.pages.stations.table.cells.stationTypes.temprh.title()
 	);
 	let description = $derived(
-		type === 'biomet'
+		isBiomet
 			? $LL.pages.stations.table.cells.stationTypes.biomet.description()
 			: $LL.pages.stations.table.cells.stationTypes.temprh.description()
 	);
 	let triggerLabel = $derived(
-		type === 'biomet'
+		isBiomet
 			? $LL.pages.stations.table.cells.stationTypes.biomet.nameShort()
 			: $LL.pages.stations.table.cells.stationTypes.temprh.nameShort()
 	);
@@ -31,9 +33,9 @@
 	let units = $derived(
 		Object.entries($LL.pages.measurements.unitSelect.units)
 			.filter(([key]) =>
-				type === 'biomet'
+				isBiomet
 					? true
-					: ['utci', 'air_temperature', 'pet', 'absolute_humidity'].includes(key)
+					: ['air_temperature', 'absolute_humidity'].includes(key)
 			)
 			.map(([key, f]) => {
 				if (key.endsWith('_max') || key.endsWith('_min')) return { label: '', unitOnly: false };

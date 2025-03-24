@@ -3,7 +3,7 @@ import { writable } from "svelte/store";
 import { queryParam, ssp } from "sveltekit-search-params";
 import type { StationsGeoJSONType } from "./mapData";
 
-const defaultStations = ["DEC005304", "DEC005476", "DEC00546E"];
+const defaultStations = ["DOBHBF", "DODFRP", "DODGWS"];
 const urlStations = writable(defaultStations);
 const queryParamStations = queryParam(
 	"selectedStations",

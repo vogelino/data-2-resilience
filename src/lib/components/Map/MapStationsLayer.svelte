@@ -20,7 +20,7 @@
 	let { stations, initialStationIds = [], map }: Props = $props();
 
 	const selectedStations = useStations({ initialStationIds, stations });
-	const stationsSnapshotQueryConfig = useStationsSnapshotConfig({ initialStationIds, stations });
+	const stationsSnapshotQueryConfig = $derived.by(() => useStationsSnapshotConfig({ initialStationIds, stations }));
 	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
 	const apiResponseData = $derived($snapshotQuery.data || []);
 
@@ -89,10 +89,8 @@
 					{/if}
 					<p class="text-xs">
 						{#if typeof getValueById(feature.properties?.id) !== 'undefined'}
-							{$LL.pages.stations.table.cells.stationTypes[
-								feature.properties
-									?.stationType as keyof typeof $LL.pages.stations.table.cells.stationTypes
-							].nameShort()}
+							{@const type = feature.properties?.stationType === 'temprh' ? 'temprh' : 'biomet'}
+							{$LL.pages.stations.table.cells.stationTypes[type].nameShort()}
 						{/if}
 						{#if typeof getValueById(feature.properties?.id) === 'number'}
 							{` ・ `}

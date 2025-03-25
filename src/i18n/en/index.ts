@@ -606,6 +606,11 @@ const en = {
 					status: {
 						active: 'active',
 						inactive: 'inactive'
+					},
+					coordinates: {
+						googleMapsLinkText: 'Open in Google Maps',
+						copyCoordinates: 'Copy to the clipboard',
+						copiedToClipboard: 'Copied to the clipboard'
 					}
 				}
 			}

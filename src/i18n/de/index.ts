@@ -608,6 +608,11 @@ const de = {
 					status: {
 						active: 'Aktiv',
 						inactive: 'Inaktiv'
+					},
+					coordinates: {
+						googleMapsLinkText: 'Auf Google Maps öffnen',
+						copyCoordinates: 'In die Zwischenablage kopieren',
+						copiedToClipboard: 'In die Zwischenablage kopiert'
 					}
 				}
 			}

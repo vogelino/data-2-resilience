@@ -1461,6 +1461,20 @@ type RootTranslation = {
 						 */
 						inactive: string
 					}
+					coordinates: {
+						/**
+						 * A​u​f​ ​G​o​o​g​l​e​ ​M​a​p​s​ ​ö​f​f​n​e​n
+						 */
+						googleMapsLinkText: string
+						/**
+						 * I​n​ ​d​i​e​ ​Z​w​i​s​c​h​e​n​a​b​l​a​g​e​ ​k​o​p​i​e​r​e​n
+						 */
+						copyCoordinates: string
+						/**
+						 * I​n​ ​d​i​e​ ​Z​w​i​s​c​h​e​n​a​b​l​a​g​e​ ​k​o​p​i​e​r​t
+						 */
+						copiedToClipboard: string
+					}
 				}
 			}
 		}
@@ -3370,6 +3384,20 @@ export type TranslationFunctions = {
 						 * Inaktiv
 						 */
 						inactive: () => LocalizedString
+					}
+					coordinates: {
+						/**
+						 * Auf Google Maps öffnen
+						 */
+						googleMapsLinkText: () => LocalizedString
+						/**
+						 * In die Zwischenablage kopieren
+						 */
+						copyCoordinates: () => LocalizedString
+						/**
+						 * In die Zwischenablage kopiert
+						 */
+						copiedToClipboard: () => LocalizedString
 					}
 				}
 			}

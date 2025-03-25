@@ -23,6 +23,7 @@
 	import { createQuery } from '@tanstack/svelte-query';
 	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
 	import SearchInputField from './SearchInputField.svelte';
+	import SensorCoordinatesWithTooltip from './SensorCoordinatesWithTooltip.svelte';
 	import SensorTypeWithTooltip from './SensorTypeWithTooltip.svelte';
 	import Table from './Table.svelte';
 
@@ -96,8 +97,7 @@
 			cell: (info) => {
 				const { latitude, longitude } = info.row.original;
 				const searchQuery = info.table.getState().globalFilter;
-				const text = `${latitude.toLocaleString($locale)}, ${longitude.toLocaleString($locale)}`;
-				return renderComponent(HighlightedSearchQuery, { searchQuery, text });
+				return renderComponent(SensorCoordinatesWithTooltip, { searchQuery, latitude, longitude });
 			}
 		}
 	] satisfies ColumnDef<StationMetadata>[];

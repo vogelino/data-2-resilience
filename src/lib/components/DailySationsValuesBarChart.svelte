@@ -14,6 +14,8 @@
 		updateMinMaxAvg
 	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
+	import { getHealthRiskKeyByValue } from '$lib/utils/healthRisksUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
@@ -35,31 +37,35 @@
 	let { stations, initialStationIds = [] }: Props = $props();
 
 	const ids = useStations({ initialStationIds, stations });
-	const stationsSnapshotConfig = $derived.by(() => useStationsSnapshotConfig({ initialStationIds, stations }));
+	const stationsSnapshotConfig = $derived.by(() =>
+		useStationsSnapshotConfig({ initialStationIds, stations })
+	);
 	const query = createQuery(reactiveQueryArgs(() => $stationsSnapshotConfig));
 
 	const getValue = $derived(
 		<T,>(item: Record<string, unknown>) => item[$unitWithMinMaxAvg as keyof typeof item] as T
 	);
 	let data = $derived(
-			$ids.map((id) => {
-				const label = stations.features.find((f) => f.properties.id === id)?.properties.longName || id
-				const item = ($query.data || []).find((d) => d.id === id)
+		$ids
+			.map((id) => {
+				const label =
+					stations.features.find((f) => f.properties.id === id)?.properties.longName || id;
+				const item = ($query.data || []).find((d) => d.id === id);
 				if (!item) {
 					return {
 						id,
 						value: undefined,
 						supported: false,
 						label
-					}
+					};
 				}
 				const value = getValue<number>(item);
 				return {
 					id,
 					value,
 					supported: value !== null,
-					label,
-				}
+					label
+				};
 			})
 			.sort((a, b) => a.label.localeCompare(b.label))
 	);
@@ -89,7 +95,9 @@
 			.map((d) => d.id)
 	);
 
-	let firstValidValue = $derived(data.find((d) => d.value !== undefined)?.value as number | string | undefined);
+	let firstValidValue = $derived(
+		data.find((d) => d.value !== undefined)?.value as number | string | undefined
+	);
 	let firstValidValueLabel = $derived(
 		typeof firstValidValue === 'string'
 			? getHeatStressLabel({ unit: $unit, LL: $LL, value: firstValidValue })
@@ -97,9 +105,18 @@
 	);
 
 	let chartHeight = $derived(Math.max(96, 60 + $ids.length * 22));
-	const unsupportedDataItems = $derived(
-		data.filter((d) => unsupportedIds.includes(d.id))
-	);
+	const unsupportedDataItems = $derived(data.filter((d) => unsupportedIds.includes(d.id)));
+
+	const heatStressColorByValue = $derived((val: number) => {
+		return getColorScaleValue({
+			unit: $unit,
+			LL: $LL,
+			value: val
+		});
+	});
+
+	const isHealthRiskUnit = $derived($unit === 'utci' || $unit === 'pet');
+	const healthRisks = $derived($LL.map.choroplethLegend.healthRisks);
 </script>
 
 {#snippet minMaxAvgCombobox()}
@@ -167,40 +184,34 @@
 		label={firstValidValueLabel}
 		value={firstValidValue}
 	/>
-{:else if (validIds.length > 0 || $query.isLoading || $query.isError || ($query.data || []).length === 0)}
+{:else if validIds.length > 0 || $query.isLoading || $query.isError || ($query.data || []).length === 0}
 	{#if $isCategoryUnit}
-		<OrdinalDataVis
-			data={data}
-			isLoading={$query.isLoading}
-			{stations}
-		/>
+		<OrdinalDataVis {data} isLoading={$query.isLoading} {stations} />
 	{:else}
-		<div
-			class={cn('relative mb-6')}
-			style={`height: ${chartHeight}px`}
-		>
-			<ChartQueryHull
-				data={data}
-				query={$query}
-			>
+		<div class={cn('relative mb-6')} style={`height: ${chartHeight}px`}>
+			<ChartQueryHull {data} query={$query}>
 				<BarChart
 					{data}
 					bandPadding={0.3}
 					x="value"
 					y="label"
 					orientation="horizontal"
-					padding={{ left: Math.min(130, Math.max(...data.map((d) => d.label.length)) * 8), right: 16 }}
+					padding={{
+						left: Math.min(130, Math.max(...data.map((d) => d.label.length)) * 8),
+						right: 16
+					}}
 					props={{
 						yAxis: {
 							tickLength: 0,
 							tickLabelProps: {
-								dx: - 8
+								dx: -8
 							},
 							classes: {
 								tickLabel: 'fill-muted-foreground text-xs',
-								rule: 'stroke-primary',
+								rule: 'stroke-primary'
 							},
-							format: (v?: string) => (v?.length || 0) > 130 / 8 ? (v || '').slice(0, 130 / 8) + '...' : v || '',
+							format: (v?: string) =>
+								(v?.length || 0) > 130 / 8 ? (v || '').slice(0, 130 / 8) + '...' : v || ''
 						},
 						xAxis: {
 							classes: {
@@ -219,18 +230,27 @@
 						bars: {
 							strokeWidth: 0,
 							radius: 2
-						},
+						}
 					}}
 				>
 					<svelte:fragment slot="tooltip">
 						<Tooltip.Root let:data={d} classes={tooltipClasses}>
-							<span class="flex flex-col text-xs max-w-48">
-								{@html
-									unsupportedIds.includes(d.id) || insufficientDataIds.includes(d.id)
-										? ''
-										: `<strong>${d.label}</strong>`
-								}
-								<span>
+							{@const healthRiskKey =
+								isHealthRiskUnit &&
+								getHealthRiskKeyByValue({ value: d.value, unit: $unit as 'utci' | 'pet' })}
+							{@const healthRiskLabel = healthRiskKey
+								? healthRisks[healthRiskKey as keyof typeof healthRisks].title.heatStress()
+								: ''}
+							<span class={cn('flex max-w-48 flex-col text-xs')}>
+								{@html unsupportedIds.includes(d.id) || insufficientDataIds.includes(d.id)
+									? ''
+									: `<strong>${d.label}</strong>`}
+								<span
+									class={cn(
+										'flex items-center gap-x-1',
+										!isHealthRiskUnit && 'flex-row-reverse justify-end'
+									)}
+								>
 									{@html cn(
 										d.value !== undefined &&
 											d.value.toLocaleString($locale, {
@@ -250,6 +270,13 @@
 											})
 									)}
 									{@html d.value ? $unitOnly : ''}
+									<span
+										class="inline-block size-2.5 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
+										style={`background-color: ${heatStressColorByValue(d.value)};`}
+									></span>
+									{#if isHealthRiskUnit}
+										{healthRiskLabel}
+									{/if}
 								</span>
 							</span>
 						</Tooltip.Root>
@@ -257,12 +284,11 @@
 					<svelte:fragment slot="highlight">
 						{#each unsupportedDataItems as item}
 							<Highlight
-								lines={{ 
-									class: "stroke-foreground/5 stroke-[20] [stroke-dasharray:1000,0]",
+								lines={{
+									class: 'stroke-foreground/5 stroke-[20] [stroke-dasharray:1000,0]'
 								}}
 								data={item}
-							>
-							</Highlight>
+							></Highlight>
 						{/each}
 					</svelte:fragment>
 				</BarChart>

@@ -102,6 +102,7 @@ const ranges = {
 };
 
 export function getHealthRiskKeyByValue({ unit, value }: { unit: 'utci' | 'pet'; value: number }) {
+	if (unit !== 'utci' && unit !== 'pet') return null
 	return Object.entries(ranges).reduce(
 		(acc, [key, range]) => {
 			const { min, max } = range[unit];

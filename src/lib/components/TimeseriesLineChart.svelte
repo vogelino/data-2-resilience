@@ -104,6 +104,7 @@
 			});
 		};
 
+		const isHealthRiskUnit = $derived($unit === 'utci' || $unit === 'pet');
 		const heatStressColorPill = (val: number) => `
 				<span
 					class="size-2.5 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)] inline-block"
@@ -115,14 +116,16 @@
 				<strong class="pb-1 mb-1 border-b border-border text-sm">
 					${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short', hour12: false }).format(d.date)}
 				</strong>
-				<span class="grid grid-cols-[1fr_auto_auto_auto] gap-x-1 gap-y-0.5 items-center">
+				<span class="${cn(
+					`grid gap-x-1 gap-y-0.5 items-center`,
+					isHealthRiskUnit ? `grid-cols-[1fr_auto_auto_auto]` : `grid-cols-[1fr_auto_auto]`
+				)}">
 					${stationNames
 						.filter((name) => typeof d[name as keyof typeof d] === 'number')
 						.map((name, idx) => {
 							const value = d[name as keyof typeof d] as number;
 							const heatStressStringVal = getHeatStressCategoryByValue(value);
 							const heatStressPill = heatStressColorPill(value);
-							const isHealthRiskUnit = $unit === 'utci' || $unit === 'pet';
 							const healthRiskKey =
 								isHealthRiskUnit &&
 								getHealthRiskKeyByValue({ value, unit: $unit as 'utci' | 'pet' });
@@ -138,19 +141,17 @@
 									${CHART_COLORS[idx] && `<span style="background-color: ${CHART_COLORS[idx]}" class="inline-block w-3 h-0.5 mr-2"></span>`}
 									<span class="truncate inline-block">${name}</span>
 								</span>
-								${`
-									<span>
-										${
-											(!isOrdinal
-												? `${value.toLocaleString($locale, { maximumFractionDigits: 1 })}`
-												: `${getHeatStressLabel({ unit: $unit, LL: $LL, value: heatStressStringVal })}`) ||
-											`<span class="text-muted-foreground">${$LL.pages.measurements.noValueMeasured()}</span>`
-										}
-										${$unitOnly}
-									</span>
-									${heatStressPill} 
-									${healthRiskLabel ? `<span>${healthRiskLabel}</span>` : ''}
-								`}
+								${!isHealthRiskUnit ? heatStressPill : ''} 
+								<span>
+									${
+										(!isOrdinal
+											? `${value.toLocaleString($locale, { maximumFractionDigits: 1 })}`
+											: `${getHeatStressLabel({ unit: $unit, LL: $LL, value: heatStressStringVal })}`) ||
+										`<span class="text-muted-foreground">${$LL.pages.measurements.noValueMeasured()}</span>`
+									}
+									${$unitOnly}
+								</span>
+								${isHealthRiskUnit ? `${heatStressPill}<span>${healthRiskLabel}</span>` : ''}
 							`;
 						})
 						.join('')}

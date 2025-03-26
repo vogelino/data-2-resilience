@@ -13,13 +13,13 @@
 		"typesafe-i18n": "typesafe-i18n"
 	},
 	"engines": {
-		"node": "20.x"
+		"node": "22.x"
 	},
 	"devDependencies": {
 		"@layerstack/tailwind": "1.0.0",
 		"@svelte-put/shortcut": "^4.1.0",
 		"@sveltejs/adapter-auto": "^3.3.1",
-		"@sveltejs/adapter-vercel": "^5.5.2",
+		"@sveltejs/adapter-node": "5.2.12",
 		"@sveltejs/kit": "^2.15.1",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"@tailwindcss/typography": "^0.5.15",
@@ -36,6 +36,7 @@
 		"bits-ui": "^0.22.0",
 		"clsx": "^2.1.1",
 		"cmdk-sv": "^0.0.18",
+		"d3-array": "3.2.4",
 		"d3-interpolate": "^3.0.1",
 		"d3-scale": "^4.0.2",
 		"d3-scale-chromatic": "^3.1.0",
@@ -46,6 +47,7 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.46.1",
 		"globals": "^15.14.0",
+		"layerchart": "0.99.1",
 		"lucide-svelte": "^0.469.0",
 		"maplibre-gl": "^4.7.1",
 		"mode-watcher": "^0.5.0",
@@ -53,6 +55,7 @@
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.2",
 		"prettier-plugin-tailwindcss": "^0.6.9",
+		"shepherd.js": "14.5.0",
 		"svelte": "^5.16.0",
 		"svelte-check": "^4.1.1",
 		"svelte-maplibre": "^1.0.0-next.8",
@@ -73,11 +76,5 @@
 		"zod": "^3.24.1",
 		"zod-validation-error": "^3.4.0"
 	},
-	"type": "module",
-	"dependencies": {
-		"d3-array": "3.2.4",
-		"layerchart": "0.99.1",
-		"plugin": "link:@layerstack/tailwind/plugin",
-		"shepherd.js": "14.5.0"
-	}
+	"type": "module"
 }

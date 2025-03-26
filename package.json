@@ -20,6 +20,7 @@
 		"@svelte-put/shortcut": "^4.1.0",
 		"@sveltejs/adapter-auto": "^3.3.1",
 		"@sveltejs/adapter-node": "5.2.12",
+		"@sveltejs/adapter-vercel": "5.6.3",
 		"@sveltejs/kit": "^2.15.1",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"@tailwindcss/typography": "^0.5.15",

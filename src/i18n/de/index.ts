@@ -36,7 +36,8 @@ const de = {
 		},
 		unsupported: {
 			unsupportedStation: 'Erhebt nicht diese Daten'
-		}
+		},
+		invalidExportConfig: 'Ungültige Exportkonfiguration'
 	},
 	generic: {
 		expand: 'Mehr erfahren',
@@ -55,7 +56,8 @@ const de = {
 		combobox: {
 			selectOption: 'Option auswählen',
 			noResults: 'Keine Ergebnisse'
-		}
+		},
+		chartExportButtonLabel: 'Chart exportieren'
 	},
 	themeSwitch: {
 		light: 'Hell',

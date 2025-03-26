@@ -22,6 +22,7 @@
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { BarChart, Highlight, Tooltip } from 'layerchart';
+	import ChartExportDropdown from './ChartExportDropdown.svelte';
 	import ChartQueryHull from './ChartQueryHull.svelte';
 	import Combobox from './Combobox.svelte';
 	import { tooltipClasses } from './Histogram/HistogramTooltip.svelte';
@@ -35,6 +36,8 @@
 	}
 
 	let { stations, initialStationIds = [] }: Props = $props();
+
+	let isExporting = $state(false);
 
 	const ids = useStations({ initialStationIds, stations });
 	const stationsSnapshotConfig = $derived.by(() =>
@@ -117,6 +120,10 @@
 
 	const isHealthRiskUnit = $derived($unit === 'utci' || $unit === 'pet');
 	const healthRisks = $derived($LL.map.choroplethLegend.healthRisks);
+	const isLoading = $derived($query.isLoading || isExporting);
+	const showChart = $derived(
+		validIds.length > 0 || isLoading || $query.isError || ($query.data || []).length === 0
+	);
 </script>
 
 {#snippet minMaxAvgCombobox()}
@@ -124,7 +131,7 @@
 		<Combobox
 			defaultValue={$minMaxAvg}
 			onChange={(value) => updateMinMaxAvg(value as 'min' | 'avg' | 'max')}
-			classes={{ trigger: 'w-fit' }}
+			classes={{ trigger: 'w-fit chart-export-ignore' }}
 			options={[
 				{
 					value: 'min',
@@ -143,13 +150,13 @@
 	{/if}
 {/snippet}
 
-{#if unsupportedMsg && !$query.isLoading}
-	<Alert variant="destructive">
+{#if unsupportedMsg && !isLoading}
+	<Alert variant="destructive" class="chart-export-ignore">
 		{@html unsupportedMsg}
 	</Alert>
 {/if}
 {#if insufficientDataIds.length > 0}
-	<Alert variant="warning">
+	<Alert variant="warning" class="chart-export-ignore">
 		{#if $query.isSuccess && noneSufficientData}
 			{@html $LL.pages.measurements.allInsufficientDataStations({
 				unit: $unitLabel
@@ -176,7 +183,16 @@
 			{$formattedTimeConfiguration}
 		</span>
 	</span>
-	{@render minMaxAvgCombobox()}
+	<span class={cn('flex items-center gap-x-2')}>
+		{@render minMaxAvgCombobox()}
+		<ChartExportDropdown
+			disableExport={!showChart}
+			chartExportFilename="stations-barchart.png"
+			chartExportId="stations-datavis"
+			onChartExportStart={() => (isExporting = true)}
+			onChartExportEnd={() => (isExporting = false)}
+		/>
+	</span>
 </h3>
 {#if $ids.length === 1}
 	<SingleStationDatavis
@@ -184,12 +200,12 @@
 		label={firstValidValueLabel}
 		value={firstValidValue}
 	/>
-{:else if validIds.length > 0 || $query.isLoading || $query.isError || ($query.data || []).length === 0}
+{:else if showChart}
 	{#if $isCategoryUnit}
-		<OrdinalDataVis {data} isLoading={$query.isLoading} {stations} />
+		<OrdinalDataVis {data} {isLoading} {stations} />
 	{:else}
-		<div class={cn('relative mb-6')} style={`height: ${chartHeight}px`}>
-			<ChartQueryHull {data} query={$query}>
+		<div class={cn('relative')} style={`height: ${chartHeight}px`}>
+			<ChartQueryHull isSuccess={$query.isSuccess} error={$query.error} {data} {isLoading}>
 				<BarChart
 					{data}
 					bandPadding={0.3}
@@ -197,8 +213,9 @@
 					y="label"
 					orientation="horizontal"
 					padding={{
-						left: Math.min(130, Math.max(...data.map((d) => d.label.length)) * 8),
-						right: 16
+						left: Math.min(130, Math.max(...data.map((d) => d.label.length)) * 8) + 24,
+						right: 16,
+						bottom: 24
 					}}
 					props={{
 						yAxis: {
@@ -239,7 +256,7 @@
 								isHealthRiskUnit &&
 								getHealthRiskKeyByValue({ value: d.value, unit: $unit as 'utci' | 'pet' })}
 							{@const healthRiskLabel = healthRiskKey
-								? healthRisks[healthRiskKey as keyof typeof healthRisks].title.heatStress()
+								? healthRisks[healthRiskKey as keyof typeof healthRisks].title.thermalComfort()
 								: ''}
 							<span class={cn('flex max-w-48 flex-col text-xs')}>
 								{@html unsupportedIds.includes(d.id) || insufficientDataIds.includes(d.id)

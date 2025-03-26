@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { locale } from '$i18n/i18n-svelte';
+	import { browser } from '$app/environment';
+	import { LL, locale } from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
+	import { Info } from 'lucide-svelte';
+	import { onMount } from 'svelte';
+	import { queryParameters } from 'sveltekit-search-params';
 	import DarkModeToggle from './DarkModeToggle.svelte';
 	import LocaleSwitcher from './LocaleSwitcher.svelte';
 	import Logo from './Logo.svelte';
 	import { Button } from './ui/button';
-	import { LL } from '$i18n/i18n-svelte';
-	import { onMount } from 'svelte';
-	import { Info } from 'lucide-svelte';
-	import { queryParameters } from 'sveltekit-search-params';
 
 	interface Props {
 		title?: string;
@@ -19,6 +19,7 @@
 	let showMobileMenu = $state(true);
 
 	function onMediaQueryChange(e: MediaQueryListEvent) {
+		if (!browser) return false;
 		showMobileMenu = e.matches;
 	}
 	onMount(() => {

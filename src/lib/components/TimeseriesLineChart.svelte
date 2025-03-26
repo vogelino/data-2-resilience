@@ -112,7 +112,7 @@
 				></span>
 			`;
 		return `
-			<span class="flex flex-col text-xs">
+			<span class="flex flex-col text-xs chart-export-ignore">
 				<strong class="pb-1 mb-1 border-b border-border text-sm">
 					${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short', hour12: false }).format(d.date)}
 				</strong>
@@ -133,7 +133,7 @@
 							let healthRiskLabel = '';
 							if (healthRiskKey) {
 								healthRiskLabel =
-									healthRisks[healthRiskKey as keyof typeof healthRisks].title.heatStress();
+									healthRisks[healthRiskKey as keyof typeof healthRisks].title.thermalComfort();
 							}
 
 							return `
@@ -168,7 +168,7 @@
 	});
 </script>
 
-<div class={cn('relative h-[360px] w-full')}>
+<div class={cn('relative h-[360px] w-full')} id="linechart-container">
 	{#if data && data.length > 0 && !error}
 		<Chart
 			{data}
@@ -268,7 +268,8 @@
 					root: 'absolute inset-x-0 bottom-0',
 					swatches: 'items-center justify-center w-full flex flex-wrap gap-x-4',
 					swatch: 'w-3 h-0.5',
-					item: () => 'flex items-center gap-x-2'
+					item: () => 'flex items-center gap-x-2',
+					label: 'chart-legend-label' // Needed to correct a shift in the chart export
 				}}
 			/>
 			<Tooltip.Root
@@ -286,7 +287,7 @@
 			{$LL.pages.measurements.noDataAvailable()}
 		</div>
 	{/if}
-	{#if error}
+	{#if error && !isLoading}
 		<div class="absolute inset-0 flex items-center justify-center">
 			<ErrorAlert errorObject={error} />
 		</div>
@@ -294,7 +295,7 @@
 	<div
 		class={cn(
 			'absolute inset-0 flex items-center justify-center',
-			'pointer-events-none opacity-0',
+			'pointer-events-none z-50 bg-background/50 opacity-0',
 			isLoading && 'opacity-100'
 		)}
 	>

@@ -29,7 +29,9 @@
 			getHealthRiskKeyByValue({ value, unit: $unit as 'utci' | 'pet' })
 	);
 	const healthRiskLabel = $derived(
-		healthRiskKey ? healthRisks[healthRiskKey as keyof typeof healthRisks].title.heatStress() : ''
+		healthRiskKey
+			? healthRisks[healthRiskKey as keyof typeof healthRisks].title.thermalComfort()
+			: ''
 	);
 </script>
 

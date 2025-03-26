@@ -1,23 +1,24 @@
 <script lang="ts">
 	import { LL } from '$i18n/i18n-svelte';
 	import { cn } from "$lib/utils";
-	import type { QueryObserverResult } from "@tanstack/svelte-query";
 	import { LoaderCircle } from "lucide-svelte";
 	import type { Snippet } from "svelte";
 	import ErrorAlert from './ErrorAlert.svelte';
 
 
   type Props = {
-    query: QueryObserverResult<unknown>;
-    data: unknown[];
+    isLoading: boolean;
+    isSuccess: boolean;
+    error?: Error | null;
+    data?: unknown[];
     children?: Snippet<[]>
   }
 
-  const { query, data, children }: Props = $props()
+  const { data, children, isLoading, isSuccess, error }: Props = $props()
 
 </script>
 
-{#if query.isLoading}
+{#if isLoading}
   <div
     class={cn(
       'absolute inset-0 flex items-center justify-center',
@@ -26,14 +27,14 @@
   >
     <LoaderCircle class="size-6 animate-spin" />
   </div>
-{:else if query.isSuccess && data.length === 0}
+{:else if isSuccess && data && data.length === 0}
   <div class="absolute inset-0 flex items-center justify-center">
     {$LL.pages.measurements.noDataAvailable()}
   </div>
-{:else if query.error}
+{:else if error}
   <div class="absolute inset-0 flex items-center justify-center">
-    <ErrorAlert errorObject={query.error} />
+    <ErrorAlert errorObject={error} />
   </div>
-{:else if query.isSuccess}
+{:else if isSuccess}
   {@render children?.()}
 {/if}

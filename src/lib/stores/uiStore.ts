@@ -130,28 +130,25 @@ export const scale = derived(datavisType, (val) =>
 // HOUR
 const hourDefault = 12;
 const hourQueryParam = queryParam('hour', ssp.number(hourDefault));
-export const hour = derived(hourQueryParam, (value: number) =>
-	validateQueryParam(value, z.coerce.number(), hourDefault)
-);
+export const hour = derived([hourQueryParam, dayEndDate], ([value, dayEndDateVal]) => {
+	const validated = validateQueryParam(value, z.coerce.number(), hourDefault);
+	const d = limitDateBoundsToToday({
+		date: dayEndDateVal,
+		refDate: today(),
+		hour: validated
+	});
+	return getHours(d);
+});
 export const isHourScale = derived(
 	[scale, hour],
 	([s, h]) => s === 'hourly' && typeof h === 'number'
 );
 export const hourKey = derived([isHourScale, hour], ([isH, h]) => (isH ? h : undefined));
-export const updateHour = (dateEnd: Date, h: number) => {
-	if (!isToday(dateEnd)) {
-		hourQueryParam.set(h);
-		return h;
-	}
-	const date = limitDateBoundsToToday({
-		date: dateEnd,
-		refDate: today(),
-		hour: h
-	});
-	const newHour = getHours(date);
-	hourQueryParam.set(newHour);
-	return newHour;
-};
+export const updateHour = derived(hour, (prevH) => (h: number) => {
+	if (prevH === h) return h;
+	hourQueryParam.set(h);
+	return h;
+});
 
 // FORMATTED TIME CONFIGURATION
 export const formattedTimeConfiguration = derived(
@@ -273,6 +270,6 @@ export const updateShowSatellite = (value: boolean) => {
 function validateQueryParam<T>(queryParam: unknown, schema: z.ZodSchema<T>, defaultValue: T): T {
 	const parsed = schema.safeParse(queryParam);
 	const result = parsed.success ? parsed.data : undefined;
-	if (parsed.error) console.log(parsed.error)
+	if (parsed.error) console.log(parsed.error);
 	return result || defaultValue;
 }

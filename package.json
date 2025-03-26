@@ -48,6 +48,7 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.46.1",
 		"globals": "^15.14.0",
+		"html2canvas": "1.4.1",
 		"layerchart": "0.99.1",
 		"lucide-svelte": "^0.469.0",
 		"maplibre-gl": "^4.7.1",

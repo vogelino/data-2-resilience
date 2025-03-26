@@ -102,6 +102,10 @@ type RootTranslation = {
 			 */
 			unsupportedStation: string
 		}
+		/**
+		 * U​n​g​ü​l​t​i​g​e​ ​E​x​p​o​r​t​k​o​n​f​i​g​u​r​a​t​i​o​n
+		 */
+		invalidExportConfig: string
 	}
 	generic: {
 		/**
@@ -154,6 +158,10 @@ type RootTranslation = {
 			 */
 			noResults: string
 		}
+		/**
+		 * C​h​a​r​t​ ​e​x​p​o​r​t​i​e​r​e​n
+		 */
+		chartExportButtonLabel: string
 	}
 	themeSwitch: {
 		/**
@@ -2047,6 +2055,10 @@ export type TranslationFunctions = {
 			 */
 			unsupportedStation: () => LocalizedString
 		}
+		/**
+		 * Ungültige Exportkonfiguration
+		 */
+		invalidExportConfig: () => LocalizedString
 	}
 	generic: {
 		/**
@@ -2099,6 +2111,10 @@ export type TranslationFunctions = {
 			 */
 			noResults: () => LocalizedString
 		}
+		/**
+		 * Chart exportieren
+		 */
+		chartExportButtonLabel: () => LocalizedString
 	}
 	themeSwitch: {
 		/**

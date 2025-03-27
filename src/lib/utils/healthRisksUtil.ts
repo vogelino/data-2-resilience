@@ -1,4 +1,4 @@
-const ranges = {
+export const healthRisksRanges = {
 	'extreme cold stress': {
 		pet: {
 			min: -Infinity,
@@ -103,7 +103,7 @@ const ranges = {
 
 export function getHealthRiskKeyByValue({ unit, value }: { unit: 'utci' | 'pet'; value: number }) {
 	if (unit !== 'utci' && unit !== 'pet') return null
-	return Object.entries(ranges).reduce(
+	return Object.entries(healthRisksRanges).reduce(
 		(acc, [key, range]) => {
 			const { min, max } = range[unit];
 			if (value >= min && value < max) {

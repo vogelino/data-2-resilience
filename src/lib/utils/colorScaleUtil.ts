@@ -11,6 +11,7 @@ import {
 	interpolateYlGnBu,
 	interpolateYlOrBr
 } from 'd3-scale-chromatic';
+import { healthRisksRanges } from './healthRisksUtil';
 
 const schemeTurboSquential: readonly string[] = quantize(interpolateTurbo, 10);
 const schemeTurboOrdinal: readonly string[] = quantize(interpolateTurbo, 10);
@@ -159,20 +160,74 @@ export const unitsToScalesMap = {
 	}
 } satisfies Record<string, SequentialScapeType | OrdinalScaleType>;
 
+type ColorStop = { color: string; position: number };
+type ColorStops = ColorStop[];
+const healthRiskUnits = ['utci', 'pet'] as const;
+type HealthRiskUnit = (typeof healthRiskUnits)[number];
+
+const isOrdinalUnit = (unit: string) => unit.trim().toLowerCase().endsWith('_category');
+const isHealthRiskUnit = (unit: string) => {
+	const u = unit.trim().toLowerCase();
+	return healthRiskUnits.includes(u as HealthRiskUnit);
+};
+const getUnit = (unit: string) =>
+	unitsToScalesMap[unit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default;
+const isValidHealthRiskUnitValue = (value: unknown) =>
+	typeof value === 'number' && Math.abs(value as number) !== Infinity;
+const filterOutInfinity = <T extends number>(arr: T[]) => arr.filter(isValidHealthRiskUnitValue);
+const getHealthRiskUnitThresholds = (unit: HealthRiskUnit) => {
+	return Object.values(healthRisksRanges).map((range) => range[unit]);
+};
+const getHealthRiskUnitBounds = (unit: HealthRiskUnit) => {
+	const thresholds = getHealthRiskUnitThresholds(unit);
+	const allValues = thresholds.flatMap((t) => [t.min, t.max]);
+	return [Math.min(...filterOutInfinity(allValues)), Math.max(...filterOutInfinity(allValues))];
+};
+
+const getHealthRiskUnitColorStops = (unit: HealthRiskUnit): ColorStops => {
+	const healthRiskThresholds = getHealthRiskUnitThresholds(unit);
+	const [min, max] = getHealthRiskUnitBounds(unit);
+	const validThresholds = healthRiskThresholds.filter(
+		(t) => isValidHealthRiskUnitValue(t.min) && isValidHealthRiskUnitValue(t.max)
+	);
+	const scheme = quantize(interpolateTurbo, validThresholds.length);
+	const stops = validThresholds.map(({ min: tMin, max: tMax }, i) => {
+		const start = ((tMin - min) / (max - min)) * 100;
+		const end = ((tMax - min) / (max - min)) * 100;
+		const halfway = (start + end) / 2;
+		return {
+			color: scheme[i],
+			position: halfway
+		};
+	});
+	return [stops[0], ...stops, stops[stops.length - 1]];
+};
+
+export const getColorStops = (params: { unit: string; LL: TranslationFunctions }): ColorStops => {
+	const { unit } = params;
+	const colors = getColorsByUnit(params);
+	if (isHealthRiskUnit(unit)) return getHealthRiskUnitColorStops(unit as HealthRiskUnit);
+	const stops = colors.map((color, i) => ({ color, position: (i / (colors.length - 1)) * 100 }));
+	return stops;
+};
+
 export function getColorScaleFn(params: { unit: string; LL: TranslationFunctions }) {
-	const { unit, LL } = params;
-	const { colors, colorScale } = getColorsByUnit({ unit, LL });
-	if (colorScale.type === 'ordinal') return scaleOrdinal(colors);
+	const { unit } = params;
+	const unitConfig = getUnit(unit);
+	if (unitConfig.type === 'ordinal') return scaleOrdinal(unitConfig.scheme);
+
 	function customInterpolator(t: number) {
-		const numColors = colors.length;
-		const domainStops = Array.from(Array(numColors).keys()).map((i) => i / (numColors - 1));
+		const stops = getColorStops(params);
 		const scale = scaleLinear<string>()
-			.domain(domainStops)
-			.range(colors)
+			.domain(stops.map((s) => s.position / 100))
+			.range(stops.map((s) => s.color))
 			.interpolate(interpolateRgb);
 		return scale(t);
 	}
-	return scaleSequential(customInterpolator).domain([colorScale.min, colorScale.max]);
+	const domain = isHealthRiskUnit(unit)
+		? getHealthRiskUnitBounds(unit as HealthRiskUnit)
+		: [unitConfig.min, unitConfig.max];
+	return scaleSequential(customInterpolator).domain(domain);
 }
 
 export function getColorScaleValue(params: {
@@ -181,26 +236,31 @@ export function getColorScaleValue(params: {
 	value: number | string;
 }) {
 	const { unit, LL, value } = params;
+
 	const isWindDirectionUnit = unit.startsWith('wind_direction');
 	if (isWindDirectionUnit) return 'hsl(var(--muted-foreground))';
+
 	const scale = getColorScaleFn(params);
-	const categories = Object.keys(LL.map.choroplethLegend.healthRisks);
-	const { colors } = getColorsByUnit({ unit, LL });
-	if (unit.endsWith('_category')) {
+	const categories = Object.keys(
+		LL.map.choroplethLegend.healthRisks
+	) as unknown as keyof typeof LL.map.choroplethLegend.healthRisks;
+
+	if (isOrdinalUnit(unit)) {
 		const categoryIndex = categories.indexOf(value as string);
 		if (categoryIndex === -1) return 'hsl(var(--muted-foreground))';
+		const colors = getColorsByUnit({ unit, LL });
 		return colors[categoryIndex];
 	}
+
 	return scale(value as { valueOf(): number } & string);
 }
 
 function getColorsByUnit({ unit, LL }: { unit: string; LL: TranslationFunctions }) {
-	const colorScale =
-		unitsToScalesMap[unit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default;
-	const titleKey = unit.endsWith('_category') ? 'heatStress' : 'thermalComfort';
+	const colorScale = getUnit(unit);
+	const titleKey = isOrdinalUnit(unit) ? 'heatStress' : 'thermalComfort';
 	const healthRisksCount = Object.values(LL.map.choroplethLegend.healthRisks).filter(
 		(item) => !!item.title[titleKey]()
 	).length;
 	const colors = (colorScale.scheme as string[]).slice(-healthRisksCount);
-	return { colors, healthRisksCount, colorScale };
+	return colors;
 }

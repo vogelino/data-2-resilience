@@ -6,7 +6,8 @@
 	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
 	import { heatStressUnit, isLeftSidebarOpened, unit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { unitsToScalesMap } from '$lib/utils/colorScaleUtil';
+	import { getColorStops, unitsToScalesMap } from '$lib/utils/colorScaleUtil';
+	import { healthRisksRanges } from '$lib/utils/healthRisksUtil';
 	import { HeartPulse, X } from 'lucide-svelte';
 
 	let open = $state(false);
@@ -15,6 +16,9 @@
 	let currentPage = $derived(p === '' ? 'measurements' : p);
 
 	type Unit = keyof typeof $LL.pages.measurements.unitSelect.units;
+
+	const filterOutInvalid = <T extends number>(arr: T[]) =>
+		arr.filter((d) => typeof d === 'number' && Math.abs(d) !== Infinity);
 
 	let getUnitLabelsByUnit = $derived(function (unit: Unit, isCategoryUnit = false) {
 		return {
@@ -54,8 +58,42 @@
 	let seqMin = $derived(
 		showColdRisks || !showHealthRisks ? scaleMin : scaleMax - (scaleMax - scaleMin) / 5
 	);
-	let min = $derived(scale.type === 'sequential' ? `${seqMin} ${labels.unitOnlyLabel}` : '');
-	let max = $derived(scale.type === 'sequential' ? `${scaleMax} ${labels.unitOnlyLabel}` : '');
+
+	const isHealthRiskUnit = $derived($unit === 'utci' || $unit === 'pet');
+	const healthRiskThresholds = $derived(
+		Object.values(healthRisksRanges).map((range) => range[$unit as 'utci' | 'pet'])
+	);
+	const healthRiskUnitMin = $derived(
+		Math.min(...filterOutInvalid(healthRiskThresholds.flatMap((t) => [t.min, t.max])))
+	);
+	const healthRiskUnitMax = $derived(
+		Math.max(...filterOutInvalid(healthRiskThresholds.flatMap((t) => [t.min, t.max])))
+	);
+	const min = $derived.by(() => {
+		if (isHealthRiskUnit) return healthRiskUnitMin;
+		if (scale.type === 'sequential') return seqMin;
+		return scaleMin;
+	});
+	const minLabel = $derived(
+		isHealthRiskUnit || scale.type === 'sequential' ? `${min} ${labels.unitOnlyLabel}` : ''
+	);
+	const max = $derived.by(() => {
+		if (isHealthRiskUnit) return healthRiskUnitMax;
+		return scaleMax;
+	});
+	const maxLabel = $derived(
+		isHealthRiskUnit || scale.type === 'sequential' ? `${max} ${labels.unitOnlyLabel}` : ''
+	);
+
+	let customGradient = $derived.by(() => {
+		const stops = getColorStops({ unit: $unit, LL: $LL });
+		const stopsStrings = stops.map(({ color, position }) => `${color} ${position}%`);
+		const stopStart = `${stops[0].color} 0%`;
+		const stopEnd = `${stops[stops.length - 1].color} 100%`;
+		const allStops = [stopStart, ...stopsStrings, stopEnd].join(', ');
+		return `linear-gradient(to right, ${allStops})`;
+	});
+
 	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
 	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 	const isWindDirectionUnit = $derived(finalUnit.startsWith('wind_direction'));
@@ -110,21 +148,17 @@
 			{:else}
 				<div
 					class="h-4 w-full max-w-96 rounded-sm bg-gradient-to-r from-yellow-50 via-yellow-500 to-yellow-950 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
-					style={`
-					background-image: linear-gradient(
-						to right,
-						${scheme.join(', ')}
-				)`}
+					style={`background-image: ${customGradient};`}
 				></div>
 			{/if}
 			<div
 				class="flex w-full items-center justify-between pt-1 text-xs leading-4 text-muted-foreground"
 			>
 				<span>
-					{isOrdinal ? healthRisks[0].title[titleKey]() : min}
+					{isOrdinal ? healthRisks[0].title[titleKey]() : minLabel}
 				</span>
 				<span class="text-right">
-					{isOrdinal ? healthRisks[healthRisks.length - 1].title[titleKey]() : max}
+					{isOrdinal ? healthRisks[healthRisks.length - 1].title[titleKey]() : maxLabel}
 				</span>
 			</div>
 		</div>

@@ -223,8 +223,8 @@
 					{@const colorTicks = [
 						...Array.from({ length: ticksCount }, (_, i) => {
 							const tickStep = Math.round(Math.abs(maxVal - minVal) / ticksCount);
-							if (tickStep === 0) return minVal;
-							if (tickStep === ticksCount - 1) return maxVal;
+							if (i === 0) return minVal;
+							if (i === ticksCount - 1) return maxVal;
 							return minVal + i * tickStep;
 						})
 					]}

@@ -166,7 +166,7 @@ const healthRiskUnits = ['utci', 'pet'] as const;
 type HealthRiskUnit = (typeof healthRiskUnits)[number];
 
 const isOrdinalUnit = (unit: string) => unit.trim().toLowerCase().endsWith('_category');
-const isHealthRiskUnit = (unit: string) => {
+export const isHealthRiskUnit = (unit: string) => {
 	const u = unit.trim().toLowerCase();
 	return healthRiskUnits.includes(u as HealthRiskUnit);
 };

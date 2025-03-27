@@ -4,7 +4,8 @@
 	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
 	import { unit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
+	import { getColorScaleValue, isHealthRiskUnit } from '$lib/utils/colorScaleUtil';
+	import { getHealthRiskKeyByValue } from '$lib/utils/healthRisksUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
@@ -20,7 +21,9 @@
 	let { stations, initialStationIds = [], map }: Props = $props();
 
 	const selectedStations = useStations({ initialStationIds, stations });
-	const stationsSnapshotQueryConfig = $derived.by(() => useStationsSnapshotConfig({ initialStationIds, stations }));
+	const stationsSnapshotQueryConfig = $derived.by(() =>
+		useStationsSnapshotConfig({ initialStationIds, stations })
+	);
 	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
 	const apiResponseData = $derived($snapshotQuery.data || []);
 
@@ -49,6 +52,17 @@
 <GeoJSON id="stations" data={stations} promoteId="STATEFP">
 	<MarkerLayer interactive class="group relative hover:z-10">
 		{#snippet children({ feature })}
+			{@const value = getValueById(feature.properties?.id) as { valueOf(): number } & string}
+			{@const healthRiskKey =
+				isHealthRiskUnit($unit) &&
+				getHealthRiskKeyByValue({
+					value: value as unknown as number,
+					unit: $unit as 'utci' | 'pet'
+				})}
+			{@const healthRisks = $LL.map.choroplethLegend.healthRisks}
+			{@const healthRiskLabel = healthRiskKey
+				? healthRisks[healthRiskKey as keyof typeof healthRisks].title.thermalComfort()
+				: ''}
 			<button
 				type="button"
 				class={cn(
@@ -88,22 +102,30 @@
 						<span class="block leading-4 text-muted-foreground"> </span>
 					{/if}
 					<p class="text-xs">
-						{#if typeof getValueById(feature.properties?.id) !== 'undefined'}
+						{#if typeof value !== 'undefined'}
 							{@const type = feature.properties?.stationType === 'temprh' ? 'temprh' : 'biomet'}
 							{$LL.pages.stations.table.cells.stationTypes[type].nameShort()}
 						{/if}
-						{#if typeof getValueById(feature.properties?.id) === 'number'}
-							{` ・ `}
-							{getValueById(feature.properties?.id)?.valueOf().toLocaleString($locale, {
+						{#if typeof value === 'number'}
+							{#if healthRiskLabel}
+								<br />
+							{:else}
+								{` ・ `}
+							{/if}
+							{(value as { valueOf(): number }).valueOf().toLocaleString($locale, {
 								maximumFractionDigits: 1
 							})}
 							{$unitOnly}
-						{:else if typeof getValueById(feature.properties?.id) === 'string'}
+							{#if healthRiskLabel}
+								{` ・ `}
+								{healthRiskLabel}
+							{/if}
+						{:else if typeof value === 'string'}
 							<br />
 							{getHeatStressLabel({
 								unit: $unit,
 								LL: $LL,
-								value: String(getValueById(feature.properties?.id))
+								value: String(value)
 							})}
 						{:else}
 							{@html $LL.pages.measurements.singleUnsupportedStationShort({

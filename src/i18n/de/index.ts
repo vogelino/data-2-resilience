@@ -195,7 +195,7 @@ const de = {
 						unitOnly: '°C'
 					},
 					utci_category: {
-						label: 'UTCI-Kategorie',
+						label: 'Universeller Thermischer Klimaindex (UTCI) Kategorie',
 						description:
 							'Die <strong>UTCI-Kategorie</strong> beschreibt die Klassifizierung des universellen thermischen Klimaindexes in Bezug auf thermischen Komfort.',
 						unitOnly: ''
@@ -381,7 +381,7 @@ const de = {
 						unitOnly: '°C'
 					},
 					pet_category: {
-						label: 'PET-Kategorie',
+						label: 'Physiologisch äquivalente Temperatur (PET) Kategorie',
 						description:
 							'Die <strong>PET-Kategorie</strong> beschreibt die Klassifizierung der physiologisch äquivalenten Temperatur in Bezug auf thermischen Komfort.',
 						unitOnly: ''

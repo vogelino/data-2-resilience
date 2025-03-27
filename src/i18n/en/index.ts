@@ -1,7 +1,7 @@
-import type { Translation } from "../i18n-types";
+import type { Translation } from '../i18n-types';
 
-const siteNameShort = "Data2Resilience";
-const siteSubtitle = "Dashboard for heat stress in Dortmund";
+const siteNameShort = 'Data2Resilience';
+const siteSubtitle = 'Dashboard for heat stress in Dortmund';
 const en = {
 	siteNameShort,
 	author: 'Data2Resilience Team',
@@ -192,7 +192,7 @@ const en = {
 						unitOnly: '°C'
 					},
 					utci_category: {
-						label: 'UTCI category',
+						label: 'Universal Thermic Climate Index  (UTCI) category',
 						description:
 							'The <strong>UTCI category</strong> describes the classification of the universal heat stress index in terms of heat stress.',
 						unitOnly: ''
@@ -378,7 +378,7 @@ const en = {
 						unitOnly: '°C'
 					},
 					pet_category: {
-						label: 'PET category',
+						label: 'Physiological equivalent temperature (PET) category',
 						description:
 							'The <strong>PET category</strong> describes the classification of the physiological equivalent temperature in terms of heat stress.',
 						unitOnly: ''

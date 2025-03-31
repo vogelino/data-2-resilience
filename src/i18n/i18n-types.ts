@@ -342,6 +342,10 @@ type RootTranslation = {
 				 * D​e​r​ ​H​i​t​z​e​a​t​l​a​s​ ​f​ü​r​ ​D​o​r​t​m​u​n​d​ ​b​i​e​t​e​t​ ​e​i​n​e​ ​Ü​b​e​r​s​i​c​h​t​ ​z​u​r​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​i​n​ ​d​e​r​ ​S​t​a​d​t​.​ ​D​i​e​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​w​i​r​d​ ​d​u​r​c​h​ ​d​r​e​i​ ​K​a​r​t​e​n​ ​a​b​g​e​b​i​l​d​e​t​:​ ​d​e​n​ ​u​n​i​v​e​r​s​e​l​l​e​n​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​ ​z​u​r​ ​E​i​n​s​c​h​ä​t​z​u​n​g​ ​d​e​s​ ​W​ä​r​m​e​e​m​p​f​i​n​d​e​n​s​ ​v​o​n​ ​B​ü​r​g​e​r​I​n​n​e​n​ ​s​o​w​i​e​ ​d​i​e​ ​r​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​u​n​d​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​a​l​s​ ​z​e​n​t​r​a​l​e​ ​E​i​n​f​l​u​s​s​f​a​k​t​o​r​e​n​.
 				 */
 				'0': string
+				/**
+				 * K​a​r​t​e​n​ ​b​a​s​i​e​r​e​n​ ​a​u​f​ ​m​o​d​e​l​l​i​e​r​t​e​n​ ​B​e​r​e​c​h​n​u​n​g​e​n​,​ ​d​i​e​ ​a​u​s​ ​S​t​a​t​i​o​n​s​m​e​s​s​u​n​g​e​n​ ​a​b​g​e​l​e​i​t​e​t​ ​s​i​n​d​.​ ​D​i​e​ ​m​o​d​e​l​l​i​e​r​t​e​n​ ​K​a​r​t​e​n​ ​s​i​n​d​ ​w​e​n​i​g​e​r​ ​g​e​n​a​u​ ​a​l​s​ ​d​i​e​ ​M​e​s​s​d​a​t​e​n​ ​u​n​d​ ​s​o​l​l​t​e​n​ ​n​u​r​ ​a​l​s​ ​A​u​s​g​a​n​g​s​p​u​n​k​t​ ​v​e​r​w​e​n​d​e​t​ ​w​e​r​d​e​n​.​ ​F​ü​r​ ​d​e​t​a​i​l​l​i​e​r​t​e​ ​A​n​a​l​y​s​e​n​ ​v​e​r​l​a​s​s​e​n​ ​S​i​e​ ​s​i​c​h​ ​b​i​t​t​e​ ​a​u​f​ ​d​i​e​ ​S​t​a​t​i​o​n​s​m​e​s​s​d​a​t​e​n​.
+				 */
+				'1': string
 			}
 			/**
 			 * D​a​t​e​n​ ​n​u​r​ ​v​e​r​f​ü​g​b​a​r​ ​i​m​ ​Z​e​i​t​r​a​u​m​ ​v​o​m​ ​{​s​t​a​r​t​D​a​t​e​}​ ​b​i​s​ ​{​e​n​d​D​a​t​e​}​.
@@ -502,7 +506,7 @@ type RootTranslation = {
 					}
 					utci_category: {
 						/**
-						 * U​T​C​I​-​K​a​t​e​g​o​r​i​e
+						 * U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​ ​K​a​t​e​g​o​r​i​e
 						 */
 						label: string
 						/**
@@ -924,7 +928,7 @@ type RootTranslation = {
 					}
 					pet_category: {
 						/**
-						 * P​E​T​-​K​a​t​e​g​o​r​i​e
+						 * P​h​y​s​i​o​l​o​g​i​s​c​h​ ​ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)​ ​K​a​t​e​g​o​r​i​e
 						 */
 						label: string
 						/**
@@ -1495,6 +1499,16 @@ type RootTranslation = {
 			 * D​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d​ ​w​u​r​d​e​ ​i​m​ ​R​a​h​m​e​n​ ​d​e​s​ ​P​r​o​j​e​k​t​e​s​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​e​n​t​w​i​c​k​e​l​t​,​ ​e​i​n​e​m​ ​g​e​m​e​i​n​s​a​m​e​n​ ​F​o​r​s​c​h​u​n​g​s​p​r​o​j​e​k​t​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​ä​t​ ​B​o​c​h​u​m​ ​u​n​d​ ​d​e​r​ ​L​e​i​b​n​i​z​ ​U​n​i​v​e​r​s​i​t​ä​t​ ​H​a​n​n​o​v​e​r​.​ ​D​a​s​ ​P​r​o​j​e​k​t​ ​z​i​e​l​t​ ​d​a​r​a​u​f​ ​a​b​,​ ​d​i​e​ ​R​e​s​i​l​i​e​n​z​ ​D​o​r​t​m​u​n​d​s​ ​g​e​g​e​n​ü​b​e​r​ ​d​e​m​ ​K​l​i​m​a​w​a​n​d​e​l​ ​z​u​ ​v​e​r​b​e​s​s​e​r​n​,​ ​i​n​d​e​m​ ​i​n​n​o​v​a​t​i​v​e​ ​T​e​c​h​n​o​l​o​g​i​e​n​ ​u​n​d​ ​B​ü​r​g​e​r​b​e​t​e​i​l​i​g​u​n​g​ ​g​e​n​u​t​z​t​ ​w​e​r​d​e​n​,​ ​u​m​ ​d​i​e​ ​A​u​s​w​i​r​k​u​n​g​e​n​ ​e​x​t​r​e​m​e​r​ ​H​i​t​z​e​ ​a​u​f​ ​d​a​s​ ​S​t​a​d​t​l​e​b​e​n​ ​z​u​ ​m​i​n​i​m​i​e​r​e​n​.​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​w​i​r​d​ ​v​o​n​ ​P​r​o​f​.​ ​D​r​.​ ​B​e​n​j​a​m​i​n​ ​B​e​c​h​t​e​l​ ​u​n​d​ ​P​r​o​f​.​ ​D​r​.​ ​C​h​r​i​s​t​i​a​n​ ​A​l​b​e​r​t​ ​g​e​l​e​i​t​e​t​ ​u​n​d​ ​v​o​m​ ​<​a​ ​h​r​e​f​=​'​h​t​t​p​s​:​/​/​i​c​l​e​i​.​o​r​g​/​a​c​t​i​v​i​t​y​/​i​c​l​e​i​-​a​c​t​i​o​n​-​f​u​n​d​-​2​-​0​/​'​ ​t​a​r​g​e​t​=​'​_​b​l​a​n​k​'​ ​r​e​l​=​'​n​o​o​p​e​n​e​r​ ​n​o​r​e​f​e​r​r​e​r​'​>​I​C​L​E​I​ ​A​c​t​i​o​n​ ​F​u​n​d​ ​2​.​0​<​/​a​>​ ​s​o​w​i​e​ ​<​a​ ​h​r​e​f​=​'​h​t​t​p​s​:​/​/​w​w​w​.​g​o​o​g​l​e​.​o​r​g​/​'​ ​t​a​r​g​e​t​=​'​_​b​l​a​n​k​'​ ​r​e​l​=​'​n​o​o​p​e​n​e​r​ ​n​o​r​e​f​e​r​r​e​r​'​>​G​o​o​g​l​e​.​o​r​g​<​/​a​>​ ​f​i​n​a​n​z​i​e​r​t​.
 			 */
 			description: string
+			mainLink: {
+				/**
+				 * h​t​t​p​s​:​/​/​d​o​r​t​m​u​n​d​.​d​e​/​h​i​t​z​e
+				 */
+				url: string
+				/**
+				 * d​o​r​t​m​u​n​d​.​d​e​/​h​i​t​z​e
+				 */
+				label: string
+			}
 			links: {
 				'0': {
 					/**
@@ -1666,7 +1680,7 @@ type RootTranslation = {
 			 */
 			districts: string
 			/**
-			 * A​k​t​i​o​n​s​r​ä​u​m​e
+			 * S​t​a​d​t​t​e​i​l​e​<​b​r​/​>​&​ ​A​k​t​i​o​n​s​r​ä​u​m​e
 			 */
 			lors: string
 			/**
@@ -1676,7 +1690,7 @@ type RootTranslation = {
 		}
 		layersTooltips: {
 			/**
-			 * V​u​l​n​e​r​a​b​l​e​r​ ​A​k​t​i​o​n​s​r​a​u​m
+			 * A​k​t​i​o​n​s​r​a​u​m
 			 */
 			vulnerableArea: string
 			type: {
@@ -2295,6 +2309,10 @@ export type TranslationFunctions = {
 				 * Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.
 				 */
 				'0': () => LocalizedString
+				/**
+				 * Karten basieren auf modellierten Berechnungen, die aus Stationsmessungen abgeleitet sind. Die modellierten Karten sind weniger genau als die Messdaten und sollten nur als Ausgangspunkt verwendet werden. Für detaillierte Analysen verlassen Sie sich bitte auf die Stationsmessdaten.
+				 */
+				'1': () => LocalizedString
 			}
 			/**
 			 * Daten nur verfügbar im Zeitraum vom {startDate} bis {endDate}.
@@ -2440,7 +2458,7 @@ export type TranslationFunctions = {
 					}
 					utci_category: {
 						/**
-						 * UTCI-Kategorie
+						 * Universeller Thermischer Klimaindex (UTCI) Kategorie
 						 */
 						label: () => LocalizedString
 						/**
@@ -2862,7 +2880,7 @@ export type TranslationFunctions = {
 					}
 					pet_category: {
 						/**
-						 * PET-Kategorie
+						 * Physiologisch äquivalente Temperatur (PET) Kategorie
 						 */
 						label: () => LocalizedString
 						/**
@@ -3427,6 +3445,16 @@ export type TranslationFunctions = {
 			 * Dieses Dashboard wurde im Rahmen des Projektes Data2Resilience entwickelt, einem gemeinsamen Forschungsprojekt der Ruhr-Universität Bochum und der Leibniz Universität Hannover. Das Projekt zielt darauf ab, die Resilienz Dortmunds gegenüber dem Klimawandel zu verbessern, indem innovative Technologien und Bürgerbeteiligung genutzt werden, um die Auswirkungen extremer Hitze auf das Stadtleben zu minimieren. Data2Resilience wird von Prof. Dr. Benjamin Bechtel und Prof. Dr. Christian Albert geleitet und vom <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> sowie <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a> finanziert.
 			 */
 			description: () => LocalizedString
+			mainLink: {
+				/**
+				 * https://dortmund.de/hitze
+				 */
+				url: () => LocalizedString
+				/**
+				 * dortmund.de/hitze
+				 */
+				label: () => LocalizedString
+			}
 			links: {
 				'0': {
 					/**
@@ -3598,7 +3626,7 @@ export type TranslationFunctions = {
 			 */
 			districts: () => LocalizedString
 			/**
-			 * Aktionsräume
+			 * Stadtteile<br/>& Aktionsräume
 			 */
 			lors: () => LocalizedString
 			/**
@@ -3608,7 +3636,7 @@ export type TranslationFunctions = {
 		}
 		layersTooltips: {
 			/**
-			 * Vulnerabler Aktionsraum
+			 * Aktionsraum
 			 */
 			vulnerableArea: () => LocalizedString
 			type: {

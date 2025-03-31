@@ -622,6 +622,10 @@ const en = {
 			title: 'About this project',
 			description:
 				"This dashboard was developed as part of the Data2Resilience project, a joint research project of the Ruhr University Bochum and the Leibniz University Hannover. The project aims to improve Dortmund's resilience to climate change by using innovative technologies and citizen participation to minimize the impact of extreme heat on urban life. Data2Resilience is led by Prof. Dr. Benjamin Bechtel and Prof. Dr. Christian Albert and is funded by the <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> and <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a>.",
+			mainLink: {
+				url: `https://dortmund.de/hitze`,
+				label: 'dortmund.de/hitze'
+			},
 			links: [
 				{
 					label: 'imprint',

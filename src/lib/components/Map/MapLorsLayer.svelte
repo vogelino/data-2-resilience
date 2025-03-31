@@ -61,7 +61,7 @@
 			visibility: visible ? 'visible' : 'none'
 		}}
 		paint={{
-			'line-color': displayMode === 'stroke' ? 'white' : $mode === 'dark' ? '#7b828f' : '#9da5b4',
+			'line-color': displayMode === 'stroke' ? 'white' : $mode === 'dark' ? 'white' : 'black',
 			'line-opacity': 1,
 			'line-width': 1
 		}}

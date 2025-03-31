@@ -2,7 +2,6 @@
 	import { LL } from '$i18n/i18n-svelte';
 	import { actionareas } from '$lib/stores/mapData';
 	import { addPopup } from '$lib/stores/mapPopupsStore.svelte';
-	import { mode } from 'mode-watcher';
 	import { FillLayer, GeoJSON, LineLayer, Popup } from 'svelte-maplibre';
 
 	interface Props {
@@ -57,7 +56,7 @@
 		}}
 		paint={{
 			'line-color': displayMode === 'stroke' ? 'white' : '#FACC13',
-			'line-width': displayMode === 'stroke' ? 4 : 1
+			'line-width': displayMode === 'stroke' ? 4 : 2.5
 		}}
 	/>
 </GeoJSON>

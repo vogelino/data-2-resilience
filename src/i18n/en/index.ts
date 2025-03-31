@@ -626,6 +626,10 @@ const en = {
 				url: `https://dortmund.de/hitze`,
 				label: 'dortmund.de/hitze'
 			},
+			contactLink: {
+				url: `mailto:info@data2resilience.org`,
+				label: 'Write us an email'
+			},
 			links: [
 				{
 					label: 'imprint',

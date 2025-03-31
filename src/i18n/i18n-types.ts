@@ -1509,6 +1509,16 @@ type RootTranslation = {
 				 */
 				label: string
 			}
+			contactLink: {
+				/**
+				 * m​a​i​l​t​o​:​i​n​f​o​@​d​a​t​a​2​r​e​s​i​l​i​e​n​c​e​.​o​r​g
+				 */
+				url: string
+				/**
+				 * S​c​h​r​e​i​b​e​ ​u​n​s​ ​e​i​n​e​ ​E​-​M​a​i​l
+				 */
+				label: string
+			}
 			links: {
 				'0': {
 					/**
@@ -3452,6 +3462,16 @@ export type TranslationFunctions = {
 				url: () => LocalizedString
 				/**
 				 * dortmund.de/hitze
+				 */
+				label: () => LocalizedString
+			}
+			contactLink: {
+				/**
+				 * mailto:info@data2resilience.org
+				 */
+				url: () => LocalizedString
+				/**
+				 * Schreibe uns eine E-Mail
 				 */
 				label: () => LocalizedString
 			}

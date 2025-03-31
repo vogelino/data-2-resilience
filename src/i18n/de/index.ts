@@ -628,6 +628,10 @@ const de = {
 				url: `https://dortmund.de/hitze`,
 				label: 'dortmund.de/hitze'
 			},
+			contactLink: {
+				url: `mailto:info@data2resilience.org`,
+				label: 'Schreibe uns eine E-Mail'
+			},
 			links: [
 				{
 					label: 'Impressum',

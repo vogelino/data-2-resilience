@@ -4,7 +4,7 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { cn } from '$lib/utils';
-	import { Globe, X } from 'lucide-svelte';
+	import { Globe, Mail, X } from 'lucide-svelte';
 	import { queryParameters } from 'sveltekit-search-params';
 	import GoogleOrgLogo from './GoogleOrgLogo.svelte';
 	import ICLEILogo from './ICLEILogo.svelte';
@@ -63,11 +63,24 @@
 					class={cn(
 						'focusable transition-opacity hover-hover:hover:opacity-50',
 						'underline decoration-primary underline-offset-4',
-						'mt-4 flex items-center gap-x-1'
+						'mt-4 flex items-center gap-x-2'
 					)}
 				>
 					<Globe class="size-4 text-muted-foreground" />
 					{$LL.pages.about.mainLink.label()}
+				</a>
+				<a
+					href={$LL.pages.about.contactLink.url()}
+					rel="noopener noreferrer"
+					target="_blank"
+					class={cn(
+						'focusable transition-opacity hover-hover:hover:opacity-50',
+						'underline decoration-primary underline-offset-4',
+						'mt-2 flex items-center gap-x-2'
+					)}
+				>
+					<Mail class="size-4 text-muted-foreground" />
+					{$LL.pages.about.contactLink.label()}
 				</a>
 			</Dialog.Description>
 		</Dialog.Header>

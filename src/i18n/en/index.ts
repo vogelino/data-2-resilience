@@ -132,7 +132,8 @@ const en = {
 		heatStress: {
 			title: 'How warm does the city feel?',
 			intro: [
-				"The heat atlas for Dortmund provides an overview of the city's heat stress. The heat stress is depicted through three maps: the Universal Thermal Climate Index (UTCI) to assess the thermal sensation of residents, as well as relative humidity and air temperature as key influencing factors."
+				"The heat atlas for Dortmund provides an overview of the city's heat stress. The heat stress is depicted through three maps: the Universal Thermal Climate Index (UTCI) to assess the thermal sensation of residents, as well as relative humidity and air temperature as key influencing factors.",
+				'Maps are based on modelled calculations derived from station measurements. The modelled maps are less accurate than the measurement data and should only be used as a starting point. For detailed analyses, please rely on the station measurement data.'
 			],
 			timeRangeAlert: 'Data only available from {startDate} to {endDate}.',
 			timeRangeAlertTooltipTitle: 'This visualization is only available for the last 30 days.',

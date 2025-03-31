@@ -132,7 +132,8 @@ const de = {
 		heatStress: {
 			title: 'Wie warm fühlt sich die Stadt an?',
 			intro: [
-				'Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.'
+				'Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.',
+				'Karten basieren auf modellierten Berechnungen, die aus Stationsmessungen abgeleitet sind. Die modellierten Karten sind weniger genau als die Messdaten und sollten nur als Ausgangspunkt verwendet werden. Für detaillierte Analysen verlassen Sie sich bitte auf die Stationsmessdaten.'
 			],
 			timeRangeAlert:
 				'Daten nur verfügbar im Zeitraum vom {startDate:string} bis {endDate:string}.',

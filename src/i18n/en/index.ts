@@ -697,11 +697,11 @@ const en = {
 		layersSelection: {
 			ariaLabel: 'Map layer selection',
 			districts: 'City districts',
-			lors: 'Action areas',
+			lors: 'City districts<br/>& action areas',
 			satellite: 'Digital Orthophotos'
 		},
 		layersTooltips: {
-			vulnerableArea: 'Vulnerable action area',
+			vulnerableArea: 'Action area',
 			type: {
 				stadtbezirk: 'City district',
 				statistischer_bezirk: 'Neighborhood'

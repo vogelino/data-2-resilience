@@ -699,11 +699,11 @@ const de = {
 		layersSelection: {
 			ariaLabel: 'Auswahl der Kartenebene',
 			districts: 'Stadtbezirke',
-			lors: 'Aktionsräume',
+			lors: 'Stadtteile<br/>& Aktionsräume',
 			satellite: 'Digitale Orthophotos'
 		},
 		layersTooltips: {
-			vulnerableArea: 'Vulnerabler Aktionsraum',
+			vulnerableArea: 'Aktionsraum',
 			type: {
 				stadtbezirk: 'Stadtbezirk',
 				statistischer_bezirk: 'Stadtteil'

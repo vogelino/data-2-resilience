@@ -2,7 +2,13 @@
 	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { boundariesMode, isLeftSidebarOpened, showSatellite, updateBoundariesMode, updateShowSatellite } from '$lib/stores/uiStore';
+	import {
+		boundariesMode,
+		isLeftSidebarOpened,
+		showSatellite,
+		updateBoundariesMode,
+		updateShowSatellite
+	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import type { Builder } from 'bits-ui';
 	import CheckboxIcon from 'components/CheckboxIcon.svelte';
@@ -51,8 +57,8 @@
 					$boundariesMode === 'districts' && 'border-4 bg-foreground'
 				)}
 			></span>
-			<span class={cn($boundariesMode === 'districts' && 'font-semibold')}>
-				{$LL.map.layersSelection.districts()}
+			<span class={cn($boundariesMode === 'districts' && 'font-semibold', 'leading-tight')}>
+				{@html $LL.map.layersSelection.districts()}
 			</span>
 		</DropdownMenu.Item>
 		<DropdownMenu.Item
@@ -71,8 +77,8 @@
 					$boundariesMode === 'lors' && 'border-4 bg-foreground'
 				)}
 			></span>
-			<span class={cn($boundariesMode === 'lors' && 'font-semibold')}>
-				{$LL.map.layersSelection.lors()}
+			<span class={cn($boundariesMode === 'lors' && 'font-semibold', 'leading-tight')}>
+				{@html $LL.map.layersSelection.lors()}
 			</span>
 		</DropdownMenu.Item>
 		<DropdownMenu.Separator />
@@ -81,8 +87,8 @@
 			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
 		>
 			<CheckboxIcon checked={$showSatellite} />
-			<span class={cn($showSatellite && 'font-semibold')}>
-				{$LL.map.layersSelection.satellite()}
+			<span class={cn($showSatellite && 'font-semibold', 'leading-tight')}>
+				{@html $LL.map.layersSelection.satellite()}
 			</span>
 		</DropdownMenu.Item>
 	</DropdownMenu.Content>

@@ -706,8 +706,23 @@ const en = {
 		layersSelection: {
 			ariaLabel: 'Map layer selection',
 			districts: 'City districts',
+			districtsTooltip: {
+				title: 'City districts',
+				description:
+					'The city districts are the individual districts of the city of Dortmund. They are usually smaller than the city districts and action areas.'
+			},
 			lors: 'City districts<br/>& action areas',
-			satellite: 'Digital Orthophotos'
+			lorsTooltip: {
+				title: 'City districts & action areas',
+				description:
+					'The city districts are the individual buildings of the city of Dortmund. The action areas are the public spaces operated by the city administration.'
+			},
+			satellite: 'Digital Orthophotos',
+			satelliteTooltip: {
+				title: 'Digital Orthophotos',
+				description:
+					'The digital orthophotos are a digital representation of the city of Dortmund. They show the city as a large, flat, black surface operated by digitalization of the city.'
+			}
 		},
 		layersTooltips: {
 			vulnerableArea: 'Action area',

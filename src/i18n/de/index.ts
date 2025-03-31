@@ -708,8 +708,23 @@ const de = {
 		layersSelection: {
 			ariaLabel: 'Auswahl der Kartenebene',
 			districts: 'Stadtbezirke',
+			districtsTooltip: {
+				title: 'Stadtbezirke',
+				description:
+					'Die Stadtbezirke sind die einzelnen Bezirke der Stadt Dortmund. Sie sind in der Regel kleiner als die Stadtteile und Aktionsräume.'
+			},
 			lors: 'Stadtteile<br/>& Aktionsräume',
-			satellite: 'Digitale Orthophotos'
+			lorsTooltip: {
+				title: 'Stadtteile & Aktionsräume',
+				description:
+					'Die Stadtteile sind die einzelnen Einzelgebäude der Stadt Dortmund. Die Aktionsräume sind die öffentlichen Räume, die von der Stadtverwaltung betrieben werden.'
+			},
+			satellite: 'Digitale Orthophotos',
+			satelliteTooltip: {
+				title: 'Digitale Orthophotos',
+				description:
+					'Die Digitale Orthophotos sind eine digitale Darstellung der Stadt Dortmund. Sie zeigen die Stadt als eine große, flache, schwarze Fläche, die von der Digitalisierung der Stadt betrieben wird.'
+			}
 		},
 		layersTooltips: {
 			vulnerableArea: 'Aktionsraum',

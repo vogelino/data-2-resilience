@@ -1689,14 +1689,44 @@ type RootTranslation = {
 			 * S​t​a​d​t​b​e​z​i​r​k​e
 			 */
 			districts: string
+			districtsTooltip: {
+				/**
+				 * S​t​a​d​t​b​e​z​i​r​k​e
+				 */
+				title: string
+				/**
+				 * D​i​e​ ​S​t​a​d​t​b​e​z​i​r​k​e​ ​s​i​n​d​ ​d​i​e​ ​e​i​n​z​e​l​n​e​n​ ​B​e​z​i​r​k​e​ ​d​e​r​ ​S​t​a​d​t​ ​D​o​r​t​m​u​n​d​.​ ​S​i​e​ ​s​i​n​d​ ​i​n​ ​d​e​r​ ​R​e​g​e​l​ ​k​l​e​i​n​e​r​ ​a​l​s​ ​d​i​e​ ​S​t​a​d​t​t​e​i​l​e​ ​u​n​d​ ​A​k​t​i​o​n​s​r​ä​u​m​e​.
+				 */
+				description: string
+			}
 			/**
 			 * S​t​a​d​t​t​e​i​l​e​<​b​r​/​>​&​ ​A​k​t​i​o​n​s​r​ä​u​m​e
 			 */
 			lors: string
+			lorsTooltip: {
+				/**
+				 * S​t​a​d​t​t​e​i​l​e​ ​&​ ​A​k​t​i​o​n​s​r​ä​u​m​e
+				 */
+				title: string
+				/**
+				 * D​i​e​ ​S​t​a​d​t​t​e​i​l​e​ ​s​i​n​d​ ​d​i​e​ ​e​i​n​z​e​l​n​e​n​ ​E​i​n​z​e​l​g​e​b​ä​u​d​e​ ​d​e​r​ ​S​t​a​d​t​ ​D​o​r​t​m​u​n​d​.​ ​D​i​e​ ​A​k​t​i​o​n​s​r​ä​u​m​e​ ​s​i​n​d​ ​d​i​e​ ​ö​f​f​e​n​t​l​i​c​h​e​n​ ​R​ä​u​m​e​,​ ​d​i​e​ ​v​o​n​ ​d​e​r​ ​S​t​a​d​t​v​e​r​w​a​l​t​u​n​g​ ​b​e​t​r​i​e​b​e​n​ ​w​e​r​d​e​n​.
+				 */
+				description: string
+			}
 			/**
 			 * D​i​g​i​t​a​l​e​ ​O​r​t​h​o​p​h​o​t​o​s
 			 */
 			satellite: string
+			satelliteTooltip: {
+				/**
+				 * D​i​g​i​t​a​l​e​ ​O​r​t​h​o​p​h​o​t​o​s
+				 */
+				title: string
+				/**
+				 * D​i​e​ ​D​i​g​i​t​a​l​e​ ​O​r​t​h​o​p​h​o​t​o​s​ ​s​i​n​d​ ​e​i​n​e​ ​d​i​g​i​t​a​l​e​ ​D​a​r​s​t​e​l​l​u​n​g​ ​d​e​r​ ​S​t​a​d​t​ ​D​o​r​t​m​u​n​d​.​ ​S​i​e​ ​z​e​i​g​e​n​ ​d​i​e​ ​S​t​a​d​t​ ​a​l​s​ ​e​i​n​e​ ​g​r​o​ß​e​,​ ​f​l​a​c​h​e​,​ ​s​c​h​w​a​r​z​e​ ​F​l​ä​c​h​e​,​ ​d​i​e​ ​v​o​n​ ​d​e​r​ ​D​i​g​i​t​a​l​i​s​i​e​r​u​n​g​ ​d​e​r​ ​S​t​a​d​t​ ​b​e​t​r​i​e​b​e​n​ ​w​i​r​d​.
+				 */
+				description: string
+			}
 		}
 		layersTooltips: {
 			/**
@@ -3645,14 +3675,44 @@ export type TranslationFunctions = {
 			 * Stadtbezirke
 			 */
 			districts: () => LocalizedString
+			districtsTooltip: {
+				/**
+				 * Stadtbezirke
+				 */
+				title: () => LocalizedString
+				/**
+				 * Die Stadtbezirke sind die einzelnen Bezirke der Stadt Dortmund. Sie sind in der Regel kleiner als die Stadtteile und Aktionsräume.
+				 */
+				description: () => LocalizedString
+			}
 			/**
 			 * Stadtteile<br/>& Aktionsräume
 			 */
 			lors: () => LocalizedString
+			lorsTooltip: {
+				/**
+				 * Stadtteile & Aktionsräume
+				 */
+				title: () => LocalizedString
+				/**
+				 * Die Stadtteile sind die einzelnen Einzelgebäude der Stadt Dortmund. Die Aktionsräume sind die öffentlichen Räume, die von der Stadtverwaltung betrieben werden.
+				 */
+				description: () => LocalizedString
+			}
 			/**
 			 * Digitale Orthophotos
 			 */
 			satellite: () => LocalizedString
+			satelliteTooltip: {
+				/**
+				 * Digitale Orthophotos
+				 */
+				title: () => LocalizedString
+				/**
+				 * Die Digitale Orthophotos sind eine digitale Darstellung der Stadt Dortmund. Sie zeigen die Stadt als eine große, flache, schwarze Fläche, die von der Digitalisierung der Stadt betrieben wird.
+				 */
+				description: () => LocalizedString
+			}
 		}
 		layersTooltips: {
 			/**

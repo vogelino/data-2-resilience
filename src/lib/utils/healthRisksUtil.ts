@@ -101,11 +101,18 @@ export const healthRisksRanges = {
 	}
 };
 
-export function getHealthRiskKeyByValue({ unit, value }: { unit: 'utci' | 'pet'; value: number }) {
-	if (unit !== 'utci' && unit !== 'pet') return null
+export function getHealthRiskKeyByValue({
+	unit,
+	value
+}: {
+	unit: 'utci' | 'pet';
+	value: number | string | undefined | null;
+}) {
+	if (unit !== 'utci' && unit !== 'pet') return null;
 	return Object.entries(healthRisksRanges).reduce(
 		(acc, [key, range]) => {
 			const { min, max } = range[unit];
+			if (typeof value !== 'number') return acc;
 			if (value >= min && value < max) {
 				return key;
 			}

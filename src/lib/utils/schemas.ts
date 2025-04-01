@@ -29,10 +29,7 @@ const meadurementDateSchema = z.object({
 });
 const mD = meadurementDateSchema;
 
-const numSchema = z
-	.number()
-	.nullable()
-	.transform((val) => (val === null ? undefined : val));
+const numSchema = z.number().nullable();
 
 // MEASUREMENTS
 const numberSchemas = {
@@ -169,10 +166,7 @@ const numberSchemas = {
 	wind_speed: mD.extend({ wind_speed: numSchema }).transform(parseRawStationNameToId)
 };
 
-const strSchema = z
-	.string()
-	.nullable()
-	.transform((val) => (val === null ? undefined : val));
+const strSchema = z.string().nullable();
 const stringSchemas = {
 	pet_category: mD.extend({ pet_category: strSchema }).transform(parseRawStationNameToId),
 	utci_category: mD.extend({ utci_category: strSchema }).transform(parseRawStationNameToId)

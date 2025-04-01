@@ -162,12 +162,24 @@
 				</span>
 			</div>
 		</div>
-		<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
-			<span class="size-3 rounded-full bg-muted-foreground"></span>
-			<span class="text-sm text-muted-foreground">
-				{$LL.map.choroplethLegend.noValueAvailable()}
+		<div class="flex flex-col">
+			<span class="inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
+				<span class="relative size-3 rounded-full bg-muted-foreground/20">
+					<span class="absolute inset-0 rounded-full border border-muted-foreground"></span>
+				</span>
+				<span class="text-sm text-muted-foreground">
+					{$LL.map.choroplethLegend.notCollectingData()}
+				</span>
 			</span>
-		</span>
+			<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
+				<span class="relative size-3 rounded-full bg-warning/20">
+					<span class="absolute inset-0 rounded-full border border-warning"></span>
+				</span>
+				<span class="text-sm text-warning-foreground">
+					{$LL.map.choroplethLegend.noValueAvailable()}
+				</span>
+			</span>
+		</div>
 		{#if showHealthRisks}
 			<Popover.Root bind:open>
 				<Popover.Trigger asChild>

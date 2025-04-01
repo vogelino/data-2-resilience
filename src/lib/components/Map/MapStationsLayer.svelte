@@ -39,12 +39,14 @@
 		const item = idToItemMap[id];
 		if (!item) return;
 		const value = item[$unitWithMinMaxAvg as keyof typeof item];
-		return value as { valueOf(): number } & string;
+		return value as ({ valueOf(): number } & string) | undefined | null;
 	});
 	let getBgColorById = $derived((id?: string) => {
-		const defaultColor = 'hsl(var(--muted-foreground))';
+		const undefinedColor = 'hsl(var(--muted-foreground)/0.2)';
+		const nullColor = 'hsl(var(--muted)/0.1)';
 		const value = getValueById(id);
-		if (!value) return defaultColor;
+		if (typeof value === 'undefined') return undefinedColor;
+		if (value === null) return nullColor;
 		return getColorScaleValue({ unit: $unit, LL: $LL, value });
 	});
 </script>
@@ -52,7 +54,7 @@
 <GeoJSON id="stations" data={stations} promoteId="STATEFP">
 	<MarkerLayer interactive class="group relative hover:z-10">
 		{#snippet children({ feature })}
-			{@const value = getValueById(feature.properties?.id) as { valueOf(): number } & string}
+			{@const value = getValueById(feature.properties?.id)}
 			{@const healthRiskKey =
 				isHealthRiskUnit($unit) &&
 				getHealthRiskKeyByValue({
@@ -70,7 +72,8 @@
 					'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
 					$selectedStations.includes(feature.properties?.id) && [
 						'ring-2 ring-background ring-offset-2 ring-offset-foreground'
-					]
+					],
+					(typeof value === 'undefined' || value === 'null') && 'backdrop-blur-[2px]'
 				)}
 				style={`background-color: ${getBgColorById(feature.properties?.id)}`}
 				onclick={() => {
@@ -86,7 +89,13 @@
 				}}
 				aria-label={feature.properties?.longName}
 			>
-				<span class="absolute inset-0 rounded-full border border-black/20 mix-blend-multiply"
+				<span
+					class={cn(
+						'absolute inset-0 rounded-full border ',
+						value === null && `border-warning bg-warning/20`,
+						typeof value === 'undefined' && `border-muted-foreground`,
+						typeof value === 'number' && `border-black/20 mix-blend-multiply`
+					)}
 				></span>
 			</button>
 			<div
@@ -126,6 +135,11 @@
 								unit: $unit,
 								LL: $LL,
 								value: String(value)
+							})}
+						{:else if value === null}
+							{@html $LL.pages.measurements.singleStationWithoutAvailableData({
+								station: feature.properties?.longName,
+								unit: $unitLabel
 							})}
 						{:else}
 							{@html $LL.pages.measurements.singleUnsupportedStationShort({

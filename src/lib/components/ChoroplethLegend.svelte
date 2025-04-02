@@ -19,15 +19,18 @@
 
 	let open = $state(false);
 
-	let p = $derived(page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', ''));
-	let currentPage = $derived(p === '' ? 'measurements' : p);
+	const p = $derived(page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', ''));
+	const currentPage = $derived(p === '' ? 'measurements' : p);
+	const isAboutPage = $derived(currentPage === 'about');
+	const isHeatStressPage = $derived(currentPage === 'heat-stress');
+	const isMeasurmentPage = $derived(currentPage === 'measurements');
 
 	type Unit = keyof typeof $LL.pages.measurements.unitSelect.units;
 
 	const filterOutInvalid = <T extends number>(arr: T[]) =>
 		arr.filter((d) => typeof d === 'number' && Math.abs(d) !== Infinity);
 
-	let getUnitLabelsByUnit = $derived(function (unit: Unit, isCategoryUnit = false) {
+	const getUnitLabelsByUnit = $derived(function (unit: Unit, isCategoryUnit = false) {
 		return {
 			unitOnlyLabel:
 				$LL.pages.measurements.unitSelect.units[
@@ -37,32 +40,30 @@
 			description: $LL.pages.measurements.unitSelect.units[unit].description()
 		};
 	});
-	let finalUnit = $derived(
-		currentPage === 'measurements' ? ($unit as Unit) : ($heatStressUnit as Unit)
-	);
-	let isCategoryUnit = $derived(finalUnit.endsWith('_category'));
-	let labels = $derived(getUnitLabelsByUnit(finalUnit, isCategoryUnit));
-	let unitWithoutCategory = $derived(
+	const finalUnit = $derived(isMeasurmentPage ? ($unit as Unit) : ($heatStressUnit as Unit));
+	const isCategoryUnit = $derived(finalUnit.endsWith('_category'));
+	const labels = $derived(getUnitLabelsByUnit(finalUnit, isCategoryUnit));
+	const unitWithoutCategory = $derived(
 		finalUnit.replace(/_category$/, '') === 'pet' ? ('pet' as const) : ('utci' as const)
 	);
 
-	let scale = $derived(
+	const scale = $derived(
 		unitsToScalesMap[finalUnit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default
 	);
-	let isOrdinal = $derived(scale.type === 'ordinal');
-	let showHealthRisks = $derived(finalUnit.startsWith('utci') || finalUnit.startsWith('pet'));
-	let titleKey = $derived(
+	const isOrdinal = $derived(scale.type === 'ordinal');
+	const showHealthRisks = $derived(finalUnit.startsWith('utci') || finalUnit.startsWith('pet'));
+	const titleKey = $derived(
 		finalUnit.endsWith('_category') ? ('heatStress' as const) : ('thermalComfort' as const)
 	);
-	let allHealthRisks = $derived(
+	const allHealthRisks = $derived(
 		Object.values($LL.map.choroplethLegend.healthRisks).filter((item) => !!item.title[titleKey]())
 	);
-	let showColdRisks = $derived(currentPage === 'measurements' && showHealthRisks);
-	let healthRisks = $derived(showColdRisks ? allHealthRisks : allHealthRisks.slice(-5));
-	let scheme = $derived(showHealthRisks ? scale.scheme.slice(-healthRisks.length) : scale.scheme);
-	let scaleMin = $derived(scale.type === 'sequential' ? scale.min : 0);
-	let scaleMax = $derived(scale.type === 'sequential' ? scale.max : 100);
-	let seqMin = $derived(
+	const showColdRisks = $derived(isMeasurmentPage && showHealthRisks);
+	const healthRisks = $derived(showColdRisks ? allHealthRisks : allHealthRisks.slice(-5));
+	const scheme = $derived(showHealthRisks ? scale.scheme.slice(-healthRisks.length) : scale.scheme);
+	const scaleMin = $derived(scale.type === 'sequential' ? scale.min : 0);
+	const scaleMax = $derived(scale.type === 'sequential' ? scale.max : 100);
+	const seqMin = $derived(
 		showColdRisks || !showHealthRisks ? scaleMin : scaleMax - (scaleMax - scaleMin) / 5
 	);
 
@@ -95,8 +96,6 @@
 		return `linear-gradient(to right, ${allStops})`;
 	});
 
-	const isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
-	const isHeatStressPage = $derived(page.url.pathname.startsWith(`/${$locale}/heat-stress`));
 	const showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 	const isWindDirectionUnit = $derived(finalUnit.startsWith('wind_direction'));
 
@@ -239,14 +238,16 @@
 				</span>
 			</div>
 		</div>
-		<div class="flex flex-col">
-			<span class="inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
-				<HealthRiskPill value={undefined} withLabel />
-			</span>
-			<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
-				<HealthRiskPill value={null} withLabel />
-			</span>
-		</div>
+		{#if isMeasurmentPage}
+			<div class="flex flex-col">
+				<span class="inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
+					<HealthRiskPill value={undefined} withLabel />
+				</span>
+				<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
+					<HealthRiskPill value={null} withLabel />
+				</span>
+			</div>
+		{/if}
 		{#if showHealthRisks}
 			<Popover.Root bind:open>
 				<Popover.Trigger asChild>

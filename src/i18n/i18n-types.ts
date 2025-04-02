@@ -1427,6 +1427,14 @@ type RootTranslation = {
 					 * D​e​t​a​i​l​s
 					 */
 					details: string
+					/**
+					 * D​a​t​e​n
+					 */
+					dataDownload: string
+					/**
+					 * D​a​t​e​n​ ​f​ü​r​ ​d​i​e​s​e​ ​S​t​a​t​i​o​n​ ​h​e​r​u​n​t​e​r​l​a​d​e​n
+					 */
+					dataDownloadTooltip: string
 				}
 				cells: {
 					stationTypes: {
@@ -3417,6 +3425,14 @@ export type TranslationFunctions = {
 					 * Details
 					 */
 					details: () => LocalizedString
+					/**
+					 * Daten
+					 */
+					dataDownload: () => LocalizedString
+					/**
+					 * Daten für diese Station herunterladen
+					 */
+					dataDownloadTooltip: () => LocalizedString
 				}
 				cells: {
 					stationTypes: {

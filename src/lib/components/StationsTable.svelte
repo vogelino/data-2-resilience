@@ -21,6 +21,7 @@
 	import type { StationMetadata } from '$lib/utils/schemas';
 	import { compareItems, rankItem } from '@tanstack/match-sorter-utils';
 	import { createQuery } from '@tanstack/svelte-query';
+	import DataDownloadButtonWithTooltip from './DataDownloadButtonWithTooltip.svelte';
 	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
 	import SearchInputField from './SearchInputField.svelte';
 	import SensorCoordinatesWithTooltip from './SensorCoordinatesWithTooltip.svelte';
@@ -98,6 +99,15 @@
 				const { latitude, longitude } = info.row.original;
 				const searchQuery = info.table.getState().globalFilter;
 				return renderComponent(SensorCoordinatesWithTooltip, { searchQuery, latitude, longitude });
+			}
+		},
+		{
+			header: () => $LL.pages.stations.table.headers.dataDownload(),
+			accessorKey: 'id',
+			cell: (info) => {
+				const id = info.getValue() as string;
+				const searchQuery = info.table.getState().globalFilter;
+				return renderComponent(DataDownloadButtonWithTooltip, {});
 			}
 		}
 	] satisfies ColumnDef<StationMetadata>[];

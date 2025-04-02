@@ -590,7 +590,9 @@ const de = {
 					district: 'Stadtbezirk',
 					installation_at: 'Installation am',
 					status: 'Status',
-					details: 'Details'
+					details: 'Details',
+					dataDownload: 'Daten',
+					dataDownloadTooltip: 'Daten für diese Station herunterladen'
 				},
 				cells: {
 					stationTypes: {

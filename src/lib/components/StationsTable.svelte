@@ -106,8 +106,7 @@
 			accessorKey: 'id',
 			cell: (info) => {
 				const id = info.getValue() as string;
-				const searchQuery = info.table.getState().globalFilter;
-				return renderComponent(DataDownloadButtonWithTooltip, {});
+				return renderComponent(DataDownloadButtonWithTooltip, { id });
 			}
 		}
 	] satisfies ColumnDef<StationMetadata>[];

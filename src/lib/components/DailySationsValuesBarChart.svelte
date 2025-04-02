@@ -254,7 +254,12 @@
 					}}
 				>
 					<svelte:fragment slot="tooltip">
-						<Tooltip.Root let:data={d} classes={tooltipClasses}>
+						<Tooltip.Root
+							let:data={d}
+							classes={{ ...tooltipClasses, root: cn(tooltipClasses.root, 'w-48') }}
+							contained="container"
+							anchor="right"
+						>
 							{@const healthRiskKey =
 								isHealthRiskUnit &&
 								getHealthRiskKeyByValue({ value: d.value, unit: $unit as 'utci' | 'pet' })}

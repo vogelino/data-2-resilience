@@ -4,7 +4,7 @@
 	import { unit, unitOnly } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { CHART_COLORS } from '$lib/utils/chartUtils';
-	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
+	import { getColorScaleValue, isHealthRiskUnit } from '$lib/utils/colorScaleUtil';
 	import { getHealthRiskKeyByValue, getHealthRiskPill } from '$lib/utils/healthRisksUtil';
 	import {
 		getHeatStressCategoryByValue,
@@ -88,8 +88,8 @@
 					maximumFractionDigits: 1
 				})
 	);
+	const isHealthUnit = $derived(isHealthRiskUnit($unit));
 	const tooltipTemplate = $derived((d: DataRecord) => {
-		const isHealthRiskUnit = $derived($unit === 'utci' || $unit === 'pet');
 		return `
 			<span class="flex flex-col text-xs chart-export-ignore">
 				<strong class="pb-1 mb-1 border-b border-border text-sm">
@@ -97,7 +97,7 @@
 				</strong>
 				<span class="${cn(
 					`grid gap-x-1 gap-y-0.5 items-center`,
-					isHealthRiskUnit ? `grid-cols-[1fr_auto_auto_auto]` : `grid-cols-[1fr_auto_auto]`
+					isHealthUnit ? `grid-cols-[1fr_auto_auto_auto]` : `grid-cols-[1fr_auto_auto]`
 				)}">
 					${stationNames
 						.filter((name) => typeof d[name as keyof typeof d] === 'number')
@@ -111,8 +111,7 @@
 								withLabel: false
 							});
 							const healthRiskKey =
-								isHealthRiskUnit &&
-								getHealthRiskKeyByValue({ value, unit: $unit as 'utci' | 'pet' });
+								isHealthUnit && getHealthRiskKeyByValue({ value, unit: $unit as 'utci' | 'pet' });
 							const healthRisks = $LL.map.choroplethLegend.healthRisks;
 							let healthRiskLabel = '';
 							if (healthRiskKey) {
@@ -125,7 +124,7 @@
 									${CHART_COLORS[idx] && `<span style="background-color: ${CHART_COLORS[idx]}" class="inline-block w-3 h-0.5 mr-2"></span>`}
 									<span class="truncate inline-block">${name}</span>
 								</span>
-								${!isHealthRiskUnit ? heatStressPill : ''} 
+								${!isHealthUnit ? heatStressPill : ''} 
 								<span>
 									${
 										(!isOrdinal
@@ -135,7 +134,7 @@
 									}
 									${$unitOnly}
 								</span>
-								${isHealthRiskUnit ? `${heatStressPill}<span>${healthRiskLabel}</span>` : ''}
+								${isHealthUnit ? `${heatStressPill}<span>${healthRiskLabel}</span>` : ''}
 							`;
 						})
 						.join('')}
@@ -258,10 +257,13 @@
 			/>
 			<Tooltip.Root
 				let:data
-				classes={{ ...tooltipClasses, root: cn(tooltipClasses.root, 'max-w-96') }}
-				x="data"
-				xOffset={8}
-				contained="container"
+				classes={{
+					...tooltipClasses,
+					root: cn(tooltipClasses.root, isHealthUnit && !isOrdinal ? 'w-80' : 'w-64', 'mt-24')
+				}}
+				xOffset={isHealthUnit && !isOrdinal ? -80 : 10}
+				anchor={'right'}
+				contained="window"
 			>
 				{@html tooltipTemplate(data)}
 			</Tooltip.Root>

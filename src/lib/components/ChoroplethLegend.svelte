@@ -4,10 +4,16 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Popover from '$lib/components/ui/popover';
 	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
-	import { heatStressUnit, isLeftSidebarOpened, unit } from '$lib/stores/uiStore';
+	import { heatStressUnit, hour, isLeftSidebarOpened, unit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { api } from '$lib/utils/api';
 	import { getColorStops, unitsToScalesMap } from '$lib/utils/colorScaleUtil';
+	import { today } from '$lib/utils/dateUtil';
 	import { healthRisksRanges } from '$lib/utils/healthRisksUtil';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+	import { createQuery } from '@tanstack/svelte-query';
+	import { scaleLinear } from 'd3-scale';
+	import { format, setHours } from 'date-fns';
 	import { HeartPulse, X } from 'lucide-svelte';
 	import HealthRiskPill from './HealthRiskPill.svelte';
 
@@ -79,16 +85,6 @@
 		if (scale.type === 'sequential') return seqMin;
 		return scaleMin;
 	});
-	const minLabel = $derived(
-		isHealthRiskUnit || scale.type === 'sequential' ? `${min} ${labels.unitOnlyLabel}` : ''
-	);
-	const max = $derived.by(() => {
-		if (isHealthRiskUnit) return healthRiskUnitMax;
-		return scaleMax;
-	});
-	const maxLabel = $derived(
-		isHealthRiskUnit || scale.type === 'sequential' ? `${max} ${labels.unitOnlyLabel}` : ''
-	);
 
 	let customGradient = $derived.by(() => {
 		const stops = getColorStops({ unit: $unit, LL: $LL });
@@ -99,9 +95,85 @@
 		return `linear-gradient(to right, ${allStops})`;
 	});
 
-	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
-	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
+	const isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
+	const isHeatStressPage = $derived(page.url.pathname.startsWith(`/${$locale}/heat-stress`));
+	const showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 	const isWindDirectionUnit = $derived(finalUnit.startsWith('wind_direction'));
+
+	const date = $derived.by(() => {
+		const date = today();
+		const dateWithHour = setHours(date, $hour);
+		return dateWithHour;
+	});
+	const dateKey = $derived(format(date, 'yyyy-MM-dd-HH'));
+	const heatStressGradientquery = createQuery(
+		reactiveQueryArgs(() => ({
+			queryKey: ['heatStressGradient', dateKey, healthRiskUnit],
+			queryFn: async () => {
+				const metadata = await api().getHeatStressMetadata({
+					date,
+					unit: healthRiskUnit
+				});
+				let colormap = await api().getHeatStressColormap({
+					rangeStart: metadata?.range[0] || 0,
+					rangeEnd: metadata?.range[1] || 100
+				});
+				if (!colormap)
+					return {
+						colormap: [],
+						metadata
+					};
+				const colormapScale = scaleLinear()
+					.domain([
+						Math.min(...colormap.map(({ value }) => value)),
+						Math.max(...colormap.map(({ value }) => value))
+					])
+					.range([0, 100]);
+				return {
+					colormap: [...new Set(colormap)].map(({ value, rgba }) => ({
+						value: colormapScale(value),
+						rgb: [rgba[0], rgba[1], rgba[2]]
+					})),
+					metadata
+				};
+			},
+			enabled: isHeatStressPage,
+			staleTime: Infinity,
+			cacheTime: Infinity
+		}))
+	);
+
+	const heatStressGradient = $derived.by(() => {
+		if (!isHeatStressPage || !$heatStressGradientquery.data?.colormap.length) return null;
+		const stops = $heatStressGradientquery.data.colormap.map(
+			({ value, rgb }) => `rgb(${rgb.join(', ')}) ${value}%`
+		);
+		return `linear-gradient(to right, ${stops.join(', ')})`;
+	});
+
+	const formatValue = $derived((val: number) => {
+		return `${Math.round(val).toLocaleString($locale)} ${labels.unitOnlyLabel}`;
+	});
+	const minLabel = $derived.by(() => {
+		if ($heatStressGradientquery.isLoading) return '...';
+		if ($heatStressGradientquery.data?.metadata?.range.length === 2) {
+			const [rangeMin] = $heatStressGradientquery.data.metadata.range;
+			return formatValue(rangeMin);
+		}
+		return isHealthRiskUnit || scale.type === 'sequential' ? formatValue(min) : '';
+	});
+	const max = $derived.by(() => {
+		if (isHealthRiskUnit) return healthRiskUnitMax;
+		return scaleMax;
+	});
+	const maxLabel = $derived.by(() => {
+		if ($heatStressGradientquery.isLoading) return '...';
+		if ($heatStressGradientquery.data?.metadata?.range.length === 2) {
+			const [, rangeMax] = $heatStressGradientquery.data.metadata.range;
+			return formatValue(rangeMax);
+		}
+		return isHealthRiskUnit || scale.type === 'sequential' ? formatValue(max) : '';
+	});
 </script>
 
 {#if !isWindDirectionUnit}
@@ -153,7 +225,7 @@
 			{:else}
 				<div
 					class="h-4 w-full max-w-96 rounded-sm bg-gradient-to-r from-yellow-50 via-yellow-500 to-yellow-950 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
-					style={`background-image: ${customGradient};`}
+					style={`background-image: ${heatStressGradient || customGradient};`}
 				></div>
 			{/if}
 			<div

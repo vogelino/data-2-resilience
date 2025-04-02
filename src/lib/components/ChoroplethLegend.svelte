@@ -9,6 +9,7 @@
 	import { getColorStops, unitsToScalesMap } from '$lib/utils/colorScaleUtil';
 	import { healthRisksRanges } from '$lib/utils/healthRisksUtil';
 	import { HeartPulse, X } from 'lucide-svelte';
+	import HealthRiskPill from './HealthRiskPill.svelte';
 
 	let open = $state(false);
 
@@ -166,12 +167,14 @@
 				</span>
 			</div>
 		</div>
-		<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
-			<span class="size-3 rounded-full bg-muted-foreground"></span>
-			<span class="text-sm text-muted-foreground">
-				{$LL.map.choroplethLegend.noValueAvailable()}
+		<div class="flex flex-col">
+			<span class="inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
+				<HealthRiskPill value={undefined} withLabel />
 			</span>
-		</span>
+			<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
+				<HealthRiskPill value={null} withLabel />
+			</span>
+		</div>
 		{#if showHealthRisks}
 			<Popover.Root bind:open>
 				<Popover.Trigger asChild>

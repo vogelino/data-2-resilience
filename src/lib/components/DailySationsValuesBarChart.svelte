@@ -17,11 +17,15 @@
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { getHealthRiskKeyByValue } from '$lib/utils/healthRisksUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
-	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
+	import {
+		getMessageForUnavailableStations,
+		getMessageForUnsupportedStations
+	} from '$lib/utils/stationsDataVisUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { BarChart, Highlight, Tooltip } from 'layerchart';
+	import { TriangleAlert } from 'lucide-svelte';
 	import ChartExportDropdown from './ChartExportDropdown.svelte';
 	import ChartQueryHull from './ChartQueryHull.svelte';
 	import Combobox from './Combobox.svelte';
@@ -35,7 +39,7 @@
 		initialStationIds?: string[];
 	}
 
-	let { stations, initialStationIds = [] }: Props = $props();
+	const { stations, initialStationIds = [] }: Props = $props();
 
 	let isExporting = $state(false);
 
@@ -48,7 +52,7 @@
 	const getValue = $derived(
 		<T,>(item: Record<string, unknown>) => item[$unitWithMinMaxAvg as keyof typeof item] as T
 	);
-	let data = $derived(
+	const data = $derived(
 		$ids
 			.map((id) => {
 				const label =
@@ -59,6 +63,7 @@
 						id,
 						value: undefined,
 						supported: false,
+						dataAvailable: false,
 						label
 					};
 				}
@@ -66,24 +71,20 @@
 				return {
 					id,
 					value,
-					supported: value !== null,
+					supported: typeof value !== 'undefined',
+					dataAvailable: typeof value !== 'undefined' && value !== null,
 					label
 				};
 			})
 			.sort((a, b) => a.label.localeCompare(b.label))
 	);
 
-	let insufficientDataIds = $derived(
-		data.filter((d) => d.supported && d.value === undefined).map((d) => d.id)
+	const insufficientDataIds = $derived(
+		data.filter((d) => d.supported && !d.dataAvailable).map((d) => d.id)
 	);
-	let noneSufficientData = $derived(insufficientDataIds.length === $ids.length);
-	let insufficientDataStations = $derived(
-		stations.features
-			.filter((f) => insufficientDataIds.includes(f.properties.id))
-			.sort((a, b) => a.properties.longName.localeCompare(b.properties.longName))
-	);
-	let unsupportedIds = $derived(data.filter((d) => !d.supported).map((d) => d.id));
-	let unsupportedMsg = $derived(
+
+	const unsupportedIds = $derived(data.filter((d) => !d.supported).map((d) => d.id));
+	const unsupportedMsg = $derived(
 		getMessageForUnsupportedStations({
 			ids: $ids,
 			unsupportedIds,
@@ -92,22 +93,30 @@
 			LL: $LL
 		})
 	);
-	let validIds = $derived(
-		data
-			.filter((d) => !unsupportedIds.includes(d.id) && !insufficientDataIds.includes(d.id))
-			.map((d) => d.id)
-	);
 
-	let firstValidValue = $derived(
-		data.find((d) => d.value !== undefined)?.value as number | string | undefined
+	const unavailableIds = $derived(
+		data.filter((d) => d.supported && !d.dataAvailable).map((d) => d.id)
 	);
-	let firstValidValueLabel = $derived(
+	const unavailableMsg = $derived(
+		getMessageForUnavailableStations({
+			ids: $ids,
+			unavailableIds,
+			unit: $unit,
+			stations: stations.features,
+			LL: $LL
+		})
+	);
+	const validStations = $derived(data.filter((d) => d.supported && d.dataAvailable));
+	const validIds = $derived(validStations.map((d) => d.id));
+
+	const firstValidValue = $derived(validStations[0]?.value as number | string | undefined);
+	const firstValidValueLabel = $derived(
 		typeof firstValidValue === 'string'
 			? getHeatStressLabel({ unit: $unit, LL: $LL, value: firstValidValue })
 			: firstValidValue?.toLocaleString($locale, { maximumFractionDigits: 1 })
 	);
 
-	let chartHeight = $derived(Math.max(96, 60 + $ids.length * 22));
+	const chartHeight = $derived(Math.max(96, 60 + $ids.length * 22));
 	const unsupportedDataItems = $derived(data.filter((d) => unsupportedIds.includes(d.id)));
 
 	const heatStressColorByValue = $derived((val: number) => {
@@ -151,27 +160,16 @@
 {/snippet}
 
 {#if unsupportedMsg && !isLoading}
-	<Alert variant="destructive" class="chart-export-ignore">
+	<Alert variant="default" class="chart-export-ignore border-muted-foreground bg-muted/50">
+		{#snippet icon()}
+			<TriangleAlert class="size-5 shrink-0 text-muted-foreground" />
+		{/snippet}
 		{@html unsupportedMsg}
 	</Alert>
 {/if}
-{#if insufficientDataIds.length > 0}
+{#if unavailableMsg && !isLoading}
 	<Alert variant="warning" class="chart-export-ignore">
-		{#if $query.isSuccess && noneSufficientData}
-			{@html $LL.pages.measurements.allInsufficientDataStations({
-				unit: $unitLabel
-			})}
-		{:else if $query.isSuccess && insufficientDataIds.length === 1}
-			{@html $LL.pages.measurements.singleInsufficientDataStation({
-				unit: $unitLabel,
-				station: insufficientDataStations[0].properties.longName
-			})}
-		{:else if $query.isSuccess && insufficientDataIds.length > 1}
-			{@html $LL.pages.measurements.someInsufficientDataStations({
-				unit: $unitLabel,
-				stations: insufficientDataStations.map(({ properties }) => properties.longName).join(', ')
-			})}
-		{/if}
+		{@html unavailableMsg}
 	</Alert>
 {/if}
 
@@ -194,7 +192,7 @@
 		/>
 	</span>
 </h3>
-{#if $ids.length === 1}
+{#if $ids.length === 1 && typeof firstValidValue !== 'undefined' && firstValidValue !== null}
 	<SingleStationDatavis
 		isLoading={$query.isLoading}
 		label={firstValidValueLabel}
@@ -205,9 +203,14 @@
 		<OrdinalDataVis {data} {isLoading} {stations} />
 	{:else}
 		<div class={cn('relative')} style={`height: ${chartHeight}px`}>
-			<ChartQueryHull isSuccess={$query.isSuccess} error={$query.error} {data} {isLoading}>
+			<ChartQueryHull
+				isSuccess={$query.isSuccess}
+				error={$query.error}
+				data={validStations}
+				{isLoading}
+			>
 				<BarChart
-					{data}
+					data={validStations}
 					bandPadding={0.3}
 					x="value"
 					y="label"
@@ -272,18 +275,6 @@
 										d.value !== undefined &&
 											d.value.toLocaleString($locale, {
 												maximumFractionDigits: 1
-											}),
-										d.value === undefined &&
-											unsupportedIds.includes(d.id) &&
-											$LL.pages.measurements.singleUnsupportedStation({
-												unit: $unitLabel,
-												station: d.label
-											}),
-										d.value === undefined &&
-											insufficientDataIds.includes(d.id) &&
-											$LL.pages.measurements.singleInsufficientDataStation({
-												unit: $unitLabel,
-												station: d.label
 											})
 									)}
 									{@html d.value ? $unitOnly : ''}

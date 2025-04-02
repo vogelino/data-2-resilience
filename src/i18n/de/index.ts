@@ -94,8 +94,8 @@ const de = {
 				text: 'Wir haben Daten von verschiedenen Messstationen in Dortmund erhoben. Durch Anklicken können Sie auswählen, welche Stationen Sie auf der Karte sehen möchten.'
 			},
 			unitSelect: {
-				title: 'Einheitenauswahl',
-				text: 'Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Einheiten umgerechnet, damit Sie sie besser verstehen können. Sie können die Einheiten jederzeit ändern, indem Sie auf die Einheitensymbole klicken.'
+				title: 'Indikatorauswahl',
+				text: 'Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Indikatoren umgerechnet, damit Sie sie besser verstehen können. Sie können die Indikatoren jederzeit ändern, indem Sie auf die Indikatorsymbole klicken.'
 			},
 			stationsDatavis: {
 				title: 'Datenvisualisierung',
@@ -152,12 +152,6 @@ const de = {
 			noValueMeasured: 'Kein Wert gemessen',
 			noStationsSelected:
 				'Wählen Sie eine Messstation aus, um Daten für die ausgewählte Konfiguration zu erhalten.',
-			someInsufficientDataStations:
-				'Für den gewählten Indikator <strong>{unit:string}</strong> werden für die Stationen <strong>{stations:string}</strong> nicht genügend Daten erhoben, um sie in aggregierten From anzuzeigen.',
-			allInsufficientDataStations:
-				'Keine der ausgewahlten Stationen erhebt genügend Daten für den Indikator <strong>{unit:string}</strong>, um sie in aggregierten From anzuzeigen.',
-			singleInsufficientDataStation:
-				'Die Station <strong>{station:string}</strong> erhebt nicht genügend Daten für den Indikator <strong>{unit:string}</strong>, um sie in aggregierten From anzuzeigen.',
 			someUnsupportedStations:
 				'Für den gewählten Indikator <strong>{unit:string}</strong> erheben die Stationen <strong>{stations:string}</strong> keine Daten.',
 			allUnsupportedStations:
@@ -166,14 +160,20 @@ const de = {
 				'Die Station <strong>{station:string}</strong> erhebt keine Daten für den Indikator <strong>{unit:string}</strong>.',
 			singleUnsupportedStationShort:
 				'Diese Station erhebt keine Daten für den Indikator <strong>{unit:string}</strong>.',
+			someStationsWithoutAvailableData:
+				'Für den gewählten Indikator <strong>{unit:string}</strong> haben die Stationen <strong>{stations:string}</strong> keine Daten erheben können.',
+			allStationsWithoutAvailableData:
+				'Keine der ausgewählten Stationen konnten Daten fuer den Indikator <strong>{unit:string}</strong> erheben.',
+			singleStationWithoutAvailableData:
+				'Die Station <strong>{station:string}</strong> konnte keine Daten für den Indikator <strong>{unit:string}</strong> erheben.',
 			stationsSelect: {
 				placeholder: 'Eine oder mehrere Stationen auswählen',
 				label: 'Ausgewählte Messstationen'
 			},
 			unitSelect: {
-				noUnitFound: 'Keine Einheit gefunden',
-				placeholder: 'Einheit auswählen',
-				searchPlaceholder: 'Einheit suchen...',
+				noUnitFound: 'Kein Indikator gefunden',
+				placeholder: 'Indikator auswählen',
+				searchPlaceholder: 'Indikator suchen...',
 				xOutOfY: '{part} von {total}',
 				stationsHeaderLabel: 'Stationnamen',
 				units: {
@@ -737,6 +737,7 @@ const de = {
 			showHealthRisks: 'Gesundheitsrisiken einblenden',
 			hideHealthRisks: 'Gesundheitsrisiken ausblenden',
 			title: 'Gesundheitsrisiken',
+			notCollectingData: 'Erhebt keine Daten',
 			noValueAvailable: 'Keine Daten verfügbar',
 			healthRisks: {
 				'extreme cold stress': {

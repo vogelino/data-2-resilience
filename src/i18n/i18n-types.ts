@@ -253,11 +253,11 @@ type RootTranslation = {
 			}
 			unitSelect: {
 				/**
-				 * E​i​n​h​e​i​t​e​n​a​u​s​w​a​h​l
+				 * I​n​d​i​k​a​t​o​r​a​u​s​w​a​h​l
 				 */
 				title: string
 				/**
-				 * W​i​r​ ​h​a​b​e​n​ ​d​i​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​n​ ​D​a​t​e​n​ ​i​n​ ​d​i​e​s​e​m​ ​D​a​s​h​b​o​a​r​d​ ​i​n​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​E​i​n​h​e​i​t​e​n​ ​u​m​g​e​r​e​c​h​n​e​t​,​ ​d​a​m​i​t​ ​S​i​e​ ​s​i​e​ ​b​e​s​s​e​r​ ​v​e​r​s​t​e​h​e​n​ ​k​ö​n​n​e​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​E​i​n​h​e​i​t​e​n​ ​j​e​d​e​r​z​e​i​t​ ​ä​n​d​e​r​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​E​i​n​h​e​i​t​e​n​s​y​m​b​o​l​e​ ​k​l​i​c​k​e​n​.
+				 * W​i​r​ ​h​a​b​e​n​ ​d​i​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​n​ ​D​a​t​e​n​ ​i​n​ ​d​i​e​s​e​m​ ​D​a​s​h​b​o​a​r​d​ ​i​n​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​I​n​d​i​k​a​t​o​r​e​n​ ​u​m​g​e​r​e​c​h​n​e​t​,​ ​d​a​m​i​t​ ​S​i​e​ ​s​i​e​ ​b​e​s​s​e​r​ ​v​e​r​s​t​e​h​e​n​ ​k​ö​n​n​e​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​I​n​d​i​k​a​t​o​r​e​n​ ​j​e​d​e​r​z​e​i​t​ ​ä​n​d​e​r​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​I​n​d​i​k​a​t​o​r​s​y​m​b​o​l​e​ ​k​l​i​c​k​e​n​.
 				 */
 				text: string
 			}
@@ -390,23 +390,6 @@ type RootTranslation = {
 			 */
 			noStationsSelected: string
 			/**
-			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​w​e​r​d​e​n​ ​f​ü​r​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​n​i​c​h​t​ ​g​e​n​ü​g​e​n​d​ ​D​a​t​e​n​ ​e​r​h​o​b​e​n​,​ ​u​m​ ​s​i​e​ ​i​n​ ​a​g​g​r​e​g​i​e​r​t​e​n​ ​F​r​o​m​ ​a​n​z​u​z​e​i​g​e​n​.
-			 * @param {string} stations
-			 * @param {string} unit
-			 */
-			someInsufficientDataStations: RequiredParams<'stations' | 'unit'>
-			/**
-			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​a​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​e​r​h​e​b​t​ ​g​e​n​ü​g​e​n​d​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​,​ ​u​m​ ​s​i​e​ ​i​n​ ​a​g​g​r​e​g​i​e​r​t​e​n​ ​F​r​o​m​ ​a​n​z​u​z​e​i​g​e​n​.
-			 * @param {string} unit
-			 */
-			allInsufficientDataStations: RequiredParams<'unit'>
-			/**
-			 * D​i​e​ ​S​t​a​t​i​o​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​t​ ​n​i​c​h​t​ ​g​e​n​ü​g​e​n​d​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​,​ ​u​m​ ​s​i​e​ ​i​n​ ​a​g​g​r​e​g​i​e​r​t​e​n​ ​F​r​o​m​ ​a​n​z​u​z​e​i​g​e​n​.
-			 * @param {string} station
-			 * @param {string} unit
-			 */
-			singleInsufficientDataStation: RequiredParams<'station' | 'unit'>
-			/**
 			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​k​e​i​n​e​ ​D​a​t​e​n​.
 			 * @param {string} stations
 			 * @param {string} unit
@@ -428,6 +411,23 @@ type RootTranslation = {
 			 * @param {string} unit
 			 */
 			singleUnsupportedStationShort: RequiredParams<'unit'>
+			/**
+			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​h​a​b​e​n​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​e​r​h​e​b​e​n​ ​k​ö​n​n​e​n​.
+			 * @param {string} stations
+			 * @param {string} unit
+			 */
+			someStationsWithoutAvailableData: RequiredParams<'stations' | 'unit'>
+			/**
+			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​k​o​n​n​t​e​n​ ​D​a​t​e​n​ ​f​u​e​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​.
+			 * @param {string} unit
+			 */
+			allStationsWithoutAvailableData: RequiredParams<'unit'>
+			/**
+			 * D​i​e​ ​S​t​a​t​i​o​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​}​<​/​s​t​r​o​n​g​>​ ​k​o​n​n​t​e​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​.
+			 * @param {string} station
+			 * @param {string} unit
+			 */
+			singleStationWithoutAvailableData: RequiredParams<'station' | 'unit'>
 			stationsSelect: {
 				/**
 				 * E​i​n​e​ ​o​d​e​r​ ​m​e​h​r​e​r​e​ ​S​t​a​t​i​o​n​e​n​ ​a​u​s​w​ä​h​l​e​n
@@ -440,15 +440,15 @@ type RootTranslation = {
 			}
 			unitSelect: {
 				/**
-				 * K​e​i​n​e​ ​E​i​n​h​e​i​t​ ​g​e​f​u​n​d​e​n
+				 * K​e​i​n​ ​I​n​d​i​k​a​t​o​r​ ​g​e​f​u​n​d​e​n
 				 */
 				noUnitFound: string
 				/**
-				 * E​i​n​h​e​i​t​ ​a​u​s​w​ä​h​l​e​n
+				 * I​n​d​i​k​a​t​o​r​ ​a​u​s​w​ä​h​l​e​n
 				 */
 				placeholder: string
 				/**
-				 * E​i​n​h​e​i​t​ ​s​u​c​h​e​n​.​.​.
+				 * I​n​d​i​k​a​t​o​r​ ​s​u​c​h​e​n​.​.​.
 				 */
 				searchPlaceholder: string
 				/**
@@ -1758,6 +1758,10 @@ type RootTranslation = {
 			 */
 			title: string
 			/**
+			 * E​r​h​e​b​t​ ​k​e​i​n​e​ ​D​a​t​e​n
+			 */
+			notCollectingData: string
+			/**
 			 * K​e​i​n​e​ ​D​a​t​e​n​ ​v​e​r​f​ü​g​b​a​r
 			 */
 			noValueAvailable: string
@@ -2260,11 +2264,11 @@ export type TranslationFunctions = {
 			}
 			unitSelect: {
 				/**
-				 * Einheitenauswahl
+				 * Indikatorauswahl
 				 */
 				title: () => LocalizedString
 				/**
-				 * Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Einheiten umgerechnet, damit Sie sie besser verstehen können. Sie können die Einheiten jederzeit ändern, indem Sie auf die Einheitensymbole klicken.
+				 * Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Indikatoren umgerechnet, damit Sie sie besser verstehen können. Sie können die Indikatoren jederzeit ändern, indem Sie auf die Indikatorsymbole klicken.
 				 */
 				text: () => LocalizedString
 			}
@@ -2395,18 +2399,6 @@ export type TranslationFunctions = {
 			 */
 			noStationsSelected: () => LocalizedString
 			/**
-			 * Für den gewählten Indikator <strong>{unit}</strong> werden für die Stationen <strong>{stations}</strong> nicht genügend Daten erhoben, um sie in aggregierten From anzuzeigen.
-			 */
-			someInsufficientDataStations: (arg: { stations: string, unit: string }) => LocalizedString
-			/**
-			 * Keine der ausgewahlten Stationen erhebt genügend Daten für den Indikator <strong>{unit}</strong>, um sie in aggregierten From anzuzeigen.
-			 */
-			allInsufficientDataStations: (arg: { unit: string }) => LocalizedString
-			/**
-			 * Die Station <strong>{station}</strong> erhebt nicht genügend Daten für den Indikator <strong>{unit}</strong>, um sie in aggregierten From anzuzeigen.
-			 */
-			singleInsufficientDataStation: (arg: { station: string, unit: string }) => LocalizedString
-			/**
 			 * Für den gewählten Indikator <strong>{unit}</strong> erheben die Stationen <strong>{stations}</strong> keine Daten.
 			 */
 			someUnsupportedStations: (arg: { stations: string, unit: string }) => LocalizedString
@@ -2422,6 +2414,18 @@ export type TranslationFunctions = {
 			 * Diese Station erhebt keine Daten für den Indikator <strong>{unit}</strong>.
 			 */
 			singleUnsupportedStationShort: (arg: { unit: string }) => LocalizedString
+			/**
+			 * Für den gewählten Indikator <strong>{unit}</strong> haben die Stationen <strong>{stations}</strong> keine Daten erheben können.
+			 */
+			someStationsWithoutAvailableData: (arg: { stations: string, unit: string }) => LocalizedString
+			/**
+			 * Keine der ausgewählten Stationen konnten Daten fuer den Indikator <strong>{unit}</strong> erheben.
+			 */
+			allStationsWithoutAvailableData: (arg: { unit: string }) => LocalizedString
+			/**
+			 * Die Station <strong>{station}</strong> konnte keine Daten für den Indikator <strong>{unit}</strong> erheben.
+			 */
+			singleStationWithoutAvailableData: (arg: { station: string, unit: string }) => LocalizedString
 			stationsSelect: {
 				/**
 				 * Eine oder mehrere Stationen auswählen
@@ -2434,15 +2438,15 @@ export type TranslationFunctions = {
 			}
 			unitSelect: {
 				/**
-				 * Keine Einheit gefunden
+				 * Kein Indikator gefunden
 				 */
 				noUnitFound: () => LocalizedString
 				/**
-				 * Einheit auswählen
+				 * Indikator auswählen
 				 */
 				placeholder: () => LocalizedString
 				/**
-				 * Einheit suchen...
+				 * Indikator suchen...
 				 */
 				searchPlaceholder: () => LocalizedString
 				/**
@@ -3743,6 +3747,10 @@ export type TranslationFunctions = {
 			 * Gesundheitsrisiken
 			 */
 			title: () => LocalizedString
+			/**
+			 * Erhebt keine Daten
+			 */
+			notCollectingData: () => LocalizedString
 			/**
 			 * Keine Daten verfügbar
 			 */

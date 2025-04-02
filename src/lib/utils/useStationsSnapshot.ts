@@ -16,7 +16,7 @@ import { limitDateBoundsToToday } from './dateUtil';
 import type { WeatherMeasurementKey } from './schemas';
 
 export type SnapshotDataType = {
-	[key: string]: number | string;
+	[key: string]: number | string | null | undefined;
 	id: string;
 };
 
@@ -65,10 +65,18 @@ export function useStationsSnapshotConfig({
 						param: unitWithMinMaxAvgVal as unknown as WeatherMeasurementKey,
 						scale: scaleVal
 					});
-					return ((itemResults || []) as SnapshotDataType[]).filter((s) => {
-						const station = stations.features.find((f) => f.properties.id === s.id);
-						return !!station;
+					const items = (stations.features || []).map((s) => {
+						const station = (itemResults || []).find((f) => f.id === s.properties.id) as
+							| SnapshotDataType
+							| undefined;
+						return {
+							id: s.properties.id || station?.id || '',
+							measured_at: station?.measured_at || new Date().toISOString(),
+							station_type: s.properties.stationType,
+							[unitWithMinMaxAvgVal]: station?.[unitWithMinMaxAvgVal]
+						} satisfies SnapshotDataType;
 					});
+					return items;
 				},
 				enabled: Boolean(dateVal && unitWithMinMaxAvgVal)
 			};

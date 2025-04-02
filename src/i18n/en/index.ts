@@ -95,7 +95,7 @@ const en = {
 			},
 			unitSelect: {
 				title: 'Unit Selection',
-				text: 'We have converted the biometeorological data in this dashboard into different units to help you better understand them. You can change the units at any time by clicking on the unit symbols.'
+				text: 'We have converted the biometeorological data in this dashboard into different indicators to help you better understand them. You can change the indicators at any time by clicking on the indicator symbols.'
 			},
 			stationsDatavis: {
 				title: 'Data visualization',
@@ -149,12 +149,6 @@ const en = {
 			noDataAvailable: 'No data available for the selected configuration',
 			noValueMeasured: 'No value measured',
 			noStationsSelected: 'Select at least one station to display its data',
-			someInsufficientDataStations:
-				'Not enought data is collected for the selected indicator <strong>{unit}</strong> at the stations <strong>{stations}</strong> for us to aggregate it.',
-			allInsufficientDataStations:
-				'None of the selected stations collect enough data for the indicator <strong>{unit}</strong> for us to aggregate it.',
-			singleInsufficientDataStation:
-				'The station <strong>{station}</strong> does not collect enough data for the indicator <strong>{unit}</strong> for us to aggregate it.',
 			someUnsupportedStations:
 				'The stations <strong>{stations}</strong> do not collect data for the selected indicator <strong>{unit}</strong>.',
 			allUnsupportedStations:
@@ -163,14 +157,20 @@ const en = {
 				'The station <strong>{station}</strong> does not collect data for the indicator <strong>{unit}</strong>.',
 			singleUnsupportedStationShort:
 				'This station does not collect data for the indicator <strong>{unit}</strong>.',
+			someStationsWithoutAvailableData:
+				'The stations <strong>{stations}</strong> have no available data for the indicator <strong>{unit}</strong>, and the current time configuration.',
+			allStationsWithoutAvailableData:
+				'None of the selected stations have data available for the indicator <strong>{unit}</strong>, and the current time configuration.',
+			singleStationWithoutAvailableData:
+				'The station <strong>{station}</strong> has no data available for the indicator <strong>{unit}</strong>, and the current time configuration.',
 			stationsSelect: {
 				placeholder: 'Select one or more stations',
 				label: 'Selected stations'
 			},
 			unitSelect: {
-				noUnitFound: 'No unit found',
-				placeholder: 'Select a unit',
-				searchPlaceholder: 'Search unit...',
+				noUnitFound: 'No indicator found',
+				placeholder: 'Select a indicator',
+				searchPlaceholder: 'Search indicator...',
 				xOutOfY: '{part} of {total} stations',
 				stationsHeaderLabel: 'Station name',
 				units: {
@@ -735,7 +735,8 @@ const en = {
 			showHealthRisks: 'Show health risks',
 			hideHealthRisks: 'Hide health risks',
 			title: 'Heath risks',
-			noValueAvailable: 'No value available',
+			notCollectingData: 'Does not collect data',
+			noValueAvailable: 'No data available',
 			healthRisks: {
 				'extreme cold stress': {
 					title: {

@@ -1,5 +1,5 @@
-import type { StationsGeoJSONType } from "$lib/stores/mapData";
-import { api } from "$lib/utils/api";
+import type { StationsGeoJSONType } from '$lib/stores/mapData';
+import { api } from '$lib/utils/api';
 import { limitDateBoundsToToday } from '$lib/utils/dateUtil';
 import { getHeatStressValueByCategory } from '$lib/utils/heatStressCategoriesUtil';
 import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
@@ -45,16 +45,18 @@ export const getStationDataFetcher =
 				scale: 'hourly'
 			});
 
-			if (itemResults === null) return { id, supported: false };
+			if (itemResults === null) return { id, supported: false, dataAvailable: false };
+			const data = mapStationDataResults({ id, unit, results: itemResults });
 			return {
 				supported: true,
-				data: mapStationDataResults({ id, unit, results: itemResults })
+				dataAvailable: data.some((d) => d.value !== null),
+				data
 			};
 		});
 
 		const results = (await Promise.all(promises)) as PromiseResult<ParsedValueType>[];
 		const onlyWithSupported = results
-			.filter(notEmptyAndNotUnsupported)
+			.filter((item) => notEmptyAndNotUnsupported(item) && !supportedAndWithUnavailableData(item))
 			.map(({ data }) => data)
 			.flat();
 		const onlyUnsupported = results
@@ -62,13 +64,23 @@ export const getStationDataFetcher =
 			.flat()
 			.map(({ id }) => id)
 			.filter(notEmpty);
+		const onlyUnavailable = Array.from(
+			new Set(
+				results
+					.filter(supportedAndWithUnavailableData)
+					.flatMap(({ data }) => (Array.isArray(data) ? data : []).map(({ id }) => id))
+					.filter(notEmpty)
+			)
+		);
+
 		return {
 			lineChartData: mapDataToLayerChartData({
 				unit,
 				data: onlyWithSupported,
 				stations
 			}),
-			unsupportedIds: onlyUnsupported
+			unsupportedIds: onlyUnsupported,
+			unavailableIds: onlyUnavailable
 		};
 	};
 
@@ -76,9 +88,19 @@ type PromiseResult<T> =
 	| { id: string; supported: false }
 	| { supported: true; data: T; id: undefined };
 function notEmptyAndNotUnsupported<T>(
-	item: PromiseResult<T>,
+	item: PromiseResult<T>
 ): item is { supported: true; data: T; id: undefined } {
-	if ("supported" in item && item.supported) return notEmpty(item.data);
+	if ('supported' in item && item.supported) return notEmpty(item.data);
+	return false;
+}
+
+function supportedAndWithUnavailableData<T>(
+	item: PromiseResult<T>
+): item is { supported: true; data: T; id: undefined } {
+	if ('supported' in item && item.supported && Array.isArray(item.data)) {
+		const allNull = item.data.every((d) => d.value === null);
+		return allNull;
+	}
 	return false;
 }
 
@@ -89,44 +111,49 @@ function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
 function mapStationDataResults<
 	T extends (Record<string, unknown> & {
 		measured_at?: string;
-	})[],
->({
-	id,
-	unit,
-	results = [] as unknown as T,
-}: { id: string; unit: string; results?: T }) {
+	})[]
+>({ id, unit, results = [] as unknown as T }: { id: string; unit: string; results?: T }) {
 	return results.map((i) => {
 		const value = i[unit as keyof typeof i] as string;
 		return {
 			id,
 			measured_at: i.measured_at,
-			value,
+			value
 		} satisfies ParsedValueType;
 	});
 }
 
 type CombinedLayerChartDataItem = {
-	date: Date
+	date: Date;
 } & {
 	[K in string]: K extends 'date' ? Date : string | null;
-}
+};
 
-function mapDataToLayerChartData({ unit, data, stations }: {
+function mapDataToLayerChartData({
+	unit,
+	data,
+	stations
+}: {
 	unit: string;
 	data: ParsedValueType[];
-	stations: StationsGeoJSONType["features"];
+	stations: StationsGeoJSONType['features'];
 }) {
-	if (!data) return []
-	const isOrdinal = unit.trim().endsWith('_category')
+	if (!data) return [];
+	const isOrdinal = unit.trim().endsWith('_category');
 	const dateToObjects = data.reduce((acc, item) => {
-		const date = parseISO(item?.measured_at || "");
+		const date = parseISO(item?.measured_at || '');
 		if (!item?.measured_at || !isValid(date)) return acc;
 
-		const key = format(date, 'yyyy-MM-dd-HH')
-		const existingItem = acc.get(key) || { date } as CombinedLayerChartDataItem;
-		const parsedVal = !item.value ? null : isOrdinal ? getHeatStressValueByCategory(item.value) : item.value;
-		const stationName = stations.find((f) => f.properties.id === item.id)?.properties.longName.trim() || item.id;
-		acc.set(key, { ...existingItem, [stationName]: parsedVal } as CombinedLayerChartDataItem)
+		const key = format(date, 'yyyy-MM-dd-HH');
+		const existingItem = acc.get(key) || ({ date } as CombinedLayerChartDataItem);
+		const parsedVal = !item.value
+			? null
+			: isOrdinal
+				? getHeatStressValueByCategory(item.value)
+				: item.value;
+		const stationName =
+			stations.find((f) => f.properties.id === item.id)?.properties.longName.trim() || item.id;
+		acc.set(key, { ...existingItem, [stationName]: parsedVal } as CombinedLayerChartDataItem);
 		return acc;
 	}, new Map<string, CombinedLayerChartDataItem>());
 

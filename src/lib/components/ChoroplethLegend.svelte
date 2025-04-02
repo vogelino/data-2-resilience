@@ -60,8 +60,12 @@
 	);
 
 	const isHealthRiskUnit = $derived($unit === 'utci' || $unit === 'pet');
+	const healthRiskUnit = $derived.by(() => {
+		const unitWithoutCategory = $unit.replace(/_category$/, '') as 'utci' | 'pet';
+		return ['utci', 'pet'].includes(unitWithoutCategory) ? unitWithoutCategory : 'utci';
+	});
 	const healthRiskThresholds = $derived(
-		Object.values(healthRisksRanges).map((range) => range[$unit as 'utci' | 'pet'])
+		Object.values(healthRisksRanges).map((range) => range[healthRiskUnit])
 	);
 	const healthRiskUnitMin = $derived(
 		Math.min(...filterOutInvalid(healthRiskThresholds.flatMap((t) => [t.min, t.max])))

@@ -11,7 +11,7 @@ import {
 	interpolateYlGnBu,
 	interpolateYlOrBr
 } from 'd3-scale-chromatic';
-import { healthRisksRanges } from './healthRisksUtil';
+import { getHealthRiskKeyByValue, healthRisksRanges } from './healthRisksUtil';
 
 const schemeTurboSquential: readonly string[] = quantize(interpolateTurbo, 10);
 const schemeTurboOrdinal: readonly string[] = quantize(interpolateTurbo, 10);
@@ -245,8 +245,12 @@ export function getColorScaleValue(params: {
 		LL.map.choroplethLegend.healthRisks
 	) as unknown as keyof typeof LL.map.choroplethLegend.healthRisks;
 
-	if (isOrdinalUnit(unit)) {
-		const categoryIndex = categories.indexOf(value as string);
+	const isHealthUnit = isHealthRiskUnit(unit);
+	if (isOrdinalUnit(unit) || isHealthUnit) {
+		const val = isHealthUnit
+			? getHealthRiskKeyByValue({ value, unit: unit as 'utci' | 'pet' })
+			: value;
+		const categoryIndex = categories.indexOf(val as string);
 		if (categoryIndex === -1) return 'hsl(var(--muted-foreground))';
 		const colors = getColorsByUnit({ unit, LL });
 		return colors[categoryIndex];

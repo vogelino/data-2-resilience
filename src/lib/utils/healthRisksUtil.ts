@@ -1,3 +1,7 @@
+import type { TranslationFunctions } from '$i18n/i18n-types';
+import { cn } from '$lib/utils';
+import { getColorScaleValue } from './colorScaleUtil';
+import { getHeatStressCategoryByValue } from './heatStressCategoriesUtil';
 export const healthRisksRanges = {
 	'extreme cold stress': {
 		pet: {
@@ -109,6 +113,7 @@ export function getHealthRiskKeyByValue({
 	value: number | string | undefined | null;
 }) {
 	if (unit !== 'utci' && unit !== 'pet') return null;
+	if (typeof value === 'string') return value;
 	return Object.entries(healthRisksRanges).reduce(
 		(acc, [key, range]) => {
 			const { min, max } = range[unit];
@@ -120,4 +125,83 @@ export function getHealthRiskKeyByValue({
 		},
 		null as string | null
 	);
+}
+
+export function getHealthRiskPill({
+	value,
+	unit,
+	LL,
+	withLabel = false
+}: {
+	value: number | string | undefined | null;
+	unit: string;
+	LL: TranslationFunctions;
+	withLabel?: boolean;
+}) {
+	const isOrdinal = unit.trim().endsWith('_category');
+	const unitWithoutCategory = unit.replace(/_category$/, '');
+	const isHealthRiskUnit = unitWithoutCategory === 'utci' || unitWithoutCategory === 'pet';
+
+	const healthRisks = LL.map.choroplethLegend.healthRisks;
+	const titleKey = isHealthRiskUnit ? ('heatStress' as const) : ('thermalComfort' as const);
+	let healthRisk: (typeof healthRisks)[keyof typeof healthRisks] | null = null;
+	let color: string | null = null;
+
+	if (typeof value === 'string') {
+		healthRisk = healthRisks[value as keyof typeof healthRisks];
+		color = getColorScaleValue({
+			unit,
+			LL,
+			value: value as unknown as number
+		});
+	} else if (typeof value === 'number') {
+		const key = getHealthRiskKeyByValue({ value, unit: unitWithoutCategory as 'utci' | 'pet' });
+		if (key) {
+			healthRisk = healthRisks[key as keyof typeof healthRisks];
+		}
+		color = getColorScaleValue({
+			unit,
+			LL,
+			value: isOrdinal && isHealthRiskUnit ? getHeatStressCategoryByValue(value as number) : value
+		});
+	}
+
+	let healthRiskLabel = healthRisk?.title[titleKey]() || '';
+
+	const isUnavailable = value === null;
+	const isUnsupported = typeof value === 'undefined';
+
+	if (isUnavailable) {
+		healthRiskLabel = LL.map.choroplethLegend.noValueAvailable();
+	} else if (isUnsupported) {
+		healthRiskLabel = LL.map.choroplethLegend.notCollectingData();
+	}
+
+	return `
+		<span
+			class="${cn(
+				'relative size-3 rounded-full',
+				isUnavailable && 'bg-warning/20',
+				isUnsupported && 'bg-muted-foreground/20'
+			)}"
+			style="${cn(color && `background-color: ${color};`)}"
+		>
+			<span
+				class="${cn(
+					'absolute inset-0 rounded-full border',
+					!isUnavailable && !isUnsupported && `border-black/20 mix-blend-multiply`,
+					isUnavailable && 'border-warning border-2',
+					isUnsupported && 'border-muted-foreground'
+				)}"
+			></span>
+		</span>
+		${cn(
+			withLabel &&
+				`
+				<span class="${cn((isUnavailable || isUnsupported) && 'text-muted-foreground')}">
+					${healthRiskLabel}
+				</span>
+			`
+		)}
+	`;
 }

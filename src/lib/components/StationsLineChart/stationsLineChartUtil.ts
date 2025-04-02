@@ -56,7 +56,7 @@ export const getStationDataFetcher =
 
 		const results = (await Promise.all(promises)) as PromiseResult<ParsedValueType>[];
 		const onlyWithSupported = results
-			.filter(notEmptyAndNotUnsupported)
+			.filter((item) => notEmptyAndNotUnsupported(item) && !supportedAndWithUnavailableData(item))
 			.map(({ data }) => data)
 			.flat();
 		const onlyUnsupported = results
@@ -64,12 +64,14 @@ export const getStationDataFetcher =
 			.flat()
 			.map(({ id }) => id)
 			.filter(notEmpty);
-		const onlyUnavailable = results
-			.filter(supportedAndWithAvailableData)
-			.map(({ data }) => data)
-			.flat()
-			.map(({ id }) => id)
-			.filter(notEmpty);
+		const onlyUnavailable = Array.from(
+			new Set(
+				results
+					.filter(supportedAndWithUnavailableData)
+					.flatMap(({ data }) => (Array.isArray(data) ? data : []).map(({ id }) => id))
+					.filter(notEmpty)
+			)
+		);
 
 		return {
 			lineChartData: mapDataToLayerChartData({
@@ -92,11 +94,12 @@ function notEmptyAndNotUnsupported<T>(
 	return false;
 }
 
-function supportedAndWithAvailableData<T>(
+function supportedAndWithUnavailableData<T>(
 	item: PromiseResult<T>
 ): item is { supported: true; data: T; id: undefined } {
 	if ('supported' in item && item.supported && Array.isArray(item.data)) {
-		return item.data.some((d) => d.value !== null);
+		const allNull = item.data.every((d) => d.value === null);
+		return allNull;
 	}
 	return false;
 }

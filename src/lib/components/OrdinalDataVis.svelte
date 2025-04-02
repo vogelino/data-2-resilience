@@ -2,9 +2,9 @@
 	import LL from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { useStations } from '$lib/stores/stationsStore';
-	import { isCategoryUnit, unit, unitWithoutCategory } from '$lib/stores/uiStore';
+	import { isCategoryUnit, unitWithoutCategory } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
+	import HealthRiskPill from './HealthRiskPill.svelte';
 	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
 	type Props = {
@@ -62,34 +62,7 @@
 						d.value && 'transition-colors hover:text-muted-foreground'
 					)}
 				>
-					{#if healthRisk?.title[titleKey]()}
-						<span
-							class="relative size-3 rounded-full"
-							style={`background-color: ${getColorScaleValue({
-								LL: $LL,
-								value: d.value || 0,
-								unit: $unit
-							})};`}
-						>
-							<span class="absolute inset-0 rounded-full border border-black/20 mix-blend-multiply"
-							></span>
-						</span>
-						{healthRisk?.title[titleKey]()}
-					{:else if d.value === null}
-						<span class="relative size-3 rounded-full bg-warning/20">
-							<span class="absolute inset-0 rounded-full border border-warning"></span>
-						</span>
-						<span class="text-warning-foreground">
-							{$LL.map.choroplethLegend.noValueAvailable()}
-						</span>
-					{:else if typeof d.value === 'undefined'}
-						<span class="relative size-3 rounded-full bg-muted-foreground/20">
-							<span class="absolute inset-0 rounded-full border border-muted-foreground"></span>
-						</span>
-						<span class="text-muted-foreground">
-							{$LL.map.choroplethLegend.notCollectingData()}
-						</span>
-					{/if}
+					<HealthRiskPill value={d.value} withLabel />
 				</TooltipTrigger>
 				{#if d.value}
 					<TooltipContent class="max-w-72">

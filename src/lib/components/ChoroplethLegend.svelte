@@ -9,6 +9,7 @@
 	import { getColorStops, unitsToScalesMap } from '$lib/utils/colorScaleUtil';
 	import { healthRisksRanges } from '$lib/utils/healthRisksUtil';
 	import { HeartPulse, X } from 'lucide-svelte';
+	import HealthRiskPill from './HealthRiskPill.svelte';
 
 	let open = $state(false);
 
@@ -164,20 +165,10 @@
 		</div>
 		<div class="flex flex-col">
 			<span class="inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
-				<span class="relative size-3 rounded-full bg-muted-foreground/20">
-					<span class="absolute inset-0 rounded-full border border-muted-foreground"></span>
-				</span>
-				<span class="text-sm text-muted-foreground">
-					{$LL.map.choroplethLegend.notCollectingData()}
-				</span>
+				<HealthRiskPill value={undefined} withLabel />
 			</span>
 			<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
-				<span class="relative size-3 rounded-full bg-warning/20">
-					<span class="absolute inset-0 rounded-full border border-warning"></span>
-				</span>
-				<span class="text-sm text-warning-foreground">
-					{$LL.map.choroplethLegend.noValueAvailable()}
-				</span>
+				<HealthRiskPill value={null} withLabel />
 			</span>
 		</div>
 		{#if showHealthRisks}

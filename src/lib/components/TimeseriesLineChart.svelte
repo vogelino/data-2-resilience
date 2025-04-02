@@ -5,7 +5,7 @@
 	import { cn } from '$lib/utils';
 	import { CHART_COLORS } from '$lib/utils/chartUtils';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
-	import { getHealthRiskKeyByValue } from '$lib/utils/healthRisksUtil';
+	import { getHealthRiskKeyByValue, getHealthRiskPill } from '$lib/utils/healthRisksUtil';
 	import {
 		getHeatStressCategoryByValue,
 		getHeatStressValueByCategory,
@@ -89,28 +89,7 @@
 				})
 	);
 	const tooltipTemplate = $derived((d: DataRecord) => {
-		const heatStressColorByValue = (val: number) => {
-			return getColorScaleValue({
-				unit: $unit,
-				LL: $LL,
-				value: val
-			});
-		};
-		const heatStressColorByCategory = (catNum: number) => {
-			return getColorScaleValue({
-				value: getHeatStressCategoryByValue(catNum),
-				LL: $LL,
-				unit: $unit
-			});
-		};
-
 		const isHealthRiskUnit = $derived($unit === 'utci' || $unit === 'pet');
-		const heatStressColorPill = (val: number) => `
-				<span
-					class="size-2.5 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)] inline-block"
-					style="background-color: ${isOrdinal ? heatStressColorByCategory(val) : heatStressColorByValue(val)};"
-				></span>
-			`;
 		return `
 			<span class="flex flex-col text-xs chart-export-ignore">
 				<strong class="pb-1 mb-1 border-b border-border text-sm">
@@ -125,7 +104,12 @@
 						.map((name, idx) => {
 							const value = d[name as keyof typeof d] as number;
 							const heatStressStringVal = getHeatStressCategoryByValue(value);
-							const heatStressPill = heatStressColorPill(value);
+							const heatStressPill = getHealthRiskPill({
+								value,
+								unit: $unit,
+								LL: $LL,
+								withLabel: false
+							});
 							const healthRiskKey =
 								isHealthRiskUnit &&
 								getHealthRiskKeyByValue({ value, unit: $unit as 'utci' | 'pet' });

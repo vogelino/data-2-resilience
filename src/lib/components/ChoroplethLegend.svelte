@@ -154,11 +154,11 @@
 		return `${Math.round(val).toLocaleString($locale)} ${labels.unitOnlyLabel}`;
 	});
 	const minLabel = $derived.by(() => {
-		if ($heatStressGradientquery.isLoading) return '...';
 		if ($heatStressGradientquery.data?.metadata?.range.length === 2) {
 			const [rangeMin] = $heatStressGradientquery.data.metadata.range;
 			return formatValue(rangeMin);
 		}
+		if ($heatStressGradientquery.isLoading) return '...';
 		return isHealthRiskUnit || scale.type === 'sequential' ? formatValue(min) : '';
 	});
 	const max = $derived.by(() => {
@@ -166,11 +166,11 @@
 		return scaleMax;
 	});
 	const maxLabel = $derived.by(() => {
-		if ($heatStressGradientquery.isLoading) return '...';
 		if ($heatStressGradientquery.data?.metadata?.range.length === 2) {
 			const [, rangeMax] = $heatStressGradientquery.data.metadata.range;
 			return formatValue(rangeMax);
 		}
+		if ($heatStressGradientquery.isLoading) return '...';
 		return isHealthRiskUnit || scale.type === 'sequential' ? formatValue(max) : '';
 	});
 </script>
@@ -223,17 +223,29 @@
 				</div>
 			{:else}
 				<div
-					class="h-4 w-full max-w-96 rounded-sm bg-gradient-to-r from-yellow-50 via-yellow-500 to-yellow-950 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
-					style={`background-image: ${heatStressGradient || customGradient};`}
+					class="h-4 w-full max-w-96 rounded-sm bg-muted shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
+					style={cn(
+						$heatStressGradientquery.isLoading
+							? 'animate-pulse'
+							: `background-image: ${heatStressGradient || customGradient};`
+					)}
 				></div>
 			{/if}
 			<div
-				class="flex w-full items-center justify-between pt-1 text-xs leading-4 text-muted-foreground"
+				class={cn(
+					'flex w-full items-center justify-between pt-1 text-xs leading-4 text-muted-foreground',
+					$heatStressGradientquery.isLoading && 'animate-pulse'
+				)}
 			>
-				<span>
+				<span class={cn($heatStressGradientquery.isLoading && '-translate-y-1/3 animate-pulse')}>
 					{isOrdinal ? healthRisks[0].title[titleKey]() : minLabel}
 				</span>
-				<span class="text-right">
+				<span
+					class={cn(
+						$heatStressGradientquery.isLoading && '-translate-y-1/3 animate-pulse',
+						'text-right'
+					)}
+				>
 					{isOrdinal ? healthRisks[healthRisks.length - 1].title[titleKey]() : maxLabel}
 				</span>
 			</div>

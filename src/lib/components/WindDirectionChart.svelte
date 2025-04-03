@@ -175,7 +175,16 @@
 					label: 'chart-legend-label' // Needed to offset the labels in the export
 				}}
 			/>
-			<Tooltip.Root let:data classes={tooltipClasses} x="data" xOffset={8} contained="container">
+			<Tooltip.Root
+				let:data
+				classes={{
+					...tooltipClasses,
+					root: cn(tooltipClasses.root, 'w-64', 'mt-24')
+				}}
+				xOffset={10}
+				anchor={'right'}
+				contained="window"
+			>
 				{@html tooltipTemplate(data)}
 			</Tooltip.Root>
 		</Chart>

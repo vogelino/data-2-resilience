@@ -192,7 +192,13 @@
 		{#if $isCategoryUnit}
 			<BarChart data={ordinalData} x="label" y="value" {...commonChartProps}>
 				<svelte:fragment slot="tooltip">
-					<Tooltip.Root let:data classes={tooltipClasses}>
+					<Tooltip.Root
+						let:data
+						classes={tooltipClasses}
+						contained="container"
+						anchor="right"
+						yOffset={-40}
+					>
 						<HistogramTooltip item={data} {selectedItems} type="ordinal" />
 					</Tooltip.Root>
 				</svelte:fragment>
@@ -203,7 +209,13 @@
 		{:else}
 			<BarChart data={bins} x="x0" y="length" {...commonChartProps}>
 				<svelte:fragment slot="tooltip">
-					<Tooltip.Root let:data classes={tooltipClasses}>
+					<Tooltip.Root
+						let:data
+						classes={tooltipClasses}
+						contained="container"
+						anchor="right"
+						yOffset={-40}
+					>
 						<HistogramTooltip item={data} {selectedItems} type="quantitative" />
 					</Tooltip.Root>
 				</svelte:fragment>

@@ -1,29 +1,42 @@
 <script lang="ts">
-	import SearchInputField from 'components/SearchInputField.svelte';
+	import { browser } from '$app/environment';
+	import { PUBLIC_GEOCODING_URL } from '$env/static/public';
 	import { LL } from '$i18n/i18n-svelte';
-	import { cn } from '$lib/utils';
 	import * as Popover from '$lib/components/ui/popover';
-	import { Command, CommandEmpty, CommandItem } from 'components/ui/command';
-	import { createQuery, type QueryFunctionContext, type QueryKey } from '@tanstack/svelte-query';
+	import { cn } from '$lib/utils';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { debounceState } from '$lib/utils/runeUtil.svelte';
-	import { PUBLIC_GEOCODING_URL } from '$env/static/public';
 	import { responseSchema, type AddressFeature } from '$lib/utils/searchUtil';
-	import { onMount, onDestroy } from 'svelte';
-	import { browser } from '$app/environment';
+	import { createQuery, type QueryFunctionContext, type QueryKey } from '@tanstack/svelte-query';
+	import SearchInputField from 'components/SearchInputField.svelte';
+	import { Command, CommandEmpty, CommandItem } from 'components/ui/command';
+	import { onDestroy, onMount } from 'svelte';
 
 	const {
+		queryValue,
+		onSearchQueryChanged = () => {},
 		onFeatureSearched,
 		onSearchCleared
 	}: {
+		queryValue?: string;
+		onSearchQueryChanged?: (query: string) => void;
 		onFeatureSearched: (feature: AddressFeature) => void;
 		onSearchCleared: () => void;
 	} = $props();
 
 	let container: HTMLDivElement | null = $state(null);
-	let searchQuery = $state('');
+	let internalSearchQuery = $state('');
 	let suggesitonsOpened = $state(false);
-	let debouncedQuery = $derived.by(debounceState(() => searchQuery, 300)) as string;
+	let wasInputed = $state(false);
+	let debouncedQuery = $derived.by(debounceState(() => internalSearchQuery, 300)) as string;
+
+	let initialized = false;
+	$effect(() => {
+		if (typeof queryValue === 'string' && queryValue !== internalSearchQuery && !initialized) {
+			internalSearchQuery = queryValue;
+			initialized = true;
+		}
+	});
 
 	function onClickAnywhere(evt: MouseEvent) {
 		if (!container || !evt.target) return;
@@ -44,9 +57,11 @@
 
 	const searchResultsQuery = createQuery(
 		reactiveQueryArgs(() => ({
-			queryKey: ['addressSearch', debouncedQuery?.trim()],
-			queryFn: async ({ queryKey: [_, searchTerm] }: QueryFunctionContext<QueryKey>) => {
-				if (typeof searchTerm === undefined) return [];
+			queryKey: ['addressSearch', debouncedQuery?.trim(), wasInputed],
+			queryFn: async ({
+				queryKey: [_, searchTerm, wasInputed]
+			}: QueryFunctionContext<QueryKey>) => {
+				if (typeof searchTerm === undefined || !wasInputed) return [];
 				if (!searchTerm) return [];
 				const query = encodeURIComponent(`${searchTerm}`.trim());
 				const response = await fetch(`${PUBLIC_GEOCODING_URL}?query=${query}&outputformat=JSON`);
@@ -69,7 +84,8 @@
 	const { isLoading, isError, data = [] } = $derived($searchResultsQuery);
 	const isEmpty = $derived(!isLoading && data.length === 0);
 	const showPopover = $derived(
-		searchQuery?.trim().length > 0 &&
+		wasInputed &&
+			internalSearchQuery?.trim().length > 0 &&
 			debouncedQuery?.trim().length > 0 &&
 			Boolean(data || isEmpty || isError || isLoading)
 	);
@@ -91,7 +107,7 @@
 	// --------------
 
 	$effect(() => {
-		if (searchQuery.length === 0) {
+		if (internalSearchQuery.length === 0) {
 			handleSelect(undefined);
 		}
 	});
@@ -113,7 +129,8 @@
 		} else if (event.key === 'Enter') {
 			const limitedData = data.slice(0, 5);
 			const index = limitedData.findIndex((result) => result.id === command);
-			searchQuery = limitedData[index].properties.text;
+			internalSearchQuery = limitedData[index].properties.text;
+			onSearchQueryChanged(internalSearchQuery);
 			command = limitedData[index]?.id;
 			handleSelect(limitedData[index]);
 		}
@@ -123,9 +140,10 @@
 
 	function handleSelect(feature: undefined | AddressFeature) {
 		if (feature) {
-			searchQuery = feature.properties.text || '';
+			internalSearchQuery = feature.properties.text || '';
+			onSearchQueryChanged(internalSearchQuery);
 			onFeatureSearched(feature);
-		} else if (searchQuery.length === 0) {
+		} else if (internalSearchQuery.length === 0) {
 			onSearchCleared();
 		}
 		suggesitonsOpened = false;
@@ -141,10 +159,12 @@
 			<Popover.Trigger asChild>
 				<SearchInputField
 					placeholder={$LL.map.search.placeholder()}
-					value={searchQuery}
+					value={internalSearchQuery}
 					onchange={(newVal) => {
-						searchQuery = newVal;
+						internalSearchQuery = newVal;
+						onSearchQueryChanged(internalSearchQuery);
 						suggesitonsOpened = showPopover;
+						wasInputed = true;
 					}}
 					classNames={{
 						input: cn('shadow-lg shadow-black/5 dark:shadow-black/80'),

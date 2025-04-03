@@ -71,6 +71,12 @@ export const api = (customFetch = fetch) => ({
 		const data = await parseArrayData(response, schema);
 		return data;
 	},
+	downloadStationData: async (params: { id: string }) => {
+		const response = await customFetch(`${PUBLIC_API_BASE_URL}/v1/download/${params.id}`);
+		if (!response.ok && response.status === 422) return null;
+		const text = await response.text();
+		return typeof text === 'string' ? text : null;
+	},
 	getHeatStressMetadata: async (params: { date: Date; unit: string }) => {
 		let year = getYear(params.date);
 		let dayOfYear = getDayOfYear(params.date);

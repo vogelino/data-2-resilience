@@ -588,7 +588,9 @@ const en = {
 					district: 'District',
 					installation_at: 'Installation at',
 					status: 'Status',
-					details: 'Details'
+					details: 'Details',
+					dataDownload: 'Data',
+					dataDownloadTooltip: 'Download raw data for this station'
 				},
 				cells: {
 					stationTypes: {

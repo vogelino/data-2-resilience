@@ -131,7 +131,9 @@ export const scale = derived(datavisType, (val) =>
 const hourDefault = 12;
 const hourQueryParam = queryParam('hour', ssp.number(hourDefault));
 export const hour = derived([hourQueryParam, dayEndDate], ([value, dayEndDateVal]) => {
-	const validated = validateQueryParam(value, z.coerce.number(), hourDefault);
+	const validated =
+		value === 0 ? 0 : validateQueryParam(`${value}`, z.coerce.number(), hourDefault);
+	debugger;
 	const d = limitDateBoundsToToday({
 		date: dayEndDateVal,
 		refDate: today(),

@@ -36,7 +36,8 @@
 
 	function updateInputValue(val: number) {
 		if (inputRef) {
-			inputRef.value = `${`${val}`.padStart(2, '0')}:00`;
+			const newVal = `${`${val}`.padStart(2, '0')}:00`;
+			inputRef.value = newVal;
 		}
 	}
 
@@ -50,19 +51,19 @@
 		const target = evt.currentTarget as HTMLInputElement;
 		const inputValue = parseInputValue(target);
 		updateHourWrapper(inputValue);
-	})
+	});
 
 	const onHourUp = $derived((evt: MouseEvent) => {
 		evt.preventDefault();
 		const newHour = $hour + 1 > 23 ? 0 : $hour + 1;
 		updateHourWrapper(newHour);
-	})
+	});
 
 	const onHourDown = $derived((evt: MouseEvent) => {
 		evt.preventDefault();
 		const newHour = $hour - 1 < 0 ? 23 : $hour - 1;
 		updateHourWrapper(newHour);
-	})
+	});
 
 	const value = $derived(`${`${$hour}`.padStart(2, '0')}:00`);
 </script>

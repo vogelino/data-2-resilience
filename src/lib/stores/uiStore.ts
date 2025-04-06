@@ -159,7 +159,6 @@ const hourQueryParam = queryParam('hour', ssp.number(hourDefault));
 export const hour = derived([hourQueryParam, dayEndDate], ([value, dayEndDateVal]) => {
 	const validated =
 		value === 0 ? 0 : validateQueryParam(`${value}`, z.coerce.number(), hourDefault);
-	debugger;
 	const d = limitDateBoundsToToday({
 		date: dayEndDateVal,
 		refDate: today(),

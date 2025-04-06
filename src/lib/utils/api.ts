@@ -85,8 +85,10 @@ export const api = (customFetch = fetch) => ({
 		dayOfYear = 177;
 		year = 2024;
 		unit = 'UTCI';
+		const paddedHour = String(hour).padStart(2, '0');
+		const paddedDayOfYear = String(dayOfYear).padStart(3, '0');
 		const response = await customFetch(
-			`${PUBLIC_API_BASE_URL}/tms/metadata/${unit}/${year}/${dayOfYear}/${hour}`
+			`${PUBLIC_API_BASE_URL}/tms/metadata/${unit}/${year}/${paddedDayOfYear}/${paddedHour}`
 		);
 		if (!response.ok && response.status === 422) return null;
 		const data = await parseData(response, HeatStressMetadataSchema);

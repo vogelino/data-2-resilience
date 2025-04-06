@@ -33,16 +33,19 @@ cd data2resilience
 
 # Install dependencies
 pnpm install
+
+# Copy and configure environment variables
+cp .env.example .env
 ```
 
 ## Local Development
 
 ```bash
 # Start development server
-pnpm dev
+pnpm run dev
 
-# Open in browser
-pnpm dev -- --open
+# Generate i18n types
+pnpm run typesafe-i18n
 ```
 
 ## Docker Deployment
@@ -54,6 +57,16 @@ docker build -t data2resilience .
 # Run the container
 docker run -p 3000:3000 data2resilience
 ```
+
+### GitHub Actions Release Pipeline
+
+The app is automatically containerized and published to GitHub Container Registry on releases.
+
+To create a new release:
+
+1. Tag your commit with a version
+2. Create a GitHub release
+3. The action will automatically build and publish the container
 
 ## State Management
 
@@ -113,3 +126,38 @@ const query = createQuery({
 	queryFn: fetchData
 });
 ```
+
+## Internationalization
+
+We use [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n) for type-safe translations:
+
+- Translations are stored in `src/i18n/{locale}/index.ts`
+- Auto-generated types on the fly with the following command:
+
+```bash
+pnpm typesafe-i18n
+```
+
+Example translation usage:
+
+```typescript
+import LL from '$i18n/i18n-svelte';
+
+// In your component
+$LL.pages.about.title(); // Type-safe translation
+```
+
+## Theme Support
+
+The app supports light, dark, and system theme modes using [tailwindcss](https://tailwindcss.com/docs/dark-mode):
+
+```typescript
+// Toggle theme modes
+const theme = $state('light' | 'dark' | 'system');
+```
+
+Theme preferences are:
+
+- Persisted in localStorage
+- Synced with system preferences
+- Automatically applied using Tailwind's dark mode classes

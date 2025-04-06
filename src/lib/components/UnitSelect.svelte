@@ -5,6 +5,7 @@
 	import * as Popover from '$lib/components/ui/popover';
 	import { unit, updateUnit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils.js';
+	import { sortUnitByLabel } from '$lib/utils/textUtil';
 	import { Check, ChevronDown } from 'lucide-svelte';
 	import { tick } from 'svelte';
 	import type { ChangeEventHandler } from 'svelte/elements';
@@ -26,13 +27,7 @@
 					label.toLowerCase().includes(searchValue.toLowerCase()) ||
 					value.toLowerCase().includes(searchValue.toLowerCase())
 			)
-			.sort((a, b) => {
-				if (a.value.startsWith('utci') && !b.value.startsWith('utci')) return -1;
-				if (!a.value.startsWith('utci') && b.value.startsWith('utci')) return 1;
-				if (a.value.startsWith('utci') && b.value.startsWith('utci'))
-					return b.label.localeCompare(a.label);
-				return a.label.localeCompare(b.label, $locale);
-			})
+			.sort((a, b) => sortUnitByLabel(a, b, $locale))
 	);
 
 	let open = $state(false);

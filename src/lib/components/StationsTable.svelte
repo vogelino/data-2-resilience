@@ -25,7 +25,6 @@
 	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
 	import SearchInputField from './SearchInputField.svelte';
 	import SensorCoordinatesWithTooltip from './SensorCoordinatesWithTooltip.svelte';
-	import SensorTypeWithTooltip from './SensorTypeWithTooltip.svelte';
 	import Table from './Table.svelte';
 
 	let { stations }: { stations: StationMetadata[] } = $props();
@@ -54,19 +53,22 @@
 			header: () => $LL.pages.stations.table.headers.stationType(),
 			accessorKey: 'stationType',
 			cell: (info) => {
-				const type = info.getValue() === 'biomet' ? 'biomet' : 'temprh';
 				const searchQuery = info.table.getState().globalFilter;
-				return renderComponent(SensorTypeWithTooltip, { type, searchQuery });
+				const text =
+					info.getValue() === 'biomet' || info.getValue() === 'double'
+						? $LL.pages.stations.table.cells.stationTypes.biomet()
+						: $LL.pages.stations.table.cells.stationTypes.temprh();
+				return renderComponent(HighlightedSearchQuery, { text, searchQuery });
 			},
 			sortingFn: (a, b) => {
 				const aLabel =
 					a.original.stationType === 'biomet'
-						? $LL.pages.stations.table.cells.stationTypes.biomet.title()
-						: $LL.pages.stations.table.cells.stationTypes.temprh.title();
+						? $LL.pages.stations.table.cells.stationTypes.biomet()
+						: $LL.pages.stations.table.cells.stationTypes.temprh();
 				const bLabel =
 					b.original.stationType === 'biomet'
-						? $LL.pages.stations.table.cells.stationTypes.biomet.title()
-						: $LL.pages.stations.table.cells.stationTypes.temprh.title();
+						? $LL.pages.stations.table.cells.stationTypes.biomet()
+						: $LL.pages.stations.table.cells.stationTypes.temprh();
 				return aLabel.localeCompare(bLabel, $locale);
 			}
 		},
@@ -115,7 +117,7 @@
 		let value = row.getValue(columnId);
 
 		if (columnId === 'stationType') {
-			value = $LL.pages.stations.table.cells.stationTypes[value as 'biomet' | 'temprh'].title();
+			value = $LL.pages.stations.table.cells.stationTypes[value as 'biomet' | 'temprh']();
 		} else if (typeof value === 'number') {
 			value = value.toLocaleString($locale);
 		}

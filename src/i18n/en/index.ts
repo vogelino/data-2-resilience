@@ -564,15 +564,46 @@ const en = {
 				'Below you will find technical information about the monitoring stations, as well as a summary of the criteria for selecting their locations.'
 			],
 			stationsDescriptions: {
+				supportedIndicatorsLabel: 'Supported indicators',
 				weather: {
 					title: 'Weather station with Blackglobe sensor',
 					description:
-						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+					supportedIndicators: [
+						'absolute_humidity',
+						'specific_humidity',
+						'atmospheric_pressure',
+						'atmospheric_pressure_reduced',
+						'air_temperature',
+						'dew_point',
+						'heat_index',
+						'lightning_average_distance',
+						'lightning_strike_count',
+						'mrt',
+						'pet',
+						'pet_category',
+						'precipitation_sum',
+						'relative_humidity',
+						'solar_radiation',
+						'utci',
+						'utci_category',
+						'vapor_pressure',
+						'wet_bulb_temperature',
+						'wind_direction',
+						'wind_speed',
+						'maximum_wind_speed'
+					]
 				},
 				airTemperatureAndHumidity: {
 					title: 'Air temperature and humidity sensor',
 					description:
-						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+					supportedIndicators: [
+						'absolute_humidity',
+						'specific_humidity',
+						'relative_humidity',
+						'air_temperature'
+					]
 				}
 			},
 			table: {
@@ -594,19 +625,8 @@ const en = {
 				},
 				cells: {
 					stationTypes: {
-						thisStationMeasures: 'This station measures:',
-						biomet: {
-							nameShort: 'Weather Station',
-							title: 'Weather station (including Blackglobe sensor)',
-							description:
-								'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.'
-						},
-						temprh: {
-							nameShort: 'Temperature',
-							title: 'Temperature and humidity sensor',
-							description:
-								'Ex consequat duis do adipisicing ipsum velit minim aliqua. Labore cillum nostrud id tempor id in sint qui sunt qui.'
-						}
+						biomet: 'Weather Station',
+						temprh: 'Temperature'
 					},
 					status: {
 						active: 'active',

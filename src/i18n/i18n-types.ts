@@ -1362,6 +1362,10 @@ type RootTranslation = {
 				'0': string
 			}
 			stationsDescriptions: {
+				/**
+				 * U​n​t​e​r​s​t​ü​t​z​t​e​ ​I​n​d​i​k​a​t​o​r​e​n
+				 */
+				supportedIndicatorsLabel: string
 				weather: {
 					/**
 					 * W​e​t​t​e​r​s​t​a​t​i​o​n​ ​m​i​t​ ​B​l​a​c​k​g​l​o​b​e​-​S​e​n​s​o​r
@@ -1371,6 +1375,96 @@ type RootTranslation = {
 					 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
 					 */
 					description: string
+					supportedIndicators: {
+						/**
+						 * a​b​s​o​l​u​t​e​_​h​u​m​i​d​i​t​y
+						 */
+						'0': string
+						/**
+						 * s​p​e​c​i​f​i​c​_​h​u​m​i​d​i​t​y
+						 */
+						'1': string
+						/**
+						 * a​t​m​o​s​p​h​e​r​i​c​_​p​r​e​s​s​u​r​e
+						 */
+						'2': string
+						/**
+						 * a​t​m​o​s​p​h​e​r​i​c​_​p​r​e​s​s​u​r​e​_​r​e​d​u​c​e​d
+						 */
+						'3': string
+						/**
+						 * a​i​r​_​t​e​m​p​e​r​a​t​u​r​e
+						 */
+						'4': string
+						/**
+						 * d​e​w​_​p​o​i​n​t
+						 */
+						'5': string
+						/**
+						 * h​e​a​t​_​i​n​d​e​x
+						 */
+						'6': string
+						/**
+						 * l​i​g​h​t​n​i​n​g​_​a​v​e​r​a​g​e​_​d​i​s​t​a​n​c​e
+						 */
+						'7': string
+						/**
+						 * l​i​g​h​t​n​i​n​g​_​s​t​r​i​k​e​_​c​o​u​n​t
+						 */
+						'8': string
+						/**
+						 * m​r​t
+						 */
+						'9': string
+						/**
+						 * p​e​t
+						 */
+						'10': string
+						/**
+						 * p​e​t​_​c​a​t​e​g​o​r​y
+						 */
+						'11': string
+						/**
+						 * p​r​e​c​i​p​i​t​a​t​i​o​n​_​s​u​m
+						 */
+						'12': string
+						/**
+						 * r​e​l​a​t​i​v​e​_​h​u​m​i​d​i​t​y
+						 */
+						'13': string
+						/**
+						 * s​o​l​a​r​_​r​a​d​i​a​t​i​o​n
+						 */
+						'14': string
+						/**
+						 * u​t​c​i
+						 */
+						'15': string
+						/**
+						 * u​t​c​i​_​c​a​t​e​g​o​r​y
+						 */
+						'16': string
+						/**
+						 * v​a​p​o​r​_​p​r​e​s​s​u​r​e
+						 */
+						'17': string
+						/**
+						 * w​e​t​_​b​u​l​b​_​t​e​m​p​e​r​a​t​u​r​e
+						 */
+						'18': string
+						/**
+						 * w​i​n​d​_​d​i​r​e​c​t​i​o​n
+						 */
+						'19': string
+						/**
+						 * w​i​n​d​_​s​p​e​e​d
+						 */
+						'20': string
+						/**
+						 * m​a​x​i​m​u​m​_​w​i​n​d​_​s​p​e​e​d
+						 */
+						'21': string
+					}
 				}
 				airTemperatureAndHumidity: {
 					/**
@@ -1381,6 +1475,24 @@ type RootTranslation = {
 					 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
 					 */
 					description: string
+					supportedIndicators: {
+						/**
+						 * a​b​s​o​l​u​t​e​_​h​u​m​i​d​i​t​y
+						 */
+						'0': string
+						/**
+						 * s​p​e​c​i​f​i​c​_​h​u​m​i​d​i​t​y
+						 */
+						'1': string
+						/**
+						 * r​e​l​a​t​i​v​e​_​h​u​m​i​d​i​t​y
+						 */
+						'2': string
+						/**
+						 * a​i​r​_​t​e​m​p​e​r​a​t​u​r​e
+						 */
+						'3': string
+					}
 				}
 			}
 			table: {
@@ -1439,37 +1551,13 @@ type RootTranslation = {
 				cells: {
 					stationTypes: {
 						/**
-						 * D​i​e​s​e​ ​S​t​a​t​i​o​n​ ​m​i​s​s​t​ ​f​o​l​g​e​n​d​e​ ​M​e​s​s​w​e​r​t​e​:
+						 * W​e​t​t​e​r​s​t​a​t​i​o​n
 						 */
-						thisStationMeasures: string
-						biomet: {
-							/**
-							 * W​e​t​t​e​r​s​t​a​t​i​o​n
-							 */
-							nameShort: string
-							/**
-							 * W​e​t​t​e​r​s​t​a​t​i​o​n​ ​(​i​n​k​l​.​ ​B​l​a​c​k​g​l​o​b​e​ ​S​e​n​s​o​r​)
-							 */
-							title: string
-							/**
-							 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.
-							 */
-							description: string
-						}
-						temprh: {
-							/**
-							 * T​e​m​p​e​r​a​t​u​r
-							 */
-							nameShort: string
-							/**
-							 * T​e​m​p​e​r​a​t​u​r​-​u​n​d​ ​F​e​u​c​h​t​i​g​k​e​i​t​s​s​e​n​s​o​r
-							 */
-							title: string
-							/**
-							 * E​x​ ​c​o​n​s​e​q​u​a​t​ ​d​u​i​s​ ​d​o​ ​a​d​i​p​i​s​i​c​i​n​g​ ​i​p​s​u​m​ ​v​e​l​i​t​ ​m​i​n​i​m​ ​a​l​i​q​u​a​.​ ​L​a​b​o​r​e​ ​c​i​l​l​u​m​ ​n​o​s​t​r​u​d​ ​i​d​ ​t​e​m​p​o​r​ ​i​d​ ​i​n​ ​s​i​n​t​ ​q​u​i​ ​s​u​n​t​ ​q​u​i​.
-							 */
-							description: string
-						}
+						biomet: string
+						/**
+						 * T​e​m​p​e​r​a​t​u​r
+						 */
+						temprh: string
 					}
 					status: {
 						/**
@@ -3360,6 +3448,10 @@ export type TranslationFunctions = {
 				'0': () => LocalizedString
 			}
 			stationsDescriptions: {
+				/**
+				 * Unterstützte Indikatoren
+				 */
+				supportedIndicatorsLabel: () => LocalizedString
 				weather: {
 					/**
 					 * Wetterstation mit Blackglobe-Sensor
@@ -3369,6 +3461,96 @@ export type TranslationFunctions = {
 					 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
 					 */
 					description: () => LocalizedString
+					supportedIndicators: {
+						/**
+						 * absolute_humidity
+						 */
+						'0': () => LocalizedString
+						/**
+						 * specific_humidity
+						 */
+						'1': () => LocalizedString
+						/**
+						 * atmospheric_pressure
+						 */
+						'2': () => LocalizedString
+						/**
+						 * atmospheric_pressure_reduced
+						 */
+						'3': () => LocalizedString
+						/**
+						 * air_temperature
+						 */
+						'4': () => LocalizedString
+						/**
+						 * dew_point
+						 */
+						'5': () => LocalizedString
+						/**
+						 * heat_index
+						 */
+						'6': () => LocalizedString
+						/**
+						 * lightning_average_distance
+						 */
+						'7': () => LocalizedString
+						/**
+						 * lightning_strike_count
+						 */
+						'8': () => LocalizedString
+						/**
+						 * mrt
+						 */
+						'9': () => LocalizedString
+						/**
+						 * pet
+						 */
+						'10': () => LocalizedString
+						/**
+						 * pet_category
+						 */
+						'11': () => LocalizedString
+						/**
+						 * precipitation_sum
+						 */
+						'12': () => LocalizedString
+						/**
+						 * relative_humidity
+						 */
+						'13': () => LocalizedString
+						/**
+						 * solar_radiation
+						 */
+						'14': () => LocalizedString
+						/**
+						 * utci
+						 */
+						'15': () => LocalizedString
+						/**
+						 * utci_category
+						 */
+						'16': () => LocalizedString
+						/**
+						 * vapor_pressure
+						 */
+						'17': () => LocalizedString
+						/**
+						 * wet_bulb_temperature
+						 */
+						'18': () => LocalizedString
+						/**
+						 * wind_direction
+						 */
+						'19': () => LocalizedString
+						/**
+						 * wind_speed
+						 */
+						'20': () => LocalizedString
+						/**
+						 * maximum_wind_speed
+						 */
+						'21': () => LocalizedString
+					}
 				}
 				airTemperatureAndHumidity: {
 					/**
@@ -3379,6 +3561,24 @@ export type TranslationFunctions = {
 					 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
 					 */
 					description: () => LocalizedString
+					supportedIndicators: {
+						/**
+						 * absolute_humidity
+						 */
+						'0': () => LocalizedString
+						/**
+						 * specific_humidity
+						 */
+						'1': () => LocalizedString
+						/**
+						 * relative_humidity
+						 */
+						'2': () => LocalizedString
+						/**
+						 * air_temperature
+						 */
+						'3': () => LocalizedString
+					}
 				}
 			}
 			table: {
@@ -3437,37 +3637,13 @@ export type TranslationFunctions = {
 				cells: {
 					stationTypes: {
 						/**
-						 * Diese Station misst folgende Messwerte:
+						 * Wetterstation
 						 */
-						thisStationMeasures: () => LocalizedString
-						biomet: {
-							/**
-							 * Wetterstation
-							 */
-							nameShort: () => LocalizedString
-							/**
-							 * Wetterstation (inkl. Blackglobe Sensor)
-							 */
-							title: () => LocalizedString
-							/**
-							 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-							 */
-							description: () => LocalizedString
-						}
-						temprh: {
-							/**
-							 * Temperatur
-							 */
-							nameShort: () => LocalizedString
-							/**
-							 * Temperatur-und Feuchtigkeitssensor
-							 */
-							title: () => LocalizedString
-							/**
-							 * Ex consequat duis do adipisicing ipsum velit minim aliqua. Labore cillum nostrud id tempor id in sint qui sunt qui.
-							 */
-							description: () => LocalizedString
-						}
+						biomet: () => LocalizedString
+						/**
+						 * Temperatur
+						 */
+						temprh: () => LocalizedString
 					}
 					status: {
 						/**

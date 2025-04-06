@@ -175,7 +175,7 @@
 			{$unitOnly ? `(${$unitOnly})` : ''}
 		</span>
 		<ChartExportDropdown
-			chartExportFilename="stations-histogram.png"
+			chartExportFilename="stations-histogram"
 			chartExportId="stations-histogram"
 			onChartExportStart={() => (isExporting = true)}
 			onChartExportEnd={() => (isExporting = false)}

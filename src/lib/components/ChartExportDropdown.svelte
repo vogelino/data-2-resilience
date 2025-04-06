@@ -1,5 +1,7 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
+	import { unit } from '$lib/stores/uiStore';
+	import { format } from 'date-fns';
 	import html2canvas from 'html2canvas';
 	import { Download, EllipsisVertical, LoaderCircle } from 'lucide-svelte';
 	import { mode } from 'mode-watcher';
@@ -27,7 +29,7 @@
 		onChartExportEnd = () => {}
 	}: Props = $props();
 
-	let isExporting = $state(false)
+	let isExporting = $state(false);
 
 	function wrappedOnChartExportStart() {
 		isExporting = true;
@@ -60,7 +62,7 @@
 			}
 		});
 		const link = document.createElement('a');
-		link.download = chartExportFilename;
+		link.download = `${chartExportFilename}-${$unit}-${format(new Date(), 'yyyy-MM-dd-HH-mm')}.png`;
 		canvas.setAttribute('preserveDrawingBuffer', 'true');
 		link.href = canvas.toDataURL();
 		link.click();

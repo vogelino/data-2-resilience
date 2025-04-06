@@ -112,7 +112,7 @@
 	</span>
 	<span class={cn('flex items-center gap-x-2', isExporting && 'opacity-0')}>
 		<ChartExportDropdown
-			chartExportFilename="stations-linechart.png"
+			chartExportFilename="stations-linechart"
 			chartExportId="stations-datavis"
 			onChartExportStart={() => (isExporting = true)}
 			onChartExportEnd={() => (isExporting = false)}

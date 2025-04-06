@@ -185,7 +185,7 @@
 		{@render minMaxAvgCombobox()}
 		<ChartExportDropdown
 			disableExport={!showChart}
-			chartExportFilename="stations-barchart.png"
+			chartExportFilename="stations-barchart"
 			chartExportId="stations-datavis"
 			onChartExportStart={() => (isExporting = true)}
 			onChartExportEnd={() => (isExporting = false)}

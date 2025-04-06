@@ -21,9 +21,10 @@
 	import type { StationMetadata } from '$lib/utils/schemas';
 	import { compareItems, rankItem } from '@tanstack/match-sorter-utils';
 	import { createQuery } from '@tanstack/svelte-query';
+	import DataDownloadButtonWithTooltip from './DataDownloadButtonWithTooltip.svelte';
 	import HighlightedSearchQuery from './HighlightedSearchQuery.svelte';
 	import SearchInputField from './SearchInputField.svelte';
-	import SensorTypeWithTooltip from './SensorTypeWithTooltip.svelte';
+	import SensorCoordinatesWithTooltip from './SensorCoordinatesWithTooltip.svelte';
 	import Table from './Table.svelte';
 
 	let { stations }: { stations: StationMetadata[] } = $props();
@@ -52,19 +53,22 @@
 			header: () => $LL.pages.stations.table.headers.stationType(),
 			accessorKey: 'stationType',
 			cell: (info) => {
-				const type = info.getValue() === 'biomet' ? 'biomet' : 'temprh';
 				const searchQuery = info.table.getState().globalFilter;
-				return renderComponent(SensorTypeWithTooltip, { type, searchQuery });
+				const text =
+					info.getValue() === 'biomet' || info.getValue() === 'double'
+						? $LL.pages.stations.table.cells.stationTypes.biomet()
+						: $LL.pages.stations.table.cells.stationTypes.temprh();
+				return renderComponent(HighlightedSearchQuery, { text, searchQuery });
 			},
 			sortingFn: (a, b) => {
 				const aLabel =
 					a.original.stationType === 'biomet'
-						? $LL.pages.stations.table.cells.stationTypes.biomet.title()
-						: $LL.pages.stations.table.cells.stationTypes.temprh.title();
+						? $LL.pages.stations.table.cells.stationTypes.biomet()
+						: $LL.pages.stations.table.cells.stationTypes.temprh();
 				const bLabel =
 					b.original.stationType === 'biomet'
-						? $LL.pages.stations.table.cells.stationTypes.biomet.title()
-						: $LL.pages.stations.table.cells.stationTypes.temprh.title();
+						? $LL.pages.stations.table.cells.stationTypes.biomet()
+						: $LL.pages.stations.table.cells.stationTypes.temprh();
 				return aLabel.localeCompare(bLabel, $locale);
 			}
 		},
@@ -96,8 +100,15 @@
 			cell: (info) => {
 				const { latitude, longitude } = info.row.original;
 				const searchQuery = info.table.getState().globalFilter;
-				const text = `${latitude.toLocaleString($locale)}, ${longitude.toLocaleString($locale)}`;
-				return renderComponent(HighlightedSearchQuery, { searchQuery, text });
+				return renderComponent(SensorCoordinatesWithTooltip, { searchQuery, latitude, longitude });
+			}
+		},
+		{
+			header: () => $LL.pages.stations.table.headers.dataDownload(),
+			accessorKey: 'id',
+			cell: (info) => {
+				const id = info.getValue() as string;
+				return renderComponent(DataDownloadButtonWithTooltip, { id });
 			}
 		}
 	] satisfies ColumnDef<StationMetadata>[];
@@ -106,7 +117,7 @@
 		let value = row.getValue(columnId);
 
 		if (columnId === 'stationType') {
-			value = $LL.pages.stations.table.cells.stationTypes[value as 'biomet' | 'temprh'].title();
+			value = $LL.pages.stations.table.cells.stationTypes[value as 'biomet' | 'temprh']();
 		} else if (typeof value === 'number') {
 			value = value.toLocaleString($locale);
 		}

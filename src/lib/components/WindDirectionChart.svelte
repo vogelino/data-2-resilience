@@ -36,13 +36,13 @@
 		`${$LL.pages.measurements.unitSelect.units[$unit as keyof typeof $LL.pages.measurements.unitSelect.units].unitOnly()}`
 	);
 	const yTickFormat = $derived(
-		(d: number) => `${d.toLocaleString($locale, { maximumFractionDigits: 1 })}${unitOnly}`
+		(d: number) => `${d.toLocaleString($locale, { maximumFractionDigits: 1 })}`
 	);
 	const tooltipTemplate = $derived((d: DataRecord) => {
 		const heatStressColorPill = (val: number, stationIdx: number) => `
 				<span
 					class="size-2.5 inline-block relative transition all text-muted-foreground"
-					style="transform: rotate(${val}deg);"
+					style="transform: rotate(${val + 180}deg);"
 				>
 					<span
 						class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 font-semibold"
@@ -53,7 +53,7 @@
 				</span>
 			`;
 		return `
-			<span class="flex flex-col text-xs">
+			<span class="flex flex-col text-xs chart-export-ignore">
 				<strong class="pb-1 mb-1 border-b border-border text-sm">
 					${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short', hour12: false }).format(d.date)}
 				</strong>
@@ -87,7 +87,7 @@
 	});
 </script>
 
-<div class={cn('relative h-[360px] w-full')}>
+<div class={cn('relative h-[360px] w-full')} id="linechart-container">
 	{#if data && data.length > 0 && !error}
 		<Chart
 			{data}
@@ -150,12 +150,14 @@
 				{#each stationNames as name, idx}
 					{#each data as item}
 						{@const value = item[name] as number}
-						<use
-							xlink:href="#windarrow"
+						<path
+							d="M7.39242 13V4.22136L3.86957 7.6068L3 6.78447L8.00558 2L13 6.78447L12.1527 7.6068L8.61873 4.22136V13H7.39242Z"
 							transform-origin="8 8"
-							transform={`translate(${scaleX(item.date) - 8}, ${scaleY(value) - 8}) rotate(${value})`}
+							transform={`translate(${scaleX(item.date) - 8}, ${scaleY(value) - 8}) rotate(${value + 180})`}
 							style={`fill: ${CHART_COLORS[idx]};`}
-						></use>
+							fill={CHART_COLORS[idx]}
+							color={CHART_COLORS[idx]}
+						/>
 					{/each}
 				{/each}
 			</Svg>
@@ -169,10 +171,20 @@
 					root: 'absolute inset-x-0 bottom-0',
 					swatches: 'items-center justify-center w-full flex flex-wrap gap-x-4',
 					swatch: 'w-3 h-0.5',
-					item: () => 'flex items-center gap-x-2'
+					item: () => 'flex items-center gap-x-2',
+					label: 'chart-legend-label' // Needed to offset the labels in the export
 				}}
 			/>
-			<Tooltip.Root let:data classes={tooltipClasses} x="data" xOffset={8} contained="container">
+			<Tooltip.Root
+				let:data
+				classes={{
+					...tooltipClasses,
+					root: cn(tooltipClasses.root, 'w-64', 'mt-24')
+				}}
+				xOffset={10}
+				anchor={'right'}
+				contained="window"
+			>
 				{@html tooltipTemplate(data)}
 			</Tooltip.Root>
 		</Chart>

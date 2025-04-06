@@ -2,10 +2,17 @@
 	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { boundariesMode, isLeftSidebarOpened, showSatellite, updateBoundariesMode, updateShowSatellite } from '$lib/stores/uiStore';
+	import {
+		boundariesMode,
+		isLeftSidebarOpened,
+		showSatellite,
+		updateBoundariesMode,
+		updateShowSatellite
+	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import type { Builder } from 'bits-ui';
 	import CheckboxIcon from 'components/CheckboxIcon.svelte';
+	import InfoTooltip from 'components/InfoTooltip.svelte';
 	import Button from 'components/ui/button/button.svelte';
 	import type { Props as ButtonProps } from 'components/ui/button/index.ts';
 	import { Layers3 } from 'lucide-svelte';
@@ -43,7 +50,7 @@
 					updateBoundariesMode('districts');
 				}
 			}}
-			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
+			class={cn('grid grid-cols-[auto_1fr_auto] items-center gap-2')}
 		>
 			<span
 				class={cn(
@@ -51,9 +58,13 @@
 					$boundariesMode === 'districts' && 'border-4 bg-foreground'
 				)}
 			></span>
-			<span class={cn($boundariesMode === 'districts' && 'font-semibold')}>
-				{$LL.map.layersSelection.districts()}
+			<span class={cn($boundariesMode === 'districts' && 'font-semibold', 'leading-tight')}>
+				{@html $LL.map.layersSelection.districts()}
 			</span>
+			<InfoTooltip
+				title={$LL.map.layersSelection.districtsTooltip.title()}
+				description={$LL.map.layersSelection.districtsTooltip.description()}
+			/>
 		</DropdownMenu.Item>
 		<DropdownMenu.Item
 			on:click={() => {
@@ -63,7 +74,7 @@
 					updateBoundariesMode('lors');
 				}
 			}}
-			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
+			class={cn('grid grid-cols-[auto_1fr_auto] items-center gap-2')}
 		>
 			<span
 				class={cn(
@@ -71,19 +82,27 @@
 					$boundariesMode === 'lors' && 'border-4 bg-foreground'
 				)}
 			></span>
-			<span class={cn($boundariesMode === 'lors' && 'font-semibold')}>
-				{$LL.map.layersSelection.lors()}
+			<span class={cn($boundariesMode === 'lors' && 'font-semibold', 'leading-tight')}>
+				{@html $LL.map.layersSelection.lors()}
 			</span>
+			<InfoTooltip
+				title={$LL.map.layersSelection.lorsTooltip.title()}
+				description={$LL.map.layersSelection.lorsTooltip.description()}
+			/>
 		</DropdownMenu.Item>
 		<DropdownMenu.Separator />
 		<DropdownMenu.Item
 			on:click={() => updateShowSatellite(!$showSatellite)}
-			class={cn('grid grid-cols-[auto_1fr] items-center gap-2')}
+			class={cn('grid grid-cols-[auto_1fr_auto] items-center gap-2')}
 		>
 			<CheckboxIcon checked={$showSatellite} />
-			<span class={cn($showSatellite && 'font-semibold')}>
-				{$LL.map.layersSelection.satellite()}
+			<span class={cn($showSatellite && 'font-semibold', 'leading-tight')}>
+				{@html $LL.map.layersSelection.satellite()}
 			</span>
+			<InfoTooltip
+				title={$LL.map.layersSelection.satelliteTooltip.title()}
+				description={$LL.map.layersSelection.satelliteTooltip.description()}
+			/>
 		</DropdownMenu.Item>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

@@ -6,6 +6,7 @@
 	import Map from '$lib/components/Map/Map.svelte';
 	import SidebarsLayout from '$lib/components/SidebarsLayout.svelte';
 	import StationsTable from '$lib/components/StationsTable.svelte';
+	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import type { PageData } from './$types';
 
 	interface Props {
@@ -30,7 +31,7 @@
 	{#if isStationsPage}
 		<StationsTable stations={stationsMetadata} />
 	{:else}
-		<Map stations={stationsGeoJson} />
+		<Map stations={stationsGeoJson as StationsGeoJSONType} />
 	{/if}
 </SidebarsLayout>
 {#if isAboutPage}

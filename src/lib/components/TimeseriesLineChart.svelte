@@ -1,11 +1,16 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { stations } from '$lib/stores/mapData';
-	import { unit } from '$lib/stores/uiStore';
+	import { unit, unitOnly } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { CHART_COLORS } from '$lib/utils/chartUtils';
-	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
-	import { getHeatStressCategoryByValue, getHeatStressValueByCategory, valueToCategoryMap } from '$lib/utils/heatStressCategoriesUtil';
+	import { getColorScaleValue, isHealthRiskUnit } from '$lib/utils/colorScaleUtil';
+	import { getHealthRiskKeyByValue, getHealthRiskPill } from '$lib/utils/healthRisksUtil';
+	import {
+		getHeatStressCategoryByValue,
+		getHeatStressValueByCategory,
+		valueToCategoryMap
+	} from '$lib/utils/heatStressCategoriesUtil';
 	import { getHeatStressLabel } from '$lib/utils/textUtil';
 	import { scaleLinear, type ScaleLinear, scaleOrdinal, scaleTime } from 'd3-scale';
 	import {
@@ -23,22 +28,17 @@
 	import ErrorAlert from './ErrorAlert.svelte';
 	import { tooltipClasses } from './Histogram/HistogramTooltip.svelte';
 
-  type DataRecord = Record<string, string | number> & {
-    date: Date;
-  }
+	type DataRecord = Record<string, string | number> & {
+		date: Date;
+	};
 
-  type Props = {
-    data?: DataRecord[];
-    error?: Error | null;
-    isLoading?: boolean;
+	type Props = {
+		data?: DataRecord[];
+		error?: Error | null;
+		isLoading?: boolean;
 		isOrdinal?: boolean;
-  }
-  const {
-    data = [],
-    error,
-    isLoading,
-		isOrdinal,
-  }: Props = $props()
+	};
+	const { data = [], error, isLoading, isOrdinal }: Props = $props();
 
 	const stationNames = $derived(
 		Object.keys(data[0] || {})
@@ -48,30 +48,32 @@
 	const yDomain = $derived.by(() => {
 		if (isOrdinal) {
 			return [
-				getHeatStressValueByCategory("extreme cold stress"),
-				getHeatStressValueByCategory("extreme heat stress")
-			]
+				getHeatStressValueByCategory('extreme cold stress'),
+				getHeatStressValueByCategory('extreme heat stress')
+			];
 		}
 		if (data.length === 0) return [0, 100];
-		const min = data.reduce((acc, item) => {
-			const itemsMinVal = Math.min(...Object.values(item).filter((d) => typeof d === 'number'))
-			if (acc === null) return itemsMinVal
-			return itemsMinVal < acc ? itemsMinVal : acc
-		}, null as null | number)
-		const max = data.reduce((acc, item) => {
-			const itemsMaxVal = Math.max(...Object.values(item).filter((d) => typeof d === 'number'))
-			if (acc === null) return itemsMaxVal
-			return itemsMaxVal > acc ? itemsMaxVal : acc
-		}, null as null | number)
+		const min = data.reduce(
+			(acc, item) => {
+				const itemsMinVal = Math.min(...Object.values(item).filter((d) => typeof d === 'number'));
+				if (acc === null) return itemsMinVal;
+				return itemsMinVal < acc ? itemsMinVal : acc;
+			},
+			null as null | number
+		);
+		const max = data.reduce(
+			(acc, item) => {
+				const itemsMaxVal = Math.max(...Object.values(item).filter((d) => typeof d === 'number'));
+				if (acc === null) return itemsMaxVal;
+				return itemsMaxVal > acc ? itemsMaxVal : acc;
+			},
+			null as null | number
+		);
 		return [min, max];
-	})
-	const xScale = scaleTime()
-	const yScale = scaleLinear()
-	const cScale = $derived(
-		scaleOrdinal()
-			.domain(stationNames)
-			.range(CHART_COLORS)
-	);
+	});
+	const xScale = scaleTime();
+	const yScale = scaleLinear();
+	const cScale = $derived(scaleOrdinal().domain(stationNames).range(CHART_COLORS));
 	const xTickFormat = $derived((d: Date) =>
 		new Intl.DateTimeFormat($locale, { dateStyle: 'short' }).format(d)
 	);
@@ -86,56 +88,53 @@
 					maximumFractionDigits: 1
 				})
 	);
-	const tooltipTemplate = $derived(
-		(d: DataRecord) => {
-			const heatStressColorByValue = (val: number) => {
-				return getColorScaleValue({
-					unit: $unit,
-					LL: $LL,
-					value: val
-				});
-			}
-			const heatStressColorByCategory = (catNum: number) => {
-				return getColorScaleValue({
-					value: getHeatStressCategoryByValue(catNum),
-					LL: $LL,
-					unit: $unit
-				})
-			}
-
-			const heatStressColorPill = (val: number) => `
-				<span
-					class="size-2.5 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)] inline-block"
-					style="background-color: ${isOrdinal ? heatStressColorByCategory(val) : heatStressColorByValue(val)};"
-				></span>
-			`
-			return `
-			<span class="flex flex-col text-xs">
+	const isHealthUnit = $derived(isHealthRiskUnit($unit));
+	const tooltipTemplate = $derived((d: DataRecord) => {
+		return `
+			<span class="flex flex-col text-xs chart-export-ignore">
 				<strong class="pb-1 mb-1 border-b border-border text-sm">
 					${new Intl.DateTimeFormat($locale, { dateStyle: 'long', timeStyle: 'short', hour12: false }).format(d.date)}
 				</strong>
-				<span class="grid grid-cols-[1fr_auto] gap-x-4 gap-y-0.5 items-center">
+				<span class="${cn(
+					`grid gap-x-1 gap-y-0.5 items-center`,
+					isHealthUnit ? `grid-cols-[1fr_auto_auto_auto]` : `grid-cols-[1fr_auto_auto]`
+				)}">
 					${stationNames
 						.filter((name) => typeof d[name as keyof typeof d] === 'number')
 						.map((name, idx) => {
 							const value = d[name as keyof typeof d] as number;
-							const heatStressStringVal = getHeatStressCategoryByValue(value)
-							const heatStressPill = heatStressColorPill(value)
+							const heatStressStringVal = getHeatStressCategoryByValue(value);
+							const heatStressPill = getHealthRiskPill({
+								value,
+								unit: $unit,
+								LL: $LL,
+								withLabel: false
+							});
+							const healthRiskKey =
+								isHealthUnit && getHealthRiskKeyByValue({ value, unit: $unit as 'utci' | 'pet' });
+							const healthRisks = $LL.map.choroplethLegend.healthRisks;
+							let healthRiskLabel = '';
+							if (healthRiskKey) {
+								healthRiskLabel =
+									healthRisks[healthRiskKey as keyof typeof healthRisks].title.thermalComfort();
+							}
+
 							return `
-								<span class="flex items-center leading-tight">
+								<span class="inline-grid leading-tight pr-4 grid-cols-[auto_1fr] max-w-40 truncate items-center">
 									${CHART_COLORS[idx] && `<span style="background-color: ${CHART_COLORS[idx]}" class="inline-block w-3 h-0.5 mr-2"></span>`}
-									${name}
+									<span class="truncate inline-block">${name}</span>
 								</span>
-								${`<span class="whitespace-nowrap inline-flex items-center gap-1">
-											${(
-												!isOrdinal
-													? `${heatStressPill} ${value.toLocaleString($locale, { maximumFractionDigits: 1 })}`
-													: `${heatStressPill} ${getHeatStressLabel({ unit: $unit, LL: $LL, value: heatStressStringVal })}`
-											) || `<span class="text-muted-foreground">${$LL.pages.measurements.noValueMeasured()}</span>`}
-											${$LL.pages.measurements.unitSelect.units[
-												$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-											].unitOnly()}
-										</span>`}
+								${!isHealthUnit ? heatStressPill : ''} 
+								<span>
+									${
+										(!isOrdinal
+											? `${value.toLocaleString($locale, { maximumFractionDigits: 1 })}`
+											: `${getHeatStressLabel({ unit: $unit, LL: $LL, value: heatStressStringVal })}`) ||
+										`<span class="text-muted-foreground">${$LL.pages.measurements.noValueMeasured()}</span>`
+									}
+									${$unitOnly}
+								</span>
+								${isHealthUnit ? `${heatStressPill}<span>${healthRiskLabel}</span>` : ''}
 							`;
 						})
 						.join('')}
@@ -146,12 +145,13 @@
 	const catAsideWidth = 8;
 	const padding = $derived({
 		top: 8,
-		left: isOrdinal ? 150 : 40, bottom: 48 + Math.ceil(stationNames.length / 3) * 14,
-		right: 8 + catAsideWidth,
-	})
+		left: isOrdinal ? 150 : 40,
+		bottom: 48 + Math.ceil(stationNames.length / 3) * 14,
+		right: 8 + catAsideWidth
+	});
 </script>
 
-<div class={cn("relative h-[360px] w-full")}>
+<div class={cn('relative h-[360px] w-full')} id="linechart-container">
 	{#if data && data.length > 0 && !error}
 		<Chart
 			{data}
@@ -173,7 +173,7 @@
 					placement="left"
 					rule
 					grid
-					classes={{ tickLabel: "text-xs" }} 
+					classes={{ tickLabel: 'text-xs' }}
 					tickLabelProps={{ dx: -8 }}
 					format={yTickFormat}
 					ticks={isOrdinal ? valueToCategoryMap.size : undefined}
@@ -182,7 +182,7 @@
 					placement="bottom"
 					format={xTickFormat}
 					rule
-					classes={{ tickLabel: "text-xs" }} 
+					classes={{ tickLabel: 'text-xs' }}
 					tickLabelProps={{ dy: 8 }}
 					ticks={4}
 				/>
@@ -203,18 +203,22 @@
 					{@const minVal = yDomain[0] || scaleYDomain[0]}
 					{@const maxVal = yDomain[1] || scaleYDomain[1]}
 					{@const ticksCount = 10}
-					{@const colorTicks = [...Array.from({ length: ticksCount }, (_, i) => {
-						const tickStep = Math.round(Math.abs(maxVal - minVal) / ticksCount)
-						if (tickStep === 0) return minVal
-						if (tickStep === ticksCount - 1) return maxVal
-						return minVal + i * tickStep
-					})]}
+					{@const colorTicks = [
+						...Array.from({ length: ticksCount }, (_, i) => {
+							const tickStep = Math.round(Math.abs(maxVal - minVal) / ticksCount);
+							if (i === 0) return minVal;
+							if (i === ticksCount - 1) return maxVal;
+							return minVal + i * tickStep;
+						})
+					]}
 					<LinearGradient
-						stops={colorTicks.toReversed().map((d) => getColorScaleValue({
-							unit: $unit,
-							LL: $LL,
-							value: d
-						}))}
+						stops={colorTicks.toReversed().map((d) =>
+							getColorScaleValue({
+								unit: $unit,
+								LL: $LL,
+								value: d
+							})
+						)}
 						vertical
 						units="objectBoundingBox"
 						let:gradient
@@ -230,13 +234,7 @@
 					</LinearGradient>
 				{/if}
 				{#each stationNames as name, idx}
-					<Spline
-						{data}
-						class="stroke-2"
-						stroke={CHART_COLORS[idx]}
-						y={(d) => d[name]}
-						x="date"
-					/>
+					<Spline {data} class="stroke-2" stroke={CHART_COLORS[idx]} y={(d) => d[name]} x="date" />
 				{/each}
 				{#each stationNames as name, idx}
 					<Highlight y={(d) => d[name]} points={{ fill: CHART_COLORS[idx] }} />
@@ -247,15 +245,26 @@
 			<Legend
 				scale={cScale}
 				variant="swatches"
-				tickFormat={(d) => $stations.features.find((f) => f.properties.id === d)?.properties.longName || d}
+				tickFormat={(d) =>
+					$stations.features.find((f) => f.properties.id === d)?.properties.longName || d}
 				classes={{
 					root: 'absolute inset-x-0 bottom-0',
 					swatches: 'items-center justify-center w-full flex flex-wrap gap-x-4',
 					swatch: 'w-3 h-0.5',
-					item: () => "flex items-center gap-x-2"
+					item: () => 'flex items-center gap-x-2',
+					label: 'chart-legend-label' // Needed to correct a shift in the chart export
 				}}
 			/>
-			<Tooltip.Root let:data classes={tooltipClasses} x="data" xOffset={8} contained="container">
+			<Tooltip.Root
+				let:data
+				classes={{
+					...tooltipClasses,
+					root: cn(tooltipClasses.root, isHealthUnit && !isOrdinal ? 'w-80' : 'w-64', 'mt-24')
+				}}
+				xOffset={isHealthUnit && !isOrdinal ? -80 : 10}
+				anchor={'right'}
+				contained="window"
+			>
 				{@html tooltipTemplate(data)}
 			</Tooltip.Root>
 		</Chart>
@@ -264,7 +273,7 @@
 			{$LL.pages.measurements.noDataAvailable()}
 		</div>
 	{/if}
-	{#if error}
+	{#if error && !isLoading}
 		<div class="absolute inset-0 flex items-center justify-center">
 			<ErrorAlert errorObject={error} />
 		</div>
@@ -272,7 +281,7 @@
 	<div
 		class={cn(
 			'absolute inset-0 flex items-center justify-center',
-			'pointer-events-none opacity-0',
+			'pointer-events-none z-50 bg-background/50 opacity-0',
 			isLoading && 'opacity-100'
 		)}
 	>

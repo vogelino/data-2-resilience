@@ -102,6 +102,10 @@ type RootTranslation = {
 			 */
 			unsupportedStation: string
 		}
+		/**
+		 * U​n​g​ü​l​t​i​g​e​ ​E​x​p​o​r​t​k​o​n​f​i​g​u​r​a​t​i​o​n
+		 */
+		invalidExportConfig: string
 	}
 	generic: {
 		/**
@@ -158,6 +162,10 @@ type RootTranslation = {
 			 */
 			noResults: string
 		}
+		/**
+		 * C​h​a​r​t​ ​e​x​p​o​r​t​i​e​r​e​n
+		 */
+		chartExportButtonLabel: string
 	}
 	themeSwitch: {
 		/**
@@ -249,11 +257,11 @@ type RootTranslation = {
 			}
 			unitSelect: {
 				/**
-				 * E​i​n​h​e​i​t​e​n​a​u​s​w​a​h​l
+				 * I​n​d​i​k​a​t​o​r​a​u​s​w​a​h​l
 				 */
 				title: string
 				/**
-				 * W​i​r​ ​h​a​b​e​n​ ​d​i​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​n​ ​D​a​t​e​n​ ​i​n​ ​d​i​e​s​e​m​ ​D​a​s​h​b​o​a​r​d​ ​i​n​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​E​i​n​h​e​i​t​e​n​ ​u​m​g​e​r​e​c​h​n​e​t​,​ ​d​a​m​i​t​ ​S​i​e​ ​s​i​e​ ​b​e​s​s​e​r​ ​v​e​r​s​t​e​h​e​n​ ​k​ö​n​n​e​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​E​i​n​h​e​i​t​e​n​ ​j​e​d​e​r​z​e​i​t​ ​ä​n​d​e​r​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​E​i​n​h​e​i​t​e​n​s​y​m​b​o​l​e​ ​k​l​i​c​k​e​n​.
+				 * W​i​r​ ​h​a​b​e​n​ ​d​i​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​n​ ​D​a​t​e​n​ ​i​n​ ​d​i​e​s​e​m​ ​D​a​s​h​b​o​a​r​d​ ​i​n​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​I​n​d​i​k​a​t​o​r​e​n​ ​u​m​g​e​r​e​c​h​n​e​t​,​ ​d​a​m​i​t​ ​S​i​e​ ​s​i​e​ ​b​e​s​s​e​r​ ​v​e​r​s​t​e​h​e​n​ ​k​ö​n​n​e​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​I​n​d​i​k​a​t​o​r​e​n​ ​j​e​d​e​r​z​e​i​t​ ​ä​n​d​e​r​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​I​n​d​i​k​a​t​o​r​s​y​m​b​o​l​e​ ​k​l​i​c​k​e​n​.
 				 */
 				text: string
 			}
@@ -338,6 +346,10 @@ type RootTranslation = {
 				 * D​e​r​ ​H​i​t​z​e​a​t​l​a​s​ ​f​ü​r​ ​D​o​r​t​m​u​n​d​ ​b​i​e​t​e​t​ ​e​i​n​e​ ​Ü​b​e​r​s​i​c​h​t​ ​z​u​r​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​i​n​ ​d​e​r​ ​S​t​a​d​t​.​ ​D​i​e​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​w​i​r​d​ ​d​u​r​c​h​ ​d​r​e​i​ ​K​a​r​t​e​n​ ​a​b​g​e​b​i​l​d​e​t​:​ ​d​e​n​ ​u​n​i​v​e​r​s​e​l​l​e​n​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​ ​z​u​r​ ​E​i​n​s​c​h​ä​t​z​u​n​g​ ​d​e​s​ ​W​ä​r​m​e​e​m​p​f​i​n​d​e​n​s​ ​v​o​n​ ​B​ü​r​g​e​r​I​n​n​e​n​ ​s​o​w​i​e​ ​d​i​e​ ​r​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​u​n​d​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​a​l​s​ ​z​e​n​t​r​a​l​e​ ​E​i​n​f​l​u​s​s​f​a​k​t​o​r​e​n​.
 				 */
 				'0': string
+				/**
+				 * K​a​r​t​e​n​ ​b​a​s​i​e​r​e​n​ ​a​u​f​ ​m​o​d​e​l​l​i​e​r​t​e​n​ ​B​e​r​e​c​h​n​u​n​g​e​n​,​ ​d​i​e​ ​a​u​s​ ​S​t​a​t​i​o​n​s​m​e​s​s​u​n​g​e​n​ ​a​b​g​e​l​e​i​t​e​t​ ​s​i​n​d​.​ ​D​i​e​ ​m​o​d​e​l​l​i​e​r​t​e​n​ ​K​a​r​t​e​n​ ​s​i​n​d​ ​w​e​n​i​g​e​r​ ​g​e​n​a​u​ ​a​l​s​ ​d​i​e​ ​M​e​s​s​d​a​t​e​n​ ​u​n​d​ ​s​o​l​l​t​e​n​ ​n​u​r​ ​a​l​s​ ​A​u​s​g​a​n​g​s​p​u​n​k​t​ ​v​e​r​w​e​n​d​e​t​ ​w​e​r​d​e​n​.​ ​F​ü​r​ ​d​e​t​a​i​l​l​i​e​r​t​e​ ​A​n​a​l​y​s​e​n​ ​v​e​r​l​a​s​s​e​n​ ​S​i​e​ ​s​i​c​h​ ​b​i​t​t​e​ ​a​u​f​ ​d​i​e​ ​S​t​a​t​i​o​n​s​m​e​s​s​d​a​t​e​n​.
+				 */
+				'1': string
 			}
 			/**
 			 * D​a​t​e​n​ ​n​u​r​ ​v​e​r​f​ü​g​b​a​r​ ​i​m​ ​Z​e​i​t​r​a​u​m​ ​v​o​m​ ​{​s​t​a​r​t​D​a​t​e​}​ ​b​i​s​ ​{​e​n​d​D​a​t​e​}​.
@@ -382,23 +394,6 @@ type RootTranslation = {
 			 */
 			noStationsSelected: string
 			/**
-			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​w​e​r​d​e​n​ ​f​ü​r​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​n​i​c​h​t​ ​g​e​n​ü​g​e​n​d​ ​D​a​t​e​n​ ​e​r​h​o​b​e​n​,​ ​u​m​ ​s​i​e​ ​i​n​ ​a​g​g​r​e​g​i​e​r​t​e​n​ ​F​r​o​m​ ​a​n​z​u​z​e​i​g​e​n​.
-			 * @param {string} stations
-			 * @param {string} unit
-			 */
-			someInsufficientDataStations: RequiredParams<'stations' | 'unit'>
-			/**
-			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​a​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​e​r​h​e​b​t​ ​g​e​n​ü​g​e​n​d​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​,​ ​u​m​ ​s​i​e​ ​i​n​ ​a​g​g​r​e​g​i​e​r​t​e​n​ ​F​r​o​m​ ​a​n​z​u​z​e​i​g​e​n​.
-			 * @param {string} unit
-			 */
-			allInsufficientDataStations: RequiredParams<'unit'>
-			/**
-			 * D​i​e​ ​S​t​a​t​i​o​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​t​ ​n​i​c​h​t​ ​g​e​n​ü​g​e​n​d​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​,​ ​u​m​ ​s​i​e​ ​i​n​ ​a​g​g​r​e​g​i​e​r​t​e​n​ ​F​r​o​m​ ​a​n​z​u​z​e​i​g​e​n​.
-			 * @param {string} station
-			 * @param {string} unit
-			 */
-			singleInsufficientDataStation: RequiredParams<'station' | 'unit'>
-			/**
 			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​k​e​i​n​e​ ​D​a​t​e​n​.
 			 * @param {string} stations
 			 * @param {string} unit
@@ -420,6 +415,23 @@ type RootTranslation = {
 			 * @param {string} unit
 			 */
 			singleUnsupportedStationShort: RequiredParams<'unit'>
+			/**
+			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​h​a​b​e​n​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​e​r​h​e​b​e​n​ ​k​ö​n​n​e​n​.
+			 * @param {string} stations
+			 * @param {string} unit
+			 */
+			someStationsWithoutAvailableData: RequiredParams<'stations' | 'unit'>
+			/**
+			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​k​o​n​n​t​e​n​ ​D​a​t​e​n​ ​f​u​e​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​.
+			 * @param {string} unit
+			 */
+			allStationsWithoutAvailableData: RequiredParams<'unit'>
+			/**
+			 * D​i​e​ ​S​t​a​t​i​o​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​}​<​/​s​t​r​o​n​g​>​ ​k​o​n​n​t​e​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​.
+			 * @param {string} station
+			 * @param {string} unit
+			 */
+			singleStationWithoutAvailableData: RequiredParams<'station' | 'unit'>
 			stationsSelect: {
 				/**
 				 * E​i​n​e​ ​o​d​e​r​ ​m​e​h​r​e​r​e​ ​S​t​a​t​i​o​n​e​n​ ​a​u​s​w​ä​h​l​e​n
@@ -432,15 +444,15 @@ type RootTranslation = {
 			}
 			unitSelect: {
 				/**
-				 * K​e​i​n​e​ ​E​i​n​h​e​i​t​ ​g​e​f​u​n​d​e​n
+				 * K​e​i​n​ ​I​n​d​i​k​a​t​o​r​ ​g​e​f​u​n​d​e​n
 				 */
 				noUnitFound: string
 				/**
-				 * E​i​n​h​e​i​t​ ​a​u​s​w​ä​h​l​e​n
+				 * I​n​d​i​k​a​t​o​r​ ​a​u​s​w​ä​h​l​e​n
 				 */
 				placeholder: string
 				/**
-				 * E​i​n​h​e​i​t​ ​s​u​c​h​e​n​.​.​.
+				 * I​n​d​i​k​a​t​o​r​ ​s​u​c​h​e​n​.​.​.
 				 */
 				searchPlaceholder: string
 				/**
@@ -498,7 +510,7 @@ type RootTranslation = {
 					}
 					utci_category: {
 						/**
-						 * U​T​C​I​-​K​a​t​e​g​o​r​i​e
+						 * U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​ ​K​a​t​e​g​o​r​i​e
 						 */
 						label: string
 						/**
@@ -920,7 +932,7 @@ type RootTranslation = {
 					}
 					pet_category: {
 						/**
-						 * P​E​T​-​K​a​t​e​g​o​r​i​e
+						 * P​h​y​s​i​o​l​o​g​i​s​c​h​ ​ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)​ ​K​a​t​e​g​o​r​i​e
 						 */
 						label: string
 						/**
@@ -1354,6 +1366,10 @@ type RootTranslation = {
 				'0': string
 			}
 			stationsDescriptions: {
+				/**
+				 * U​n​t​e​r​s​t​ü​t​z​t​e​ ​I​n​d​i​k​a​t​o​r​e​n
+				 */
+				supportedIndicatorsLabel: string
 				weather: {
 					/**
 					 * W​e​t​t​e​r​s​t​a​t​i​o​n​ ​m​i​t​ ​B​l​a​c​k​g​l​o​b​e​-​S​e​n​s​o​r
@@ -1363,6 +1379,96 @@ type RootTranslation = {
 					 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
 					 */
 					description: string
+					supportedIndicators: {
+						/**
+						 * a​b​s​o​l​u​t​e​_​h​u​m​i​d​i​t​y
+						 */
+						'0': string
+						/**
+						 * a​i​r​_​t​e​m​p​e​r​a​t​u​r​e
+						 */
+						'1': string
+						/**
+						 * a​t​m​o​s​p​h​e​r​i​c​_​p​r​e​s​s​u​r​e​_​r​e​d​u​c​e​d
+						 */
+						'2': string
+						/**
+						 * a​t​m​o​s​p​h​e​r​i​c​_​p​r​e​s​s​u​r​e
+						 */
+						'3': string
+						/**
+						 * d​e​w​_​p​o​i​n​t
+						 */
+						'4': string
+						/**
+						 * h​e​a​t​_​i​n​d​e​x
+						 */
+						'5': string
+						/**
+						 * l​i​g​h​t​n​i​n​g​_​a​v​e​r​a​g​e​_​d​i​s​t​a​n​c​e
+						 */
+						'6': string
+						/**
+						 * l​i​g​h​t​n​i​n​g​_​s​t​r​i​k​e​_​c​o​u​n​t
+						 */
+						'7': string
+						/**
+						 * m​a​x​i​m​u​m​_​w​i​n​d​_​s​p​e​e​d
+						 */
+						'8': string
+						/**
+						 * m​r​t
+						 */
+						'9': string
+						/**
+						 * p​e​t​_​c​a​t​e​g​o​r​y
+						 */
+						'10': string
+						/**
+						 * p​e​t
+						 */
+						'11': string
+						/**
+						 * p​r​e​c​i​p​i​t​a​t​i​o​n​_​s​u​m
+						 */
+						'12': string
+						/**
+						 * r​e​l​a​t​i​v​e​_​h​u​m​i​d​i​t​y
+						 */
+						'13': string
+						/**
+						 * s​o​l​a​r​_​r​a​d​i​a​t​i​o​n
+						 */
+						'14': string
+						/**
+						 * s​p​e​c​i​f​i​c​_​h​u​m​i​d​i​t​y
+						 */
+						'15': string
+						/**
+						 * u​t​c​i​_​c​a​t​e​g​o​r​y
+						 */
+						'16': string
+						/**
+						 * u​t​c​i
+						 */
+						'17': string
+						/**
+						 * v​a​p​o​r​_​p​r​e​s​s​u​r​e
+						 */
+						'18': string
+						/**
+						 * w​e​t​_​b​u​l​b​_​t​e​m​p​e​r​a​t​u​r​e
+						 */
+						'19': string
+						/**
+						 * w​i​n​d​_​d​i​r​e​c​t​i​o​n
+						 */
+						'20': string
+						/**
+						 * w​i​n​d​_​s​p​e​e​d
+						 */
+						'21': string
+					}
 				}
 				airTemperatureAndHumidity: {
 					/**
@@ -1373,6 +1479,36 @@ type RootTranslation = {
 					 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
 					 */
 					description: string
+					supportedIndicators: {
+						/**
+						 * a​b​s​o​l​u​t​e​_​h​u​m​i​d​i​t​y
+						 */
+						'0': string
+						/**
+						 * a​i​r​_​t​e​m​p​e​r​a​t​u​r​e
+						 */
+						'1': string
+						/**
+						 * d​e​w​_​p​o​i​n​t
+						 */
+						'2': string
+						/**
+						 * h​e​a​t​_​i​n​d​e​x
+						 */
+						'3': string
+						/**
+						 * r​e​l​a​t​i​v​e​_​h​u​m​i​d​i​t​y
+						 */
+						'4': string
+						/**
+						 * s​p​e​c​i​f​i​c​_​h​u​m​i​d​i​t​y
+						 */
+						'5': string
+						/**
+						 * w​e​t​_​b​u​l​b​_​t​e​m​p​e​r​a​t​u​r​e
+						 */
+						'6': string
+					}
 				}
 			}
 			table: {
@@ -1419,41 +1555,25 @@ type RootTranslation = {
 					 * D​e​t​a​i​l​s
 					 */
 					details: string
+					/**
+					 * D​a​t​e​n
+					 */
+					dataDownload: string
+					/**
+					 * D​a​t​e​n​ ​f​ü​r​ ​d​i​e​s​e​ ​S​t​a​t​i​o​n​ ​h​e​r​u​n​t​e​r​l​a​d​e​n
+					 */
+					dataDownloadTooltip: string
 				}
 				cells: {
 					stationTypes: {
 						/**
-						 * D​i​e​s​e​ ​S​t​a​t​i​o​n​ ​m​i​s​s​t​ ​f​o​l​g​e​n​d​e​ ​M​e​s​s​w​e​r​t​e​:
+						 * W​e​t​t​e​r​s​t​a​t​i​o​n
 						 */
-						thisStationMeasures: string
-						biomet: {
-							/**
-							 * W​e​t​t​e​r​s​t​a​t​i​o​n
-							 */
-							nameShort: string
-							/**
-							 * W​e​t​t​e​r​s​t​a​t​i​o​n​ ​(​i​n​k​l​.​ ​B​l​a​c​k​g​l​o​b​e​ ​S​e​n​s​o​r​)
-							 */
-							title: string
-							/**
-							 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.
-							 */
-							description: string
-						}
-						temprh: {
-							/**
-							 * T​e​m​p​e​r​a​t​u​r
-							 */
-							nameShort: string
-							/**
-							 * T​e​m​p​e​r​a​t​u​r​-​u​n​d​ ​F​e​u​c​h​t​i​g​k​e​i​t​s​s​e​n​s​o​r
-							 */
-							title: string
-							/**
-							 * E​x​ ​c​o​n​s​e​q​u​a​t​ ​d​u​i​s​ ​d​o​ ​a​d​i​p​i​s​i​c​i​n​g​ ​i​p​s​u​m​ ​v​e​l​i​t​ ​m​i​n​i​m​ ​a​l​i​q​u​a​.​ ​L​a​b​o​r​e​ ​c​i​l​l​u​m​ ​n​o​s​t​r​u​d​ ​i​d​ ​t​e​m​p​o​r​ ​i​d​ ​i​n​ ​s​i​n​t​ ​q​u​i​ ​s​u​n​t​ ​q​u​i​.
-							 */
-							description: string
-						}
+						biomet: string
+						/**
+						 * T​e​m​p​e​r​a​t​u​r
+						 */
+						temprh: string
 					}
 					status: {
 						/**
@@ -1464,6 +1584,20 @@ type RootTranslation = {
 						 * I​n​a​k​t​i​v
 						 */
 						inactive: string
+					}
+					coordinates: {
+						/**
+						 * A​u​f​ ​G​o​o​g​l​e​ ​M​a​p​s​ ​ö​f​f​n​e​n
+						 */
+						googleMapsLinkText: string
+						/**
+						 * I​n​ ​d​i​e​ ​Z​w​i​s​c​h​e​n​a​b​l​a​g​e​ ​k​o​p​i​e​r​e​n
+						 */
+						copyCoordinates: string
+						/**
+						 * I​n​ ​d​i​e​ ​Z​w​i​s​c​h​e​n​a​b​l​a​g​e​ ​k​o​p​i​e​r​t
+						 */
+						copiedToClipboard: string
 					}
 				}
 			}
@@ -1477,6 +1611,26 @@ type RootTranslation = {
 			 * D​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d​ ​w​u​r​d​e​ ​i​m​ ​R​a​h​m​e​n​ ​d​e​s​ ​P​r​o​j​e​k​t​e​s​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​e​n​t​w​i​c​k​e​l​t​,​ ​e​i​n​e​m​ ​g​e​m​e​i​n​s​a​m​e​n​ ​F​o​r​s​c​h​u​n​g​s​p​r​o​j​e​k​t​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​ä​t​ ​B​o​c​h​u​m​ ​u​n​d​ ​d​e​r​ ​L​e​i​b​n​i​z​ ​U​n​i​v​e​r​s​i​t​ä​t​ ​H​a​n​n​o​v​e​r​.​ ​D​a​s​ ​P​r​o​j​e​k​t​ ​z​i​e​l​t​ ​d​a​r​a​u​f​ ​a​b​,​ ​d​i​e​ ​R​e​s​i​l​i​e​n​z​ ​D​o​r​t​m​u​n​d​s​ ​g​e​g​e​n​ü​b​e​r​ ​d​e​m​ ​K​l​i​m​a​w​a​n​d​e​l​ ​z​u​ ​v​e​r​b​e​s​s​e​r​n​,​ ​i​n​d​e​m​ ​i​n​n​o​v​a​t​i​v​e​ ​T​e​c​h​n​o​l​o​g​i​e​n​ ​u​n​d​ ​B​ü​r​g​e​r​b​e​t​e​i​l​i​g​u​n​g​ ​g​e​n​u​t​z​t​ ​w​e​r​d​e​n​,​ ​u​m​ ​d​i​e​ ​A​u​s​w​i​r​k​u​n​g​e​n​ ​e​x​t​r​e​m​e​r​ ​H​i​t​z​e​ ​a​u​f​ ​d​a​s​ ​S​t​a​d​t​l​e​b​e​n​ ​z​u​ ​m​i​n​i​m​i​e​r​e​n​.​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​w​i​r​d​ ​v​o​n​ ​P​r​o​f​.​ ​D​r​.​ ​B​e​n​j​a​m​i​n​ ​B​e​c​h​t​e​l​ ​u​n​d​ ​P​r​o​f​.​ ​D​r​.​ ​C​h​r​i​s​t​i​a​n​ ​A​l​b​e​r​t​ ​g​e​l​e​i​t​e​t​ ​u​n​d​ ​v​o​m​ ​<​a​ ​h​r​e​f​=​'​h​t​t​p​s​:​/​/​i​c​l​e​i​.​o​r​g​/​a​c​t​i​v​i​t​y​/​i​c​l​e​i​-​a​c​t​i​o​n​-​f​u​n​d​-​2​-​0​/​'​ ​t​a​r​g​e​t​=​'​_​b​l​a​n​k​'​ ​r​e​l​=​'​n​o​o​p​e​n​e​r​ ​n​o​r​e​f​e​r​r​e​r​'​>​I​C​L​E​I​ ​A​c​t​i​o​n​ ​F​u​n​d​ ​2​.​0​<​/​a​>​ ​s​o​w​i​e​ ​<​a​ ​h​r​e​f​=​'​h​t​t​p​s​:​/​/​w​w​w​.​g​o​o​g​l​e​.​o​r​g​/​'​ ​t​a​r​g​e​t​=​'​_​b​l​a​n​k​'​ ​r​e​l​=​'​n​o​o​p​e​n​e​r​ ​n​o​r​e​f​e​r​r​e​r​'​>​G​o​o​g​l​e​.​o​r​g​<​/​a​>​ ​f​i​n​a​n​z​i​e​r​t​.
 			 */
 			description: string
+			mainLink: {
+				/**
+				 * h​t​t​p​s​:​/​/​d​o​r​t​m​u​n​d​.​d​e​/​h​i​t​z​e
+				 */
+				url: string
+				/**
+				 * d​o​r​t​m​u​n​d​.​d​e​/​h​i​t​z​e
+				 */
+				label: string
+			}
+			contactLink: {
+				/**
+				 * m​a​i​l​t​o​:​i​n​f​o​@​d​a​t​a​2​r​e​s​i​l​i​e​n​c​e​.​o​r​g
+				 */
+				url: string
+				/**
+				 * S​c​h​r​e​i​b​e​ ​u​n​s​ ​e​i​n​e​ ​E​-​M​a​i​l
+				 */
+				label: string
+			}
 			links: {
 				'0': {
 					/**
@@ -1647,18 +1801,48 @@ type RootTranslation = {
 			 * S​t​a​d​t​b​e​z​i​r​k​e
 			 */
 			districts: string
+			districtsTooltip: {
+				/**
+				 * S​t​a​d​t​b​e​z​i​r​k​e
+				 */
+				title: string
+				/**
+				 * D​i​e​ ​S​t​a​d​t​b​e​z​i​r​k​e​ ​s​i​n​d​ ​d​i​e​ ​e​i​n​z​e​l​n​e​n​ ​B​e​z​i​r​k​e​ ​d​e​r​ ​S​t​a​d​t​ ​D​o​r​t​m​u​n​d​.​ ​S​i​e​ ​s​i​n​d​ ​i​n​ ​d​e​r​ ​R​e​g​e​l​ ​k​l​e​i​n​e​r​ ​a​l​s​ ​d​i​e​ ​S​t​a​d​t​t​e​i​l​e​ ​u​n​d​ ​A​k​t​i​o​n​s​r​ä​u​m​e​.
+				 */
+				description: string
+			}
 			/**
-			 * A​k​t​i​o​n​s​r​ä​u​m​e
+			 * S​t​a​d​t​t​e​i​l​e​<​b​r​/​>​&​ ​A​k​t​i​o​n​s​r​ä​u​m​e
 			 */
 			lors: string
+			lorsTooltip: {
+				/**
+				 * S​t​a​d​t​t​e​i​l​e​ ​&​ ​A​k​t​i​o​n​s​r​ä​u​m​e
+				 */
+				title: string
+				/**
+				 * D​i​e​ ​S​t​a​d​t​t​e​i​l​e​ ​s​i​n​d​ ​d​i​e​ ​e​i​n​z​e​l​n​e​n​ ​E​i​n​z​e​l​g​e​b​ä​u​d​e​ ​d​e​r​ ​S​t​a​d​t​ ​D​o​r​t​m​u​n​d​.​ ​D​i​e​ ​A​k​t​i​o​n​s​r​ä​u​m​e​ ​s​i​n​d​ ​d​i​e​ ​ö​f​f​e​n​t​l​i​c​h​e​n​ ​R​ä​u​m​e​,​ ​d​i​e​ ​v​o​n​ ​d​e​r​ ​S​t​a​d​t​v​e​r​w​a​l​t​u​n​g​ ​b​e​t​r​i​e​b​e​n​ ​w​e​r​d​e​n​.
+				 */
+				description: string
+			}
 			/**
 			 * D​i​g​i​t​a​l​e​ ​O​r​t​h​o​p​h​o​t​o​s
 			 */
 			satellite: string
+			satelliteTooltip: {
+				/**
+				 * D​i​g​i​t​a​l​e​ ​O​r​t​h​o​p​h​o​t​o​s
+				 */
+				title: string
+				/**
+				 * D​i​e​ ​D​i​g​i​t​a​l​e​ ​O​r​t​h​o​p​h​o​t​o​s​ ​s​i​n​d​ ​e​i​n​e​ ​d​i​g​i​t​a​l​e​ ​D​a​r​s​t​e​l​l​u​n​g​ ​d​e​r​ ​S​t​a​d​t​ ​D​o​r​t​m​u​n​d​.​ ​S​i​e​ ​z​e​i​g​e​n​ ​d​i​e​ ​S​t​a​d​t​ ​a​l​s​ ​e​i​n​e​ ​g​r​o​ß​e​,​ ​f​l​a​c​h​e​,​ ​s​c​h​w​a​r​z​e​ ​F​l​ä​c​h​e​,​ ​d​i​e​ ​v​o​n​ ​d​e​r​ ​D​i​g​i​t​a​l​i​s​i​e​r​u​n​g​ ​d​e​r​ ​S​t​a​d​t​ ​b​e​t​r​i​e​b​e​n​ ​w​i​r​d​.
+				 */
+				description: string
+			}
 		}
 		layersTooltips: {
 			/**
-			 * V​u​l​n​e​r​a​b​l​e​r​ ​A​k​t​i​o​n​s​r​a​u​m
+			 * A​k​t​i​o​n​s​r​a​u​m
 			 */
 			vulnerableArea: string
 			type: {
@@ -1685,6 +1869,10 @@ type RootTranslation = {
 			 * G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n
 			 */
 			title: string
+			/**
+			 * E​r​h​e​b​t​ ​k​e​i​n​e​ ​D​a​t​e​n
+			 */
+			notCollectingData: string
 			/**
 			 * K​e​i​n​e​ ​D​a​t​e​n​ ​v​e​r​f​ü​g​b​a​r
 			 */
@@ -2053,6 +2241,10 @@ export type TranslationFunctions = {
 			 */
 			unsupportedStation: () => LocalizedString
 		}
+		/**
+		 * Ungültige Exportkonfiguration
+		 */
+		invalidExportConfig: () => LocalizedString
 	}
 	generic: {
 		/**
@@ -2109,6 +2301,10 @@ export type TranslationFunctions = {
 			 */
 			noResults: () => LocalizedString
 		}
+		/**
+		 * Chart exportieren
+		 */
+		chartExportButtonLabel: () => LocalizedString
 	}
 	themeSwitch: {
 		/**
@@ -2200,11 +2396,11 @@ export type TranslationFunctions = {
 			}
 			unitSelect: {
 				/**
-				 * Einheitenauswahl
+				 * Indikatorauswahl
 				 */
 				title: () => LocalizedString
 				/**
-				 * Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Einheiten umgerechnet, damit Sie sie besser verstehen können. Sie können die Einheiten jederzeit ändern, indem Sie auf die Einheitensymbole klicken.
+				 * Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Indikatoren umgerechnet, damit Sie sie besser verstehen können. Sie können die Indikatoren jederzeit ändern, indem Sie auf die Indikatorsymbole klicken.
 				 */
 				text: () => LocalizedString
 			}
@@ -2289,6 +2485,10 @@ export type TranslationFunctions = {
 				 * Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.
 				 */
 				'0': () => LocalizedString
+				/**
+				 * Karten basieren auf modellierten Berechnungen, die aus Stationsmessungen abgeleitet sind. Die modellierten Karten sind weniger genau als die Messdaten und sollten nur als Ausgangspunkt verwendet werden. Für detaillierte Analysen verlassen Sie sich bitte auf die Stationsmessdaten.
+				 */
+				'1': () => LocalizedString
 			}
 			/**
 			 * Daten nur verfügbar im Zeitraum vom {startDate} bis {endDate}.
@@ -2331,18 +2531,6 @@ export type TranslationFunctions = {
 			 */
 			noStationsSelected: () => LocalizedString
 			/**
-			 * Für den gewählten Indikator <strong>{unit}</strong> werden für die Stationen <strong>{stations}</strong> nicht genügend Daten erhoben, um sie in aggregierten From anzuzeigen.
-			 */
-			someInsufficientDataStations: (arg: { stations: string, unit: string }) => LocalizedString
-			/**
-			 * Keine der ausgewahlten Stationen erhebt genügend Daten für den Indikator <strong>{unit}</strong>, um sie in aggregierten From anzuzeigen.
-			 */
-			allInsufficientDataStations: (arg: { unit: string }) => LocalizedString
-			/**
-			 * Die Station <strong>{station}</strong> erhebt nicht genügend Daten für den Indikator <strong>{unit}</strong>, um sie in aggregierten From anzuzeigen.
-			 */
-			singleInsufficientDataStation: (arg: { station: string, unit: string }) => LocalizedString
-			/**
 			 * Für den gewählten Indikator <strong>{unit}</strong> erheben die Stationen <strong>{stations}</strong> keine Daten.
 			 */
 			someUnsupportedStations: (arg: { stations: string, unit: string }) => LocalizedString
@@ -2358,6 +2546,18 @@ export type TranslationFunctions = {
 			 * Diese Station erhebt keine Daten für den Indikator <strong>{unit}</strong>.
 			 */
 			singleUnsupportedStationShort: (arg: { unit: string }) => LocalizedString
+			/**
+			 * Für den gewählten Indikator <strong>{unit}</strong> haben die Stationen <strong>{stations}</strong> keine Daten erheben können.
+			 */
+			someStationsWithoutAvailableData: (arg: { stations: string, unit: string }) => LocalizedString
+			/**
+			 * Keine der ausgewählten Stationen konnten Daten fuer den Indikator <strong>{unit}</strong> erheben.
+			 */
+			allStationsWithoutAvailableData: (arg: { unit: string }) => LocalizedString
+			/**
+			 * Die Station <strong>{station}</strong> konnte keine Daten für den Indikator <strong>{unit}</strong> erheben.
+			 */
+			singleStationWithoutAvailableData: (arg: { station: string, unit: string }) => LocalizedString
 			stationsSelect: {
 				/**
 				 * Eine oder mehrere Stationen auswählen
@@ -2370,15 +2570,15 @@ export type TranslationFunctions = {
 			}
 			unitSelect: {
 				/**
-				 * Keine Einheit gefunden
+				 * Kein Indikator gefunden
 				 */
 				noUnitFound: () => LocalizedString
 				/**
-				 * Einheit auswählen
+				 * Indikator auswählen
 				 */
 				placeholder: () => LocalizedString
 				/**
-				 * Einheit suchen...
+				 * Indikator suchen...
 				 */
 				searchPlaceholder: () => LocalizedString
 				/**
@@ -2434,7 +2634,7 @@ export type TranslationFunctions = {
 					}
 					utci_category: {
 						/**
-						 * UTCI-Kategorie
+						 * Universeller Thermischer Klimaindex (UTCI) Kategorie
 						 */
 						label: () => LocalizedString
 						/**
@@ -2856,7 +3056,7 @@ export type TranslationFunctions = {
 					}
 					pet_category: {
 						/**
-						 * PET-Kategorie
+						 * Physiologisch äquivalente Temperatur (PET) Kategorie
 						 */
 						label: () => LocalizedString
 						/**
@@ -3284,6 +3484,10 @@ export type TranslationFunctions = {
 				'0': () => LocalizedString
 			}
 			stationsDescriptions: {
+				/**
+				 * Unterstützte Indikatoren
+				 */
+				supportedIndicatorsLabel: () => LocalizedString
 				weather: {
 					/**
 					 * Wetterstation mit Blackglobe-Sensor
@@ -3293,6 +3497,96 @@ export type TranslationFunctions = {
 					 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
 					 */
 					description: () => LocalizedString
+					supportedIndicators: {
+						/**
+						 * absolute_humidity
+						 */
+						'0': () => LocalizedString
+						/**
+						 * air_temperature
+						 */
+						'1': () => LocalizedString
+						/**
+						 * atmospheric_pressure_reduced
+						 */
+						'2': () => LocalizedString
+						/**
+						 * atmospheric_pressure
+						 */
+						'3': () => LocalizedString
+						/**
+						 * dew_point
+						 */
+						'4': () => LocalizedString
+						/**
+						 * heat_index
+						 */
+						'5': () => LocalizedString
+						/**
+						 * lightning_average_distance
+						 */
+						'6': () => LocalizedString
+						/**
+						 * lightning_strike_count
+						 */
+						'7': () => LocalizedString
+						/**
+						 * maximum_wind_speed
+						 */
+						'8': () => LocalizedString
+						/**
+						 * mrt
+						 */
+						'9': () => LocalizedString
+						/**
+						 * pet_category
+						 */
+						'10': () => LocalizedString
+						/**
+						 * pet
+						 */
+						'11': () => LocalizedString
+						/**
+						 * precipitation_sum
+						 */
+						'12': () => LocalizedString
+						/**
+						 * relative_humidity
+						 */
+						'13': () => LocalizedString
+						/**
+						 * solar_radiation
+						 */
+						'14': () => LocalizedString
+						/**
+						 * specific_humidity
+						 */
+						'15': () => LocalizedString
+						/**
+						 * utci_category
+						 */
+						'16': () => LocalizedString
+						/**
+						 * utci
+						 */
+						'17': () => LocalizedString
+						/**
+						 * vapor_pressure
+						 */
+						'18': () => LocalizedString
+						/**
+						 * wet_bulb_temperature
+						 */
+						'19': () => LocalizedString
+						/**
+						 * wind_direction
+						 */
+						'20': () => LocalizedString
+						/**
+						 * wind_speed
+						 */
+						'21': () => LocalizedString
+					}
 				}
 				airTemperatureAndHumidity: {
 					/**
@@ -3303,6 +3597,36 @@ export type TranslationFunctions = {
 					 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
 					 */
 					description: () => LocalizedString
+					supportedIndicators: {
+						/**
+						 * absolute_humidity
+						 */
+						'0': () => LocalizedString
+						/**
+						 * air_temperature
+						 */
+						'1': () => LocalizedString
+						/**
+						 * dew_point
+						 */
+						'2': () => LocalizedString
+						/**
+						 * heat_index
+						 */
+						'3': () => LocalizedString
+						/**
+						 * relative_humidity
+						 */
+						'4': () => LocalizedString
+						/**
+						 * specific_humidity
+						 */
+						'5': () => LocalizedString
+						/**
+						 * wet_bulb_temperature
+						 */
+						'6': () => LocalizedString
+					}
 				}
 			}
 			table: {
@@ -3349,41 +3673,25 @@ export type TranslationFunctions = {
 					 * Details
 					 */
 					details: () => LocalizedString
+					/**
+					 * Daten
+					 */
+					dataDownload: () => LocalizedString
+					/**
+					 * Daten für diese Station herunterladen
+					 */
+					dataDownloadTooltip: () => LocalizedString
 				}
 				cells: {
 					stationTypes: {
 						/**
-						 * Diese Station misst folgende Messwerte:
+						 * Wetterstation
 						 */
-						thisStationMeasures: () => LocalizedString
-						biomet: {
-							/**
-							 * Wetterstation
-							 */
-							nameShort: () => LocalizedString
-							/**
-							 * Wetterstation (inkl. Blackglobe Sensor)
-							 */
-							title: () => LocalizedString
-							/**
-							 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-							 */
-							description: () => LocalizedString
-						}
-						temprh: {
-							/**
-							 * Temperatur
-							 */
-							nameShort: () => LocalizedString
-							/**
-							 * Temperatur-und Feuchtigkeitssensor
-							 */
-							title: () => LocalizedString
-							/**
-							 * Ex consequat duis do adipisicing ipsum velit minim aliqua. Labore cillum nostrud id tempor id in sint qui sunt qui.
-							 */
-							description: () => LocalizedString
-						}
+						biomet: () => LocalizedString
+						/**
+						 * Temperatur
+						 */
+						temprh: () => LocalizedString
 					}
 					status: {
 						/**
@@ -3394,6 +3702,20 @@ export type TranslationFunctions = {
 						 * Inaktiv
 						 */
 						inactive: () => LocalizedString
+					}
+					coordinates: {
+						/**
+						 * Auf Google Maps öffnen
+						 */
+						googleMapsLinkText: () => LocalizedString
+						/**
+						 * In die Zwischenablage kopieren
+						 */
+						copyCoordinates: () => LocalizedString
+						/**
+						 * In die Zwischenablage kopiert
+						 */
+						copiedToClipboard: () => LocalizedString
 					}
 				}
 			}
@@ -3407,6 +3729,26 @@ export type TranslationFunctions = {
 			 * Dieses Dashboard wurde im Rahmen des Projektes Data2Resilience entwickelt, einem gemeinsamen Forschungsprojekt der Ruhr-Universität Bochum und der Leibniz Universität Hannover. Das Projekt zielt darauf ab, die Resilienz Dortmunds gegenüber dem Klimawandel zu verbessern, indem innovative Technologien und Bürgerbeteiligung genutzt werden, um die Auswirkungen extremer Hitze auf das Stadtleben zu minimieren. Data2Resilience wird von Prof. Dr. Benjamin Bechtel und Prof. Dr. Christian Albert geleitet und vom <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> sowie <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a> finanziert.
 			 */
 			description: () => LocalizedString
+			mainLink: {
+				/**
+				 * https://dortmund.de/hitze
+				 */
+				url: () => LocalizedString
+				/**
+				 * dortmund.de/hitze
+				 */
+				label: () => LocalizedString
+			}
+			contactLink: {
+				/**
+				 * mailto:info@data2resilience.org
+				 */
+				url: () => LocalizedString
+				/**
+				 * Schreibe uns eine E-Mail
+				 */
+				label: () => LocalizedString
+			}
 			links: {
 				'0': {
 					/**
@@ -3577,18 +3919,48 @@ export type TranslationFunctions = {
 			 * Stadtbezirke
 			 */
 			districts: () => LocalizedString
+			districtsTooltip: {
+				/**
+				 * Stadtbezirke
+				 */
+				title: () => LocalizedString
+				/**
+				 * Die Stadtbezirke sind die einzelnen Bezirke der Stadt Dortmund. Sie sind in der Regel kleiner als die Stadtteile und Aktionsräume.
+				 */
+				description: () => LocalizedString
+			}
 			/**
-			 * Aktionsräume
+			 * Stadtteile<br/>& Aktionsräume
 			 */
 			lors: () => LocalizedString
+			lorsTooltip: {
+				/**
+				 * Stadtteile & Aktionsräume
+				 */
+				title: () => LocalizedString
+				/**
+				 * Die Stadtteile sind die einzelnen Einzelgebäude der Stadt Dortmund. Die Aktionsräume sind die öffentlichen Räume, die von der Stadtverwaltung betrieben werden.
+				 */
+				description: () => LocalizedString
+			}
 			/**
 			 * Digitale Orthophotos
 			 */
 			satellite: () => LocalizedString
+			satelliteTooltip: {
+				/**
+				 * Digitale Orthophotos
+				 */
+				title: () => LocalizedString
+				/**
+				 * Die Digitale Orthophotos sind eine digitale Darstellung der Stadt Dortmund. Sie zeigen die Stadt als eine große, flache, schwarze Fläche, die von der Digitalisierung der Stadt betrieben wird.
+				 */
+				description: () => LocalizedString
+			}
 		}
 		layersTooltips: {
 			/**
-			 * Vulnerabler Aktionsraum
+			 * Aktionsraum
 			 */
 			vulnerableArea: () => LocalizedString
 			type: {
@@ -3615,6 +3987,10 @@ export type TranslationFunctions = {
 			 * Gesundheitsrisiken
 			 */
 			title: () => LocalizedString
+			/**
+			 * Erhebt keine Daten
+			 */
+			notCollectingData: () => LocalizedString
 			/**
 			 * Keine Daten verfügbar
 			 */

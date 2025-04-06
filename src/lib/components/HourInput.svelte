@@ -30,40 +30,40 @@
 	});
 
 	function parseInputValue(input: HTMLInputElement) {
+		if (!input.value) return $hour;
 		return parseInt(input.value.split(':')[0], 10);
 	}
 
-	function updateHourWrapper(date: Date, hour: number) {
-		const newHour = updateHour(date, hour);
-		if (!inputRef) return;
-		inputRef.value = `${`${newHour}`.padStart(2, '0')}:00`;
+	function updateInputValue(val: number) {
+		if (inputRef) {
+			const newVal = `${`${val}`.padStart(2, '0')}:00`;
+			inputRef.value = newVal;
+		}
 	}
 
-	let prevHour = $hour;
-	$effect(() => {
-		if ($hour !== prevHour && isToday($dayEndDate)) {
-			updateHourWrapper($dayEndDate, $hour);
-		}
-		prevHour = $hour;
+	function updateHourWrapper(hour: number) {
+		const h = $updateHour(hour);
+		updateInputValue(h);
+	}
+
+	const onHourChange = $derived((evt: Event) => {
+		evt.preventDefault();
+		const target = evt.currentTarget as HTMLInputElement;
+		const inputValue = parseInputValue(target);
+		updateHourWrapper(inputValue);
 	});
 
-	function onHourChange(e: Event) {
-		e.preventDefault();
-		const target = e.currentTarget as HTMLInputElement;
-		updateHourWrapper($dayEndDate, parseInputValue(target));
-	}
-
-	function onHourUp(evt: MouseEvent) {
+	const onHourUp = $derived((evt: MouseEvent) => {
 		evt.preventDefault();
 		const newHour = $hour + 1 > 23 ? 0 : $hour + 1;
-		updateHourWrapper($dayEndDate, newHour);
-	}
+		updateHourWrapper(newHour);
+	});
 
-	function onHourDown(evt: MouseEvent) {
+	const onHourDown = $derived((evt: MouseEvent) => {
 		evt.preventDefault();
 		const newHour = $hour - 1 < 0 ? 23 : $hour - 1;
-		updateHourWrapper($dayEndDate, newHour);
-	}
+		updateHourWrapper(newHour);
+	});
 
 	const value = $derived(`${`${$hour}`.padStart(2, '0')}:00`);
 </script>

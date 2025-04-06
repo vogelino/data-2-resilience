@@ -1,7 +1,7 @@
-import type { Translation } from "../i18n-types";
+import type { Translation } from '../i18n-types';
 
-const siteNameShort = "Data2Resilience";
-const siteSubtitle = "Dashboard for heat stress in Dortmund";
+const siteNameShort = 'Data2Resilience';
+const siteSubtitle = 'Dashboard for heat stress in Dortmund';
 const en = {
 	siteNameShort,
 	author: 'Data2Resilience Team',
@@ -36,7 +36,8 @@ const en = {
 		},
 		unsupported: {
 			unsupportedStation: 'Does not collect this data'
-		}
+		},
+		invalidExportConfig: 'Invalid export configuration'
 	},
 	generic: {
 		expand: 'Know more',
@@ -56,7 +57,8 @@ const en = {
 		combobox: {
 			selectOption: 'Select an optionOption auswählen',
 			noResults: 'No results'
-		}
+		},
+		chartExportButtonLabel: 'Export chart'
 	},
 	themeSwitch: {
 		light: 'Light',
@@ -94,7 +96,7 @@ const en = {
 			},
 			unitSelect: {
 				title: 'Unit Selection',
-				text: 'We have converted the biometeorological data in this dashboard into different units to help you better understand them. You can change the units at any time by clicking on the unit symbols.'
+				text: 'We have converted the biometeorological data in this dashboard into different indicators to help you better understand them. You can change the indicators at any time by clicking on the indicator symbols.'
 			},
 			stationsDatavis: {
 				title: 'Data visualization',
@@ -131,7 +133,8 @@ const en = {
 		heatStress: {
 			title: 'How warm does the city feel?',
 			intro: [
-				"The heat atlas for Dortmund provides an overview of the city's heat stress. The heat stress is depicted through three maps: the Universal Thermal Climate Index (UTCI) to assess the thermal sensation of residents, as well as relative humidity and air temperature as key influencing factors."
+				"The heat atlas for Dortmund provides an overview of the city's heat stress. The heat stress is depicted through three maps: the Universal Thermal Climate Index (UTCI) to assess the thermal sensation of residents, as well as relative humidity and air temperature as key influencing factors.",
+				'Maps are based on modelled calculations derived from station measurements. The modelled maps are less accurate than the measurement data and should only be used as a starting point. For detailed analyses, please rely on the station measurement data.'
 			],
 			timeRangeAlert: 'Data only available from {startDate} to {endDate}.',
 			timeRangeAlertTooltipTitle: 'This visualization is only available for the last 30 days.',
@@ -147,12 +150,6 @@ const en = {
 			noDataAvailable: 'No data available for the selected configuration',
 			noValueMeasured: 'No value measured',
 			noStationsSelected: 'Select at least one station to display its data',
-			someInsufficientDataStations:
-				'Not enought data is collected for the selected indicator <strong>{unit}</strong> at the stations <strong>{stations}</strong> for us to aggregate it.',
-			allInsufficientDataStations:
-				'None of the selected stations collect enough data for the indicator <strong>{unit}</strong> for us to aggregate it.',
-			singleInsufficientDataStation:
-				'The station <strong>{station}</strong> does not collect enough data for the indicator <strong>{unit}</strong> for us to aggregate it.',
 			someUnsupportedStations:
 				'The stations <strong>{stations}</strong> do not collect data for the selected indicator <strong>{unit}</strong>.',
 			allUnsupportedStations:
@@ -161,14 +158,20 @@ const en = {
 				'The station <strong>{station}</strong> does not collect data for the indicator <strong>{unit}</strong>.',
 			singleUnsupportedStationShort:
 				'This station does not collect data for the indicator <strong>{unit}</strong>.',
+			someStationsWithoutAvailableData:
+				'The stations <strong>{stations}</strong> have no available data for the indicator <strong>{unit}</strong>, and the current time configuration.',
+			allStationsWithoutAvailableData:
+				'None of the selected stations have data available for the indicator <strong>{unit}</strong>, and the current time configuration.',
+			singleStationWithoutAvailableData:
+				'The station <strong>{station}</strong> has no data available for the indicator <strong>{unit}</strong>, and the current time configuration.',
 			stationsSelect: {
 				placeholder: 'Select one or more stations',
 				label: 'Selected stations'
 			},
 			unitSelect: {
-				noUnitFound: 'No unit found',
-				placeholder: 'Select a unit',
-				searchPlaceholder: 'Search unit...',
+				noUnitFound: 'No indicator found',
+				placeholder: 'Select a indicator',
+				searchPlaceholder: 'Search indicator...',
 				xOutOfY: '{part} of {total} stations',
 				stationsHeaderLabel: 'Station name',
 				units: {
@@ -191,7 +194,7 @@ const en = {
 						unitOnly: '°C'
 					},
 					utci_category: {
-						label: 'UTCI category',
+						label: 'Universal Thermic Climate Index  (UTCI) category',
 						description:
 							'The <strong>UTCI category</strong> describes the classification of the universal heat stress index in terms of heat stress.',
 						unitOnly: ''
@@ -377,7 +380,7 @@ const en = {
 						unitOnly: '°C'
 					},
 					pet_category: {
-						label: 'PET category',
+						label: 'Physiological equivalent temperature (PET) category',
 						description:
 							'The <strong>PET category</strong> describes the classification of the physiological equivalent temperature in terms of heat stress.',
 						unitOnly: ''
@@ -562,15 +565,49 @@ const en = {
 				'Below you will find technical information about the monitoring stations, as well as a summary of the criteria for selecting their locations.'
 			],
 			stationsDescriptions: {
+				supportedIndicatorsLabel: 'Supported indicators',
 				weather: {
 					title: 'Weather station with Blackglobe sensor',
 					description:
-						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+					supportedIndicators: [
+						'absolute_humidity',
+						'air_temperature',
+						'atmospheric_pressure_reduced',
+						'atmospheric_pressure',
+						'dew_point',
+						'heat_index',
+						'lightning_average_distance',
+						'lightning_strike_count',
+						'maximum_wind_speed',
+						'mrt',
+						'pet_category',
+						'pet',
+						'precipitation_sum',
+						'relative_humidity',
+						'solar_radiation',
+						'specific_humidity',
+						'utci_category',
+						'utci',
+						'vapor_pressure',
+						'wet_bulb_temperature',
+						'wind_direction',
+						'wind_speed'
+					]
 				},
 				airTemperatureAndHumidity: {
 					title: 'Air temperature and humidity sensor',
 					description:
-						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+					supportedIndicators: [
+						'absolute_humidity',
+						'air_temperature',
+						'dew_point',
+						'heat_index',
+						'relative_humidity',
+						'specific_humidity',
+						'wet_bulb_temperature'
+					]
 				}
 			},
 			table: {
@@ -586,27 +623,23 @@ const en = {
 					district: 'District',
 					installation_at: 'Installation at',
 					status: 'Status',
-					details: 'Details'
+					details: 'Details',
+					dataDownload: 'Data',
+					dataDownloadTooltip: 'Download raw data for this station'
 				},
 				cells: {
 					stationTypes: {
-						thisStationMeasures: 'This station measures:',
-						biomet: {
-							nameShort: 'Weather Station',
-							title: 'Weather station (including Blackglobe sensor)',
-							description:
-								'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.'
-						},
-						temprh: {
-							nameShort: 'Temperature',
-							title: 'Temperature and humidity sensor',
-							description:
-								'Ex consequat duis do adipisicing ipsum velit minim aliqua. Labore cillum nostrud id tempor id in sint qui sunt qui.'
-						}
+						biomet: 'Weather Station',
+						temprh: 'Temperature'
 					},
 					status: {
 						active: 'active',
 						inactive: 'inactive'
+					},
+					coordinates: {
+						googleMapsLinkText: 'Open in Google Maps',
+						copyCoordinates: 'Copy to the clipboard',
+						copiedToClipboard: 'Copied to the clipboard'
 					}
 				}
 			}
@@ -615,6 +648,14 @@ const en = {
 			title: 'About this project',
 			description:
 				"This dashboard was developed as part of the Data2Resilience project, a joint research project of the Ruhr University Bochum and the Leibniz University Hannover. The project aims to improve Dortmund's resilience to climate change by using innovative technologies and citizen participation to minimize the impact of extreme heat on urban life. Data2Resilience is led by Prof. Dr. Benjamin Bechtel and Prof. Dr. Christian Albert and is funded by the <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> and <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a>.",
+			mainLink: {
+				url: `https://dortmund.de/hitze`,
+				label: 'dortmund.de/hitze'
+			},
+			contactLink: {
+				url: `mailto:info@data2resilience.org`,
+				label: 'Write us an email'
+			},
 			links: [
 				{
 					label: 'imprint',
@@ -691,11 +732,26 @@ const en = {
 		layersSelection: {
 			ariaLabel: 'Map layer selection',
 			districts: 'City districts',
-			lors: 'Action areas',
-			satellite: 'Digital Orthophotos'
+			districtsTooltip: {
+				title: 'City districts',
+				description:
+					'The city districts are the individual districts of the city of Dortmund. They are usually smaller than the city districts and action areas.'
+			},
+			lors: 'City districts<br/>& action areas',
+			lorsTooltip: {
+				title: 'City districts & action areas',
+				description:
+					'The city districts are the individual buildings of the city of Dortmund. The action areas are the public spaces operated by the city administration.'
+			},
+			satellite: 'Digital Orthophotos',
+			satelliteTooltip: {
+				title: 'Digital Orthophotos',
+				description:
+					'The digital orthophotos are a digital representation of the city of Dortmund. They show the city as a large, flat, black surface operated by digitalization of the city.'
+			}
 		},
 		layersTooltips: {
-			vulnerableArea: 'Vulnerable action area',
+			vulnerableArea: 'Action area',
 			type: {
 				stadtbezirk: 'City district',
 				statistischer_bezirk: 'Neighborhood'
@@ -705,7 +761,8 @@ const en = {
 			showHealthRisks: 'Show health risks',
 			hideHealthRisks: 'Hide health risks',
 			title: 'Heath risks',
-			noValueAvailable: 'No value available',
+			notCollectingData: 'Does not collect data',
+			noValueAvailable: 'No data available',
 			healthRisks: {
 				'extreme cold stress': {
 					title: {

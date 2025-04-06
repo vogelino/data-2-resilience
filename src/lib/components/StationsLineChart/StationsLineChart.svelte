@@ -8,14 +8,22 @@
 		rangeEndKey,
 		rangeStartDate,
 		rangeStartKey,
-		unit
+		unit,
+		unitLabel,
+		unitOnly
 	} from '$lib/stores/uiStore';
+	import { cn } from '$lib/utils';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
-	import { getMessageForUnsupportedStations } from '$lib/utils/stationsDataVisUtil';
+	import {
+		getMessageForUnavailableStations,
+		getMessageForUnsupportedStations
+	} from '$lib/utils/stationsDataVisUtil';
 	import { createQuery } from '@tanstack/svelte-query';
+	import ChartExportDropdown from 'components/ChartExportDropdown.svelte';
 	import TimeseriesLineChart from 'components/TimeseriesLineChart.svelte';
 	import Alert from 'components/ui/alert/alert.svelte';
 	import WindDirectionChart from 'components/WindDirectionChart.svelte';
+	import { TriangleAlert } from 'lucide-svelte';
 	import { getStationDataFetcher } from './stationsLineChartUtil';
 
 	interface Props {
@@ -24,6 +32,8 @@
 	}
 
 	let { stations, initialStationIds = [] }: Props = $props();
+
+	let isExporting = $state(false);
 
 	const ids = useStations({ stations, initialStationIds });
 
@@ -53,50 +63,65 @@
 			)
 		}))
 	);
-	const { data: queryData, isLoading, error } = $derived($query);
-	const data = $derived(queryData?.lineChartData as unknown as DataRecord[] || [])
+	const { data: queryData, error } = $derived($query);
+	const isLoading = $derived($query.isLoading || isExporting);
+	const data = $derived((queryData?.lineChartData as unknown as DataRecord[]) || []);
 	const isOrdinal = $derived($unit.endsWith('_category'));
-	const unsupportedIds = $derived(queryData?.unsupportedIds || []);
 	const unsupportedMsg = $derived(
 		getMessageForUnsupportedStations({
 			ids: $ids,
-			unsupportedIds,
+			unsupportedIds: queryData?.unsupportedIds || [],
 			unit: $unit,
 			stations: stations.features,
 			LL: $LL
 		})
 	);
-	const selectedUnitLabel = $derived(
-		$LL.pages.measurements.unitSelect.units[
-			$unit as keyof typeof $LL.pages.measurements.unitSelect.units
-		].label()
+	const unavailableMsg = $derived(
+		getMessageForUnavailableStations({
+			ids: $ids,
+			unavailableIds: queryData?.unavailableIds || [],
+			unit: $unit,
+			stations: stations.features,
+			LL: $LL
+		})
 	);
+
 	const isWindDirectionUnit = $derived($unit.startsWith('wind_direction'));
 </script>
 
-<h3 class="flex flex-col gap-x-2 gap-y-0.5">
-	<strong class="font-semibold">{selectedUnitLabel}</strong>
-	<span class="text-sm text-muted-foreground">
-		{$formattedTimeConfiguration}
-	</span>
-</h3>
 {#if unsupportedMsg}
-	<Alert variant="destructive">
+	<Alert variant="default" class="chart-export-ignore border-muted-foreground bg-muted/50">
+		{#snippet icon()}
+			<TriangleAlert class="size-5 shrink-0 text-muted-foreground" />
+		{/snippet}
 		{@html unsupportedMsg}
 	</Alert>
 {/if}
+{#if unavailableMsg}
+	<Alert variant="warning" class="chart-export-ignore">
+		{@html unavailableMsg}
+	</Alert>
+{/if}
+<h3 class="grid grid-cols-[1fr_auto] items-center gap-x-8 gap-y-2 font-semibold">
+	<span class="flex flex-col gap-x-2 gap-y-0.5 font-semibold">
+		{$unitLabel}
+		{$unitOnly ? `(${$unitOnly})` : ''}
+		<span class="text-sm font-normal text-muted-foreground">
+			{$formattedTimeConfiguration}
+		</span>
+	</span>
+	<span class={cn('flex items-center gap-x-2', isExporting && 'opacity-0')}>
+		<ChartExportDropdown
+			chartExportFilename="stations-linechart"
+			chartExportId="stations-datavis"
+			onChartExportStart={() => (isExporting = true)}
+			onChartExportEnd={() => (isExporting = false)}
+		/>
+	</span>
+</h3>
 
 {#if isWindDirectionUnit}
-	<WindDirectionChart
-		{data}
-		{isLoading}
-		{error}
-	/>
+	<WindDirectionChart {data} {isLoading} {error} />
 {:else}
-	<TimeseriesLineChart
-		{data}
-		{isOrdinal}
-		{isLoading}
-		{error}
-	/>
+	<TimeseriesLineChart {data} {isOrdinal} {isLoading} {error} />
 {/if}

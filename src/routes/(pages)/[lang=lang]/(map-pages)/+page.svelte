@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
+	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
 	import StationsSelect from 'components/StationsSelect.svelte';
 	import UnitDataVis from 'components/UnitDataVis.svelte';
@@ -21,8 +22,8 @@
 	{/each}
 </CollapsibleParagraph>
 
-<StationsSelect stations={stationsGeoJson} initialStationIds={data.initialStationIds} />
+<StationsSelect stations={stationsGeoJson as StationsGeoJSONType} initialStationIds={data.initialStationIds} />
 
 <UnitSelect />
 
-<UnitDataVis stations={stationsGeoJson} initialStationIds={data.initialStationIds} />
+<UnitDataVis stations={stationsGeoJson as StationsGeoJSONType} initialStationIds={data.initialStationIds} />

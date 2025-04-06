@@ -29,10 +29,7 @@ const meadurementDateSchema = z.object({
 });
 const mD = meadurementDateSchema;
 
-const numSchema = z
-	.number()
-	.nullable()
-	.transform((val) => (val === null ? undefined : val));
+const numSchema = z.number().nullable();
 
 // MEASUREMENTS
 const numberSchemas = {
@@ -169,10 +166,7 @@ const numberSchemas = {
 	wind_speed: mD.extend({ wind_speed: numSchema }).transform(parseRawStationNameToId)
 };
 
-const strSchema = z
-	.string()
-	.nullable()
-	.transform((val) => (val === null ? undefined : val));
+const strSchema = z.string().nullable();
 const stringSchemas = {
 	pet_category: mD.extend({ pet_category: strSchema }).transform(parseRawStationNameToId),
 	utci_category: mD.extend({ utci_category: strSchema }).transform(parseRawStationNameToId)
@@ -213,3 +207,36 @@ export type WeatherMeasurementKeyNoMinMax = keyof typeof weatherMeasurementSchem
 export const weatherMeasurementSchemasNoMinMaxKeys = Object.keys(
 	weatherMeasurementSchemasNoMinMax
 ) as WeatherMeasurementKeyNoMinMax[];
+
+const HeatStressMetadataKeysSchema = z.object({
+	doy: z.coerce.number(),
+	hour: z.coerce.number(),
+	param: z.enum(['UTCI', 'PET']).transform((v) => v.toLowerCase()),
+	year: z.coerce.number()
+});
+export const HeatStressMetadataSchema = z.object({
+	bounds: z.tuple([z.number(), z.number(), z.number(), z.number()]),
+	convex_hull: z.object({
+		coordinates: z.array(z.tuple([z.number(), z.number()])).array(),
+		type: z.string()
+	}),
+	keys: HeatStressMetadataKeysSchema,
+	mean: z.number(),
+	metadata: HeatStressMetadataKeysSchema.extend({
+		city: z.string().nullable(),
+		method: z.string(),
+		resolution: z.string(),
+		version: z.string()
+	}),
+	percentiles: z.array(z.number()),
+	range: z.tuple([z.number(), z.number()]),
+	stdev: z.number(),
+	valid_percentage: z.number()
+});
+export type HeatStressMetadata = z.infer<typeof HeatStressMetadataSchema>;
+
+export const HeatStressColormapItemSchema = z.object({
+	rgba: z.tuple([z.number(), z.number(), z.number(), z.number()]),
+	value: z.number()
+});
+export type HeatStressColormapItem = z.infer<typeof HeatStressColormapItemSchema>;

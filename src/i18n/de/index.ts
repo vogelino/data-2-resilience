@@ -36,7 +36,8 @@ const de = {
 		},
 		unsupported: {
 			unsupportedStation: 'Erhebt nicht diese Daten'
-		}
+		},
+		invalidExportConfig: 'Ungültige Exportkonfiguration'
 	},
 	generic: {
 		expand: 'Mehr erfahren',
@@ -56,7 +57,8 @@ const de = {
 		combobox: {
 			selectOption: 'Option auswählen',
 			noResults: 'Keine Ergebnisse'
-		}
+		},
+		chartExportButtonLabel: 'Chart exportieren'
 	},
 	themeSwitch: {
 		light: 'Hell',
@@ -93,8 +95,8 @@ const de = {
 				text: 'Wir haben Daten von verschiedenen Messstationen in Dortmund erhoben. Durch Anklicken können Sie auswählen, welche Stationen Sie auf der Karte sehen möchten.'
 			},
 			unitSelect: {
-				title: 'Einheitenauswahl',
-				text: 'Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Einheiten umgerechnet, damit Sie sie besser verstehen können. Sie können die Einheiten jederzeit ändern, indem Sie auf die Einheitensymbole klicken.'
+				title: 'Indikatorauswahl',
+				text: 'Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Indikatoren umgerechnet, damit Sie sie besser verstehen können. Sie können die Indikatoren jederzeit ändern, indem Sie auf die Indikatorsymbole klicken.'
 			},
 			stationsDatavis: {
 				title: 'Datenvisualisierung',
@@ -131,7 +133,8 @@ const de = {
 		heatStress: {
 			title: 'Wie warm fühlt sich die Stadt an?',
 			intro: [
-				'Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.'
+				'Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.',
+				'Karten basieren auf modellierten Berechnungen, die aus Stationsmessungen abgeleitet sind. Die modellierten Karten sind weniger genau als die Messdaten und sollten nur als Ausgangspunkt verwendet werden. Für detaillierte Analysen verlassen Sie sich bitte auf die Stationsmessdaten.'
 			],
 			timeRangeAlert:
 				'Daten nur verfügbar im Zeitraum vom {startDate:string} bis {endDate:string}.',
@@ -150,12 +153,6 @@ const de = {
 			noValueMeasured: 'Kein Wert gemessen',
 			noStationsSelected:
 				'Wählen Sie eine Messstation aus, um Daten für die ausgewählte Konfiguration zu erhalten.',
-			someInsufficientDataStations:
-				'Für den gewählten Indikator <strong>{unit:string}</strong> werden für die Stationen <strong>{stations:string}</strong> nicht genügend Daten erhoben, um sie in aggregierten From anzuzeigen.',
-			allInsufficientDataStations:
-				'Keine der ausgewahlten Stationen erhebt genügend Daten für den Indikator <strong>{unit:string}</strong>, um sie in aggregierten From anzuzeigen.',
-			singleInsufficientDataStation:
-				'Die Station <strong>{station:string}</strong> erhebt nicht genügend Daten für den Indikator <strong>{unit:string}</strong>, um sie in aggregierten From anzuzeigen.',
 			someUnsupportedStations:
 				'Für den gewählten Indikator <strong>{unit:string}</strong> erheben die Stationen <strong>{stations:string}</strong> keine Daten.',
 			allUnsupportedStations:
@@ -164,14 +161,20 @@ const de = {
 				'Die Station <strong>{station:string}</strong> erhebt keine Daten für den Indikator <strong>{unit:string}</strong>.',
 			singleUnsupportedStationShort:
 				'Diese Station erhebt keine Daten für den Indikator <strong>{unit:string}</strong>.',
+			someStationsWithoutAvailableData:
+				'Für den gewählten Indikator <strong>{unit:string}</strong> haben die Stationen <strong>{stations:string}</strong> keine Daten erheben können.',
+			allStationsWithoutAvailableData:
+				'Keine der ausgewählten Stationen konnten Daten fuer den Indikator <strong>{unit:string}</strong> erheben.',
+			singleStationWithoutAvailableData:
+				'Die Station <strong>{station:string}</strong> konnte keine Daten für den Indikator <strong>{unit:string}</strong> erheben.',
 			stationsSelect: {
 				placeholder: 'Eine oder mehrere Stationen auswählen',
 				label: 'Ausgewählte Messstationen'
 			},
 			unitSelect: {
-				noUnitFound: 'Keine Einheit gefunden',
-				placeholder: 'Einheit auswählen',
-				searchPlaceholder: 'Einheit suchen...',
+				noUnitFound: 'Kein Indikator gefunden',
+				placeholder: 'Indikator auswählen',
+				searchPlaceholder: 'Indikator suchen...',
 				xOutOfY: '{part} von {total}',
 				stationsHeaderLabel: 'Stationnamen',
 				units: {
@@ -194,7 +197,7 @@ const de = {
 						unitOnly: '°C'
 					},
 					utci_category: {
-						label: 'UTCI-Kategorie',
+						label: 'Universeller Thermischer Klimaindex (UTCI) Kategorie',
 						description:
 							'Die <strong>UTCI-Kategorie</strong> beschreibt die Klassifizierung des universellen thermischen Klimaindexes in Bezug auf thermischen Komfort.',
 						unitOnly: ''
@@ -380,7 +383,7 @@ const de = {
 						unitOnly: '°C'
 					},
 					pet_category: {
-						label: 'PET-Kategorie',
+						label: 'Physiologisch äquivalente Temperatur (PET) Kategorie',
 						description:
 							'Die <strong>PET-Kategorie</strong> beschreibt die Klassifizierung der physiologisch äquivalenten Temperatur in Bezug auf thermischen Komfort.',
 						unitOnly: ''
@@ -564,15 +567,49 @@ const de = {
 				'Im Folgenden finden Sie technische Informationen zu den Messstationen sowie eine Zusammenfassung der Kriterien zur Standortauswahl der Messstationen.'
 			],
 			stationsDescriptions: {
+				supportedIndicatorsLabel: 'Unterstützte Indikatoren',
 				weather: {
 					title: 'Wetterstation mit Blackglobe-Sensor',
 					description:
-						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+					supportedIndicators: [
+						'absolute_humidity',
+						'air_temperature',
+						'atmospheric_pressure_reduced',
+						'atmospheric_pressure',
+						'dew_point',
+						'heat_index',
+						'lightning_average_distance',
+						'lightning_strike_count',
+						'maximum_wind_speed',
+						'mrt',
+						'pet_category',
+						'pet',
+						'precipitation_sum',
+						'relative_humidity',
+						'solar_radiation',
+						'specific_humidity',
+						'utci_category',
+						'utci',
+						'vapor_pressure',
+						'wet_bulb_temperature',
+						'wind_direction',
+						'wind_speed'
+					]
 				},
 				airTemperatureAndHumidity: {
 					title: 'Lufttemperatur- und Feuchtigkeitssensor',
 					description:
-						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+					supportedIndicators: [
+						'absolute_humidity',
+						'air_temperature',
+						'dew_point',
+						'heat_index',
+						'relative_humidity',
+						'specific_humidity',
+						'wet_bulb_temperature'
+					]
 				}
 			},
 			table: {
@@ -588,27 +625,23 @@ const de = {
 					district: 'Stadtbezirk',
 					installation_at: 'Installation am',
 					status: 'Status',
-					details: 'Details'
+					details: 'Details',
+					dataDownload: 'Daten',
+					dataDownloadTooltip: 'Daten für diese Station herunterladen'
 				},
 				cells: {
 					stationTypes: {
-						thisStationMeasures: 'Diese Station misst folgende Messwerte:',
-						biomet: {
-							nameShort: 'Wetterstation',
-							title: 'Wetterstation (inkl. Blackglobe Sensor)',
-							description:
-								'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.'
-						},
-						temprh: {
-							nameShort: 'Temperatur',
-							title: 'Temperatur-und Feuchtigkeitssensor',
-							description:
-								'Ex consequat duis do adipisicing ipsum velit minim aliqua. Labore cillum nostrud id tempor id in sint qui sunt qui.'
-						}
+						biomet: 'Wetterstation',
+						temprh: 'Temperatur'
 					},
 					status: {
 						active: 'Aktiv',
 						inactive: 'Inaktiv'
+					},
+					coordinates: {
+						googleMapsLinkText: 'Auf Google Maps öffnen',
+						copyCoordinates: 'In die Zwischenablage kopieren',
+						copiedToClipboard: 'In die Zwischenablage kopiert'
 					}
 				}
 			}
@@ -617,6 +650,14 @@ const de = {
 			title: 'Über dieses Projekt',
 			description:
 				"Dieses Dashboard wurde im Rahmen des Projektes Data2Resilience entwickelt, einem gemeinsamen Forschungsprojekt der Ruhr-Universität Bochum und der Leibniz Universität Hannover. Das Projekt zielt darauf ab, die Resilienz Dortmunds gegenüber dem Klimawandel zu verbessern, indem innovative Technologien und Bürgerbeteiligung genutzt werden, um die Auswirkungen extremer Hitze auf das Stadtleben zu minimieren. Data2Resilience wird von Prof. Dr. Benjamin Bechtel und Prof. Dr. Christian Albert geleitet und vom <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> sowie <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a> finanziert.",
+			mainLink: {
+				url: `https://dortmund.de/hitze`,
+				label: 'dortmund.de/hitze'
+			},
+			contactLink: {
+				url: `mailto:info@data2resilience.org`,
+				label: 'Schreibe uns eine E-Mail'
+			},
 			links: [
 				{
 					label: 'Impressum',
@@ -693,11 +734,26 @@ const de = {
 		layersSelection: {
 			ariaLabel: 'Auswahl der Kartenebene',
 			districts: 'Stadtbezirke',
-			lors: 'Aktionsräume',
-			satellite: 'Digitale Orthophotos'
+			districtsTooltip: {
+				title: 'Stadtbezirke',
+				description:
+					'Die Stadtbezirke sind die einzelnen Bezirke der Stadt Dortmund. Sie sind in der Regel kleiner als die Stadtteile und Aktionsräume.'
+			},
+			lors: 'Stadtteile<br/>& Aktionsräume',
+			lorsTooltip: {
+				title: 'Stadtteile & Aktionsräume',
+				description:
+					'Die Stadtteile sind die einzelnen Einzelgebäude der Stadt Dortmund. Die Aktionsräume sind die öffentlichen Räume, die von der Stadtverwaltung betrieben werden.'
+			},
+			satellite: 'Digitale Orthophotos',
+			satelliteTooltip: {
+				title: 'Digitale Orthophotos',
+				description:
+					'Die Digitale Orthophotos sind eine digitale Darstellung der Stadt Dortmund. Sie zeigen die Stadt als eine große, flache, schwarze Fläche, die von der Digitalisierung der Stadt betrieben wird.'
+			}
 		},
 		layersTooltips: {
-			vulnerableArea: 'Vulnerabler Aktionsraum',
+			vulnerableArea: 'Aktionsraum',
 			type: {
 				stadtbezirk: 'Stadtbezirk',
 				statistischer_bezirk: 'Stadtteil'
@@ -707,6 +763,7 @@ const de = {
 			showHealthRisks: 'Gesundheitsrisiken einblenden',
 			hideHealthRisks: 'Gesundheitsrisiken ausblenden',
 			title: 'Gesundheitsrisiken',
+			notCollectingData: 'Erhebt keine Daten',
 			noValueAvailable: 'Keine Daten verfügbar',
 			healthRisks: {
 				'extreme cold stress': {

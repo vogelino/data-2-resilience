@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 	import LL, { locale } from '$i18n/i18n-svelte';
 	import { closeLeftSidebar, openLeftSidebar } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
@@ -9,14 +11,13 @@
 	import { onMount } from 'svelte';
 	import { queryParameters } from 'sveltekit-search-params';
 	import Button from './ui/button/button.svelte';
-	import { page } from '$app/state';
-	import { isMonday } from 'date-fns';
 
 	let opened = $state(false);
 	let tour: Tour | undefined;
 	let isMobile = $state(true);
 
 	onMount(() => {
+		if (!browser) return;
 		const mediaQuery = window.matchMedia('(max-width: 768px)');
 		function setIsMobile(e: MediaQueryListEvent) {
 			isMobile = e.matches;

@@ -1,16 +1,33 @@
 <script lang="ts">
+	import { LL, locale } from '$i18n/i18n-svelte';
+	import { sortUnitByLabel } from '$lib/utils/textUtil';
 	import CollapsibleParagraph from './CollapsibleParagraph.svelte';
 
 	interface Props {
 		title: string;
 		description: string;
 		image: {
-		src: string;
-		alt: string;
-	};
+			src: string;
+			alt: string;
+		};
+		supportedIndicators: string[];
 	}
 
-	let { title, description, image }: Props = $props();
+	const { title, description, image, supportedIndicators }: Props = $props();
+
+	const indicators = $derived(
+		supportedIndicators
+			.reduce(
+				(acc, i) => {
+					const units = $LL.pages.measurements.unitSelect.units;
+					const indicator = units[i as keyof typeof units]?.label();
+					if (indicator) return [...acc, { value: i, label: indicator }];
+					return acc;
+				},
+				[] as { value: string; label: string }[]
+			)
+			.sort((a, b) => sortUnitByLabel(a, b, $locale))
+	);
 </script>
 
 <li class="rounded-xl border border-border bg-background">
@@ -20,6 +37,14 @@
 		</h2>
 		<CollapsibleParagraph linesClampedCount={3} className="text-sm">
 			<p>{description}</p>
+			<strong class="mb-1 mt-4 block text-base font-semibold">
+				{$LL.pages.stations.stationsDescriptions.supportedIndicatorsLabel()}:
+			</strong>
+			<ul class="flex flex-col gap-1 pb-4">
+				{#each indicators as { value, label } (value)}
+					<li class="border-b border-muted pb-1">{label}</li>
+				{/each}
+			</ul>
 		</CollapsibleParagraph>
 	</header>
 	<img

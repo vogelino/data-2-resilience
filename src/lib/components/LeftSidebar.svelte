@@ -106,7 +106,7 @@
 				{/each}
 			</ul>
 		</nav>
-		<section class="bg-background p-6">
+		<section class="bg-background p-6 pb-48">
 			{@render children?.()}
 		</section>
 	</div>

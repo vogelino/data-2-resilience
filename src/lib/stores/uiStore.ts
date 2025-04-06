@@ -18,6 +18,32 @@ import { z } from 'zod';
 
 const options = { debounceHistory: 500 };
 
+// MAP SEARCH
+const mapSearchDefault = '';
+const mapSearchQueryParam = queryParam('map_search', ssp.string(mapSearchDefault), options);
+export const mapSearch = derived(mapSearchQueryParam, (value: string) =>
+	validateQueryParam(value, z.string(), mapSearchDefault)
+);
+export const updateMapSearch = debounce((s: string) => {
+	mapSearchQueryParam.set(s);
+}, 500);
+
+const mapSearchCoordinatesDefault: string = '';
+const mapSearchCoordinatesQueryParam = queryParam(
+	'map_search_coordinates',
+	ssp.string(mapSearchCoordinatesDefault)
+);
+export const mapSearchCoordinates = derived(mapSearchCoordinatesQueryParam, (value: string) => {
+	const val = validateQueryParam(value, z.string(), mapSearchCoordinatesDefault);
+	const [lng, lat] = val.split('-');
+	if (lng && lat) return [parseFloat(lng), parseFloat(lat)];
+	return undefined;
+});
+export const updateMapSearchCoordinates = (coords: undefined | [number, number]) => {
+	if (!coords || typeof coords[0] !== 'number' || typeof coords[1] !== 'number') return;
+	mapSearchCoordinatesQueryParam.set(coords.join('-'));
+};
+
 // RANGE START
 const rangeStartDefault = -10;
 const rangeStartQueryParam = queryParam('range_start', ssp.number(rangeStartDefault), options);
@@ -73,7 +99,7 @@ export const udpateDay = debounce((d: number) => {
 }, 500);
 
 // DATAVIS TYPE
-const datavisTypeDefault = 'day' as const;
+const datavisTypeDefault = 'hour' as const;
 const datavisTypeQueryParam = queryParam('datavisType', ssp.string(datavisTypeDefault));
 export const datavisType = derived(datavisTypeQueryParam, (value: string) =>
 	validateQueryParam(value, z.enum(['day', 'hour', 'range']), datavisTypeDefault)
@@ -130,28 +156,26 @@ export const scale = derived(datavisType, (val) =>
 // HOUR
 const hourDefault = 12;
 const hourQueryParam = queryParam('hour', ssp.number(hourDefault));
-export const hour = derived(hourQueryParam, (value: number) =>
-	validateQueryParam(value, z.coerce.number(), hourDefault)
-);
+export const hour = derived([hourQueryParam, dayEndDate], ([value, dayEndDateVal]) => {
+	const validated =
+		value === 0 ? 0 : validateQueryParam(`${value}`, z.coerce.number(), hourDefault);
+	const d = limitDateBoundsToToday({
+		date: dayEndDateVal,
+		refDate: today(),
+		hour: validated
+	});
+	return getHours(d);
+});
 export const isHourScale = derived(
 	[scale, hour],
 	([s, h]) => s === 'hourly' && typeof h === 'number'
 );
 export const hourKey = derived([isHourScale, hour], ([isH, h]) => (isH ? h : undefined));
-export const updateHour = (dateEnd: Date, h: number) => {
-	if (!isToday(dateEnd)) {
-		hourQueryParam.set(h);
-		return h;
-	}
-	const date = limitDateBoundsToToday({
-		date: dateEnd,
-		refDate: today(),
-		hour: h
-	});
-	const newHour = getHours(date);
-	hourQueryParam.set(newHour);
-	return newHour;
-};
+export const updateHour = derived(hour, (prevH) => (h: number) => {
+	if (prevH === h) return h;
+	hourQueryParam.set(h);
+	return h;
+});
 
 // FORMATTED TIME CONFIGURATION
 export const formattedTimeConfiguration = derived(
@@ -284,6 +308,6 @@ export const updateShowSatellite = (value: boolean) => {
 function validateQueryParam<T>(queryParam: unknown, schema: z.ZodSchema<T>, defaultValue: T): T {
 	const parsed = schema.safeParse(queryParam);
 	const result = parsed.success ? parsed.data : undefined;
-	if (parsed.error) console.log(parsed.error)
+	if (parsed.error) console.log(parsed.error);
 	return result || defaultValue;
 }

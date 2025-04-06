@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { cn } from '$lib/utils';
-	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { goto } from '$app/navigation';
-	import RUBLogo from './RUBLogo.svelte';
-	import LUHLogo from './LUHLogo.svelte';
-	import ICLEILogo from './ICLEILogo.svelte';
-	import GoogleOrgLogo from './GoogleOrgLogo.svelte';
-	import { X } from 'lucide-svelte';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { cn } from '$lib/utils';
+	import { Globe, Mail, X } from 'lucide-svelte';
 	import { queryParameters } from 'sveltekit-search-params';
+	import GoogleOrgLogo from './GoogleOrgLogo.svelte';
+	import ICLEILogo from './ICLEILogo.svelte';
+	import LUHLogo from './LUHLogo.svelte';
+	import RUBLogo from './RUBLogo.svelte';
 
 	let queryParams = $derived(queryParameters());
 	let urlQuery = $derived(new URLSearchParams($queryParams).toString());
@@ -53,8 +53,36 @@
 				class={cn(
 					'[&>a]:focusable px-6 max-sm:pt-4 sm:px-8 md:px-10 lg:px-12 [&>a]:underline',
 					'max-w-full text-left text-base text-foreground'
-				)}>{@html $LL.pages.about.description()}</Dialog.Description
+				)}
 			>
+				{@html $LL.pages.about.description()}
+				<a
+					href={$LL.pages.about.mainLink.url()}
+					rel="noopener noreferrer"
+					target="_blank"
+					class={cn(
+						'focusable transition-opacity hover-hover:hover:opacity-50',
+						'underline decoration-primary underline-offset-4',
+						'mt-4 flex items-center gap-x-2'
+					)}
+				>
+					<Globe class="size-4 text-muted-foreground" />
+					{$LL.pages.about.mainLink.label()}
+				</a>
+				<a
+					href={$LL.pages.about.contactLink.url()}
+					rel="noopener noreferrer"
+					target="_blank"
+					class={cn(
+						'focusable transition-opacity hover-hover:hover:opacity-50',
+						'underline decoration-primary underline-offset-4',
+						'mt-2 flex items-center gap-x-2'
+					)}
+				>
+					<Mail class="size-4 text-muted-foreground" />
+					{$LL.pages.about.contactLink.label()}
+				</a>
+			</Dialog.Description>
 		</Dialog.Header>
 		<div
 			class="flex flex-wrap justify-between gap-x-8 gap-y-6 px-6 pb-6 pt-10 max-sm:pt-4 sm:px-8 md:px-10 lg:px-12"

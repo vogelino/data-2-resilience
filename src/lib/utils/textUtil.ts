@@ -11,3 +11,12 @@ export function getHeatStressLabel(params: {
 		value as keyof typeof LL.map.choroplethLegend.healthRisks
 	].title[titleKey]();
 }
+
+type SortUnit = { value: string; label: string };
+export function sortUnitByLabel(a: SortUnit, b: SortUnit, locale: string) {
+	if (a.value.startsWith('utci') && !b.value.startsWith('utci')) return -1;
+	if (!a.value.startsWith('utci') && b.value.startsWith('utci')) return 1;
+	if (a.value.startsWith('utci') && b.value.startsWith('utci'))
+		return a.label.length - b.label.length;
+	return a.label.localeCompare(b.label, locale);
+}

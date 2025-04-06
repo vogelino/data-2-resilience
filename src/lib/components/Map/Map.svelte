@@ -9,9 +9,13 @@
 		isLeftSidebarOpened,
 		mapLatitude,
 		mapLongitude,
+		mapSearch,
+		mapSearchCoordinates,
 		mapZoom,
 		showSatellite,
 		updateMapCoordinates,
+		updateMapSearch,
+		updateMapSearchCoordinates,
 		updateMapZoom
 	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
@@ -42,7 +46,6 @@
 
 	let map: Map | undefined = $state();
 
-	let searchedFeature: AddressFeature | undefined = $state();
 	let isAboutPage = $derived(page.url.pathname.startsWith(`/${$locale}/about`));
 	let showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 
@@ -58,16 +61,22 @@
 
 	const showSearchedFeature = (map: maplibregl.Map, feature: AddressFeature | undefined) => {
 		if (!feature) return;
-		searchedFeature = feature;
 		const [lng, lat] = feature.geometry.coordinates;
-		map.flyTo({ center: [lng, lat], zoom: 10 });
+		updateMapSearchCoordinates([lng, lat]);
 	};
+
+	$effect(() => {
+		if ($mapSearchCoordinates && map) {
+			const [lng, lat] = $mapSearchCoordinates;
+			map.flyTo({ center: [lng, lat], zoom: 10 });
+		}
+	});
 
 	const currentPage = $derived.by(() => {
 		const p = page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
 		return p === '' ? 'measurements' : p;
 	});
-	const displayMode = $derived(currentPage === 'heat-stress' ? 'stroke' : 'fill');
+	const displayMode = $derived(currentPage === 'heat-stress' || $showSatellite ? 'stroke' : 'fill');
 	const vectorTilesUrl = $derived(
 		$mode === 'dark'
 			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
@@ -150,7 +159,12 @@
 			{#if currentPage === 'measurements'}
 				<MapSearchInput
 					onFeatureSearched={(f) => showSearchedFeature(map, f)}
-					onSearchCleared={() => (searchedFeature = undefined)}
+					onSearchCleared={() => {
+						updateMapSearch('');
+						updateMapSearchCoordinates(undefined);
+					}}
+					queryValue={$mapSearch}
+					onSearchQueryChanged={updateMapSearch}
 				/>
 			{/if}
 			<MapZoomControl {map} />
@@ -164,8 +178,11 @@
 			<MapDistrictsLayer visible={$boundariesMode === 'districts'} {displayMode} />
 			<MapLorsLayer visible={$boundariesMode === 'lors'} {displayMode} />
 			<MapActionAreasLayer visible={$boundariesMode === 'lors'} {displayMode} />
-			{#if searchedFeature}
-				<MapSearchedFeatureLayer feature={searchedFeature} />
+			{#if $mapSearchCoordinates && $mapSearch}
+				<MapSearchedFeatureLayer
+					name={$mapSearch}
+					coordinates={[$mapSearchCoordinates[0], $mapSearchCoordinates[1]]}
+				/>
 			{/if}
 			<ScaleControl unit="metric" position="bottom-right" />
 		{/snippet}

@@ -99,7 +99,7 @@ export const udpateDay = debounce((d: number) => {
 }, 500);
 
 // DATAVIS TYPE
-const datavisTypeDefault = 'day' as const;
+const datavisTypeDefault = 'hour' as const;
 const datavisTypeQueryParam = queryParam('datavisType', ssp.string(datavisTypeDefault));
 export const datavisType = derived(datavisTypeQueryParam, (value: string) =>
 	validateQueryParam(value, z.enum(['day', 'hour', 'range']), datavisTypeDefault)

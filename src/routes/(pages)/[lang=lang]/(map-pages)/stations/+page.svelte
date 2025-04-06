@@ -18,10 +18,16 @@
 		title={$LL.pages.stations.stationsDescriptions.weather.title()}
 		description={$LL.pages.stations.stationsDescriptions.weather.description()}
 		image={{ src: weatherStation, alt: 'Weather station with Blackglobe sensor' }}
+		supportedIndicators={Object.values(
+			$LL.pages.stations.stationsDescriptions.weather.supportedIndicators
+		).map((i) => i())}
 	/>
 	<SensorDescription
 		title={$LL.pages.stations.stationsDescriptions.airTemperatureAndHumidity.title()}
 		description={$LL.pages.stations.stationsDescriptions.airTemperatureAndHumidity.description()}
 		image={{ src: airTemperatureAndHumiditySensor, alt: 'Air temperature and humidity sensor' }}
+		supportedIndicators={Object.values(
+			$LL.pages.stations.stationsDescriptions.airTemperatureAndHumidity.supportedIndicators
+		).map((i) => i())}
 	/>
 </ul>

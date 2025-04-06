@@ -77,7 +77,7 @@
 		const p = page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', '');
 		return p === '' ? 'measurements' : p;
 	});
-	const displayMode = $derived(currentPage === 'heat-stress' ? 'stroke' : 'fill');
+	const displayMode = $derived(currentPage === 'heat-stress' || $showSatellite ? 'stroke' : 'fill');
 	const vectorTilesUrl = $derived(
 		$mode === 'dark'
 			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'

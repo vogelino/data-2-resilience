@@ -36,7 +36,7 @@
 		`${$LL.pages.measurements.unitSelect.units[$unit as keyof typeof $LL.pages.measurements.unitSelect.units].unitOnly()}`
 	);
 	const yTickFormat = $derived(
-		(d: number) => `${d.toLocaleString($locale, { maximumFractionDigits: 1 })}${unitOnly}`
+		(d: number) => `${d.toLocaleString($locale, { maximumFractionDigits: 1 })}`
 	);
 	const tooltipTemplate = $derived((d: DataRecord) => {
 		const heatStressColorPill = (val: number, stationIdx: number) => `

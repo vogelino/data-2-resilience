@@ -112,7 +112,7 @@
 					rule: 'stroke-muted'
 				},
 				format: (v) => {
-					if (typeof v === 'number') return `${v?.toLocaleString($locale)} ${$unitOnly}`;
+					if (typeof v === 'number') return `${v?.toLocaleString($locale)}`;
 					return v;
 				},
 				ticks: $isCategoryUnit ? 4 : Math.ceil(bins.length / 4)

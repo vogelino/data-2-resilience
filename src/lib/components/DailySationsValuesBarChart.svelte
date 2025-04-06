@@ -238,7 +238,7 @@
 								tickLabel: 'fill-muted-foreground text-xs',
 								rule: 'stroke-muted'
 							},
-							format: (v?: number) => (v === 0 ? '' : `${v?.toLocaleString($locale)} ${$unitOnly}`),
+							format: (v?: number) => (v === 0 ? '' : `${v?.toLocaleString($locale)}`),
 							ticks: 4
 						},
 						grid: {

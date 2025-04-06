@@ -29,7 +29,6 @@
 	import MapActionAreasLayer from './MapActionAreasLayer.svelte';
 	import MapAttribution from './MapAttribution.svelte';
 	import MapDistrictsLayer from './MapDistrictsLayer.svelte';
-	import MapHourFilter from './MapHourFilter.svelte';
 	import MapLayerSelection from './MapLayerSelection.svelte';
 	import MapLorsLayer from './MapLorsLayer.svelte';
 	import MapMeasurementsRasterLayer from './MapMeasurementsRasterLayer.svelte';
@@ -190,9 +189,6 @@
 	</MapLibre>
 
 	<ChoroplethLegend />
-	{#if currentPage === 'heat-stress'}
-		<MapHourFilter />
-	{/if}
 	<MapAttribution />
 </div>
 

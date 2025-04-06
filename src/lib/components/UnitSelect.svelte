@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { LL } from '$i18n/i18n-svelte';
+	import { LL, locale } from '$i18n/i18n-svelte';
 	import { Button } from '$lib/components/ui/button';
 	import * as Command from '$lib/components/ui/command';
 	import * as Popover from '$lib/components/ui/popover';
@@ -7,10 +7,12 @@
 	import { cn } from '$lib/utils.js';
 	import { Check, ChevronDown } from 'lucide-svelte';
 	import { tick } from 'svelte';
+	import type { ChangeEventHandler } from 'svelte/elements';
 	import CollapsibleParagraph from './CollapsibleParagraph.svelte';
 	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
-	let units = $derived(
+	let searchValue = $state('');
+	const units = $derived(
 		Object.entries($LL.pages.measurements.unitSelect.units)
 			.filter(([key]) => !(key.endsWith('_min') || key.endsWith('_max')))
 			.map(([key, value]) => ({
@@ -19,6 +21,18 @@
 				unitOnly: value.unitOnly(),
 				description: value.description()
 			}))
+			.filter(
+				({ label, value }) =>
+					label.toLowerCase().includes(searchValue.toLowerCase()) ||
+					value.toLowerCase().includes(searchValue.toLowerCase())
+			)
+			.sort((a, b) => {
+				if (a.value.startsWith('utci') && !b.value.startsWith('utci')) return -1;
+				if (!a.value.startsWith('utci') && b.value.startsWith('utci')) return 1;
+				if (a.value.startsWith('utci') && b.value.startsWith('utci'))
+					return b.label.localeCompare(a.label);
+				return a.label.localeCompare(b.label, $locale);
+			})
 	);
 
 	let open = $state(false);
@@ -41,6 +55,12 @@
 			document.getElementById(triggerId)?.focus();
 		});
 	}
+
+	const handleSearch: ChangeEventHandler<HTMLInputElement> = (evt) => {
+		evt.preventDefault();
+		const value = evt.currentTarget.value;
+		searchValue = value;
+	};
 </script>
 
 <div class="scroll-mt-20" id="unit-select">
@@ -69,39 +89,45 @@
 				{/snippet}
 			</Popover.Trigger>
 			<Popover.Content class="w-[calc(var(--leftSidebarWidth)-3rem)] -translate-y-px p-0">
-				<Command.Root>
+				<Command.Root shouldFilter={false}>
 					<Command.Input
 						placeholder={$LL.pages.measurements.unitSelect.searchPlaceholder()}
+						oninput={handleSearch}
 						class="h-9"
 					/>
-					<Command.Empty>{$LL.pages.measurements.unitSelect.noUnitFound()}</Command.Empty>
-					<Command.Group>
-						{#each units as { value, label, unitOnly, description } (value)}
-							<Command.Item
-								{value}
-								onSelect={() => {
-									updateUnit(value);
-									closeAndFocusTrigger(ids.trigger);
-								}}
-							>
-								<Tooltip disableHoverableContent openDelay={0} closeDelay={0}>
-									<TooltipTrigger class="grid w-fit grid-cols-[auto_1fr_auto] gap-2 text-left">
-										<Check class={cn('h-4 w-4 shrink-0', $unit !== value && 'text-transparent')} />
-										<span>{label} {unitOnly ? `(${unitOnly})` : ''}</span>
-										<!-- <span class="shrink-0 text-xs text-muted-foreground">
+					{#if !units.length}
+						<Command.Empty>{$LL.pages.measurements.unitSelect.noUnitFound()}</Command.Empty>
+					{:else}
+						<Command.Group>
+							{#each units as { value, label, unitOnly, description } (value)}
+								<Command.Item
+									{value}
+									onSelect={() => {
+										updateUnit(value);
+										closeAndFocusTrigger(ids.trigger);
+									}}
+								>
+									<Tooltip disableHoverableContent openDelay={0} closeDelay={0}>
+										<TooltipTrigger class="grid w-fit grid-cols-[auto_1fr_auto] gap-2 text-left">
+											<Check
+												class={cn('h-4 w-4 shrink-0', $unit !== value && 'text-transparent')}
+											/>
+											<span>{label} {unitOnly ? `(${unitOnly})` : ''}</span>
+											<!-- <span class="shrink-0 text-xs text-muted-foreground">
 										{$LL.pages.measurements.unitSelect.xOutOfY({
 											part: Math.floor(Math.random() * 10).toLocaleString($locale),
 											total: units.length.toLocaleString($locale)
 										})}
 									</span> -->
-									</TooltipTrigger>
-									<TooltipContent side="right" strategy="fixed" class="w-80 max-w-full">
-										{@html description}
-									</TooltipContent>
-								</Tooltip>
-							</Command.Item>
-						{/each}
-					</Command.Group>
+										</TooltipTrigger>
+										<TooltipContent side="right" strategy="fixed" class="w-80 max-w-full">
+											{@html description}
+										</TooltipContent>
+									</Tooltip>
+								</Command.Item>
+							{/each}
+						</Command.Group>
+					{/if}
 				</Command.Root>
 			</Popover.Content>
 		{/snippet}

@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { heatStressUnit } from '$lib/stores/uiStore';
+	import { dayValue, heatStressUnit, udpateDay } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { isToday, today } from '$lib/utils/dateUtil';
 	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
+	import HourInput from 'components/HourInput.svelte';
 	import InfoTooltip from 'components/InfoTooltip.svelte';
 	import ThermalCompfortNavItem from 'components/ThermalCompfortNavItem.svelte';
+	import { addDays } from 'date-fns';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	let indicatorValues = $derived([
 		{
@@ -29,6 +33,38 @@
 			isSelected: $heatStressUnit === 'air_temperature'
 		}
 	]);
+
+	let formatter = $derived((value: number) => {
+		if (Number.isNaN(value)) return '';
+		const date = addDays(today(), value === -0 ? 0 : value);
+		if (isToday(date)) return $LL.pages.measurements.dateRangeSlider.today();
+		return new Intl.DateTimeFormat($locale, {
+			day: 'numeric',
+			month: 'short',
+			year: 'numeric'
+		}).format(date);
+	});
+
+	const rangeSliderProps = {
+		min: -30,
+		max: 0,
+		step: 1,
+		pushy: true,
+		float: true,
+		pips: true,
+		first: 'label' as const,
+		last: 'label' as const,
+		springValues: {
+			stiffness: 0.3,
+			damping: 0.6
+		}
+	};
+
+	const onValueChange = (event: CustomEvent<{ value: number }>) => {
+		const value = event.detail.value;
+		if (typeof value !== 'number' || Number.isNaN(value)) return;
+		udpateDay(Math.round(value));
+	};
 </script>
 
 <h1 class="mb-2 text-xl font-semibold">{$LL.pages.heatStress.title()}</h1>
@@ -38,10 +74,36 @@
 	{/each}
 </CollapsibleParagraph>
 
+<nav aria-label={$LL.pages.heatStress.indicatorsNavAriaLabel()} class="mt-6">
+	<ul class="flex flex-col gap-px rounded-t-xl border border-b-0 border-border bg-border">
+		{#each indicatorValues as indicator (indicator.slug)}
+			<ThermalCompfortNavItem {indicator} />
+		{/each}
+	</ul>
+</nav>
+
+<div class={cn('date-range-slider flex flex-col gap-2', 'rounded-b-xl border border-border p-4')}>
+	<div class="grid grid-cols-[1fr_auto] gap-2">
+		<div class="pt-2 [&_.rangeSlider]:ml-0" id="date-range-slider">
+			<RangeSlider
+				value={$dayValue}
+				on:change={onValueChange}
+				range={false}
+				{...rangeSliderProps}
+				{formatter}
+			/>
+		</div>
+		<div class="flex flex-col gap-1">
+			<span class="text-xs font-semibold">{$LL.generic.hourInput.label()}</span>
+			<HourInput />
+		</div>
+	</div>
+</div>
+
 <div
 	class={cn(
-		'mt-4 rounded bg-muted px-4 pb-2 pt-1.5 text-sm font-semibold',
-		'grid grid-cols-[1fr,auto] items-center gap-2'
+		'rounded bg-muted px-4 pb-2 pt-1.5 text-sm font-semibold',
+		'mt-4 grid grid-cols-[1fr,auto] items-center gap-2'
 	)}
 	role="alert"
 >
@@ -64,10 +126,47 @@
 		description={$LL.pages.heatStress.timeRangeAlertTooltipContent()}
 	/>
 </div>
-<nav aria-label={$LL.pages.heatStress.indicatorsNavAriaLabel()} class="mb-6 mt-4">
-	<ul class="flex flex-col gap-px rounded-xl border border-border bg-border">
-		{#each indicatorValues as indicator (indicator.slug)}
-			<ThermalCompfortNavItem {indicator} />
-		{/each}
-	</ul>
-</nav>
+
+<style>
+	:global(.date-range-slider) {
+		--range-slider: hsl(var(--muted-foreground) / 0.3);
+		--range-handle-inactive: hsl(var(--primary));
+		--range-handle: hsl(var(--primary));
+		--range-handle-focus: hsl(var(--primary));
+		--range-handle-border: hsl(var(--muted-primary));
+		--range-range-inactive: hsl(var(--primary));
+		--range-range: hsl(var(--primary));
+		--range-float-inactive: hsl(var(--primary));
+		--range-float: hsl(var(--primary));
+		--range-float-text: hsl(var(--primary-foreground));
+
+		--range-pip: hsl(var(--muted-foreground) / 0.3);
+		--range-pip-text: hsl(var(--muted-foreground));
+		--range-pip-active: hsl(var(--muted-foreground));
+		--range-pip-active-text: hsl(var(--primary-foreground));
+		--range-pip-hover: hsl(var(--primary));
+		--range-pip-hover-text: hsl(var(--primary-foreground));
+		--range-pip-in-range: hsl(var(--muted-foreground));
+		--range-pip-in-range-text: hsl(var(--muted-foreground));
+	}
+
+	:global(.date-range-slider .rangePips .pip.first > .pipVal) {
+		transform: translate(0, 25%);
+	}
+
+	:global(.date-range-slider .rangePips .pip.last > .pipVal) {
+		transform: translate(-100%, 25%);
+	}
+
+	:global(.date-range-slider .rangePips .pip.selected .pipVal) {
+		top: 0.4em;
+	}
+
+	:global(.date-range-slider .rangeSlider .rangeHandle:focus-visible) {
+		outline: none;
+		border-radius: 999px;
+		box-shadow:
+			0 0 0 4px hsl(var(--background)),
+			0 0 0 6px hsl(var(--ring));
+	}
+</style>

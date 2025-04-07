@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { heatStressUnit, heatStressUnitLabel, hour } from '$lib/stores/uiStore';
+	import { dayValue, heatStressUnit, heatStressUnitLabel, hour } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { today } from '$lib/utils/dateUtil';
 	import { Description, Title } from 'components/ui/alert';
 	import Alert from 'components/ui/alert/alert.svelte';
 	import Button from 'components/ui/button/button.svelte';
-	import { getDayOfYear, getYear } from 'date-fns';
+	import { addDays, getDayOfYear, getYear } from 'date-fns';
 	import { TriangleAlert } from 'lucide-svelte';
 	import type maplibregl from 'maplibre-gl';
 	import { onDestroy, onMount } from 'svelte';
@@ -26,7 +26,8 @@
 		air_temperature: 'TA'
 	};
 	class TileError extends Error {}
-	type TilesErrorsMap = Map<string, Map<string, TileError>>;
+	type TileErrorInstance = InstanceType<typeof TileError>;
+	type TilesErrorsMap = Map<string, Map<string, TileErrorInstance>>;
 
 	let { visible = false, map }: Props = $props();
 	let showTilesErrors = $state(true);
@@ -39,7 +40,7 @@
 	let tilesErrors = $state<TilesErrorsMap>(defaultTilesErrorMap);
 
 	const hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23] // prettier-ignore
-	const date = $derived(today().setHours($hour, 0, 0, 0));
+	const date = $derived(addDays(today(), $dayValue).setHours($hour, 0, 0, 0));
 	const dayOfYearToday = $derived(getDayOfYear(date));
 	const year = $derived(getYear(date));
 	const unit = $derived(
@@ -53,9 +54,10 @@
 	const tilesUrls = $derived(
 		hours.map((h) => {
 			const paddedHour = `${h}`.padStart(2, '0');
+			const paddedDayOfYear = `${dayOfYearToday}`.padStart(3, '0');
 			return {
 				layerHour: h,
-				tilesUrl: `${PUBLIC_API_BASE_URL}/tms/singleband/${unit}/${year}/${dayOfYearToday}/${paddedHour}/{z}/{x}/{y}.png?colormap=turbo&tile_size=[256,256]`
+				tilesUrl: `${PUBLIC_API_BASE_URL}/tms/singleband/${unit}/${year}/${paddedDayOfYear}/${paddedHour}/{z}/{x}/{y}.png?colormap=turbo&tile_size=[256,256]`
 			};
 		})
 	);
@@ -97,7 +99,8 @@
 		if (!unitTilesErrors || unitTilesErrors.size === 0) return [];
 		return unitTilesErrors.entries().reduce((acc, [key, tileError]: [string, TileError]) => {
 			const paddedHour = `${$hour}`.padStart(2, '0');
-			const keyStart = [unit, year, dayOfYearToday, paddedHour].join('-');
+			const paddedDayOfYear = `${dayOfYearToday}`.padStart(3, '0');
+			const keyStart = [unit, year, paddedDayOfYear, paddedHour].join('-');
 			if (key.startsWith(keyStart)) return [...acc, tileError];
 			return acc;
 		}, [] as TileError[]);

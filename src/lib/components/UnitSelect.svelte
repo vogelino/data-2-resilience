@@ -46,6 +46,7 @@
 
 	function closeAndFocusTrigger(triggerId: string) {
 		open = false;
+		searchValue = '';
 		tick().then(() => {
 			document.getElementById(triggerId)?.focus();
 		});
@@ -100,6 +101,7 @@
 									onSelect={() => {
 										updateUnit(value);
 										closeAndFocusTrigger(ids.trigger);
+										searchValue = '';
 									}}
 								>
 									<Tooltip disableHoverableContent openDelay={0} closeDelay={0}>

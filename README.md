@@ -28,8 +28,11 @@ Data2Resilience is a comprehensive platform designed to visualize climate data f
 
 - **Framework**: [SvelteKit](https://kit.svelte.dev/) 2.0 with TypeScript
 - **UI Components**: [shadcn-svelte](https://www.shadcn-svelte.com/)
-- **Data Visualization**: D3.js, Layerchart
-- **Mapping**: MapLibre GL
+- **Data Visualization**:
+  - [LayerChart](https://layerchart.com/): Declarative chart composition
+  - [D3.js](https://d3js.org/): Low-level data visualization
+- **Mapping**: [MapLibre GL](https://maplibre.org/)
+- **Geocoding**: [DigiStadtDO](https://digistadtdo.de/) Geocoding API
 - **Data Fetching**: [TanStack Query](https://tanstack.com/query)
 - **State Management**:
   - URL State: [sveltekit-search-params](https://github.com/paoloricciuti/sveltekit-search-params)
@@ -38,6 +41,7 @@ Data2Resilience is a comprehensive platform designed to visualize climate data f
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Internationalization**: [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n)
 - **Containerization**: [Docker](https://www.docker.com/)
+- **User Onboarding**: [Shepherd.js](https://shepherdjs.dev/): Interactive product tours
 
 ## Installation
 
@@ -192,26 +196,32 @@ We also use reactive query arguments with our custom utilities:
 import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 
 const query = createQuery(
-  reactiveQueryArgs(() => ({
-    queryKey: ['stations-snapshot', dateKey, unitWithMinMaxAvg, scale],
-    queryFn: async () => { /* fetch data */ },
-    enabled: Boolean(dateVal && unitWithMinMaxAvg)
-  }))
+	reactiveQueryArgs(() => ({
+		queryKey: ['stations-snapshot', dateKey, unitWithMinMaxAvg, scale],
+		queryFn: async () => {
+			/* fetch data */
+		},
+		enabled: Boolean(dateVal && unitWithMinMaxAvg)
+	}))
 );
 ```
 
 ## Features
 
 ### Station Selection
+
 Users can select multiple stations to compare data. Selected station IDs are stored in URL parameters for sharing.
 
 ### Time Range Selection
+
 - **Hour**: View data for a specific hour
 - **Day**: View daily aggregated data (min/max/avg)
 - **Range**: View data over a custom date range
 
 ### Measurement Units
+
 Various climate indicators can be selected for visualization:
+
 - Temperature (air, dew point, wet bulb)
 - Humidity (relative, absolute)
 - Pressure (atmospheric)
@@ -219,11 +229,61 @@ Various climate indicators can be selected for visualization:
 - Thermal comfort indices (UTCI, PET)
 - Precipitation, solar radiation, etc.
 
+### Place Search & Geocoding
+
+The application uses the DigiStadtDO Geocoding API for location search within Dortmund:
+
+```typescript
+const GEOCODING_API = 'https://geodaten.digistadtdo.de/api';
+
+async function searchLocation(query: string) {
+	const response = await fetch(`${GEOCODING_API}/geocode?q=${encodeURIComponent(query)}`);
+	return response.json();
+}
+```
+
 ### Data Visualization
+
 - Line charts for time series data
 - Bar charts for comparing stations
 - Histograms for data distribution
 - Special visualizations for heat stress and wind direction
+
+### Interactive Product Tour
+
+We use Shepherd.js to provide an interactive guide through the application's features:
+
+```typescript
+import { createTour } from '$lib/utils/tourUtil';
+
+const tour = createTour([
+	{
+		id: 'welcome',
+		title: 'Welcome to Data2Resilience',
+		text: 'Let us show you around the main features...'
+	},
+	{
+		id: 'map',
+		element: '.map-container',
+		title: 'Interactive Map',
+		text: 'Explore weather stations and heat stress data...'
+	}
+	// Additional tour steps...
+]);
+```
+
+## Data Visualization
+
+We use [LayerChart](https://layerchart.com/) for building complex, interactive charts through composition:
+
+```typescript
+import { Chart, Line, Points } from '@layerchart/svelte';
+
+<Chart data={timeSeriesData}>
+  <Line x="time" y="temperature" />
+  <Points x="time" y="temperature" />
+</Chart>
+```
 
 ## Internationalization
 
@@ -251,6 +311,7 @@ const theme = $state('light' | 'dark' | 'system');
 ```
 
 Theme preferences are:
+
 - Persisted in localStorage
 - Synced with system preferences
 - Automatically applied using Tailwind's dark mode classes

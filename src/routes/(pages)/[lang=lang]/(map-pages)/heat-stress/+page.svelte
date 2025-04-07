@@ -74,10 +74,36 @@
 	{/each}
 </CollapsibleParagraph>
 
+<nav aria-label={$LL.pages.heatStress.indicatorsNavAriaLabel()} class="mt-6">
+	<ul class="flex flex-col gap-px rounded-t-xl border border-b-0 border-border bg-border">
+		{#each indicatorValues as indicator (indicator.slug)}
+			<ThermalCompfortNavItem {indicator} />
+		{/each}
+	</ul>
+</nav>
+
+<div class={cn('date-range-slider flex flex-col gap-2', 'rounded-b-xl border border-border p-4')}>
+	<div class="grid grid-cols-[1fr_auto] gap-2">
+		<div class="pt-2 [&_.rangeSlider]:ml-0" id="date-range-slider">
+			<RangeSlider
+				value={$dayValue}
+				on:change={onValueChange}
+				range={false}
+				{...rangeSliderProps}
+				{formatter}
+			/>
+		</div>
+		<div class="flex flex-col gap-1">
+			<span class="text-xs font-semibold">{$LL.generic.hourInput.label()}</span>
+			<HourInput />
+		</div>
+	</div>
+</div>
+
 <div
 	class={cn(
-		'mt-6 rounded bg-muted px-4 pb-2 pt-1.5 text-sm font-semibold',
-		'grid grid-cols-[1fr,auto] items-center gap-2'
+		'rounded bg-muted px-4 pb-2 pt-1.5 text-sm font-semibold',
+		'mt-4 grid grid-cols-[1fr,auto] items-center gap-2'
 	)}
 	role="alert"
 >
@@ -99,31 +125,6 @@
 		title={$LL.pages.heatStress.timeRangeAlertTooltipTitle()}
 		description={$LL.pages.heatStress.timeRangeAlertTooltipContent()}
 	/>
-</div>
-
-<nav aria-label={$LL.pages.heatStress.indicatorsNavAriaLabel()} class="mt-2">
-	<ul class="flex flex-col gap-px rounded-t-xl border border-b-0 border-border bg-border">
-		{#each indicatorValues as indicator (indicator.slug)}
-			<ThermalCompfortNavItem {indicator} />
-		{/each}
-	</ul>
-</nav>
-<div class={cn('date-range-slider flex flex-col gap-2', 'rounded-b-xl border border-border p-4')}>
-	<div class="grid grid-cols-[1fr_auto] gap-2">
-		<div class="pt-2 [&_.rangeSlider]:ml-0" id="date-range-slider">
-			<RangeSlider
-				value={$dayValue}
-				on:change={onValueChange}
-				range={false}
-				{...rangeSliderProps}
-				{formatter}
-			/>
-		</div>
-		<div class="flex flex-col gap-1">
-			<span class="text-xs font-semibold">{$LL.generic.hourInput.label()}</span>
-			<HourInput />
-		</div>
-	</div>
 </div>
 
 <style>

@@ -6,7 +6,6 @@
 	import { closePopup } from '$lib/stores/mapPopupsStore.svelte';
 	import {
 		boundariesMode,
-		hour,
 		isLeftSidebarOpened,
 		mapLatitude,
 		mapLongitude,
@@ -174,7 +173,7 @@
 			{#if currentPage === 'measurements'}
 				<MapStationsLayer {stations} {map} />
 			{/if}
-			<MapMeasurementsRasterLayer hour={$hour} visible={currentPage === 'heat-stress'} />
+			<MapMeasurementsRasterLayer {map} visible={currentPage === 'heat-stress'} />
 			<MapDistrictsLayer visible={$boundariesMode === 'districts'} {displayMode} />
 			<MapLorsLayer visible={$boundariesMode === 'lors'} {displayMode} />
 			<MapActionAreasLayer visible={$boundariesMode === 'lors'} {displayMode} />

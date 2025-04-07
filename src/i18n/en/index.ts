@@ -42,6 +42,7 @@ const en = {
 	generic: {
 		expand: 'Know more',
 		collapse: 'Collapse',
+		dismiss: 'Dismiss',
 		leftSidebar: {
 			showAriaLabel: 'Expand left sidebar',
 			hideAriaLabel: 'Collapse left sidebar'
@@ -875,6 +876,12 @@ const en = {
 						utci: 'above 46 °C'
 					}
 				}
+			}
+		},
+		tiles: {
+			tilesNotFound: {
+				title: `{count} tiles could not be loaded.`,
+				description: `No data for the unit "{measure}" available on {date} at {hour}.`
 			}
 		}
 	}

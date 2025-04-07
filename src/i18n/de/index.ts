@@ -42,6 +42,7 @@ const de = {
 	generic: {
 		expand: 'Mehr erfahren',
 		collapse: 'Zusammenklappen',
+		dismiss: 'Schließen',
 		leftSidebar: {
 			showAriaLabel: 'Linke Sidebar einblenden',
 			hideAriaLabel: 'Linke Sidebar ausblenden'
@@ -881,6 +882,12 @@ const de = {
 						utci: 'über 46 °C'
 					}
 				}
+			}
+		},
+		tiles: {
+			tilesNotFound: {
+				title: `{count:string} Kacheln konnten nicht geladen werden.`,
+				description: `Keine Daten verfügbar für die Messeinheit "{measure:string}" am {date:string} um {hour:string}Uhr.`
 			}
 		}
 	}

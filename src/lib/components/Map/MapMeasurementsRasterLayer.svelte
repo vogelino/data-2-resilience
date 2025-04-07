@@ -53,9 +53,10 @@
 	const tilesUrls = $derived(
 		hours.map((h) => {
 			const paddedHour = `${h}`.padStart(2, '0');
+			const paddeddayOfYearToday = String(dayOfYearToday).padStart(3, '0');
 			return {
 				layerHour: h,
-				tilesUrl: `${PUBLIC_API_BASE_URL}/tms/singleband/${unit}/${year}/${dayOfYearToday}/${paddedHour}/{z}/{x}/{y}.png?colormap=turbo&tile_size=[256,256]`
+				tilesUrl: `${PUBLIC_API_BASE_URL}/tms/singleband/${unit}/${year}/${paddeddayOfYearToday}/${paddedHour}/{z}/{x}/{y}.png?colormap=turbo&tile_size=[256,256]`
 			};
 		})
 	);

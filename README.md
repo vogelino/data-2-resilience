@@ -12,16 +12,31 @@ The dashboard enables citizens and stakeholders to:
 
 Funded by the [ICLEI Action Fund 2.0](https://iclei.org/activity/iclei-action-fund-2-0/) and [Google.org](https://www.google.org/), this project combines technological innovation with citizen participation to minimize the impact of extreme heat on urban life.
 
+## Project Overview
+
+Data2Resilience is a comprehensive platform designed to visualize climate data from various weather stations. The application allows users to:
+
+- View climate data on an interactive map
+- Select specific weather stations for detailed analysis
+- Compare measurements across different stations
+- Visualize data through various charts (line charts, bar charts, histograms)
+- Switch between different climate indicators (temperature, humidity, UTCI, etc.)
+- View historical data across different time ranges
+- Explore heat stress measurements and thermal comfort indices
+
 ## Tech Stack
 
-- **Framework**: [SvelteKit](https://kit.svelte.dev/) 2.0
+- **Framework**: [SvelteKit](https://kit.svelte.dev/) 2.0 with TypeScript
 - **UI Components**: [shadcn-svelte](https://www.shadcn-svelte.com/)
+- **Data Visualization**: D3.js, Layerchart
+- **Mapping**: MapLibre GL
 - **Data Fetching**: [TanStack Query](https://tanstack.com/query)
 - **State Management**:
   - URL State: [sveltekit-search-params](https://github.com/paoloricciuti/sveltekit-search-params)
   - UI State: [Svelte stores](https://svelte.dev/docs/svelte-store) with debounced updates
 - **Type Safety**: [Zod](https://zod.dev/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Internationalization**: [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n)
 - **Containerization**: [Docker](https://www.docker.com/)
 
 ## Installation
@@ -68,6 +83,25 @@ To create a new release:
 2. Create a GitHub release
 3. The action will automatically build and publish the container
 
+## Project Structure
+
+```
+src/
+├── app.css               # Global CSS with Tailwind imports
+├── app.d.ts              # TypeScript type declarations
+├── app.html              # Base HTML template
+├── error.html            # Error page template
+├── hooks.server.ts       # Server-side hooks for SvelteKit
+├── i18n/                 # Internationalization
+├── lib/                  # Library code
+│   ├── components/       # Reusable UI components
+│   ├── schemas/          # Data validation schemas
+│   ├── stores/           # Svelte stores for state management
+│   └── utils/            # Utility functions
+├── params/               # URL parameter matchers
+└── routes/               # SvelteKit routes
+```
+
 ## State Management
 
 We use a combination of URL-synchronized state and UI state management:
@@ -105,6 +139,17 @@ export const formattedTimeConfiguration = derived(
 );
 ```
 
+## Key Components
+
+- **Header**: Main navigation component (`Header.svelte`)
+- **LeftSidebar**: Contains station selection and filters (`LeftSidebar.svelte`)
+- **Map**: Interactive map for visualizing location data
+- **Charts**: Various data visualization components:
+  - `TimeseriesLineChart.svelte`: Line chart for time series data
+  - `DailySationsValuesBarChart.svelte`: Bar chart for daily station values
+  - `Histogram.svelte`: Histogram for data distribution
+  - `WindDirectionChart.svelte`: Specialized chart for wind direction
+
 ## Components and UI
 
 We use [shadcn-svelte](https://www.shadcn-svelte.com/) for core UI components:
@@ -113,6 +158,20 @@ We use [shadcn-svelte](https://www.shadcn-svelte.com/) for core UI components:
 # Install new shadcn component
 pnpm dlx shadcn-svelte@latest add button
 ```
+
+## Key Stores
+
+- `mapData.ts`: Manages the stations GeoJSON data
+- `stationsStore.ts`: Handles selected stations state
+- `uiStore.ts`: UI-related state (sidebar visibility, date ranges, selected units, etc.)
+
+## Data Flow
+
+1. Station data is loaded from the API during the initial page load
+2. Users can select stations from the map or the station selector
+3. Selected stations are stored in the state and URL parameters
+4. When stations are selected, data visualizations are updated
+5. Users can change time ranges, measurement units, and other parameters to update visualizations
 
 ## Data Fetching
 
@@ -127,16 +186,51 @@ const query = createQuery({
 });
 ```
 
+We also use reactive query arguments with our custom utilities:
+
+```typescript
+import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+
+const query = createQuery(
+  reactiveQueryArgs(() => ({
+    queryKey: ['stations-snapshot', dateKey, unitWithMinMaxAvg, scale],
+    queryFn: async () => { /* fetch data */ },
+    enabled: Boolean(dateVal && unitWithMinMaxAvg)
+  }))
+);
+```
+
+## Features
+
+### Station Selection
+Users can select multiple stations to compare data. Selected station IDs are stored in URL parameters for sharing.
+
+### Time Range Selection
+- **Hour**: View data for a specific hour
+- **Day**: View daily aggregated data (min/max/avg)
+- **Range**: View data over a custom date range
+
+### Measurement Units
+Various climate indicators can be selected for visualization:
+- Temperature (air, dew point, wet bulb)
+- Humidity (relative, absolute)
+- Pressure (atmospheric)
+- Wind (speed, direction)
+- Thermal comfort indices (UTCI, PET)
+- Precipitation, solar radiation, etc.
+
+### Data Visualization
+- Line charts for time series data
+- Bar charts for comparing stations
+- Histograms for data distribution
+- Special visualizations for heat stress and wind direction
+
 ## Internationalization
 
 We use [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n) for type-safe translations:
 
 - Translations are stored in `src/i18n/{locale}/index.ts`
-- Auto-generated types on the fly with the following command:
-
-```bash
-pnpm typesafe-i18n
-```
+- Auto-generated types on the fly with `pnpm typesafe-i18n`
 
 Example translation usage:
 
@@ -157,7 +251,26 @@ const theme = $state('light' | 'dark' | 'system');
 ```
 
 Theme preferences are:
-
 - Persisted in localStorage
 - Synced with system preferences
 - Automatically applied using Tailwind's dark mode classes
+
+## Development Workflow
+
+### Adding a New Component
+
+1. Create a new component in `src/lib/components/`
+2. Import and use it in relevant pages or parent components
+3. Add any necessary state to stores if needed
+
+### Adding a New Measurement Unit
+
+1. Add the unit to the schema in `src/lib/utils/schemas.ts`
+2. Add UI labels in the i18n files
+3. Configure the color scale in `src/lib/utils/colorScaleUtil.ts`
+
+### Adding a New Page
+
+1. Create a new route in `src/routes/`
+2. Create corresponding components for the page
+3. Update navigation components if needed

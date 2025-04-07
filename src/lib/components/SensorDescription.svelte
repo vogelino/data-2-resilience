@@ -20,11 +20,13 @@
 			.reduce(
 				(acc, i) => {
 					const units = $LL.pages.measurements.unitSelect.units;
-					const indicator = units[i as keyof typeof units]?.label();
-					if (indicator) return [...acc, { value: i, label: indicator }];
+					const value = i as keyof typeof units;
+					const label = units[value]?.label();
+					const unitOnly = units[value]?.unitOnly();
+					if (label) return [...acc, { value, label, unitOnly }];
 					return acc;
 				},
-				[] as { value: string; label: string }[]
+				[] as { value: string; label: string; unitOnly: string }[]
 			)
 			.sort((a, b) => sortUnitByLabel(a, b, $locale))
 	);
@@ -41,8 +43,13 @@
 				{$LL.pages.stations.stationsDescriptions.supportedIndicatorsLabel()}:
 			</strong>
 			<ul class="flex flex-col gap-1 pb-4">
-				{#each indicators as { value, label } (value)}
-					<li class="border-b border-muted pb-1">{label}</li>
+				{#each indicators as { value, label, unitOnly } (value)}
+					<li class="border-b border-muted pb-1">
+						{label}
+						{#if unitOnly}
+							<span class="text-muted-foreground"> ({unitOnly})</span>
+						{/if}
+					</li>
 				{/each}
 			</ul>
 		</CollapsibleParagraph>

@@ -105,17 +105,14 @@
 									}}
 								>
 									<Tooltip disableHoverableContent openDelay={0} closeDelay={0}>
-										<TooltipTrigger class="grid w-fit grid-cols-[auto_1fr_auto] gap-2 text-left">
+										<TooltipTrigger class="flex w-fit gap-1 text-left">
 											<Check
-												class={cn('h-4 w-4 shrink-0', $unit !== value && 'text-transparent')}
+												class={cn('mr-1 h-4 w-4 shrink-0', $unit !== value && 'text-transparent')}
 											/>
-											<span>{label} {unitOnly ? `(${unitOnly})` : ''}</span>
-											<!-- <span class="shrink-0 text-xs text-muted-foreground">
-										{$LL.pages.measurements.unitSelect.xOutOfY({
-											part: Math.floor(Math.random() * 10).toLocaleString($locale),
-											total: units.length.toLocaleString($locale)
-										})}
-									</span> -->
+											<span>{label}</span>
+											{#if unitOnly}
+												<span class="text-muted-foreground"> ({unitOnly})</span>
+											{/if}
 										</TooltipTrigger>
 										<TooltipContent side="right" strategy="fixed" class="w-80 max-w-full">
 											{@html description}

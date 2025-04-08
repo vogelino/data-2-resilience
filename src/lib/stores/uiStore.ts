@@ -1,4 +1,6 @@
+import { browser } from '$app/environment';
 import LL, { locale } from '$i18n/i18n-svelte';
+import { SIDEBAR_STATE_CYCLE, SidebarState } from '$lib/types/sidebar';
 import { isToday, limitDateBoundsToToday, today } from '$lib/utils/dateUtil';
 import {
 	addDays,
@@ -71,18 +73,48 @@ export const updateRangeEnd = debounce((d: number) => {
 }, 500);
 
 // SIDEBAR
-const isLeftSidebarOpenedDefault = true;
-const isLeftSidebarOpenedQueryParam = queryParam(
-	'sidebar_open',
-	ssp.boolean(isLeftSidebarOpenedDefault)
+const sidebarStateDefault = SidebarState.SIMPLE;
+const sidebarStateQueryParam = queryParam('sidebar', ssp.string(sidebarStateDefault));
+export const sidebarState = derived(sidebarStateQueryParam, (value: string) =>
+	validateQueryParam(value, z.string(), sidebarStateDefault)
 );
-export const isLeftSidebarOpened = derived(isLeftSidebarOpenedQueryParam, (value: boolean) =>
-	Boolean(value)
-);
+
+export const isLeftSidebarOpened = derived(sidebarState, (state) => state !== SidebarState.CLOSED);
+
 export const toggleLeftSidebar = () =>
-	isLeftSidebarOpenedQueryParam.update((value: boolean) => !value);
-export const closeLeftSidebar = () => isLeftSidebarOpenedQueryParam.set(false);
-export const openLeftSidebar = () => isLeftSidebarOpenedQueryParam.set(true);
+	sidebarStateQueryParam.update((value) =>
+		value === SidebarState.CLOSED ? SidebarState.SIMPLE : SidebarState.CLOSED
+	);
+export const closeLeftSidebar = () => sidebarStateQueryParam.set(SidebarState.CLOSED);
+export const openLeftSidebar = () => sidebarStateQueryParam.set(SidebarState.SIMPLE);
+export const setLeftSidebarState = (state: SidebarState) => {
+	sidebarStateQueryParam.set(state);
+};
+
+export const cycleSidebarState = () =>
+	sidebarStateQueryParam.update((currentState) => {
+		let isMobile = true;
+		if (browser) {
+			isMobile = window.matchMedia('(max-width: 768px)').matches;
+		}
+		const cycle = isMobile
+			? SIDEBAR_STATE_CYCLE.filter((state) => state !== 'large')
+			: SIDEBAR_STATE_CYCLE;
+		const currentIndex = cycle.indexOf(currentState as SidebarState);
+		const nextIndex = (currentIndex + 1) % cycle.length;
+		const newState = cycle[nextIndex];
+		if (browser) {
+			if (newState === SidebarState.LARGE) {
+				document.documentElement.style.setProperty(
+					'--leftSidebarWidth',
+					`min(56rem, calc(100vw - 3rem))`
+				);
+			} else {
+				document.documentElement.style.removeProperty('--leftSidebarWidth');
+			}
+		}
+		return newState;
+	});
 
 // DAY VALUE
 const dayValueDefault = 0;

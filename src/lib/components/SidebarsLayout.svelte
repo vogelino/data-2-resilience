@@ -1,14 +1,47 @@
 <!-- @migration-task Error while migrating Svelte code: This migration would change the name of a slot making the component unusable -->
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { isLeftSidebarOpened, toggleLeftSidebar } from '$lib/stores/uiStore';
+	import {
+		closeLeftSidebar,
+		cycleSidebarState,
+		setLeftSidebarState,
+		sidebarState
+	} from '$lib/stores/uiStore';
+	import { SidebarState } from '$lib/types/sidebar';
 	import { cn } from '$lib/utils';
 	import { SidebarClose, SidebarOpen } from 'lucide-svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import Button from './ui/button/button.svelte';
 
 	const isAboutPage = $derived($page.url.pathname.replace(`/${$locale}`, '') === '/about');
-	const showLeftSidebar = $derived($isLeftSidebarOpened && !isAboutPage);
+	const showLeftSidebar = $derived($sidebarState !== SidebarState.CLOSED && !isAboutPage);
+	let isMobile = $state(true);
+	const shouldCloseNext = $derived(
+		(!isMobile && $sidebarState === SidebarState.LARGE) ||
+			(isMobile && $sidebarState === SidebarState.SIMPLE)
+	);
+
+	function onMobileMediaQueryChange(e: MediaQueryListEvent) {
+		isMobile = e.matches;
+		if (e.matches && $sidebarState === SidebarState.LARGE) {
+			console.log('setting to simple because mobile');
+			setLeftSidebarState(SidebarState.SIMPLE);
+		}
+	}
+
+	let mediaQuery: MediaQueryList | null = null;
+	onMount(() => {
+		if (!browser || mediaQuery) return;
+		mediaQuery = window.matchMedia('(max-width: 768px)');
+		isMobile = mediaQuery.matches;
+		mediaQuery.addEventListener('change', onMobileMediaQueryChange);
+	});
+
+	onDestroy(() => {
+		mediaQuery?.removeEventListener('change', onMobileMediaQueryChange);
+	});
 </script>
 
 <div
@@ -23,7 +56,7 @@
 			class={cn(
 				'border-r border-border bg-background',
 				'flex min-h-full w-[var(--leftSidebarWidth)] flex-col gap-4',
-				'transition duration-300 ease-in-out',
+				'transition-all duration-300 ease-in-out',
 				'absolute left-0 top-0 z-50',
 				showLeftSidebar
 					? 'translate-x-0 opacity-100 shadow-2xl'
@@ -34,7 +67,8 @@
 				class={cn(
 					'h-[calc(100vh-var(--headerHeight,5rem))]',
 					'w-[var(--leftSidebarWidth)] overflow-y-auto overflow-x-clip',
-					'border-r border-border'
+					'border-r border-border',
+					'transition-all duration-300 ease-in-out'
 				)}
 				id="left-sidebar-wrapper"
 				inert={!showLeftSidebar}
@@ -48,12 +82,12 @@
 							size="icon"
 							variant="outline"
 							class={cn(' rounded-none rounded-br-sm', 'size-12')}
-							onclick={toggleLeftSidebar}
-							aria-label={showLeftSidebar
+							onclick={cycleSidebarState}
+							aria-label={shouldCloseNext
 								? $LL.generic.leftSidebar.hideAriaLabel()
 								: $LL.generic.leftSidebar.showAriaLabel()}
 						>
-							{#if showLeftSidebar}
+							{#if shouldCloseNext}
 								<SidebarClose />
 							{:else}
 								<SidebarOpen />
@@ -68,7 +102,7 @@
 								'text-sm transition-opacity'
 							)}
 						>
-							{showLeftSidebar
+							{shouldCloseNext
 								? $LL.generic.leftSidebar.hideAriaLabel()
 								: $LL.generic.leftSidebar.showAriaLabel()}
 						</div>
@@ -82,7 +116,7 @@
 		{#if showLeftSidebar}
 			<button
 				class={cn('absolute inset-0 z-50 bg-muted/50 backdrop-blur-sm md:hidden', 'transition-all')}
-				onclick={toggleLeftSidebar}
+				onclick={closeLeftSidebar}
 				aria-hidden="true"
 			></button>
 		{/if}

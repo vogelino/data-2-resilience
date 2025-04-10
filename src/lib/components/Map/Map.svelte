@@ -65,16 +65,6 @@
 		mapLng = $mapLongitude;
 		mapLat = $mapLatitude;
 		mapZ = $mapZoom;
-
-		tilesLocal = {
-			type: 'vector',
-			tiles: [`${location.origin}/openmaptiles/{z}/{x}/{y}.pbf`] as unknown as string,
-			maxzoom: 14
-		};
-		// @ts-expect-error
-		positronMapStyleDay.sources.openmaptiles = tilesLocal;
-		// @ts-expect-error
-		positronMapStyleNight.sources.openmaptiles = tilesLocal;
 	});
 
 	const showSearchedFeature = (map: maplibregl.Map, feature: AddressFeature | undefined) => {
@@ -95,11 +85,6 @@
 		return p === '' ? 'measurements' : p;
 	});
 	const displayMode = $derived(currentPage === 'heat-stress' || $showSatellite ? 'stroke' : 'fill');
-	// const vectorTilesUrl = $derived(
-	// 	$mode === 'dark'
-	// 		? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
-	// 		: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
-	// );
 
 	const vectorTilesUrl = $derived($mode === 'dark' ? positronMapStyleNight : positronMapStyleDay);
 

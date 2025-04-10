@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte';
+	import { mode } from 'mode-watcher';
 	import { RasterLayer, RasterTileSource } from 'svelte-maplibre';
 
 	interface Props {
@@ -14,31 +14,20 @@
 
 	const buildingLayerIds = ['building', 'building-top'];
 
-	onMount(() => {
-		toggleBuildingLayers(visible);
-	});
+	$effect(() => toggleBuildingLayers(visible, $mode));
 
-	$effect(() => toggleBuildingLayers(visible));
-
-	function toggleBuildingLayers(isVisible: boolean) {
+	function toggleBuildingLayers(isVisible: boolean, _mode?: string) {
 		if (!map) return;
 		buildingLayerIds.forEach((id) => {
 			map?.setLayoutProperty(id, 'visibility', isVisible ? 'none' : 'visible');
 		});
 	}
-
-	onDestroy(() => {
-		// Restore building layers visibility when component is destroyed
-		if (map && visible) {
-			toggleBuildingLayers(false);
-		}
-	});
 </script>
 
 <RasterTileSource tiles={[dortmundOrthophotosTileUrl]} tileSize={256}>
 	<RasterLayer
 		paint={{}}
-		beforeId="tunnel_service_case"
+		beforeId="tunnel_minor_case"
 		layout={{ visibility: visible ? 'visible' : 'none' }}
 	/>
 </RasterTileSource>

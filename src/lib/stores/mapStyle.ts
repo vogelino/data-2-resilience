@@ -1,10 +1,17 @@
+import { PUBLIC_VITE_BASE_URL } from '$env/static/public';
 import type { StyleSpecification } from 'maplibre-gl';
 
 export const positronMapStyleDay = {
 	version: 8,
 	name: 'Positron',
 	metadata: {},
-	sources: {},
+	sources: {
+		openmaptiles: {
+			type: 'vector',
+			tiles: [`${PUBLIC_VITE_BASE_URL}/openmaptiles/{z}/{x}/{y}.pbf`],
+			maxzoom: 14
+		}
+	},
 	sprite: 'https://tiles.basemaps.cartocdn.com/gl/positron-gl-style/sprite',
 	glyphs: 'https://tiles.basemaps.cartocdn.com/fonts/{fontstack}/{range}.pbf',
 	// "glyphs": location.origin + location.pathname + "font/{fontstack}/{range}.pbf" -> Should work locally
@@ -2986,7 +2993,13 @@ export const positronMapStyleNight = {
 	version: 8,
 	name: 'Dark Matter',
 	metadata: {},
-	sources: {},
+	sources: {
+		openmaptiles: {
+			type: 'vector',
+			tiles: [`${PUBLIC_VITE_BASE_URL}/openmaptiles/{z}/{x}/{y}.pbf`],
+			maxzoom: 14
+		}
+	},
 	sprite: 'https://tiles.basemaps.cartocdn.com/gl/dark-matter-gl-style/sprite',
 	glyphs: 'https://tiles.basemaps.cartocdn.com/fonts/{fontstack}/{range}.pbf',
 	layers: [

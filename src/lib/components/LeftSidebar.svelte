@@ -54,60 +54,92 @@
 </script>
 
 {#if showLeftSidebar}
-	<div
-		class="absolute left-0 top-0 z-50 h-[calc(100vh-var(--headerHeight,5rem))] w-[var(--leftSidebarWidth)] overflow-y-auto overflow-x-clip"
-		id="left-sidebar-scroll-container"
-		inert={!showLeftSidebar}
-	>
-		<WelcomeMessage />
-		<nav
+	<aside class={cn('w-[var(--leftSidebarWidth)]', 'transition-all duration-300 ease-in-out')}>
+		<div
 			class={cn(
-				'sticky top-0 z-50 border-b border-border bg-muted',
-				'pt-1 shadow-black/10 transition-shadow duration-1000'
+				'sidebar-content absolute left-0 top-0 z-50',
+				'h-[calc(100vh-var(--headerHeight,5rem))] w-[var(--leftSidebarWidth)]',
+				'overflow-y-auto overflow-x-clip',
+				'transition-all duration-300 ease-in-out'
 			)}
-			bind:this={navElement}
+			id="left-sidebar-scroll-container"
+			inert={!showLeftSidebar}
 		>
-			<ul
-				class="flex w-[var(--leftSidebarWidth)] translate-y-px overflow-x-auto overflow-y-clip pt-2 [&:has(:focus-visible)]:overflow-visible"
+			<WelcomeMessage />
+			<nav
+				class={cn(
+					'sticky top-0 z-50 border-b border-border bg-muted',
+					'pt-1 shadow-black/10 transition-shadow duration-1000'
+				)}
+				bind:this={navElement}
 			>
-				{#each tabs as tab (tab.slug)}
-					<li
-						class={cn(
-							'relative -mb-px -ml-px flex',
-							tab.isActive && 'z-10',
-							'[&:has(:focus-visible)]:z-20'
-						)}
-					>
-						<a
-							href={[
-								`/${$locale}`,
-								tab.slug === tabs[0].slug ? '' : `/${tab.slug}`,
-								urlQuery ? `?${urlQuery}` : ''
-							].join('')}
+				<ul
+					class={cn(
+						'flex w-[var(--leftSidebarWidth)] translate-y-px',
+						'overflow-x-auto overflow-y-clip pt-2 transition-all',
+						'[&:has(:focus-visible)]:overflow-visible'
+					)}
+				>
+					{#each tabs as tab (tab.slug)}
+						<li
 							class={cn(
-								'focusable px-4 pb-2 pt-3 transition focus-visible:rounded-lg',
-								'text-nowrap border border-transparent focus-visible:z-10 hover-hover:hover:z-50',
-								tab.slug === tabs[0].slug ? 'rounded-tr-lg pl-6' : ' rounded-t-lg',
-								tab.isActive &&
-									cn(
-										'border-border border-b-background border-t-primary bg-background font-semibold',
-										'shadow-[inset_0_1px_0_0_hsl(var(--primary)),0_-1px_0_0_hsl(var(--primary))]'
-									),
-								tab.isActive && tab.slug === tabs[0].slug && 'border-l-background',
-								!tab.isActive &&
-									cn(
-										'hover-hover:hover:border-border hover-hover:hover:border-b-border',
-										'hover-hover:hover:bg-background',
-										'border-b-2 focus-visible:border-b'
-									)
-							)}>{tab.name}</a
+								'relative -mb-px -ml-px flex',
+								tab.isActive && 'z-10',
+								'[&:has(:focus-visible)]:z-20'
+							)}
 						>
-					</li>
-				{/each}
-			</ul>
-		</nav>
-		<section class="bg-background p-6 pb-48">
-			{@render children?.()}
-		</section>
-	</div>
+							<a
+								href={[
+									`/${$locale}`,
+									tab.slug === tabs[0].slug ? '' : `/${tab.slug}`,
+									urlQuery ? `?${urlQuery}` : ''
+								].join('')}
+								class={cn(
+									'focusable px-4 pb-2 pt-3 transition focus-visible:rounded-lg',
+									'text-nowrap border border-transparent focus-visible:z-10 hover-hover:hover:z-50',
+									tab.slug === tabs[0].slug ? 'rounded-tr-lg pl-6' : ' rounded-t-lg',
+									tab.isActive &&
+										cn(
+											'border-border border-b-background border-t-primary bg-background font-semibold',
+											'shadow-[inset_0_1px_0_0_hsl(var(--primary)),0_-1px_0_0_hsl(var(--primary))]'
+										),
+									tab.isActive && tab.slug === tabs[0].slug && 'border-l-background',
+									!tab.isActive &&
+										cn(
+											'hover-hover:hover:border-border hover-hover:hover:border-b-border',
+											'hover-hover:hover:bg-background',
+											'border-b-2 focus-visible:border-b'
+										)
+								)}>{tab.name}</a
+							>
+						</li>
+					{/each}
+				</ul>
+			</nav>
+			<section class="bg-background p-6 pb-48">
+				{@render children?.()}
+			</section>
+		</div>
+	</aside>
 {/if}
+
+<style>
+	aside {
+		/* base styles */
+
+		&.closed {
+			width: 0;
+			/* closed state styles */
+		}
+
+		&.simple {
+			width: 320px;
+			/* simple state styles */
+		}
+
+		&.large {
+			width: 600px;
+			/* large state styles */
+		}
+	}
+</style>

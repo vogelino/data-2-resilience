@@ -37,6 +37,8 @@
 	import MapZoomControl from './MapZoomControl.svelte';
 	import SatelliteRasterLayer from './SatelliteRasterLayer.svelte';
 
+	import { positronMapStyleDay, positronMapStyleNight } from '$lib/stores/mapStyle';
+
 	interface Props {
 		stations: StationsGeoJSONType;
 	}
@@ -52,10 +54,25 @@
 	let mapLat = $state($mapLatitude);
 	let mapZ = $state($mapZoom);
 
+	 // Initialize with a default value
+	 let tilesLocal = {
+    type: 'vector',
+    tiles: '',
+    maxzoom: 14
+  };
+
 	onMount(() => {
 		mapLng = $mapLongitude;
 		mapLat = $mapLatitude;
 		mapZ = $mapZoom;
+
+		tilesLocal = {
+			type: 'vector',
+			tiles: [`${location.origin}/openmaptiles/{z}/{x}/{y}.pbf`],
+			maxzoom: 14
+	}
+		positronMapStyleDay.sources.openmaptiles = tilesLocal;
+		positronMapStyleNight.sources.openmaptiles = tilesLocal;
 	});
 
 	const showSearchedFeature = (map: maplibregl.Map, feature: AddressFeature | undefined) => {
@@ -76,11 +93,22 @@
 		return p === '' ? 'measurements' : p;
 	});
 	const displayMode = $derived(currentPage === 'heat-stress' || $showSatellite ? 'stroke' : 'fill');
+	// const vectorTilesUrl = $derived(
+	// 	$mode === 'dark'
+	// 		? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
+	// 		: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
+	// );
+
 	const vectorTilesUrl = $derived(
 		$mode === 'dark'
-			? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
-			: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
+			? positronMapStyleNight
+			: positronMapStyleDay
 	);
+
+	
+
+	
+
 
 	$effect(() => {
 		if (!map || !currentPage) return;

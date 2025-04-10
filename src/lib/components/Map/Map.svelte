@@ -54,12 +54,12 @@
 	let mapLat = $state($mapLatitude);
 	let mapZ = $state($mapZoom);
 
-	 // Initialize with a default value
-	 let tilesLocal = {
-    type: 'vector',
-    tiles: '',
-    maxzoom: 14
-  };
+	// Initialize with a default value
+	let tilesLocal = {
+		type: 'vector',
+		tiles: '',
+		maxzoom: 14
+	};
 
 	onMount(() => {
 		mapLng = $mapLongitude;
@@ -68,10 +68,12 @@
 
 		tilesLocal = {
 			type: 'vector',
-			tiles: [`${location.origin}/openmaptiles/{z}/{x}/{y}.pbf`],
+			tiles: [`${location.origin}/openmaptiles/{z}/{x}/{y}.pbf`] as unknown as string,
 			maxzoom: 14
-	}
+		};
+		// @ts-expect-error
 		positronMapStyleDay.sources.openmaptiles = tilesLocal;
+		// @ts-expect-error
 		positronMapStyleNight.sources.openmaptiles = tilesLocal;
 	});
 
@@ -99,16 +101,7 @@
 	// 		: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
 	// );
 
-	const vectorTilesUrl = $derived(
-		$mode === 'dark'
-			? positronMapStyleNight
-			: positronMapStyleDay
-	);
-
-	
-
-	
-
+	const vectorTilesUrl = $derived($mode === 'dark' ? positronMapStyleNight : positronMapStyleDay);
 
 	$effect(() => {
 		if (!map || !currentPage) return;
@@ -197,11 +190,11 @@
 			<MapZoomControl {map} />
 			<MapLayerSelection />
 
-			<SatelliteRasterLayer visible={$showSatellite} />
+			<SatelliteRasterLayer visible={$showSatellite} {map} />
 			{#if currentPage === 'measurements'}
 				<MapStationsLayer {stations} {map} />
 			{/if}
-			<MapMeasurementsRasterLayer {map} visible={currentPage === 'heat-stress'} />
+			<MapMeasurementsRasterLayer visible={currentPage === 'heat-stress'} />
 			<MapDistrictsLayer visible={$boundariesMode === 'districts'} {displayMode} />
 			<MapLorsLayer visible={$boundariesMode === 'lors'} {displayMode} />
 			<MapActionAreasLayer visible={$boundariesMode === 'lors'} {displayMode} />

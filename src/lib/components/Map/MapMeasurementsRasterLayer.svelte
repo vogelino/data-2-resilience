@@ -9,13 +9,10 @@
 	import Button from 'components/ui/button/button.svelte';
 	import { addDays, getDayOfYear, getYear } from 'date-fns';
 	import { TriangleAlert } from 'lucide-svelte';
-	import type maplibregl from 'maplibre-gl';
 	import { onDestroy, onMount } from 'svelte';
 	import { RasterLayer, RasterTileSource } from 'svelte-maplibre';
 
 	interface Props {
-		hour: number;
-		map: maplibregl.Map;
 		visible?: boolean;
 	}
 
@@ -29,7 +26,7 @@
 	type TileErrorInstance = InstanceType<typeof TileError>;
 	type TilesErrorsMap = Map<string, Map<string, TileErrorInstance>>;
 
-	let { visible = false, map }: Props = $props();
+	let { visible = false }: Props = $props();
 	let showTilesErrors = $state(true);
 	let defaultTilesErrorMap = new Map(
 		Object.values(categoryToClassMap).reduce((acc, key) => {

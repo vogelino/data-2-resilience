@@ -23,6 +23,19 @@
 			(isMobile && $sidebarState === SidebarState.SIMPLE)
 	);
 
+	$effect(() => {
+		if (!browser) return;
+		// Set --leftSidebarWidth CSS variable based on sidebar state
+		if ($sidebarState === SidebarState.LARGE) {
+			document.documentElement.style.setProperty(
+				'--leftSidebarWidth',
+				`min(56rem, calc(100vw - 3rem))`
+			);
+		} else {
+			document.documentElement.style.removeProperty('--leftSidebarWidth');
+		}
+	});
+
 	function onMobileMediaQueryChange(e: MediaQueryListEvent) {
 		isMobile = e.matches;
 		if (e.matches && $sidebarState === SidebarState.LARGE) {

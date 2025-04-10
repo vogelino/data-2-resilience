@@ -103,16 +103,7 @@ export const cycleSidebarState = () =>
 		const currentIndex = cycle.indexOf(currentState as SidebarState);
 		const nextIndex = (currentIndex + 1) % cycle.length;
 		const newState = cycle[nextIndex];
-		if (browser) {
-			if (newState === SidebarState.LARGE) {
-				document.documentElement.style.setProperty(
-					'--leftSidebarWidth',
-					`min(56rem, calc(100vw - 3rem))`
-				);
-			} else {
-				document.documentElement.style.removeProperty('--leftSidebarWidth');
-			}
-		}
+
 		return newState;
 	});
 

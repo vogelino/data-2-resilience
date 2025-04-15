@@ -55,9 +55,28 @@
 		hours.map((h) => {
 			const paddedHour = `${h}`.padStart(2, '0');
 			const paddedDayOfYear = `${dayOfYearToday}`.padStart(3, '0');
+			const queryParameters: Record<string, string> = {
+				colormap: unit.endsWith('_CLASS') ? 'explicit' : 'turbo',
+				tile_size: '[256, 256]'
+			};
+			if (unit.endsWith('_CLASS')) {
+				queryParameters['explicit_color_map'] = JSON.stringify({
+					'0': '4860e6',
+					'1': '2aabee',
+					'2': '2ee5ae',
+					'3': '6afd6a',
+					'4': 'c0ee3d',
+					'5': 'feb927',
+					'6': 'fe6e1a',
+					'7': 'c2270a',
+					'8': '900c00'
+				});
+			}
+			const searchParams = new URLSearchParams(queryParameters);
+			const url = `${PUBLIC_API_BASE_URL}/tms/singleband/${unit}/${year}/${paddedDayOfYear}/${paddedHour}/{z}/{x}/{y}.png?${searchParams}`;
 			return {
 				layerHour: h,
-				tilesUrl: `${PUBLIC_API_BASE_URL}/tms/singleband/${unit}/${year}/${paddedDayOfYear}/${paddedHour}/{z}/{x}/{y}.png?colormap=turbo&tile_size=[256,256]`
+				tilesUrl: url
 			};
 		})
 	);
@@ -127,6 +146,14 @@
 			minute: '2-digit'
 		})
 	);
+
+	function rgbToHex(rgbValue: string) {
+		const rgx = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/;
+		const match = rgx.exec(rgbValue);
+		if (!match) return '';
+		const [, r, g, b] = match;
+		return `${r.padStart(2, '0')}${g.padStart(2, '0')}${b.padStart(2, '0')}`;
+	}
 </script>
 
 {#each tilesUrls as { layerHour, tilesUrl } (layerHour)}

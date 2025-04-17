@@ -55,6 +55,8 @@ The geocoding service is specifically limited to addresses in and around Dortmun
 
 - **User Onboarding**: [Shepherd.js](https://shepherdjs.dev/) - Creates interactive guided tours to help new users understand the dashboard's features and functionality, with customized steps for different parts of the application.
 
+![simplified-architecture-diagram](https://github.com/user-attachments/assets/dce04604-c999-418f-ae29-b92d93dbaf4e)
+
 ## External APIs
 
 The Data2Resilience platform integrates with several external APIs to provide climate data, geocoding, and mapping capabilities.

@@ -26,22 +26,34 @@ Data2Resilience is a comprehensive platform designed to visualize climate data f
 
 ## Tech Stack
 
-- **Framework**: [SvelteKit](https://kit.svelte.dev/) 2.0 with TypeScript
-- **UI Components**: [shadcn-svelte](https://www.shadcn-svelte.com/)
+- **Framework**: [SvelteKit](https://kit.svelte.dev/) 2.0 with TypeScript - Serves as the foundation of the application, providing server-side rendering, routing, and integration with other tools. TypeScript adds type safety throughout the codebase.
+
+- **UI Components**: [shadcn-svelte](https://www.shadcn-svelte.com/) - Provides accessible, customizable UI components that are integrated throughout the application interface, ensuring a consistent design system while maintaining flexibility.
+
 - **Data Visualization**:
-  - [LayerChart](https://layerchart.com/): Declarative chart composition
-  - [D3.js](https://d3js.org/): Low-level data visualization
-- **Mapping**: [MapLibre GL](https://maplibre.org/)
-- **Geocoding**: [DigiStadtDO](https://digistadtdo.de/) Geocoding API
-- **Data Fetching**: [TanStack Query](https://tanstack.com/query)
+  - [LayerChart](https://layerchart.com/) - Used for declarative chart composition, allowing complex visualizations to be built through a composable API. This powers the time series charts and comparison visualizations.
+  - [D3.js](https://d3js.org/) - Handles lower-level data manipulation and specialized visualizations like wind direction charts and histograms that require custom rendering.
+
+- **Mapping**: [MapLibre GL](https://maplibre.org/) - Powers the interactive map at the core of the application, displaying station locations, heat maps, and allowing users to select stations directly from the map interface.
+
+- **Geocoding**: [DigiStadtDO](https://digistadtdo.de/) Geocoding API - Enables location search functionality within Dortmund, allowing users to find specific addresses or points of interest and see nearby weather stations.
+
+- **Data Fetching**: [TanStack Query](https://tanstack.com/query) - Manages server state with intelligent caching, background updates, and optimistic UI updates when fetching climate data from weather station APIs.
+
 - **State Management**:
-  - URL State: [sveltekit-search-params](https://github.com/paoloricciuti/sveltekit-search-params)
-  - UI State: [Svelte stores](https://svelte.dev/docs/svelte-store) with debounced updates
-- **Type Safety**: [Zod](https://zod.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Internationalization**: [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n)
-- **Containerization**: [Docker](https://www.docker.com/)
-- **User Onboarding**: [Shepherd.js](https://shepherdjs.dev/): Interactive product tours
+  - URL State: [sveltekit-search-params](https://github.com/paoloricciuti/sveltekit-search-params) - Synchronizes application state with URL parameters, enabling shareable links that preserve selected stations, time ranges, and visualization settings.
+  - UI State: [Svelte stores](https://svelte.dev/docs/svelte-store) - Manages local UI state like sidebar visibility, selected tabs, and temporary user selections with debounced updates to prevent excessive re-renders.
+
+- **Type Safety**: [Zod](https://zod.dev/) - Validates external data at runtime and provides TypeScript type inference, ensuring that API responses match expected schemas before being used in the application.
+
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) - Handles all styling through utility classes, enabling rapid UI development while maintaining consistent design tokens across the application.
+
+- **Internationalization**: [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n) - Provides type-safe translations for the entire application, with automatic code generation to ensure translation keys are always valid.
+
+- **Containerization**: [Docker](https://www.docker.com/) - Packages the application and its dependencies into containers for consistent deployment across different environments, with automated builds via GitHub Actions.
+
+- **User Onboarding**: [Shepherd.js](https://shepherdjs.dev/) - Creates interactive guided tours to help new users understand the dashboard's features and functionality, with customized steps for different parts of the application.
+
 
 ## Installation
 

@@ -36,12 +36,8 @@ Data2Resilience is a comprehensive platform designed to visualize climate data f
 
 - **Mapping**: [MapLibre GL](https://maplibre.org/) - Powers the interactive map at the core of the application, displaying station locations, heat maps, and allowing users to select stations directly from the map interface.
 
-- **Geocoding**: [DigiStadtDO](https://digistadtdo.de/) Geocoding API - Enables location search functionality within Dortmund, allowing users to find specific addresses or points of interest and see nearby weather stations. The application uses the BKG API at `https://geoweb1.digistadtdo.de/doris_gdi/geocoder` with several endpoints:
-  - Address search: `/geosearch?query=address&outputformat=JSON`
-  - Address search with coordinate system: `/geosearch?query=address&srsName=EPSG:25832&outputformat=JSON`
-  - Reverse geocoding: `/geosearch?lon=7.527944&lat=51.553257&distance=100&outputformat=JSON`
-  
-  The geocoding service is specifically limited to addresses in and around Dortmund, as the BKG search has been geographically restricted to this area.
+- **Geocoding**: [DigiStadtDO](https://digistadtdo.de/) Geocoding API - Enables location search functionality within Dortmund, allowing users to find specific addresses or points of interest and see nearby weather stations. The application uses the BKG API at `https://geoweb1.digistadtdo.de/doris_gdi/geocoder` with the Address search  endpoint: `/geosearch?query=address&outputformat=JSON`.
+The geocoding service is specifically limited to addresses in and around Dortmund, as the BKG search has been geographically restricted to this area.
 
 - **Data Fetching**: [TanStack Query](https://tanstack.com/query) - Manages server state with intelligent caching, background updates, and optimistic UI updates when fetching climate data from weather station APIs.
 
@@ -59,7 +55,56 @@ Data2Resilience is a comprehensive platform designed to visualize climate data f
 
 - **User Onboarding**: [Shepherd.js](https://shepherdjs.dev/) - Creates interactive guided tours to help new users understand the dashboard's features and functionality, with customized steps for different parts of the application.
 
+## External APIs
 
+The Data2Resilience platform integrates with several external APIs to provide climate data, geocoding, and mapping capabilities.
+
+### Climate Data API
+
+**Base URL**: `https://api.data2resilience.de`
+
+**Key Endpoints**:
+- `/v1/stations/metadata` - Retrieves metadata about all weather stations
+- `/v1/data/{stationId}` - Fetches historical data for a specific station
+- `/v1/network-snapshot` - Gets measurements across all stations at a point in time
+- `/v1/download/{stationId}` - Downloads full station dataset as CSV
+- `/tms/singleband/{unit}/{year}/{doy}/{hour}/{z}/{x}/{y}.png` - Tile service for heat stress visualization
+- `/tms/metadata/{unit}/{year}/{doy}/{hour}` - Metadata for heat stress visualization
+- `/tms/colormap` - Color mapping for heat stress visualization
+
+**Used For**: Fetching weather station data, heat stress information, and climate measurements across Dortmund.
+
+**Implementation**: Centralized in `lib/utils/api.ts` using TanStack Query for data fetching and caching. These endpoints are consumed by various components like `StationsLineChart`, `DailySationsValuesBarChart`, and `MapMeasurementsRasterLayer`.
+
+### DigiStadtDO Geocoding API
+
+**Base URL**: `https://geoweb1.digistadtdo.de/doris_gdi/geocoder`
+
+**Key Endpoints**:
+- `/geosearch?query={address}&outputformat=JSON` - Address search
+
+**Used For**: Location search functionality within the map interface. The geocoding service is specifically limited to addresses in and around Dortmund.
+
+**Implementation**: Integrated in `MapSearchInput.svelte` component with debounced queries and response validation.
+
+### Mapping Services
+
+#### Vector Tiles
+
+**Approach**: 
+The application uses custom styled vector tiles for the base map, with light and dark mode variants. The map styles are stored in `$lib/stores/mapStyle.ts` as `positronMapStyleDay` and `positronMapStyleNight`.
+
+**Used For**: Base map vector tiles rendered through MapLibre GL.
+
+**Implementation**: Used in `Map.svelte` to provide the base vector tiles for the map interface, with theme-based switching between light and dark styles.
+
+#### Dortmund Orthophotos
+
+**Endpoint**: `https://www.wms.nrw.de/geobasis/wms_nw_dop`
+
+**Used For**: High-resolution orthophoto layer for Dortmund when satellite view is enabled.
+
+**Implementation**: Implemented in `SatelliteRasterLayer.svelte` as an optional satellite/orthophoto view that can be toggled by users.
 
 ## Installation
 

@@ -638,7 +638,7 @@ Sensitive configuration like API keys are stored in environment variables (`.env
 
 ### Secure Deployment
 
-The application is deployed on Vercel which provides a secure and compliant hosting environment: 
+The application is currently deployed on Vercel which provides a secure and compliant hosting environment: 
 - HTTPS enabled on all deployments
 - Vercel DDoS protection
 - Segregated environments for production and preview deployments

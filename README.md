@@ -59,6 +59,7 @@ Data2Resilience is a comprehensive platform designed to visualize climate data f
 
 - **User Onboarding**: [Shepherd.js](https://shepherdjs.dev/) - Creates interactive guided tours to help new users understand the dashboard's features and functionality, with customized steps for different parts of the application.
 
+![simplified-architecture-diagram](https://github.com/user-attachments/assets/dce04604-c999-418f-ae29-b92d93dbaf4e)
 
 
 ## Installation

@@ -402,3 +402,124 @@ Theme preferences are:
 1. Create a new route in `src/routes/`
 2. Create corresponding components for the page
 3. Update navigation components if needed
+
+# Maintenance Guide
+
+This section outlines the recommended practices for maintaining the Data2Resilience Svelte application.
+
+## Notes on Maintenance and Troubleshooting in the Frontend
+
+### General Maintenance
+- Regular code reviews should be conducted to ensure code quality and consistency
+- The application should be tested thoroughly after any significant changes
+- Keep documentation updated whenever changes are made to the application structure or functionality
+- Run `pnpm run typesafe-i18n` after adding or modifying internationalization strings
+
+### Troubleshooting Common Issues
+- **API Connection Issues**: Check the environment variables in `.env.production` and `.env.preview`. The application depends on `PUBLIC_API_BASE_URL` and `PUBLIC_GEOCODING_URL`.
+- **Visualization Problems**: Inspect data processing logic in components. Most visualization issues are related to data transformation before rendering with LayerChart.
+- **Map Rendering Issues**: Verify MapLibre GL dependencies and API keys. Map services are primarily managed through MapLibre components.
+- **UI Theme Inconsistencies**: Verify that dark/light mode theme variables in `app.css` are being properly applied through the `mode-watcher` library.
+
+## Environment Variables Management
+
+The application relies on several environment variables that need proper configuration in different environments:
+
+### Core Environment Variables
+- `PUBLIC_API_BASE_URL`: Base URL for the Data2Resilience API (e.g., https://api.data2resilience.de)
+- `PUBLIC_GEOCODING_URL`: URL for the DigiStadtDO geocoding service
+- `VITE_BASE_URL`: Used for base URL configuration in preview and production environments
+
+### Environment Files
+- `.env.production`: Contains production environment variables
+- `.env.preview`: Contains preview environment variables for Vercel preview deployments
+- `.env.example`: Template for creating new environment files (never contains actual secret values)
+
+### Best Practices
+- Never commit sensitive keys or tokens to the repository
+- Use environment-specific variables in `.env.production` and `.env.preview` files
+- For local development, create a local `.env` file (which is ignored by git)
+- When adding new environment variables, update the `.env.example` file
+- Verify environment variable availability in CI/CD pipelines
+
+## How Dependencies Are Updated
+
+Dependencies should be updated regularly to ensure security and access to new features:
+
+1. **Regular Audit**: Run `pnpm audit` monthly to check for security vulnerabilities
+2. **Node Version Management**: Update the Node.js version in `.nvmrc` when necessary (currently uses 22.13.1)
+3. **Update Process**:
+   ```bash
+   # Check outdated packages
+   pnpm outdated
+   
+   # Update packages (minor and patch versions)
+   pnpm update
+   
+   # For major version updates (use with caution)
+   pnpm update -i
+   ```
+4. **Testing After Updates**: Always verify application functionality after updating dependencies
+5. **Package Lock**: Commit the updated `pnpm-lock.yaml` file to ensure consistent installations
+6. **UI Components**: For shadcn-svelte components, use the appropriate CLI:
+   ```bash
+   pnpm dlx shadcn-svelte@latest add [component-name]
+   ```
+
+## How Errors Can Be Found and Reported
+
+### Error Monitoring
+- Frontend errors are monitored using validation through Zod schemas in `lib/utils/schemas.ts`
+- API responses are validated with schema parsing in `lib/utils/api.ts`
+
+### Reporting Issues
+1. All issues should be reported via GitHub Issues
+2. When submitting an issue, include:
+   - Detailed description of the problem
+   - Steps to reproduce
+   - Expected vs actual behavior
+   - Browser/environment information
+   - Screenshots if applicable
+   - Console errors (if any)
+3. Tag issues appropriately with relevant components (API, Map, Visualization, etc.)
+
+## Update Cycles and Best Practices
+
+### Recommended Update Cycle
+- **Security Updates**: Apply immediately after testing
+- **Dependency Updates**: Monthly review and updates
+- **Feature Releases**: Deploy new features once they've passed testing in preview environments
+
+### Best Practices for Updates
+1. **Version Control**:
+   - Use feature branches for all changes
+   - Create descriptive commit messages
+   - Require pull request reviews before merging to main branches
+
+2. **Testing Requirements**:
+   - Ensure data visualization components render correctly with test data
+   - Verify map integrations work as expected
+   - Test internationalization for German language support (base locale)
+
+## Links to API Documentation
+
+- **Data2Resilience API**: [https://api.data2resilience.de/docs](https://api.data2resilience.de/docs)
+- **DigiStadtDO Geocoding API**: [https://geoweb1.digistadtdo.de/doris_gdi/geocoder](https://geoweb1.digistadtdo.de/doris_gdi/geocoder)
+- **MapLibre GL**: [https://maplibre.org/maplibre-gl-js-docs/api/](https://maplibre.org/maplibre-gl-js-docs/api/)
+- **LayerChart**: [https://layerchart.com](https://layerchart.com)
+- **TanStack Query**: [https://tanstack.com/query/latest](https://tanstack.com/query/latest)
+
+## State Management
+
+When modifying or adding new features, follow these patterns:
+
+- **URL State**: Use `sveltekit-search-params` for any state that should be shareable or bookmarkable
+- **UI State**: Use Svelte stores from `$lib/stores` for local UI state 
+- **API Data**: Use TanStack Query for server state in components
+
+## Internationalization
+
+- Base locale is German (`de`) as configured in `.typesafe-i18n.json`
+- Run `pnpm run typesafe-i18n` after adding or modifying strings to regenerate type definitions
+- Add new translations in `src/i18n/{locale}/index.ts` files
+

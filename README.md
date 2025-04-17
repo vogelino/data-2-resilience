@@ -78,6 +78,8 @@ The Data2Resilience platform integrates with several external APIs to provide cl
 
 **Implementation**: Centralized in `lib/utils/api.ts` using TanStack Query for data fetching and caching. These endpoints are consumed by various components like `StationsLineChart`, `DailySationsValuesBarChart`, and `MapMeasurementsRasterLayer`.
 
+**Full API documentation**: https://api.data2resilience.de/docs
+
 ### DigiStadtDO Geocoding API
 
 **Base URL**: `https://geoweb1.digistadtdo.de/doris_gdi/geocoder`

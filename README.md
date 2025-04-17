@@ -599,3 +599,46 @@ When modifying or adding new features, follow these patterns:
 - Base locale is German (`de`) as configured in `.typesafe-i18n.json`
 - Run `pnpm run typesafe-i18n` after adding or modifying strings to regenerate type definitions
 - Add new translations in `src/i18n/{locale}/index.ts` files
+
+
+---
+
+## Data Security and Protection
+
+The Data2Resilience application takes data security and protection seriously. Here are some of the measures in place to ensure sensitive data is properly secured:
+
+### Limited Use of Sensitive Data
+
+The application does not collect, store, or process any sensitive personal data. The only user-specific data used are:
+- Locale preferences (for internationalization)
+- Theme preferences (light/dark mode) 
+- Last sidebar state
+
+These preferences are stored client-side using web standard localStorage and are not transmitted to any servers.
+
+### No User Authentication 
+
+The app does not implement any user authentication or authorization system. There are no user accounts, logins, or server-side user-specific data stored.
+
+### Secure API Communication
+
+All communication with backend APIs is done over HTTPS to encrypt data in transit. The app interacts with the following API endpoints:
+- `https://api.data2resilience.de` - for retrieving sensor metadata and measurements
+- `https://geoweb1.digistadtdo.de/doris_gdi/geocoder` - for geocoding functionality within Dortmund
+
+No sensitive data is sent to these APIs. Received data is validated using strict Zod schemas before using in the application.
+
+### Limited Client-Side Data 
+
+Sensor metadata and measurements are only fetched on-demand as the user interacts with the application. Data is not preloaded or stored client-side beyond the user's current browsing session.
+
+### Environment Variables
+
+Sensitive configuration like API keys are stored in environment variables (`.env` files) which are not checked into source control. Different environment files are used to configure the app for development (`.env`), preview deployments (`.env.preview`) and production (`.env.production`).
+
+### Secure Deployment
+
+The application is deployed on Vercel which provides a secure and compliant hosting environment: 
+- HTTPS enabled on all deployments
+- Vercel DDoS protection
+- Segregated environments for production and preview deployments

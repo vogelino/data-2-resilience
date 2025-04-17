@@ -36,7 +36,12 @@ Data2Resilience is a comprehensive platform designed to visualize climate data f
 
 - **Mapping**: [MapLibre GL](https://maplibre.org/) - Powers the interactive map at the core of the application, displaying station locations, heat maps, and allowing users to select stations directly from the map interface.
 
-- **Geocoding**: [DigiStadtDO](https://digistadtdo.de/) Geocoding API - Enables location search functionality within Dortmund, allowing users to find specific addresses or points of interest and see nearby weather stations.
+- **Geocoding**: [DigiStadtDO](https://digistadtdo.de/) Geocoding API - Enables location search functionality within Dortmund, allowing users to find specific addresses or points of interest and see nearby weather stations. The application uses the BKG API at `https://geoweb1.digistadtdo.de/doris_gdi/geocoder` with several endpoints:
+  - Address search: `/geosearch?query=address&outputformat=JSON`
+  - Address search with coordinate system: `/geosearch?query=address&srsName=EPSG:25832&outputformat=JSON`
+  - Reverse geocoding: `/geosearch?lon=7.527944&lat=51.553257&distance=100&outputformat=JSON`
+  
+  The geocoding service is specifically limited to addresses in and around Dortmund, as the BKG search has been geographically restricted to this area.
 
 - **Data Fetching**: [TanStack Query](https://tanstack.com/query) - Manages server state with intelligent caching, background updates, and optimistic UI updates when fetching climate data from weather station APIs.
 
@@ -53,6 +58,7 @@ Data2Resilience is a comprehensive platform designed to visualize climate data f
 - **Containerization**: [Docker](https://www.docker.com/) - Packages the application and its dependencies into containers for consistent deployment across different environments, with automated builds via GitHub Actions.
 
 - **User Onboarding**: [Shepherd.js](https://shepherdjs.dev/) - Creates interactive guided tours to help new users understand the dashboard's features and functionality, with customized steps for different parts of the application.
+
 
 
 ## Installation

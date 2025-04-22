@@ -101,6 +101,7 @@
 
 	const date = $derived.by(() => {
 		const date = today();
+		// WARNING: Do not offset the date here, it will be done in the getHeatStressMetadata function
 		const dateWithHour = setHours(date, $hour);
 		return dateWithHour;
 	});

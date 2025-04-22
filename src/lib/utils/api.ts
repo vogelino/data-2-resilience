@@ -1,5 +1,5 @@
 import { PUBLIC_API_BASE_URL } from '$env/static/public';
-import { format, getDayOfYear, getYear, startOfDay, startOfHour } from 'date-fns';
+import { addHours, format, getDayOfYear, getYear, startOfDay, startOfHour } from 'date-fns';
 import { z } from 'zod';
 import { fromError } from 'zod-validation-error';
 import {
@@ -78,13 +78,13 @@ export const api = (customFetch = fetch) => ({
 		return typeof text === 'string' ? text : null;
 	},
 	getHeatStressMetadata: async (params: { date: Date; unit: string }) => {
-		let year = getYear(params.date);
-		let dayOfYear = getDayOfYear(params.date);
-		let unit = params.unit.toUpperCase() === 'PET' ? 'PET' : 'UTCI';
-		const hour = params.date.getHours();
-		dayOfYear = 177;
-		year = 2024;
-		unit = 'UTCI';
+		const unit = params.unit.toUpperCase() === 'PET' ? 'PET' : 'UTCI';
+
+		const diffBtwNowAndUTCInHours = params.date.getTimezoneOffset() / 60;
+		const sliderDate = addHours(params.date, diffBtwNowAndUTCInHours);
+		const year = getYear(sliderDate);
+		const dayOfYear = getDayOfYear(sliderDate);
+		const hour = sliderDate.getHours();
 		const paddedHour = String(hour).padStart(2, '0');
 		const paddedDayOfYear = String(dayOfYear).padStart(3, '0');
 		const response = await customFetch(

@@ -84,6 +84,7 @@ const tour = createTour([
 ### Prerequisites
 
 Before you begin, ensure you have the following installed:
+
 - [Node.js](https://nodejs.org/) version 22.13.1 or later (as specified in `.nvmrc`)
 - [PNPM](https://pnpm.io/installation) package manager
 - [Git](https://git-scm.com/downloads)
@@ -107,9 +108,11 @@ cp .env.example .env
 ```
 
 After copying the environment file, open `.env` in your editor and configure the following required variables:
+
 - `PUBLIC_API_BASE_URL`: Set to the API endpoint (use `https://api.data2resilience.de` for production or your local API for development)
 - `PUBLIC_GEOCODING_URL`: Set to the geocoding service endpoint
 - `VITE_BASE_URL`: Set to your local development URL (typically `http://localhost:5173`)
+- `PUBLIC_ENABLE_HEATATLAS_TIMESLIDER`: Set to `true` to enable the heat stress time slider on the heat atlas page
 
 ### Local Development
 
@@ -171,8 +174,8 @@ To create a new release:
    git tag v1.0.0
    git push origin v1.0.0
    ```
-   
 2. Create a GitHub release through the GitHub interface:
+
    - Go to the repository on GitHub
    - Click on "Releases"
    - Click "Create a new release"
@@ -194,7 +197,7 @@ This section describes the technical foundation of the Data2Resilience applicati
 
 ![simplified-architecture-diagram](https://github.com/user-attachments/assets/dce04604-c999-418f-ae29-b92d93dbaf4e)
 
-*The diagram above shows how the different components of the application interact, with data flowing from the external APIs through our application layers to the user interface.*
+_The diagram above shows how the different components of the application interact, with data flowing from the external APIs through our application layers to the user interface._
 
 ### Tech Stack
 
@@ -203,17 +206,19 @@ This section describes the technical foundation of the Data2Resilience applicati
 - **UI Components**: [shadcn-svelte](https://www.shadcn-svelte.com/) - Provides accessible, customizable UI components that are integrated throughout the application interface, ensuring a consistent design system while maintaining flexibility.
 
 - **Data Visualization**:
+
   - [LayerChart](https://layerchart.com/) - Used for declarative chart composition, allowing complex visualizations to be built through a composable API. This powers the time series charts and comparison visualizations.
   - [D3.js](https://d3js.org/) - Handles lower-level data manipulation and specialized visualizations like wind direction charts and histograms that require custom rendering.
 
 - **Mapping**: [MapLibre GL](https://maplibre.org/) - Powers the interactive map at the core of the application, displaying station locations, heat maps, and allowing users to select stations directly from the map interface.
 
-- **Geocoding**: [DigiStadtDO](https://digistadtdo.de/) Geocoding API - Enables location search functionality within Dortmund, allowing users to find specific addresses or points of interest and see nearby weather stations. The application uses the BKG API at `https://geoweb1.digistadtdo.de/doris_gdi/geocoder` with the Address search  endpoint: `/geosearch?query=address&outputformat=JSON`.
-The geocoding service is specifically limited to addresses in and around Dortmund, as the BKG search has been geographically restricted to this area.
+- **Geocoding**: [DigiStadtDO](https://digistadtdo.de/) Geocoding API - Enables location search functionality within Dortmund, allowing users to find specific addresses or points of interest and see nearby weather stations. The application uses the BKG API at `https://geoweb1.digistadtdo.de/doris_gdi/geocoder` with the Address search endpoint: `/geosearch?query=address&outputformat=JSON`.
+  The geocoding service is specifically limited to addresses in and around Dortmund, as the BKG search has been geographically restricted to this area.
 
 - **Data Fetching**: [TanStack Query](https://tanstack.com/query) - Manages server state with intelligent caching, background updates, and optimistic UI updates when fetching climate data from weather station APIs.
 
 - **State Management**:
+
   - URL State: [sveltekit-search-params](https://github.com/paoloricciuti/sveltekit-search-params) - Synchronizes application state with URL parameters, enabling shareable links that preserve selected stations, time ranges, and visualization settings.
   - UI State: [Svelte stores](https://svelte.dev/docs/svelte-store) - Manages local UI state like sidebar visibility, selected tabs, and temporary user selections with debounced updates to prevent excessive re-renders.
 
@@ -255,6 +260,7 @@ The Data2Resilience platform integrates with several external APIs to provide cl
 **Base URL**: `https://api.data2resilience.de`
 
 **Key Endpoints**:
+
 - `/v1/stations/metadata` - Retrieves metadata about all weather stations
 - `/v1/data/{stationId}` - Fetches historical data for a specific station
 - `/v1/network-snapshot` - Gets measurements across all stations at a point in time
@@ -274,6 +280,7 @@ The Data2Resilience platform integrates with several external APIs to provide cl
 **Base URL**: `https://geoweb1.digistadtdo.de/doris_gdi/geocoder`
 
 **Key Endpoints**:
+
 - `/geosearch?query={address}&outputformat=JSON` - Address search
 
 **Used For**: Location search functionality within the map interface. The geocoding service is specifically limited to addresses in and around Dortmund.
@@ -293,7 +300,7 @@ async function searchLocation(query: string) {
 
 ##### Vector Tiles
 
-**Approach**: 
+**Approach**:
 The application uses custom styled vector tiles for the base map, with light and dark mode variants. The map styles are stored in `$lib/stores/mapStyle.ts` as `positronMapStyleDay` and `positronMapStyleNight`.
 
 **Used For**: Base map vector tiles rendered through MapLibre GL.
@@ -487,12 +494,14 @@ This section outlines the recommended practices for maintaining the Data2Resilie
 ### Notes on Maintenance and Troubleshooting in the Frontend
 
 #### General Maintenance
+
 - Regular code reviews should be conducted to ensure code quality and consistency
 - The application should be tested thoroughly after any significant changes
 - Keep documentation updated whenever changes are made to the application structure or functionality
 - Run `pnpm run typesafe-i18n` after adding or modifying internationalization strings
 
 #### Troubleshooting Common Issues
+
 - **API Connection Issues**: Check the environment variables in `.env.production` and `.env.preview`. The application depends on `PUBLIC_API_BASE_URL` and `PUBLIC_GEOCODING_URL`.
 - **Visualization Problems**: Inspect data processing logic in components. Most visualization issues are related to data transformation before rendering with LayerChart.
 - **Map Rendering Issues**: Verify MapLibre GL dependencies and API keys. Map services are primarily managed through MapLibre components.
@@ -503,16 +512,19 @@ This section outlines the recommended practices for maintaining the Data2Resilie
 The application relies on several environment variables that need proper configuration in different environments:
 
 #### Core Environment Variables
+
 - `PUBLIC_API_BASE_URL`: Base URL for the Data2Resilience API (e.g., https://api.data2resilience.de)
 - `PUBLIC_GEOCODING_URL`: URL for the DigiStadtDO geocoding service
 - `VITE_BASE_URL`: Used for base URL configuration in preview and production environments
 
 #### Environment Files
+
 - `.env.production`: Contains production environment variables
 - `.env.preview`: Contains preview environment variables for Vercel preview deployments
 - `.env.example`: Template for creating new environment files (never contains actual secret values)
 
 #### Best Practices
+
 - Never commit sensitive keys or tokens to the repository
 - Use environment-specific variables in `.env.production` and `.env.preview` files
 - For local development, create a local `.env` file (which is ignored by git)
@@ -526,16 +538,18 @@ Dependencies should be updated regularly to ensure security and access to new fe
 1. **Regular Audit**: Run `pnpm audit` monthly to check for security vulnerabilities
 2. **Node Version Management**: Update the Node.js version in `.nvmrc` when necessary (currently uses 22.13.1)
 3. **Update Process**:
+
    ```bash
    # Check outdated packages
    pnpm outdated
-   
+
    # Update packages (minor and patch versions)
    pnpm update
-   
+
    # For major version updates (use with caution)
    pnpm update -i
    ```
+
 4. **Testing After Updates**: Always verify application functionality after updating dependencies
 5. **Package Lock**: Commit the updated `pnpm-lock.yaml` file to ensure consistent installations
 6. **UI Components**: For shadcn-svelte components, use the appropriate CLI:
@@ -546,10 +560,12 @@ Dependencies should be updated regularly to ensure security and access to new fe
 ### How Errors Can Be Found and Reported
 
 #### Error Monitoring
+
 - Frontend errors are monitored using validation through Zod schemas in `lib/utils/schemas.ts`
 - API responses are validated with schema parsing in `lib/utils/api.ts`
 
 #### Reporting Issues
+
 1. All issues should be reported via GitHub Issues
 2. When submitting an issue, include:
    - Detailed description of the problem
@@ -563,12 +579,15 @@ Dependencies should be updated regularly to ensure security and access to new fe
 ### Update Cycles and Best Practices
 
 #### Recommended Update Cycle
+
 - **Security Updates**: Apply immediately after testing
 - **Dependency Updates**: Monthly review and updates
 - **Feature Releases**: Deploy new features once they've passed testing in preview environments
 
 #### Best Practices for Updates
+
 1. **Version Control**:
+
    - Use feature branches for all changes
    - Create descriptive commit messages
    - Require pull request reviews before merging to main branches
@@ -591,7 +610,7 @@ Dependencies should be updated regularly to ensure security and access to new fe
 When modifying or adding new features, follow these patterns:
 
 - **URL State**: Use `sveltekit-search-params` for any state that should be shareable or bookmarkable
-- **UI State**: Use Svelte stores from `$lib/stores` for local UI state 
+- **UI State**: Use Svelte stores from `$lib/stores` for local UI state
 - **API Data**: Use TanStack Query for server state in components
 
 ### Internationalization Maintenance
@@ -599,7 +618,6 @@ When modifying or adding new features, follow these patterns:
 - Base locale is German (`de`) as configured in `.typesafe-i18n.json`
 - Run `pnpm run typesafe-i18n` after adding or modifying strings to regenerate type definitions
 - Add new translations in `src/i18n/{locale}/index.ts` files
-
 
 ---
 
@@ -610,25 +628,27 @@ The Data2Resilience application takes data security and protection seriously. He
 ### Limited Use of Sensitive Data
 
 The application does not collect, store, or process any sensitive personal data. The only user-specific data used are:
+
 - Locale preferences (for internationalization)
-- Theme preferences (light/dark mode) 
+- Theme preferences (light/dark mode)
 - Last sidebar state
 
 These preferences are stored client-side using web standard localStorage and are not transmitted to any servers.
 
-### No User Authentication 
+### No User Authentication
 
 The app does not implement any user authentication or authorization system. There are no user accounts, logins, or server-side user-specific data stored.
 
 ### Secure API Communication
 
 All communication with backend APIs is done over HTTPS to encrypt data in transit. The app interacts with the following API endpoints:
+
 - `https://api.data2resilience.de` - for retrieving sensor metadata and measurements
 - `https://geoweb1.digistadtdo.de/doris_gdi/geocoder` - for geocoding functionality within Dortmund
 
 No sensitive data is sent to these APIs. Received data is validated using strict Zod schemas before using in the application.
 
-### Limited Client-Side Data 
+### Limited Client-Side Data
 
 Sensor metadata and measurements are only fetched on-demand as the user interacts with the application. Data is not preloaded or stored client-side beyond the user's current browsing session.
 
@@ -638,7 +658,8 @@ Sensitive configuration like API keys are stored in environment variables (`.env
 
 ### Secure Deployment
 
-The application is currently deployed on Vercel which provides a secure and compliant hosting environment: 
+The application is currently deployed on Vercel which provides a secure and compliant hosting environment:
+
 - HTTPS enabled on all deployments
 - Vercel DDoS protection
 - Segregated environments for production and preview deployments

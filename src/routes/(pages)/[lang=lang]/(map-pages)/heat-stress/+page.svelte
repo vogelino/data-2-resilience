@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_ENABLE_HEATATLAS_TIMESLIDER } from '$env/static/public';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { dayValue, heatStressUnit, udpateDay } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
@@ -9,6 +10,8 @@
 	import ThermalCompfortNavItem from 'components/ThermalCompfortNavItem.svelte';
 	import { addDays } from 'date-fns';
 	import RangeSlider from 'svelte-range-slider-pips';
+
+	const showTimeslider = PUBLIC_ENABLE_HEATATLAS_TIMESLIDER === 'true';
 
 	let indicatorValues = $derived([
 		{
@@ -83,17 +86,22 @@
 </nav>
 
 <div class={cn('date-range-slider flex flex-col gap-2', 'rounded-b-xl border border-border p-4')}>
-	<div class="grid grid-cols-[1fr_auto] gap-2">
-		<div class="pt-2 [&_.rangeSlider]:ml-0" id="date-range-slider">
-			<RangeSlider
-				value={$dayValue}
-				on:change={onValueChange}
-				range={false}
-				{...rangeSliderProps}
-				{formatter}
-			/>
+	<div class={cn('grid grid-cols-[1fr_auto] gap-2', !showTimeslider && 'grid-cols-[auto_1fr]')}>
+		<div
+			class={cn('pt-2 [&_.rangeSlider]:ml-0', !showTimeslider && 'col-start-2 row-start-1')}
+			id="date-range-slider"
+		>
+			{#if showTimeslider}
+				<RangeSlider
+					value={$dayValue}
+					on:change={onValueChange}
+					range={false}
+					{...rangeSliderProps}
+					{formatter}
+				/>
+			{/if}
 		</div>
-		<div class="flex flex-col gap-1">
+		<div class={cn('flex flex-col gap-1', !showTimeslider && 'col-start-1 row-start-1')}>
 			<span class="text-xs font-semibold">{$LL.generic.hourInput.label()}</span>
 			<HourInput />
 		</div>

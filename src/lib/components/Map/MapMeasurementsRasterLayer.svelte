@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_ENABLE_HEATATLAS_TIMESLIDER } from '$env/static/public';
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import { dayValue, heatStressUnit, heatStressUnitLabel, hour } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
@@ -7,7 +7,7 @@
 	import { Description, Title } from 'components/ui/alert';
 	import Alert from 'components/ui/alert/alert.svelte';
 	import Button from 'components/ui/button/button.svelte';
-	import { addDays, getDayOfYear, getYear } from 'date-fns';
+	import { addDays, addHours, getDayOfYear, getHours, getYear } from 'date-fns';
 	import { TriangleAlert } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import { RasterLayer, RasterTileSource } from 'svelte-maplibre';
@@ -36,11 +36,19 @@
 	);
 	let tilesErrors = $state<TilesErrorsMap>(defaultTilesErrorMap);
 
+	const showTimeslider = PUBLIC_ENABLE_HEATATLAS_TIMESLIDER === 'true';
+
 	const hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23] // prettier-ignore
-	const date = $derived(addDays(today(), $dayValue).setHours($hour, 0, 0, 0));
-	const dayOfYearToday = $derived(getDayOfYear(date));
-	const year = $derived(getYear(date));
-	const unit = $derived(
+
+	const localSliderDate = $derived(
+		(showTimeslider ? addDays(today(), $dayValue) : today()).setHours($hour, 0, 0, 0)
+	);
+	const diffBtwNowAndUTCInHours = $derived(new Date(localSliderDate).getTimezoneOffset() / 60);
+	const sliderDate = $derived(addHours(localSliderDate, diffBtwNowAndUTCInHours));
+	const sliderDayOfYear = $derived(getDayOfYear(sliderDate));
+	const sliderYear = $derived(getYear(sliderDate));
+	const sliderHour = $derived(getHours(sliderDate));
+	const sliderUnit = $derived(
 		(
 			categoryToClassMap[$heatStressUnit as keyof typeof categoryToClassMap] ||
 			categoryToClassMap.utci
@@ -51,12 +59,12 @@
 	const tilesUrls = $derived(
 		hours.map((h) => {
 			const paddedHour = `${h}`.padStart(2, '0');
-			const paddedDayOfYear = `${dayOfYearToday}`.padStart(3, '0');
+			const paddedDayOfYear = `${sliderDayOfYear}`.padStart(3, '0');
 			const queryParameters: Record<string, string> = {
-				colormap: unit.endsWith('_CLASS') ? 'explicit' : 'turbo',
+				colormap: sliderUnit.endsWith('_CLASS') ? 'explicit' : 'turbo',
 				tile_size: '[256, 256]'
 			};
-			if (unit.endsWith('_CLASS')) {
+			if (sliderUnit.endsWith('_CLASS')) {
 				queryParameters['explicit_color_map'] = JSON.stringify({
 					'0': '4860e6',
 					'1': '2aabee',
@@ -70,7 +78,7 @@
 				});
 			}
 			const searchParams = new URLSearchParams(queryParameters);
-			const url = `${PUBLIC_API_BASE_URL}/tms/singleband/${unit}/${year}/${paddedDayOfYear}/${paddedHour}/{z}/{x}/{y}.png?${searchParams}`;
+			const url = `${PUBLIC_API_BASE_URL}/tms/singleband/${sliderUnit}/${sliderYear}/${paddedDayOfYear}/${paddedHour}/{z}/{x}/{y}.png?${searchParams}`;
 			return {
 				layerHour: h,
 				tilesUrl: url
@@ -90,18 +98,23 @@
 				if (!isTileUrl) return response;
 				const [, , , unit, year, dayOfYear, h, z, x, yWithExt] = url.pathname.split('/');
 				const [y] = yWithExt.split('.');
-				const config = { unit, year, dayOfYear, h, z, x, y };
+				const parsedH = parseInt(h, 10);
+				const tzOffsetInHours = new Date().getTimezoneOffset() / 60;
+				const hWithOffset = Number.isNaN(parsedH)
+					? 12 - tzOffsetInHours
+					: parsedH - tzOffsetInHours;
+				const config = { unit, year, dayOfYear, h: hWithOffset, z, x, y };
 				const configAsString = Object.entries(config)
 					.map(([key, value]) => `${key}: ${value}`)
 					.join(', ');
 				const message = `Tile not found for ${configAsString}`;
-				const key = [unit, year, dayOfYear, h, z, x, y].join('-');
+				const key = [unit, year, dayOfYear, hWithOffset, z, x, y].join('-');
 				const newTilesErrorMap = new Map(tilesErrors) satisfies TilesErrorsMap;
 				const unitTilesErrors = newTilesErrorMap.get(unit.toUpperCase());
 				if (unitTilesErrors) {
 					const newMap = new Map(unitTilesErrors);
 					newMap.set(key, new TileError(message));
-					newTilesErrorMap.set(unit, newMap);
+					newTilesErrorMap.set(unit.toUpperCase(), newMap);
 				}
 				tilesErrors = newTilesErrorMap;
 			}
@@ -111,12 +124,14 @@
 	});
 
 	const tilesErrorsForThisTimeAndUnit = $derived.by(() => {
-		const unitTilesErrors = tilesErrors.get(unit);
+		const unitTilesErrors = tilesErrors.get(sliderUnit);
 		if (!unitTilesErrors || unitTilesErrors.size === 0) return [];
 		return unitTilesErrors.entries().reduce((acc, [key, tileError]: [string, TileError]) => {
-			const paddedHour = `${$hour}`.padStart(2, '0');
-			const paddedDayOfYear = `${dayOfYearToday}`.padStart(3, '0');
-			const keyStart = [unit, year, paddedDayOfYear, paddedHour].join('-');
+			const tzOffsetInHours = new Date().getTimezoneOffset() / 60;
+			const hWithOffset = $hour + tzOffsetInHours;
+			const paddedHour = `${hWithOffset}`.padStart(2, '0');
+			const paddedDayOfYear = `${sliderDayOfYear}`.padStart(3, '0');
+			const keyStart = [sliderUnit, sliderYear, paddedDayOfYear, paddedHour].join('-');
 			if (key.startsWith(keyStart)) return [...acc, tileError];
 			return acc;
 		}, [] as TileError[]);
@@ -143,21 +158,13 @@
 			minute: '2-digit'
 		})
 	);
-
-	function rgbToHex(rgbValue: string) {
-		const rgx = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/;
-		const match = rgx.exec(rgbValue);
-		if (!match) return '';
-		const [, r, g, b] = match;
-		return `${r.padStart(2, '0')}${g.padStart(2, '0')}${b.padStart(2, '0')}`;
-	}
 </script>
 
 {#each tilesUrls as { layerHour, tilesUrl } (layerHour)}
 	<RasterTileSource tiles={[tilesUrl]} tileSize={256}>
 		<RasterLayer
 			paint={{}}
-			layout={{ visibility: visible && $hour === layerHour ? 'visible' : 'none' }}
+			layout={{ visibility: visible && sliderHour === layerHour ? 'visible' : 'none' }}
 			beforeLayerType="symbol"
 		/>
 	</RasterTileSource>
@@ -190,8 +197,8 @@
 				</Title>
 				<Description>
 					{$LL.map.tiles.tilesNotFound.description({
-						date: dateFormatter.format(date),
-						hour: timeFormatter.format(date),
+						date: dateFormatter.format(localSliderDate),
+						hour: timeFormatter.format(localSliderDate),
 						measure: $heatStressUnitLabel
 					})}
 				</Description>

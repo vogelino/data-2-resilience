@@ -14,7 +14,7 @@ export const positronMapStyleDay = {
 	},
 	sprite: 'https://tiles.basemaps.cartocdn.com/gl/positron-gl-style/sprite',
 	glyphs: 'https://tiles.basemaps.cartocdn.com/fonts/{fontstack}/{range}.pbf',
-	// "glyphs": location.origin + location.pathname + "font/{fontstack}/{range}.pbf" -> Should work locally
+	// glyphs: `${PUBLIC_VITE_BASE_URL}/font/{fontstack}/{range}.pbf`,
 	layers: [
 		{
 			id: 'background',
@@ -3002,6 +3002,7 @@ export const positronMapStyleNight = {
 	},
 	sprite: 'https://tiles.basemaps.cartocdn.com/gl/dark-matter-gl-style/sprite',
 	glyphs: 'https://tiles.basemaps.cartocdn.com/fonts/{fontstack}/{range}.pbf',
+	// glyphs: `${PUBLIC_VITE_BASE_URL}/font/{fontstack}/{range}.pbf`,
 	layers: [
 		{
 			id: 'background',

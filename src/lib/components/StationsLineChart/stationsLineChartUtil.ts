@@ -146,11 +146,12 @@ function mapDataToLayerChartData({
 
 		const key = format(date, 'yyyy-MM-dd-HH');
 		const existingItem = acc.get(key) || ({ date } as CombinedLayerChartDataItem);
-		const parsedVal = !item.value
-			? null
-			: isOrdinal
-				? getHeatStressValueByCategory(item.value)
-				: item.value;
+		const parsedVal =
+			typeof item.value !== 'number' && !item.value
+				? null
+				: isOrdinal
+					? getHeatStressValueByCategory(item.value)
+					: item.value;
 		const stationName =
 			stations.find((f) => f.properties.id === item.id)?.properties.longName.trim() || item.id;
 		acc.set(key, { ...existingItem, [stationName]: parsedVal } as CombinedLayerChartDataItem);

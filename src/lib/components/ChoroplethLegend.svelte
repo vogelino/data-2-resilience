@@ -226,7 +226,7 @@
 				<div
 					class="h-4 w-full max-w-96 rounded-sm bg-muted shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 					style={cn(
-						$heatStressGradientquery.isLoading
+						$heatStressGradientquery.isLoading && !isOrdinal
 							? 'animate-pulse'
 							: `background-image: ${heatStressGradient || customGradient};`
 					)}
@@ -235,15 +235,19 @@
 			<div
 				class={cn(
 					'flex w-full items-center justify-between pt-1 text-xs leading-4 text-muted-foreground',
-					$heatStressGradientquery.isLoading && 'animate-pulse'
+					$heatStressGradientquery.isLoading && !isOrdinal && 'animate-pulse'
 				)}
 			>
-				<span class={cn($heatStressGradientquery.isLoading && '-translate-y-1/3 animate-pulse')}>
+				<span
+					class={cn(
+						$heatStressGradientquery.isLoading && !isOrdinal && '-translate-y-1/3 animate-pulse'
+					)}
+				>
 					{isOrdinal ? healthRisks[0].title[titleKey]() : minLabel}
 				</span>
 				<span
 					class={cn(
-						$heatStressGradientquery.isLoading && '-translate-y-1/3 animate-pulse',
+						$heatStressGradientquery.isLoading && !isOrdinal && '-translate-y-1/3 animate-pulse',
 						'text-right'
 					)}
 				>

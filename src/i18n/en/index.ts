@@ -821,8 +821,8 @@ const en = {
 				},
 				'no thermal stress': {
 					title: {
-						thermalComfort: 'No thermal stress',
-						heatStress: 'Neutral'
+						thermalComfort: 'Neutral',
+						heatStress: 'No thermal stress'
 					},
 					description: 'Thermal comfort, no significant health risks.',
 					ranges: {

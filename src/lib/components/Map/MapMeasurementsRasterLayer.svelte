@@ -98,17 +98,12 @@
 				if (!isTileUrl) return response;
 				const [, , , unit, year, dayOfYear, h, z, x, yWithExt] = url.pathname.split('/');
 				const [y] = yWithExt.split('.');
-				const parsedH = parseInt(h, 10);
-				const tzOffsetInHours = new Date().getTimezoneOffset() / 60;
-				const hWithOffset = Number.isNaN(parsedH)
-					? 12 - tzOffsetInHours
-					: parsedH - tzOffsetInHours;
-				const config = { unit, year, dayOfYear, h: hWithOffset, z, x, y };
+				const config = { unit, year, dayOfYear, h, z, x, y };
 				const configAsString = Object.entries(config)
 					.map(([key, value]) => `${key}: ${value}`)
 					.join(', ');
 				const message = `Tile not found for ${configAsString}`;
-				const key = [unit, year, dayOfYear, hWithOffset, z, x, y].join('-');
+				const key = [unit, year, dayOfYear, h, z, x, y].join('-');
 				const newTilesErrorMap = new Map(tilesErrors) satisfies TilesErrorsMap;
 				const unitTilesErrors = newTilesErrorMap.get(unit.toUpperCase());
 				if (unitTilesErrors) {

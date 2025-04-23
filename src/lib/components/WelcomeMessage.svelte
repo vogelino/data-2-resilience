@@ -171,7 +171,7 @@
 				id: 'welcome',
 				title: $LL.welcome.tourSteps.welcome.title(),
 				text: $LL.welcome.tourSteps.welcome.text(),
-				beforeShowPromise: async () => {
+				async beforeShowPromise() {
 					await ensurePage('/', window.location.pathname);
 				}
 			} satisfies StepOptions,
@@ -285,7 +285,25 @@
 					({
 						on: 'auto',
 						...step.attachTo
-					} satisfies StepOptions['attachTo'])
+					} satisfies StepOptions['attachTo']),
+				when: {
+					show() {
+						if (!tour) return;
+						const currentStep = tour.getCurrentStep();
+						if (!currentStep) return;
+						const currentEl = currentStep.getElement();
+						const footer = currentEl?.querySelector('.shepherd-footer') as HTMLElement;
+						if (!footer) return;
+						const currentStepIndex = tour.steps.indexOf(currentStep);
+						const totalSteps = tour.steps.length;
+						const stepsText = `${currentStepIndex + 1} / ${totalSteps}`;
+						const stepsSpan = document.createElement('span');
+						footer.classList.add('flex', 'items-center');
+						stepsSpan.classList.add('text-sm', 'text-muted-foreground', 'w-full');
+						stepsSpan.innerText = stepsText;
+						footer.insertBefore(stepsSpan, footer.firstChild);
+					}
+				}
 			} satisfies StepOptions;
 		});
 		tour.addSteps(steps);

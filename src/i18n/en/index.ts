@@ -83,6 +83,7 @@ const en = {
 				last: 'Finish',
 				restart: 'Restart tour'
 			},
+			progress: 'Step {currentStep} of {totalSteps}',
 			welcome: {
 				title: 'Welcome to the Dashboard Introduction!',
 				text: 'In this short tour, you will interactively learn how to use the dashboard and make the most of its key features.<br><br>You can cancel the tour at any time – simply click on "Cancel".'

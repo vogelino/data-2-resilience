@@ -229,6 +229,12 @@ type RootTranslation = {
 				 */
 				restart: string
 			}
+			/**
+			 * S​c​h​r​i​t​t​ ​{​c​u​r​r​e​n​t​S​t​e​p​}​ ​v​o​n​ ​{​t​o​t​a​l​S​t​e​p​s​}
+			 * @param {number} currentStep
+			 * @param {number} totalSteps
+			 */
+			progress: RequiredParams<'currentStep' | 'totalSteps'>
 			welcome: {
 				/**
 				 * W​i​l​l​k​o​m​m​e​n​ ​z​u​r​ ​D​a​s​h​b​o​a​r​d​-​E​i​n​f​ü​h​r​u​n​g​!
@@ -2372,6 +2378,10 @@ export type TranslationFunctions = {
 				 */
 				restart: () => LocalizedString
 			}
+			/**
+			 * Schritt {currentStep} von {totalSteps}
+			 */
+			progress: (arg: { currentStep: number, totalSteps: number }) => LocalizedString
 			welcome: {
 				/**
 				 * Willkommen zur Dashboard-Einführung!

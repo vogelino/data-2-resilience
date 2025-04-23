@@ -83,6 +83,7 @@ const de = {
 				last: 'Abschließen',
 				restart: 'Tour erneut starten'
 			},
+			progress: 'Schritt {currentStep:number} von {totalSteps:number}',
 			welcome: {
 				title: 'Willkommen zur Dashboard-Einführung!',
 				text: 'In dieser kurzen Tour erfahren Sie interaktiv, wie Sie das Dashboard bedienen und die wichtigsten Funktionen nutzen.<br><br>Sie können die Tour jederzeit abbrechen – klicken Sie dafür einfach auf „Abbrechen“.'

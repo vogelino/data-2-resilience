@@ -304,7 +304,10 @@
 						if (!footer) return;
 						const currentStepIndex = t.steps.indexOf(currentStep);
 						const totalSteps = t.steps.length;
-						const stepsText = `${currentStepIndex + 1} / ${totalSteps}`;
+						const stepsText = $LL.welcome.tourSteps.progress({
+							currentStep: currentStepIndex + 1,
+							totalSteps
+						});
 						const stepsSpan = document.createElement('span');
 						footer.classList.add('flex', 'items-center');
 						stepsSpan.classList.add('text-sm', 'text-muted-foreground', 'w-full');
@@ -389,6 +392,7 @@
 	async function onTourStart() {
 		saveInitialSettings();
 
+		handleClose();
 		ensurePage('/', window.location.pathname);
 	}
 
@@ -400,6 +404,7 @@
 		cleanupAllowed = true;
 		applySettings(initialSettings);
 		ensurePage(initialSettings.pagePath, window.location.pathname);
+		handleOpen();
 	}
 </script>
 
@@ -427,13 +432,7 @@
 			<Button on:click={handleClose}>
 				{$LL.welcome.buttons.confirm()}
 			</Button>
-			<Button
-				variant="outline"
-				on:click={() => {
-					tour?.start();
-					handleClose();
-				}}
-			>
+			<Button variant="outline" on:click={() => tour?.start()}>
 				{$LL.welcome.buttons.launchTour()}
 			</Button>
 		</div>

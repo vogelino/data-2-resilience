@@ -1,10 +1,33 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
 	import LL, { locale } from '$i18n/i18n-svelte';
-	import { closeLeftSidebar, openLeftSidebar } from '$lib/stores/uiStore';
+	import {
+		closeLeftSidebar,
+		datavisType,
+		dayValue,
+		heatStressUnit,
+		hour,
+		minMaxAvg,
+		openLeftSidebar,
+		rangeEnd,
+		rangeStart,
+		setLeftSidebarState,
+		sidebarState,
+		udpateDatavisType,
+		udpateDay,
+		udpateRangeStart,
+		unit,
+		updateHeatStressUnit,
+		updateHour,
+		updateMinMaxAvg,
+		updateRangeEnd,
+		updateUnit
+	} from '$lib/stores/uiStore';
+	import { SidebarState } from '$lib/types/sidebar';
 	import { cn } from '$lib/utils';
+	import { today } from '$lib/utils/dateUtil';
+	import { getHours } from 'date-fns';
 	import { ArrowDown, X } from 'lucide-svelte';
 	import Shepherd, { type StepOptions, type StepOptionsButton, type Tour } from 'shepherd.js';
 	import 'shepherd.js/dist/css/shepherd.css';
@@ -23,6 +46,7 @@
 			isMobile = e.matches;
 		}
 		mediaQuery.addEventListener('change', setIsMobile);
+		isMobile = mediaQuery.matches;
 		return () => mediaQuery.removeEventListener('change', setIsMobile);
 	});
 
@@ -45,6 +69,17 @@
 				scrollTo: false
 			}
 		});
+		tour.on('start', onTourStart);
+		tour.on('active', onTourActive);
+		tour.on('complete', onTourEnd);
+		tour.on('cancel', onTourEnd);
+
+		return () => {
+			tour?.off('start', onTourStart);
+			tour?.off('active', onTourActive);
+			tour?.off('complete', onTourEnd);
+			tour?.off('cancel', onTourEnd);
+		};
 	});
 
 	async function wait(timeout: number): Promise<void> {
@@ -92,21 +127,26 @@
 		});
 	}
 
-	const ensurePage = $derived(async (path: string) => {
+	const ensurePage = $derived(async (path: string, currentPathname: string) => {
 		const pathWithLocale = `/${$locale}${path === '/' ? '' : path}`;
-		if (page.url.pathname === pathWithLocale) return;
 		const fullPath = `${pathWithLocale}?${urlQuery}`;
-		await goto(fullPath);
+		if (currentPathname !== pathWithLocale) {
+			await goto(fullPath);
+		}
 	});
 
 	const queryParams = $derived(queryParameters());
 	const urlQuery = $derived(new URLSearchParams($queryParams).toString());
 
+	function destroyTour() {
+		if (!tour) return;
+		tour.cancel();
+		tour.steps.forEach((step) => step.destroy());
+		tour.steps = [];
+	}
+
 	$effect(() => {
 		if (!tour) return;
-		for (const step of tour.steps) {
-			tour.removeStep(step.id);
-		}
 		const nextButton = {
 			text: $LL.welcome.tourSteps.buttons.next(),
 			action: tour.next
@@ -131,93 +171,92 @@
 				id: 'welcome',
 				title: $LL.welcome.tourSteps.welcome.title(),
 				text: $LL.welcome.tourSteps.welcome.text(),
-				beforeShowPromise: () => ensurePage('/')
+				beforeShowPromise: async () => {
+					await ensurePage('/', window.location.pathname);
+				}
+			} satisfies StepOptions,
+			{
+				id: 'navigation',
+				title: $LL.welcome.tourSteps.navigation.title(),
+				text: $LL.welcome.tourSteps.navigation.text(),
+				attachTo: {
+					element: '#navigation',
+					on: isMobile ? 'auto' : 'right'
+				},
+				beforeShowPromise: async () => {
+					await ensurePage('/', window.location.pathname);
+					openLeftSidebar();
+					await scrollToHandler('#navigation');
+				}
+			} satisfies StepOptions,
+			{
+				id: 'measurements',
+				title: $LL.welcome.tourSteps.measurements.title(),
+				text: $LL.welcome.tourSteps.measurements.text(),
+				attachTo: {
+					element: '#unit-select',
+					on: isMobile ? 'auto' : 'right'
+				},
+				beforeShowPromise: async () => {
+					await ensurePage('/', window.location.pathname);
+					openLeftSidebar();
+					await scrollToHandler('#unit-select');
+				}
+			} satisfies StepOptions,
+			{
+				id: 'datavisType',
+				title: $LL.welcome.tourSteps.datavisType.title(),
+				text: $LL.welcome.tourSteps.datavisType.text(),
+				attachTo: {
+					element: '#date-range-slider',
+					on: isMobile ? 'auto' : 'right'
+				},
+				beforeShowPromise: async () => {
+					await ensurePage('/', window.location.pathname);
+					openLeftSidebar();
+					await scrollToHandler('#date-range-slider');
+				}
+			} satisfies StepOptions,
+			{
+				id: 'visualisation',
+				title: $LL.welcome.tourSteps.visualisation.title(),
+				text: $LL.welcome.tourSteps.visualisation.text(),
+				attachTo: {
+					element: '#stations-datavis',
+					on: isMobile ? 'auto' : 'right'
+				},
+				beforeShowPromise: async () => {
+					await ensurePage('/', window.location.pathname);
+					openLeftSidebar();
+					await scrollToHandler('#stations-datavis');
+				}
 			} satisfies StepOptions,
 			{
 				id: 'map',
 				title: $LL.welcome.tourSteps.map.title(),
 				text: $LL.welcome.tourSteps.map.text(),
 				attachTo: {
-					element: '#map'
+					element: '#map',
+					on: 'top'
 				},
 				beforeShowPromise: async () => {
-					await ensurePage('/');
-					isMobile && closeLeftSidebar();
+					await ensurePage('/', window.location.pathname);
+					isMobile ? closeLeftSidebar() : openLeftSidebar();
 				}
-			} satisfies StepOptions,
+			},
 			{
-				id: 'stationSelect',
-				title: $LL.welcome.tourSteps.stationSelect.title(),
-				text: $LL.welcome.tourSteps.stationSelect.text(),
+				id: 'heatStress',
+				title: $LL.welcome.tourSteps.heatStress.title(),
+				text: $LL.welcome.tourSteps.heatStress.text(),
 				attachTo: {
-					element: '#stations-select-wrapper',
-					on: isMobile ? 'auto' : 'right'
+					element: '#map',
+					on: 'top'
 				},
 				beforeShowPromise: async () => {
-					await ensurePage('/');
-					openLeftSidebar();
-					await scrollToHandler('#stations-select-wrapper');
+					await ensurePage('/heat-stress', window.location.pathname);
+					isMobile ? closeLeftSidebar() : openLeftSidebar();
 				}
-			} satisfies StepOptions,
-			{
-				id: 'unitSelect',
-				title: $LL.welcome.tourSteps.unitSelect.title(),
-				text: $LL.welcome.tourSteps.unitSelect.text(),
-				attachTo: {
-					element: '#unit-select',
-					on: isMobile ? 'auto' : 'right'
-				},
-				beforeShowPromise: async () => {
-					await ensurePage('/');
-					openLeftSidebar();
-					await scrollToHandler('#unit-select');
-				}
-			} satisfies StepOptions,
-			{
-				id: 'stationsDatavis',
-				title: $LL.welcome.tourSteps.stationsDatavis.title(),
-				text: $LL.welcome.tourSteps.stationsDatavis.text(),
-				attachTo: {
-					element: '#stations-datavis',
-					on: isMobile ? 'auto' : 'right'
-
-				},
-				beforeShowPromise: async () => {
-					await ensurePage('/');
-					openLeftSidebar();
-					await scrollToHandler('#stations-datavis');
-				}
-			} satisfies StepOptions,
-			{
-				id: 'dateRangeSlider',
-				title: $LL.welcome.tourSteps.dateRangeSlider.title(),
-				text: $LL.welcome.tourSteps.dateRangeSlider.text(),
-				attachTo: {
-					element: '#date-range-slider',
-					on: isMobile ? 'auto' : 'right'
-
-				},
-				beforeShowPromise: async () => {
-					await ensurePage('/');
-					openLeftSidebar();
-					await scrollToHandler('#date-range-slider');
-				}
-			} satisfies StepOptions,
-			{
-				id: 'stationsHistogram',
-				title: $LL.welcome.tourSteps.stationsHistogram.title(),
-				text: $LL.welcome.tourSteps.stationsHistogram.text(),
-				attachTo: {
-					element: '#stations-histogram',
-					on: isMobile ? 'auto' : 'right'
-
-				},
-				beforeShowPromise: async () => {
-					await ensurePage('/');
-					openLeftSidebar();
-					await scrollToHandler('#stations-histogram');
-				}
-			} satisfies StepOptions,
+			},
 			{
 				id: 'stationsTable',
 				title: $LL.welcome.tourSteps.stationsTable.title(),
@@ -226,8 +265,8 @@
 					element: '#stations-table'
 				},
 				beforeShowPromise: async () => {
-					await ensurePage('/stations');
-					isMobile && closeLeftSidebar();
+					await ensurePage('/stations', window.location.pathname);
+					isMobile ? closeLeftSidebar() : openLeftSidebar();
 				}
 			} satisfies StepOptions
 		].map((originalStep, idx, arr) => {
@@ -250,17 +289,89 @@
 			} satisfies StepOptions;
 		});
 		tour.addSteps(steps);
+
+		return destroyTour;
 	});
 
+	type TourSettings = {
+		pagePath: string;
+		unit: string;
+		datavisType: 'day' | 'hour' | 'range';
+		rangeStart: number;
+		rangeEnd: number;
+		sidebarState: SidebarState;
+		dayValue: number;
+		minMaxAvg: 'min' | 'max' | 'avg';
+		hour: number;
+		heatStressUnit: 'utci' | 'pet';
+	};
+	let initialSettings: TourSettings;
+	const tourOptimalSettings = $derived({
+		pagePath: '/',
+		unit: 'utci',
+		datavisType: 'range',
+		rangeStart: -10,
+		rangeEnd: 0,
+		dayValue: -2,
+		sidebarState: isMobile ? SidebarState.CLOSED : SidebarState.SIMPLE,
+		minMaxAvg: 'avg',
+		hour: getHours(today()),
+		heatStressUnit: 'utci'
+	} satisfies TourSettings);
+
+	function saveInitialSettings() {
+		const pagePath = window.location.pathname.replace(`/${$locale}`, '') || '/';
+		initialSettings = {
+			pagePath,
+			unit: $unit,
+			datavisType: $datavisType,
+			rangeStart: $rangeStart,
+			rangeEnd: $rangeEnd,
+			sidebarState: $sidebarState as SidebarState,
+			dayValue: $dayValue,
+			minMaxAvg: $minMaxAvg,
+			hour: $hour,
+			heatStressUnit: $heatStressUnit as 'utci' | 'pet'
+		};
+	}
+	function applySettings(stgns?: TourSettings) {
+		if (!stgns) return;
+		updateUnit(stgns.unit);
+		udpateDatavisType(stgns.datavisType);
+		udpateRangeStart(stgns.rangeStart);
+		updateRangeEnd(stgns.rangeEnd);
+		setLeftSidebarState(stgns.sidebarState);
+		udpateDay(stgns.dayValue);
+		updateMinMaxAvg(stgns.minMaxAvg);
+		$updateHour(stgns.hour);
+		updateHeatStressUnit(stgns.heatStressUnit);
+	}
+
 	const handleClose = () => {
-		localStorage.setItem('welcome-opened', 'false');
 		opened = false;
 	};
 
 	const handleOpen = () => {
-		localStorage.setItem('welcome-opened', 'true');
 		opened = true;
 	};
+
+	async function onTourStart() {
+		saveInitialSettings();
+		ensurePage('/', window.location.pathname);
+		tour?.show('welcome');
+	}
+
+	function onTourActive() {
+		localStorage.setItem('welcome-opened', 'true');
+		applySettings(tourOptimalSettings);
+	}
+
+	function onTourEnd() {
+		localStorage.setItem('welcome-opened', 'false');
+		applySettings(initialSettings);
+		const path = initialSettings.pagePath === '/' ? '/' : initialSettings.pagePath;
+		ensurePage(path, window.location.pathname);
+	}
 </script>
 
 <section

@@ -67,6 +67,7 @@
 		>
 			<WelcomeMessage />
 			<nav
+				id="navigation"
 				class={cn(
 					'sticky top-0 z-50 border-b border-border bg-muted',
 					'pt-1 shadow-black/10 transition-shadow duration-1000'

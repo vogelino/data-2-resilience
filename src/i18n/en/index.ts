@@ -78,41 +78,41 @@ const en = {
 		tourSteps: {
 			buttons: {
 				next: 'Next',
-				prev: 'Previous',
+				prev: 'Back',
 				cancel: 'Cancel',
 				last: 'Finish'
 			},
 			welcome: {
-				title: 'Welcome',
-				text: 'Welcome to Data2Resilience. We are glad that you are interested in our project. We have developed this dashboard to give you insights into the biometeorological data we collect in Dortmund. We hope you will find it useful.'
+				title: 'Welcome to the Dashboard Introduction!',
+				text: 'In this short tour, you will interactively learn how to use the dashboard and make the most of its key features.<br><br>You can cancel the tour at any time – simply click on "Cancel".'
+			},
+			navigation: {
+				title: 'Navigation Overview',
+				text: "In the left sidebar, you will find all the dashboard's topic areas. You can choose between Measurements, Heat Atlas, and Measurement Stations. Each area offers specific information and interaction options."
+			},
+			measurements: {
+				title: 'Select Measurements:',
+				text: 'Weather data is available for various locations in Dortmund.<br/>Use the upper text field to select a measurement station by typing letters or by choosing from the list.<br/>In the selection field below, you can choose the desired climate variable (e.g., air temperature, humidity) and the corresponding unit.'
+			},
+			datavisType: {
+				title: 'Select Period and Statistical Representation:',
+				text: 'Use the timeline at the bottom to adjust the desired period – drag the yellow point or choose whether the values are shown hourly, daily, or for a custom period.<br/><br/>For daily values, you can additionally specify how the data is displayed – e.g., as minimum, mean, or maximum. Use the buttons in the upper right corner for this.'
+			},
+			visualisation: {
+				title: 'Compare Measurement Values at a Glance:',
+				text: 'The top chart shows the measurement values of the stations you previously selected for the chosen period.<br/><br/>Below that, another chart shows how often certain values occur in Dortmund. Clicking on a bar will automatically highlight all stations with similar values.'
 			},
 			map: {
-				title: 'Map',
-				text: 'The map shows the location of the monitoring stations. You can select stations on the map by clicking on them.'
+				title: 'Use the Map Interactively:',
+				text: 'Use the map view to visually explore locations or select measurement stations (points on the map).<br/><br/>You can click individual stations, zoom into the map, or search for a location directly via the address input.<br/><br/>Additional background maps such as district boundaries or aerial images can be toggled on or off in the top right corner.<br/><br/>The color of the measurement stations automatically adapts to the value of the selected climate variable. The meaning of the color scale can be found in the legend at the bottom left – there you will also find information about possible health risks, for example in connection with the thermal climate index UTCI.'
 			},
-			stationSelect: {
-				title: 'Station Selection',
-				text: 'We have collected data from various monitoring stations in Dortmund. You can select which stations you want to see on the map by clicking on them.'
-			},
-			unitSelect: {
-				title: 'Unit Selection',
-				text: 'We have converted the biometeorological data in this dashboard into different indicators to help you better understand them. You can change the indicators at any time by clicking on the indicator symbols.'
-			},
-			stationsDatavis: {
-				title: 'Data visualization',
-				text: 'The data visualization shows you the current measurements for the selected stations. You can view the data for different time periods by clicking on the buttons in the upper right corner.'
-			},
-			dateRangeSlider: {
-				title: 'Select time period',
-				text: 'You can view the data for different time periods by selecting or deselecting them in the time filter.'
-			},
-			stationsHistogram: {
-				title: 'Data histogram',
-				text: 'The data histogram shows you the distribution of measurements for the selected stations. You can view the distribution for different time periods by clicking on the buttons in the upper right corner.'
+			heatStress: {
+				title: 'Explore the Heat Atlas:',
+				text: 'The Heat Atlas shows how strongly different city areas are affected by heat stress. You can choose between three climate variables: the thermal climate index UTCI, relative humidity, or air temperature.<br/><br/>With UTCI, you can switch between a health-related stress map (heat stress category) and a temperature map in degrees Celsius (°C).<br/><br/>The colored display on the map and the legend help you correctly interpret the stress level.'
 			},
 			stationsTable: {
-				title: 'Data table',
-				text: 'The data table shows you the current measurements for the selected stations. You can view the data for different time periods by clicking on the buttons in the upper right corner.'
+				title: 'Learn Details About Measurement Stations:',
+				text: 'The table contains technical information about all measurement stations. Use the search field at the top right to search for entries. By clicking on a column header, you can sort the table by that column. Measurement data for each station can be downloaded via the "Data" column.<br /><br/><strong>Tour completed:</strong><br/>You now know the most important functions of the dashboard. Enjoy exploring the data!'
 			}
 		}
 	},

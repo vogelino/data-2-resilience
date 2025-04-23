@@ -80,7 +80,8 @@ const en = {
 				next: 'Next',
 				prev: 'Back',
 				cancel: 'Cancel',
-				last: 'Finish'
+				last: 'Finish',
+				restart: 'Restart tour'
 			},
 			welcome: {
 				title: 'Welcome to the Dashboard Introduction!',

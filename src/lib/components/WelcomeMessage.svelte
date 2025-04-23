@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import LL, { locale } from '$i18n/i18n-svelte';
 	import {
@@ -12,8 +11,6 @@
 		openLeftSidebar,
 		rangeEnd,
 		rangeStart,
-		setLeftSidebarState,
-		sidebarState,
 		udpateDatavisType,
 		udpateDay,
 		udpateRangeStart,
@@ -37,18 +34,8 @@
 
 	let opened = $state(false);
 	let tour: Tour | undefined;
-	let isMobile = $state(true);
-
-	onMount(() => {
-		if (!browser) return;
-		const mediaQuery = window.matchMedia('(max-width: 768px)');
-		function setIsMobile(e: MediaQueryListEvent) {
-			isMobile = e.matches;
-		}
-		mediaQuery.addEventListener('change', setIsMobile);
-		isMobile = mediaQuery.matches;
-		return () => mediaQuery.removeEventListener('change', setIsMobile);
-	});
+	let cleanupAllowed = false;
+	const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
 	onMount(() => {
 		const lastValue = localStorage.getItem('welcome-opened');
@@ -59,7 +46,8 @@
 		}
 	});
 
-	onMount(() => {
+	function getTour() {
+		if (typeof tour?.id !== 'undefined') return tour;
 		tour = new Shepherd.Tour({
 			useModalOverlay: true,
 			keyboardNavigation: true,
@@ -69,16 +57,23 @@
 				scrollTo: false
 			}
 		});
-		tour.on('start', onTourStart);
-		tour.on('active', onTourActive);
-		tour.on('complete', onTourEnd);
-		tour.on('cancel', onTourEnd);
+		return tour;
+	}
+
+	onMount(() => {
+		const t = getTour();
+
+		t.on('start', onTourStart);
+		t.on('active', onTourActive);
+		t.on('complete', onTourEnd);
+		t.on('cancel', onTourEnd);
 
 		return () => {
-			tour?.off('start', onTourStart);
-			tour?.off('active', onTourActive);
-			tour?.off('complete', onTourEnd);
-			tour?.off('cancel', onTourEnd);
+			const t = getTour();
+			t.off('start', onTourStart);
+			t.off('active', onTourActive);
+			t.off('complete', onTourEnd);
+			t.off('cancel', onTourEnd);
 		};
 	});
 
@@ -138,33 +133,34 @@
 	const queryParams = $derived(queryParameters());
 	const urlQuery = $derived(new URLSearchParams($queryParams).toString());
 
-	function destroyTour() {
-		if (!tour) return;
-		tour.cancel();
-		tour.steps.forEach((step) => step.destroy());
-		tour.steps = [];
-	}
-
-	$effect(() => {
-		if (!tour) return;
-		const nextButton = {
+	const buttons = $derived.by(() => ({
+		nextButton: {
 			text: $LL.welcome.tourSteps.buttons.next(),
-			action: tour.next
-		} satisfies StepOptionsButton;
-		const prevButton = {
+			action: () => tour?.next()
+		} satisfies StepOptionsButton,
+		prevButton: {
 			text: $LL.welcome.tourSteps.buttons.prev(),
-			action: tour.back,
+			action: () => tour?.back(),
 			secondary: true
-		} satisfies StepOptionsButton;
-		const cancelButton = {
+		} satisfies StepOptionsButton,
+		cancelButton: {
 			text: $LL.welcome.tourSteps.buttons.cancel(),
-			action: tour.cancel,
+			action: () => tour?.cancel(),
 			secondary: true
-		} satisfies StepOptionsButton;
-		const finishButton = {
+		} satisfies StepOptionsButton,
+		restartButton: {
+			text: $LL.welcome.tourSteps.buttons.restart(),
+			action: () => tour?.show(0),
+			secondary: true
+		} satisfies StepOptionsButton,
+		finishButton: {
 			text: $LL.welcome.tourSteps.buttons.last(),
-			action: tour.complete
-		} satisfies StepOptionsButton;
+			action: () => tour?.complete()
+		} satisfies StepOptionsButton
+	}));
+
+	function initTour(t: Tour) {
+		if (t.isActive()) return;
 
 		const steps = [
 			{
@@ -181,7 +177,7 @@
 				text: $LL.welcome.tourSteps.navigation.text(),
 				attachTo: {
 					element: '#navigation',
-					on: isMobile ? 'auto' : 'right'
+					on: isMobile() ? 'auto' : 'right'
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
@@ -195,7 +191,7 @@
 				text: $LL.welcome.tourSteps.measurements.text(),
 				attachTo: {
 					element: '#unit-select',
-					on: isMobile ? 'auto' : 'right'
+					on: isMobile() ? 'auto' : 'right'
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
@@ -209,7 +205,7 @@
 				text: $LL.welcome.tourSteps.datavisType.text(),
 				attachTo: {
 					element: '#date-range-slider',
-					on: isMobile ? 'auto' : 'right'
+					on: isMobile() ? 'auto' : 'right'
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
@@ -223,7 +219,7 @@
 				text: $LL.welcome.tourSteps.visualisation.text(),
 				attachTo: {
 					element: '#stations-datavis',
-					on: isMobile ? 'auto' : 'right'
+					on: isMobile() ? 'auto' : 'right'
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
@@ -241,7 +237,11 @@
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
-					isMobile ? closeLeftSidebar() : openLeftSidebar();
+					if (isMobile()) {
+						closeLeftSidebar();
+					} else {
+						openLeftSidebar();
+					}
 				}
 			},
 			{
@@ -254,7 +254,11 @@
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/heat-stress', window.location.pathname);
-					isMobile ? closeLeftSidebar() : openLeftSidebar();
+					if (isMobile()) {
+						closeLeftSidebar();
+					} else {
+						openLeftSidebar();
+					}
 				}
 			},
 			{
@@ -266,7 +270,11 @@
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/stations', window.location.pathname);
-					isMobile ? closeLeftSidebar() : openLeftSidebar();
+					if (isMobile()) {
+						closeLeftSidebar();
+					} else {
+						openLeftSidebar();
+					}
 				}
 			} satisfies StepOptions
 		].map((originalStep, idx, arr) => {
@@ -276,9 +284,9 @@
 			return {
 				...step,
 				buttons: step.buttons || [
-					...(isLast ? [] : [cancelButton]),
-					...(isFirst ? [] : [prevButton]),
-					...(isLast ? [finishButton] : [nextButton])
+					...(isLast ? [] : [buttons.cancelButton]),
+					...(isFirst ? [] : [buttons.prevButton]),
+					...(isLast ? [buttons.restartButton, buttons.finishButton] : [buttons.nextButton])
 				],
 				attachTo:
 					step.attachTo &&
@@ -288,14 +296,14 @@
 					} satisfies StepOptions['attachTo']),
 				when: {
 					show() {
-						if (!tour) return;
-						const currentStep = tour.getCurrentStep();
+						if (!t) return;
+						const currentStep = t.getCurrentStep();
 						if (!currentStep) return;
 						const currentEl = currentStep.getElement();
 						const footer = currentEl?.querySelector('.shepherd-footer') as HTMLElement;
 						if (!footer) return;
-						const currentStepIndex = tour.steps.indexOf(currentStep);
-						const totalSteps = tour.steps.length;
+						const currentStepIndex = t.steps.indexOf(currentStep);
+						const totalSteps = t.steps.length;
 						const stepsText = `${currentStepIndex + 1} / ${totalSteps}`;
 						const stepsSpan = document.createElement('span');
 						footer.classList.add('flex', 'items-center');
@@ -306,9 +314,15 @@
 				}
 			} satisfies StepOptions;
 		});
-		tour.addSteps(steps);
+		if (t.steps.length === 0) {
+			t.addSteps(steps);
+		} else if (t.steps.length === steps.length) {
+			t.steps.forEach((step, idx) => step.updateStepOptions(steps[idx]));
+		}
+	}
 
-		return destroyTour;
+	$effect(() => {
+		tour && initTour(tour);
 	});
 
 	type TourSettings = {
@@ -317,7 +331,7 @@
 		datavisType: 'day' | 'hour' | 'range';
 		rangeStart: number;
 		rangeEnd: number;
-		sidebarState: SidebarState;
+		sidebarState?: SidebarState;
 		dayValue: number;
 		minMaxAvg: 'min' | 'max' | 'avg';
 		hour: number;
@@ -331,7 +345,6 @@
 		rangeStart: -10,
 		rangeEnd: 0,
 		dayValue: -2,
-		sidebarState: isMobile ? SidebarState.CLOSED : SidebarState.SIMPLE,
 		minMaxAvg: 'avg',
 		hour: getHours(today()),
 		heatStressUnit: 'utci'
@@ -345,7 +358,6 @@
 			datavisType: $datavisType,
 			rangeStart: $rangeStart,
 			rangeEnd: $rangeEnd,
-			sidebarState: $sidebarState as SidebarState,
 			dayValue: $dayValue,
 			minMaxAvg: $minMaxAvg,
 			hour: $hour,
@@ -358,7 +370,6 @@
 		udpateDatavisType(stgns.datavisType);
 		udpateRangeStart(stgns.rangeStart);
 		updateRangeEnd(stgns.rangeEnd);
-		setLeftSidebarState(stgns.sidebarState);
 		udpateDay(stgns.dayValue);
 		updateMinMaxAvg(stgns.minMaxAvg);
 		$updateHour(stgns.hour);
@@ -366,29 +377,29 @@
 	}
 
 	const handleClose = () => {
+		localStorage.setItem('welcome-opened', 'false');
 		opened = false;
 	};
 
 	const handleOpen = () => {
+		localStorage.setItem('welcome-opened', 'true');
 		opened = true;
 	};
 
 	async function onTourStart() {
 		saveInitialSettings();
+
 		ensurePage('/', window.location.pathname);
-		tour?.show('welcome');
 	}
 
 	function onTourActive() {
-		localStorage.setItem('welcome-opened', 'true');
 		applySettings(tourOptimalSettings);
 	}
 
 	function onTourEnd() {
-		localStorage.setItem('welcome-opened', 'false');
+		cleanupAllowed = true;
 		applySettings(initialSettings);
-		const path = initialSettings.pagePath === '/' ? '/' : initialSettings.pagePath;
-		ensurePage(path, window.location.pathname);
+		ensurePage(initialSettings.pagePath, window.location.pathname);
 	}
 </script>
 
@@ -497,6 +508,7 @@
 		border: 1px solid hsl(var(--border));
 		color: hsl(var(--foreground));
 		font-weight: 400;
+		white-space: nowrap;
 	}
 
 	:global(.shepherd-button.shepherd-button-secondary:not(:disabled):hover) {
@@ -535,6 +547,7 @@
 		font-weight: 600;
 		font-size: 1.25rem;
 		line-height: 1.75rem;
+		max-width: 100%;
 	}
 
 	:global(.shepherd-text) {

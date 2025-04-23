@@ -80,7 +80,8 @@ const de = {
 				next: 'Weiter',
 				prev: 'Zurück',
 				cancel: 'Abbrechen',
-				last: 'Abschließen'
+				last: 'Abschließen',
+				restart: 'Tour erneut starten'
 			},
 			welcome: {
 				title: 'Willkommen zur Dashboard-Einführung!',

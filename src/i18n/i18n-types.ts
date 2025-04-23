@@ -224,6 +224,10 @@ type RootTranslation = {
 				 * A​b​s​c​h​l​i​e​ß​e​n
 				 */
 				last: string
+				/**
+				 * T​o​u​r​ ​e​r​n​e​u​t​ ​s​t​a​r​t​e​n
+				 */
+				restart: string
 			}
 			welcome: {
 				/**
@@ -2363,6 +2367,10 @@ export type TranslationFunctions = {
 				 * Abschließen
 				 */
 				last: () => LocalizedString
+				/**
+				 * Tour erneut starten
+				 */
+				restart: () => LocalizedString
 			}
 			welcome: {
 				/**

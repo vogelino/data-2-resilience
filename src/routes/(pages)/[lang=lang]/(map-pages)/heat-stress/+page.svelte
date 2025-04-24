@@ -47,13 +47,13 @@
 			doy: $lastAvailableRasterLayerQuery.data?.doy ?? getDayOfYear(today()),
 			hour:
 				$lastAvailableRasterLayerQuery.data?.hour ??
-				getHours(addHours($hour, new Date().getTimezoneOffset() / 60)),
+				getHours(addHours($hour, today().getTimezoneOffset() / 60)),
 			year: $lastAvailableRasterLayerQuery.data?.year ?? getYear(today()),
 			param: $heatStressUnit.toUpperCase()
 		};
 		const yearStart = startOfYear(setYear(today(), config.year));
 		const startOfDay = addDays(yearStart, config.doy - 1);
-		const tzOffsetInHours = new Date().getTimezoneOffset() / 60;
+		const tzOffsetInHours = today().getTimezoneOffset() / 60;
 		return addHours(setHours(startOfDay, config.hour), -tzOffsetInHours);
 	});
 	const finalDateDistHours = $derived(

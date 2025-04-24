@@ -12,7 +12,7 @@ import {
 import { endOfDay, format, setHours } from 'date-fns';
 import { derived, type Readable } from 'svelte/store';
 import { api } from './api';
-import { limitDateBoundsToToday } from './dateUtil';
+import { limitDateBoundsToToday, today } from './dateUtil';
 import type { WeatherMeasurementKey } from './schemas';
 
 export type SnapshotDataType = {
@@ -71,7 +71,7 @@ export function useStationsSnapshotConfig({
 							| undefined;
 						return {
 							id: s.properties.id || station?.id || '',
-							measured_at: station?.measured_at || new Date().toISOString(),
+							measured_at: station?.measured_at || today().toISOString(),
 							station_type: s.properties.stationType,
 							[unitWithMinMaxAvgVal]: station?.[unitWithMinMaxAvgVal]
 						} satisfies SnapshotDataType;

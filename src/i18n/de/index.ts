@@ -141,6 +141,17 @@ const de = {
 			timeRangeAlertTooltipTitle: 'Diese Karte ist nur verfügbar für die letzten 30 Tage.',
 			timeRangeAlertTooltipContent:
 				'Die Daten benötigen große Menge von Speicherplatz, daher ist diese Karte nur verfügbare für die letzten 30 Tage.',
+			singleDateAlertTitle: 'Sie sehen Daten vom {date:string}.',
+			singleDateAlertTitleHoursAgo: '(vor {dist:string} Stunden)',
+			singleDateAlertTitleDaysAgo: '(vor {dist:string} Tagen)',
+			singleDateAlertDescription:
+				'Die auf der Karte angezeigten Rasterdaten stellen die aktuellsten verarbeitbaren Daten dar.',
+			singleDateAlertDescriptionActualData:
+				'Zurzeit sind die angezeigten Daten aktuell und höchstens 2 Stunden alt.',
+			singleDateAlertDescriptionOldDataHours:
+				'Zurzeit sind die angezeigten Daten um {dist:string} Stunden veraltet. Im Winter und bei kostspieliger Verarbeitung können die Daten stark veraltet sein.',
+			singleDateAlertDescriptionOldDataDays:
+				'Zurzeit sind die angezeigten Daten um {dist:string} Tage veraltet. Im Winter und bei kostspieliger Verarbeitung können die Daten stark veraltet sein.',
 			indicatorsNavAriaLabel:
 				'Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.'
 		},

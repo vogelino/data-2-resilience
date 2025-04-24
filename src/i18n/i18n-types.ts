@@ -366,6 +366,39 @@ type RootTranslation = {
 			 */
 			timeRangeAlertTooltipContent: string
 			/**
+			 * S​i​e​ ​s​e​h​e​n​ ​D​a​t​e​n​ ​v​o​m​ ​{​d​a​t​e​}​.
+			 * @param {string} date
+			 */
+			singleDateAlertTitle: RequiredParams<'date'>
+			/**
+			 * (​v​o​r​ ​{​d​i​s​t​}​ ​S​t​u​n​d​e​n​)
+			 * @param {string} dist
+			 */
+			singleDateAlertTitleHoursAgo: RequiredParams<'dist'>
+			/**
+			 * (​v​o​r​ ​{​d​i​s​t​}​ ​T​a​g​e​n​)
+			 * @param {string} dist
+			 */
+			singleDateAlertTitleDaysAgo: RequiredParams<'dist'>
+			/**
+			 * D​i​e​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​R​a​s​t​e​r​d​a​t​e​n​ ​s​t​e​l​l​e​n​ ​d​i​e​ ​a​k​t​u​e​l​l​s​t​e​n​ ​v​e​r​a​r​b​e​i​t​b​a​r​e​n​ ​D​a​t​e​n​ ​d​a​r​.
+			 */
+			singleDateAlertDescription: string
+			/**
+			 * Z​u​r​z​e​i​t​ ​s​i​n​d​ ​d​i​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​D​a​t​e​n​ ​a​k​t​u​e​l​l​ ​u​n​d​ ​h​ö​c​h​s​t​e​n​s​ ​2​ ​S​t​u​n​d​e​n​ ​a​l​t​.
+			 */
+			singleDateAlertDescriptionActualData: string
+			/**
+			 * Z​u​r​z​e​i​t​ ​s​i​n​d​ ​d​i​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​D​a​t​e​n​ ​u​m​ ​{​d​i​s​t​}​ ​S​t​u​n​d​e​n​ ​v​e​r​a​l​t​e​t​.​ ​I​m​ ​W​i​n​t​e​r​ ​u​n​d​ ​b​e​i​ ​k​o​s​t​s​p​i​e​l​i​g​e​r​ ​V​e​r​a​r​b​e​i​t​u​n​g​ ​k​ö​n​n​e​n​ ​d​i​e​ ​D​a​t​e​n​ ​s​t​a​r​k​ ​v​e​r​a​l​t​e​t​ ​s​e​i​n​.
+			 * @param {string} dist
+			 */
+			singleDateAlertDescriptionOldDataHours: RequiredParams<'dist'>
+			/**
+			 * Z​u​r​z​e​i​t​ ​s​i​n​d​ ​d​i​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​D​a​t​e​n​ ​u​m​ ​{​d​i​s​t​}​ ​T​a​g​e​ ​v​e​r​a​l​t​e​t​.​ ​I​m​ ​W​i​n​t​e​r​ ​u​n​d​ ​b​e​i​ ​k​o​s​t​s​p​i​e​l​i​g​e​r​ ​V​e​r​a​r​b​e​i​t​u​n​g​ ​k​ö​n​n​e​n​ ​d​i​e​ ​D​a​t​e​n​ ​s​t​a​r​k​ ​v​e​r​a​l​t​e​t​ ​s​e​i​n​.
+			 * @param {string} dist
+			 */
+			singleDateAlertDescriptionOldDataDays: RequiredParams<'dist'>
+			/**
 			 * W​ä​h​l​e​ ​e​i​n​e​n​ ​I​n​d​i​k​a​t​o​r​,​ ​u​m​ ​d​i​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​D​a​t​e​n​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​z​u​ ​ä​n​d​e​r​n​.
 			 */
 			indicatorsNavAriaLabel: string
@@ -2009,7 +2042,7 @@ type RootTranslation = {
 						 */
 						thermalComfort: string
 						/**
-						 * K​e​i​n​ ​t​h​e​r​m​i​s​c​h​e​r​ ​S​t​r​e​s​s
+						 * K​e​i​n​ ​t​h​e​r​m​.​ ​S​t​r​e​s​s
 						 */
 						heatStress: string
 					}
@@ -2502,6 +2535,34 @@ export type TranslationFunctions = {
 			 * Die Daten benötigen große Menge von Speicherplatz, daher ist diese Karte nur verfügbare für die letzten 30 Tage.
 			 */
 			timeRangeAlertTooltipContent: () => LocalizedString
+			/**
+			 * Sie sehen Daten vom {date}.
+			 */
+			singleDateAlertTitle: (arg: { date: string }) => LocalizedString
+			/**
+			 * (vor {dist} Stunden)
+			 */
+			singleDateAlertTitleHoursAgo: (arg: { dist: string }) => LocalizedString
+			/**
+			 * (vor {dist} Tagen)
+			 */
+			singleDateAlertTitleDaysAgo: (arg: { dist: string }) => LocalizedString
+			/**
+			 * Die auf der Karte angezeigten Rasterdaten stellen die aktuellsten verarbeitbaren Daten dar.
+			 */
+			singleDateAlertDescription: () => LocalizedString
+			/**
+			 * Zurzeit sind die angezeigten Daten aktuell und höchstens 2 Stunden alt.
+			 */
+			singleDateAlertDescriptionActualData: () => LocalizedString
+			/**
+			 * Zurzeit sind die angezeigten Daten um {dist} Stunden veraltet. Im Winter und bei kostspieliger Verarbeitung können die Daten stark veraltet sein.
+			 */
+			singleDateAlertDescriptionOldDataHours: (arg: { dist: string }) => LocalizedString
+			/**
+			 * Zurzeit sind die angezeigten Daten um {dist} Tage veraltet. Im Winter und bei kostspieliger Verarbeitung können die Daten stark veraltet sein.
+			 */
+			singleDateAlertDescriptionOldDataDays: (arg: { dist: string }) => LocalizedString
 			/**
 			 * Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.
 			 */
@@ -4127,7 +4188,7 @@ export type TranslationFunctions = {
 						 */
 						thermalComfort: () => LocalizedString
 						/**
-						 * Kein thermischer Stress
+						 * Kein therm. Stress
 						 */
 						heatStress: () => LocalizedString
 					}

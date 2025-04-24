@@ -1,9 +1,13 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { PUBLIC_API_BASE_URL, PUBLIC_ENABLE_HEATATLAS_TIMESLIDER } from '$env/static/public';
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { dayValue, heatStressUnit, heatStressUnitLabel, hour } from '$lib/stores/uiStore';
+	import { dayValue, heatStressUnit, heatStressUnitLabel } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { api } from '$lib/utils/api';
 	import { today } from '$lib/utils/dateUtil';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+	import { createQuery, type QueryKey, type QueryOptions } from '@tanstack/svelte-query';
 	import { Description, Title } from 'components/ui/alert';
 	import Alert from 'components/ui/alert/alert.svelte';
 	import Button from 'components/ui/button/button.svelte';
@@ -38,33 +42,72 @@
 
 	const showTimeslider = PUBLIC_ENABLE_HEATATLAS_TIMESLIDER === 'true';
 
+	const p = $derived(page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', ''));
+	const isHeatStressPage = $derived(p === 'heat-stress');
+
 	const hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23] // prettier-ignore
 
 	const localSliderDate = $derived(
-		(showTimeslider ? addDays(today(), $dayValue) : today()).setHours($hour, 0, 0, 0)
+		(showTimeslider ? addDays(today(), $dayValue) : today()).setHours(
+			getHours(addHours(today(), -4)),
+			0,
+			0,
+			0
+		)
 	);
 	const diffBtwNowAndUTCInHours = $derived(new Date(localSliderDate).getTimezoneOffset() / 60);
 	const sliderDate = $derived(addHours(localSliderDate, diffBtwNowAndUTCInHours));
-	const sliderDayOfYear = $derived(getDayOfYear(sliderDate));
+	const doy = $derived(getDayOfYear(sliderDate));
 	const sliderYear = $derived(getYear(sliderDate));
 	const sliderHour = $derived(getHours(sliderDate));
 	const sliderUnit = $derived(
 		(
 			categoryToClassMap[$heatStressUnit as keyof typeof categoryToClassMap] ||
-			categoryToClassMap.utci
+			categoryToClassMap.utci.replace('_category', '_class').toUpperCase()
 		).toUpperCase()
 	);
-	// dayOfYearToday = 177;
-	// year = 2024;
+
+	const queryKey = $derived(['lastAvailableRasterLayer', $heatStressUnit, sliderYear]);
+	const lastAvailableRasterLayerQuery = createQuery(
+		reactiveQueryArgs(() => ({
+			queryKey,
+			queryFn: async ({ queryKey }: QueryOptions<QueryKey>) => {
+				const [, param, year] = queryKey as [string, string, number];
+				return api().getLatestRasterData({ year, param });
+			},
+			enabled: isHeatStressPage && !showTimeslider,
+			staleTime: Infinity,
+			cacheTime: Infinity
+		}))
+	);
+
+	const finalConfig = $derived.by(() => {
+		if (showTimeslider) {
+			return {
+				doy: doy,
+				hour: sliderHour,
+				param: sliderUnit.toUpperCase(),
+				year: sliderYear
+			};
+		}
+		return {
+			doy: $lastAvailableRasterLayerQuery.data?.doy ?? doy,
+			hour: $lastAvailableRasterLayerQuery.data?.hour ?? sliderHour,
+			param: ($lastAvailableRasterLayerQuery.data?.param ?? sliderUnit).toUpperCase(),
+			year: $lastAvailableRasterLayerQuery.data?.year ?? sliderYear
+		};
+	});
+
 	const tilesUrls = $derived(
 		hours.map((h) => {
+			const { doy, param, year } = finalConfig;
 			const paddedHour = `${h}`.padStart(2, '0');
-			const paddedDayOfYear = `${sliderDayOfYear}`.padStart(3, '0');
+			const paddedDayOfYear = `${doy}`.padStart(3, '0');
 			const queryParameters: Record<string, string> = {
-				colormap: sliderUnit.endsWith('_CLASS') ? 'explicit' : 'turbo',
+				colormap: param.endsWith('_CLASS') ? 'explicit' : 'turbo',
 				tile_size: '[256, 256]'
 			};
-			if (sliderUnit.endsWith('_CLASS')) {
+			if (param.endsWith('_CLASS')) {
 				queryParameters['explicit_color_map'] = JSON.stringify({
 					'0': '4860e6',
 					'1': '2aabee',
@@ -78,7 +121,7 @@
 				});
 			}
 			const searchParams = new URLSearchParams(queryParameters);
-			const url = `${PUBLIC_API_BASE_URL}/tms/singleband/${sliderUnit}/${sliderYear}/${paddedDayOfYear}/${paddedHour}/{z}/{x}/{y}.png?${searchParams}`;
+			const url = `${PUBLIC_API_BASE_URL}/tms/singleband/${param}/${year}/${paddedDayOfYear}/${paddedHour}/{z}/{x}/{y}.png?${searchParams}`;
 			return {
 				layerHour: h,
 				tilesUrl: url
@@ -119,14 +162,15 @@
 	});
 
 	const tilesErrorsForThisTimeAndUnit = $derived.by(() => {
-		const unitTilesErrors = tilesErrors.get(sliderUnit);
+		const { doy, param, hour, year } = finalConfig;
+		const unitTilesErrors = tilesErrors.get(param);
 		if (!unitTilesErrors || unitTilesErrors.size === 0) return [];
 		return unitTilesErrors.entries().reduce((acc, [key, tileError]: [string, TileError]) => {
 			const tzOffsetInHours = new Date().getTimezoneOffset() / 60;
-			const hWithOffset = $hour + tzOffsetInHours;
+			const hWithOffset = hour + tzOffsetInHours;
 			const paddedHour = `${hWithOffset}`.padStart(2, '0');
-			const paddedDayOfYear = `${sliderDayOfYear}`.padStart(3, '0');
-			const keyStart = [sliderUnit, sliderYear, paddedDayOfYear, paddedHour].join('-');
+			const paddedDayOfYear = `${doy}`.padStart(3, '0');
+			const keyStart = [param, year, paddedDayOfYear, paddedHour].join('-');
 			if (key.startsWith(keyStart)) return [...acc, tileError];
 			return acc;
 		}, [] as TileError[]);
@@ -159,7 +203,7 @@
 	<RasterTileSource tiles={[tilesUrl]} tileSize={256}>
 		<RasterLayer
 			paint={{}}
-			layout={{ visibility: visible && sliderHour === layerHour ? 'visible' : 'none' }}
+			layout={{ visibility: visible && finalConfig.hour === layerHour ? 'visible' : 'none' }}
 			beforeLayerType="symbol"
 		/>
 	</RasterTileSource>

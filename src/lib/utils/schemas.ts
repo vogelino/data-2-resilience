@@ -240,3 +240,11 @@ export const HeatStressColormapItemSchema = z.object({
 	value: z.number()
 });
 export type HeatStressColormapItem = z.infer<typeof HeatStressColormapItemSchema>;
+
+export const RasterLayerInfoSchema = z.object({
+	doy: z.coerce.number(),
+	hour: z.coerce.number(),
+	param: z.string(),
+	year: z.coerce.number()
+});
+export type RasterLayerInfo = z.infer<typeof RasterLayerInfoSchema>;

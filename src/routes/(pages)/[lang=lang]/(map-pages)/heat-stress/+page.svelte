@@ -1,17 +1,67 @@
 <script lang="ts">
 	import { PUBLIC_ENABLE_HEATATLAS_TIMESLIDER } from '$env/static/public';
 	import { LL, locale } from '$i18n/i18n-svelte';
-	import { dayValue, heatStressUnit, udpateDay } from '$lib/stores/uiStore';
+	import { dayValue, heatStressUnit, hour, udpateDay } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { api } from '$lib/utils/api';
 	import { isToday, today } from '$lib/utils/dateUtil';
+	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+	import { createQuery, type QueryKey, type QueryOptions } from '@tanstack/svelte-query';
 	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
 	import HourInput from 'components/HourInput.svelte';
 	import InfoTooltip from 'components/InfoTooltip.svelte';
 	import ThermalCompfortNavItem from 'components/ThermalCompfortNavItem.svelte';
-	import { addDays } from 'date-fns';
+	import { Alert, AlertDescription, AlertTitle } from 'components/ui/alert';
+	import {
+		addDays,
+		addHours,
+		differenceInCalendarDays,
+		differenceInHours,
+		getDayOfYear,
+		getHours,
+		getYear,
+		setHours,
+		setYear,
+		startOfYear
+	} from 'date-fns';
 	import RangeSlider from 'svelte-range-slider-pips';
 
 	const showTimeslider = PUBLIC_ENABLE_HEATATLAS_TIMESLIDER === 'true';
+
+	const queryKey = $derived(['lastAvailableRasterLayer', $heatStressUnit, getYear(today())]);
+	const lastAvailableRasterLayerQuery = createQuery(
+		reactiveQueryArgs(() => ({
+			queryKey,
+			queryFn: async ({ queryKey }: QueryOptions<QueryKey>) => {
+				const [, param, year] = queryKey as [string, string, number];
+				return api().getLatestRasterData({ year, param });
+			},
+			enabled: !showTimeslider,
+			staleTime: Infinity,
+			cacheTime: Infinity
+		}))
+	);
+
+	const finalLocalDate = $derived.by(() => {
+		const config = {
+			doy: $lastAvailableRasterLayerQuery.data?.doy ?? getDayOfYear(today()),
+			hour:
+				$lastAvailableRasterLayerQuery.data?.hour ??
+				getHours(addHours($hour, new Date().getTimezoneOffset() / 60)),
+			year: $lastAvailableRasterLayerQuery.data?.year ?? getYear(today()),
+			param: $heatStressUnit.toUpperCase()
+		};
+		const yearStart = startOfYear(setYear(today(), config.year));
+		const startOfDay = addDays(yearStart, config.doy - 1);
+		const tzOffsetInHours = new Date().getTimezoneOffset() / 60;
+		return addHours(setHours(startOfDay, config.hour), -tzOffsetInHours);
+	});
+	const finalDateDistHours = $derived(
+		Math.abs(Math.ceil(differenceInHours(finalLocalDate, today())))
+	);
+	const finalDateDistDays = $derived(
+		Math.abs(Math.ceil(differenceInCalendarDays(finalLocalDate, today())))
+	);
 
 	let indicatorValues = $derived([
 		{
@@ -68,6 +118,17 @@
 		if (typeof value !== 'number' || Number.isNaN(value)) return;
 		udpateDay(Math.round(value));
 	};
+
+	const singleDateAlertVariant = $derived.by(() => {
+		if (finalDateDistHours < 2) {
+			return 'default' as const;
+		} else if (finalDateDistHours > 24) {
+			return 'destructive' as const;
+		}
+		return 'warning' as const;
+	});
+
+	$inspect(singleDateAlertVariant);
 </script>
 
 <h1 class="mb-2 text-xl font-semibold">{$LL.pages.heatStress.title()}</h1>
@@ -78,20 +139,22 @@
 </CollapsibleParagraph>
 
 <nav aria-label={$LL.pages.heatStress.indicatorsNavAriaLabel()} class="mt-6">
-	<ul class="flex flex-col gap-px rounded-t-xl border border-b-0 border-border bg-border">
+	<ul
+		class={cn(
+			'flex flex-col gap-px rounded-t-xl border border-border bg-border',
+			showTimeslider ? 'rounded-b-none' : 'rounded-b-xl'
+		)}
+	>
 		{#each indicatorValues as indicator (indicator.slug)}
 			<ThermalCompfortNavItem {indicator} />
 		{/each}
 	</ul>
 </nav>
 
-<div class={cn('date-range-slider flex flex-col gap-2', 'rounded-b-xl border border-border p-4')}>
-	<div class={cn('grid grid-cols-[1fr_auto] gap-2', !showTimeslider && 'grid-cols-[auto_1fr]')}>
-		<div
-			class={cn('pt-2 [&_.rangeSlider]:ml-0', !showTimeslider && 'col-start-2 row-start-1')}
-			id="date-range-slider"
-		>
-			{#if showTimeslider}
+{#if showTimeslider}
+	<div class={cn('date-range-slider flex flex-col gap-2', 'rounded-b-xl border border-border p-4')}>
+		<div class={cn('grid grid-cols-[1fr_auto] gap-2')}>
+			<div class={cn('pt-2 [&_.rangeSlider]:ml-0')} id="date-range-slider">
 				<RangeSlider
 					value={$dayValue}
 					on:change={onValueChange}
@@ -99,41 +162,91 @@
 					{...rangeSliderProps}
 					{formatter}
 				/>
-			{/if}
-		</div>
-		<div class={cn('flex flex-col gap-1', !showTimeslider && 'col-start-1 row-start-1')}>
-			<span class="text-xs font-semibold">{$LL.generic.hourInput.label()}</span>
-			<HourInput />
+			</div>
+			<div class={cn('flex flex-col gap-1')}>
+				<span class="text-xs font-semibold">{$LL.generic.hourInput.label()}</span>
+				<HourInput />
+			</div>
 		</div>
 	</div>
-</div>
+{/if}
 
-<div
-	class={cn(
-		'rounded bg-muted px-4 pb-2 pt-1.5 text-sm font-semibold',
-		'mt-4 grid grid-cols-[1fr,auto] items-center gap-2'
-	)}
-	role="alert"
->
-	<span class="text-balance">
-		{$LL.pages.heatStress.timeRangeAlert({
-			startDate: new Date('2024-07-01').toLocaleDateString($locale, {
-				day: '2-digit',
-				month: 'long',
-				year: undefined
-			}),
-			endDate: new Date('2024-07-31').toLocaleDateString($locale, {
-				day: '2-digit',
-				month: 'long',
-				year: 'numeric'
-			})
-		})}
-	</span>
-	<InfoTooltip
-		title={$LL.pages.heatStress.timeRangeAlertTooltipTitle()}
-		description={$LL.pages.heatStress.timeRangeAlertTooltipContent()}
-	/>
-</div>
+{#if showTimeslider}
+	<div
+		class={cn(
+			'rounded bg-muted px-4 pb-2 pt-1.5 text-sm font-semibold',
+			'mt-4 grid grid-cols-[1fr,auto] items-center gap-2'
+		)}
+		role="alert"
+	>
+		<span class="text-balance">
+			{$LL.pages.heatStress.timeRangeAlert({
+				startDate: new Date('2024-07-01').toLocaleDateString($locale, {
+					day: '2-digit',
+					month: 'long',
+					year: undefined
+				}),
+				endDate: new Date('2024-07-31').toLocaleDateString($locale, {
+					day: '2-digit',
+					month: 'long',
+					year: 'numeric'
+				})
+			})}
+		</span>
+		<InfoTooltip
+			title={$LL.pages.heatStress.timeRangeAlertTooltipTitle()}
+			description={$LL.pages.heatStress.timeRangeAlertTooltipContent()}
+		/>
+	</div>
+{:else if finalLocalDate && $lastAvailableRasterLayerQuery.isSuccess}
+	<Alert
+		variant={singleDateAlertVariant}
+		class={cn('mt-4', singleDateAlertVariant === 'default' && 'bg-muted')}
+	>
+		<AlertTitle>
+			{$LL.pages.heatStress.singleDateAlertTitle({
+				date: new Date(finalLocalDate).toLocaleDateString($locale, {
+					day: 'numeric',
+					month: 'long',
+					hour: '2-digit'
+				})
+			})}
+			{#if finalDateDistHours > 2 && finalDateDistHours < 24}
+				{$LL.pages.heatStress.singleDateAlertTitleHoursAgo({
+					dist: finalDateDistHours.toLocaleString($locale, {
+						maximumFractionDigits: 0,
+						minimumFractionDigits: 0
+					})
+				})}
+			{:else if finalDateDistHours > 24}
+				{$LL.pages.heatStress.singleDateAlertTitleDaysAgo({
+					dist: finalDateDistDays.toLocaleString($locale, {
+						maximumFractionDigits: 0
+					})
+				})}
+			{/if}
+		</AlertTitle>
+		<AlertDescription>
+			{@html $LL.pages.heatStress.singleDateAlertDescription()}
+			{#if finalDateDistHours <= 2}
+				{$LL.pages.heatStress.singleDateAlertDescriptionActualData()}
+			{:else if finalDateDistHours > 2 && finalDateDistHours < 24}
+				{$LL.pages.heatStress.singleDateAlertDescriptionOldDataHours({
+					dist: finalDateDistHours.toLocaleString($locale, {
+						maximumFractionDigits: 0,
+						minimumFractionDigits: 0
+					})
+				})}
+			{:else if finalDateDistHours > 24}
+				{$LL.pages.heatStress.singleDateAlertDescriptionOldDataDays({
+					dist: finalDateDistDays.toLocaleString($locale, {
+						maximumFractionDigits: 0
+					})
+				})}
+			{/if}
+		</AlertDescription>
+	</Alert>
+{/if}
 
 <style>
 	:global(.date-range-slider) {

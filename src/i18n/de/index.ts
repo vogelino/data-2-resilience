@@ -81,39 +81,41 @@ const de = {
 				next: 'Weiter',
 				prev: 'Zurück',
 				cancel: 'Abbrechen',
-				last: 'Abschließen'
+				last: 'Abschließen',
+				restart: 'Tour erneut starten'
 			},
+			progress: 'Schritt {currentStep:number} von {totalSteps:number}',
 			welcome: {
-				title: 'Willkommen',
-				text: 'Willkommen bei <strong>Data2Resilience</strong>. Wir freuen uns, dass Sie sich für unser Projekt interessieren. Wir haben dieses Dashboard entwickelt, um Ihnen einen Einblick in die biometeorologischen Daten zu geben, die wir in Dortmund sammeln. Wir hoffen, dass Sie es nützlich finden werden.'
+				title: 'Willkommen zur Dashboard-Einführung!',
+				text: 'In dieser kurzen Tour erfahren Sie interaktiv, wie Sie das Dashboard bedienen und die wichtigsten Funktionen nutzen.<br><br>Sie können die Tour jederzeit abbrechen – klicken Sie dafür einfach auf „Abbrechen“.'
+			},
+			navigation: {
+				title: 'Navigation im Überblick',
+				text: 'In der linken Seitenleiste finden Sie alle Themenbereiche des Dashboards. Sie können zwischen Messwerte, Hitzeatlas und Messstationen wählen. Jeder Bereich bietet spezifische Informationen und Interaktionsmöglichkeiten.'
+			},
+			measurements: {
+				title: 'Messwerte auswählen:',
+				text: 'Für verschiedene Standorte in Dortmund liegen Wetterdaten vor.<br/>Über das obere Textfeld können Sie eine Messstation durch Eingabe von Buchstaben oder per Auswahl aus der Liste bestimmen.<br/>Im darunter liegenden Auswahlfeld wählen Sie die gewünschte Klimagröße (z. B. Lufttemperatur, Luftfeuchtigkeit) sowie die dazugehörige Einheit.'
+			},
+			datavisType: {
+				title: 'Zeitraum und statistische Darstellung wählen:',
+				text: 'Über die Zeitleiste am unteren Rand können Sie den gewünschten Zeitraum anpassen – ziehen Sie dazu den gelben Punkt oder wählen Sie, ob die Werte stündlich, täglich oder für einen benutzerdefinierten Zeitraum angezeigt werden sollen.<br/><br/>Für tägliche Werte können Sie zusätzlich festlegen, wie die Daten dargestellt werden – z. B. als Minimum, Mittelwert oder Maximum. Nutzen Sie dazu die Schaltflächen in der oberen rechten Ecke.'
+			},
+			visualisation: {
+				title: 'Messwerte im Überblick vergleichen:',
+				text: 'Im oberen Diagramm sehen Sie die Messwerte der zuvor von Ihnen ausgewählten Stationen im gewählten Zeitraum.<br/><br/>Darunter zeigt ein weiteres Diagramm, wie häufig bestimmte Werte in Dortmund vorkommen. Wenn Sie auf einen Balken klicken, werden automatisch alle Stationen mit ähnlichen Werten markiert.'
 			},
 			map: {
-				title: 'Karte',
-				text: 'Die Karte zeigt die aktuellen Messwerte für die ausgewählten Stationen an. Sie können die Stationen auswählen, indem Sie auf die Kreise auf der Karte klicken.'
+				title: 'Karte interaktiv nutzen:',
+				text: 'Nutzen Sie die Kartenansicht, um Standorte visuell zu erkunden oder Messstationen (Punkte auf der Karte) auszuwählen.<br/><br/> Sie können einzelne Stationen anklicken, in die Karte zoomen oder über die Adresseingabe gezielt nach einem Standort suchen.<br/><br/> Zusätzliche Hintergrundkarten wie Bezirksgrenzen oder Luftbilder lassen sich oben rechts ein- oder ausblenden.<br/><br/> Die Farbe der Messstationen passt sich automatisch dem Wert der gewählten Klimagröße an. Die Bedeutung der Farbskala finden Sie in der Legende unten links – dort erhalten Sie auch Informationen zu möglichen Gesundheitsrisiken, beispielsweise im Zusammenhang mit dem Thermischen Klimaindex UTCI.'
 			},
-			stationSelect: {
-				title: 'Stationenauswahl',
-				text: 'Wir haben Daten von verschiedenen Messstationen in Dortmund erhoben. Durch Anklicken können Sie auswählen, welche Stationen Sie auf der Karte sehen möchten.'
-			},
-			unitSelect: {
-				title: 'Indikatorauswahl',
-				text: 'Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Indikatoren umgerechnet, damit Sie sie besser verstehen können. Sie können die Indikatoren jederzeit ändern, indem Sie auf die Indikatorsymbole klicken.'
-			},
-			stationsDatavis: {
-				title: 'Datenvisualisierung',
-				text: 'Die Datenvisualisierung zeigt Ihnen die aktuellen Messwerte für die ausgewählten Stationen an. Sie können die Daten für verschiedene Zeiträume anzeigen, indem Sie auf die Schaltflächen in der oberen rechten Ecke klicken.'
-			},
-			dateRangeSlider: {
-				title: 'Zeitraum auswählen',
-				text: 'Sie können die Daten für verschiedene Zeiträume anzeigen, indem Sie auf der Zeitfilter ein- oder auswählen.'
-			},
-			stationsHistogram: {
-				title: 'Datenhistogramm',
-				text: 'Der Datenhistogramm zeigt Ihnen die Verteilung der Messwerte für die ausgewählten Stationen an. Sie können die Verteilung für verschiedene Zeiträume anzeigen, indem Sie auf die Schaltflächen in der oberen rechten Ecke klicken.'
+			heatStress: {
+				title: 'Hitzeatlas erkunden:',
+				text: 'Der Hitzeatlas zeigt, wie stark einzelne Stadtbereiche von Hitzebelastung betroffen sind. Sie können zwischen drei Klimagrößen wählen: dem Thermischen Klimaindex UTCI, der relativen Luftfeuchtigkeit oder der Lufttemperatur.<br/><br/>Beim UTCI können Sie zwischen einer gesundheitsbezogenen Belastungskarte (Hitzestresskategorie) und einer Temperaturkarte in Grad Celsius (°C) umschalten.<br/><br/>Die farbige Darstellung in der Karte und die Legende helfen Ihnen dabei, die Belastung korrekt einzuordnen.'
 			},
 			stationsTable: {
-				title: 'Daten-Tabelle',
-				text: 'Die Daten-Tabelle zeigt Ihnen die aktuellen Informationen über die Stationen an. Dort können sie Stationen durchsuchen, sortieren und '
+				title: 'Details zu Messstationen erfahren:',
+				text: 'In der Tabelle finden Sie technische Informationen zu allen Messstationen. Über das Suchfeld oben rechts können Sie gezielt nach Einträgen suchen. Durch Klicken auf einen Spaltenkopf können Sie die Tabelle nach dieser Spalte sortieren. Die Messdaten lassen sich für jede Station über die Spalte „Daten“ herunterladen.<br /><br/><strong>Tour abgeschlossen:</strong><br/>Sie kennen jetzt die wichtigsten Funktionen des Dashboards. Viel Erfolg beim Erkunden der Daten!'
 			}
 		}
 	},

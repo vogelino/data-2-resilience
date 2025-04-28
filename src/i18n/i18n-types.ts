@@ -228,84 +228,94 @@ type RootTranslation = {
 				 * A​b​s​c​h​l​i​e​ß​e​n
 				 */
 				last: string
+				/**
+				 * T​o​u​r​ ​e​r​n​e​u​t​ ​s​t​a​r​t​e​n
+				 */
+				restart: string
 			}
+			/**
+			 * S​c​h​r​i​t​t​ ​{​c​u​r​r​e​n​t​S​t​e​p​}​ ​v​o​n​ ​{​t​o​t​a​l​S​t​e​p​s​}
+			 * @param {number} currentStep
+			 * @param {number} totalSteps
+			 */
+			progress: RequiredParams<'currentStep' | 'totalSteps'>
 			welcome: {
 				/**
-				 * W​i​l​l​k​o​m​m​e​n
+				 * W​i​l​l​k​o​m​m​e​n​ ​z​u​r​ ​D​a​s​h​b​o​a​r​d​-​E​i​n​f​ü​h​r​u​n​g​!
 				 */
 				title: string
 				/**
-				 * W​i​l​l​k​o​m​m​e​n​ ​b​e​i​ ​<​s​t​r​o​n​g​>​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​<​/​s​t​r​o​n​g​>​.​ ​W​i​r​ ​f​r​e​u​e​n​ ​u​n​s​,​ ​d​a​s​s​ ​S​i​e​ ​s​i​c​h​ ​f​ü​r​ ​u​n​s​e​r​ ​P​r​o​j​e​k​t​ ​i​n​t​e​r​e​s​s​i​e​r​e​n​.​ ​W​i​r​ ​h​a​b​e​n​ ​d​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d​ ​e​n​t​w​i​c​k​e​l​t​,​ ​u​m​ ​I​h​n​e​n​ ​e​i​n​e​n​ ​E​i​n​b​l​i​c​k​ ​i​n​ ​d​i​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​n​ ​D​a​t​e​n​ ​z​u​ ​g​e​b​e​n​,​ ​d​i​e​ ​w​i​r​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​s​a​m​m​e​l​n​.​ ​W​i​r​ ​h​o​f​f​e​n​,​ ​d​a​s​s​ ​S​i​e​ ​e​s​ ​n​ü​t​z​l​i​c​h​ ​f​i​n​d​e​n​ ​w​e​r​d​e​n​.
+				 * I​n​ ​d​i​e​s​e​r​ ​k​u​r​z​e​n​ ​T​o​u​r​ ​e​r​f​a​h​r​e​n​ ​S​i​e​ ​i​n​t​e​r​a​k​t​i​v​,​ ​w​i​e​ ​S​i​e​ ​d​a​s​ ​D​a​s​h​b​o​a​r​d​ ​b​e​d​i​e​n​e​n​ ​u​n​d​ ​d​i​e​ ​w​i​c​h​t​i​g​s​t​e​n​ ​F​u​n​k​t​i​o​n​e​n​ ​n​u​t​z​e​n​.​<​b​r​>​<​b​r​>​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​T​o​u​r​ ​j​e​d​e​r​z​e​i​t​ ​a​b​b​r​e​c​h​e​n​ ​–​ ​k​l​i​c​k​e​n​ ​S​i​e​ ​d​a​f​ü​r​ ​e​i​n​f​a​c​h​ ​a​u​f​ ​„​A​b​b​r​e​c​h​e​n​“​.
+				 */
+				text: string
+			}
+			navigation: {
+				/**
+				 * N​a​v​i​g​a​t​i​o​n​ ​i​m​ ​Ü​b​e​r​b​l​i​c​k
+				 */
+				title: string
+				/**
+				 * I​n​ ​d​e​r​ ​l​i​n​k​e​n​ ​S​e​i​t​e​n​l​e​i​s​t​e​ ​f​i​n​d​e​n​ ​S​i​e​ ​a​l​l​e​ ​T​h​e​m​e​n​b​e​r​e​i​c​h​e​ ​d​e​s​ ​D​a​s​h​b​o​a​r​d​s​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​z​w​i​s​c​h​e​n​ ​M​e​s​s​w​e​r​t​e​,​ ​H​i​t​z​e​a​t​l​a​s​ ​u​n​d​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​w​ä​h​l​e​n​.​ ​J​e​d​e​r​ ​B​e​r​e​i​c​h​ ​b​i​e​t​e​t​ ​s​p​e​z​i​f​i​s​c​h​e​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​u​n​d​ ​I​n​t​e​r​a​k​t​i​o​n​s​m​ö​g​l​i​c​h​k​e​i​t​e​n​.
+				 */
+				text: string
+			}
+			measurements: {
+				/**
+				 * M​e​s​s​w​e​r​t​e​ ​a​u​s​w​ä​h​l​e​n​:
+				 */
+				title: string
+				/**
+				 * F​ü​r​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​S​t​a​n​d​o​r​t​e​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​l​i​e​g​e​n​ ​W​e​t​t​e​r​d​a​t​e​n​ ​v​o​r​.​<​b​r​/​>​Ü​b​e​r​ ​d​a​s​ ​o​b​e​r​e​ ​T​e​x​t​f​e​l​d​ ​k​ö​n​n​e​n​ ​S​i​e​ ​e​i​n​e​ ​M​e​s​s​s​t​a​t​i​o​n​ ​d​u​r​c​h​ ​E​i​n​g​a​b​e​ ​v​o​n​ ​B​u​c​h​s​t​a​b​e​n​ ​o​d​e​r​ ​p​e​r​ ​A​u​s​w​a​h​l​ ​a​u​s​ ​d​e​r​ ​L​i​s​t​e​ ​b​e​s​t​i​m​m​e​n​.​<​b​r​/​>​I​m​ ​d​a​r​u​n​t​e​r​ ​l​i​e​g​e​n​d​e​n​ ​A​u​s​w​a​h​l​f​e​l​d​ ​w​ä​h​l​e​n​ ​S​i​e​ ​d​i​e​ ​g​e​w​ü​n​s​c​h​t​e​ ​K​l​i​m​a​g​r​ö​ß​e​ ​(​z​.​ ​B​.​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​,​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​)​ ​s​o​w​i​e​ ​d​i​e​ ​d​a​z​u​g​e​h​ö​r​i​g​e​ ​E​i​n​h​e​i​t​.
+				 */
+				text: string
+			}
+			datavisType: {
+				/**
+				 * Z​e​i​t​r​a​u​m​ ​u​n​d​ ​s​t​a​t​i​s​t​i​s​c​h​e​ ​D​a​r​s​t​e​l​l​u​n​g​ ​w​ä​h​l​e​n​:
+				 */
+				title: string
+				/**
+				 * Ü​b​e​r​ ​d​i​e​ ​Z​e​i​t​l​e​i​s​t​e​ ​a​m​ ​u​n​t​e​r​e​n​ ​R​a​n​d​ ​k​ö​n​n​e​n​ ​S​i​e​ ​d​e​n​ ​g​e​w​ü​n​s​c​h​t​e​n​ ​Z​e​i​t​r​a​u​m​ ​a​n​p​a​s​s​e​n​ ​–​ ​z​i​e​h​e​n​ ​S​i​e​ ​d​a​z​u​ ​d​e​n​ ​g​e​l​b​e​n​ ​P​u​n​k​t​ ​o​d​e​r​ ​w​ä​h​l​e​n​ ​S​i​e​,​ ​o​b​ ​d​i​e​ ​W​e​r​t​e​ ​s​t​ü​n​d​l​i​c​h​,​ ​t​ä​g​l​i​c​h​ ​o​d​e​r​ ​f​ü​r​ ​e​i​n​e​n​ ​b​e​n​u​t​z​e​r​d​e​f​i​n​i​e​r​t​e​n​ ​Z​e​i​t​r​a​u​m​ ​a​n​g​e​z​e​i​g​t​ ​w​e​r​d​e​n​ ​s​o​l​l​e​n​.​<​b​r​/​>​<​b​r​/​>​F​ü​r​ ​t​ä​g​l​i​c​h​e​ ​W​e​r​t​e​ ​k​ö​n​n​e​n​ ​S​i​e​ ​z​u​s​ä​t​z​l​i​c​h​ ​f​e​s​t​l​e​g​e​n​,​ ​w​i​e​ ​d​i​e​ ​D​a​t​e​n​ ​d​a​r​g​e​s​t​e​l​l​t​ ​w​e​r​d​e​n​ ​–​ ​z​.​ ​B​.​ ​a​l​s​ ​M​i​n​i​m​u​m​,​ ​M​i​t​t​e​l​w​e​r​t​ ​o​d​e​r​ ​M​a​x​i​m​u​m​.​ ​N​u​t​z​e​n​ ​S​i​e​ ​d​a​z​u​ ​d​i​e​ ​S​c​h​a​l​t​f​l​ä​c​h​e​n​ ​i​n​ ​d​e​r​ ​o​b​e​r​e​n​ ​r​e​c​h​t​e​n​ ​E​c​k​e​.
+				 */
+				text: string
+			}
+			visualisation: {
+				/**
+				 * M​e​s​s​w​e​r​t​e​ ​i​m​ ​Ü​b​e​r​b​l​i​c​k​ ​v​e​r​g​l​e​i​c​h​e​n​:
+				 */
+				title: string
+				/**
+				 * I​m​ ​o​b​e​r​e​n​ ​D​i​a​g​r​a​m​m​ ​s​e​h​e​n​ ​S​i​e​ ​d​i​e​ ​M​e​s​s​w​e​r​t​e​ ​d​e​r​ ​z​u​v​o​r​ ​v​o​n​ ​I​h​n​e​n​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​i​m​ ​g​e​w​ä​h​l​t​e​n​ ​Z​e​i​t​r​a​u​m​.​<​b​r​/​>​<​b​r​/​>​D​a​r​u​n​t​e​r​ ​z​e​i​g​t​ ​e​i​n​ ​w​e​i​t​e​r​e​s​ ​D​i​a​g​r​a​m​m​,​ ​w​i​e​ ​h​ä​u​f​i​g​ ​b​e​s​t​i​m​m​t​e​ ​W​e​r​t​e​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​v​o​r​k​o​m​m​e​n​.​ ​W​e​n​n​ ​S​i​e​ ​a​u​f​ ​e​i​n​e​n​ ​B​a​l​k​e​n​ ​k​l​i​c​k​e​n​,​ ​w​e​r​d​e​n​ ​a​u​t​o​m​a​t​i​s​c​h​ ​a​l​l​e​ ​S​t​a​t​i​o​n​e​n​ ​m​i​t​ ​ä​h​n​l​i​c​h​e​n​ ​W​e​r​t​e​n​ ​m​a​r​k​i​e​r​t​.
 				 */
 				text: string
 			}
 			map: {
 				/**
-				 * K​a​r​t​e
+				 * K​a​r​t​e​ ​i​n​t​e​r​a​k​t​i​v​ ​n​u​t​z​e​n​:
 				 */
 				title: string
 				/**
-				 * D​i​e​ ​K​a​r​t​e​ ​z​e​i​g​t​ ​d​i​e​ ​a​k​t​u​e​l​l​e​n​ ​M​e​s​s​w​e​r​t​e​ ​f​ü​r​ ​d​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​a​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​a​u​s​w​ä​h​l​e​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​K​r​e​i​s​e​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​k​l​i​c​k​e​n​.
+				 * N​u​t​z​e​n​ ​S​i​e​ ​d​i​e​ ​K​a​r​t​e​n​a​n​s​i​c​h​t​,​ ​u​m​ ​S​t​a​n​d​o​r​t​e​ ​v​i​s​u​e​l​l​ ​z​u​ ​e​r​k​u​n​d​e​n​ ​o​d​e​r​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​(​P​u​n​k​t​e​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​)​ ​a​u​s​z​u​w​ä​h​l​e​n​.​<​b​r​/​>​<​b​r​/​>​ ​S​i​e​ ​k​ö​n​n​e​n​ ​e​i​n​z​e​l​n​e​ ​S​t​a​t​i​o​n​e​n​ ​a​n​k​l​i​c​k​e​n​,​ ​i​n​ ​d​i​e​ ​K​a​r​t​e​ ​z​o​o​m​e​n​ ​o​d​e​r​ ​ü​b​e​r​ ​d​i​e​ ​A​d​r​e​s​s​e​i​n​g​a​b​e​ ​g​e​z​i​e​l​t​ ​n​a​c​h​ ​e​i​n​e​m​ ​S​t​a​n​d​o​r​t​ ​s​u​c​h​e​n​.​<​b​r​/​>​<​b​r​/​>​ ​Z​u​s​ä​t​z​l​i​c​h​e​ ​H​i​n​t​e​r​g​r​u​n​d​k​a​r​t​e​n​ ​w​i​e​ ​B​e​z​i​r​k​s​g​r​e​n​z​e​n​ ​o​d​e​r​ ​L​u​f​t​b​i​l​d​e​r​ ​l​a​s​s​e​n​ ​s​i​c​h​ ​o​b​e​n​ ​r​e​c​h​t​s​ ​e​i​n​-​ ​o​d​e​r​ ​a​u​s​b​l​e​n​d​e​n​.​<​b​r​/​>​<​b​r​/​>​ ​D​i​e​ ​F​a​r​b​e​ ​d​e​r​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​p​a​s​s​t​ ​s​i​c​h​ ​a​u​t​o​m​a​t​i​s​c​h​ ​d​e​m​ ​W​e​r​t​ ​d​e​r​ ​g​e​w​ä​h​l​t​e​n​ ​K​l​i​m​a​g​r​ö​ß​e​ ​a​n​.​ ​D​i​e​ ​B​e​d​e​u​t​u​n​g​ ​d​e​r​ ​F​a​r​b​s​k​a​l​a​ ​f​i​n​d​e​n​ ​S​i​e​ ​i​n​ ​d​e​r​ ​L​e​g​e​n​d​e​ ​u​n​t​e​n​ ​l​i​n​k​s​ ​–​ ​d​o​r​t​ ​e​r​h​a​l​t​e​n​ ​S​i​e​ ​a​u​c​h​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​z​u​ ​m​ö​g​l​i​c​h​e​n​ ​G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n​,​ ​b​e​i​s​p​i​e​l​s​w​e​i​s​e​ ​i​m​ ​Z​u​s​a​m​m​e​n​h​a​n​g​ ​m​i​t​ ​d​e​m​ ​T​h​e​r​m​i​s​c​h​e​n​ ​K​l​i​m​a​i​n​d​e​x​ ​U​T​C​I​.
 				 */
 				text: string
 			}
-			stationSelect: {
+			heatStress: {
 				/**
-				 * S​t​a​t​i​o​n​e​n​a​u​s​w​a​h​l
+				 * H​i​t​z​e​a​t​l​a​s​ ​e​r​k​u​n​d​e​n​:
 				 */
 				title: string
 				/**
-				 * W​i​r​ ​h​a​b​e​n​ ​D​a​t​e​n​ ​v​o​n​ ​v​e​r​s​c​h​i​e​d​e​n​e​n​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​e​r​h​o​b​e​n​.​ ​D​u​r​c​h​ ​A​n​k​l​i​c​k​e​n​ ​k​ö​n​n​e​n​ ​S​i​e​ ​a​u​s​w​ä​h​l​e​n​,​ ​w​e​l​c​h​e​ ​S​t​a​t​i​o​n​e​n​ ​S​i​e​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​s​e​h​e​n​ ​m​ö​c​h​t​e​n​.
-				 */
-				text: string
-			}
-			unitSelect: {
-				/**
-				 * I​n​d​i​k​a​t​o​r​a​u​s​w​a​h​l
-				 */
-				title: string
-				/**
-				 * W​i​r​ ​h​a​b​e​n​ ​d​i​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​n​ ​D​a​t​e​n​ ​i​n​ ​d​i​e​s​e​m​ ​D​a​s​h​b​o​a​r​d​ ​i​n​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​I​n​d​i​k​a​t​o​r​e​n​ ​u​m​g​e​r​e​c​h​n​e​t​,​ ​d​a​m​i​t​ ​S​i​e​ ​s​i​e​ ​b​e​s​s​e​r​ ​v​e​r​s​t​e​h​e​n​ ​k​ö​n​n​e​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​I​n​d​i​k​a​t​o​r​e​n​ ​j​e​d​e​r​z​e​i​t​ ​ä​n​d​e​r​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​I​n​d​i​k​a​t​o​r​s​y​m​b​o​l​e​ ​k​l​i​c​k​e​n​.
-				 */
-				text: string
-			}
-			stationsDatavis: {
-				/**
-				 * D​a​t​e​n​v​i​s​u​a​l​i​s​i​e​r​u​n​g
-				 */
-				title: string
-				/**
-				 * D​i​e​ ​D​a​t​e​n​v​i​s​u​a​l​i​s​i​e​r​u​n​g​ ​z​e​i​g​t​ ​I​h​n​e​n​ ​d​i​e​ ​a​k​t​u​e​l​l​e​n​ ​M​e​s​s​w​e​r​t​e​ ​f​ü​r​ ​d​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​a​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​D​a​t​e​n​ ​f​ü​r​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​Z​e​i​t​r​ä​u​m​e​ ​a​n​z​e​i​g​e​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​S​c​h​a​l​t​f​l​ä​c​h​e​n​ ​i​n​ ​d​e​r​ ​o​b​e​r​e​n​ ​r​e​c​h​t​e​n​ ​E​c​k​e​ ​k​l​i​c​k​e​n​.
-				 */
-				text: string
-			}
-			dateRangeSlider: {
-				/**
-				 * Z​e​i​t​r​a​u​m​ ​a​u​s​w​ä​h​l​e​n
-				 */
-				title: string
-				/**
-				 * S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​D​a​t​e​n​ ​f​ü​r​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​Z​e​i​t​r​ä​u​m​e​ ​a​n​z​e​i​g​e​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​e​r​ ​Z​e​i​t​f​i​l​t​e​r​ ​e​i​n​-​ ​o​d​e​r​ ​a​u​s​w​ä​h​l​e​n​.
-				 */
-				text: string
-			}
-			stationsHistogram: {
-				/**
-				 * D​a​t​e​n​h​i​s​t​o​g​r​a​m​m
-				 */
-				title: string
-				/**
-				 * D​e​r​ ​D​a​t​e​n​h​i​s​t​o​g​r​a​m​m​ ​z​e​i​g​t​ ​I​h​n​e​n​ ​d​i​e​ ​V​e​r​t​e​i​l​u​n​g​ ​d​e​r​ ​M​e​s​s​w​e​r​t​e​ ​f​ü​r​ ​d​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​a​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​V​e​r​t​e​i​l​u​n​g​ ​f​ü​r​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​Z​e​i​t​r​ä​u​m​e​ ​a​n​z​e​i​g​e​n​,​ ​i​n​d​e​m​ ​S​i​e​ ​a​u​f​ ​d​i​e​ ​S​c​h​a​l​t​f​l​ä​c​h​e​n​ ​i​n​ ​d​e​r​ ​o​b​e​r​e​n​ ​r​e​c​h​t​e​n​ ​E​c​k​e​ ​k​l​i​c​k​e​n​.
+				 * D​e​r​ ​H​i​t​z​e​a​t​l​a​s​ ​z​e​i​g​t​,​ ​w​i​e​ ​s​t​a​r​k​ ​e​i​n​z​e​l​n​e​ ​S​t​a​d​t​b​e​r​e​i​c​h​e​ ​v​o​n​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​b​e​t​r​o​f​f​e​n​ ​s​i​n​d​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​z​w​i​s​c​h​e​n​ ​d​r​e​i​ ​K​l​i​m​a​g​r​ö​ß​e​n​ ​w​ä​h​l​e​n​:​ ​d​e​m​ ​T​h​e​r​m​i​s​c​h​e​n​ ​K​l​i​m​a​i​n​d​e​x​ ​U​T​C​I​,​ ​d​e​r​ ​r​e​l​a​t​i​v​e​n​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​o​d​e​r​ ​d​e​r​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​.​<​b​r​/​>​<​b​r​/​>​B​e​i​m​ ​U​T​C​I​ ​k​ö​n​n​e​n​ ​S​i​e​ ​z​w​i​s​c​h​e​n​ ​e​i​n​e​r​ ​g​e​s​u​n​d​h​e​i​t​s​b​e​z​o​g​e​n​e​n​ ​B​e​l​a​s​t​u​n​g​s​k​a​r​t​e​ ​(​H​i​t​z​e​s​t​r​e​s​s​k​a​t​e​g​o​r​i​e​)​ ​u​n​d​ ​e​i​n​e​r​ ​T​e​m​p​e​r​a​t​u​r​k​a​r​t​e​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​ ​(​°​C​)​ ​u​m​s​c​h​a​l​t​e​n​.​<​b​r​/​>​<​b​r​/​>​D​i​e​ ​f​a​r​b​i​g​e​ ​D​a​r​s​t​e​l​l​u​n​g​ ​i​n​ ​d​e​r​ ​K​a​r​t​e​ ​u​n​d​ ​d​i​e​ ​L​e​g​e​n​d​e​ ​h​e​l​f​e​n​ ​I​h​n​e​n​ ​d​a​b​e​i​,​ ​d​i​e​ ​B​e​l​a​s​t​u​n​g​ ​k​o​r​r​e​k​t​ ​e​i​n​z​u​o​r​d​n​e​n​.
 				 */
 				text: string
 			}
 			stationsTable: {
 				/**
-				 * D​a​t​e​n​-​T​a​b​e​l​l​e
+				 * D​e​t​a​i​l​s​ ​z​u​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​e​r​f​a​h​r​e​n​:
 				 */
 				title: string
 				/**
-				 * D​i​e​ ​D​a​t​e​n​-​T​a​b​e​l​l​e​ ​z​e​i​g​t​ ​I​h​n​e​n​ ​d​i​e​ ​a​k​t​u​e​l​l​e​n​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​ü​b​e​r​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​a​n​.​ ​D​o​r​t​ ​k​ö​n​n​e​n​ ​s​i​e​ ​S​t​a​t​i​o​n​e​n​ ​d​u​r​c​h​s​u​c​h​e​n​,​ ​s​o​r​t​i​e​r​e​n​ ​u​n​d​ 
+				 * I​n​ ​d​e​r​ ​T​a​b​e​l​l​e​ ​f​i​n​d​e​n​ ​S​i​e​ ​t​e​c​h​n​i​s​c​h​e​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​z​u​ ​a​l​l​e​n​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​.​ ​Ü​b​e​r​ ​d​a​s​ ​S​u​c​h​f​e​l​d​ ​o​b​e​n​ ​r​e​c​h​t​s​ ​k​ö​n​n​e​n​ ​S​i​e​ ​g​e​z​i​e​l​t​ ​n​a​c​h​ ​E​i​n​t​r​ä​g​e​n​ ​s​u​c​h​e​n​.​ ​D​u​r​c​h​ ​K​l​i​c​k​e​n​ ​a​u​f​ ​e​i​n​e​n​ ​S​p​a​l​t​e​n​k​o​p​f​ ​k​ö​n​n​e​n​ ​S​i​e​ ​d​i​e​ ​T​a​b​e​l​l​e​ ​n​a​c​h​ ​d​i​e​s​e​r​ ​S​p​a​l​t​e​ ​s​o​r​t​i​e​r​e​n​.​ ​D​i​e​ ​M​e​s​s​d​a​t​e​n​ ​l​a​s​s​e​n​ ​s​i​c​h​ ​f​ü​r​ ​j​e​d​e​ ​S​t​a​t​i​o​n​ ​ü​b​e​r​ ​d​i​e​ ​S​p​a​l​t​e​ ​„​D​a​t​e​n​“​ ​h​e​r​u​n​t​e​r​l​a​d​e​n​.​<​b​r​ ​/​>​<​b​r​/​>​<​s​t​r​o​n​g​>​T​o​u​r​ ​a​b​g​e​s​c​h​l​o​s​s​e​n​:​<​/​s​t​r​o​n​g​>​<​b​r​/​>​S​i​e​ ​k​e​n​n​e​n​ ​j​e​t​z​t​ ​d​i​e​ ​w​i​c​h​t​i​g​s​t​e​n​ ​F​u​n​k​t​i​o​n​e​n​ ​d​e​s​ ​D​a​s​h​b​o​a​r​d​s​.​ ​V​i​e​l​ ​E​r​f​o​l​g​ ​b​e​i​m​ ​E​r​k​u​n​d​e​n​ ​d​e​r​ ​D​a​t​e​n​!
 				 */
 				text: string
 			}
@@ -2407,84 +2417,92 @@ export type TranslationFunctions = {
 				 * Abschließen
 				 */
 				last: () => LocalizedString
+				/**
+				 * Tour erneut starten
+				 */
+				restart: () => LocalizedString
 			}
+			/**
+			 * Schritt {currentStep} von {totalSteps}
+			 */
+			progress: (arg: { currentStep: number, totalSteps: number }) => LocalizedString
 			welcome: {
 				/**
-				 * Willkommen
+				 * Willkommen zur Dashboard-Einführung!
 				 */
 				title: () => LocalizedString
 				/**
-				 * Willkommen bei <strong>Data2Resilience</strong>. Wir freuen uns, dass Sie sich für unser Projekt interessieren. Wir haben dieses Dashboard entwickelt, um Ihnen einen Einblick in die biometeorologischen Daten zu geben, die wir in Dortmund sammeln. Wir hoffen, dass Sie es nützlich finden werden.
+				 * In dieser kurzen Tour erfahren Sie interaktiv, wie Sie das Dashboard bedienen und die wichtigsten Funktionen nutzen.<br><br>Sie können die Tour jederzeit abbrechen – klicken Sie dafür einfach auf „Abbrechen“.
+				 */
+				text: () => LocalizedString
+			}
+			navigation: {
+				/**
+				 * Navigation im Überblick
+				 */
+				title: () => LocalizedString
+				/**
+				 * In der linken Seitenleiste finden Sie alle Themenbereiche des Dashboards. Sie können zwischen Messwerte, Hitzeatlas und Messstationen wählen. Jeder Bereich bietet spezifische Informationen und Interaktionsmöglichkeiten.
+				 */
+				text: () => LocalizedString
+			}
+			measurements: {
+				/**
+				 * Messwerte auswählen:
+				 */
+				title: () => LocalizedString
+				/**
+				 * Für verschiedene Standorte in Dortmund liegen Wetterdaten vor.<br/>Über das obere Textfeld können Sie eine Messstation durch Eingabe von Buchstaben oder per Auswahl aus der Liste bestimmen.<br/>Im darunter liegenden Auswahlfeld wählen Sie die gewünschte Klimagröße (z. B. Lufttemperatur, Luftfeuchtigkeit) sowie die dazugehörige Einheit.
+				 */
+				text: () => LocalizedString
+			}
+			datavisType: {
+				/**
+				 * Zeitraum und statistische Darstellung wählen:
+				 */
+				title: () => LocalizedString
+				/**
+				 * Über die Zeitleiste am unteren Rand können Sie den gewünschten Zeitraum anpassen – ziehen Sie dazu den gelben Punkt oder wählen Sie, ob die Werte stündlich, täglich oder für einen benutzerdefinierten Zeitraum angezeigt werden sollen.<br/><br/>Für tägliche Werte können Sie zusätzlich festlegen, wie die Daten dargestellt werden – z. B. als Minimum, Mittelwert oder Maximum. Nutzen Sie dazu die Schaltflächen in der oberen rechten Ecke.
+				 */
+				text: () => LocalizedString
+			}
+			visualisation: {
+				/**
+				 * Messwerte im Überblick vergleichen:
+				 */
+				title: () => LocalizedString
+				/**
+				 * Im oberen Diagramm sehen Sie die Messwerte der zuvor von Ihnen ausgewählten Stationen im gewählten Zeitraum.<br/><br/>Darunter zeigt ein weiteres Diagramm, wie häufig bestimmte Werte in Dortmund vorkommen. Wenn Sie auf einen Balken klicken, werden automatisch alle Stationen mit ähnlichen Werten markiert.
 				 */
 				text: () => LocalizedString
 			}
 			map: {
 				/**
-				 * Karte
+				 * Karte interaktiv nutzen:
 				 */
 				title: () => LocalizedString
 				/**
-				 * Die Karte zeigt die aktuellen Messwerte für die ausgewählten Stationen an. Sie können die Stationen auswählen, indem Sie auf die Kreise auf der Karte klicken.
+				 * Nutzen Sie die Kartenansicht, um Standorte visuell zu erkunden oder Messstationen (Punkte auf der Karte) auszuwählen.<br/><br/> Sie können einzelne Stationen anklicken, in die Karte zoomen oder über die Adresseingabe gezielt nach einem Standort suchen.<br/><br/> Zusätzliche Hintergrundkarten wie Bezirksgrenzen oder Luftbilder lassen sich oben rechts ein- oder ausblenden.<br/><br/> Die Farbe der Messstationen passt sich automatisch dem Wert der gewählten Klimagröße an. Die Bedeutung der Farbskala finden Sie in der Legende unten links – dort erhalten Sie auch Informationen zu möglichen Gesundheitsrisiken, beispielsweise im Zusammenhang mit dem Thermischen Klimaindex UTCI.
 				 */
 				text: () => LocalizedString
 			}
-			stationSelect: {
+			heatStress: {
 				/**
-				 * Stationenauswahl
+				 * Hitzeatlas erkunden:
 				 */
 				title: () => LocalizedString
 				/**
-				 * Wir haben Daten von verschiedenen Messstationen in Dortmund erhoben. Durch Anklicken können Sie auswählen, welche Stationen Sie auf der Karte sehen möchten.
-				 */
-				text: () => LocalizedString
-			}
-			unitSelect: {
-				/**
-				 * Indikatorauswahl
-				 */
-				title: () => LocalizedString
-				/**
-				 * Wir haben die biometeorologischen Daten in diesem Dashboard in verschiedene Indikatoren umgerechnet, damit Sie sie besser verstehen können. Sie können die Indikatoren jederzeit ändern, indem Sie auf die Indikatorsymbole klicken.
-				 */
-				text: () => LocalizedString
-			}
-			stationsDatavis: {
-				/**
-				 * Datenvisualisierung
-				 */
-				title: () => LocalizedString
-				/**
-				 * Die Datenvisualisierung zeigt Ihnen die aktuellen Messwerte für die ausgewählten Stationen an. Sie können die Daten für verschiedene Zeiträume anzeigen, indem Sie auf die Schaltflächen in der oberen rechten Ecke klicken.
-				 */
-				text: () => LocalizedString
-			}
-			dateRangeSlider: {
-				/**
-				 * Zeitraum auswählen
-				 */
-				title: () => LocalizedString
-				/**
-				 * Sie können die Daten für verschiedene Zeiträume anzeigen, indem Sie auf der Zeitfilter ein- oder auswählen.
-				 */
-				text: () => LocalizedString
-			}
-			stationsHistogram: {
-				/**
-				 * Datenhistogramm
-				 */
-				title: () => LocalizedString
-				/**
-				 * Der Datenhistogramm zeigt Ihnen die Verteilung der Messwerte für die ausgewählten Stationen an. Sie können die Verteilung für verschiedene Zeiträume anzeigen, indem Sie auf die Schaltflächen in der oberen rechten Ecke klicken.
+				 * Der Hitzeatlas zeigt, wie stark einzelne Stadtbereiche von Hitzebelastung betroffen sind. Sie können zwischen drei Klimagrößen wählen: dem Thermischen Klimaindex UTCI, der relativen Luftfeuchtigkeit oder der Lufttemperatur.<br/><br/>Beim UTCI können Sie zwischen einer gesundheitsbezogenen Belastungskarte (Hitzestresskategorie) und einer Temperaturkarte in Grad Celsius (°C) umschalten.<br/><br/>Die farbige Darstellung in der Karte und die Legende helfen Ihnen dabei, die Belastung korrekt einzuordnen.
 				 */
 				text: () => LocalizedString
 			}
 			stationsTable: {
 				/**
-				 * Daten-Tabelle
+				 * Details zu Messstationen erfahren:
 				 */
 				title: () => LocalizedString
 				/**
-				 * Die Daten-Tabelle zeigt Ihnen die aktuellen Informationen über die Stationen an. Dort können sie Stationen durchsuchen, sortieren und 
+				 * In der Tabelle finden Sie technische Informationen zu allen Messstationen. Über das Suchfeld oben rechts können Sie gezielt nach Einträgen suchen. Durch Klicken auf einen Spaltenkopf können Sie die Tabelle nach dieser Spalte sortieren. Die Messdaten lassen sich für jede Station über die Spalte „Daten“ herunterladen.<br /><br/><strong>Tour abgeschlossen:</strong><br/>Sie kennen jetzt die wichtigsten Funktionen des Dashboards. Viel Erfolg beim Erkunden der Daten!
 				 */
 				text: () => LocalizedString
 			}

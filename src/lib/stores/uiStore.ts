@@ -245,7 +245,7 @@ export const formattedTimeConfiguration = derived(
 );
 
 // HEAT STRESS UNIT
-const heatStressUnitDefault = 'utci';
+const heatStressUnitDefault = 'UTCI';
 const heatStressUnitQueryParam = queryParam('heatStress', ssp.string(heatStressUnitDefault));
 export const heatStressUnit = derived(heatStressUnitQueryParam, (value: string) =>
 	validateQueryParam(value, z.string(), heatStressUnitDefault)

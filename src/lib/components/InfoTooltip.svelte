@@ -38,7 +38,7 @@
 				<strong class="block text-balance text-base font-semibold leading-5">{title}</strong>
 			{/if}
 			{#if description}
-				<p class="text-pretty text-sm leading-4 text-muted-foreground">{description}</p>
+				<p class="text-pretty text-sm leading-4 text-muted-foreground">{@html description}</p>
 			{/if}
 		</TooltipContent>
 	</Tooltip>

@@ -139,9 +139,20 @@ const en = {
 				'These maps are based on modeled calculations derived from measured station data. The most recent available values within a four-hour time window are included. For more precise analyses, we recommend using the direct measurements from the stations.'
 			],
 			timeRangeAlert: 'Data only available from {startDate} to {endDate}.',
-			timeRangeAlertTooltipTitle: 'This visualization is only available for the last 30 days.',
+			timeRangeAlertTooltipTitle: 'This map is only available for the last 30 days.',
 			timeRangeAlertTooltipContent:
-				'The data necessary for the heat map visualization of the map requires large amount of storage that therefore includes only the last 30 days.',
+				'The data requires a large amount of storage space, therefore this map is only available for the last 30 days.',
+			singleDateAlertTitle: 'You are viewing data from {date}.',
+			singleDateAlertTitleHoursAgo: '(from {dist} hours ago)',
+			singleDateAlertTitleDaysAgo: '(from {dist} days ago)',
+			singleDateAlertDescription:
+				'The raster data displayed on the map represents the most recent processable data.',
+			singleDateAlertDescriptionActualData:
+				'Currently, the displayed data is up-to-date and at most 2 hours old.',
+			singleDateAlertDescriptionOldDataHours:
+				'Currently, the displayed data is {dist} hours old. In winter and with expensive processing, the data may be significantly outdated.',
+			singleDateAlertDescriptionOldDataDays:
+				'Currently, the displayed data is {dist} days old. In winter and with expensive processing, the data may be significantly outdated.',
 			indicatorsNavAriaLabel: 'Select an indicator to change the data displayed on the map.'
 		},
 		measurements: {

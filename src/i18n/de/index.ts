@@ -1,16 +1,16 @@
 import type { BaseTranslation } from '../i18n-types';
 
 const siteNameShort = 'Data2Resilience';
-const siteSubtitle = 'Dashboard für Thermischen Komfort in Dortmund';
+const siteSubtitle = 'Dashboard zur Überwachung urbaner Hitze in Dortmund';
 const de = {
 	siteNameShort,
 	author: 'Data2Resilience Team',
 	siteSubtitle,
 	siteNameLong: `${siteNameShort} | ${siteSubtitle}`,
 	siteDescription:
-		'Data2Resilience ist ein Projekt, das darauf abzielt, die urbane Widerstandsfähigkeit gegen extreme Hitze in Dortmund durch innovative biometeorologische Messnetze und bürgerschaftliches Engagement zu verbessern. Erfahren Sie mehr über unsere Initiativen und Ergebnisse.',
+		'Nahezu Live-Daten zur Hitzebelastung in Dortmund aus Forschungsprojekt Data2Resilience: Interaktive Karten und Diagramme zeigen aktuelle Klimawerte wie Temperatur, Luftfeuchtigkeit, Strahlung, Wind und thermischen Komfort in verschiedenen Stadtteilen, verständlich erklärt und jederzeit abrufbar.',
 	keywords:
-		'Data2Resilience, urbane Resilienz, extreme Hitze, Dortmund, Klimawandel, biometeorologische Messung, gesellschaftliches Engagement, Hitzeresilienz, Stadtklima, Klimaanpassung',
+		'Data2Resilience, urbane Resilienz, extreme Hitze, Dortmund, Klimawandel, biometeorologische Messung, Hitzeresilienz, Stadtklima, Klimaanpassung, Wetterdaten, Umweltmonitoring, LoRaWAN, Smart City Dortmund',
 	twitterHandle: 'RUBclim',
 	log: "Dieses Logging wurde von '{fileName:string}' aufgerufen",
 	themeColor: '#eff3f8',
@@ -58,7 +58,7 @@ const de = {
 			selectOption: 'Option auswählen',
 			noResults: 'Keine Ergebnisse'
 		},
-		chartExportButtonLabel: 'Chart exportieren'
+		chartExportButtonLabel: 'Diagramm exportieren'
 	},
 	themeSwitch: {
 		light: 'Hell',
@@ -66,9 +66,10 @@ const de = {
 		system: 'System'
 	},
 	welcome: {
-		title: 'Herzlich willkommen',
+		title: 'Herzlich Willkommen!',
 		text: [
-			'Das Projekt Data2Resilience nutzt ein neues biometeorologisches Messnetzwerk zur Beobachtung und Vorhersage von Hitze und bezieht die Bürger frühzeitig ein, um Herausforderungen und Bedürfnisse in Dortmund zu adressieren. Dieses Dashboard ermöglicht Ihnen, Echtzeitdaten zum thermischen Komfort in der Stadt zu erkunden.'
+			'Diese interaktive Plattform (Dashboard) zeigt nahezu in Echtzeit, wie stark einzelne Standorte in Dortmund von Hitze betroffen sind. Grundlage ist ein flächendeckendes Messnetz, das hitzerelevante Wetterdaten erfasst.',
+			'Übersichtliche Karten und Diagramme veranschaulichen die Hitzebelastung – für alle, die sich an hohe Temperaturen anpassen, Dortmund klimaresilient gestalten oder sich einfach nur informieren möchten.'
 		],
 		buttons: {
 			confirm: "Verstanden, los geht's",
@@ -135,50 +136,64 @@ const de = {
 		heatStress: {
 			title: 'Wie warm fühlt sich die Stadt an?',
 			intro: [
-				'Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.',
-				'Karten basieren auf modellierten Berechnungen, die aus Stationsmessungen abgeleitet sind. Die modellierten Karten sind weniger genau als die Messdaten und sollten nur als Ausgangspunkt verwendet werden. Für detaillierte Analysen verlassen Sie sich bitte auf die Stationsmessdaten.'
+				'Der Hitzeatlas gibt einen flächendeckenden Überblick zur Hitzebelastung in ganz Dortmund. Sie können zwischen drei Klimagrößen wählen: dem universellen thermischen Klimaindex (UTCI), relativer Luftfeuchtigkeit und Lufttemperatur.',
+				'Beim UTCI lässt sich zwischen einer gesundheitsbezogenen Belastungskarte (Hitzestresskategorien) und einer Temperaturanzeige in Grad Celsius (°C) umschalten. Farbskala und Legende helfen bei der Einordnung.',
+				'Die Karten basieren auf modellierten Berechnungen, die aus Stationsmessungen abgeleitet sind. Dabei werden die jeweils aktuellsten verfügbaren Werte innerhalb eines Zeitfensters von vier Stunden berücksichtigt. Für genaue Analysen sollten die Messwerte herangezogen werden.'
 			],
 			timeRangeAlert:
 				'Daten nur verfügbar im Zeitraum vom {startDate:string} bis {endDate:string}.',
 			timeRangeAlertTooltipTitle: 'Diese Karte ist nur verfügbar für die letzten 30 Tage.',
 			timeRangeAlertTooltipContent:
 				'Die Daten benötigen große Menge von Speicherplatz, daher ist diese Karte nur verfügbare für die letzten 30 Tage.',
+			singleDateAlertTitle: 'Sie sehen Daten vom {date:string}.',
+			singleDateAlertTitleHoursAgo: '(vor {dist:string} Stunden)',
+			singleDateAlertTitleDaysAgo: '(vor {dist:string} Tagen)',
+			singleDateAlertDescription:
+				'Die auf der Karte angezeigten Rasterdaten stellen die aktuellsten verarbeitbaren Daten dar.',
+			singleDateAlertDescriptionActualData:
+				'Zurzeit sind die angezeigten Daten aktuell und höchstens 2 Stunden alt.',
+			singleDateAlertDescriptionOldDataHours:
+				'Zurzeit sind die angezeigten Daten um {dist:string} Stunden veraltet. Im Winter und bei kostspieliger Verarbeitung können die Daten stark veraltet sein.',
+			singleDateAlertDescriptionOldDataDays:
+				'Zurzeit sind die angezeigten Daten um {dist:string} Tage veraltet. Im Winter und bei kostspieliger Verarbeitung können die Daten stark veraltet sein.',
 			indicatorsNavAriaLabel:
-				'Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.'
+				'Wähle eine Klimagröße, um die angezeigten Daten auf der Karte zu ändern.'
 		},
 		measurements: {
 			title: 'Was wird gemessen?',
 			intro: [
-				'Die Messwerte zeigen Wetterdaten aus verschiedenen Teilen Dortmunds, die durch Messstationen ermittelt werden. Diese Daten, wie z. B. Lufttemperatur und Luftfeuchtigkeit, helfen dabei, die aktuelle Hitzebelastung in der Stadt zu verstehen. Sie können die Messstationen als Punkte in der Karte sehen und aktuelle sowie vergangene Werte verfolgen.'
+				'In verschiedenen Teilen Dortmunds erfassen Messstationen kontinuierlich Wetterdaten wie Lufttemperatur, Luftfeuchtigkeit und Strahlung. Diese Informationen helfen, die aktuelle Hitzebelastung besser zu verstehen.',
+				'Die Stationen sind als Punkte auf der Karte dargestellt. Sie können einzelne Messstationen auswählen sowie verschiedene Klimagrößen und Zeiträume einstellen. Die zugehörigen Diagramme ermöglichen einen Vergleich zwischen Orten und Zeitspannen.',
+				'Nutzen Sie die interaktive Karte rechts zur Orientierung und blenden Sie zusätzliche Informationen wie Luftbilder oder Gesundheitsrisiken ein.'
 			],
 			noDataAvailable: 'Keine Daten für die ausgewählte Konfiguration verfügbar',
 			noValueMeasured: 'Kein Wert gemessen',
 			noStationsSelected:
 				'Wählen Sie eine Messstation aus, um Daten für die ausgewählte Konfiguration zu erhalten.',
 			someUnsupportedStations:
-				'Für den gewählten Indikator <strong>{unit:string}</strong> erheben die Stationen <strong>{stations:string}</strong> keine Daten.',
+				'Für die gewählte Klimagröße <strong>{unit:string}</strong> erheben die Stationen <strong>{stations:string}</strong> keine Daten.',
 			allUnsupportedStations:
-				'Keine der ausgewählten Stationen erhebt Daten für den Indikator <strong>{unit:string}</strong>.',
+				'Keine der ausgewählten Stationen erhebt Daten für die Klimagröße <strong>{unit:string}</strong>.',
 			singleUnsupportedStation:
-				'Die Station <strong>{station:string}</strong> erhebt keine Daten für den Indikator <strong>{unit:string}</strong>.',
+				'Die Station <strong>{station:string}</strong> erhebt keine Daten für die Klimagröße <strong>{unit:string}</strong>.',
 			singleUnsupportedStationShort:
-				'Diese Station erhebt keine Daten für den Indikator <strong>{unit:string}</strong>.',
+				'Diese Station erhebt keine Daten für die Klimagröße <strong>{unit:string}</strong>.',
 			someStationsWithoutAvailableData:
-				'Für den gewählten Indikator <strong>{unit:string}</strong> haben die Stationen <strong>{stations:string}</strong> keine Daten erheben können.',
+				'Für die gewählten Klimagrößen <strong>{unit:string}</strong> haben die Stationen <strong>{stations:string}</strong> keine Daten erheben können.',
 			allStationsWithoutAvailableData:
-				'Keine der ausgewählten Stationen konnten Daten fuer den Indikator <strong>{unit:string}</strong> erheben.',
+				'Keine der ausgewählten Stationen konnten Daten für die Klimagröße <strong>{unit:string}</strong> erheben.',
 			singleStationWithoutAvailableData:
-				'Die Station <strong>{station:string}</strong> konnte keine Daten für den Indikator <strong>{unit:string}</strong> erheben.',
+				'Die Station <strong>{station:string}</strong> konnte keine Daten für die Klimagröße <strong>{unit:string}</strong> erheben.',
 			stationsSelect: {
 				placeholder: 'Eine oder mehrere Stationen auswählen',
 				label: 'Ausgewählte Messstationen'
 			},
 			unitSelect: {
-				noUnitFound: 'Kein Indikator gefunden',
-				placeholder: 'Indikator auswählen',
-				searchPlaceholder: 'Indikator suchen...',
+				noUnitFound: 'Keine Klimagröße gefunden',
+				placeholder: 'Klimagröße auswählen',
+				searchPlaceholder: 'Klimagröße suchen...',
 				xOutOfY: '{part} von {total}',
-				stationsHeaderLabel: 'Stationnamen',
+				stationsHeaderLabel: 'Stationsnamen',
 				units: {
 					utci_max: {
 						label: 'Maximaler Universeller Thermischer Klimaindex (UTCI)',
@@ -193,15 +208,15 @@ const de = {
 						unitOnly: '°C'
 					},
 					utci: {
-						label: 'Universeller Thermischer Klimaindex (UTCI)',
+						label: 'Universeller thermischer Klimaindex (UTCI)',
 						description:
-							'Der <strong>Universelle Thermische Klimaindex (UTCI)</strong> beschreibt einen Index, der die thermischen Bedingungen für eine Standardperson in einer standardisierten Umgebung darstellt.',
+							'Der <strong>universelle thermische Klimaindex (UTCI)</strong> beschreibt, wie warm sich das Wetter für den menschlichen Körper anfühlt. Der UTCI berücksichtigt die Lufttemperatur, Wind, Sonneneinstrahlung sowie Luftfeuchtigkeit – und gibt das Ergebnis als gefühlte Temperatur in Grad Celsius (°C) an. Bei der Berechnung des UTCIs wird von einer durchschnittlichen Person mit saisonal angepasster Kleidung und leichter Aktivität (Gehen) ausgegangen.',
 						unitOnly: '°C'
 					},
 					utci_category: {
-						label: 'Universeller Thermischer Klimaindex (UTCI) Kategorie',
+						label: 'Universeller thermischer Klimaindex (UTCI) Kategorie',
 						description:
-							'Die <strong>UTCI-Kategorie</strong> beschreibt die Klassifizierung des universellen thermischen Klimaindexes in Bezug auf thermischen Komfort.',
+							'Die <strong>UTCI-Kategorie</strong> beschreibt, wie warm sich das Wetter für den menschlichen Körper anfühlt. Es werden die Lufttemperatur, Wind, Sonneneinstrahlung sowie Luftfeuchtigkeit berücksichtigt. Das Ergebnis wird in Belastungsstufen für den Körper (Hitzestress) angegeben. Bei der Berechnung der UTCI-Kategorien wird von einer durchschnittlichen Person mit saisonal angepasster Kleidung und leichter Aktivität (Gehen) ausgegangen.',
 						unitOnly: ''
 					},
 					absolute_humidity_max: {
@@ -219,7 +234,7 @@ const de = {
 					absolute_humidity: {
 						label: 'Absolute Luftfeuchtigkeit',
 						description:
-							'Die <strong>Absolute Luftfeuchtigkeit</strong> beschreibt die Menge an Wasserdampf in der Luft, gemessen in Gramm pro Kubikmeter.',
+							'Die <strong>absolute Luftfeuchtigkeit</strong> gibt an, wie viel Wasserdampf tatsächlich in der Luft enthalten ist – gemessen in Gramm pro Kubikmeter (g/m³). Eine hohe absolute Luftfeuchtigkeit verringert die Verdunstung von Schweiß – dadurch fühlt sich Hitze stärker und drückender an.',
 						unitOnly: 'g/m³'
 					},
 					air_temperature_max: {
@@ -237,7 +252,7 @@ const de = {
 					air_temperature: {
 						label: 'Lufttemperatur',
 						description:
-							'Die <strong>Lufttemperatur</strong> beschreibt die gemessene Temperatur der umgebenden Luft in Grad Celsius.',
+							'Die <strong>Lufttemperatur</strong> gibt die gemessene Temperatur der Luft in Grad Celsius (°C) an. Die Lufttemperatur ist ein zentraler Grundwert für die Hitzewahrnehmung – je höher sie ist, desto größer ist in der Regel die Wärmebelastung für den Körper.',
 						unitOnly: '°C'
 					},
 					atmospheric_pressure_max: {
@@ -267,13 +282,13 @@ const de = {
 					atmospheric_pressure_reduced: {
 						label: 'Reduzierter Luftdruck',
 						description:
-							'Der <strong>Reduzierte Luftdruck</strong> beschreibt den auf Meereshöhe reduzierten Druck, gemessen in Hektopascal.',
+							'Der <strong>reduzierte Luftdruck</strong> ist der auf Meereshöhe umgerechnete Luftdruck und ermöglicht den Vergleich von Messwerten unabhängig von der geografischen Höhe – angegeben in Hektopascal (hPa).',
 						unitOnly: 'hPa'
 					},
 					atmospheric_pressure: {
 						label: 'Luftdruck',
 						description:
-							'Der <strong>Luftdruck</strong> beschreibt den durch das Gewicht der Atmosphäre ausgeübten Druck, gemessen in Hektopascal.',
+							'Der <strong>Luftdruck</strong> misst das Gewicht der Luftsäule über einem bestimmten Punkt und wird in Hektopascal (hPa) angegeben. Der Luftdruck beeinflusst die Hitzewahrnehmung nur indirekt, kann aber Wetterlagen mit hoher Wärmebelastung begünstigen – etwa stabile, heiße Hochdruckgebiete.',
 						unitOnly: 'hPa'
 					},
 					dew_point_max: {
@@ -291,7 +306,7 @@ const de = {
 					dew_point: {
 						label: 'Taupunkt',
 						description:
-							'Der <strong>Taupunkt</strong> beschreibt die Temperatur, bei der die Luft mit Wasserdampf gesättigt ist, gemessen in Grad Celsius.',
+							'Der <strong>Taupunkt</strong> ist die Temperatur, bei der die Luft mit Wasserdampf gesättigt ist und Kondensation beginnt – angegeben in Grad Celsius (°C). Ein hoher Taupunkt zeigt eine feuchte Luft an, die das Schwitzen erschwert – dadurch wird Hitze als drückender und belastender empfunden.',
 						unitOnly: '°C'
 					},
 					heat_index_max: {
@@ -309,7 +324,7 @@ const de = {
 					heat_index: {
 						label: 'Hitzeindex',
 						description:
-							'Der <strong>Hitzeindex</strong> beschreibt die gefühlte Temperatur, basierend auf Lufttemperatur und Luftfeuchtigkeit.',
+							'Der <strong>Hitzeindex</strong> gibt an, wie heiß es sich für den menschlichen Körper anfühlt, indem er Lufttemperatur und relative Luftfeuchtigkeit kombiniert – angegeben in Grad Celsius (°C).',
 						unitOnly: '°C'
 					},
 					lightning_average_distance_max: {
@@ -327,7 +342,7 @@ const de = {
 					lightning_average_distance: {
 						label: 'Durchschnittliche Blitzentfernung',
 						description:
-							'Die <strong>Durchschnittliche Blitzentfernung</strong> beschreibt die mittlere Entfernung von Blitze zu einem Bezugspunkt, gemessen in Metern.',
+							'Die <strong>durchschnittliche Blitzentfernung</strong> gibt an, wie weit die registrierten Blitze im Mittel vom gewählten Standort entfernt waren – gemessen in Metern (m). Die durchschnittliche Blitzentfernung hat keinen direkten Einfluss auf die Hitzewahrnehmung, kann aber auf bevorstehende Wetteränderungen nach Hitze hinweisen.',
 						unitOnly: 'm'
 					},
 					lightning_strike_count_max: {
@@ -345,7 +360,7 @@ const de = {
 					lightning_strike_count: {
 						label: 'Anzahl der Blitze',
 						description:
-							'Die <strong>Anzahl der Blitze</strong> beschreibt die Häufigkeit von Blitze in einem bestimmten Gebiet und Zeitraum.',
+							'Die <strong>Anzahl der Blitze</strong> gibt die absolute Zahl der registrierten Blitzentladungen in einem bestimmten Zeitraum und Gebiet an. Die Anzahl der Blitze beeinflusst die Hitzewahrnehmung nicht direkt, kann aber auf starke Gewitter nach intensiver Hitze hinweisen.',
 						unitOnly: ''
 					},
 					maximum_wind_speed_max: {
@@ -363,7 +378,7 @@ const de = {
 					maximum_wind_speed: {
 						label: 'Maximale Windgeschwindigkeit',
 						description:
-							'Die <strong>Maximale Windgeschwindigkeit</strong> beschreibt die höchste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.',
+							'Die <strong>Maximale Windgeschwindigkeit</strong> gibt den höchsten in einem bestimmten Zeitraum gemessenen Windwert an – ausgedrückt in Metern pro Sekunde (m/s). Eine höhere Windgeschwindigkeit kann die Hitzewahrnehmung verringern, da Wind die Haut kühlt und das Schwitzen unterstützt.',
 						unitOnly: 'm/s'
 					},
 					mrt_max: {
@@ -381,13 +396,13 @@ const de = {
 					mrt: {
 						label: 'Mittlere Strahlungstemperatur',
 						description:
-							'Die <strong>Mittlere Strahlungstemperatur</strong> beschreibt die durchschnittliche Temperatur der umgebenden Oberflächen, die Wärmestrahlung abgeben.',
+							'Die <strong>mittlere Strahlungstemperatur</strong> beschreibt, wie stark der Mensch durch Wärmestrahlung aus seiner Umgebung aufgeheizt wird – z.B. durch Sonne, warme Wände oder aufgeheizten Asphalt. Sie wird angegeben in Grad Celsius (°C). Die mittlere Strahlungstemperatur berechnet sich aus der Wirkung der gesamten Strahlung, die aus allen Richtungen auf den Körper trifft – also sowohl langwellige (z. B. von Gebäuden) als auch kurzwellige Strahlung (z.B. direkte Sonne), unabhängig von der Lufttemperatur.',
 						unitOnly: '°C'
 					},
 					pet_category: {
 						label: 'Physiologisch äquivalente Temperatur (PET) Kategorie',
 						description:
-							'Die <strong>PET-Kategorie</strong> beschreibt die Klassifizierung der physiologisch äquivalenten Temperatur in Bezug auf thermischen Komfort.',
+							'Die <strong>PET-Kategorie</strong> gibt an, bei welcher Lufttemperatur in einem geschützten Innenraum (ohne Wind und Sonne) sich der Mensch genauso warm oder kalt fühlen würde wie unter den aktuellen Außenbedingungen. Es werden Lufttemperatur, Wind, Luftfeuchtigkeit und Strahlung sowie typische Kleidung und Aktivität einer Person berücksichtigt.',
 						unitOnly: ''
 					},
 					pet_max: {
@@ -405,7 +420,7 @@ const de = {
 					pet: {
 						label: 'Physiologisch äquivalente Temperatur (PET)',
 						description:
-							'Die <strong>Physiologisch äquivalente Temperatur (PET)</strong> beschreibt ein Maß für die thermische Belastung, das die physiologische Reaktion des menschlichen Körpers auf die Umgebungsbedingungen berücksichtigt.',
+							'Die <strong>physiologisch äquivalente Temperatur (PET)</strong> gibt an, bei welcher Lufttemperatur in einem geschützten Innenraum (ohne Wind und Sonne) sich der Mensch genauso warm oder kalt fühlen würde wie unter den aktuellen Außenbedingungen. Sie berücksichtigt Lufttemperatur, Wind, Luftfeuchtigkeit und Strahlung sowie typische Kleidung und Aktivität einer Person. PET wird angegeben in Grad Celsius (°C).',
 						unitOnly: '°C'
 					},
 					precipitation_sum_max: {
@@ -423,7 +438,7 @@ const de = {
 					precipitation_sum: {
 						label: 'Niederschlag',
 						description:
-							'Der <strong>Niederschlag</strong> beschreibt die Menge an Wasser, die als Regen, Schnee oder in anderer Form vom Himmel fällt, gemessen in Millimetern.',
+							'Der <strong>Niederschlag</strong> gibt die gesamte Menge an Regen, Schnee oder anderen Formen von Wasser an, die in einem bestimmten Zeitraum gefallen ist – gemessen in Millimetern (mm). Niederschlag kann die Hitzewahrnehmung verringern, da er die Luft abkühlt und oft mit erhöhter Luftbewegung und Wolken einhergeht.',
 						unitOnly: 'mm'
 					},
 					relative_humidity_max: {
@@ -441,7 +456,7 @@ const de = {
 					relative_humidity: {
 						label: 'Relative Luftfeuchtigkeit',
 						description:
-							'Die <strong>Relative Luftfeuchtigkeit</strong> beschreibt den Anteil des Wasserdampfs in der Luft im Verhältnis zur maximalen Menge, die die Luft bei dieser Temperatur aufnehmen könnte.',
+							'Die <strong>relative Luftfeuchtigkeit</strong> gibt an, wie viel Wasserdampf die Luft im Verhältnis zur maximal möglichen Menge bei der aktuellen Temperatur enthält – angegeben in Prozent (%). Eine hohe relative Luftfeuchtigkeit verringert die Verdunstung von Schweiß – dadurch fühlt sich Hitze stärker und drückender an.',
 						unitOnly: '%'
 					},
 					solar_radiation_max: {
@@ -459,7 +474,7 @@ const de = {
 					solar_radiation: {
 						label: 'Solarstrahlung',
 						description:
-							'Die <strong>Solarstrahlung</strong> beschreibt die Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.',
+							'Die <strong>Solarstrahlung</strong> misst die Sonnenenergie, die auf eine bestimmte Fläche trifft – angegeben in Watt pro Quadratmeter (W/m²). Solarstrahlung besteht aus sichtbarem Licht, ultravioletter (UV-) und infraroter Strahlung. Sie ist die Hauptquelle für Wärme auf der Erde und beeinflusst direkt die Lufttemperatur und das thermische Empfinden im Freien.',
 						unitOnly: 'W/m²'
 					},
 					vapor_pressure_max: {
@@ -477,7 +492,7 @@ const de = {
 					vapor_pressure: {
 						label: 'Dampfdruck',
 						description:
-							'Der <strong>Dampfdruck</strong> beschreibt den Druck, den der Wasserdampf in der Luft ausübt, gemessen in Hektopascal.',
+							'Der <strong>Dampfdruck</strong> beschreibt den Anteil des Luftdrucks, der durch den in der Luft enthaltenen Wasserdampf verursacht wird – gemessen in Hektopascal (hPa). Ein hoher Dampfdruck zeigt an, dass viel Wasserdampf in der Luft ist. Dies erschwert das Schwitzen und lässt Hitze intensiver wirken.',
 						unitOnly: 'hPa'
 					},
 					wet_bulb_temperature_max: {
@@ -495,7 +510,7 @@ const de = {
 					wet_bulb_temperature: {
 						label: 'Kühlgrenztemperatur',
 						description:
-							'Die <strong>Kühlgrenztemperatur</strong> beschreibt die Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.',
+							'Die <strong>Kühlgrenztemperatur</strong> ist die niedrigste Temperatur, die durch Verdunstungskühlung unter gegebenen Bedingungen erreicht werden kann – angegeben in Grad Celsius (°C). Die Kühlgrenztemperatur ist ein Maß dafür, wie stark sich der Körper durch Schwitzen abkühlen kann.',
 						unitOnly: '°C'
 					},
 					wind_direction_max: {
@@ -513,7 +528,7 @@ const de = {
 					wind_direction: {
 						label: 'Windrichtung',
 						description:
-							'Die <strong>Windrichtung</strong> beschreibt die Richtung, aus der der Wind weht, gemessen in Grad.',
+							'Die <strong>Windrichtung</strong> gibt an, aus welcher Himmelsrichtung der Wind weht – gemessen in Grad (°), wobei 0° für Norden, 90° für Osten 180 ° für Süden und 270° für Westen steht. Die Windrichtung beeinflusst, ob heiße oder kühlere Luftmassen herangeführt werden – und damit, wie warm es sich vor Ort anfühlt.',
 						unitOnly: '°'
 					},
 					wind_speed_max: {
@@ -531,7 +546,7 @@ const de = {
 					wind_speed: {
 						label: 'Windgeschwindigkeit',
 						description:
-							'Die <strong>Windgeschwindigkeit</strong> beschreibt die Geschwindigkeit, mit der sich die Luft bewegt, gemessen in Metern pro Sekunde.',
+							'Die <strong>Windgeschwindigkeit</strong> beschreibt, wie schnell sich die Luft bewegt – gemessen in Metern pro Sekunde (m/s). Eine höhere Windgeschwindigkeit kann die Hitzewahrnehmung verringern, weil sie den Körper kühlt und die Verdunstung von Schweiß unterstützt.',
 						unitOnly: 'm/s'
 					}
 				}
@@ -546,9 +561,9 @@ const de = {
 				day: 'Pro Tag',
 				hour: 'Pro Stunde',
 				range: 'Zeitspanne',
-				infoTitle: 'Wie funktioniert die Zeitspanne?',
+				infoTitle: 'Wie funktioniert die Zeitauswahl?',
 				infoDescription:
-					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+					'Über die Schaltflächen „pro Stunde“, „pro Tag“ und „Zeitspanne“ können Sie auswählen, wie die Klimadaten im Diagramm dargestellt werden:<ul class="flex flex-col gap-1 py-2"><li><strong>Pro Stunde:</strong> Zeigt stündliche Werte für ausgewählte Tage.</li><li><strong>Pro Tag:</strong> Zeigt Tageswerte als Minimum, Mittelwert oder Maximum.</li><li><strong>Zeitspanne:</strong> Zeigt den Verlauf zwischen zwei frei wählbaren Zeitpunkten.</li></ul>Nur ein Diagramm wird angezeigt und passt sich automatisch Ihrer Auswahl an.'
 			},
 			histogram: {
 				title: 'Alle Stationen im Überblick',
@@ -563,52 +578,59 @@ const de = {
 			}
 		},
 		stations: {
-			title: 'Wie messen wir thermischen Komfort?',
+			title: 'Wie messen wir urbane Hitze?',
 			titleTable: 'Alle Messstationen im Überblick',
 			intro: [
-				'Im Folgenden finden Sie technische Informationen zu den Messstationen sowie eine Zusammenfassung der Kriterien zur Standortauswahl der Messstationen.'
+				'Erfahren Sie mehr über die technische Ausstattung und die Standortwahl der Messstationen. Für die Datenerhebung kommen zwei Typen von Messstationen zum Einsatz: einfache Stationen sowie erweiterte Stationen.',
+				'In der Tabelle rechts finden Sie weitere Informationen zu den einzelnen Standorten. Dort können Sie außerdem alle bisher aufgezeichneten Messwerte seit Beginn der Messungen im Jahr 2024 für jede Station herunterladen. Nutzen Sie das Suchfeld oben rechts, um gezielt nach Einträgen zu suchen, wie etwa nach Stationsnamen oder Standorten.',
+				'Weitere Informationen zu den beiden Stationstypen sowie zu den Auswahlkriterien der Messstandorte finden Sie in den nachfolgenden Abschnitten.'
 			],
 			stationsDescriptions: {
-				supportedIndicatorsLabel: 'Unterstützte Indikatoren',
+				measuredIndicatorsLabel: 'Gemessene Klimaelemente',
+				calculatedIndicatorsLabel: 'Berechnete Klimaelemente',
 				weather: {
-					title: 'Wetterstation mit Blackglobe-Sensor',
+					title: 'Erweiterte Stationen',
 					description:
-						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
-					supportedIndicators: [
-						'absolute_humidity',
+						'Die umfangreicher ausgestatteten Stationen (DL-ATM41 und Black-Globe-Sensor von Campbell Scientific) erfassen:',
+					calculatedDescription:
+						'Es wurden 25 dieser Stationen installiert. Auf Basis dieser Klimagrößen lassen sich weitere Kennwerte ableiten.',
+					measuredIndicators: [
 						'air_temperature',
-						'atmospheric_pressure_reduced',
 						'atmospheric_pressure',
-						'dew_point',
-						'heat_index',
 						'lightning_average_distance',
 						'lightning_strike_count',
 						'maximum_wind_speed',
 						'mrt',
-						'pet_category',
-						'pet',
 						'precipitation_sum',
 						'relative_humidity',
 						'solar_radiation',
-						'specific_humidity',
-						'utci_category',
-						'utci',
 						'vapor_pressure',
-						'wet_bulb_temperature',
 						'wind_direction',
 						'wind_speed'
+					],
+					calculatedIndicators: [
+						'absolute_humidity',
+						'atmospheric_pressure_reduced',
+						'dew_point',
+						'heat_index',
+						'specific_humidity',
+						'pet_category',
+						'pet',
+						'utci_category',
+						'utci',
+						'wet_bulb_temperature'
 					]
 				},
 				airTemperatureAndHumidity: {
-					title: 'Lufttemperatur- und Feuchtigkeitssensor',
-					description:
-						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
-					supportedIndicators: [
+					title: 'Einfache Stationen',
+					description: 'Diese kompakten Stationen (DL-SHT35 von Decentlab) messen',
+					calculatedDescription:
+						'Insgesamt wurden 56 Stationen installiert. Weitere Klimagrößen können durch die ermittelten Messwerte berechnet werden.',
+					measuredIndicators: ['air_temperature', 'relative_humidity'],
+					calculatedIndicators: [
 						'absolute_humidity',
-						'air_temperature',
 						'dew_point',
 						'heat_index',
-						'relative_humidity',
 						'specific_humidity',
 						'wet_bulb_temperature'
 					]
@@ -633,8 +655,8 @@ const de = {
 				},
 				cells: {
 					stationTypes: {
-						biomet: 'Wetterstation',
-						temprh: 'Temperatur'
+						biomet: 'Erweiterte Station',
+						temprh: 'Einfache Station'
 					},
 					status: {
 						active: 'Aktiv',
@@ -649,15 +671,15 @@ const de = {
 			}
 		},
 		about: {
-			title: 'Über dieses Projekt',
+			title: 'Über dieses Dashboard',
 			description:
-				"Dieses Dashboard wurde im Rahmen des Projektes Data2Resilience entwickelt, einem gemeinsamen Forschungsprojekt der Ruhr-Universität Bochum und der Leibniz Universität Hannover. Das Projekt zielt darauf ab, die Resilienz Dortmunds gegenüber dem Klimawandel zu verbessern, indem innovative Technologien und Bürgerbeteiligung genutzt werden, um die Auswirkungen extremer Hitze auf das Stadtleben zu minimieren. Data2Resilience wird von Prof. Dr. Benjamin Bechtel und Prof. Dr. Christian Albert geleitet und vom <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> sowie <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a> finanziert.",
+				"Diese interaktive Anwendung wurde im Rahmen des Projekts Data2Resilience entwickelt – einem gemeinsamen Forschungsprojekt der Ruhr-Universität Bochum und der Leibniz Universität Hannover. Ziel ist es, die Hitzebelastung in Dortmund besser zu erfassen und die Stadt widerstandsfähiger gegenüber den Folgen des Klimawandels zu machen. Das Projekt verbindet wissenschaftliche Messungen mit innovativer Technik und aktiver Bürgerbeteiligung. Data2Resilience wird durch den <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> mit Unterstützung von <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a> gefördert.",
 			mainLink: {
 				url: `https://dortmund.de/hitze`,
 				label: 'dortmund.de/hitze'
 			},
 			contactLink: {
-				url: `mailto:info@data2resilience.org`,
+				url: `mailto:climate@rub.de`,
 				label: 'Schreibe uns eine E-Mail'
 			},
 			links: [
@@ -694,7 +716,7 @@ const de = {
 		utci: {
 			title: 'Universeller Thermischer Klimaindex (UTCI)',
 			description:
-				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.',
+				'Der UTCI beschreibt, wie warm sich das Wetter für den menschlichen Körper anfühlt. Der UTCI berücksichtigt die Lufttemperatur, Wind, Sonneneinstrahlung sowie Luftfeuchtigkeit – und gibt das Ergebnis in Belastungsstufen für den Körper (Hitzestresskategorie) oder als gefühlte Temperatur in Grad Celsius (Temperatur in °C) an. Bei der Berechnung des UTCIs wird von einer durchschnittlichen Person mit saisonal angepasster Kleidung und leichter Aktivität (Gehen) ausgegangen.',
 			types: {
 				byClass: {
 					title: 'Nach Hitzestresskategorie',
@@ -711,12 +733,12 @@ const de = {
 		relative_humidity: {
 			title: 'Relative Luftfeuchtigkeit',
 			description:
-				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
+				'Die relative Luftfeuchtigkeit gibt an, wie viel Wasserdampf die Luft im Verhältnis zur maximal möglichen Menge bei der aktuellen Temperatur enthält – angegeben in Prozent (%). Eine hohe relative Luftfeuchtigkeit verringert die Verdunstung von Schweiß – dadurch fühlt sich Hitze stärker und drückender an.'
 		},
 		air_temperature: {
 			title: 'Lufttemperatur',
 			description:
-				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
+				'Die Lufttemperatur gibt die gemessene Temperatur der Luft in Grad Celsius (°C) an. Die Lufttemperatur ist ein zentraler Grundwert für die Hitzewahrnehmung – je höher sie ist, desto größer ist in der Regel die Wärmebelastung für den Körper.'
 		}
 	},
 	map: {
@@ -737,21 +759,21 @@ const de = {
 			ariaLabel: 'Auswahl der Kartenebene',
 			districts: 'Stadtbezirke',
 			districtsTooltip: {
-				title: 'Stadtbezirke',
+				title: 'Was sind Stadtbezirke?',
 				description:
-					'Die Stadtbezirke sind die einzelnen Bezirke der Stadt Dortmund. Sie sind in der Regel kleiner als die Stadtteile und Aktionsräume.'
+					'Stadtbezirke sind offizielle Verwaltungseinheiten mit eigenen Zuständigkeiten innerhalb der Stadt.'
 			},
 			lors: 'Stadtteile<br/>& Aktionsräume',
 			lorsTooltip: {
-				title: 'Stadtteile & Aktionsräume',
+				title: 'Was sind Stadtteile und Aktionsräume?',
 				description:
-					'Die Stadtteile sind die einzelnen Einzelgebäude der Stadt Dortmund. Die Aktionsräume sind die öffentlichen Räume, die von der Stadtverwaltung betrieben werden.'
+					"Stadtteile sind kleinere, lebensnahe Einheiten innerhalb der Stadtbezirke. Aktionsräume markieren Bereiche mit besonderem sozialen Förderbedarf. Diese stammen aus dem <a class='focusable transition-opacity hover-hover:hover:opacity-50 underline decoration-primary underline-offset-4' href='https://www.dortmund.de/themen/soziales/aktionsplan-soziale-stadt/' target='_blank' rel='noopener noreferrer'>Aktionsplan Soziale Stadt Dortmund</a>."
 			},
 			satellite: 'Digitale Orthophotos',
 			satelliteTooltip: {
-				title: 'Digitale Orthophotos',
+				title: 'Was sind digitale Orthophotos?',
 				description:
-					'Die Digitale Orthophotos sind eine digitale Darstellung der Stadt Dortmund. Sie zeigen die Stadt als eine große, flache, schwarze Fläche, die von der Digitalisierung der Stadt betrieben wird.'
+					'Digitale Orthofotos sind entzerrte Luftbilder, die wie eine maßstabsgetreue Karte funktionieren. Sie zeigen Dortmund aus der Vogelperspektive und ermöglichen eine realitätsnahe Orientierung.'
 			}
 		},
 		layersTooltips: {
@@ -785,8 +807,7 @@ const de = {
 						thermalComfort: 'Sehr kalt',
 						heatStress: 'Sehr starker Kältestress'
 					},
-					description:
-						'Lebensbedrohliche Hypothermie, schwere Erfrierungen innerhalb von Minuten möglich.',
+					description: 'Hohe Erfrierungsgefahr, Hypothermie möglich.',
 					ranges: {
 						pet: 'unter 4 °C',
 						utci: '-40 bis -27 °C'
@@ -798,7 +819,7 @@ const de = {
 						heatStress: 'Starker Kältestress'
 					},
 					description:
-						'Erfrierungsgefahr für exponierte Hautbereiche, erhöhtes Risiko für Kälteschäden.',
+						'Erfrierungsgefahr an ungeschützten Hautstellen, erhöhtes Risiko für Kälteschäden.',
 					ranges: {
 						pet: '4 bis 8 °C',
 						utci: '-27 bis -13 °C'
@@ -842,7 +863,7 @@ const de = {
 						thermalComfort: 'Leicht warm',
 						heatStress: 'Moderater Hitzestress'
 					},
-					description: 'Leichte Unannehmlichkeiten, erhöhter Schweißausstoß.',
+					description: 'Leichte Unannehmlichkeiten, vermehrtes Schwitzen.',
 					ranges: {
 						pet: '23 bis 29 °C',
 						utci: '26 bis 32 °C'
@@ -866,7 +887,7 @@ const de = {
 						heatStress: 'Sehr starker Hitzestress'
 					},
 					description:
-						'Gefahr von Hitzekrämpfen, Hitzerschöpfung, erhöhtes Risiko für hitzebedingte Erkrankungen, besonders bei körperlicher Aktivität.',
+						'Gefahr von Hitzekrämpfen, Hitzeerschöpfung, erhöhtes Risiko für hitzebedingte Erkrankungen, besonders bei körperlicher Aktivität.',
 					ranges: {
 						pet: '35 bis 41 °C',
 						utci: '38 bis 46 °C'
@@ -878,7 +899,7 @@ const de = {
 						heatStress: 'Extremer Hitzestress'
 					},
 					description:
-						'Lebensbedrohliche Hitzschläge, akute Belastung des Herz-Kreislauf-Systems, hohes Risiko für schwere hitzebedingte Erkrankungen und Tod.',
+						'Lebensbedrohliche Hitzschläge möglich, akute Belastung des Herz-Kreislauf-Systems, hohes Risiko für schwere hitzebedingte Erkrankungen und Tod.',
 					ranges: {
 						pet: 'über 41 °C',
 						utci: 'über 46 °C'

@@ -1,16 +1,16 @@
 import type { Translation } from '../i18n-types';
 
 const siteNameShort = 'Data2Resilience';
-const siteSubtitle = 'Dashboard for heat stress in Dortmund';
+const siteSubtitle = 'Dashboard for monitoring urban heat in Dortmund';
 const en = {
 	siteNameShort,
 	author: 'Data2Resilience Team',
 	siteSubtitle,
 	siteNameLong: `${siteNameShort} | ${siteSubtitle}`,
 	siteDescription:
-		'Data2Resilience is a project aimed at improving urban resilience against extreme heat in Dortmund through innovative biometeorological measurement networks and community engagement. Learn more about our initiatives and results.',
+		'Near real-time data on heat stress in Dortmund from research project Data2Resilience: Interactive maps and charts display current climate indicators such as temperature, humidity, and thermal comfort across different neighborhoods – clearly explained and accessible at any time.',
 	keywords:
-		'Data2Resilience, urban resilience, extreme heat, Dortmund, climate change, biometeorological measurement, community engagement, heat resilience, urban climate, climate adaptation',
+		'Data2Resilience, urban resilience, extreme heat, Dortmund, climate change, biometeorological measurement, community engagement, heat resilience, urban climate, climate adaptation, environmental monitoring, LoRaWAN, Smart City Dortmund',
 	twitterHandle: 'RUBclim',
 	log: "This log was called from '{fileName}'",
 	themeColor: '#eff3f8',
@@ -66,9 +66,10 @@ const en = {
 		system: 'System'
 	},
 	welcome: {
-		title: 'Welcome',
+		title: 'Welcome to the Dashboard!',
 		text: [
-			'The Data2Resilience project uses a new biometeorological measurement network to observe and predict heat and involves citizens early to address challenges and needs in Dortmund. This dashboard allows you to explore real-time data on heat stress in the city.'
+			'This interactive platform (dashboard) provides near real-time insight into how different locations in Dortmund are affected by heat. It is based on a city-wide network of sensors that continuously collect heat-related weather data.',
+			'Clear maps and diagrams help visualize heat stress – for everyone looking to adapt to high temperatures, contribute to a more climate-resilient city, or simply stay informed.'
 		],
 		buttons: {
 			confirm: "Understood, let's go",
@@ -135,8 +136,9 @@ const en = {
 		heatStress: {
 			title: 'How warm does the city feel?',
 			intro: [
-				"The heat atlas for Dortmund provides an overview of the city's heat stress. The heat stress is depicted through three maps: the Universal Thermal Climate Index (UTCI) to assess the thermal sensation of residents, as well as relative humidity and air temperature as key influencing factors.",
-				'Maps are based on modelled calculations derived from station measurements. The modelled maps are less accurate than the measurement data and should only be used as a starting point. For detailed analyses, please rely on the station measurement data.'
+				'The Heat Atlas provides a city-wide overview of heat stress in Dortmund. You can choose between three climate indicators: the Universal Thermal Climate Index (UTCI), relative humidity, and air temperature.',
+				'For UTCI, you can switch between a health-based heat stress map (heat stress categories) and a temperature map showing the perceived temperature in degrees Celsius (temperature in °C). A color scale and legend help to interpret the values. ',
+				'These maps are based on modeled calculations derived from measured station data. The most recent available values within a four-hour time window are included. For more precise analyses, we recommend using the direct measurements from the stations.'
 			],
 			timeRangeAlert: 'Data only available from {startDate} to {endDate}.',
 			timeRangeAlertTooltipTitle: 'This visualization is only available for the last 30 days.',
@@ -147,7 +149,9 @@ const en = {
 		measurements: {
 			title: 'What is being measured?',
 			intro: [
-				'The measurements show weather data from various parts of Dortmund, collected by monitoring stations. This data, such as air temperature and humidity, helps to understand the current heat stress in the city. You can see the monitoring stations as points on the map and track both current and past values.'
+				'In various parts of Dortmund, measurement stations continuously record weather data such as air temperature, humidity, and solar radiation. This information helps to better understand current heat stress in the city.',
+				'The stations are displayed as points on the map. You can select individual stations, choose specific climate indicators, and adjust the time period displayed. The corresponding diagrams allow for comparisons across locations and time spans.',
+				'Use the interactive map on the right for orientation. Additional layers such as aerial imagery or health risk information can be displayed to enrich the view.'
 			],
 			noDataAvailable: 'No data available for the selected configuration',
 			noValueMeasured: 'No value measured',
@@ -171,365 +175,365 @@ const en = {
 				label: 'Selected stations'
 			},
 			unitSelect: {
-				noUnitFound: 'No indicator found',
-				placeholder: 'Select a indicator',
-				searchPlaceholder: 'Search indicator...',
+				noUnitFound: 'No climate indicator found',
+				placeholder: 'Select a climate indicator',
+				searchPlaceholder: 'Search climate indicator...',
 				xOutOfY: '{part} of {total} stations',
 				stationsHeaderLabel: 'Station name',
 				units: {
 					utci_max: {
-						label: 'Maximum Universal Thermic Climate Index (UTCI)',
+						label: 'Maximum Universal Thermal Climate Index (UTCI)',
 						description:
-							'The <strong>Maximum Universal Thermic Climate Index (UTCI)</strong> describes the highest recorded UTCI during a specific time period.',
+							'The <strong>Maximum Universal Thermal Climate Index (UTCI)</strong> describes the highest recorded UTCI during a specific time period.',
 						unitOnly: '°C'
 					},
 					utci_min: {
-						label: 'Minimum Universal Thermic Climate Index (UTCI)',
+						label: 'Minimum Universal Thermal Climate Index (UTCI)',
 						description:
-							'The <strong>Minimum Universal Thermic Climate Index (UTCI)</strong> describes the lowest recorded UTCI during a specific time period.',
+							'The <strong>Minimum Universal Thermal Climate Index (UTCI)</strong> describes the lowest recorded UTCI during a specific time period.',
 						unitOnly: '°C'
 					},
 					utci: {
-						label: 'Universal Thermic Climate Index (UTCI)',
+						label: 'Universal thermal climate index (UTCI)',
 						description:
-							'The <strong>Universal Thermic Climate Index (UTCI)</strong> describes a measure of human heat stress that combines air temperature, humidity, wind speed, and radiation.',
+							'The <strong>universal thermal climate index (UTCI)</strong> describes how warm the weather feels to the human body. It takes into account air temperature, wind speed, solar radiation, and humidity. Results are expressed as a perceived temperature in degrees Celsius (°C). Calculations assume an average person wearing seasonally appropriate clothing while walking outdoors. ',
 						unitOnly: '°C'
 					},
 					utci_category: {
-						label: 'Universal Thermic Climate Index  (UTCI) category',
+						label: 'Universal thermal climate index (UTCI) category',
 						description:
-							'The <strong>UTCI category</strong> describes the classification of the universal heat stress index in terms of heat stress.',
+							'The <strong>UTCI category</strong> describes how warm the weather feels to the human body. It takes into account air temperature, wind speed, solar radiation, and humidity. Results are expressed in stress categories for the human body (heat stress). Calculations assume an average person wearing seasonally appropriate clothing while walking outdoors.',
 						unitOnly: ''
 					},
 					absolute_humidity_max: {
 						label: 'Maximum absolute humidity',
 						description:
-							'The <strong>Maximum absolute humidity</strong> describes the highest amount of water vapor in the air, measured in grams per cubic meter.',
+							'The <strong>maximum absolute humidity</strong> describes the highest amount of water vapor in the air, measured in grams per cubic meter.',
 						unitOnly: 'g/m³'
 					},
 					absolute_humidity_min: {
 						label: 'Minimum absolute humidity',
 						description:
-							'The <strong>Minimum absolute humidity</strong> describes the lowest amount of water vapor in the air, measured in grams per cubic meter.',
+							'The <strong>minimum absolute humidity</strong> describes the lowest amount of water vapor in the air, measured in grams per cubic meter.',
 						unitOnly: 'g/m³'
 					},
 					absolute_humidity: {
 						label: 'Absolute humidity',
 						description:
-							'The <strong>Absolute humidity</strong> describes the amount of water vapor in the air, measured in grams per cubic meter.',
+							'The <strong>absolute humidity</strong> indicates the actual amount of water vapor in the air, measured in grams per cubic meter (g/m³). High absolute humidity reduces the body’s ability to cool through sweating, making the heat feel more oppressive.',
 						unitOnly: 'g/m³'
 					},
 					air_temperature_max: {
 						label: 'Maximum air temperature',
 						description:
-							'The <strong>Maximum air temperature</strong> describes the highest recorded temperature of the surrounding air in degrees Celsius.',
+							'The <strong>maximum air temperature</strong> describes the highest recorded temperature of the surrounding air in degrees Celsius.',
 						unitOnly: '°C'
 					},
 					air_temperature_min: {
 						label: 'Minimum air temperature',
 						description:
-							'The <strong>Minimum air temperature</strong> describes the lowest recorded temperature of the surrounding air in degrees Celsius.',
+							'The <strong>minimum air temperature</strong> describes the lowest recorded temperature of the surrounding air in degrees Celsius.',
 						unitOnly: '°C'
 					},
 					air_temperature: {
 						label: 'Air temperature',
 						description:
-							'The <strong>Air temperature</strong> describes the degree of hotness or coldness of the air measured in Celsius.',
+							'The <strong>air temperature</strong> measures the actual temperature of the air, in degrees Celsius (°C). It is a key factor in perceived heat stress – the higher the air temperature, the greater the burden on the human body.',
 						unitOnly: '°C'
 					},
 					atmospheric_pressure_max: {
 						label: 'Maximum atmospheric pressure',
 						description:
-							'The <strong>Maximum atmospheric pressure</strong> describes the highest force exerted by the weight of air in the atmosphere, measured in hectopascals.',
+							'The <strong>maximum atmospheric pressure</strong> describes the highest force exerted by the weight of air in the atmosphere, measured in hectopascals.',
 						unitOnly: 'hPa'
 					},
 					atmospheric_pressure_min: {
 						label: 'Minimum atmospheric pressure',
 						description:
-							'The <strong>Minimum atmospheric pressure</strong> describes the lowest force exerted by the weight of air in the atmosphere, measured in hectopascals.',
+							'The <strong>minimum atmospheric pressure</strong> describes the lowest force exerted by the weight of air in the atmosphere, measured in hectopascals.',
 						unitOnly: 'hPa'
 					},
 					atmospheric_pressure_reduced_max: {
 						label: 'Maximum reduced atmospheric pressure',
 						description:
-							'The <strong>Maximum reduced atmospheric pressure</strong> describes the highest sea-level adjusted pressure, measured in hectopascals.',
+							'The <strong>maximum reduced atmospheric pressure</strong> describes the highest sea-level adjusted pressure, measured in hectopascals.',
 						unitOnly: 'hPa'
 					},
 					atmospheric_pressure_reduced_min: {
 						label: 'Minimum reduced atmospheric pressure',
 						description:
-							'The <strong>Minimum reduced atmospheric pressure</strong> describes the lowest sea-level adjusted pressure, measured in hectopascals.',
+							'The <strong>minimum reduced atmospheric pressure</strong> describes the lowest sea-level adjusted pressure, measured in hectopascals.',
 						unitOnly: 'hPa'
 					},
 					atmospheric_pressure_reduced: {
 						label: 'Reduced atmospheric pressure',
 						description:
-							'The <strong>Reduced atmospheric pressure</strong> describes the sea-level adjusted pressure, measured in hectopascals.',
+							'The <strong>reduced atmospheric pressure</strong> is the atmospheric pressure adjusted to sea level, allowing for comparable readings independent of elevation. It is measured in hectopascals (hPa).',
 						unitOnly: 'hPa'
 					},
 					atmospheric_pressure: {
-						label: 'Air pressure',
+						label: 'Atmospheric pressure',
 						description:
-							'The <strong>Air pressure</strong> describes the force exerted by the weight of air in the atmosphere, measured in hectopascals.',
+							'The <strong>atmospheric pressure</strong> measures the weight of the air column above a location, expressed in hectopascals (hPa). While it only indirectly affects heat perception, high-pressure systems often contribute to hot, stable weather conditions.',
 						unitOnly: 'hPa'
 					},
 					dew_point_max: {
 						label: 'Maximum dew point',
 						description:
-							'The <strong>Maximum dew point</strong> describes the highest temperature at which air is saturated with water vapor, measured in degrees Celsius.',
+							'The <strong>maximum dew point</strong> describes the highest temperature at which air is saturated with water vapor, measured in degrees Celsius.',
 						unitOnly: '°C'
 					},
 					dew_point_min: {
 						label: 'Minimum dew point',
 						description:
-							'The <strong>Minimum dew point</strong> describes the lowest temperature at which air is saturated with water vapor, measured in degrees Celsius.',
+							'The <strong>minimum dew point</strong> describes the lowest temperature at which air is saturated with water vapor, measured in degrees Celsius.',
 						unitOnly: '°C'
 					},
 					dew_point: {
 						label: 'Dew point',
 						description:
-							'The <strong>Dew point</strong> describes the temperature at which air is saturated with water vapor, measured in degrees Celsius.',
+							'The <strong>dew point</strong> is the temperature at which the air becomes saturated with water vapor, causing condensation – measured in degrees Celsius (°C). A high dew point signals very humid air, which hampers sweating and increases heat stress.',
 						unitOnly: '°C'
 					},
 					heat_index_max: {
 						label: 'Maximum heat index',
 						description:
-							'The <strong>Maximum heat index</strong> describes the highest perceived temperature based on air temperature and humidity.',
+							'The <strong>maximum heat index</strong> describes the highest perceived temperature based on air temperature and humidity.',
 						unitOnly: '°C'
 					},
 					heat_index_min: {
 						label: 'Minimum heat index',
 						description:
-							'The <strong>Minimum heat index</strong> describes the lowest perceived temperature based on air temperature and humidity.',
+							'The <strong>minimum heat index</strong> describes the lowest perceived temperature based on air temperature and humidity.',
 						unitOnly: '°C'
 					},
 					heat_index: {
 						label: 'Heat index',
 						description:
-							'The <strong>Heat index</strong> describes the perceived temperature based on air temperature and humidity.',
+							'The <strong>heat index</strong> combines air temperature and relative humidity to describe how hot it feels to the human body – shown in degrees Celsius (°C). It is particularly useful for assessing discomfort in humid conditions.',
 						unitOnly: '°C'
 					},
 					lightning_average_distance_max: {
-						label: 'Maximum average lightning strike distance',
+						label: 'Maximum average lightning distance',
 						description:
-							'The <strong>Maximum average lightning strike distance</strong> describes the greatest mean distance of lightning strikes from a reference point, measured in meters.',
+							'The <strong>maximum average lightning distance</strong> describes the greatest mean distance of lightning strikes from a reference point, measured in meters.',
 						unitOnly: 'm'
 					},
 					lightning_average_distance_min: {
-						label: 'Minimum average lightning strike distance',
+						label: 'Minimum average lightning distance',
 						description:
-							'The <strong>Minimum average lightning strike distance</strong> describes the smallest mean distance of lightning strikes from a reference point, measured in meters.',
+							'The <strong>minimum average lightning distance</strong> describes the smallest mean distance of lightning strikes from a reference point, measured in meters.',
 						unitOnly: 'm'
 					},
 					lightning_average_distance: {
-						label: 'Average lightning strike distance',
+						label: 'Average lightning distance',
 						description:
-							'The <strong>Average lightning strike distance</strong> describes the mean distance of lightning strikes from a reference point, measured in meters.',
+							'The <strong>average lightning distance</strong> shows the average distance of recorded lightning strikes from the selected location, measured in meters. While it does not directly affect heat perception, it can signal upcoming weather changes after a heat period.',
 						unitOnly: 'm'
 					},
 					lightning_strike_count_max: {
-						label: 'Maximum lightning strikes count',
+						label: 'Maximum number of lightning strikes',
 						description:
-							'The <strong>Maximum lightning strikes count</strong> describes the highest number of times lightning has struck within a given area and time period.',
+							'The <strong>maximum number of lightning strikes</strong> describes the highest number of times lightning has struck within a given area and time period.',
 						unitOnly: ''
 					},
 					lightning_strike_count_min: {
-						label: 'Minimum lightning strikes count',
+						label: 'Minimum number of lightning strikes',
 						description:
-							'The <strong>Minimum lightning strikes count</strong> describes the lowest number of times lightning has struck within a given area and time period.',
+							'The <strong>minimum number of lightning strikes</strong> describes the lowest number of times lightning has struck within a given area and time period.',
 						unitOnly: ''
 					},
 					lightning_strike_count: {
-						label: 'Lightning strikes count',
+						label: 'Number of lightning strikes',
 						description:
-							'The <strong>Lightning strikes count</strong> describes the number of times lightning has struck within a given area and time period.',
+							'The <strong>number of lightning strikes</strong> shows the absolute number of lightning strikes recorded in a certain time frame and area. While lightning itself does not directly influence heat perception, it can indicate strong thunderstorms following intense heat.',
 						unitOnly: ''
 					},
 					maximum_wind_speed_max: {
 						label: 'Maximum maximum wind speed',
 						description:
-							'The <strong>Maximum maximum wind speed</strong> describes the highest recorded wind speed during a specific time period.',
+							'The <strong>maximum maximum wind speed</strong> describes the highest recorded wind speed during a specific time period.',
 						unitOnly: 'm/s'
 					},
 					maximum_wind_speed_min: {
 						label: 'Minimum maximum wind speed',
 						description:
-							'The <strong>Minimum maximum wind speed</strong> describes the lowest recorded wind speed during a specific time period.',
+							'The <strong>minimum maximum wind speed</strong> describes the lowest recorded wind speed during a specific time period.',
 						unitOnly: 'm/s'
 					},
 					maximum_wind_speed: {
 						label: 'Maximum wind speed',
 						description:
-							'The <strong>Maximum wind speed</strong> describes the highest rate of air movement recorded during a specific time period.',
+							'The <strong>maximum wind speed</strong> is the highest recorded wind speed during a given time period, measured in meters per second (m/s). Higher wind speeds can reduce heat stress by enhancing cooling through evaporation.',
 						unitOnly: 'm/s'
 					},
 					mrt_max: {
-						label: 'Maximum mid-range radiation temperature',
+						label: 'Mean radiant temperature',
 						description:
-							'The <strong>Maximum mid-range radiation temperature</strong> describes the highest average temperature of surrounding surfaces that emit radiant heat.',
+							'The <strong>maximum mean radiant temperature</strong> describes the highest average temperature of surrounding surfaces that emit radiant heat.',
 						unitOnly: '°C'
 					},
 					mrt_min: {
-						label: 'Minimum mid-range radiation temperature',
+						label: 'Mean radiant temperature',
 						description:
-							'The <strong>Minimum mid-range radiation temperature</strong> describes the lowest average temperature of surrounding surfaces that emit radiant heat.',
+							'The <strong>minimum mean radiant temperature</strong> describes the lowest average temperature of surrounding surfaces that emit radiant heat.',
 						unitOnly: '°C'
 					},
 					mrt: {
-						label: 'Mid-range radiation temperature',
+						label: 'Mean radiant temperature',
 						description:
-							'The <strong>Mid-range radiation temperature</strong> describes the average temperature of surrounding surfaces that emit radiant heat.',
+							'The <strong>mean radiant temperature</strong> describes the combined effect of all thermal radiation a person is exposed to – from sunlight, heated walls, streets, and the sky – and is measured in degrees Celsius (°C).',
 						unitOnly: '°C'
 					},
 					pet_category: {
 						label: 'Physiological equivalent temperature (PET) category',
 						description:
-							'The <strong>PET category</strong> describes the classification of the physiological equivalent temperature in terms of heat stress.',
+							'The <strong>PET category</strong> reflects the air temperature at which a person would feel equally warm or cold indoors (without wind or solar radiation) as under current outdoor conditions. It accounts for temperature, humidity, wind, and radiation and is measured in stress categories for the human body (heat stress).',
 						unitOnly: ''
 					},
 					pet_max: {
 						label: 'Maximum physiological equivalent temperature (PET)',
 						description:
-							'The <strong>Maximum physiological equivalent temperature (PET)</strong> describes the highest recorded PET during a specific time period.',
+							'The <strong>maximum physiological equivalent temperature (PET)</strong> describes the highest recorded PET during a specific time period.',
 						unitOnly: '°C'
 					},
 					pet_min: {
 						label: 'Minimum physiological equivalent temperature (PET)',
 						description:
-							'The <strong>Minimum physiological equivalent temperature (PET)</strong> describes the lowest recorded PET during a specific time period.',
+							'The <strong>minimum physiological equivalent temperature (PET)</strong> describes the lowest recorded PET during a specific time period.',
 						unitOnly: '°C'
 					},
 					pet: {
 						label: 'Physiological equivalent temperature (PET)',
 						description:
-							'The <strong>Physiological equivalent temperature (PET)</strong> describes an index that represents the thermal conditions experienced by a standard person in a standard indoor setting.',
+							'The <strong>physiological equivalent temperature (PET)</strong> reflects the air temperature at which a person would feel equally warm or cold indoors (without wind or solar radiation) as under current outdoor conditions. It accounts for temperature, humidity, wind, and radiation and is measured in degrees Celsius (°C).',
 						unitOnly: '°C'
 					},
 					precipitation_sum_max: {
 						label: 'Maximum precipitation sum',
 						description:
-							'The <strong>Maximum precipitation sum</strong> describes the highest amount of water falling from the sky as rain, snow, or other forms, measured in millimeters.',
+							'The <strong>maximum precipitation sum</strong> describes the highest amount of water falling from the sky as rain, snow, or other forms, measured in millimeters.',
 						unitOnly: 'mm'
 					},
 					precipitation_sum_min: {
 						label: 'Minimum precipitation sum',
 						description:
-							'The <strong>Minimum precipitation sum</strong> describes the lowest amount of water falling from the sky as rain, snow, or other forms, measured in millimeters.',
+							'The <strong>minimum precipitation sum</strong> describes the lowest amount of water falling from the sky as rain, snow, or other forms, measured in millimeters.',
 						unitOnly: 'mm'
 					},
 					precipitation_sum: {
 						label: 'Precipitation',
 						description:
-							'The <strong>Precipitation</strong> describes the amount of water falling from the sky as rain, snow, or other forms, measured in millimeters.',
+							'The <strong>precipitation</strong> records the total amount of rain, snow, or other forms of water that fall in a given time period, measured in millimeters (mm). Rain can reduce heat stress by cooling the air and increasing cloud cover and wind.',
 						unitOnly: 'mm'
 					},
 					relative_humidity_max: {
 						label: 'Maximum relative humidity',
 						description:
-							'The <strong>Maximum relative humidity</strong> describes the highest amount of water vapor in the air compared to the maximum amount it could hold at that temperature.',
+							'The <strong>maximum relative humidity</strong> describes the highest amount of water vapor in the air compared to the maximum amount it could hold at that temperature.',
 						unitOnly: '%'
 					},
 					relative_humidity_min: {
 						label: 'Minimum relative humidity',
 						description:
-							'The <strong>Minimum relative humidity</strong> describes the lowest amount of water vapor in the air compared to the maximum amount it could hold at that temperature.',
+							'The <strong>minimum relative humidity</strong> describes the lowest amount of water vapor in the air compared to the maximum amount it could hold at that temperature.',
 						unitOnly: '%'
 					},
 					relative_humidity: {
 						label: 'Relative humidity',
 						description:
-							'The <strong>Relative humidity</strong> describes the amount of water vapor in the air compared to the maximum amount it could hold at that temperature.',
+							'The <strong>relative humidity</strong> shows how much moisture is in the air compared to the maximum amount it could hold at the current temperature – expressed as a percentage (%). High relative humidity reduces the evaporation of sweat, making the heat feel more intense. ',
 						unitOnly: '%'
 					},
 					solar_radiation_max: {
 						label: 'Maximum solar radiation',
 						description:
-							'The <strong>Maximum solar radiation</strong> describes the highest amount of energy received from the sun per unit area, measured in watts per square meter.',
+							'The <strong>maximum solar radiation</strong> describes the highest amount of energy received from the sun per unit area, measured in watts per square meter.',
 						unitOnly: 'W/m²'
 					},
 					solar_radiation_min: {
 						label: 'Minimum solar radiation',
 						description:
-							'The <strong>Minimum solar radiation</strong> describes the lowest amount of energy received from the sun per unit area, measured in watts per square meter.',
+							'The <strong>minimum solar radiation</strong> describes the lowest amount of energy received from the sun per unit area, measured in watts per square meter.',
 						unitOnly: 'W/m²'
 					},
 					solar_radiation: {
 						label: 'Solar radiation',
 						description:
-							'The <strong>Solar radiation</strong> describes the amount of energy received from the sun per unit area, measured in watts per square meter.',
+							'The <strong>solar radiation</strong> measures the sun’s energy reaching a given surface, expressed in watts per square meter (W/m²). It includes visible light, ultraviolet (UV), and infrared radiation and is the main source of heating in the environment.',
 						unitOnly: 'W/m²'
 					},
 
 					vapor_pressure_max: {
 						label: 'Maximum vapor pressure',
 						description:
-							'The <strong>Maximum vapor pressure</strong> describes the highest pressure exerted by water vapor in the air, measured in hectopascals.',
+							'The <strong>maximum vapor pressure</strong> describes the highest pressure exerted by water vapor in the air, measured in hectopascals.',
 						unitOnly: 'hPa'
 					},
 					vapor_pressure_min: {
 						label: 'Minimum vapor pressure',
 						description:
-							'The <strong>Minimum vapor pressure</strong> describes the lowest pressure exerted by water vapor in the air, measured in hectopascals.',
+							'The <strong>minimum vapor pressure</strong> describes the lowest pressure exerted by water vapor in the air, measured in hectopascals.',
 						unitOnly: 'hPa'
 					},
 					vapor_pressure: {
 						label: 'Vapor pressure',
 						description:
-							'The <strong>Vapor pressure</strong> describes the pressure exerted by water vapor in the air, measured in hectopascals.',
+							'The <strong>vapor pressure</strong> represents the portion of the total air pressure exerted by the water vapor in the air, measured in hectopascals (hPa). High vapor pressure signals high humidity, which makes it harder for sweat to evaporate, increasing heat stress.',
 						unitOnly: 'hPa'
 					},
 					wet_bulb_temperature_max: {
 						label: 'Maximum wet bulb temperature',
 						description:
-							'The <strong>Maximum wet bulb temperature</strong> describes the highest temperature a thermometer would read if it were covered with a wet cloth and exposed to the air.',
+							'The <strong>maximum wet bulb temperature</strong> describes the highest temperature a thermometer would read if it were covered with a wet cloth and exposed to the air.',
 						unitOnly: '°C'
 					},
 					wet_bulb_temperature_min: {
 						label: 'Minimum wet bulb temperature',
 						description:
-							'The <strong>Minimum wet bulb temperature</strong> describes the lowest temperature a thermometer would read if it were covered with a wet cloth and exposed to the air.',
+							'The <strong>minimum wet bulb temperature</strong> describes the lowest temperature a thermometer would read if it were covered with a wet cloth and exposed to the air.',
 						unitOnly: '°C'
 					},
 					wet_bulb_temperature: {
 						label: 'Wet bulb temperature',
 						description:
-							'The <strong>Wet bulb temperature</strong> describes the temperature a thermometer would read if it were covered with a wet cloth and exposed to the air.',
+							'The <strong>wet bulb temperature</strong> indicates the lowest temperature achievable through evaporative cooling under given conditions. It is an important measure for how efficiently the body can cool itself through sweating.',
 						unitOnly: '°C'
 					},
 					wind_direction_max: {
 						label: 'Maximum wind direction',
 						description:
-							'The <strong>Maximum wind direction</strong> describes the highest recorded direction from which the wind is blowing, measured in degrees.',
+							'The <strong>maximum wind direction</strong> describes the highest recorded direction from which the wind is blowing, measured in degrees.',
 						unitOnly: '°'
 					},
 					wind_direction_min: {
 						label: 'Minimum wind direction',
 						description:
-							'The <strong>Minimum wind direction</strong> describes the lowest recorded direction from which the wind is blowing, measured in degrees.',
+							'The <strong>minimum wind direction</strong> describes the lowest recorded direction from which the wind is blowing, measured in degrees.',
 						unitOnly: '°'
 					},
 					wind_direction: {
 						label: 'Wind direction',
 						description:
-							'The <strong>Wind direction</strong> describes the direction from which the wind is blowing, measured in degrees.',
+							'The <strong>wind direction</strong> indicates where the wind is coming from, measured in degrees (°) – with 0° representing north, 90° east, 180° south, and 270° west. Wind direction can influence whether warmer or cooler air masses are moved into an area.',
 						unitOnly: '°'
 					},
 					wind_speed_max: {
 						label: 'Maximum wind speed',
 						description:
-							'The <strong>Maximum wind speed</strong> describes the highest rate of air movement recorded during a specific time period.',
+							'The <strong>maximum wind speed</strong> describes the highest rate of air movement recorded during a specific time period.',
 						unitOnly: 'm/s'
 					},
 					wind_speed_min: {
 						label: 'Minimum wind speed',
 						description:
-							'The <strong>Minimum wind speed</strong> describes the lowest rate of air movement recorded during a specific time period.',
+							'The <strong>minimum wind speed</strong> describes the lowest rate of air movement recorded during a specific time period.',
 						unitOnly: 'm/s'
 					},
 					wind_speed: {
 						label: 'Wind speed',
 						description:
-							'The <strong>Wind speed</strong> describes the rate at which air is moving, measured in meters per second.',
+							'The <strong>wind speed</strong> describes how fast the air is moving, measured in meters per second (m/s). Higher wind speeds can help cool the body by improving sweat evaporation.',
 						unitOnly: 'm/s'
 					}
 				}
@@ -544,9 +548,9 @@ const en = {
 				day: 'Per day',
 				hour: 'Per hour',
 				range: 'Time range',
-				infoTitle: 'How does the time range work?',
+				infoTitle: 'How does the time selection work?',
 				infoDescription:
-					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.'
+					'You can choose how the climate data is displayed in the chart by using the buttons "per hour", "per day", and "time range":<ul class="flex flex-col gap-1 py-2"><li><strong>Per hour:</strong> Displays hourly values for selected days.</li></li><strong>Per day:</strong> Displays daily minimum, average, or maximum values.</li></li><strong>Time range:</strong> Displays the trend between two freely selectable points in time.<li></ul>Only one chart is shown at a time and automatically adjusts to your selection.'
 			},
 			histogram: {
 				title: 'Overview of all stations',
@@ -561,52 +565,59 @@ const en = {
 			}
 		},
 		stations: {
-			title: 'How do we measure thermal comfort?',
+			title: 'How do we measure urban heat?',
 			titleTable: 'Overview of all stations',
 			intro: [
-				'Below you will find technical information about the monitoring stations, as well as a summary of the criteria for selecting their locations.'
+				'Learn more about the technical equipment and site selection of the measurement stations. Two types of stations are used to collect data: basic stations and advanced stations.',
+				'In the table to the right, you will find more detailed information about each station location. You can also download all measurement data recorded since the beginning of 2024 for each station. Use the search field at the top right to quickly find entries, such as station names or locations.',
+				'Further details about the two station types and the criteria for selecting station locations are provided in the sections below.'
 			],
 			stationsDescriptions: {
-				supportedIndicatorsLabel: 'Supported indicators',
+				measuredIndicatorsLabel: 'Supported indicators',
+				calculatedIndicatorsLabel: 'Calculated indicators',
 				weather: {
-					title: 'Weather station with Blackglobe sensor',
+					title: 'Advanced Stations',
 					description:
-						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
-					supportedIndicators: [
-						'absolute_humidity',
+						'The more extensively equipped stations (DL-ATM41 and Black-Globe Sensor by Campbell Scientific) measure:',
+					calculatedDescription:
+						'A total of 25 advanced stations have been installed. From these measurements, additional important indices can be derived.',
+					measuredIndicators: [
 						'air_temperature',
-						'atmospheric_pressure_reduced',
 						'atmospheric_pressure',
-						'dew_point',
-						'heat_index',
 						'lightning_average_distance',
 						'lightning_strike_count',
 						'maximum_wind_speed',
 						'mrt',
-						'pet_category',
-						'pet',
 						'precipitation_sum',
 						'relative_humidity',
 						'solar_radiation',
-						'specific_humidity',
-						'utci_category',
-						'utci',
 						'vapor_pressure',
-						'wet_bulb_temperature',
 						'wind_direction',
 						'wind_speed'
+					],
+					calculatedIndicators: [
+						'absolute_humidity',
+						'atmospheric_pressure_reduced',
+						'dew_point',
+						'heat_index',
+						'specific_humidity',
+						'pet_category',
+						'pet',
+						'utci_category',
+						'utci',
+						'wet_bulb_temperature'
 					]
 				},
 				airTemperatureAndHumidity: {
-					title: 'Air temperature and humidity sensor',
-					description:
-						'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
-					supportedIndicators: [
+					title: 'Basic Stations',
+					description: 'These compact stations (DL-SHT35 by Decentlab) measure:',
+					calculatedDescription:
+						'A total of 56 basic stations have been installed. From the collected data, additional climate indicators can be calculated.',
+					measuredIndicators: ['air_temperature', 'relative_humidity'],
+					calculatedIndicators: [
 						'absolute_humidity',
-						'air_temperature',
 						'dew_point',
 						'heat_index',
-						'relative_humidity',
 						'specific_humidity',
 						'wet_bulb_temperature'
 					]
@@ -631,8 +642,8 @@ const en = {
 				},
 				cells: {
 					stationTypes: {
-						biomet: 'Weather Station',
-						temprh: 'Temperature'
+						biomet: 'Advanced Station',
+						temprh: 'Basic Station'
 					},
 					status: {
 						active: 'active',
@@ -647,15 +658,16 @@ const en = {
 			}
 		},
 		about: {
-			title: 'About this project',
+			title: 'About this dashboard',
 			description:
-				"This dashboard was developed as part of the Data2Resilience project, a joint research project of the Ruhr University Bochum and the Leibniz University Hannover. The project aims to improve Dortmund's resilience to climate change by using innovative technologies and citizen participation to minimize the impact of extreme heat on urban life. Data2Resilience is led by Prof. Dr. Benjamin Bechtel and Prof. Dr. Christian Albert and is funded by the <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> and <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a>.",
+				"This interactive platform was developed as part of the Data2Resilience project – a joint research initiative by Ruhr University Bochum and Leibniz University Hannover. The goal is to better monitor heat stress in Dortmund and strengthen the city’s resilience to the impacts of climate change. The project combines scientific measurements, innovative technologies, and active citizen engagement. Data2Resilience is funded by the <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> with support from <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a>.",
+
 			mainLink: {
 				url: `https://dortmund.de/hitze`,
 				label: 'dortmund.de/hitze'
 			},
 			contactLink: {
-				url: `mailto:info@data2resilience.org`,
+				url: `mailto:climate@rub.de`,
 				label: 'Write us an email'
 			},
 			links: [
@@ -690,9 +702,9 @@ const en = {
 	},
 	indicators: {
 		utci: {
-			title: 'Universal Thermic Climate Index (UTCI)',
+			title: 'Universal thermal climate index (UTCI)',
 			description:
-				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.',
+				'The UTCI describes how warm the weather feels to the human body. It takes into account air temperature, wind speed, solar radiation, and humidity. Results are expressed in stress levels for the human body (heat stress category) or as a perceived temperature in degrees Celsius (temperature in °C). Calculations assume an average person wearing seasonally appropriate clothing while walking outdoors. ',
 			types: {
 				byClass: {
 					title: 'By heat stress category',
@@ -709,12 +721,12 @@ const en = {
 		relative_humidity: {
 			title: 'Relative humidity',
 			description:
-				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
+				'Shows how much moisture is in the air compared to the maximum amount it could hold at the current temperature – expressed as a percentage (%). High relative humidity reduces the evaporation of sweat, making the heat feel more intense. '
 		},
 		air_temperature: {
 			title: 'Air temperature',
 			description:
-				'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
+				'Shows the actual temperature of the air, in degrees Celsius (°C). It is a key factor in perceived heat stress – the higher the air temperature, the greater the burden on the human body.'
 		}
 	},
 	map: {
@@ -735,21 +747,21 @@ const en = {
 			ariaLabel: 'Map layer selection',
 			districts: 'City districts',
 			districtsTooltip: {
-				title: 'City districts',
+				title: 'What are city districts?',
 				description:
-					'The city districts are the individual districts of the city of Dortmund. They are usually smaller than the city districts and action areas.'
+					'City districts are official administrative divisions of Dortmund, each with its own local council and responsibilities.'
 			},
-			lors: 'City districts<br/>& action areas',
+			lors: 'Neighborhoods<br/>& action areas',
 			lorsTooltip: {
-				title: 'City districts & action areas',
+				title: 'What are neighborhoods and action areas?',
 				description:
-					'The city districts are the individual buildings of the city of Dortmund. The action areas are the public spaces operated by the city administration.'
+					"Neighborhoods are smaller units within the city districts. Action areas highlight zones with special social development needs, defined within Dortmund´s <a class='focusable transition-opacity hover-hover:hover:opacity-50 underline decoration-primary underline-offset-4' href='https://www.dortmund.de/themen/soziales/aktionsplan-soziale-stadt/' target='_blank' rel='noopener noreferrer'>Social City Action Plan</a>."
 			},
 			satellite: 'Digital Orthophotos',
 			satelliteTooltip: {
-				title: 'Digital Orthophotos',
+				title: 'What are digital orthophotos?',
 				description:
-					'The digital orthophotos are a digital representation of the city of Dortmund. They show the city as a large, flat, black surface operated by digitalization of the city.'
+					'Digital orthophotos are corrected aerial photographs that serve as a true-to-scale map, providing a realistic bird´s-eye view of Dortmund.'
 			}
 		},
 		layersTooltips: {
@@ -782,7 +794,7 @@ const en = {
 						thermalComfort: 'Very cold',
 						heatStress: 'Very strong cold stress'
 					},
-					description: 'Life-threatening hypothermia, severe frostbite possible within minutes.',
+					description: 'High risk of frostbite, possible hypothermia.',
 					ranges: {
 						pet: 'below 4 °C',
 						utci: '-40 to -27 °C'
@@ -793,7 +805,8 @@ const en = {
 						thermalComfort: 'Cold',
 						heatStress: 'Strong cold stress'
 					},
-					description: 'Risk of frostbite for exposed skin areas, increased risk of cold injuries.',
+					description:
+						'Risk of frostbite for exposed skin, increased risk of cold-related injuries.',
 					ranges: {
 						pet: '4 to 8 °C',
 						utci: '-27 to -13 °C'
@@ -815,7 +828,7 @@ const en = {
 						thermalComfort: 'Slightly cool',
 						heatStress: 'Slight cold stress'
 					},
-					description: 'Mild discomfort, temporary shivering.',
+					description: 'Minor discomfort, temporary shivering.',
 					ranges: {
 						pet: '13 to 18 °C',
 						utci: '0 to 9 °C'
@@ -837,7 +850,7 @@ const en = {
 						thermalComfort: 'Slightly warm',
 						heatStress: 'Moderate heat stress'
 					},
-					description: 'Mild discomfort, increased sweating.',
+					description: 'Minor discomfort, increased sweating.',
 					ranges: {
 						pet: '23 to 29 °C',
 						utci: '26 to 32 °C'
@@ -848,7 +861,8 @@ const en = {
 						thermalComfort: 'Warm',
 						heatStress: 'Strong heat stress'
 					},
-					description: 'Increased cardiovascular strain, risk of dehydration and exhaustion.',
+					description:
+						'Increased strain on the cardiovascular system, risk of dehydration and exhaustion.',
 					ranges: {
 						pet: '29 to 35 °C',
 						utci: '32 to 38 °C'
@@ -872,7 +886,7 @@ const en = {
 						heatStress: 'Extreme heat stress'
 					},
 					description:
-						'Life-threatening heat stroke, acute cardiovascular strain, high risk of severe heat-related illnesses and death.',
+						'Life-threatening heat stroke possible, acute strain on the cardiovascular system, high risk of severe heat-related illnesses and death.',
 					ranges: {
 						pet: 'above 41 °C',
 						utci: 'above 46 °C'

@@ -23,19 +23,19 @@ type RootTranslation = {
 	 */
 	author: string
 	/**
-	 * D​a​s​h​b​o​a​r​d​ ​f​ü​r​ ​T​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​ ​i​n​ ​D​o​r​t​m​u​n​d
+	 * D​a​s​h​b​o​a​r​d​ ​z​u​r​ ​Ü​b​e​r​w​a​c​h​u​n​g​ ​u​r​b​a​n​e​r​ ​H​i​t​z​e​ ​i​n​ ​D​o​r​t​m​u​n​d
 	 */
 	siteSubtitle: string
 	/**
-	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​|​ ​D​a​s​h​b​o​a​r​d​ ​f​ü​r​ ​T​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​ ​i​n​ ​D​o​r​t​m​u​n​d
+	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​|​ ​D​a​s​h​b​o​a​r​d​ ​z​u​r​ ​Ü​b​e​r​w​a​c​h​u​n​g​ ​u​r​b​a​n​e​r​ ​H​i​t​z​e​ ​i​n​ ​D​o​r​t​m​u​n​d
 	 */
 	siteNameLong: string
 	/**
-	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​i​s​t​ ​e​i​n​ ​P​r​o​j​e​k​t​,​ ​d​a​s​ ​d​a​r​a​u​f​ ​a​b​z​i​e​l​t​,​ ​d​i​e​ ​u​r​b​a​n​e​ ​W​i​d​e​r​s​t​a​n​d​s​f​ä​h​i​g​k​e​i​t​ ​g​e​g​e​n​ ​e​x​t​r​e​m​e​ ​H​i​t​z​e​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​d​u​r​c​h​ ​i​n​n​o​v​a​t​i​v​e​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​ ​M​e​s​s​n​e​t​z​e​ ​u​n​d​ ​b​ü​r​g​e​r​s​c​h​a​f​t​l​i​c​h​e​s​ ​E​n​g​a​g​e​m​e​n​t​ ​z​u​ ​v​e​r​b​e​s​s​e​r​n​.​ ​E​r​f​a​h​r​e​n​ ​S​i​e​ ​m​e​h​r​ ​ü​b​e​r​ ​u​n​s​e​r​e​ ​I​n​i​t​i​a​t​i​v​e​n​ ​u​n​d​ ​E​r​g​e​b​n​i​s​s​e​.
+	 * N​a​h​e​z​u​ ​L​i​v​e​-​D​a​t​e​n​ ​z​u​r​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​a​u​s​ ​F​o​r​s​c​h​u​n​g​s​p​r​o​j​e​k​t​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​:​ ​I​n​t​e​r​a​k​t​i​v​e​ ​K​a​r​t​e​n​ ​u​n​d​ ​D​i​a​g​r​a​m​m​e​ ​z​e​i​g​e​n​ ​a​k​t​u​e​l​l​e​ ​K​l​i​m​a​w​e​r​t​e​ ​w​i​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​,​ ​S​t​r​a​h​l​u​n​g​,​ ​W​i​n​d​ ​u​n​d​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​ ​i​n​ ​v​e​r​s​c​h​i​e​d​e​n​e​n​ ​S​t​a​d​t​t​e​i​l​e​n​,​ ​v​e​r​s​t​ä​n​d​l​i​c​h​ ​e​r​k​l​ä​r​t​ ​u​n​d​ ​j​e​d​e​r​z​e​i​t​ ​a​b​r​u​f​b​a​r​.
 	 */
 	siteDescription: string
 	/**
-	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​,​ ​u​r​b​a​n​e​ ​R​e​s​i​l​i​e​n​z​,​ ​e​x​t​r​e​m​e​ ​H​i​t​z​e​,​ ​D​o​r​t​m​u​n​d​,​ ​K​l​i​m​a​w​a​n​d​e​l​,​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​ ​M​e​s​s​u​n​g​,​ ​g​e​s​e​l​l​s​c​h​a​f​t​l​i​c​h​e​s​ ​E​n​g​a​g​e​m​e​n​t​,​ ​H​i​t​z​e​r​e​s​i​l​i​e​n​z​,​ ​S​t​a​d​t​k​l​i​m​a​,​ ​K​l​i​m​a​a​n​p​a​s​s​u​n​g
+	 * D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​,​ ​u​r​b​a​n​e​ ​R​e​s​i​l​i​e​n​z​,​ ​e​x​t​r​e​m​e​ ​H​i​t​z​e​,​ ​D​o​r​t​m​u​n​d​,​ ​K​l​i​m​a​w​a​n​d​e​l​,​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​ ​M​e​s​s​u​n​g​,​ ​H​i​t​z​e​r​e​s​i​l​i​e​n​z​,​ ​S​t​a​d​t​k​l​i​m​a​,​ ​K​l​i​m​a​a​n​p​a​s​s​u​n​g​,​ ​W​e​t​t​e​r​d​a​t​e​n​,​ ​U​m​w​e​l​t​m​o​n​i​t​o​r​i​n​g​,​ ​L​o​R​a​W​A​N​,​ ​S​m​a​r​t​ ​C​i​t​y​ ​D​o​r​t​m​u​n​d
 	 */
 	keywords: string
 	/**
@@ -163,7 +163,7 @@ type RootTranslation = {
 			noResults: string
 		}
 		/**
-		 * C​h​a​r​t​ ​e​x​p​o​r​t​i​e​r​e​n
+		 * D​i​a​g​r​a​m​m​ ​e​x​p​o​r​t​i​e​r​e​n
 		 */
 		chartExportButtonLabel: string
 	}
@@ -183,14 +183,18 @@ type RootTranslation = {
 	}
 	welcome: {
 		/**
-		 * H​e​r​z​l​i​c​h​ ​w​i​l​l​k​o​m​m​e​n
+		 * H​e​r​z​l​i​c​h​ ​W​i​l​l​k​o​m​m​e​n​!
 		 */
 		title: string
 		text: {
 			/**
-			 * D​a​s​ ​P​r​o​j​e​k​t​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​n​u​t​z​t​ ​e​i​n​ ​n​e​u​e​s​ ​b​i​o​m​e​t​e​o​r​o​l​o​g​i​s​c​h​e​s​ ​M​e​s​s​n​e​t​z​w​e​r​k​ ​z​u​r​ ​B​e​o​b​a​c​h​t​u​n​g​ ​u​n​d​ ​V​o​r​h​e​r​s​a​g​e​ ​v​o​n​ ​H​i​t​z​e​ ​u​n​d​ ​b​e​z​i​e​h​t​ ​d​i​e​ ​B​ü​r​g​e​r​ ​f​r​ü​h​z​e​i​t​i​g​ ​e​i​n​,​ ​u​m​ ​H​e​r​a​u​s​f​o​r​d​e​r​u​n​g​e​n​ ​u​n​d​ ​B​e​d​ü​r​f​n​i​s​s​e​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​z​u​ ​a​d​r​e​s​s​i​e​r​e​n​.​ ​D​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d​ ​e​r​m​ö​g​l​i​c​h​t​ ​I​h​n​e​n​,​ ​E​c​h​t​z​e​i​t​d​a​t​e​n​ ​z​u​m​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​ ​i​n​ ​d​e​r​ ​S​t​a​d​t​ ​z​u​ ​e​r​k​u​n​d​e​n​.
+			 * D​i​e​s​e​ ​i​n​t​e​r​a​k​t​i​v​e​ ​P​l​a​t​t​f​o​r​m​ ​(​D​a​s​h​b​o​a​r​d​)​ ​z​e​i​g​t​ ​n​a​h​e​z​u​ ​i​n​ ​E​c​h​t​z​e​i​t​,​ ​w​i​e​ ​s​t​a​r​k​ ​e​i​n​z​e​l​n​e​ ​S​t​a​n​d​o​r​t​e​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​v​o​n​ ​H​i​t​z​e​ ​b​e​t​r​o​f​f​e​n​ ​s​i​n​d​.​ ​G​r​u​n​d​l​a​g​e​ ​i​s​t​ ​e​i​n​ ​f​l​ä​c​h​e​n​d​e​c​k​e​n​d​e​s​ ​M​e​s​s​n​e​t​z​,​ ​d​a​s​ ​h​i​t​z​e​r​e​l​e​v​a​n​t​e​ ​W​e​t​t​e​r​d​a​t​e​n​ ​e​r​f​a​s​s​t​.
 			 */
 			'0': string
+			/**
+			 * Ü​b​e​r​s​i​c​h​t​l​i​c​h​e​ ​K​a​r​t​e​n​ ​u​n​d​ ​D​i​a​g​r​a​m​m​e​ ​v​e​r​a​n​s​c​h​a​u​l​i​c​h​e​n​ ​d​i​e​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​–​ ​f​ü​r​ ​a​l​l​e​,​ ​d​i​e​ ​s​i​c​h​ ​a​n​ ​h​o​h​e​ ​T​e​m​p​e​r​a​t​u​r​e​n​ ​a​n​p​a​s​s​e​n​,​ ​D​o​r​t​m​u​n​d​ ​k​l​i​m​a​r​e​s​i​l​i​e​n​t​ ​g​e​s​t​a​l​t​e​n​ ​o​d​e​r​ ​s​i​c​h​ ​e​i​n​f​a​c​h​ ​n​u​r​ ​i​n​f​o​r​m​i​e​r​e​n​ ​m​ö​c​h​t​e​n​.
+			 */
+			'1': string
 		}
 		buttons: {
 			/**
@@ -343,13 +347,17 @@ type RootTranslation = {
 			title: string
 			intro: {
 				/**
-				 * D​e​r​ ​H​i​t​z​e​a​t​l​a​s​ ​f​ü​r​ ​D​o​r​t​m​u​n​d​ ​b​i​e​t​e​t​ ​e​i​n​e​ ​Ü​b​e​r​s​i​c​h​t​ ​z​u​r​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​i​n​ ​d​e​r​ ​S​t​a​d​t​.​ ​D​i​e​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​w​i​r​d​ ​d​u​r​c​h​ ​d​r​e​i​ ​K​a​r​t​e​n​ ​a​b​g​e​b​i​l​d​e​t​:​ ​d​e​n​ ​u​n​i​v​e​r​s​e​l​l​e​n​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​ ​z​u​r​ ​E​i​n​s​c​h​ä​t​z​u​n​g​ ​d​e​s​ ​W​ä​r​m​e​e​m​p​f​i​n​d​e​n​s​ ​v​o​n​ ​B​ü​r​g​e​r​I​n​n​e​n​ ​s​o​w​i​e​ ​d​i​e​ ​r​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​u​n​d​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​a​l​s​ ​z​e​n​t​r​a​l​e​ ​E​i​n​f​l​u​s​s​f​a​k​t​o​r​e​n​.
+				 * D​e​r​ ​H​i​t​z​e​a​t​l​a​s​ ​g​i​b​t​ ​e​i​n​e​n​ ​f​l​ä​c​h​e​n​d​e​c​k​e​n​d​e​n​ ​Ü​b​e​r​b​l​i​c​k​ ​z​u​r​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​i​n​ ​g​a​n​z​ ​D​o​r​t​m​u​n​d​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​z​w​i​s​c​h​e​n​ ​d​r​e​i​ ​K​l​i​m​a​g​r​ö​ß​e​n​ ​w​ä​h​l​e​n​:​ ​d​e​m​ ​u​n​i​v​e​r​s​e​l​l​e​n​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​,​ ​r​e​l​a​t​i​v​e​r​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​u​n​d​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​.
 				 */
 				'0': string
 				/**
-				 * K​a​r​t​e​n​ ​b​a​s​i​e​r​e​n​ ​a​u​f​ ​m​o​d​e​l​l​i​e​r​t​e​n​ ​B​e​r​e​c​h​n​u​n​g​e​n​,​ ​d​i​e​ ​a​u​s​ ​S​t​a​t​i​o​n​s​m​e​s​s​u​n​g​e​n​ ​a​b​g​e​l​e​i​t​e​t​ ​s​i​n​d​.​ ​D​i​e​ ​m​o​d​e​l​l​i​e​r​t​e​n​ ​K​a​r​t​e​n​ ​s​i​n​d​ ​w​e​n​i​g​e​r​ ​g​e​n​a​u​ ​a​l​s​ ​d​i​e​ ​M​e​s​s​d​a​t​e​n​ ​u​n​d​ ​s​o​l​l​t​e​n​ ​n​u​r​ ​a​l​s​ ​A​u​s​g​a​n​g​s​p​u​n​k​t​ ​v​e​r​w​e​n​d​e​t​ ​w​e​r​d​e​n​.​ ​F​ü​r​ ​d​e​t​a​i​l​l​i​e​r​t​e​ ​A​n​a​l​y​s​e​n​ ​v​e​r​l​a​s​s​e​n​ ​S​i​e​ ​s​i​c​h​ ​b​i​t​t​e​ ​a​u​f​ ​d​i​e​ ​S​t​a​t​i​o​n​s​m​e​s​s​d​a​t​e​n​.
+				 * B​e​i​m​ ​U​T​C​I​ ​l​ä​s​s​t​ ​s​i​c​h​ ​z​w​i​s​c​h​e​n​ ​e​i​n​e​r​ ​g​e​s​u​n​d​h​e​i​t​s​b​e​z​o​g​e​n​e​n​ ​B​e​l​a​s​t​u​n​g​s​k​a​r​t​e​ ​(​H​i​t​z​e​s​t​r​e​s​s​k​a​t​e​g​o​r​i​e​n​)​ ​u​n​d​ ​e​i​n​e​r​ ​T​e​m​p​e​r​a​t​u​r​a​n​z​e​i​g​e​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​ ​(​°​C​)​ ​u​m​s​c​h​a​l​t​e​n​.​ ​F​a​r​b​s​k​a​l​a​ ​u​n​d​ ​L​e​g​e​n​d​e​ ​h​e​l​f​e​n​ ​b​e​i​ ​d​e​r​ ​E​i​n​o​r​d​n​u​n​g​.
 				 */
 				'1': string
+				/**
+				 * D​i​e​ ​K​a​r​t​e​n​ ​b​a​s​i​e​r​e​n​ ​a​u​f​ ​m​o​d​e​l​l​i​e​r​t​e​n​ ​B​e​r​e​c​h​n​u​n​g​e​n​,​ ​d​i​e​ ​a​u​s​ ​S​t​a​t​i​o​n​s​m​e​s​s​u​n​g​e​n​ ​a​b​g​e​l​e​i​t​e​t​ ​s​i​n​d​.​ ​D​a​b​e​i​ ​w​e​r​d​e​n​ ​d​i​e​ ​j​e​w​e​i​l​s​ ​a​k​t​u​e​l​l​s​t​e​n​ ​v​e​r​f​ü​g​b​a​r​e​n​ ​W​e​r​t​e​ ​i​n​n​e​r​h​a​l​b​ ​e​i​n​e​s​ ​Z​e​i​t​f​e​n​s​t​e​r​s​ ​v​o​n​ ​v​i​e​r​ ​S​t​u​n​d​e​n​ ​b​e​r​ü​c​k​s​i​c​h​t​i​g​t​.​ ​F​ü​r​ ​g​e​n​a​u​e​ ​A​n​a​l​y​s​e​n​ ​s​o​l​l​t​e​n​ ​d​i​e​ ​M​e​s​s​w​e​r​t​e​ ​h​e​r​a​n​g​e​z​o​g​e​n​ ​w​e​r​d​e​n​.
+				 */
+				'2': string
 			}
 			/**
 			 * D​a​t​e​n​ ​n​u​r​ ​v​e​r​f​ü​g​b​a​r​ ​i​m​ ​Z​e​i​t​r​a​u​m​ ​v​o​m​ ​{​s​t​a​r​t​D​a​t​e​}​ ​b​i​s​ ​{​e​n​d​D​a​t​e​}​.
@@ -399,7 +407,7 @@ type RootTranslation = {
 			 */
 			singleDateAlertDescriptionOldDataDays: RequiredParams<'dist'>
 			/**
-			 * W​ä​h​l​e​ ​e​i​n​e​n​ ​I​n​d​i​k​a​t​o​r​,​ ​u​m​ ​d​i​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​D​a​t​e​n​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​z​u​ ​ä​n​d​e​r​n​.
+			 * W​ä​h​l​e​ ​e​i​n​e​ ​K​l​i​m​a​g​r​ö​ß​e​,​ ​u​m​ ​d​i​e​ ​a​n​g​e​z​e​i​g​t​e​n​ ​D​a​t​e​n​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​z​u​ ​ä​n​d​e​r​n​.
 			 */
 			indicatorsNavAriaLabel: string
 		}
@@ -410,9 +418,17 @@ type RootTranslation = {
 			title: string
 			intro: {
 				/**
-				 * D​i​e​ ​M​e​s​s​w​e​r​t​e​ ​z​e​i​g​e​n​ ​W​e​t​t​e​r​d​a​t​e​n​ ​a​u​s​ ​v​e​r​s​c​h​i​e​d​e​n​e​n​ ​T​e​i​l​e​n​ ​D​o​r​t​m​u​n​d​s​,​ ​d​i​e​ ​d​u​r​c​h​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​e​r​m​i​t​t​e​l​t​ ​w​e​r​d​e​n​.​ ​D​i​e​s​e​ ​D​a​t​e​n​,​ ​w​i​e​ ​z​.​ ​B​.​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​u​n​d​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​,​ ​h​e​l​f​e​n​ ​d​a​b​e​i​,​ ​d​i​e​ ​a​k​t​u​e​l​l​e​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​i​n​ ​d​e​r​ ​S​t​a​d​t​ ​z​u​ ​v​e​r​s​t​e​h​e​n​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​d​i​e​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​a​l​s​ ​P​u​n​k​t​e​ ​i​n​ ​d​e​r​ ​K​a​r​t​e​ ​s​e​h​e​n​ ​u​n​d​ ​a​k​t​u​e​l​l​e​ ​s​o​w​i​e​ ​v​e​r​g​a​n​g​e​n​e​ ​W​e​r​t​e​ ​v​e​r​f​o​l​g​e​n​.
+				 * I​n​ ​v​e​r​s​c​h​i​e​d​e​n​e​n​ ​T​e​i​l​e​n​ ​D​o​r​t​m​u​n​d​s​ ​e​r​f​a​s​s​e​n​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​k​o​n​t​i​n​u​i​e​r​l​i​c​h​ ​W​e​t​t​e​r​d​a​t​e​n​ ​w​i​e​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​,​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​u​n​d​ ​S​t​r​a​h​l​u​n​g​.​ ​D​i​e​s​e​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​h​e​l​f​e​n​,​ ​d​i​e​ ​a​k​t​u​e​l​l​e​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​b​e​s​s​e​r​ ​z​u​ ​v​e​r​s​t​e​h​e​n​.
 				 */
 				'0': string
+				/**
+				 * D​i​e​ ​S​t​a​t​i​o​n​e​n​ ​s​i​n​d​ ​a​l​s​ ​P​u​n​k​t​e​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​ ​d​a​r​g​e​s​t​e​l​l​t​.​ ​S​i​e​ ​k​ö​n​n​e​n​ ​e​i​n​z​e​l​n​e​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​a​u​s​w​ä​h​l​e​n​ ​s​o​w​i​e​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​K​l​i​m​a​g​r​ö​ß​e​n​ ​u​n​d​ ​Z​e​i​t​r​ä​u​m​e​ ​e​i​n​s​t​e​l​l​e​n​.​ ​D​i​e​ ​z​u​g​e​h​ö​r​i​g​e​n​ ​D​i​a​g​r​a​m​m​e​ ​e​r​m​ö​g​l​i​c​h​e​n​ ​e​i​n​e​n​ ​V​e​r​g​l​e​i​c​h​ ​z​w​i​s​c​h​e​n​ ​O​r​t​e​n​ ​u​n​d​ ​Z​e​i​t​s​p​a​n​n​e​n​.
+				 */
+				'1': string
+				/**
+				 * N​u​t​z​e​n​ ​S​i​e​ ​d​i​e​ ​i​n​t​e​r​a​k​t​i​v​e​ ​K​a​r​t​e​ ​r​e​c​h​t​s​ ​z​u​r​ ​O​r​i​e​n​t​i​e​r​u​n​g​ ​u​n​d​ ​b​l​e​n​d​e​n​ ​S​i​e​ ​z​u​s​ä​t​z​l​i​c​h​e​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​w​i​e​ ​L​u​f​t​b​i​l​d​e​r​ ​o​d​e​r​ ​G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n​ ​e​i​n​.
+				 */
+				'2': string
 			}
 			/**
 			 * K​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​i​e​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​K​o​n​f​i​g​u​r​a​t​i​o​n​ ​v​e​r​f​ü​g​b​a​r
@@ -427,40 +443,40 @@ type RootTranslation = {
 			 */
 			noStationsSelected: string
 			/**
-			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​k​e​i​n​e​ ​D​a​t​e​n​.
+			 * F​ü​r​ ​d​i​e​ ​g​e​w​ä​h​l​t​e​ ​K​l​i​m​a​g​r​ö​ß​e​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​k​e​i​n​e​ ​D​a​t​e​n​.
 			 * @param {string} stations
 			 * @param {string} unit
 			 */
 			someUnsupportedStations: RequiredParams<'stations' | 'unit'>
 			/**
-			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​e​r​h​e​b​t​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
+			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​e​r​h​e​b​t​ ​D​a​t​e​n​ ​f​ü​r​ ​d​i​e​ ​K​l​i​m​a​g​r​ö​ß​e​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
 			 * @param {string} unit
 			 */
 			allUnsupportedStations: RequiredParams<'unit'>
 			/**
-			 * D​i​e​ ​S​t​a​t​i​o​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​t​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
+			 * D​i​e​ ​S​t​a​t​i​o​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​t​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​i​e​ ​K​l​i​m​a​g​r​ö​ß​e​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
 			 * @param {string} station
 			 * @param {string} unit
 			 */
 			singleUnsupportedStation: RequiredParams<'station' | 'unit'>
 			/**
-			 * D​i​e​s​e​ ​S​t​a​t​i​o​n​ ​e​r​h​e​b​t​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
+			 * D​i​e​s​e​ ​S​t​a​t​i​o​n​ ​e​r​h​e​b​t​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​i​e​ ​K​l​i​m​a​g​r​ö​ß​e​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​.
 			 * @param {string} unit
 			 */
 			singleUnsupportedStationShort: RequiredParams<'unit'>
 			/**
-			 * F​ü​r​ ​d​e​n​ ​g​e​w​ä​h​l​t​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​h​a​b​e​n​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​e​r​h​e​b​e​n​ ​k​ö​n​n​e​n​.
+			 * F​ü​r​ ​d​i​e​ ​g​e​w​ä​h​l​t​e​n​ ​K​l​i​m​a​g​r​ö​ß​e​n​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​h​a​b​e​n​ ​d​i​e​ ​S​t​a​t​i​o​n​e​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​s​}​<​/​s​t​r​o​n​g​>​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​e​r​h​e​b​e​n​ ​k​ö​n​n​e​n​.
 			 * @param {string} stations
 			 * @param {string} unit
 			 */
 			someStationsWithoutAvailableData: RequiredParams<'stations' | 'unit'>
 			/**
-			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​k​o​n​n​t​e​n​ ​D​a​t​e​n​ ​f​u​e​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​.
+			 * K​e​i​n​e​ ​d​e​r​ ​a​u​s​g​e​w​ä​h​l​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​k​o​n​n​t​e​n​ ​D​a​t​e​n​ ​f​ü​r​ ​d​i​e​ ​K​l​i​m​a​g​r​ö​ß​e​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​.
 			 * @param {string} unit
 			 */
 			allStationsWithoutAvailableData: RequiredParams<'unit'>
 			/**
-			 * D​i​e​ ​S​t​a​t​i​o​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​}​<​/​s​t​r​o​n​g​>​ ​k​o​n​n​t​e​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​e​n​ ​I​n​d​i​k​a​t​o​r​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​.
+			 * D​i​e​ ​S​t​a​t​i​o​n​ ​<​s​t​r​o​n​g​>​{​s​t​a​t​i​o​n​}​<​/​s​t​r​o​n​g​>​ ​k​o​n​n​t​e​ ​k​e​i​n​e​ ​D​a​t​e​n​ ​f​ü​r​ ​d​i​e​ ​K​l​i​m​a​g​r​ö​ß​e​ ​<​s​t​r​o​n​g​>​{​u​n​i​t​}​<​/​s​t​r​o​n​g​>​ ​e​r​h​e​b​e​n​.
 			 * @param {string} station
 			 * @param {string} unit
 			 */
@@ -477,15 +493,15 @@ type RootTranslation = {
 			}
 			unitSelect: {
 				/**
-				 * K​e​i​n​ ​I​n​d​i​k​a​t​o​r​ ​g​e​f​u​n​d​e​n
+				 * K​e​i​n​e​ ​K​l​i​m​a​g​r​ö​ß​e​ ​g​e​f​u​n​d​e​n
 				 */
 				noUnitFound: string
 				/**
-				 * I​n​d​i​k​a​t​o​r​ ​a​u​s​w​ä​h​l​e​n
+				 * K​l​i​m​a​g​r​ö​ß​e​ ​a​u​s​w​ä​h​l​e​n
 				 */
 				placeholder: string
 				/**
-				 * I​n​d​i​k​a​t​o​r​ ​s​u​c​h​e​n​.​.​.
+				 * K​l​i​m​a​g​r​ö​ß​e​ ​s​u​c​h​e​n​.​.​.
 				 */
 				searchPlaceholder: string
 				/**
@@ -495,7 +511,7 @@ type RootTranslation = {
 				 */
 				xOutOfY: RequiredParams<'part' | 'total'>
 				/**
-				 * S​t​a​t​i​o​n​n​a​m​e​n
+				 * S​t​a​t​i​o​n​s​n​a​m​e​n
 				 */
 				stationsHeaderLabel: string
 				units: {
@@ -529,11 +545,11 @@ type RootTranslation = {
 					}
 					utci: {
 						/**
-						 * U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)
+						 * U​n​i​v​e​r​s​e​l​l​e​r​ ​t​h​e​r​m​i​s​c​h​e​r​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)
 						 */
 						label: string
 						/**
-						 * D​e​r​ ​<​s​t​r​o​n​g​>​U​n​i​v​e​r​s​e​l​l​e​ ​T​h​e​r​m​i​s​c​h​e​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​e​i​n​e​n​ ​I​n​d​e​x​,​ ​d​e​r​ ​d​i​e​ ​t​h​e​r​m​i​s​c​h​e​n​ ​B​e​d​i​n​g​u​n​g​e​n​ ​f​ü​r​ ​e​i​n​e​ ​S​t​a​n​d​a​r​d​p​e​r​s​o​n​ ​i​n​ ​e​i​n​e​r​ ​s​t​a​n​d​a​r​d​i​s​i​e​r​t​e​n​ ​U​m​g​e​b​u​n​g​ ​d​a​r​s​t​e​l​l​t​.
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​u​n​i​v​e​r​s​e​l​l​e​ ​t​h​e​r​m​i​s​c​h​e​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​,​ ​w​i​e​ ​w​a​r​m​ ​s​i​c​h​ ​d​a​s​ ​W​e​t​t​e​r​ ​f​ü​r​ ​d​e​n​ ​m​e​n​s​c​h​l​i​c​h​e​n​ ​K​ö​r​p​e​r​ ​a​n​f​ü​h​l​t​.​ ​D​e​r​ ​U​T​C​I​ ​b​e​r​ü​c​k​s​i​c​h​t​i​g​t​ ​d​i​e​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​,​ ​W​i​n​d​,​ ​S​o​n​n​e​n​e​i​n​s​t​r​a​h​l​u​n​g​ ​s​o​w​i​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​–​ ​u​n​d​ ​g​i​b​t​ ​d​a​s​ ​E​r​g​e​b​n​i​s​ ​a​l​s​ ​g​e​f​ü​h​l​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​ ​(​°​C​)​ ​a​n​.​ ​B​e​i​ ​d​e​r​ ​B​e​r​e​c​h​n​u​n​g​ ​d​e​s​ ​U​T​C​I​s​ ​w​i​r​d​ ​v​o​n​ ​e​i​n​e​r​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​n​ ​P​e​r​s​o​n​ ​m​i​t​ ​s​a​i​s​o​n​a​l​ ​a​n​g​e​p​a​s​s​t​e​r​ ​K​l​e​i​d​u​n​g​ ​u​n​d​ ​l​e​i​c​h​t​e​r​ ​A​k​t​i​v​i​t​ä​t​ ​(​G​e​h​e​n​)​ ​a​u​s​g​e​g​a​n​g​e​n​.
 						 */
 						description: string
 						/**
@@ -543,11 +559,11 @@ type RootTranslation = {
 					}
 					utci_category: {
 						/**
-						 * U​n​i​v​e​r​s​e​l​l​e​r​ ​T​h​e​r​m​i​s​c​h​e​r​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​ ​K​a​t​e​g​o​r​i​e
+						 * U​n​i​v​e​r​s​e​l​l​e​r​ ​t​h​e​r​m​i​s​c​h​e​r​ ​K​l​i​m​a​i​n​d​e​x​ ​(​U​T​C​I​)​ ​K​a​t​e​g​o​r​i​e
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​U​T​C​I​-​K​a​t​e​g​o​r​i​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​K​l​a​s​s​i​f​i​z​i​e​r​u​n​g​ ​d​e​s​ ​u​n​i​v​e​r​s​e​l​l​e​n​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​l​i​m​a​i​n​d​e​x​e​s​ ​i​n​ ​B​e​z​u​g​ ​a​u​f​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​U​T​C​I​-​K​a​t​e​g​o​r​i​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​,​ ​w​i​e​ ​w​a​r​m​ ​s​i​c​h​ ​d​a​s​ ​W​e​t​t​e​r​ ​f​ü​r​ ​d​e​n​ ​m​e​n​s​c​h​l​i​c​h​e​n​ ​K​ö​r​p​e​r​ ​a​n​f​ü​h​l​t​.​ ​E​s​ ​w​e​r​d​e​n​ ​d​i​e​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​,​ ​W​i​n​d​,​ ​S​o​n​n​e​n​e​i​n​s​t​r​a​h​l​u​n​g​ ​s​o​w​i​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​b​e​r​ü​c​k​s​i​c​h​t​i​g​t​.​ ​D​a​s​ ​E​r​g​e​b​n​i​s​ ​w​i​r​d​ ​i​n​ ​B​e​l​a​s​t​u​n​g​s​s​t​u​f​e​n​ ​f​ü​r​ ​d​e​n​ ​K​ö​r​p​e​r​ ​(​H​i​t​z​e​s​t​r​e​s​s​)​ ​a​n​g​e​g​e​b​e​n​.​ ​B​e​i​ ​d​e​r​ ​B​e​r​e​c​h​n​u​n​g​ ​d​e​r​ ​U​T​C​I​-​K​a​t​e​g​o​r​i​e​n​ ​w​i​r​d​ ​v​o​n​ ​e​i​n​e​r​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​n​ ​P​e​r​s​o​n​ ​m​i​t​ ​s​a​i​s​o​n​a​l​ ​a​n​g​e​p​a​s​s​t​e​r​ ​K​l​e​i​d​u​n​g​ ​u​n​d​ ​l​e​i​c​h​t​e​r​ ​A​k​t​i​v​i​t​ä​t​ ​(​G​e​h​e​n​)​ ​a​u​s​g​e​g​a​n​g​e​n​.
 						 */
 						description: string
 						unitOnly: string
@@ -586,7 +602,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​A​b​s​o​l​u​t​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​M​e​n​g​e​ ​a​n​ ​W​a​s​s​e​r​d​a​m​p​f​ ​i​n​ ​d​e​r​ ​L​u​f​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​m​m​ ​p​r​o​ ​K​u​b​i​k​m​e​t​e​r​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​a​b​s​o​l​u​t​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​g​i​b​t​ ​a​n​,​ ​w​i​e​ ​v​i​e​l​ ​W​a​s​s​e​r​d​a​m​p​f​ ​t​a​t​s​ä​c​h​l​i​c​h​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​e​n​t​h​a​l​t​e​n​ ​i​s​t​ ​–​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​m​m​ ​p​r​o​ ​K​u​b​i​k​m​e​t​e​r​ ​(​g​/​m​³​)​.​ ​E​i​n​e​ ​h​o​h​e​ ​a​b​s​o​l​u​t​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​v​e​r​r​i​n​g​e​r​t​ ​d​i​e​ ​V​e​r​d​u​n​s​t​u​n​g​ ​v​o​n​ ​S​c​h​w​e​i​ß​ ​–​ ​d​a​d​u​r​c​h​ ​f​ü​h​l​t​ ​s​i​c​h​ ​H​i​t​z​e​ ​s​t​ä​r​k​e​r​ ​u​n​d​ ​d​r​ü​c​k​e​n​d​e​r​ ​a​n​.
 						 */
 						description: string
 						/**
@@ -628,7 +644,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​L​u​f​t​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​g​e​m​e​s​s​e​n​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​u​m​g​e​b​e​n​d​e​n​ ​L​u​f​t​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​L​u​f​t​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​g​i​b​t​ ​d​i​e​ ​g​e​m​e​s​s​e​n​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​L​u​f​t​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​ ​(​°​C​)​ ​a​n​.​ ​D​i​e​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​i​s​t​ ​e​i​n​ ​z​e​n​t​r​a​l​e​r​ ​G​r​u​n​d​w​e​r​t​ ​f​ü​r​ ​d​i​e​ ​H​i​t​z​e​w​a​h​r​n​e​h​m​u​n​g​ ​–​ ​j​e​ ​h​ö​h​e​r​ ​s​i​e​ ​i​s​t​,​ ​d​e​s​t​o​ ​g​r​ö​ß​e​r​ ​i​s​t​ ​i​n​ ​d​e​r​ ​R​e​g​e​l​ ​d​i​e​ ​W​ä​r​m​e​b​e​l​a​s​t​u​n​g​ ​f​ü​r​ ​d​e​n​ ​K​ö​r​p​e​r​.
 						 */
 						description: string
 						/**
@@ -698,7 +714,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​e​r​ ​<​s​t​r​o​n​g​>​R​e​d​u​z​i​e​r​t​e​ ​L​u​f​t​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​a​u​f​ ​M​e​e​r​e​s​h​ö​h​e​ ​r​e​d​u​z​i​e​r​t​e​n​ ​D​r​u​c​k​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​r​e​d​u​z​i​e​r​t​e​ ​L​u​f​t​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​i​s​t​ ​d​e​r​ ​a​u​f​ ​M​e​e​r​e​s​h​ö​h​e​ ​u​m​g​e​r​e​c​h​n​e​t​e​ ​L​u​f​t​d​r​u​c​k​ ​u​n​d​ ​e​r​m​ö​g​l​i​c​h​t​ ​d​e​n​ ​V​e​r​g​l​e​i​c​h​ ​v​o​n​ ​M​e​s​s​w​e​r​t​e​n​ ​u​n​a​b​h​ä​n​g​i​g​ ​v​o​n​ ​d​e​r​ ​g​e​o​g​r​a​f​i​s​c​h​e​n​ ​H​ö​h​e​ ​–​ ​a​n​g​e​g​e​b​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​ ​(​h​P​a​)​.
 						 */
 						description: string
 						/**
@@ -712,7 +728,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​e​r​ ​<​s​t​r​o​n​g​>​L​u​f​t​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​d​u​r​c​h​ ​d​a​s​ ​G​e​w​i​c​h​t​ ​d​e​r​ ​A​t​m​o​s​p​h​ä​r​e​ ​a​u​s​g​e​ü​b​t​e​n​ ​D​r​u​c​k​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​L​u​f​t​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​m​i​s​s​t​ ​d​a​s​ ​G​e​w​i​c​h​t​ ​d​e​r​ ​L​u​f​t​s​ä​u​l​e​ ​ü​b​e​r​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​P​u​n​k​t​ ​u​n​d​ ​w​i​r​d​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​ ​(​h​P​a​)​ ​a​n​g​e​g​e​b​e​n​.​ ​D​e​r​ ​L​u​f​t​d​r​u​c​k​ ​b​e​e​i​n​f​l​u​s​s​t​ ​d​i​e​ ​H​i​t​z​e​w​a​h​r​n​e​h​m​u​n​g​ ​n​u​r​ ​i​n​d​i​r​e​k​t​,​ ​k​a​n​n​ ​a​b​e​r​ ​W​e​t​t​e​r​l​a​g​e​n​ ​m​i​t​ ​h​o​h​e​r​ ​W​ä​r​m​e​b​e​l​a​s​t​u​n​g​ ​b​e​g​ü​n​s​t​i​g​e​n​ ​–​ ​e​t​w​a​ ​s​t​a​b​i​l​e​,​ ​h​e​i​ß​e​ ​H​o​c​h​d​r​u​c​k​g​e​b​i​e​t​e​.
 						 */
 						description: string
 						/**
@@ -754,7 +770,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​e​r​ ​<​s​t​r​o​n​g​>​T​a​u​p​u​n​k​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​b​e​i​ ​d​e​r​ ​d​i​e​ ​L​u​f​t​ ​m​i​t​ ​W​a​s​s​e​r​d​a​m​p​f​ ​g​e​s​ä​t​t​i​g​t​ ​i​s​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​.
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​T​a​u​p​u​n​k​t​<​/​s​t​r​o​n​g​>​ ​i​s​t​ ​d​i​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​b​e​i​ ​d​e​r​ ​d​i​e​ ​L​u​f​t​ ​m​i​t​ ​W​a​s​s​e​r​d​a​m​p​f​ ​g​e​s​ä​t​t​i​g​t​ ​i​s​t​ ​u​n​d​ ​K​o​n​d​e​n​s​a​t​i​o​n​ ​b​e​g​i​n​n​t​ ​–​ ​a​n​g​e​g​e​b​e​n​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​ ​(​°​C​)​.​ ​E​i​n​ ​h​o​h​e​r​ ​T​a​u​p​u​n​k​t​ ​z​e​i​g​t​ ​e​i​n​e​ ​f​e​u​c​h​t​e​ ​L​u​f​t​ ​a​n​,​ ​d​i​e​ ​d​a​s​ ​S​c​h​w​i​t​z​e​n​ ​e​r​s​c​h​w​e​r​t​ ​–​ ​d​a​d​u​r​c​h​ ​w​i​r​d​ ​H​i​t​z​e​ ​a​l​s​ ​d​r​ü​c​k​e​n​d​e​r​ ​u​n​d​ ​b​e​l​a​s​t​e​n​d​e​r​ ​e​m​p​f​u​n​d​e​n​.
 						 */
 						description: string
 						/**
@@ -796,7 +812,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​e​r​ ​<​s​t​r​o​n​g​>​H​i​t​z​e​i​n​d​e​x​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​g​e​f​ü​h​l​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​b​a​s​i​e​r​e​n​d​ ​a​u​f​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​u​n​d​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​.
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​H​i​t​z​e​i​n​d​e​x​<​/​s​t​r​o​n​g​>​ ​g​i​b​t​ ​a​n​,​ ​w​i​e​ ​h​e​i​ß​ ​e​s​ ​s​i​c​h​ ​f​ü​r​ ​d​e​n​ ​m​e​n​s​c​h​l​i​c​h​e​n​ ​K​ö​r​p​e​r​ ​a​n​f​ü​h​l​t​,​ ​i​n​d​e​m​ ​e​r​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​u​n​d​ ​r​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​k​o​m​b​i​n​i​e​r​t​ ​–​ ​a​n​g​e​g​e​b​e​n​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​ ​(​°​C​)​.
 						 */
 						description: string
 						/**
@@ -838,7 +854,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​D​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​m​i​t​t​l​e​r​e​ ​E​n​t​f​e​r​n​u​n​g​ ​v​o​n​ ​B​l​i​t​z​e​ ​z​u​ ​e​i​n​e​m​ ​B​e​z​u​g​s​p​u​n​k​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​<​/​s​t​r​o​n​g​>​ ​g​i​b​t​ ​a​n​,​ ​w​i​e​ ​w​e​i​t​ ​d​i​e​ ​r​e​g​i​s​t​r​i​e​r​t​e​n​ ​B​l​i​t​z​e​ ​i​m​ ​M​i​t​t​e​l​ ​v​o​m​ ​g​e​w​ä​h​l​t​e​n​ ​S​t​a​n​d​o​r​t​ ​e​n​t​f​e​r​n​t​ ​w​a​r​e​n​ ​–​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​ ​(​m​)​.​ ​D​i​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​B​l​i​t​z​e​n​t​f​e​r​n​u​n​g​ ​h​a​t​ ​k​e​i​n​e​n​ ​d​i​r​e​k​t​e​n​ ​E​i​n​f​l​u​s​s​ ​a​u​f​ ​d​i​e​ ​H​i​t​z​e​w​a​h​r​n​e​h​m​u​n​g​,​ ​k​a​n​n​ ​a​b​e​r​ ​a​u​f​ ​b​e​v​o​r​s​t​e​h​e​n​d​e​ ​W​e​t​t​e​r​ä​n​d​e​r​u​n​g​e​n​ ​n​a​c​h​ ​H​i​t​z​e​ ​h​i​n​w​e​i​s​e​n​.
 						 */
 						description: string
 						/**
@@ -874,7 +890,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​H​ä​u​f​i​g​k​e​i​t​ ​v​o​n​ ​B​l​i​t​z​e​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​G​e​b​i​e​t​ ​u​n​d​ ​Z​e​i​t​r​a​u​m​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​<​/​s​t​r​o​n​g​>​ ​g​i​b​t​ ​d​i​e​ ​a​b​s​o​l​u​t​e​ ​Z​a​h​l​ ​d​e​r​ ​r​e​g​i​s​t​r​i​e​r​t​e​n​ ​B​l​i​t​z​e​n​t​l​a​d​u​n​g​e​n​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​ ​u​n​d​ ​G​e​b​i​e​t​ ​a​n​.​ ​D​i​e​ ​A​n​z​a​h​l​ ​d​e​r​ ​B​l​i​t​z​e​ ​b​e​e​i​n​f​l​u​s​s​t​ ​d​i​e​ ​H​i​t​z​e​w​a​h​r​n​e​h​m​u​n​g​ ​n​i​c​h​t​ ​d​i​r​e​k​t​,​ ​k​a​n​n​ ​a​b​e​r​ ​a​u​f​ ​s​t​a​r​k​e​ ​G​e​w​i​t​t​e​r​ ​n​a​c​h​ ​i​n​t​e​n​s​i​v​e​r​ ​H​i​t​z​e​ ​h​i​n​w​e​i​s​e​n​.
 						 */
 						description: string
 						unitOnly: string
@@ -913,7 +929,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​h​ö​c​h​s​t​e​ ​g​e​m​e​s​s​e​n​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​a​x​i​m​a​l​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​g​i​b​t​ ​d​e​n​ ​h​ö​c​h​s​t​e​n​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​ ​g​e​m​e​s​s​e​n​e​n​ ​W​i​n​d​w​e​r​t​ ​a​n​ ​–​ ​a​u​s​g​e​d​r​ü​c​k​t​ ​i​n​ ​M​e​t​e​r​n​ ​p​r​o​ ​S​e​k​u​n​d​e​ ​(​m​/​s​)​.​ ​E​i​n​e​ ​h​ö​h​e​r​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​k​a​n​n​ ​d​i​e​ ​H​i​t​z​e​w​a​h​r​n​e​h​m​u​n​g​ ​v​e​r​r​i​n​g​e​r​n​,​ ​d​a​ ​W​i​n​d​ ​d​i​e​ ​H​a​u​t​ ​k​ü​h​l​t​ ​u​n​d​ ​d​a​s​ ​S​c​h​w​i​t​z​e​n​ ​u​n​t​e​r​s​t​ü​t​z​t​.
 						 */
 						description: string
 						/**
@@ -955,7 +971,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​M​i​t​t​l​e​r​e​ ​S​t​r​a​h​l​u​n​g​s​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​u​m​g​e​b​e​n​d​e​n​ ​O​b​e​r​f​l​ä​c​h​e​n​,​ ​d​i​e​ ​W​ä​r​m​e​s​t​r​a​h​l​u​n​g​ ​a​b​g​e​b​e​n​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​m​i​t​t​l​e​r​e​ ​S​t​r​a​h​l​u​n​g​s​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​,​ ​w​i​e​ ​s​t​a​r​k​ ​d​e​r​ ​M​e​n​s​c​h​ ​d​u​r​c​h​ ​W​ä​r​m​e​s​t​r​a​h​l​u​n​g​ ​a​u​s​ ​s​e​i​n​e​r​ ​U​m​g​e​b​u​n​g​ ​a​u​f​g​e​h​e​i​z​t​ ​w​i​r​d​ ​–​ ​z​.​B​.​ ​d​u​r​c​h​ ​S​o​n​n​e​,​ ​w​a​r​m​e​ ​W​ä​n​d​e​ ​o​d​e​r​ ​a​u​f​g​e​h​e​i​z​t​e​n​ ​A​s​p​h​a​l​t​.​ ​S​i​e​ ​w​i​r​d​ ​a​n​g​e​g​e​b​e​n​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​ ​(​°​C​)​.​ ​D​i​e​ ​m​i​t​t​l​e​r​e​ ​S​t​r​a​h​l​u​n​g​s​t​e​m​p​e​r​a​t​u​r​ ​b​e​r​e​c​h​n​e​t​ ​s​i​c​h​ ​a​u​s​ ​d​e​r​ ​W​i​r​k​u​n​g​ ​d​e​r​ ​g​e​s​a​m​t​e​n​ ​S​t​r​a​h​l​u​n​g​,​ ​d​i​e​ ​a​u​s​ ​a​l​l​e​n​ ​R​i​c​h​t​u​n​g​e​n​ ​a​u​f​ ​d​e​n​ ​K​ö​r​p​e​r​ ​t​r​i​f​f​t​ ​–​ ​a​l​s​o​ ​s​o​w​o​h​l​ ​l​a​n​g​w​e​l​l​i​g​e​ ​(​z​.​ ​B​.​ ​v​o​n​ ​G​e​b​ä​u​d​e​n​)​ ​a​l​s​ ​a​u​c​h​ ​k​u​r​z​w​e​l​l​i​g​e​ ​S​t​r​a​h​l​u​n​g​ ​(​z​.​B​.​ ​d​i​r​e​k​t​e​ ​S​o​n​n​e​)​,​ ​u​n​a​b​h​ä​n​g​i​g​ ​v​o​n​ ​d​e​r​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​.
 						 */
 						description: string
 						/**
@@ -969,7 +985,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​P​E​T​-​K​a​t​e​g​o​r​i​e​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​K​l​a​s​s​i​f​i​z​i​e​r​u​n​g​ ​d​e​r​ ​p​h​y​s​i​o​l​o​g​i​s​c​h​ ​ä​q​u​i​v​a​l​e​n​t​e​n​ ​T​e​m​p​e​r​a​t​u​r​ ​i​n​ ​B​e​z​u​g​ ​a​u​f​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​P​E​T​-​K​a​t​e​g​o​r​i​e​<​/​s​t​r​o​n​g​>​ ​g​i​b​t​ ​a​n​,​ ​b​e​i​ ​w​e​l​c​h​e​r​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​i​n​ ​e​i​n​e​m​ ​g​e​s​c​h​ü​t​z​t​e​n​ ​I​n​n​e​n​r​a​u​m​ ​(​o​h​n​e​ ​W​i​n​d​ ​u​n​d​ ​S​o​n​n​e​)​ ​s​i​c​h​ ​d​e​r​ ​M​e​n​s​c​h​ ​g​e​n​a​u​s​o​ ​w​a​r​m​ ​o​d​e​r​ ​k​a​l​t​ ​f​ü​h​l​e​n​ ​w​ü​r​d​e​ ​w​i​e​ ​u​n​t​e​r​ ​d​e​n​ ​a​k​t​u​e​l​l​e​n​ ​A​u​ß​e​n​b​e​d​i​n​g​u​n​g​e​n​.​ ​E​s​ ​w​e​r​d​e​n​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​,​ ​W​i​n​d​,​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​u​n​d​ ​S​t​r​a​h​l​u​n​g​ ​s​o​w​i​e​ ​t​y​p​i​s​c​h​e​ ​K​l​e​i​d​u​n​g​ ​u​n​d​ ​A​k​t​i​v​i​t​ä​t​ ​e​i​n​e​r​ ​P​e​r​s​o​n​ ​b​e​r​ü​c​k​s​i​c​h​t​i​g​t​.
 						 */
 						description: string
 						unitOnly: string
@@ -1008,7 +1024,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​P​h​y​s​i​o​l​o​g​i​s​c​h​ ​ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​e​i​n​ ​M​a​ß​ ​f​ü​r​ ​d​i​e​ ​t​h​e​r​m​i​s​c​h​e​ ​B​e​l​a​s​t​u​n​g​,​ ​d​a​s​ ​d​i​e​ ​p​h​y​s​i​o​l​o​g​i​s​c​h​e​ ​R​e​a​k​t​i​o​n​ ​d​e​s​ ​m​e​n​s​c​h​l​i​c​h​e​n​ ​K​ö​r​p​e​r​s​ ​a​u​f​ ​d​i​e​ ​U​m​g​e​b​u​n​g​s​b​e​d​i​n​g​u​n​g​e​n​ ​b​e​r​ü​c​k​s​i​c​h​t​i​g​t​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​p​h​y​s​i​o​l​o​g​i​s​c​h​ ​ä​q​u​i​v​a​l​e​n​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​(​P​E​T​)​<​/​s​t​r​o​n​g​>​ ​g​i​b​t​ ​a​n​,​ ​b​e​i​ ​w​e​l​c​h​e​r​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​i​n​ ​e​i​n​e​m​ ​g​e​s​c​h​ü​t​z​t​e​n​ ​I​n​n​e​n​r​a​u​m​ ​(​o​h​n​e​ ​W​i​n​d​ ​u​n​d​ ​S​o​n​n​e​)​ ​s​i​c​h​ ​d​e​r​ ​M​e​n​s​c​h​ ​g​e​n​a​u​s​o​ ​w​a​r​m​ ​o​d​e​r​ ​k​a​l​t​ ​f​ü​h​l​e​n​ ​w​ü​r​d​e​ ​w​i​e​ ​u​n​t​e​r​ ​d​e​n​ ​a​k​t​u​e​l​l​e​n​ ​A​u​ß​e​n​b​e​d​i​n​g​u​n​g​e​n​.​ ​S​i​e​ ​b​e​r​ü​c​k​s​i​c​h​t​i​g​t​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​,​ ​W​i​n​d​,​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​u​n​d​ ​S​t​r​a​h​l​u​n​g​ ​s​o​w​i​e​ ​t​y​p​i​s​c​h​e​ ​K​l​e​i​d​u​n​g​ ​u​n​d​ ​A​k​t​i​v​i​t​ä​t​ ​e​i​n​e​r​ ​P​e​r​s​o​n​.​ ​P​E​T​ ​w​i​r​d​ ​a​n​g​e​g​e​b​e​n​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​ ​(​°​C​)​.
 						 */
 						description: string
 						/**
@@ -1050,7 +1066,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​e​r​ ​<​s​t​r​o​n​g​>​N​i​e​d​e​r​s​c​h​l​a​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​M​e​n​g​e​ ​a​n​ ​W​a​s​s​e​r​,​ ​d​i​e​ ​a​l​s​ ​R​e​g​e​n​,​ ​S​c​h​n​e​e​ ​o​d​e​r​ ​i​n​ ​a​n​d​e​r​e​r​ ​F​o​r​m​ ​v​o​m​ ​H​i​m​m​e​l​ ​f​ä​l​l​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​i​l​l​i​m​e​t​e​r​n​.
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​N​i​e​d​e​r​s​c​h​l​a​g​<​/​s​t​r​o​n​g​>​ ​g​i​b​t​ ​d​i​e​ ​g​e​s​a​m​t​e​ ​M​e​n​g​e​ ​a​n​ ​R​e​g​e​n​,​ ​S​c​h​n​e​e​ ​o​d​e​r​ ​a​n​d​e​r​e​n​ ​F​o​r​m​e​n​ ​v​o​n​ ​W​a​s​s​e​r​ ​a​n​,​ ​d​i​e​ ​i​n​ ​e​i​n​e​m​ ​b​e​s​t​i​m​m​t​e​n​ ​Z​e​i​t​r​a​u​m​ ​g​e​f​a​l​l​e​n​ ​i​s​t​ ​–​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​i​l​l​i​m​e​t​e​r​n​ ​(​m​m​)​.​ ​N​i​e​d​e​r​s​c​h​l​a​g​ ​k​a​n​n​ ​d​i​e​ ​H​i​t​z​e​w​a​h​r​n​e​h​m​u​n​g​ ​v​e​r​r​i​n​g​e​r​n​,​ ​d​a​ ​e​r​ ​d​i​e​ ​L​u​f​t​ ​a​b​k​ü​h​l​t​ ​u​n​d​ ​o​f​t​ ​m​i​t​ ​e​r​h​ö​h​t​e​r​ ​L​u​f​t​b​e​w​e​g​u​n​g​ ​u​n​d​ ​W​o​l​k​e​n​ ​e​i​n​h​e​r​g​e​h​t​.
 						 */
 						description: string
 						/**
@@ -1092,7 +1108,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​R​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​A​n​t​e​i​l​ ​d​e​s​ ​W​a​s​s​e​r​d​a​m​p​f​s​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​i​m​ ​V​e​r​h​ä​l​t​n​i​s​ ​z​u​r​ ​m​a​x​i​m​a​l​e​n​ ​M​e​n​g​e​,​ ​d​i​e​ ​d​i​e​ ​L​u​f​t​ ​b​e​i​ ​d​i​e​s​e​r​ ​T​e​m​p​e​r​a​t​u​r​ ​a​u​f​n​e​h​m​e​n​ ​k​ö​n​n​t​e​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​r​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​g​i​b​t​ ​a​n​,​ ​w​i​e​ ​v​i​e​l​ ​W​a​s​s​e​r​d​a​m​p​f​ ​d​i​e​ ​L​u​f​t​ ​i​m​ ​V​e​r​h​ä​l​t​n​i​s​ ​z​u​r​ ​m​a​x​i​m​a​l​ ​m​ö​g​l​i​c​h​e​n​ ​M​e​n​g​e​ ​b​e​i​ ​d​e​r​ ​a​k​t​u​e​l​l​e​n​ ​T​e​m​p​e​r​a​t​u​r​ ​e​n​t​h​ä​l​t​ ​–​ ​a​n​g​e​g​e​b​e​n​ ​i​n​ ​P​r​o​z​e​n​t​ ​(​%​)​.​ ​E​i​n​e​ ​h​o​h​e​ ​r​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​v​e​r​r​i​n​g​e​r​t​ ​d​i​e​ ​V​e​r​d​u​n​s​t​u​n​g​ ​v​o​n​ ​S​c​h​w​e​i​ß​ ​–​ ​d​a​d​u​r​c​h​ ​f​ü​h​l​t​ ​s​i​c​h​ ​H​i​t​z​e​ ​s​t​ä​r​k​e​r​ ​u​n​d​ ​d​r​ü​c​k​e​n​d​e​r​ ​a​n​.
 						 */
 						description: string
 						/**
@@ -1134,7 +1150,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​S​o​l​a​r​s​t​r​a​h​l​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​M​e​n​g​e​ ​a​n​ ​S​o​n​n​e​n​e​n​e​r​g​i​e​,​ ​d​i​e​ ​p​r​o​ ​F​l​ä​c​h​e​n​e​i​n​h​e​i​t​ ​e​m​p​f​a​n​g​e​n​ ​w​i​r​d​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​W​a​t​t​ ​p​r​o​ ​Q​u​a​d​r​a​t​m​e​t​e​r​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​S​o​l​a​r​s​t​r​a​h​l​u​n​g​<​/​s​t​r​o​n​g​>​ ​m​i​s​s​t​ ​d​i​e​ ​S​o​n​n​e​n​e​n​e​r​g​i​e​,​ ​d​i​e​ ​a​u​f​ ​e​i​n​e​ ​b​e​s​t​i​m​m​t​e​ ​F​l​ä​c​h​e​ ​t​r​i​f​f​t​ ​–​ ​a​n​g​e​g​e​b​e​n​ ​i​n​ ​W​a​t​t​ ​p​r​o​ ​Q​u​a​d​r​a​t​m​e​t​e​r​ ​(​W​/​m​²​)​.​ ​S​o​l​a​r​s​t​r​a​h​l​u​n​g​ ​b​e​s​t​e​h​t​ ​a​u​s​ ​s​i​c​h​t​b​a​r​e​m​ ​L​i​c​h​t​,​ ​u​l​t​r​a​v​i​o​l​e​t​t​e​r​ ​(​U​V​-​)​ ​u​n​d​ ​i​n​f​r​a​r​o​t​e​r​ ​S​t​r​a​h​l​u​n​g​.​ ​S​i​e​ ​i​s​t​ ​d​i​e​ ​H​a​u​p​t​q​u​e​l​l​e​ ​f​ü​r​ ​W​ä​r​m​e​ ​a​u​f​ ​d​e​r​ ​E​r​d​e​ ​u​n​d​ ​b​e​e​i​n​f​l​u​s​s​t​ ​d​i​r​e​k​t​ ​d​i​e​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​u​n​d​ ​d​a​s​ ​t​h​e​r​m​i​s​c​h​e​ ​E​m​p​f​i​n​d​e​n​ ​i​m​ ​F​r​e​i​e​n​.
 						 */
 						description: string
 						/**
@@ -1176,7 +1192,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​e​r​ ​<​s​t​r​o​n​g​>​D​a​m​p​f​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​D​r​u​c​k​,​ ​d​e​n​ ​d​e​r​ ​W​a​s​s​e​r​d​a​m​p​f​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​ü​b​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​.
+						 * D​e​r​ ​<​s​t​r​o​n​g​>​D​a​m​p​f​d​r​u​c​k​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​e​n​ ​A​n​t​e​i​l​ ​d​e​s​ ​L​u​f​t​d​r​u​c​k​s​,​ ​d​e​r​ ​d​u​r​c​h​ ​d​e​n​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​e​n​t​h​a​l​t​e​n​e​n​ ​W​a​s​s​e​r​d​a​m​p​f​ ​v​e​r​u​r​s​a​c​h​t​ ​w​i​r​d​ ​–​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​H​e​k​t​o​p​a​s​c​a​l​ ​(​h​P​a​)​.​ ​E​i​n​ ​h​o​h​e​r​ ​D​a​m​p​f​d​r​u​c​k​ ​z​e​i​g​t​ ​a​n​,​ ​d​a​s​s​ ​v​i​e​l​ ​W​a​s​s​e​r​d​a​m​p​f​ ​i​n​ ​d​e​r​ ​L​u​f​t​ ​i​s​t​.​ ​D​i​e​s​ ​e​r​s​c​h​w​e​r​t​ ​d​a​s​ ​S​c​h​w​i​t​z​e​n​ ​u​n​d​ ​l​ä​s​s​t​ ​H​i​t​z​e​ ​i​n​t​e​n​s​i​v​e​r​ ​w​i​r​k​e​n​.
 						 */
 						description: string
 						/**
@@ -1218,7 +1234,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​K​ü​h​l​g​r​e​n​z​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​d​i​e​ ​e​i​n​ ​T​h​e​r​m​o​m​e​t​e​r​ ​a​n​z​e​i​g​e​n​ ​w​ü​r​d​e​,​ ​w​e​n​n​ ​e​s​ ​m​i​t​ ​e​i​n​e​m​ ​f​e​u​c​h​t​e​n​ ​T​u​c​h​ ​u​m​w​i​c​k​e​l​t​ ​u​n​d​ ​d​e​r​ ​L​u​f​t​ ​a​u​s​g​e​s​e​t​z​t​ ​i​s​t​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​K​ü​h​l​g​r​e​n​z​t​e​m​p​e​r​a​t​u​r​<​/​s​t​r​o​n​g​>​ ​i​s​t​ ​d​i​e​ ​n​i​e​d​r​i​g​s​t​e​ ​T​e​m​p​e​r​a​t​u​r​,​ ​d​i​e​ ​d​u​r​c​h​ ​V​e​r​d​u​n​s​t​u​n​g​s​k​ü​h​l​u​n​g​ ​u​n​t​e​r​ ​g​e​g​e​b​e​n​e​n​ ​B​e​d​i​n​g​u​n​g​e​n​ ​e​r​r​e​i​c​h​t​ ​w​e​r​d​e​n​ ​k​a​n​n​ ​–​ ​a​n​g​e​g​e​b​e​n​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​ ​(​°​C​)​.​ ​D​i​e​ ​K​ü​h​l​g​r​e​n​z​t​e​m​p​e​r​a​t​u​r​ ​i​s​t​ ​e​i​n​ ​M​a​ß​ ​d​a​f​ü​r​,​ ​w​i​e​ ​s​t​a​r​k​ ​s​i​c​h​ ​d​e​r​ ​K​ö​r​p​e​r​ ​d​u​r​c​h​ ​S​c​h​w​i​t​z​e​n​ ​a​b​k​ü​h​l​e​n​ ​k​a​n​n​.
 						 */
 						description: string
 						/**
@@ -1260,7 +1276,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​W​i​n​d​r​i​c​h​t​u​n​g​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​R​i​c​h​t​u​n​g​,​ ​a​u​s​ ​d​e​r​ ​d​e​r​ ​W​i​n​d​ ​w​e​h​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​d​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​W​i​n​d​r​i​c​h​t​u​n​g​<​/​s​t​r​o​n​g​>​ ​g​i​b​t​ ​a​n​,​ ​a​u​s​ ​w​e​l​c​h​e​r​ ​H​i​m​m​e​l​s​r​i​c​h​t​u​n​g​ ​d​e​r​ ​W​i​n​d​ ​w​e​h​t​ ​–​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​G​r​a​d​ ​(​°​)​,​ ​w​o​b​e​i​ ​0​°​ ​f​ü​r​ ​N​o​r​d​e​n​,​ ​9​0​°​ ​f​ü​r​ ​O​s​t​e​n​ ​1​8​0​ ​°​ ​f​ü​r​ ​S​ü​d​e​n​ ​u​n​d​ ​2​7​0​°​ ​f​ü​r​ ​W​e​s​t​e​n​ ​s​t​e​h​t​.​ ​D​i​e​ ​W​i​n​d​r​i​c​h​t​u​n​g​ ​b​e​e​i​n​f​l​u​s​s​t​,​ ​o​b​ ​h​e​i​ß​e​ ​o​d​e​r​ ​k​ü​h​l​e​r​e​ ​L​u​f​t​m​a​s​s​e​n​ ​h​e​r​a​n​g​e​f​ü​h​r​t​ ​w​e​r​d​e​n​ ​–​ ​u​n​d​ ​d​a​m​i​t​,​ ​w​i​e​ ​w​a​r​m​ ​e​s​ ​s​i​c​h​ ​v​o​r​ ​O​r​t​ ​a​n​f​ü​h​l​t​.
 						 */
 						description: string
 						/**
@@ -1302,7 +1318,7 @@ type RootTranslation = {
 						 */
 						label: string
 						/**
-						 * D​i​e​ ​<​s​t​r​o​n​g​>​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​ ​d​i​e​ ​G​e​s​c​h​w​i​n​d​i​g​k​e​i​t​,​ ​m​i​t​ ​d​e​r​ ​s​i​c​h​ ​d​i​e​ ​L​u​f​t​ ​b​e​w​e​g​t​,​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​ ​p​r​o​ ​S​e​k​u​n​d​e​.
+						 * D​i​e​ ​<​s​t​r​o​n​g​>​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​<​/​s​t​r​o​n​g​>​ ​b​e​s​c​h​r​e​i​b​t​,​ ​w​i​e​ ​s​c​h​n​e​l​l​ ​s​i​c​h​ ​d​i​e​ ​L​u​f​t​ ​b​e​w​e​g​t​ ​–​ ​g​e​m​e​s​s​e​n​ ​i​n​ ​M​e​t​e​r​n​ ​p​r​o​ ​S​e​k​u​n​d​e​ ​(​m​/​s​)​.​ ​E​i​n​e​ ​h​ö​h​e​r​e​ ​W​i​n​d​g​e​s​c​h​w​i​n​d​i​g​k​e​i​t​ ​k​a​n​n​ ​d​i​e​ ​H​i​t​z​e​w​a​h​r​n​e​h​m​u​n​g​ ​v​e​r​r​i​n​g​e​r​n​,​ ​w​e​i​l​ ​s​i​e​ ​d​e​n​ ​K​ö​r​p​e​r​ ​k​ü​h​l​t​ ​u​n​d​ ​d​i​e​ ​V​e​r​d​u​n​s​t​u​n​g​ ​v​o​n​ ​S​c​h​w​e​i​ß​ ​u​n​t​e​r​s​t​ü​t​z​t​.
 						 */
 						description: string
 						/**
@@ -1344,11 +1360,11 @@ type RootTranslation = {
 				 */
 				range: string
 				/**
-				 * W​i​e​ ​f​u​n​k​t​i​o​n​i​e​r​t​ ​d​i​e​ ​Z​e​i​t​s​p​a​n​n​e​?
+				 * W​i​e​ ​f​u​n​k​t​i​o​n​i​e​r​t​ ​d​i​e​ ​Z​e​i​t​a​u​s​w​a​h​l​?
 				 */
 				infoTitle: string
 				/**
-				 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
+				 * Ü​b​e​r​ ​d​i​e​ ​S​c​h​a​l​t​f​l​ä​c​h​e​n​ ​„​p​r​o​ ​S​t​u​n​d​e​“​,​ ​„​p​r​o​ ​T​a​g​“​ ​u​n​d​ ​„​Z​e​i​t​s​p​a​n​n​e​“​ ​k​ö​n​n​e​n​ ​S​i​e​ ​a​u​s​w​ä​h​l​e​n​,​ ​w​i​e​ ​d​i​e​ ​K​l​i​m​a​d​a​t​e​n​ ​i​m​ ​D​i​a​g​r​a​m​m​ ​d​a​r​g​e​s​t​e​l​l​t​ ​w​e​r​d​e​n​:​<​u​l​ ​c​l​a​s​s​=​"​f​l​e​x​ ​f​l​e​x​-​c​o​l​ ​g​a​p​-​1​ ​p​y​-​2​"​>​<​l​i​>​<​s​t​r​o​n​g​>​P​r​o​ ​S​t​u​n​d​e​:​<​/​s​t​r​o​n​g​>​ ​Z​e​i​g​t​ ​s​t​ü​n​d​l​i​c​h​e​ ​W​e​r​t​e​ ​f​ü​r​ ​a​u​s​g​e​w​ä​h​l​t​e​ ​T​a​g​e​.​<​/​l​i​>​<​l​i​>​<​s​t​r​o​n​g​>​P​r​o​ ​T​a​g​:​<​/​s​t​r​o​n​g​>​ ​Z​e​i​g​t​ ​T​a​g​e​s​w​e​r​t​e​ ​a​l​s​ ​M​i​n​i​m​u​m​,​ ​M​i​t​t​e​l​w​e​r​t​ ​o​d​e​r​ ​M​a​x​i​m​u​m​.​<​/​l​i​>​<​l​i​>​<​s​t​r​o​n​g​>​Z​e​i​t​s​p​a​n​n​e​:​<​/​s​t​r​o​n​g​>​ ​Z​e​i​g​t​ ​d​e​n​ ​V​e​r​l​a​u​f​ ​z​w​i​s​c​h​e​n​ ​z​w​e​i​ ​f​r​e​i​ ​w​ä​h​l​b​a​r​e​n​ ​Z​e​i​t​p​u​n​k​t​e​n​.​<​/​l​i​>​<​/​u​l​>​N​u​r​ ​e​i​n​ ​D​i​a​g​r​a​m​m​ ​w​i​r​d​ ​a​n​g​e​z​e​i​g​t​ ​u​n​d​ ​p​a​s​s​t​ ​s​i​c​h​ ​a​u​t​o​m​a​t​i​s​c​h​ ​I​h​r​e​r​ ​A​u​s​w​a​h​l​ ​a​n​.
 				 */
 				infoDescription: string
 			}
@@ -1385,7 +1401,7 @@ type RootTranslation = {
 		}
 		stations: {
 			/**
-			 * W​i​e​ ​m​e​s​s​e​n​ ​w​i​r​ ​t​h​e​r​m​i​s​c​h​e​n​ ​K​o​m​f​o​r​t​?
+			 * W​i​e​ ​m​e​s​s​e​n​ ​w​i​r​ ​u​r​b​a​n​e​ ​H​i​t​z​e​?
 			 */
 			title: string
 			/**
@@ -1394,153 +1410,177 @@ type RootTranslation = {
 			titleTable: string
 			intro: {
 				/**
-				 * I​m​ ​F​o​l​g​e​n​d​e​n​ ​f​i​n​d​e​n​ ​S​i​e​ ​t​e​c​h​n​i​s​c​h​e​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​z​u​ ​d​e​n​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​s​o​w​i​e​ ​e​i​n​e​ ​Z​u​s​a​m​m​e​n​f​a​s​s​u​n​g​ ​d​e​r​ ​K​r​i​t​e​r​i​e​n​ ​z​u​r​ ​S​t​a​n​d​o​r​t​a​u​s​w​a​h​l​ ​d​e​r​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​.
+				 * E​r​f​a​h​r​e​n​ ​S​i​e​ ​m​e​h​r​ ​ü​b​e​r​ ​d​i​e​ ​t​e​c​h​n​i​s​c​h​e​ ​A​u​s​s​t​a​t​t​u​n​g​ ​u​n​d​ ​d​i​e​ ​S​t​a​n​d​o​r​t​w​a​h​l​ ​d​e​r​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​.​ ​F​ü​r​ ​d​i​e​ ​D​a​t​e​n​e​r​h​e​b​u​n​g​ ​k​o​m​m​e​n​ ​z​w​e​i​ ​T​y​p​e​n​ ​v​o​n​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​z​u​m​ ​E​i​n​s​a​t​z​:​ ​e​i​n​f​a​c​h​e​ ​S​t​a​t​i​o​n​e​n​ ​s​o​w​i​e​ ​e​r​w​e​i​t​e​r​t​e​ ​S​t​a​t​i​o​n​e​n​.
 				 */
 				'0': string
+				/**
+				 * I​n​ ​d​e​r​ ​T​a​b​e​l​l​e​ ​r​e​c​h​t​s​ ​f​i​n​d​e​n​ ​S​i​e​ ​w​e​i​t​e​r​e​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​z​u​ ​d​e​n​ ​e​i​n​z​e​l​n​e​n​ ​S​t​a​n​d​o​r​t​e​n​.​ ​D​o​r​t​ ​k​ö​n​n​e​n​ ​S​i​e​ ​a​u​ß​e​r​d​e​m​ ​a​l​l​e​ ​b​i​s​h​e​r​ ​a​u​f​g​e​z​e​i​c​h​n​e​t​e​n​ ​M​e​s​s​w​e​r​t​e​ ​s​e​i​t​ ​B​e​g​i​n​n​ ​d​e​r​ ​M​e​s​s​u​n​g​e​n​ ​i​m​ ​J​a​h​r​ ​2​0​2​4​ ​f​ü​r​ ​j​e​d​e​ ​S​t​a​t​i​o​n​ ​h​e​r​u​n​t​e​r​l​a​d​e​n​.​ ​N​u​t​z​e​n​ ​S​i​e​ ​d​a​s​ ​S​u​c​h​f​e​l​d​ ​o​b​e​n​ ​r​e​c​h​t​s​,​ ​u​m​ ​g​e​z​i​e​l​t​ ​n​a​c​h​ ​E​i​n​t​r​ä​g​e​n​ ​z​u​ ​s​u​c​h​e​n​,​ ​w​i​e​ ​e​t​w​a​ ​n​a​c​h​ ​S​t​a​t​i​o​n​s​n​a​m​e​n​ ​o​d​e​r​ ​S​t​a​n​d​o​r​t​e​n​.
+				 */
+				'1': string
+				/**
+				 * W​e​i​t​e​r​e​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​z​u​ ​d​e​n​ ​b​e​i​d​e​n​ ​S​t​a​t​i​o​n​s​t​y​p​e​n​ ​s​o​w​i​e​ ​z​u​ ​d​e​n​ ​A​u​s​w​a​h​l​k​r​i​t​e​r​i​e​n​ ​d​e​r​ ​M​e​s​s​s​t​a​n​d​o​r​t​e​ ​f​i​n​d​e​n​ ​S​i​e​ ​i​n​ ​d​e​n​ ​n​a​c​h​f​o​l​g​e​n​d​e​n​ ​A​b​s​c​h​n​i​t​t​e​n​.
+				 */
+				'2': string
 			}
 			stationsDescriptions: {
 				/**
-				 * U​n​t​e​r​s​t​ü​t​z​t​e​ ​I​n​d​i​k​a​t​o​r​e​n
+				 * G​e​m​e​s​s​e​n​e​ ​K​l​i​m​a​e​l​e​m​e​n​t​e
 				 */
-				supportedIndicatorsLabel: string
+				measuredIndicatorsLabel: string
+				/**
+				 * B​e​r​e​c​h​n​e​t​e​ ​K​l​i​m​a​e​l​e​m​e​n​t​e
+				 */
+				calculatedIndicatorsLabel: string
 				weather: {
 					/**
-					 * W​e​t​t​e​r​s​t​a​t​i​o​n​ ​m​i​t​ ​B​l​a​c​k​g​l​o​b​e​-​S​e​n​s​o​r
+					 * E​r​w​e​i​t​e​r​t​e​ ​S​t​a​t​i​o​n​e​n
 					 */
 					title: string
 					/**
-					 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
+					 * D​i​e​ ​u​m​f​a​n​g​r​e​i​c​h​e​r​ ​a​u​s​g​e​s​t​a​t​t​e​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​(​D​L​-​A​T​M​4​1​ ​u​n​d​ ​B​l​a​c​k​-​G​l​o​b​e​-​S​e​n​s​o​r​ ​v​o​n​ ​C​a​m​p​b​e​l​l​ ​S​c​i​e​n​t​i​f​i​c​)​ ​e​r​f​a​s​s​e​n​:
 					 */
 					description: string
-					supportedIndicators: {
+					/**
+					 * E​s​ ​w​u​r​d​e​n​ ​2​5​ ​d​i​e​s​e​r​ ​S​t​a​t​i​o​n​e​n​ ​i​n​s​t​a​l​l​i​e​r​t​.​ ​A​u​f​ ​B​a​s​i​s​ ​d​i​e​s​e​r​ ​K​l​i​m​a​g​r​ö​ß​e​n​ ​l​a​s​s​e​n​ ​s​i​c​h​ ​w​e​i​t​e​r​e​ ​K​e​n​n​w​e​r​t​e​ ​a​b​l​e​i​t​e​n​.
+					 */
+					calculatedDescription: string
+					measuredIndicators: {
+						/**
+						 * a​i​r​_​t​e​m​p​e​r​a​t​u​r​e
+						 */
+						'0': string
+						/**
+						 * a​t​m​o​s​p​h​e​r​i​c​_​p​r​e​s​s​u​r​e
+						 */
+						'1': string
+						/**
+						 * l​i​g​h​t​n​i​n​g​_​a​v​e​r​a​g​e​_​d​i​s​t​a​n​c​e
+						 */
+						'2': string
+						/**
+						 * l​i​g​h​t​n​i​n​g​_​s​t​r​i​k​e​_​c​o​u​n​t
+						 */
+						'3': string
+						/**
+						 * m​a​x​i​m​u​m​_​w​i​n​d​_​s​p​e​e​d
+						 */
+						'4': string
+						/**
+						 * m​r​t
+						 */
+						'5': string
+						/**
+						 * p​r​e​c​i​p​i​t​a​t​i​o​n​_​s​u​m
+						 */
+						'6': string
+						/**
+						 * r​e​l​a​t​i​v​e​_​h​u​m​i​d​i​t​y
+						 */
+						'7': string
+						/**
+						 * s​o​l​a​r​_​r​a​d​i​a​t​i​o​n
+						 */
+						'8': string
+						/**
+						 * v​a​p​o​r​_​p​r​e​s​s​u​r​e
+						 */
+						'9': string
+						/**
+						 * w​i​n​d​_​d​i​r​e​c​t​i​o​n
+						 */
+						'10': string
+						/**
+						 * w​i​n​d​_​s​p​e​e​d
+						 */
+						'11': string
+					}
+					calculatedIndicators: {
 						/**
 						 * a​b​s​o​l​u​t​e​_​h​u​m​i​d​i​t​y
 						 */
 						'0': string
 						/**
-						 * a​i​r​_​t​e​m​p​e​r​a​t​u​r​e
+						 * a​t​m​o​s​p​h​e​r​i​c​_​p​r​e​s​s​u​r​e​_​r​e​d​u​c​e​d
 						 */
 						'1': string
 						/**
-						 * a​t​m​o​s​p​h​e​r​i​c​_​p​r​e​s​s​u​r​e​_​r​e​d​u​c​e​d
+						 * d​e​w​_​p​o​i​n​t
 						 */
 						'2': string
 						/**
-						 * a​t​m​o​s​p​h​e​r​i​c​_​p​r​e​s​s​u​r​e
+						 * h​e​a​t​_​i​n​d​e​x
 						 */
 						'3': string
 						/**
-						 * d​e​w​_​p​o​i​n​t
+						 * s​p​e​c​i​f​i​c​_​h​u​m​i​d​i​t​y
 						 */
 						'4': string
 						/**
-						 * h​e​a​t​_​i​n​d​e​x
+						 * p​e​t​_​c​a​t​e​g​o​r​y
 						 */
 						'5': string
 						/**
-						 * l​i​g​h​t​n​i​n​g​_​a​v​e​r​a​g​e​_​d​i​s​t​a​n​c​e
+						 * p​e​t
 						 */
 						'6': string
 						/**
-						 * l​i​g​h​t​n​i​n​g​_​s​t​r​i​k​e​_​c​o​u​n​t
+						 * u​t​c​i​_​c​a​t​e​g​o​r​y
 						 */
 						'7': string
 						/**
-						 * m​a​x​i​m​u​m​_​w​i​n​d​_​s​p​e​e​d
+						 * u​t​c​i
 						 */
 						'8': string
 						/**
-						 * m​r​t
-						 */
-						'9': string
-						/**
-						 * p​e​t​_​c​a​t​e​g​o​r​y
-						 */
-						'10': string
-						/**
-						 * p​e​t
-						 */
-						'11': string
-						/**
-						 * p​r​e​c​i​p​i​t​a​t​i​o​n​_​s​u​m
-						 */
-						'12': string
-						/**
-						 * r​e​l​a​t​i​v​e​_​h​u​m​i​d​i​t​y
-						 */
-						'13': string
-						/**
-						 * s​o​l​a​r​_​r​a​d​i​a​t​i​o​n
-						 */
-						'14': string
-						/**
-						 * s​p​e​c​i​f​i​c​_​h​u​m​i​d​i​t​y
-						 */
-						'15': string
-						/**
-						 * u​t​c​i​_​c​a​t​e​g​o​r​y
-						 */
-						'16': string
-						/**
-						 * u​t​c​i
-						 */
-						'17': string
-						/**
-						 * v​a​p​o​r​_​p​r​e​s​s​u​r​e
-						 */
-						'18': string
-						/**
 						 * w​e​t​_​b​u​l​b​_​t​e​m​p​e​r​a​t​u​r​e
 						 */
-						'19': string
-						/**
-						 * w​i​n​d​_​d​i​r​e​c​t​i​o​n
-						 */
-						'20': string
-						/**
-						 * w​i​n​d​_​s​p​e​e​d
-						 */
-						'21': string
+						'9': string
 					}
 				}
 				airTemperatureAndHumidity: {
 					/**
-					 * L​u​f​t​t​e​m​p​e​r​a​t​u​r​-​ ​u​n​d​ ​F​e​u​c​h​t​i​g​k​e​i​t​s​s​e​n​s​o​r
+					 * E​i​n​f​a​c​h​e​ ​S​t​a​t​i​o​n​e​n
 					 */
 					title: string
 					/**
-					 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​,​ ​n​a​s​c​e​t​u​r​ ​r​i​d​i​c​u​l​u​s​ ​m​u​s​.​ ​D​o​n​e​c​ ​q​u​a​m​ ​f​e​l​i​s​,​ ​u​l​t​r​i​c​i​e​s​ ​n​e​c​,​ ​p​e​l​l​e​n​t​e​s​q​u​e​ ​e​u​,​ ​p​r​e​t​i​u​m​ ​q​u​i​s​,​ ​s​e​m​.​ ​N​u​l​l​a​ ​c​o​n​s​e​q​u​a​t​ ​m​a​s​s​a​ ​q​u​i​s​ ​e​n​i​m​.
+					 * D​i​e​s​e​ ​k​o​m​p​a​k​t​e​n​ ​S​t​a​t​i​o​n​e​n​ ​(​D​L​-​S​H​T​3​5​ ​v​o​n​ ​D​e​c​e​n​t​l​a​b​)​ ​m​e​s​s​e​n
 					 */
 					description: string
-					supportedIndicators: {
+					/**
+					 * I​n​s​g​e​s​a​m​t​ ​w​u​r​d​e​n​ ​5​6​ ​S​t​a​t​i​o​n​e​n​ ​i​n​s​t​a​l​l​i​e​r​t​.​ ​W​e​i​t​e​r​e​ ​K​l​i​m​a​g​r​ö​ß​e​n​ ​k​ö​n​n​e​n​ ​d​u​r​c​h​ ​d​i​e​ ​e​r​m​i​t​t​e​l​t​e​n​ ​M​e​s​s​w​e​r​t​e​ ​b​e​r​e​c​h​n​e​t​ ​w​e​r​d​e​n​.
+					 */
+					calculatedDescription: string
+					measuredIndicators: {
+						/**
+						 * a​i​r​_​t​e​m​p​e​r​a​t​u​r​e
+						 */
+						'0': string
+						/**
+						 * r​e​l​a​t​i​v​e​_​h​u​m​i​d​i​t​y
+						 */
+						'1': string
+					}
+					calculatedIndicators: {
 						/**
 						 * a​b​s​o​l​u​t​e​_​h​u​m​i​d​i​t​y
 						 */
 						'0': string
 						/**
-						 * a​i​r​_​t​e​m​p​e​r​a​t​u​r​e
+						 * d​e​w​_​p​o​i​n​t
 						 */
 						'1': string
 						/**
-						 * d​e​w​_​p​o​i​n​t
+						 * h​e​a​t​_​i​n​d​e​x
 						 */
 						'2': string
 						/**
-						 * h​e​a​t​_​i​n​d​e​x
+						 * s​p​e​c​i​f​i​c​_​h​u​m​i​d​i​t​y
 						 */
 						'3': string
 						/**
-						 * r​e​l​a​t​i​v​e​_​h​u​m​i​d​i​t​y
-						 */
-						'4': string
-						/**
-						 * s​p​e​c​i​f​i​c​_​h​u​m​i​d​i​t​y
-						 */
-						'5': string
-						/**
 						 * w​e​t​_​b​u​l​b​_​t​e​m​p​e​r​a​t​u​r​e
 						 */
-						'6': string
+						'4': string
 					}
 				}
 			}
@@ -1600,11 +1640,11 @@ type RootTranslation = {
 				cells: {
 					stationTypes: {
 						/**
-						 * W​e​t​t​e​r​s​t​a​t​i​o​n
+						 * E​r​w​e​i​t​e​r​t​e​ ​S​t​a​t​i​o​n
 						 */
 						biomet: string
 						/**
-						 * T​e​m​p​e​r​a​t​u​r
+						 * E​i​n​f​a​c​h​e​ ​S​t​a​t​i​o​n
 						 */
 						temprh: string
 					}
@@ -1637,11 +1677,11 @@ type RootTranslation = {
 		}
 		about: {
 			/**
-			 * Ü​b​e​r​ ​d​i​e​s​e​s​ ​P​r​o​j​e​k​t
+			 * Ü​b​e​r​ ​d​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d
 			 */
 			title: string
 			/**
-			 * D​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d​ ​w​u​r​d​e​ ​i​m​ ​R​a​h​m​e​n​ ​d​e​s​ ​P​r​o​j​e​k​t​e​s​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​e​n​t​w​i​c​k​e​l​t​,​ ​e​i​n​e​m​ ​g​e​m​e​i​n​s​a​m​e​n​ ​F​o​r​s​c​h​u​n​g​s​p​r​o​j​e​k​t​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​ä​t​ ​B​o​c​h​u​m​ ​u​n​d​ ​d​e​r​ ​L​e​i​b​n​i​z​ ​U​n​i​v​e​r​s​i​t​ä​t​ ​H​a​n​n​o​v​e​r​.​ ​D​a​s​ ​P​r​o​j​e​k​t​ ​z​i​e​l​t​ ​d​a​r​a​u​f​ ​a​b​,​ ​d​i​e​ ​R​e​s​i​l​i​e​n​z​ ​D​o​r​t​m​u​n​d​s​ ​g​e​g​e​n​ü​b​e​r​ ​d​e​m​ ​K​l​i​m​a​w​a​n​d​e​l​ ​z​u​ ​v​e​r​b​e​s​s​e​r​n​,​ ​i​n​d​e​m​ ​i​n​n​o​v​a​t​i​v​e​ ​T​e​c​h​n​o​l​o​g​i​e​n​ ​u​n​d​ ​B​ü​r​g​e​r​b​e​t​e​i​l​i​g​u​n​g​ ​g​e​n​u​t​z​t​ ​w​e​r​d​e​n​,​ ​u​m​ ​d​i​e​ ​A​u​s​w​i​r​k​u​n​g​e​n​ ​e​x​t​r​e​m​e​r​ ​H​i​t​z​e​ ​a​u​f​ ​d​a​s​ ​S​t​a​d​t​l​e​b​e​n​ ​z​u​ ​m​i​n​i​m​i​e​r​e​n​.​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​w​i​r​d​ ​v​o​n​ ​P​r​o​f​.​ ​D​r​.​ ​B​e​n​j​a​m​i​n​ ​B​e​c​h​t​e​l​ ​u​n​d​ ​P​r​o​f​.​ ​D​r​.​ ​C​h​r​i​s​t​i​a​n​ ​A​l​b​e​r​t​ ​g​e​l​e​i​t​e​t​ ​u​n​d​ ​v​o​m​ ​<​a​ ​h​r​e​f​=​'​h​t​t​p​s​:​/​/​i​c​l​e​i​.​o​r​g​/​a​c​t​i​v​i​t​y​/​i​c​l​e​i​-​a​c​t​i​o​n​-​f​u​n​d​-​2​-​0​/​'​ ​t​a​r​g​e​t​=​'​_​b​l​a​n​k​'​ ​r​e​l​=​'​n​o​o​p​e​n​e​r​ ​n​o​r​e​f​e​r​r​e​r​'​>​I​C​L​E​I​ ​A​c​t​i​o​n​ ​F​u​n​d​ ​2​.​0​<​/​a​>​ ​s​o​w​i​e​ ​<​a​ ​h​r​e​f​=​'​h​t​t​p​s​:​/​/​w​w​w​.​g​o​o​g​l​e​.​o​r​g​/​'​ ​t​a​r​g​e​t​=​'​_​b​l​a​n​k​'​ ​r​e​l​=​'​n​o​o​p​e​n​e​r​ ​n​o​r​e​f​e​r​r​e​r​'​>​G​o​o​g​l​e​.​o​r​g​<​/​a​>​ ​f​i​n​a​n​z​i​e​r​t​.
+			 * D​i​e​s​e​ ​i​n​t​e​r​a​k​t​i​v​e​ ​A​n​w​e​n​d​u​n​g​ ​w​u​r​d​e​ ​i​m​ ​R​a​h​m​e​n​ ​d​e​s​ ​P​r​o​j​e​k​t​s​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​e​n​t​w​i​c​k​e​l​t​ ​–​ ​e​i​n​e​m​ ​g​e​m​e​i​n​s​a​m​e​n​ ​F​o​r​s​c​h​u​n​g​s​p​r​o​j​e​k​t​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​ä​t​ ​B​o​c​h​u​m​ ​u​n​d​ ​d​e​r​ ​L​e​i​b​n​i​z​ ​U​n​i​v​e​r​s​i​t​ä​t​ ​H​a​n​n​o​v​e​r​.​ ​Z​i​e​l​ ​i​s​t​ ​e​s​,​ ​d​i​e​ ​H​i​t​z​e​b​e​l​a​s​t​u​n​g​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​b​e​s​s​e​r​ ​z​u​ ​e​r​f​a​s​s​e​n​ ​u​n​d​ ​d​i​e​ ​S​t​a​d​t​ ​w​i​d​e​r​s​t​a​n​d​s​f​ä​h​i​g​e​r​ ​g​e​g​e​n​ü​b​e​r​ ​d​e​n​ ​F​o​l​g​e​n​ ​d​e​s​ ​K​l​i​m​a​w​a​n​d​e​l​s​ ​z​u​ ​m​a​c​h​e​n​.​ ​D​a​s​ ​P​r​o​j​e​k​t​ ​v​e​r​b​i​n​d​e​t​ ​w​i​s​s​e​n​s​c​h​a​f​t​l​i​c​h​e​ ​M​e​s​s​u​n​g​e​n​ ​m​i​t​ ​i​n​n​o​v​a​t​i​v​e​r​ ​T​e​c​h​n​i​k​ ​u​n​d​ ​a​k​t​i​v​e​r​ ​B​ü​r​g​e​r​b​e​t​e​i​l​i​g​u​n​g​.​ ​D​a​t​a​2​R​e​s​i​l​i​e​n​c​e​ ​w​i​r​d​ ​d​u​r​c​h​ ​d​e​n​ ​<​a​ ​h​r​e​f​=​'​h​t​t​p​s​:​/​/​i​c​l​e​i​.​o​r​g​/​a​c​t​i​v​i​t​y​/​i​c​l​e​i​-​a​c​t​i​o​n​-​f​u​n​d​-​2​-​0​/​'​ ​t​a​r​g​e​t​=​'​_​b​l​a​n​k​'​ ​r​e​l​=​'​n​o​o​p​e​n​e​r​ ​n​o​r​e​f​e​r​r​e​r​'​>​I​C​L​E​I​ ​A​c​t​i​o​n​ ​F​u​n​d​ ​2​.​0​<​/​a​>​ ​m​i​t​ ​U​n​t​e​r​s​t​ü​t​z​u​n​g​ ​v​o​n​ ​<​a​ ​h​r​e​f​=​'​h​t​t​p​s​:​/​/​w​w​w​.​g​o​o​g​l​e​.​o​r​g​/​'​ ​t​a​r​g​e​t​=​'​_​b​l​a​n​k​'​ ​r​e​l​=​'​n​o​o​p​e​n​e​r​ ​n​o​r​e​f​e​r​r​e​r​'​>​G​o​o​g​l​e​.​o​r​g​<​/​a​>​ ​g​e​f​ö​r​d​e​r​t​.
 			 */
 			description: string
 			mainLink: {
@@ -1656,7 +1696,7 @@ type RootTranslation = {
 			}
 			contactLink: {
 				/**
-				 * m​a​i​l​t​o​:​i​n​f​o​@​d​a​t​a​2​r​e​s​i​l​i​e​n​c​e​.​o​r​g
+				 * m​a​i​l​t​o​:​c​l​i​m​a​t​e​@​r​u​b​.​d​e
 				 */
 				url: string
 				/**
@@ -1737,7 +1777,7 @@ type RootTranslation = {
 			 */
 			title: string
 			/**
-			 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​.
+			 * D​e​r​ ​U​T​C​I​ ​b​e​s​c​h​r​e​i​b​t​,​ ​w​i​e​ ​w​a​r​m​ ​s​i​c​h​ ​d​a​s​ ​W​e​t​t​e​r​ ​f​ü​r​ ​d​e​n​ ​m​e​n​s​c​h​l​i​c​h​e​n​ ​K​ö​r​p​e​r​ ​a​n​f​ü​h​l​t​.​ ​D​e​r​ ​U​T​C​I​ ​b​e​r​ü​c​k​s​i​c​h​t​i​g​t​ ​d​i​e​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​,​ ​W​i​n​d​,​ ​S​o​n​n​e​n​e​i​n​s​t​r​a​h​l​u​n​g​ ​s​o​w​i​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​–​ ​u​n​d​ ​g​i​b​t​ ​d​a​s​ ​E​r​g​e​b​n​i​s​ ​i​n​ ​B​e​l​a​s​t​u​n​g​s​s​t​u​f​e​n​ ​f​ü​r​ ​d​e​n​ ​K​ö​r​p​e​r​ ​(​H​i​t​z​e​s​t​r​e​s​s​k​a​t​e​g​o​r​i​e​)​ ​o​d​e​r​ ​a​l​s​ ​g​e​f​ü​h​l​t​e​ ​T​e​m​p​e​r​a​t​u​r​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​ ​(​T​e​m​p​e​r​a​t​u​r​ ​i​n​ ​°​C​)​ ​a​n​.​ ​B​e​i​ ​d​e​r​ ​B​e​r​e​c​h​n​u​n​g​ ​d​e​s​ ​U​T​C​I​s​ ​w​i​r​d​ ​v​o​n​ ​e​i​n​e​r​ ​d​u​r​c​h​s​c​h​n​i​t​t​l​i​c​h​e​n​ ​P​e​r​s​o​n​ ​m​i​t​ ​s​a​i​s​o​n​a​l​ ​a​n​g​e​p​a​s​s​t​e​r​ ​K​l​e​i​d​u​n​g​ ​u​n​d​ ​l​e​i​c​h​t​e​r​ ​A​k​t​i​v​i​t​ä​t​ ​(​G​e​h​e​n​)​ ​a​u​s​g​e​g​a​n​g​e​n​.
 			 */
 			description: string
 			types: {
@@ -1769,7 +1809,7 @@ type RootTranslation = {
 			 */
 			title: string
 			/**
-			 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​.
+			 * D​i​e​ ​r​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​g​i​b​t​ ​a​n​,​ ​w​i​e​ ​v​i​e​l​ ​W​a​s​s​e​r​d​a​m​p​f​ ​d​i​e​ ​L​u​f​t​ ​i​m​ ​V​e​r​h​ä​l​t​n​i​s​ ​z​u​r​ ​m​a​x​i​m​a​l​ ​m​ö​g​l​i​c​h​e​n​ ​M​e​n​g​e​ ​b​e​i​ ​d​e​r​ ​a​k​t​u​e​l​l​e​n​ ​T​e​m​p​e​r​a​t​u​r​ ​e​n​t​h​ä​l​t​ ​–​ ​a​n​g​e​g​e​b​e​n​ ​i​n​ ​P​r​o​z​e​n​t​ ​(​%​)​.​ ​E​i​n​e​ ​h​o​h​e​ ​r​e​l​a​t​i​v​e​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​ ​v​e​r​r​i​n​g​e​r​t​ ​d​i​e​ ​V​e​r​d​u​n​s​t​u​n​g​ ​v​o​n​ ​S​c​h​w​e​i​ß​ ​–​ ​d​a​d​u​r​c​h​ ​f​ü​h​l​t​ ​s​i​c​h​ ​H​i​t​z​e​ ​s​t​ä​r​k​e​r​ ​u​n​d​ ​d​r​ü​c​k​e​n​d​e​r​ ​a​n​.
 			 */
 			description: string
 		}
@@ -1779,7 +1819,7 @@ type RootTranslation = {
 			 */
 			title: string
 			/**
-			 * L​o​r​e​m​ ​i​p​s​u​m​ ​d​o​l​o​r​ ​s​i​t​ ​a​m​e​t​,​ ​c​o​n​s​e​c​t​e​t​u​e​r​ ​a​d​i​p​i​s​c​i​n​g​ ​e​l​i​t​.​ ​A​e​n​e​a​n​ ​c​o​m​m​o​d​o​ ​l​i​g​u​l​a​ ​e​g​e​t​ ​d​o​l​o​r​.​ ​A​e​n​e​a​n​ ​m​a​s​s​a​.​ ​C​u​m​ ​s​o​c​i​i​s​ ​n​a​t​o​q​u​e​ ​p​e​n​a​t​i​b​u​s​ ​e​t​ ​m​a​g​n​i​s​ ​d​i​s​ ​p​a​r​t​u​r​i​e​n​t​ ​m​o​n​t​e​s​.
+			 * D​i​e​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​g​i​b​t​ ​d​i​e​ ​g​e​m​e​s​s​e​n​e​ ​T​e​m​p​e​r​a​t​u​r​ ​d​e​r​ ​L​u​f​t​ ​i​n​ ​G​r​a​d​ ​C​e​l​s​i​u​s​ ​(​°​C​)​ ​a​n​.​ ​D​i​e​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​ ​i​s​t​ ​e​i​n​ ​z​e​n​t​r​a​l​e​r​ ​G​r​u​n​d​w​e​r​t​ ​f​ü​r​ ​d​i​e​ ​H​i​t​z​e​w​a​h​r​n​e​h​m​u​n​g​ ​–​ ​j​e​ ​h​ö​h​e​r​ ​s​i​e​ ​i​s​t​,​ ​d​e​s​t​o​ ​g​r​ö​ß​e​r​ ​i​s​t​ ​i​n​ ​d​e​r​ ​R​e​g​e​l​ ​d​i​e​ ​W​ä​r​m​e​b​e​l​a​s​t​u​n​g​ ​f​ü​r​ ​d​e​n​ ​K​ö​r​p​e​r​.
 			 */
 			description: string
 		}
@@ -1836,11 +1876,11 @@ type RootTranslation = {
 			districts: string
 			districtsTooltip: {
 				/**
-				 * S​t​a​d​t​b​e​z​i​r​k​e
+				 * W​a​s​ ​s​i​n​d​ ​S​t​a​d​t​b​e​z​i​r​k​e​?
 				 */
 				title: string
 				/**
-				 * D​i​e​ ​S​t​a​d​t​b​e​z​i​r​k​e​ ​s​i​n​d​ ​d​i​e​ ​e​i​n​z​e​l​n​e​n​ ​B​e​z​i​r​k​e​ ​d​e​r​ ​S​t​a​d​t​ ​D​o​r​t​m​u​n​d​.​ ​S​i​e​ ​s​i​n​d​ ​i​n​ ​d​e​r​ ​R​e​g​e​l​ ​k​l​e​i​n​e​r​ ​a​l​s​ ​d​i​e​ ​S​t​a​d​t​t​e​i​l​e​ ​u​n​d​ ​A​k​t​i​o​n​s​r​ä​u​m​e​.
+				 * S​t​a​d​t​b​e​z​i​r​k​e​ ​s​i​n​d​ ​o​f​f​i​z​i​e​l​l​e​ ​V​e​r​w​a​l​t​u​n​g​s​e​i​n​h​e​i​t​e​n​ ​m​i​t​ ​e​i​g​e​n​e​n​ ​Z​u​s​t​ä​n​d​i​g​k​e​i​t​e​n​ ​i​n​n​e​r​h​a​l​b​ ​d​e​r​ ​S​t​a​d​t​.
 				 */
 				description: string
 			}
@@ -1850,11 +1890,11 @@ type RootTranslation = {
 			lors: string
 			lorsTooltip: {
 				/**
-				 * S​t​a​d​t​t​e​i​l​e​ ​&​ ​A​k​t​i​o​n​s​r​ä​u​m​e
+				 * W​a​s​ ​s​i​n​d​ ​S​t​a​d​t​t​e​i​l​e​ ​u​n​d​ ​A​k​t​i​o​n​s​r​ä​u​m​e​?
 				 */
 				title: string
 				/**
-				 * D​i​e​ ​S​t​a​d​t​t​e​i​l​e​ ​s​i​n​d​ ​d​i​e​ ​e​i​n​z​e​l​n​e​n​ ​E​i​n​z​e​l​g​e​b​ä​u​d​e​ ​d​e​r​ ​S​t​a​d​t​ ​D​o​r​t​m​u​n​d​.​ ​D​i​e​ ​A​k​t​i​o​n​s​r​ä​u​m​e​ ​s​i​n​d​ ​d​i​e​ ​ö​f​f​e​n​t​l​i​c​h​e​n​ ​R​ä​u​m​e​,​ ​d​i​e​ ​v​o​n​ ​d​e​r​ ​S​t​a​d​t​v​e​r​w​a​l​t​u​n​g​ ​b​e​t​r​i​e​b​e​n​ ​w​e​r​d​e​n​.
+				 * S​t​a​d​t​t​e​i​l​e​ ​s​i​n​d​ ​k​l​e​i​n​e​r​e​,​ ​l​e​b​e​n​s​n​a​h​e​ ​E​i​n​h​e​i​t​e​n​ ​i​n​n​e​r​h​a​l​b​ ​d​e​r​ ​S​t​a​d​t​b​e​z​i​r​k​e​.​ ​A​k​t​i​o​n​s​r​ä​u​m​e​ ​m​a​r​k​i​e​r​e​n​ ​B​e​r​e​i​c​h​e​ ​m​i​t​ ​b​e​s​o​n​d​e​r​e​m​ ​s​o​z​i​a​l​e​n​ ​F​ö​r​d​e​r​b​e​d​a​r​f​.​ ​D​i​e​s​e​ ​s​t​a​m​m​e​n​ ​a​u​s​ ​d​e​m​ ​<​a​ ​c​l​a​s​s​=​'​f​o​c​u​s​a​b​l​e​ ​t​r​a​n​s​i​t​i​o​n​-​o​p​a​c​i​t​y​ ​h​o​v​e​r​-​h​o​v​e​r​:​h​o​v​e​r​:​o​p​a​c​i​t​y​-​5​0​ ​u​n​d​e​r​l​i​n​e​ ​d​e​c​o​r​a​t​i​o​n​-​p​r​i​m​a​r​y​ ​u​n​d​e​r​l​i​n​e​-​o​f​f​s​e​t​-​4​'​ ​h​r​e​f​=​'​h​t​t​p​s​:​/​/​w​w​w​.​d​o​r​t​m​u​n​d​.​d​e​/​t​h​e​m​e​n​/​s​o​z​i​a​l​e​s​/​a​k​t​i​o​n​s​p​l​a​n​-​s​o​z​i​a​l​e​-​s​t​a​d​t​/​'​ ​t​a​r​g​e​t​=​'​_​b​l​a​n​k​'​ ​r​e​l​=​'​n​o​o​p​e​n​e​r​ ​n​o​r​e​f​e​r​r​e​r​'​>​A​k​t​i​o​n​s​p​l​a​n​ ​S​o​z​i​a​l​e​ ​S​t​a​d​t​ ​D​o​r​t​m​u​n​d​<​/​a​>​.
 				 */
 				description: string
 			}
@@ -1864,11 +1904,11 @@ type RootTranslation = {
 			satellite: string
 			satelliteTooltip: {
 				/**
-				 * D​i​g​i​t​a​l​e​ ​O​r​t​h​o​p​h​o​t​o​s
+				 * W​a​s​ ​s​i​n​d​ ​d​i​g​i​t​a​l​e​ ​O​r​t​h​o​p​h​o​t​o​s​?
 				 */
 				title: string
 				/**
-				 * D​i​e​ ​D​i​g​i​t​a​l​e​ ​O​r​t​h​o​p​h​o​t​o​s​ ​s​i​n​d​ ​e​i​n​e​ ​d​i​g​i​t​a​l​e​ ​D​a​r​s​t​e​l​l​u​n​g​ ​d​e​r​ ​S​t​a​d​t​ ​D​o​r​t​m​u​n​d​.​ ​S​i​e​ ​z​e​i​g​e​n​ ​d​i​e​ ​S​t​a​d​t​ ​a​l​s​ ​e​i​n​e​ ​g​r​o​ß​e​,​ ​f​l​a​c​h​e​,​ ​s​c​h​w​a​r​z​e​ ​F​l​ä​c​h​e​,​ ​d​i​e​ ​v​o​n​ ​d​e​r​ ​D​i​g​i​t​a​l​i​s​i​e​r​u​n​g​ ​d​e​r​ ​S​t​a​d​t​ ​b​e​t​r​i​e​b​e​n​ ​w​i​r​d​.
+				 * D​i​g​i​t​a​l​e​ ​O​r​t​h​o​f​o​t​o​s​ ​s​i​n​d​ ​e​n​t​z​e​r​r​t​e​ ​L​u​f​t​b​i​l​d​e​r​,​ ​d​i​e​ ​w​i​e​ ​e​i​n​e​ ​m​a​ß​s​t​a​b​s​g​e​t​r​e​u​e​ ​K​a​r​t​e​ ​f​u​n​k​t​i​o​n​i​e​r​e​n​.​ ​S​i​e​ ​z​e​i​g​e​n​ ​D​o​r​t​m​u​n​d​ ​a​u​s​ ​d​e​r​ ​V​o​g​e​l​p​e​r​s​p​e​k​t​i​v​e​ ​u​n​d​ ​e​r​m​ö​g​l​i​c​h​e​n​ ​e​i​n​e​ ​r​e​a​l​i​t​ä​t​s​n​a​h​e​ ​O​r​i​e​n​t​i​e​r​u​n​g​.
 				 */
 				description: string
 			}
@@ -1943,7 +1983,7 @@ type RootTranslation = {
 						heatStress: string
 					}
 					/**
-					 * L​e​b​e​n​s​b​e​d​r​o​h​l​i​c​h​e​ ​H​y​p​o​t​h​e​r​m​i​e​,​ ​s​c​h​w​e​r​e​ ​E​r​f​r​i​e​r​u​n​g​e​n​ ​i​n​n​e​r​h​a​l​b​ ​v​o​n​ ​M​i​n​u​t​e​n​ ​m​ö​g​l​i​c​h​.
+					 * H​o​h​e​ ​E​r​f​r​i​e​r​u​n​g​s​g​e​f​a​h​r​,​ ​H​y​p​o​t​h​e​r​m​i​e​ ​m​ö​g​l​i​c​h​.
 					 */
 					description: string
 					ranges: {
@@ -1969,7 +2009,7 @@ type RootTranslation = {
 						heatStress: string
 					}
 					/**
-					 * E​r​f​r​i​e​r​u​n​g​s​g​e​f​a​h​r​ ​f​ü​r​ ​e​x​p​o​n​i​e​r​t​e​ ​H​a​u​t​b​e​r​e​i​c​h​e​,​ ​e​r​h​ö​h​t​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​K​ä​l​t​e​s​c​h​ä​d​e​n​.
+					 * E​r​f​r​i​e​r​u​n​g​s​g​e​f​a​h​r​ ​a​n​ ​u​n​g​e​s​c​h​ü​t​z​t​e​n​ ​H​a​u​t​s​t​e​l​l​e​n​,​ ​e​r​h​ö​h​t​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​K​ä​l​t​e​s​c​h​ä​d​e​n​.
 					 */
 					description: string
 					ranges: {
@@ -2073,7 +2113,7 @@ type RootTranslation = {
 						heatStress: string
 					}
 					/**
-					 * L​e​i​c​h​t​e​ ​U​n​a​n​n​e​h​m​l​i​c​h​k​e​i​t​e​n​,​ ​e​r​h​ö​h​t​e​r​ ​S​c​h​w​e​i​ß​a​u​s​s​t​o​ß​.
+					 * L​e​i​c​h​t​e​ ​U​n​a​n​n​e​h​m​l​i​c​h​k​e​i​t​e​n​,​ ​v​e​r​m​e​h​r​t​e​s​ ​S​c​h​w​i​t​z​e​n​.
 					 */
 					description: string
 					ranges: {
@@ -2125,7 +2165,7 @@ type RootTranslation = {
 						heatStress: string
 					}
 					/**
-					 * G​e​f​a​h​r​ ​v​o​n​ ​H​i​t​z​e​k​r​ä​m​p​f​e​n​,​ ​H​i​t​z​e​r​s​c​h​ö​p​f​u​n​g​,​ ​e​r​h​ö​h​t​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​h​i​t​z​e​b​e​d​i​n​g​t​e​ ​E​r​k​r​a​n​k​u​n​g​e​n​,​ ​b​e​s​o​n​d​e​r​s​ ​b​e​i​ ​k​ö​r​p​e​r​l​i​c​h​e​r​ ​A​k​t​i​v​i​t​ä​t​.
+					 * G​e​f​a​h​r​ ​v​o​n​ ​H​i​t​z​e​k​r​ä​m​p​f​e​n​,​ ​H​i​t​z​e​e​r​s​c​h​ö​p​f​u​n​g​,​ ​e​r​h​ö​h​t​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​h​i​t​z​e​b​e​d​i​n​g​t​e​ ​E​r​k​r​a​n​k​u​n​g​e​n​,​ ​b​e​s​o​n​d​e​r​s​ ​b​e​i​ ​k​ö​r​p​e​r​l​i​c​h​e​r​ ​A​k​t​i​v​i​t​ä​t​.
 					 */
 					description: string
 					ranges: {
@@ -2151,7 +2191,7 @@ type RootTranslation = {
 						heatStress: string
 					}
 					/**
-					 * L​e​b​e​n​s​b​e​d​r​o​h​l​i​c​h​e​ ​H​i​t​z​s​c​h​l​ä​g​e​,​ ​a​k​u​t​e​ ​B​e​l​a​s​t​u​n​g​ ​d​e​s​ ​H​e​r​z​-​K​r​e​i​s​l​a​u​f​-​S​y​s​t​e​m​s​,​ ​h​o​h​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​s​c​h​w​e​r​e​ ​h​i​t​z​e​b​e​d​i​n​g​t​e​ ​E​r​k​r​a​n​k​u​n​g​e​n​ ​u​n​d​ ​T​o​d​.
+					 * L​e​b​e​n​s​b​e​d​r​o​h​l​i​c​h​e​ ​H​i​t​z​s​c​h​l​ä​g​e​ ​m​ö​g​l​i​c​h​,​ ​a​k​u​t​e​ ​B​e​l​a​s​t​u​n​g​ ​d​e​s​ ​H​e​r​z​-​K​r​e​i​s​l​a​u​f​-​S​y​s​t​e​m​s​,​ ​h​o​h​e​s​ ​R​i​s​i​k​o​ ​f​ü​r​ ​s​c​h​w​e​r​e​ ​h​i​t​z​e​b​e​d​i​n​g​t​e​ ​E​r​k​r​a​n​k​u​n​g​e​n​ ​u​n​d​ ​T​o​d​.
 					 */
 					description: string
 					ranges: {
@@ -2196,19 +2236,19 @@ export type TranslationFunctions = {
 	 */
 	author: () => LocalizedString
 	/**
-	 * Dashboard für Thermischen Komfort in Dortmund
+	 * Dashboard zur Überwachung urbaner Hitze in Dortmund
 	 */
 	siteSubtitle: () => LocalizedString
 	/**
-	 * Data2Resilience | Dashboard für Thermischen Komfort in Dortmund
+	 * Data2Resilience | Dashboard zur Überwachung urbaner Hitze in Dortmund
 	 */
 	siteNameLong: () => LocalizedString
 	/**
-	 * Data2Resilience ist ein Projekt, das darauf abzielt, die urbane Widerstandsfähigkeit gegen extreme Hitze in Dortmund durch innovative biometeorologische Messnetze und bürgerschaftliches Engagement zu verbessern. Erfahren Sie mehr über unsere Initiativen und Ergebnisse.
+	 * Nahezu Live-Daten zur Hitzebelastung in Dortmund aus Forschungsprojekt Data2Resilience: Interaktive Karten und Diagramme zeigen aktuelle Klimawerte wie Temperatur, Luftfeuchtigkeit, Strahlung, Wind und thermischen Komfort in verschiedenen Stadtteilen, verständlich erklärt und jederzeit abrufbar.
 	 */
 	siteDescription: () => LocalizedString
 	/**
-	 * Data2Resilience, urbane Resilienz, extreme Hitze, Dortmund, Klimawandel, biometeorologische Messung, gesellschaftliches Engagement, Hitzeresilienz, Stadtklima, Klimaanpassung
+	 * Data2Resilience, urbane Resilienz, extreme Hitze, Dortmund, Klimawandel, biometeorologische Messung, Hitzeresilienz, Stadtklima, Klimaanpassung, Wetterdaten, Umweltmonitoring, LoRaWAN, Smart City Dortmund
 	 */
 	keywords: () => LocalizedString
 	/**
@@ -2335,7 +2375,7 @@ export type TranslationFunctions = {
 			noResults: () => LocalizedString
 		}
 		/**
-		 * Chart exportieren
+		 * Diagramm exportieren
 		 */
 		chartExportButtonLabel: () => LocalizedString
 	}
@@ -2355,14 +2395,18 @@ export type TranslationFunctions = {
 	}
 	welcome: {
 		/**
-		 * Herzlich willkommen
+		 * Herzlich Willkommen!
 		 */
 		title: () => LocalizedString
 		text: {
 			/**
-			 * Das Projekt Data2Resilience nutzt ein neues biometeorologisches Messnetzwerk zur Beobachtung und Vorhersage von Hitze und bezieht die Bürger frühzeitig ein, um Herausforderungen und Bedürfnisse in Dortmund zu adressieren. Dieses Dashboard ermöglicht Ihnen, Echtzeitdaten zum thermischen Komfort in der Stadt zu erkunden.
+			 * Diese interaktive Plattform (Dashboard) zeigt nahezu in Echtzeit, wie stark einzelne Standorte in Dortmund von Hitze betroffen sind. Grundlage ist ein flächendeckendes Messnetz, das hitzerelevante Wetterdaten erfasst.
 			 */
 			'0': () => LocalizedString
+			/**
+			 * Übersichtliche Karten und Diagramme veranschaulichen die Hitzebelastung – für alle, die sich an hohe Temperaturen anpassen, Dortmund klimaresilient gestalten oder sich einfach nur informieren möchten.
+			 */
+			'1': () => LocalizedString
 		}
 		buttons: {
 			/**
@@ -2515,13 +2559,17 @@ export type TranslationFunctions = {
 			title: () => LocalizedString
 			intro: {
 				/**
-				 * Der Hitzeatlas für Dortmund bietet eine Übersicht zur Hitzebelastung in der Stadt. Die Hitzebelastung wird durch drei Karten abgebildet: den universellen thermischen Klimaindex (UTCI) zur Einschätzung des Wärmeempfindens von BürgerInnen sowie die relative Luftfeuchtigkeit und Lufttemperatur als zentrale Einflussfaktoren.
+				 * Der Hitzeatlas gibt einen flächendeckenden Überblick zur Hitzebelastung in ganz Dortmund. Sie können zwischen drei Klimagrößen wählen: dem universellen thermischen Klimaindex (UTCI), relativer Luftfeuchtigkeit und Lufttemperatur.
 				 */
 				'0': () => LocalizedString
 				/**
-				 * Karten basieren auf modellierten Berechnungen, die aus Stationsmessungen abgeleitet sind. Die modellierten Karten sind weniger genau als die Messdaten und sollten nur als Ausgangspunkt verwendet werden. Für detaillierte Analysen verlassen Sie sich bitte auf die Stationsmessdaten.
+				 * Beim UTCI lässt sich zwischen einer gesundheitsbezogenen Belastungskarte (Hitzestresskategorien) und einer Temperaturanzeige in Grad Celsius (°C) umschalten. Farbskala und Legende helfen bei der Einordnung.
 				 */
 				'1': () => LocalizedString
+				/**
+				 * Die Karten basieren auf modellierten Berechnungen, die aus Stationsmessungen abgeleitet sind. Dabei werden die jeweils aktuellsten verfügbaren Werte innerhalb eines Zeitfensters von vier Stunden berücksichtigt. Für genaue Analysen sollten die Messwerte herangezogen werden.
+				 */
+				'2': () => LocalizedString
 			}
 			/**
 			 * Daten nur verfügbar im Zeitraum vom {startDate} bis {endDate}.
@@ -2564,7 +2612,7 @@ export type TranslationFunctions = {
 			 */
 			singleDateAlertDescriptionOldDataDays: (arg: { dist: string }) => LocalizedString
 			/**
-			 * Wähle einen Indikator, um die angezeigten Daten auf der Karte zu ändern.
+			 * Wähle eine Klimagröße, um die angezeigten Daten auf der Karte zu ändern.
 			 */
 			indicatorsNavAriaLabel: () => LocalizedString
 		}
@@ -2575,9 +2623,17 @@ export type TranslationFunctions = {
 			title: () => LocalizedString
 			intro: {
 				/**
-				 * Die Messwerte zeigen Wetterdaten aus verschiedenen Teilen Dortmunds, die durch Messstationen ermittelt werden. Diese Daten, wie z. B. Lufttemperatur und Luftfeuchtigkeit, helfen dabei, die aktuelle Hitzebelastung in der Stadt zu verstehen. Sie können die Messstationen als Punkte in der Karte sehen und aktuelle sowie vergangene Werte verfolgen.
+				 * In verschiedenen Teilen Dortmunds erfassen Messstationen kontinuierlich Wetterdaten wie Lufttemperatur, Luftfeuchtigkeit und Strahlung. Diese Informationen helfen, die aktuelle Hitzebelastung besser zu verstehen.
 				 */
 				'0': () => LocalizedString
+				/**
+				 * Die Stationen sind als Punkte auf der Karte dargestellt. Sie können einzelne Messstationen auswählen sowie verschiedene Klimagrößen und Zeiträume einstellen. Die zugehörigen Diagramme ermöglichen einen Vergleich zwischen Orten und Zeitspannen.
+				 */
+				'1': () => LocalizedString
+				/**
+				 * Nutzen Sie die interaktive Karte rechts zur Orientierung und blenden Sie zusätzliche Informationen wie Luftbilder oder Gesundheitsrisiken ein.
+				 */
+				'2': () => LocalizedString
 			}
 			/**
 			 * Keine Daten für die ausgewählte Konfiguration verfügbar
@@ -2592,31 +2648,31 @@ export type TranslationFunctions = {
 			 */
 			noStationsSelected: () => LocalizedString
 			/**
-			 * Für den gewählten Indikator <strong>{unit}</strong> erheben die Stationen <strong>{stations}</strong> keine Daten.
+			 * Für die gewählte Klimagröße <strong>{unit}</strong> erheben die Stationen <strong>{stations}</strong> keine Daten.
 			 */
 			someUnsupportedStations: (arg: { stations: string, unit: string }) => LocalizedString
 			/**
-			 * Keine der ausgewählten Stationen erhebt Daten für den Indikator <strong>{unit}</strong>.
+			 * Keine der ausgewählten Stationen erhebt Daten für die Klimagröße <strong>{unit}</strong>.
 			 */
 			allUnsupportedStations: (arg: { unit: string }) => LocalizedString
 			/**
-			 * Die Station <strong>{station}</strong> erhebt keine Daten für den Indikator <strong>{unit}</strong>.
+			 * Die Station <strong>{station}</strong> erhebt keine Daten für die Klimagröße <strong>{unit}</strong>.
 			 */
 			singleUnsupportedStation: (arg: { station: string, unit: string }) => LocalizedString
 			/**
-			 * Diese Station erhebt keine Daten für den Indikator <strong>{unit}</strong>.
+			 * Diese Station erhebt keine Daten für die Klimagröße <strong>{unit}</strong>.
 			 */
 			singleUnsupportedStationShort: (arg: { unit: string }) => LocalizedString
 			/**
-			 * Für den gewählten Indikator <strong>{unit}</strong> haben die Stationen <strong>{stations}</strong> keine Daten erheben können.
+			 * Für die gewählten Klimagrößen <strong>{unit}</strong> haben die Stationen <strong>{stations}</strong> keine Daten erheben können.
 			 */
 			someStationsWithoutAvailableData: (arg: { stations: string, unit: string }) => LocalizedString
 			/**
-			 * Keine der ausgewählten Stationen konnten Daten fuer den Indikator <strong>{unit}</strong> erheben.
+			 * Keine der ausgewählten Stationen konnten Daten für die Klimagröße <strong>{unit}</strong> erheben.
 			 */
 			allStationsWithoutAvailableData: (arg: { unit: string }) => LocalizedString
 			/**
-			 * Die Station <strong>{station}</strong> konnte keine Daten für den Indikator <strong>{unit}</strong> erheben.
+			 * Die Station <strong>{station}</strong> konnte keine Daten für die Klimagröße <strong>{unit}</strong> erheben.
 			 */
 			singleStationWithoutAvailableData: (arg: { station: string, unit: string }) => LocalizedString
 			stationsSelect: {
@@ -2631,15 +2687,15 @@ export type TranslationFunctions = {
 			}
 			unitSelect: {
 				/**
-				 * Kein Indikator gefunden
+				 * Keine Klimagröße gefunden
 				 */
 				noUnitFound: () => LocalizedString
 				/**
-				 * Indikator auswählen
+				 * Klimagröße auswählen
 				 */
 				placeholder: () => LocalizedString
 				/**
-				 * Indikator suchen...
+				 * Klimagröße suchen...
 				 */
 				searchPlaceholder: () => LocalizedString
 				/**
@@ -2647,7 +2703,7 @@ export type TranslationFunctions = {
 				 */
 				xOutOfY: (arg: { part: unknown, total: unknown }) => LocalizedString
 				/**
-				 * Stationnamen
+				 * Stationsnamen
 				 */
 				stationsHeaderLabel: () => LocalizedString
 				units: {
@@ -2681,11 +2737,11 @@ export type TranslationFunctions = {
 					}
 					utci: {
 						/**
-						 * Universeller Thermischer Klimaindex (UTCI)
+						 * Universeller thermischer Klimaindex (UTCI)
 						 */
 						label: () => LocalizedString
 						/**
-						 * Der <strong>Universelle Thermische Klimaindex (UTCI)</strong> beschreibt einen Index, der die thermischen Bedingungen für eine Standardperson in einer standardisierten Umgebung darstellt.
+						 * Der <strong>universelle thermische Klimaindex (UTCI)</strong> beschreibt, wie warm sich das Wetter für den menschlichen Körper anfühlt. Der UTCI berücksichtigt die Lufttemperatur, Wind, Sonneneinstrahlung sowie Luftfeuchtigkeit – und gibt das Ergebnis als gefühlte Temperatur in Grad Celsius (°C) an. Bei der Berechnung des UTCIs wird von einer durchschnittlichen Person mit saisonal angepasster Kleidung und leichter Aktivität (Gehen) ausgegangen.
 						 */
 						description: () => LocalizedString
 						/**
@@ -2695,11 +2751,11 @@ export type TranslationFunctions = {
 					}
 					utci_category: {
 						/**
-						 * Universeller Thermischer Klimaindex (UTCI) Kategorie
+						 * Universeller thermischer Klimaindex (UTCI) Kategorie
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>UTCI-Kategorie</strong> beschreibt die Klassifizierung des universellen thermischen Klimaindexes in Bezug auf thermischen Komfort.
+						 * Die <strong>UTCI-Kategorie</strong> beschreibt, wie warm sich das Wetter für den menschlichen Körper anfühlt. Es werden die Lufttemperatur, Wind, Sonneneinstrahlung sowie Luftfeuchtigkeit berücksichtigt. Das Ergebnis wird in Belastungsstufen für den Körper (Hitzestress) angegeben. Bei der Berechnung der UTCI-Kategorien wird von einer durchschnittlichen Person mit saisonal angepasster Kleidung und leichter Aktivität (Gehen) ausgegangen.
 						 */
 						description: () => LocalizedString
 						unitOnly: () => LocalizedString
@@ -2738,7 +2794,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Absolute Luftfeuchtigkeit</strong> beschreibt die Menge an Wasserdampf in der Luft, gemessen in Gramm pro Kubikmeter.
+						 * Die <strong>absolute Luftfeuchtigkeit</strong> gibt an, wie viel Wasserdampf tatsächlich in der Luft enthalten ist – gemessen in Gramm pro Kubikmeter (g/m³). Eine hohe absolute Luftfeuchtigkeit verringert die Verdunstung von Schweiß – dadurch fühlt sich Hitze stärker und drückender an.
 						 */
 						description: () => LocalizedString
 						/**
@@ -2780,7 +2836,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Lufttemperatur</strong> beschreibt die gemessene Temperatur der umgebenden Luft in Grad Celsius.
+						 * Die <strong>Lufttemperatur</strong> gibt die gemessene Temperatur der Luft in Grad Celsius (°C) an. Die Lufttemperatur ist ein zentraler Grundwert für die Hitzewahrnehmung – je höher sie ist, desto größer ist in der Regel die Wärmebelastung für den Körper.
 						 */
 						description: () => LocalizedString
 						/**
@@ -2850,7 +2906,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Der <strong>Reduzierte Luftdruck</strong> beschreibt den auf Meereshöhe reduzierten Druck, gemessen in Hektopascal.
+						 * Der <strong>reduzierte Luftdruck</strong> ist der auf Meereshöhe umgerechnete Luftdruck und ermöglicht den Vergleich von Messwerten unabhängig von der geografischen Höhe – angegeben in Hektopascal (hPa).
 						 */
 						description: () => LocalizedString
 						/**
@@ -2864,7 +2920,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Der <strong>Luftdruck</strong> beschreibt den durch das Gewicht der Atmosphäre ausgeübten Druck, gemessen in Hektopascal.
+						 * Der <strong>Luftdruck</strong> misst das Gewicht der Luftsäule über einem bestimmten Punkt und wird in Hektopascal (hPa) angegeben. Der Luftdruck beeinflusst die Hitzewahrnehmung nur indirekt, kann aber Wetterlagen mit hoher Wärmebelastung begünstigen – etwa stabile, heiße Hochdruckgebiete.
 						 */
 						description: () => LocalizedString
 						/**
@@ -2906,7 +2962,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Der <strong>Taupunkt</strong> beschreibt die Temperatur, bei der die Luft mit Wasserdampf gesättigt ist, gemessen in Grad Celsius.
+						 * Der <strong>Taupunkt</strong> ist die Temperatur, bei der die Luft mit Wasserdampf gesättigt ist und Kondensation beginnt – angegeben in Grad Celsius (°C). Ein hoher Taupunkt zeigt eine feuchte Luft an, die das Schwitzen erschwert – dadurch wird Hitze als drückender und belastender empfunden.
 						 */
 						description: () => LocalizedString
 						/**
@@ -2948,7 +3004,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Der <strong>Hitzeindex</strong> beschreibt die gefühlte Temperatur, basierend auf Lufttemperatur und Luftfeuchtigkeit.
+						 * Der <strong>Hitzeindex</strong> gibt an, wie heiß es sich für den menschlichen Körper anfühlt, indem er Lufttemperatur und relative Luftfeuchtigkeit kombiniert – angegeben in Grad Celsius (°C).
 						 */
 						description: () => LocalizedString
 						/**
@@ -2990,7 +3046,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Durchschnittliche Blitzentfernung</strong> beschreibt die mittlere Entfernung von Blitze zu einem Bezugspunkt, gemessen in Metern.
+						 * Die <strong>durchschnittliche Blitzentfernung</strong> gibt an, wie weit die registrierten Blitze im Mittel vom gewählten Standort entfernt waren – gemessen in Metern (m). Die durchschnittliche Blitzentfernung hat keinen direkten Einfluss auf die Hitzewahrnehmung, kann aber auf bevorstehende Wetteränderungen nach Hitze hinweisen.
 						 */
 						description: () => LocalizedString
 						/**
@@ -3026,7 +3082,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Anzahl der Blitze</strong> beschreibt die Häufigkeit von Blitze in einem bestimmten Gebiet und Zeitraum.
+						 * Die <strong>Anzahl der Blitze</strong> gibt die absolute Zahl der registrierten Blitzentladungen in einem bestimmten Zeitraum und Gebiet an. Die Anzahl der Blitze beeinflusst die Hitzewahrnehmung nicht direkt, kann aber auf starke Gewitter nach intensiver Hitze hinweisen.
 						 */
 						description: () => LocalizedString
 						unitOnly: () => LocalizedString
@@ -3065,7 +3121,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Maximale Windgeschwindigkeit</strong> beschreibt die höchste gemessene Windgeschwindigkeit in einem bestimmten Zeitraum.
+						 * Die <strong>Maximale Windgeschwindigkeit</strong> gibt den höchsten in einem bestimmten Zeitraum gemessenen Windwert an – ausgedrückt in Metern pro Sekunde (m/s). Eine höhere Windgeschwindigkeit kann die Hitzewahrnehmung verringern, da Wind die Haut kühlt und das Schwitzen unterstützt.
 						 */
 						description: () => LocalizedString
 						/**
@@ -3107,7 +3163,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Mittlere Strahlungstemperatur</strong> beschreibt die durchschnittliche Temperatur der umgebenden Oberflächen, die Wärmestrahlung abgeben.
+						 * Die <strong>mittlere Strahlungstemperatur</strong> beschreibt, wie stark der Mensch durch Wärmestrahlung aus seiner Umgebung aufgeheizt wird – z.B. durch Sonne, warme Wände oder aufgeheizten Asphalt. Sie wird angegeben in Grad Celsius (°C). Die mittlere Strahlungstemperatur berechnet sich aus der Wirkung der gesamten Strahlung, die aus allen Richtungen auf den Körper trifft – also sowohl langwellige (z. B. von Gebäuden) als auch kurzwellige Strahlung (z.B. direkte Sonne), unabhängig von der Lufttemperatur.
 						 */
 						description: () => LocalizedString
 						/**
@@ -3121,7 +3177,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>PET-Kategorie</strong> beschreibt die Klassifizierung der physiologisch äquivalenten Temperatur in Bezug auf thermischen Komfort.
+						 * Die <strong>PET-Kategorie</strong> gibt an, bei welcher Lufttemperatur in einem geschützten Innenraum (ohne Wind und Sonne) sich der Mensch genauso warm oder kalt fühlen würde wie unter den aktuellen Außenbedingungen. Es werden Lufttemperatur, Wind, Luftfeuchtigkeit und Strahlung sowie typische Kleidung und Aktivität einer Person berücksichtigt.
 						 */
 						description: () => LocalizedString
 						unitOnly: () => LocalizedString
@@ -3160,7 +3216,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Physiologisch äquivalente Temperatur (PET)</strong> beschreibt ein Maß für die thermische Belastung, das die physiologische Reaktion des menschlichen Körpers auf die Umgebungsbedingungen berücksichtigt.
+						 * Die <strong>physiologisch äquivalente Temperatur (PET)</strong> gibt an, bei welcher Lufttemperatur in einem geschützten Innenraum (ohne Wind und Sonne) sich der Mensch genauso warm oder kalt fühlen würde wie unter den aktuellen Außenbedingungen. Sie berücksichtigt Lufttemperatur, Wind, Luftfeuchtigkeit und Strahlung sowie typische Kleidung und Aktivität einer Person. PET wird angegeben in Grad Celsius (°C).
 						 */
 						description: () => LocalizedString
 						/**
@@ -3202,7 +3258,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Der <strong>Niederschlag</strong> beschreibt die Menge an Wasser, die als Regen, Schnee oder in anderer Form vom Himmel fällt, gemessen in Millimetern.
+						 * Der <strong>Niederschlag</strong> gibt die gesamte Menge an Regen, Schnee oder anderen Formen von Wasser an, die in einem bestimmten Zeitraum gefallen ist – gemessen in Millimetern (mm). Niederschlag kann die Hitzewahrnehmung verringern, da er die Luft abkühlt und oft mit erhöhter Luftbewegung und Wolken einhergeht.
 						 */
 						description: () => LocalizedString
 						/**
@@ -3244,7 +3300,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Relative Luftfeuchtigkeit</strong> beschreibt den Anteil des Wasserdampfs in der Luft im Verhältnis zur maximalen Menge, die die Luft bei dieser Temperatur aufnehmen könnte.
+						 * Die <strong>relative Luftfeuchtigkeit</strong> gibt an, wie viel Wasserdampf die Luft im Verhältnis zur maximal möglichen Menge bei der aktuellen Temperatur enthält – angegeben in Prozent (%). Eine hohe relative Luftfeuchtigkeit verringert die Verdunstung von Schweiß – dadurch fühlt sich Hitze stärker und drückender an.
 						 */
 						description: () => LocalizedString
 						/**
@@ -3286,7 +3342,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Solarstrahlung</strong> beschreibt die Menge an Sonnenenergie, die pro Flächeneinheit empfangen wird, gemessen in Watt pro Quadratmeter.
+						 * Die <strong>Solarstrahlung</strong> misst die Sonnenenergie, die auf eine bestimmte Fläche trifft – angegeben in Watt pro Quadratmeter (W/m²). Solarstrahlung besteht aus sichtbarem Licht, ultravioletter (UV-) und infraroter Strahlung. Sie ist die Hauptquelle für Wärme auf der Erde und beeinflusst direkt die Lufttemperatur und das thermische Empfinden im Freien.
 						 */
 						description: () => LocalizedString
 						/**
@@ -3328,7 +3384,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Der <strong>Dampfdruck</strong> beschreibt den Druck, den der Wasserdampf in der Luft ausübt, gemessen in Hektopascal.
+						 * Der <strong>Dampfdruck</strong> beschreibt den Anteil des Luftdrucks, der durch den in der Luft enthaltenen Wasserdampf verursacht wird – gemessen in Hektopascal (hPa). Ein hoher Dampfdruck zeigt an, dass viel Wasserdampf in der Luft ist. Dies erschwert das Schwitzen und lässt Hitze intensiver wirken.
 						 */
 						description: () => LocalizedString
 						/**
@@ -3370,7 +3426,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Kühlgrenztemperatur</strong> beschreibt die Temperatur, die ein Thermometer anzeigen würde, wenn es mit einem feuchten Tuch umwickelt und der Luft ausgesetzt ist.
+						 * Die <strong>Kühlgrenztemperatur</strong> ist die niedrigste Temperatur, die durch Verdunstungskühlung unter gegebenen Bedingungen erreicht werden kann – angegeben in Grad Celsius (°C). Die Kühlgrenztemperatur ist ein Maß dafür, wie stark sich der Körper durch Schwitzen abkühlen kann.
 						 */
 						description: () => LocalizedString
 						/**
@@ -3412,7 +3468,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Windrichtung</strong> beschreibt die Richtung, aus der der Wind weht, gemessen in Grad.
+						 * Die <strong>Windrichtung</strong> gibt an, aus welcher Himmelsrichtung der Wind weht – gemessen in Grad (°), wobei 0° für Norden, 90° für Osten 180 ° für Süden und 270° für Westen steht. Die Windrichtung beeinflusst, ob heiße oder kühlere Luftmassen herangeführt werden – und damit, wie warm es sich vor Ort anfühlt.
 						 */
 						description: () => LocalizedString
 						/**
@@ -3454,7 +3510,7 @@ export type TranslationFunctions = {
 						 */
 						label: () => LocalizedString
 						/**
-						 * Die <strong>Windgeschwindigkeit</strong> beschreibt die Geschwindigkeit, mit der sich die Luft bewegt, gemessen in Metern pro Sekunde.
+						 * Die <strong>Windgeschwindigkeit</strong> beschreibt, wie schnell sich die Luft bewegt – gemessen in Metern pro Sekunde (m/s). Eine höhere Windgeschwindigkeit kann die Hitzewahrnehmung verringern, weil sie den Körper kühlt und die Verdunstung von Schweiß unterstützt.
 						 */
 						description: () => LocalizedString
 						/**
@@ -3496,11 +3552,11 @@ export type TranslationFunctions = {
 				 */
 				range: () => LocalizedString
 				/**
-				 * Wie funktioniert die Zeitspanne?
+				 * Wie funktioniert die Zeitauswahl?
 				 */
 				infoTitle: () => LocalizedString
 				/**
-				 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+				 * Über die Schaltflächen „pro Stunde“, „pro Tag“ und „Zeitspanne“ können Sie auswählen, wie die Klimadaten im Diagramm dargestellt werden:<ul class="flex flex-col gap-1 py-2"><li><strong>Pro Stunde:</strong> Zeigt stündliche Werte für ausgewählte Tage.</li><li><strong>Pro Tag:</strong> Zeigt Tageswerte als Minimum, Mittelwert oder Maximum.</li><li><strong>Zeitspanne:</strong> Zeigt den Verlauf zwischen zwei frei wählbaren Zeitpunkten.</li></ul>Nur ein Diagramm wird angezeigt und passt sich automatisch Ihrer Auswahl an.
 				 */
 				infoDescription: () => LocalizedString
 			}
@@ -3531,7 +3587,7 @@ export type TranslationFunctions = {
 		}
 		stations: {
 			/**
-			 * Wie messen wir thermischen Komfort?
+			 * Wie messen wir urbane Hitze?
 			 */
 			title: () => LocalizedString
 			/**
@@ -3540,153 +3596,177 @@ export type TranslationFunctions = {
 			titleTable: () => LocalizedString
 			intro: {
 				/**
-				 * Im Folgenden finden Sie technische Informationen zu den Messstationen sowie eine Zusammenfassung der Kriterien zur Standortauswahl der Messstationen.
+				 * Erfahren Sie mehr über die technische Ausstattung und die Standortwahl der Messstationen. Für die Datenerhebung kommen zwei Typen von Messstationen zum Einsatz: einfache Stationen sowie erweiterte Stationen.
 				 */
 				'0': () => LocalizedString
+				/**
+				 * In der Tabelle rechts finden Sie weitere Informationen zu den einzelnen Standorten. Dort können Sie außerdem alle bisher aufgezeichneten Messwerte seit Beginn der Messungen im Jahr 2024 für jede Station herunterladen. Nutzen Sie das Suchfeld oben rechts, um gezielt nach Einträgen zu suchen, wie etwa nach Stationsnamen oder Standorten.
+				 */
+				'1': () => LocalizedString
+				/**
+				 * Weitere Informationen zu den beiden Stationstypen sowie zu den Auswahlkriterien der Messstandorte finden Sie in den nachfolgenden Abschnitten.
+				 */
+				'2': () => LocalizedString
 			}
 			stationsDescriptions: {
 				/**
-				 * Unterstützte Indikatoren
+				 * Gemessene Klimaelemente
 				 */
-				supportedIndicatorsLabel: () => LocalizedString
+				measuredIndicatorsLabel: () => LocalizedString
+				/**
+				 * Berechnete Klimaelemente
+				 */
+				calculatedIndicatorsLabel: () => LocalizedString
 				weather: {
 					/**
-					 * Wetterstation mit Blackglobe-Sensor
+					 * Erweiterte Stationen
 					 */
 					title: () => LocalizedString
 					/**
-					 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+					 * Die umfangreicher ausgestatteten Stationen (DL-ATM41 und Black-Globe-Sensor von Campbell Scientific) erfassen:
 					 */
 					description: () => LocalizedString
-					supportedIndicators: {
+					/**
+					 * Es wurden 25 dieser Stationen installiert. Auf Basis dieser Klimagrößen lassen sich weitere Kennwerte ableiten.
+					 */
+					calculatedDescription: () => LocalizedString
+					measuredIndicators: {
+						/**
+						 * air_temperature
+						 */
+						'0': () => LocalizedString
+						/**
+						 * atmospheric_pressure
+						 */
+						'1': () => LocalizedString
+						/**
+						 * lightning_average_distance
+						 */
+						'2': () => LocalizedString
+						/**
+						 * lightning_strike_count
+						 */
+						'3': () => LocalizedString
+						/**
+						 * maximum_wind_speed
+						 */
+						'4': () => LocalizedString
+						/**
+						 * mrt
+						 */
+						'5': () => LocalizedString
+						/**
+						 * precipitation_sum
+						 */
+						'6': () => LocalizedString
+						/**
+						 * relative_humidity
+						 */
+						'7': () => LocalizedString
+						/**
+						 * solar_radiation
+						 */
+						'8': () => LocalizedString
+						/**
+						 * vapor_pressure
+						 */
+						'9': () => LocalizedString
+						/**
+						 * wind_direction
+						 */
+						'10': () => LocalizedString
+						/**
+						 * wind_speed
+						 */
+						'11': () => LocalizedString
+					}
+					calculatedIndicators: {
 						/**
 						 * absolute_humidity
 						 */
 						'0': () => LocalizedString
 						/**
-						 * air_temperature
+						 * atmospheric_pressure_reduced
 						 */
 						'1': () => LocalizedString
 						/**
-						 * atmospheric_pressure_reduced
+						 * dew_point
 						 */
 						'2': () => LocalizedString
 						/**
-						 * atmospheric_pressure
+						 * heat_index
 						 */
 						'3': () => LocalizedString
 						/**
-						 * dew_point
+						 * specific_humidity
 						 */
 						'4': () => LocalizedString
 						/**
-						 * heat_index
+						 * pet_category
 						 */
 						'5': () => LocalizedString
 						/**
-						 * lightning_average_distance
+						 * pet
 						 */
 						'6': () => LocalizedString
 						/**
-						 * lightning_strike_count
+						 * utci_category
 						 */
 						'7': () => LocalizedString
 						/**
-						 * maximum_wind_speed
+						 * utci
 						 */
 						'8': () => LocalizedString
 						/**
-						 * mrt
-						 */
-						'9': () => LocalizedString
-						/**
-						 * pet_category
-						 */
-						'10': () => LocalizedString
-						/**
-						 * pet
-						 */
-						'11': () => LocalizedString
-						/**
-						 * precipitation_sum
-						 */
-						'12': () => LocalizedString
-						/**
-						 * relative_humidity
-						 */
-						'13': () => LocalizedString
-						/**
-						 * solar_radiation
-						 */
-						'14': () => LocalizedString
-						/**
-						 * specific_humidity
-						 */
-						'15': () => LocalizedString
-						/**
-						 * utci_category
-						 */
-						'16': () => LocalizedString
-						/**
-						 * utci
-						 */
-						'17': () => LocalizedString
-						/**
-						 * vapor_pressure
-						 */
-						'18': () => LocalizedString
-						/**
 						 * wet_bulb_temperature
 						 */
-						'19': () => LocalizedString
-						/**
-						 * wind_direction
-						 */
-						'20': () => LocalizedString
-						/**
-						 * wind_speed
-						 */
-						'21': () => LocalizedString
+						'9': () => LocalizedString
 					}
 				}
 				airTemperatureAndHumidity: {
 					/**
-					 * Lufttemperatur- und Feuchtigkeitssensor
+					 * Einfache Stationen
 					 */
 					title: () => LocalizedString
 					/**
-					 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+					 * Diese kompakten Stationen (DL-SHT35 von Decentlab) messen
 					 */
 					description: () => LocalizedString
-					supportedIndicators: {
+					/**
+					 * Insgesamt wurden 56 Stationen installiert. Weitere Klimagrößen können durch die ermittelten Messwerte berechnet werden.
+					 */
+					calculatedDescription: () => LocalizedString
+					measuredIndicators: {
+						/**
+						 * air_temperature
+						 */
+						'0': () => LocalizedString
+						/**
+						 * relative_humidity
+						 */
+						'1': () => LocalizedString
+					}
+					calculatedIndicators: {
 						/**
 						 * absolute_humidity
 						 */
 						'0': () => LocalizedString
 						/**
-						 * air_temperature
+						 * dew_point
 						 */
 						'1': () => LocalizedString
 						/**
-						 * dew_point
+						 * heat_index
 						 */
 						'2': () => LocalizedString
 						/**
-						 * heat_index
+						 * specific_humidity
 						 */
 						'3': () => LocalizedString
 						/**
-						 * relative_humidity
-						 */
-						'4': () => LocalizedString
-						/**
-						 * specific_humidity
-						 */
-						'5': () => LocalizedString
-						/**
 						 * wet_bulb_temperature
 						 */
-						'6': () => LocalizedString
+						'4': () => LocalizedString
 					}
 				}
 			}
@@ -3746,11 +3826,11 @@ export type TranslationFunctions = {
 				cells: {
 					stationTypes: {
 						/**
-						 * Wetterstation
+						 * Erweiterte Station
 						 */
 						biomet: () => LocalizedString
 						/**
-						 * Temperatur
+						 * Einfache Station
 						 */
 						temprh: () => LocalizedString
 					}
@@ -3783,11 +3863,11 @@ export type TranslationFunctions = {
 		}
 		about: {
 			/**
-			 * Über dieses Projekt
+			 * Über dieses Dashboard
 			 */
 			title: () => LocalizedString
 			/**
-			 * Dieses Dashboard wurde im Rahmen des Projektes Data2Resilience entwickelt, einem gemeinsamen Forschungsprojekt der Ruhr-Universität Bochum und der Leibniz Universität Hannover. Das Projekt zielt darauf ab, die Resilienz Dortmunds gegenüber dem Klimawandel zu verbessern, indem innovative Technologien und Bürgerbeteiligung genutzt werden, um die Auswirkungen extremer Hitze auf das Stadtleben zu minimieren. Data2Resilience wird von Prof. Dr. Benjamin Bechtel und Prof. Dr. Christian Albert geleitet und vom <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> sowie <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a> finanziert.
+			 * Diese interaktive Anwendung wurde im Rahmen des Projekts Data2Resilience entwickelt – einem gemeinsamen Forschungsprojekt der Ruhr-Universität Bochum und der Leibniz Universität Hannover. Ziel ist es, die Hitzebelastung in Dortmund besser zu erfassen und die Stadt widerstandsfähiger gegenüber den Folgen des Klimawandels zu machen. Das Projekt verbindet wissenschaftliche Messungen mit innovativer Technik und aktiver Bürgerbeteiligung. Data2Resilience wird durch den <a href='https://iclei.org/activity/iclei-action-fund-2-0/' target='_blank' rel='noopener noreferrer'>ICLEI Action Fund 2.0</a> mit Unterstützung von <a href='https://www.google.org/' target='_blank' rel='noopener noreferrer'>Google.org</a> gefördert.
 			 */
 			description: () => LocalizedString
 			mainLink: {
@@ -3802,7 +3882,7 @@ export type TranslationFunctions = {
 			}
 			contactLink: {
 				/**
-				 * mailto:info@data2resilience.org
+				 * mailto:climate@rub.de
 				 */
 				url: () => LocalizedString
 				/**
@@ -3883,7 +3963,7 @@ export type TranslationFunctions = {
 			 */
 			title: () => LocalizedString
 			/**
-			 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.
+			 * Der UTCI beschreibt, wie warm sich das Wetter für den menschlichen Körper anfühlt. Der UTCI berücksichtigt die Lufttemperatur, Wind, Sonneneinstrahlung sowie Luftfeuchtigkeit – und gibt das Ergebnis in Belastungsstufen für den Körper (Hitzestresskategorie) oder als gefühlte Temperatur in Grad Celsius (Temperatur in °C) an. Bei der Berechnung des UTCIs wird von einer durchschnittlichen Person mit saisonal angepasster Kleidung und leichter Aktivität (Gehen) ausgegangen.
 			 */
 			description: () => LocalizedString
 			types: {
@@ -3915,7 +3995,7 @@ export type TranslationFunctions = {
 			 */
 			title: () => LocalizedString
 			/**
-			 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.
+			 * Die relative Luftfeuchtigkeit gibt an, wie viel Wasserdampf die Luft im Verhältnis zur maximal möglichen Menge bei der aktuellen Temperatur enthält – angegeben in Prozent (%). Eine hohe relative Luftfeuchtigkeit verringert die Verdunstung von Schweiß – dadurch fühlt sich Hitze stärker und drückender an.
 			 */
 			description: () => LocalizedString
 		}
@@ -3925,7 +4005,7 @@ export type TranslationFunctions = {
 			 */
 			title: () => LocalizedString
 			/**
-			 * Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.
+			 * Die Lufttemperatur gibt die gemessene Temperatur der Luft in Grad Celsius (°C) an. Die Lufttemperatur ist ein zentraler Grundwert für die Hitzewahrnehmung – je höher sie ist, desto größer ist in der Regel die Wärmebelastung für den Körper.
 			 */
 			description: () => LocalizedString
 		}
@@ -3982,11 +4062,11 @@ export type TranslationFunctions = {
 			districts: () => LocalizedString
 			districtsTooltip: {
 				/**
-				 * Stadtbezirke
+				 * Was sind Stadtbezirke?
 				 */
 				title: () => LocalizedString
 				/**
-				 * Die Stadtbezirke sind die einzelnen Bezirke der Stadt Dortmund. Sie sind in der Regel kleiner als die Stadtteile und Aktionsräume.
+				 * Stadtbezirke sind offizielle Verwaltungseinheiten mit eigenen Zuständigkeiten innerhalb der Stadt.
 				 */
 				description: () => LocalizedString
 			}
@@ -3996,11 +4076,11 @@ export type TranslationFunctions = {
 			lors: () => LocalizedString
 			lorsTooltip: {
 				/**
-				 * Stadtteile & Aktionsräume
+				 * Was sind Stadtteile und Aktionsräume?
 				 */
 				title: () => LocalizedString
 				/**
-				 * Die Stadtteile sind die einzelnen Einzelgebäude der Stadt Dortmund. Die Aktionsräume sind die öffentlichen Räume, die von der Stadtverwaltung betrieben werden.
+				 * Stadtteile sind kleinere, lebensnahe Einheiten innerhalb der Stadtbezirke. Aktionsräume markieren Bereiche mit besonderem sozialen Förderbedarf. Diese stammen aus dem <a class='focusable transition-opacity hover-hover:hover:opacity-50 underline decoration-primary underline-offset-4' href='https://www.dortmund.de/themen/soziales/aktionsplan-soziale-stadt/' target='_blank' rel='noopener noreferrer'>Aktionsplan Soziale Stadt Dortmund</a>.
 				 */
 				description: () => LocalizedString
 			}
@@ -4010,11 +4090,11 @@ export type TranslationFunctions = {
 			satellite: () => LocalizedString
 			satelliteTooltip: {
 				/**
-				 * Digitale Orthophotos
+				 * Was sind digitale Orthophotos?
 				 */
 				title: () => LocalizedString
 				/**
-				 * Die Digitale Orthophotos sind eine digitale Darstellung der Stadt Dortmund. Sie zeigen die Stadt als eine große, flache, schwarze Fläche, die von der Digitalisierung der Stadt betrieben wird.
+				 * Digitale Orthofotos sind entzerrte Luftbilder, die wie eine maßstabsgetreue Karte funktionieren. Sie zeigen Dortmund aus der Vogelperspektive und ermöglichen eine realitätsnahe Orientierung.
 				 */
 				description: () => LocalizedString
 			}
@@ -4089,7 +4169,7 @@ export type TranslationFunctions = {
 						heatStress: () => LocalizedString
 					}
 					/**
-					 * Lebensbedrohliche Hypothermie, schwere Erfrierungen innerhalb von Minuten möglich.
+					 * Hohe Erfrierungsgefahr, Hypothermie möglich.
 					 */
 					description: () => LocalizedString
 					ranges: {
@@ -4115,7 +4195,7 @@ export type TranslationFunctions = {
 						heatStress: () => LocalizedString
 					}
 					/**
-					 * Erfrierungsgefahr für exponierte Hautbereiche, erhöhtes Risiko für Kälteschäden.
+					 * Erfrierungsgefahr an ungeschützten Hautstellen, erhöhtes Risiko für Kälteschäden.
 					 */
 					description: () => LocalizedString
 					ranges: {
@@ -4219,7 +4299,7 @@ export type TranslationFunctions = {
 						heatStress: () => LocalizedString
 					}
 					/**
-					 * Leichte Unannehmlichkeiten, erhöhter Schweißausstoß.
+					 * Leichte Unannehmlichkeiten, vermehrtes Schwitzen.
 					 */
 					description: () => LocalizedString
 					ranges: {
@@ -4271,7 +4351,7 @@ export type TranslationFunctions = {
 						heatStress: () => LocalizedString
 					}
 					/**
-					 * Gefahr von Hitzekrämpfen, Hitzerschöpfung, erhöhtes Risiko für hitzebedingte Erkrankungen, besonders bei körperlicher Aktivität.
+					 * Gefahr von Hitzekrämpfen, Hitzeerschöpfung, erhöhtes Risiko für hitzebedingte Erkrankungen, besonders bei körperlicher Aktivität.
 					 */
 					description: () => LocalizedString
 					ranges: {
@@ -4297,7 +4377,7 @@ export type TranslationFunctions = {
 						heatStress: () => LocalizedString
 					}
 					/**
-					 * Lebensbedrohliche Hitzschläge, akute Belastung des Herz-Kreislauf-Systems, hohes Risiko für schwere hitzebedingte Erkrankungen und Tod.
+					 * Lebensbedrohliche Hitzschläge möglich, akute Belastung des Herz-Kreislauf-Systems, hohes Risiko für schwere hitzebedingte Erkrankungen und Tod.
 					 */
 					description: () => LocalizedString
 					ranges: {

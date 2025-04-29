@@ -34,7 +34,6 @@
 
 	let opened = $state(false);
 	let tour: Tour | undefined;
-	let cleanupAllowed = false;
 	const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
 	onMount(() => {
@@ -200,20 +199,6 @@
 				}
 			} satisfies StepOptions,
 			{
-				id: 'datavisType',
-				title: $LL.welcome.tourSteps.datavisType.title(),
-				text: $LL.welcome.tourSteps.datavisType.text(),
-				attachTo: {
-					element: '#date-range-slider',
-					on: isMobile() ? 'auto' : 'right'
-				},
-				beforeShowPromise: async () => {
-					await ensurePage('/', window.location.pathname);
-					openLeftSidebar();
-					await scrollToHandler('#date-range-slider');
-				}
-			} satisfies StepOptions,
-			{
 				id: 'visualisation',
 				title: $LL.welcome.tourSteps.visualisation.title(),
 				text: $LL.welcome.tourSteps.visualisation.text(),
@@ -225,6 +210,20 @@
 					await ensurePage('/', window.location.pathname);
 					openLeftSidebar();
 					await scrollToHandler('#stations-datavis');
+				}
+			} satisfies StepOptions,
+			{
+				id: 'datavisType',
+				title: $LL.welcome.tourSteps.datavisType.title(),
+				text: $LL.welcome.tourSteps.datavisType.text(),
+				attachTo: {
+					element: '#date-range-slider',
+					on: isMobile() ? 'auto' : 'right'
+				},
+				beforeShowPromise: async () => {
+					await ensurePage('/', window.location.pathname);
+					openLeftSidebar();
+					await scrollToHandler('#date-range-slider');
 				}
 			} satisfies StepOptions,
 			{
@@ -310,7 +309,12 @@
 						});
 						const stepsSpan = document.createElement('span');
 						footer.classList.add('flex', 'items-center');
-						stepsSpan.classList.add('text-sm', 'text-muted-foreground', 'w-full');
+						stepsSpan.classList.add(
+							'text-sm',
+							'text-muted-foreground',
+							'w-full',
+							'whitespace-nowrap'
+						);
 						stepsSpan.innerText = stepsText;
 						footer.insertBefore(stepsSpan, footer.firstChild);
 					}
@@ -344,7 +348,7 @@
 	const tourOptimalSettings = $derived({
 		pagePath: '/',
 		unit: 'utci',
-		datavisType: 'range',
+		datavisType: 'hour',
 		rangeStart: -10,
 		rangeEnd: 0,
 		dayValue: -2,
@@ -392,7 +396,6 @@
 	async function onTourStart() {
 		saveInitialSettings();
 
-		handleClose();
 		ensurePage('/', window.location.pathname);
 	}
 
@@ -401,10 +404,8 @@
 	}
 
 	function onTourEnd() {
-		cleanupAllowed = true;
 		applySettings(initialSettings);
 		ensurePage(initialSettings.pagePath, window.location.pathname);
-		handleOpen();
 	}
 </script>
 

@@ -107,7 +107,7 @@ const de = {
 			},
 			map: {
 				title: 'Karte interaktiv nutzen:',
-				text: 'Nutzen Sie die Kartenansicht, um Standorte visuell zu erkunden oder Messstationen (Punkte auf der Karte) auszuwählen.<br/><br/> Sie können einzelne Stationen anklicken, in die Karte zoomen oder über die Adresseingabe gezielt nach einem Standort suchen.<br/><br/> Zusätzliche Hintergrundkarten wie Bezirksgrenzen oder Luftbilder lassen sich oben rechts ein- oder ausblenden.<br/><br/> Die Farbe der Messstationen passt sich automatisch dem Wert der gewählten Klimagröße an. Die Bedeutung der Farbskala finden Sie in der Legende unten links – dort erhalten Sie auch Informationen zu möglichen Gesundheitsrisiken, beispielsweise im Zusammenhang mit dem Thermischen Klimaindex UTCI.'
+				text: 'Nutzen Sie die Kartenansicht, um Standorte visuell zu erkunden oder Messstationen (Punkte auf der Karte) auszuwählen.<br/><br/> Sie können einzelne Stationen anklicken, in die Karte zoomen oder über die Adresseingabe gezielt nach einem Standort suchen oben rechts.<br/><br/> Zusätzliche Hintergrundkarten wie Bezirksgrenzen oder Luftbilder lassen sich oben rechts ein- oder ausblenden.<br/><br/> Die Farbe der Messstationen passt sich automatisch dem Wert der gewählten Klimagröße an. Die Bedeutung der Farbskala finden Sie in der Legende unten links – dort erhalten Sie auch Informationen zu möglichen Gesundheitsrisiken, beispielsweise im Zusammenhang mit dem Thermischen Klimaindex UTCI.'
 			},
 			heatStress: {
 				title: 'Hitzeatlas erkunden:',
@@ -115,7 +115,7 @@ const de = {
 			},
 			stationsTable: {
 				title: 'Details zu Messstationen erfahren:',
-				text: 'In der Tabelle finden Sie technische Informationen zu allen Messstationen. Über das Suchfeld oben rechts können Sie gezielt nach Einträgen suchen. Durch Klicken auf einen Spaltenkopf können Sie die Tabelle nach dieser Spalte sortieren. Die Messdaten lassen sich für jede Station über die Spalte „Daten“ herunterladen.<br /><br/><strong>Tour abgeschlossen:</strong><br/>Sie kennen jetzt die wichtigsten Funktionen des Dashboards. Viel Erfolg beim Erkunden der Daten!'
+				text: 'Hier finden Sie technische Informationen zu allen Messstationen. In der Tabelle rechts können Sie durch das Suchfeld oben rechts gezielt nach Einträgen suchen. Durch Klicken auf einen Spaltenkopf können Sie die Tabelle nach dieser Spalte sortieren. Die Messdaten lassen sich für jede Station über die Spalte „Daten“ herunterladen.<br /><br/><strong>Tour abgeschlossen:</strong><br/>Sie kennen jetzt die wichtigsten Funktionen des Dashboards. Viel Erfolg beim Erkunden der Daten!'
 			}
 		}
 	},

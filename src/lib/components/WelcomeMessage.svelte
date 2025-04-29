@@ -233,7 +233,7 @@
 				text: $LL.welcome.tourSteps.map.text(),
 				attachTo: {
 					element: '#map',
-					on: 'top'
+					on: 'left'
 				},
 				extraHighlights: ['#map-search'],
 				beforeShowPromise: async () => {

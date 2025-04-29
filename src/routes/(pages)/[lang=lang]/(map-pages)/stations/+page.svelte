@@ -18,16 +18,24 @@
 		title={$LL.pages.stations.stationsDescriptions.weather.title()}
 		description={$LL.pages.stations.stationsDescriptions.weather.description()}
 		image={{ src: weatherStation, alt: 'Weather station with Blackglobe sensor' }}
-		supportedIndicators={Object.values(
-			$LL.pages.stations.stationsDescriptions.weather.supportedIndicators
+		calculatedIndicators={Object.values(
+			$LL.pages.stations.stationsDescriptions.weather.calculatedIndicators
 		).map((i) => i())}
+		measuredIndicators={Object.values(
+			$LL.pages.stations.stationsDescriptions.weather.measuredIndicators
+		).map((i) => i())}
+		descriptionCalculated={$LL.pages.stations.stationsDescriptions.weather.calculatedDescription()}
 	/>
 	<SensorDescription
 		title={$LL.pages.stations.stationsDescriptions.airTemperatureAndHumidity.title()}
 		description={$LL.pages.stations.stationsDescriptions.airTemperatureAndHumidity.description()}
 		image={{ src: airTemperatureAndHumiditySensor, alt: 'Air temperature and humidity sensor' }}
-		supportedIndicators={Object.values(
-			$LL.pages.stations.stationsDescriptions.airTemperatureAndHumidity.supportedIndicators
+		calculatedIndicators={Object.values(
+			$LL.pages.stations.stationsDescriptions.airTemperatureAndHumidity.calculatedIndicators
 		).map((i) => i())}
+		measuredIndicators={Object.values(
+			$LL.pages.stations.stationsDescriptions.airTemperatureAndHumidity.measuredIndicators
+		).map((i) => i())}
+		descriptionCalculated={$LL.pages.stations.stationsDescriptions.airTemperatureAndHumidity.calculatedDescription()}
 	/>
 </ul>

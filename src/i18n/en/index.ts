@@ -86,36 +86,36 @@ const en = {
 			},
 			progress: 'Step {currentStep} of {totalSteps}',
 			welcome: {
-				title: 'Welcome to the Dashboard Introduction!',
-				text: 'In this short tour, you will interactively learn how to use the dashboard and make the most of its key features.<br><br>You can cancel the tour at any time – simply click on "Cancel".'
+				title: 'Welcome to the dashboard introduction!',
+				text: 'In this short interactive tour, you will learn how to navigate the dashboard and use its key features.<br><br>You can cancel the tour at any time by simply clicking "Cancel".'
 			},
 			navigation: {
-				title: 'Navigation Overview',
-				text: "In the left sidebar, you will find all the dashboard's topic areas. You can choose between Measurements, Heat Atlas, and Measurement Stations. Each area offers specific information and interaction options."
+				title: 'Navigation overview',
+				text: "In the left sidebar, you will find all topics of the dashboard. You can choose between Measurements, Heat atlas, and Weather stations. Each section offers specific information and interactive features."
 			},
 			measurements: {
-				title: 'Select Measurements:',
-				text: 'Weather data is available for various locations in Dortmund.<br/>Use the upper text field to select a measurement station by typing letters or by choosing from the list.<br/>In the selection field below, you can choose the desired climate variable (e.g., air temperature, humidity) and the corresponding unit.'
+				title: 'Selecting measurement data',
+				text: 'Weather data is available for various locations across Dortmund.<br><br>Use the text field at the top to search for a measurement station by entering letters or selecting from the list.<br><br>In the dropdown menu below, you can choose the desired climate indicators (e.g., universal climate index UTCI, air temperature, relative humidity) and the corresponding unit.'
 			},
 			datavisType: {
-				title: 'Select Period and Statistical Representation:',
-				text: 'Use the timeline at the bottom to adjust the desired period – drag the yellow point or choose whether the values are shown hourly, daily, or for a custom period.<br/><br/>For daily values, you can additionally specify how the data is displayed – e.g., as minimum, mean, or maximum. Use the buttons in the upper right corner for this.'
+				title: 'Choosing time period and statistical display',
+				text: 'At the bottom timeline, you can adjust the displayed time period by dragging the yellow marker, or by selecting whether data is shown per hour, per day, or across a custom time range.<br><br>For daily values, you can additionally select how the data is displayed — for example, as minimum, average, or maximum — using the buttons at the top right corner.'
 			},
 			visualisation: {
-				title: 'Compare Measurement Values at a Glance:',
-				text: 'The top chart shows the measurement values of the stations you previously selected for the chosen period.<br/><br/>Below that, another chart shows how often certain values occur in Dortmund. Clicking on a bar will automatically highlight all stations with similar values.'
+				title: 'Comparing measurement data at a glance',
+				text: 'In the upper chart, you can view the measurements for the selected stations within the chosen time period.<br><br>Below, a second chart displays the frequency distribution of specific values across Dortmund. Clicking on a bar will automatically highlight all stations with similar values.'
 			},
 			map: {
-				title: 'Use the Map Interactively:',
-				text: 'Use the map view to visually explore locations or select measurement stations (points on the map).<br/><br/>You can click individual stations, zoom into the map, or search for a location directly via the address input.<br/><br/>Additional background maps such as district boundaries or aerial images can be toggled on or off in the top right corner.<br/><br/>The color of the measurement stations automatically adapts to the value of the selected climate variable. The meaning of the color scale can be found in the legend at the bottom left – there you will also find information about possible health risks, for example in connection with the thermal climate index UTCI.'
+				title: 'Using the interactive map',
+				text: 'Use the map view to explore locations visually or to select measurement stations (shown as points on the map).<br><br>You can click individual stations, zoom into the map, or search for specific addresses using the search bar at the top right.<br><br>Additional background layers, such as district boundaries or aerial imagery, can be toggled on or off using the controls at the top right.<br><br>The color of the stations automatically adapts to the selected climate indicator.<br><br>You can find the color legend at the bottom left — where you will also find information on potential health risks, for example related to the universal thermal climate index (UTCI).'
 			},
 			heatStress: {
-				title: 'Explore the Heat Atlas:',
-				text: 'The Heat Atlas shows how strongly different city areas are affected by heat stress. You can choose between three climate variables: the thermal climate index UTCI, relative humidity, or air temperature.<br/><br/>With UTCI, you can switch between a health-related stress map (heat stress category) and a temperature map in degrees Celsius (°C).<br/><br/>The colored display on the map and the legend help you correctly interpret the stress level.'
+				title: 'Exploring the heat atlas',
+				text: 'The Heat Atlas shows how strongly different parts of the city are affected by heat stress.<br><br>You can switch between three climate variables: universal thermal climate index (UTCI), relative humidity, or air temperature.<br><br>For UTCI, you can toggle between a health-related heat stress map (showing heat stress categories) and a temperature map in degrees Celsius (temperature in °C).<br><br>The color coding and legend help you correctly interpret the intensity of heat exposure.'
 			},
 			stationsTable: {
-				title: 'Learn Details About Measurement Stations:',
-				text: 'The table contains technical information about all measurement stations. Use the search field at the top right to search for entries. By clicking on a column header, you can sort the table by that column. Measurement data for each station can be downloaded via the "Data" column.<br /><br/><strong>Tour completed:</strong><br/>You now know the most important functions of the dashboard. Enjoy exploring the data!'
+				title: 'Learning more about weather stations',
+				text: 'Here you will find technical information about all weather stations.<br><br>In the table on the right, you can search for specific entries using the search bar at the top right.<br><br>Clicking on a column header allows you to sort the table by that column.<br><br>Measurement data can be downloaded for each station via the "Data" column.<br><br><strong>Tour completed:</strong><br>You now know the most important functions of the dashboard. Enjoy exploring the data!'
 			}
 		}
 	},

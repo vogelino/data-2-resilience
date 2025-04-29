@@ -138,7 +138,7 @@
 	{/each}
 </CollapsibleParagraph>
 
-<nav aria-label={$LL.pages.heatStress.indicatorsNavAriaLabel()} class="mt-6">
+<nav aria-label={$LL.pages.heatStress.indicatorsNavAriaLabel()} id="heat-stress-selector" class="mt-6">
 	<ul
 		class={cn(
 			'flex flex-col gap-px rounded-t-xl border border-border bg-border',

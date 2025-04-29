@@ -22,8 +22,9 @@
 	{/each}
 </CollapsibleParagraph>
 
-<StationsSelect stations={stationsGeoJson as StationsGeoJSONType} initialStationIds={data.initialStationIds} />
-
-<UnitSelect />
+<div id="value-selectors">
+	<StationsSelect stations={stationsGeoJson as StationsGeoJSONType} initialStationIds={data.initialStationIds} />
+	<UnitSelect />
+</div>
 
 <UnitDataVis stations={stationsGeoJson as StationsGeoJSONType} initialStationIds={data.initialStationIds} />

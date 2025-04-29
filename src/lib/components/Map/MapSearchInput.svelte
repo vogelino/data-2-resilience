@@ -151,6 +151,7 @@
 </script>
 
 <div
+	id="map-search"
 	class={cn('fixed right-20 top-[calc(var(--headerHeight,5rem)+0.75rem)] z-10 w-64 transition')}
 	bind:this={container}
 >

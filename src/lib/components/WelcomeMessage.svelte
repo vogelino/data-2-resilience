@@ -189,13 +189,13 @@
 				title: $LL.welcome.tourSteps.measurements.title(),
 				text: $LL.welcome.tourSteps.measurements.text(),
 				attachTo: {
-					element: '#unit-select',
+					element: '#value-selectors',
 					on: isMobile() ? 'auto' : 'right'
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
 					openLeftSidebar();
-					await scrollToHandler('#unit-select');
+					await scrollToHandler('#value-selectors');
 				}
 			} satisfies StepOptions,
 			{
@@ -206,6 +206,7 @@
 					element: '#stations-datavis',
 					on: isMobile() ? 'auto' : 'right'
 				},
+				extraHighlights: ['#date-range-slider','#stations-histogram'],
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
 					openLeftSidebar();
@@ -234,6 +235,7 @@
 					element: '#map',
 					on: 'top'
 				},
+				extraHighlights: ['#map-search'],
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
 					if (isMobile()) {
@@ -248,8 +250,8 @@
 				title: $LL.welcome.tourSteps.heatStress.title(),
 				text: $LL.welcome.tourSteps.heatStress.text(),
 				attachTo: {
-					element: '#map',
-					on: 'top'
+					element: '#heat-stress-selector',
+					on: 'right'
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/heat-stress', window.location.pathname);
@@ -267,6 +269,7 @@
 				attachTo: {
 					element: '#stations-table'
 				},
+				extraHighlights: ['#sensor-descriptions'],
 				beforeShowPromise: async () => {
 					await ensurePage('/stations', window.location.pathname);
 					if (isMobile()) {

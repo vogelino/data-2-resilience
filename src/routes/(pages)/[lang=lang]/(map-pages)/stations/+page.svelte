@@ -4,6 +4,7 @@
 	import weatherStation from '$lib/assets/weather-station.png';
 	import CollapsibleParagraph from 'components/CollapsibleParagraph.svelte';
 	import SensorDescription from 'components/SensorDescription.svelte';
+	import StationsSelectionSection from 'components/StationsSelectionSection.svelte';
 </script>
 
 <h1 class="mb-2 text-xl font-semibold">{$LL.pages.stations.title()}</h1>
@@ -38,4 +39,5 @@
 		).map((i) => i())}
 		descriptionCalculated={$LL.pages.stations.stationsDescriptions.airTemperatureAndHumidity.calculatedDescription()}
 	/>
+	<StationsSelectionSection />
 </ul>

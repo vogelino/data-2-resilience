@@ -632,6 +632,11 @@ const en = {
 					]
 				}
 			},
+			stationsSelectionSection: {
+				title: 'Selection of Station Locations',
+				description:
+					'Station locations were selected based on geostatistical analyses and in close cooperation with the City of Dortmund. Factors considered included local climate zones, urban structure, topography, population density, and aspects of climate justice. All stations are mounted on city-owned lamp posts and transmit data via LoRaWAN – an energy-efficient wireless network designed for transmitting small data packets over long distances.'
+			},
 			table: {
 				search: {
 					placeholder: 'Search...',

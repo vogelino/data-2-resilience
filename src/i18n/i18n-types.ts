@@ -1584,6 +1584,16 @@ type RootTranslation = {
 					}
 				}
 			}
+			stationsSelectionSection: {
+				/**
+				 * A​u​s​w​a​h​l​ ​d​e​r​ ​M​e​s​s​s​t​a​n​d​o​r​t​e
+				 */
+				title: string
+				/**
+				 * D​i​e​ ​A​u​s​w​a​h​l​ ​d​e​r​ ​S​t​a​n​d​o​r​t​e​ ​b​a​s​i​e​r​t​ ​a​u​f​ ​e​i​n​e​r​ ​g​e​o​s​t​a​t​i​s​t​i​s​c​h​e​n​ ​A​n​a​l​y​s​e​ ​u​n​d​ ​e​r​f​o​l​g​t​ ​i​n​ ​e​n​g​e​r​ ​A​b​s​t​i​m​m​u​n​g​ ​m​i​t​ ​d​e​r​ ​S​t​a​d​t​ ​D​o​r​t​m​u​n​d​.​ ​B​e​r​ü​c​k​s​i​c​h​t​i​g​t​ ​w​u​r​d​e​n​ ​l​o​k​a​l​e​ ​K​l​i​m​a​z​o​n​e​n​,​ ​B​e​b​a​u​u​n​g​,​ ​T​o​p​o​g​r​a​f​i​e​,​ ​B​e​v​ö​l​k​e​r​u​n​g​s​d​i​c​h​t​e​ ​s​o​w​i​e​ ​A​s​p​e​k​t​e​ ​d​e​r​ ​K​l​i​m​a​g​e​r​e​c​h​t​i​g​k​e​i​t​.​ ​A​l​l​e​ ​S​t​a​t​i​o​n​e​n​ ​s​i​n​d​ ​a​n​ ​s​t​ä​d​t​i​s​c​h​e​n​ ​L​a​m​p​e​n​m​a​s​t​e​n​ ​m​o​n​t​i​e​r​t​ ​u​n​d​ ​s​e​n​d​e​n​ ​i​h​r​e​ ​D​a​t​e​n​ ​ü​b​e​r​ ​L​o​R​a​W​A​N​ ​–​ ​e​i​n​ ​e​n​e​r​g​i​e​e​f​f​i​z​i​e​n​t​e​s​ ​F​u​n​k​n​e​t​z​,​ ​d​a​s​ ​s​p​e​z​i​e​l​l​ ​f​ü​r​ ​d​i​e​ ​Ü​b​e​r​t​r​a​g​u​n​g​ ​k​l​e​i​n​e​r​ ​D​a​t​e​n​m​e​n​g​e​n​ ​ü​b​e​r​ ​g​r​o​ß​e​ ​D​i​s​t​a​n​z​e​n​ ​e​n​t​w​i​c​k​e​l​t​ ​w​u​r​d​e​.
+				 */
+				description: string
+			}
 			table: {
 				search: {
 					/**
@@ -3769,6 +3779,16 @@ export type TranslationFunctions = {
 						'4': () => LocalizedString
 					}
 				}
+			}
+			stationsSelectionSection: {
+				/**
+				 * Auswahl der Messstandorte
+				 */
+				title: () => LocalizedString
+				/**
+				 * Die Auswahl der Standorte basiert auf einer geostatistischen Analyse und erfolgt in enger Abstimmung mit der Stadt Dortmund. Berücksichtigt wurden lokale Klimazonen, Bebauung, Topografie, Bevölkerungsdichte sowie Aspekte der Klimagerechtigkeit. Alle Stationen sind an städtischen Lampenmasten montiert und senden ihre Daten über LoRaWAN – ein energieeffizientes Funknetz, das speziell für die Übertragung kleiner Datenmengen über große Distanzen entwickelt wurde.
+				 */
+				description: () => LocalizedString
 			}
 			table: {
 				search: {

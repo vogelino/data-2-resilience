@@ -95,6 +95,6 @@
 	<img
 		src={image.src}
 		alt={image.alt}
-		class="aspect-2.61/1 w-full rounded-b-xl bg-primary object-contain"
+		class="aspect-[2.61/1] w-full rounded-b-xl bg-primary object-contain"
 	/>
 </li>

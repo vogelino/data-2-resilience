@@ -634,6 +634,11 @@ const de = {
 					]
 				}
 			},
+			stationsSelectionSection: {
+				title: 'Auswahl der Messstandorte',
+				description:
+					'Die Auswahl der Standorte basiert auf einer geostatistischen Analyse und erfolgt in enger Abstimmung mit der Stadt Dortmund. Berücksichtigt wurden lokale Klimazonen, Bebauung, Topografie, Bevölkerungsdichte sowie Aspekte der Klimagerechtigkeit. Alle Stationen sind an städtischen Lampenmasten montiert und senden ihre Daten über LoRaWAN – ein energieeffizientes Funknetz, das speziell für die Übertragung kleiner Datenmengen über große Distanzen entwickelt wurde.'
+			},
 			table: {
 				search: {
 					placeholder: 'Suche...',

@@ -1973,6 +1973,9 @@ type RootTranslation = {
 			healthRisks: {
 				'extreme cold stress': {
 					title: {
+						/**
+						 * E​x​t​r​e​m​ ​K​a​l​t
+						 */
 						thermalComfort: string
 						/**
 						 * E​x​t​r​e​m​e​r​ ​K​ä​l​t​e​s​t​r​e​s​s
@@ -4177,6 +4180,9 @@ export type TranslationFunctions = {
 			healthRisks: {
 				'extreme cold stress': {
 					title: {
+						/**
+						 * Extrem Kalt
+						 */
 						thermalComfort: () => LocalizedString
 						/**
 						 * Extremer Kältestress

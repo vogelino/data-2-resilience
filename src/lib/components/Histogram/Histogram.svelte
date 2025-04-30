@@ -57,7 +57,7 @@
 		<T,>(item: Record<string, unknown>) => item[$unitWithMinMaxAvg as keyof typeof item] as T
 	);
 	const snapshotApiResponseData = $derived(
-		($snapshotQuery.data || []).filter((d) => {
+		($snapshotQuery.data?.items || []).filter((d) => {
 			const value = getValue<number>(d);
 			return typeof value !== 'undefined';
 		})

@@ -18,6 +18,7 @@
 		getMessageForUnavailableStations,
 		getMessageForUnsupportedStations
 	} from '$lib/utils/stationsDataVisUtil';
+	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
 	import ChartExportDropdown from 'components/ChartExportDropdown.svelte';
 	import TimeseriesLineChart from 'components/TimeseriesLineChart.svelte';
@@ -41,6 +42,10 @@
 		date: Date;
 	};
 
+	const stationsSnapshotQueryConfig = $derived.by(() =>
+		useStationsSnapshotConfig({ initialStationIds, stations })
+	);
+	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
 	const queryFn = $derived.by(() =>
 		getStationDataFetcher({
 			ids: $ids,
@@ -123,5 +128,12 @@
 {#if isWindDirectionUnit}
 	<WindDirectionChart {data} {isLoading} {error} />
 {:else}
-	<TimeseriesLineChart {data} {isOrdinal} {isLoading} {error} />
+	<TimeseriesLineChart
+		{data}
+		{isOrdinal}
+		{isLoading}
+		{error}
+		min={$snapshotQuery.data?.scaleMin ?? null}
+		max={$snapshotQuery.data?.scaleMax ?? null}
+	/>
 {/if}

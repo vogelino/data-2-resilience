@@ -65,13 +65,40 @@ export const api = (customFetch = fetch) => ({
 					? format(normalizedDate, 'yyyy-MM-dd')
 					: normalizedDate.toISOString()
 		});
-		const response = await customFetch(`${PUBLIC_API_BASE_URL}/v1/network-snapshot?${urlParams}`);
+		const response = await customFetch(
+			`${PUBLIC_API_BASE_URL}/v1/network-snapshot?${urlParams}&suggest_viz=true`
+		);
 
 		if (!response.ok && response.status === 422) return null;
 
 		const schema = weatherMeasurementSchemas[params.param];
-		const data = await parseArrayData(response, schema);
-		return data;
+		const json = await parseResponse(response);
+		const data = parseZodSchema(
+			json,
+			z.object({
+				data: z.array(schema),
+				visualization: z.object({
+					[params.param]: z
+						.object({
+							cmax: z.number().nullable(),
+							cmin: z.number().nullable(),
+							vmax: z.number().nullable(),
+							vmin: z.number().nullable()
+						})
+						.nullable()
+						.default({
+							cmax: null,
+							cmin: null,
+							vmax: null,
+							vmin: null
+						})
+				})
+			})
+		);
+		return {
+			data: data.data,
+			visualization: data.visualization[params.param]
+		};
 	},
 	downloadStationData: async (params: { id: string }) => {
 		const response = await customFetch(`${PUBLIC_API_BASE_URL}/v1/download/${params.id}`);
@@ -156,14 +183,6 @@ export const api = (customFetch = fetch) => ({
 	}
 });
 
-async function parseData<S extends z.ZodSchema>(
-	response: Response,
-	schema: S
-): Promise<z.infer<S>> {
-	const json = await parseResponse(response);
-	return parseZodSchema(json, schema);
-}
-
 async function parseResponse(response: Response): Promise<unknown> {
 	try {
 		const json = await response.json();
@@ -187,6 +206,14 @@ function parseZodSchema<S extends z.ZodSchema>(data: unknown, schema: S): z.infe
 		}
 		throw e;
 	}
+}
+
+async function parseData<S extends z.ZodSchema>(
+	response: Response,
+	schema: S
+): Promise<z.infer<S>> {
+	const json = await parseResponse(response);
+	return await parseZodSchema(json, schema);
 }
 
 async function parseArrayData<S extends z.ZodSchema>(

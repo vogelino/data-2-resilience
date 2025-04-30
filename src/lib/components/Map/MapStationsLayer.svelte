@@ -2,9 +2,8 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
-	import { unit, unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
+	import { unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
-	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
@@ -24,7 +23,7 @@
 		useStationsSnapshotConfig({ initialStationIds, stations })
 	);
 	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
-	const apiResponseData = $derived($snapshotQuery.data || []);
+	const apiResponseData = $derived($snapshotQuery.data?.items || []);
 
 	const idToItemMap = $derived.by(() => {
 		return apiResponseData.reduce(
@@ -39,14 +38,6 @@
 		if (!item) return;
 		const value = item[$unitWithMinMaxAvg as keyof typeof item];
 		return value as ({ valueOf(): number } & string) | undefined | null;
-	});
-	let getBgColorById = $derived((id?: string) => {
-		const undefinedColor = 'hsl(var(--muted-foreground)/0.2)';
-		const nullColor = 'hsl(var(--muted)/0.1)';
-		const value = getValueById(id);
-		if (typeof value === 'undefined') return undefinedColor;
-		if (value === null) return nullColor;
-		return getColorScaleValue({ unit: $unit, LL: $LL, value });
 	});
 </script>
 
@@ -78,7 +69,7 @@
 				}}
 				aria-label={feature.properties?.longName}
 			>
-				<HealthRiskPill {value} />
+				<HealthRiskPill {value} {stations} {initialStationIds} />
 			</button>
 			<div
 				class={cn(
@@ -90,7 +81,7 @@
 				<div class="relative flex flex-col">
 					<h3 class="text-sm font-bold leading-4">{feature.properties?.longName}</h3>
 					<div class="mb-2 border-b border-border pb-1 text-xs text-muted-foreground">
-						{$LL.pages.stations.table.cells.stationTypes[type].nameShort()}
+						{$LL.pages.stations.table.cells.stationTypes[type]()}
 					</div>
 					<div class="text-xs">
 						{#if typeof value === 'number'}
@@ -102,12 +93,12 @@
 									{$unitOnly}
 								</span>
 								<span class="inline-grid grid-cols-[0.75rem_1fr] items-center gap-1.5 text-nowrap">
-									<HealthRiskPill {value} withLabel />
+									<HealthRiskPill {value} withLabel {stations} {initialStationIds} />
 								</span>
 							</div>
 						{:else if typeof value === 'string'}
 							<span class="inline-grid grid-cols-[0.75rem_1fr] items-center gap-1.5 text-nowrap">
-								<HealthRiskPill {value} withLabel />
+								<HealthRiskPill {value} withLabel {stations} {initialStationIds} />
 							</span>
 						{:else if value === null}
 							{@html $LL.pages.measurements.singleStationWithoutAvailableData({

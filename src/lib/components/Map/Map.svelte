@@ -41,9 +41,10 @@
 
 	interface Props {
 		stations: StationsGeoJSONType;
+		initialStationIds?: string[];
 	}
 
-	const { stations }: Props = $props();
+	const { stations, initialStationIds = [] }: Props = $props();
 
 	let map: Map | undefined = $state();
 
@@ -177,7 +178,7 @@
 
 			<SatelliteRasterLayer visible={$showSatellite} {map} />
 			{#if currentPage === 'measurements'}
-				<MapStationsLayer {stations} {map} />
+				<MapStationsLayer {stations} {map} {initialStationIds} />
 			{/if}
 			<MapMeasurementsRasterLayer visible={currentPage === 'heat-stress'} {map} />
 			<MapDistrictsLayer visible={$boundariesMode === 'districts'} {displayMode} />
@@ -193,7 +194,7 @@
 		{/snippet}
 	</MapLibre>
 
-	<ChoroplethLegend />
+	<ChoroplethLegend {stations} {initialStationIds} />
 	<MapAttribution />
 </div>
 

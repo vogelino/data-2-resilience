@@ -1,35 +1,44 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { LL, locale } from '$i18n/i18n-svelte';
+	import type { TranslationFunctions } from '$i18n/i18n-types';
 	import { Button } from '$lib/components/ui/button';
 	import * as Popover from '$lib/components/ui/popover';
 	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
+	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { heatStressUnit, hour, isLeftSidebarOpened, unit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { api } from '$lib/utils/api';
-	import { getColorStops, unitsToScalesMap } from '$lib/utils/colorScaleUtil';
+	import { getColorsByUnit, getColorStops, unitsToScalesMap } from '$lib/utils/colorScaleUtil';
 	import { today } from '$lib/utils/dateUtil';
-	import { healthRisksRanges } from '$lib/utils/healthRisksUtil';
+	import { getHealthRisksByUnit, isHealthRiskUnit } from '$lib/utils/healthRisksUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
+	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { scaleLinear } from 'd3-scale';
 	import { format, setHours } from 'date-fns';
 	import { HeartPulse, X } from 'lucide-svelte';
 	import HealthRiskPill from './HealthRiskPill.svelte';
 
+	// Props
+	interface Props {
+		stations: StationsGeoJSONType;
+		initialStationIds?: string[];
+	}
+	const { stations, initialStationIds = [] }: Props = $props();
+
+	// Local state
 	let open = $state(false);
 
+	// Page reactive variables
 	const p = $derived(page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', ''));
 	const currentPage = $derived(p === '' ? 'measurements' : p);
 	const isAboutPage = $derived(currentPage === 'about');
 	const isHeatStressPage = $derived(currentPage === 'heat-stress');
 	const isMeasurmentPage = $derived(currentPage === 'measurements');
 
-	type Unit = keyof typeof $LL.pages.measurements.unitSelect.units;
-
-	const filterOutInvalid = <T extends number>(arr: T[]) =>
-		arr.filter((d) => typeof d === 'number' && Math.abs(d) !== Infinity);
-
+	// Unit related variables
+	type Unit = keyof TranslationFunctions['pages']['measurements']['unitSelect']['units'];
 	const getUnitLabelsByUnit = $derived(function (unit: Unit, isCategoryUnit = false) {
 		return {
 			unitOnlyLabel:
@@ -40,64 +49,40 @@
 			description: $LL.pages.measurements.unitSelect.units[unit].description()
 		};
 	});
-	const finalUnit = $derived(isMeasurmentPage ? ($unit as Unit) : ($heatStressUnit as Unit));
-	const isCategoryUnit = $derived(finalUnit.endsWith('_category'));
-	const labels = $derived(getUnitLabelsByUnit(finalUnit, isCategoryUnit));
-	const unitWithoutCategory = $derived(
-		finalUnit.replace(/_category$/, '') === 'pet' ? ('pet' as const) : ('utci' as const)
-	);
+	const pageUnit = $derived(isMeasurmentPage ? ($unit as Unit) : ($heatStressUnit as Unit));
+	const isOrdinalUnit = $derived(pageUnit.endsWith('_category'));
+	const labels = $derived(getUnitLabelsByUnit(pageUnit, isOrdinalUnit));
+	const isHealthUnit = $derived(isHealthRiskUnit(pageUnit));
+	const healthRisks = $derived(getHealthRisksByUnit({ unit: pageUnit, LL: $LL }));
+	const scheme = $derived(getColorsByUnit({ unit: pageUnit, LL: $LL }));
 
-	const scale = $derived(
-		unitsToScalesMap[finalUnit as keyof typeof unitsToScalesMap] || unitsToScalesMap.default
+	const stationsSnapshotQueryConfig = $derived.by(() =>
+		useStationsSnapshotConfig({ initialStationIds, stations })
 	);
-	const isOrdinal = $derived(scale.type === 'ordinal');
-	const showHealthRisks = $derived(finalUnit.startsWith('utci') || finalUnit.startsWith('pet'));
-	const titleKey = $derived(
-		finalUnit.endsWith('_category') ? ('heatStress' as const) : ('thermalComfort' as const)
-	);
-	const allHealthRisks = $derived(
-		Object.values($LL.map.choroplethLegend.healthRisks).filter((item) => !!item.title[titleKey]())
-	);
-	const showColdRisks = $derived(isMeasurmentPage && showHealthRisks);
-	const healthRisks = $derived(showColdRisks ? allHealthRisks : allHealthRisks.slice(-5));
-	const scheme = $derived(showHealthRisks ? scale.scheme.slice(-healthRisks.length) : scale.scheme);
-	const scaleMin = $derived(scale.type === 'sequential' ? scale.min : 0);
-	const scaleMax = $derived(scale.type === 'sequential' ? scale.max : 100);
-	const seqMin = $derived(
-		showColdRisks || !showHealthRisks ? scaleMin : scaleMax - (scaleMax - scaleMin) / 5
-	);
+	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
 
-	const isHealthRiskUnit = $derived($unit === 'utci' || $unit === 'pet');
+	const scaleMin = $derived($snapshotQuery.data?.scaleMin ?? 0);
+	const scaleMax = $derived($snapshotQuery.data?.scaleMax ?? 100);
+
 	const healthRiskUnit = $derived.by(() => {
 		const unitWithoutCategory = $unit.replace(/_category$/, '') as 'utci' | 'pet';
-		return ['utci', 'pet'].includes(unitWithoutCategory) ? unitWithoutCategory : 'utci';
-	});
-	const healthRiskThresholds = $derived(
-		Object.values(healthRisksRanges).map((range) => range[healthRiskUnit])
-	);
-	const healthRiskUnitMin = $derived(
-		Math.min(...filterOutInvalid(healthRiskThresholds.flatMap((t) => [t.min, t.max])))
-	);
-	const healthRiskUnitMax = $derived(
-		Math.max(...filterOutInvalid(healthRiskThresholds.flatMap((t) => [t.min, t.max])))
-	);
-	const min = $derived.by(() => {
-		if (isHealthRiskUnit) return healthRiskUnitMin;
-		if (scale.type === 'sequential') return seqMin;
-		return scaleMin;
+		return isHealthRiskUnit(unitWithoutCategory) ? unitWithoutCategory : 'utci';
 	});
 
 	let customGradient = $derived.by(() => {
-		const stops = getColorStops({ unit: $unit, LL: $LL });
-		const stopsStrings = stops.map(({ color, position }) => `${color} ${position}%`);
-		const stopStart = `${stops[0].color} 0%`;
-		const stopEnd = `${stops[stops.length - 1].color} 100%`;
-		const allStops = [stopStart, ...stopsStrings, stopEnd].join(', ');
+		const stops = getColorStops({
+			unit: $unit,
+			LL: $LL,
+			min: scaleMin ?? null,
+			max: scaleMax ?? null
+		});
+		if (stops.length === 0) return '';
+		const allStops = stops.map(({ color, position }) => `${color} ${position.toFixed(2)}%`);
 		return `linear-gradient(to right, ${allStops})`;
 	});
 
 	const showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
-	const isWindDirectionUnit = $derived(finalUnit.startsWith('wind_direction'));
+	const isWindDirectionUnit = $derived(pageUnit.startsWith('wind_direction'));
 
 	const date = $derived.by(() => {
 		const date = today();
@@ -155,24 +140,12 @@
 		return `${Math.round(val).toLocaleString($locale)} ${labels.unitOnlyLabel}`;
 	});
 	const minLabel = $derived.by(() => {
-		if ($heatStressGradientquery.data?.metadata?.range.length === 2) {
-			const [rangeMin] = $heatStressGradientquery.data.metadata.range;
-			return formatValue(rangeMin);
-		}
-		if ($heatStressGradientquery.isLoading) return '...';
-		return isHealthRiskUnit || scale.type === 'sequential' ? formatValue(min) : '';
-	});
-	const max = $derived.by(() => {
-		if (isHealthRiskUnit) return healthRiskUnitMax;
-		return scaleMax;
+		if ($heatStressGradientquery.isLoading || $snapshotQuery.isLoading) return '...';
+		return !isOrdinalUnit && typeof scaleMin === 'number' ? formatValue(scaleMin) : '';
 	});
 	const maxLabel = $derived.by(() => {
-		if ($heatStressGradientquery.data?.metadata?.range.length === 2) {
-			const [, rangeMax] = $heatStressGradientquery.data.metadata.range;
-			return formatValue(rangeMax);
-		}
-		if ($heatStressGradientquery.isLoading) return '...';
-		return isHealthRiskUnit || scale.type === 'sequential' ? formatValue(max) : '';
+		if ($heatStressGradientquery.isLoading || $snapshotQuery.isLoading) return '...';
+		return !isOrdinalUnit && typeof scaleMax === 'number' ? formatValue(scaleMax) : '';
 	});
 </script>
 
@@ -191,7 +164,7 @@
 	>
 		<strong>{labels.label}</strong>
 		<div class="flex flex-col gap-0">
-			{#if isOrdinal}
+			{#if isOrdinalUnit}
 				<div
 					class="group flex h-4 w-full max-w-96 overflow-clip rounded-sm shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 				>
@@ -209,14 +182,14 @@
 							>
 								{#if healthRisks[i]}
 									<strong class="flex gap-2 font-semibold">
-										<span>{healthRisks[i].title[titleKey]()}</span>
-										{#if healthRisks[i].ranges[unitWithoutCategory]()}
+										<span>{healthRisks[i].title}</span>
+										{#if healthRisks[i].ranges}
 											<span class="whitespace-nowrap font-normal text-muted-foreground">
-												({healthRisks[i].ranges[unitWithoutCategory]()})
+												({healthRisks[i].ranges})
 											</span>
 										{/if}
 									</strong>
-									<span>{@html healthRisks[i].description()}</span>
+									<span>{@html healthRisks[i].description}</span>
 								{/if}
 							</TooltipContent>
 						</Tooltip>
@@ -226,7 +199,7 @@
 				<div
 					class="h-4 w-full max-w-96 rounded-sm bg-muted shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 					style={cn(
-						$heatStressGradientquery.isLoading && !isOrdinal
+						$heatStressGradientquery.isLoading && !isOrdinalUnit
 							? 'animate-pulse'
 							: `background-image: ${heatStressGradient || customGradient};`
 					)}
@@ -235,37 +208,39 @@
 			<div
 				class={cn(
 					'flex w-full items-center justify-between pt-1 text-xs leading-4 text-muted-foreground',
-					$heatStressGradientquery.isLoading && !isOrdinal && 'animate-pulse'
+					$heatStressGradientquery.isLoading && !isOrdinalUnit && 'animate-pulse'
 				)}
 			>
 				<span
 					class={cn(
-						$heatStressGradientquery.isLoading && !isOrdinal && '-translate-y-1/3 animate-pulse'
+						$heatStressGradientquery.isLoading && !isOrdinalUnit && '-translate-y-1/3 animate-pulse'
 					)}
 				>
-					{isOrdinal ? healthRisks[0].title[titleKey]() : minLabel}
+					{isOrdinalUnit ? healthRisks[0].title : minLabel}
 				</span>
 				<span
 					class={cn(
-						$heatStressGradientquery.isLoading && !isOrdinal && '-translate-y-1/3 animate-pulse',
+						$heatStressGradientquery.isLoading &&
+							!isOrdinalUnit &&
+							'-translate-y-1/3 animate-pulse',
 						'text-right'
 					)}
 				>
-					{isOrdinal ? healthRisks[healthRisks.length - 1].title[titleKey]() : maxLabel}
+					{isOrdinalUnit ? healthRisks[healthRisks.length - 1].title : maxLabel}
 				</span>
 			</div>
 		</div>
 		{#if isMeasurmentPage}
 			<div class="flex flex-col">
 				<span class="inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
-					<HealthRiskPill value={undefined} withLabel />
+					<HealthRiskPill value={undefined} withLabel {stations} {initialStationIds} />
 				</span>
 				<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
-					<HealthRiskPill value={null} withLabel />
+					<HealthRiskPill value={null} withLabel {stations} {initialStationIds} />
 				</span>
 			</div>
 		{/if}
-		{#if showHealthRisks}
+		{#if isHealthUnit || isHeatStressPage}
 			<Popover.Root bind:open>
 				<Popover.Trigger asChild>
 					{#snippet children({ builder })}
@@ -307,12 +282,10 @@
 								style={`border-left-color: ${unitsToScalesMap.utci_category.scheme.toReversed()[i]}`}
 							>
 								<p>
-									<strong>{title[titleKey]()}</strong>
-									<span class="whitespace-nowrap text-muted-foreground"
-										>({ranges[unitWithoutCategory]()})</span
-									>{': '}
+									<strong>{title}</strong>
+									<span class="whitespace-nowrap text-muted-foreground">({ranges})</span>{': '}
 								</p>
-								{@html description()}
+								{@html description}
 							</li>
 						{/each}
 					</ul>

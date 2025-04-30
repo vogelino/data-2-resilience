@@ -4,8 +4,13 @@
 	import { unit, unitOnly } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { CHART_COLORS } from '$lib/utils/chartUtils';
-	import { getColorScaleValue, isHealthRiskUnit } from '$lib/utils/colorScaleUtil';
-	import { getHealthRiskKeyByValue, getHealthRiskPill } from '$lib/utils/healthRisksUtil';
+	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
+	import {
+		getHealthRiskByKey,
+		getHealthRiskKeyByValue,
+		getHealthRiskPill,
+		isHealthRiskUnit
+	} from '$lib/utils/healthRisksUtil';
 	import {
 		getHeatStressCategoryByValue,
 		getHeatStressValueByCategory,
@@ -35,10 +40,12 @@
 	type Props = {
 		data?: DataRecord[];
 		error?: Error | null;
+		max: number | null;
+		min: number | null;
 		isLoading?: boolean;
 		isOrdinal?: boolean;
 	};
-	const { data = [], error, isLoading, isOrdinal }: Props = $props();
+	const { data = [], error, isLoading, isOrdinal, min, max }: Props = $props();
 
 	const stationNames = $derived(
 		Object.keys(data[0] || {})
@@ -97,44 +104,43 @@
 				</strong>
 				<span class="${cn(
 					`grid gap-x-1 gap-y-0.5 items-center`,
-					isHealthUnit ? `grid-cols-[1fr_auto_auto_auto]` : `grid-cols-[1fr_auto_auto]`
+					isHealthUnit ? `grid-cols-[1fr_auto_auto_auto]` : `grid-cols-[1fr_auto]`
 				)}">
 					${stationNames
 						.filter((name) => typeof d[name as keyof typeof d] === 'number')
 						.map((name, idx) => {
-							const value = d[name as keyof typeof d] as number;
-							const heatStressStringVal = getHeatStressCategoryByValue(value);
+							let value = d[name as keyof typeof d] as number | string;
 							const heatStressPill = getHealthRiskPill({
 								value,
 								unit: $unit,
 								LL: $LL,
-								withLabel: false
+								withLabel: false,
+								min,
+								max
 							});
-							const healthRiskKey =
-								isHealthUnit && getHealthRiskKeyByValue({ value, unit: $unit as 'utci' | 'pet' });
-							const healthRisks = $LL.map.choroplethLegend.healthRisks;
+							const healthRiskKey = getHealthRiskKeyByValue({
+								value,
+								unit: $unit as 'utci' | 'pet'
+							});
 							let healthRiskLabel = '';
 							if (healthRiskKey) {
-								healthRiskLabel =
-									healthRisks[healthRiskKey as keyof typeof healthRisks].title.thermalComfort();
+								const healthRisk = getHealthRiskByKey({ key: healthRiskKey, unit: $unit, LL: $LL });
+								healthRiskLabel = healthRisk?.title || '';
 							}
-
+							const val =
+								typeof value === 'number' && !isOrdinal
+									? value.toLocaleString($locale, { maximumFractionDigits: 1 })
+									: null;
 							return `
 								<span class="inline-grid leading-tight pr-4 grid-cols-[auto_1fr] max-w-40 truncate items-center">
 									${CHART_COLORS[idx] && `<span style="background-color: ${CHART_COLORS[idx]}" class="inline-block w-3 h-0.5 mr-2"></span>`}
-									<span class="truncate inline-block">${name}</span>
+									<span class="truncate inline-block whitespace-nowrap">${name}</span>
 								</span>
-								${!isHealthUnit ? heatStressPill : ''} 
 								<span>
-									${
-										(!isOrdinal
-											? `${value.toLocaleString($locale, { maximumFractionDigits: 1 })}`
-											: `${getHeatStressLabel({ unit: $unit, LL: $LL, value: heatStressStringVal })}`) ||
-										`<span class="text-muted-foreground">${$LL.pages.measurements.noValueMeasured()}</span>`
-									}
+									${!isOrdinal ? val || `<span class="text-muted-foreground">${$LL.pages.measurements.noValueMeasured()}</span>` : ''}
 									${$unitOnly}
 								</span>
-								${isHealthUnit ? `${heatStressPill}<span>${healthRiskLabel}</span>` : ''}
+								${isHealthUnit ? `${heatStressPill}<span class="whitespace-nowrap">${healthRiskLabel}</span>` : ''}
 							`;
 						})
 						.join('')}
@@ -142,7 +148,7 @@
 			</span>
 		`;
 	});
-	const catAsideWidth = 8;
+	const catAsideWidth = $derived(isHealthUnit ? 8 : 0);
 	const padding = $derived({
 		top: 8,
 		left: isOrdinal ? 150 : 40,
@@ -189,7 +195,7 @@
 				{#if isOrdinal}
 					{#each valueToCategoryMap.entries() as [val, key]}
 						{@const seriesHeight = Math.ceil(height / valueToCategoryMap.size) + 3}
-						{@const color = getColorScaleValue({ unit: $unit, LL: $LL, value: key })}
+						{@const color = getColorScaleValue({ unit: $unit, LL: $LL, value: key, min, max })}
 						<Rect
 							x={width + catAsideWidth}
 							y={scaleY(val) - seriesHeight / 2}
@@ -199,7 +205,7 @@
 							fill={color}
 						/>
 					{/each}
-				{:else}
+				{:else if isHealthUnit}
 					{@const minVal = yDomain[0] || scaleYDomain[0]}
 					{@const maxVal = yDomain[1] || scaleYDomain[1]}
 					{@const ticksCount = 10}
@@ -216,7 +222,9 @@
 							getColorScaleValue({
 								unit: $unit,
 								LL: $LL,
-								value: d
+								value: d,
+								min,
+								max
 							})
 						)}
 						vertical

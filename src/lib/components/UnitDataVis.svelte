@@ -19,8 +19,8 @@
 </script>
 
 
-	<div class="mt-4 flex flex-col rounded-md border border-border scroll-mt-20" id="stations-datavis-wrapper">
-		<div class="flex flex-col gap-4 border-b border-border p-4" id="stations-datavis">
+	<div class="mt-4 flex flex-col rounded-md border border-border scroll-mt-20">
+		<div class="flex flex-col gap-4 border-b border-border p-4 scroll-mt-20" id="stations-datavis">
 			{#if $selectedStations.length > 0}
 				{#if $datavisType === 'range'}
 					<StationsValuesLineChart {stations} />

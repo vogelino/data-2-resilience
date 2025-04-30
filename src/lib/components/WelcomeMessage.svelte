@@ -206,7 +206,7 @@
 					element: '#stations-datavis',
 					on: isMobile() ? 'auto' : 'right'
 				},
-				extraHighlights: ['#date-range-slider','#stations-histogram'],
+				extraHighlights: ['#stations-histogram'],
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
 					openLeftSidebar();
@@ -218,13 +218,14 @@
 				title: $LL.welcome.tourSteps.datavisType.title(),
 				text: $LL.welcome.tourSteps.datavisType.text(),
 				attachTo: {
-					element: '#date-range-slider',
+					element: '#stations-datavis',
 					on: isMobile() ? 'auto' : 'right'
 				},
+				extraHighlights: ['#date-range-slider'],
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
 					openLeftSidebar();
-					await scrollToHandler('#date-range-slider');
+					await scrollToHandler('#stations-datavis');
 				}
 			} satisfies StepOptions,
 			{
@@ -269,13 +270,14 @@
 				attachTo: {
 					element: '#stations-table'
 				},
-				extraHighlights: ['#sensor-descriptions'],
+				extraHighlights: ['#sensor-descriptions', '#station-table-search'],
 				beforeShowPromise: async () => {
 					await ensurePage('/stations', window.location.pathname);
 					if (isMobile()) {
 						closeLeftSidebar();
 					} else {
 						openLeftSidebar();
+						await scrollToHandler('#sensor-descriptions');
 					}
 				}
 			} satisfies StepOptions

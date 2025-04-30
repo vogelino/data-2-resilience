@@ -82,9 +82,9 @@ const de = {
 				prev: 'Zurück',
 				cancel: 'Abbrechen',
 				last: 'Abschließen',
-				restart: 'Tour erneut starten'
+				restart: 'Erneut starten'
 			},
-			progress: 'Schritt {currentStep:number} von {totalSteps:number}',
+			progress: 'Schritt {currentStep:number}/{totalSteps:number}',
 			welcome: {
 				title: 'Willkommen zur Dashboard-Einführung!',
 				text: 'In dieser kurzen Tour erfahren Sie interaktiv, wie Sie das Dashboard bedienen und die wichtigsten Funktionen nutzen.<br><br>Sie können die Tour jederzeit abbrechen – klicken Sie dafür einfach auf „Abbrechen“.'
@@ -107,7 +107,7 @@ const de = {
 			},
 			map: {
 				title: 'Karte interaktiv nutzen',
-				text: 'Nutzen Sie die Kartenansicht, um Standorte visuell zu erkunden oder Messstationen (Punkte auf der Karte) auszuwählen.<br/><br/> Sie können einzelne Stationen anklicken, in die Karte zoomen oder über die Adresseingabe gezielt nach einem Standort suchen oben rechts.<br/><br/> Zusätzliche Hintergrundkarten wie Bezirksgrenzen oder Luftbilder lassen sich oben rechts ein- oder ausblenden.<br/><br/> Die Farbe der Messstationen passt sich automatisch dem Wert der gewählten Klimagröße an. Die Bedeutung der Farbskala finden Sie in der Legende unten links – dort erhalten Sie auch Informationen zu möglichen Gesundheitsrisiken, beispielsweise im Zusammenhang mit dem Thermischen Klimaindex UTCI.'
+				text: 'Nutzen Sie die Kartenansicht, um Standorte visuell zu erkunden oder Messstationen (Punkte auf der Karte) auszuwählen.<br/><br/> Sie können einzelne Stationen anklicken, in die Karte zoomen oder über die Adresseingabe oben rechts gezielt nach einem Standort suchen.<br/><br/> Zusätzliche Hintergrundkarten wie Bezirksgrenzen oder Luftbilder lassen sich oben rechts ein- oder ausblenden.<br/><br/> Die Farbe der Messstationen passt sich automatisch dem Wert der gewählten Klimagröße an. Die Bedeutung der Farbskala finden Sie in der Legende unten links – dort erhalten Sie auch Informationen zu möglichen Gesundheitsrisiken, beispielsweise im Zusammenhang mit dem Thermischen Klimaindex UTCI.'
 			},
 			heatStress: {
 				title: 'Hitzeatlas erkunden',

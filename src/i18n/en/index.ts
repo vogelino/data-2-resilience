@@ -115,7 +115,7 @@ const en = {
 			},
 			stationsTable: {
 				title: 'Learning more about weather stations',
-				text: 'Here you will find technical information about all weather stations.<br><br>In the table on the right, you can search for specific entries using the search bar at the top right.<br><br>Clicking on a column header allows you to sort the table by that column.<br><br>Measurement data can be downloaded for each station via the "Data" column.<br><br><strong>Tour completed:</strong><br>You now know the most important functions of the dashboard. Enjoy exploring the data!'
+				text: 'Here you will find technical information about all weather stations. In the table on the right, you can search for specific entries using the search bar at the top right. Clicking on a column header allows you to sort the table by that column. Measurement data can be downloaded for each station via the "Data" column.<br><br><strong>Tour completed:</strong><br>You now know the most important functions of the dashboard. Enjoy exploring the data!'
 			}
 		}
 	},

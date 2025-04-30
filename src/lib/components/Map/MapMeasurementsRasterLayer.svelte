@@ -192,7 +192,7 @@
 	$effect(() => {
 		if (!map || !showTimeslider || !lastSliderDate || !utcDate || !browser) return;
 		if (isSameHour(utcDate, lastSliderDate)) return;
-		map.style.sourceCaches[LAYER_ID].clearTiles();
+		map.style.sourceCaches[`${LAYER_ID}-${finalConfig.hour}`].clearTiles();
 		map.triggerRepaint();
 		lastSliderDate = utcDate;
 	});
@@ -217,7 +217,7 @@
 </script>
 
 {#each tilesUrls as { layerHour, tilesUrl } (layerHour)}
-	<RasterTileSource tiles={[tilesUrl]} tileSize={256} id={LAYER_ID}>
+	<RasterTileSource tiles={[tilesUrl]} tileSize={256} id={`${LAYER_ID}-${layerHour}`}>
 		<RasterLayer
 			paint={{}}
 			layout={{ visibility: visible && finalConfig.hour === layerHour ? 'visible' : 'none' }}

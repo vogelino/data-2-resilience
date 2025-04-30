@@ -54,7 +54,8 @@
 		const yearStart = startOfYear(setYear(today(), config.year));
 		const startOfDay = addDays(yearStart, config.doy - 1);
 		const tzOffsetInHours = today().getTimezoneOffset() / 60;
-		return addHours(setHours(startOfDay, config.hour), -tzOffsetInHours);
+		const date = addHours(setHours(startOfDay, config.hour), -tzOffsetInHours);
+		return date;
 	});
 	const finalDateDistHours = $derived(
 		Math.abs(Math.ceil(differenceInHours(finalLocalDate, today())))

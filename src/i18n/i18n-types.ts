@@ -234,7 +234,7 @@ type RootTranslation = {
 				restart: string
 			}
 			/**
-			 * S​c​h​r​i​t​t​ ​{​c​u​r​r​e​n​t​S​t​e​p​}​ ​v​o​n​ ​{​t​o​t​a​l​S​t​e​p​s​}
+			 * {​c​u​r​r​e​n​t​S​t​e​p​}​/​{​t​o​t​a​l​S​t​e​p​s​}
 			 * @param {number} currentStep
 			 * @param {number} totalSteps
 			 */
@@ -2466,7 +2466,7 @@ export type TranslationFunctions = {
 				restart: () => LocalizedString
 			}
 			/**
-			 * Schritt {currentStep} von {totalSteps}
+			 * {currentStep}/{totalSteps}
 			 */
 			progress: (arg: { currentStep: number, totalSteps: number }) => LocalizedString
 			welcome: {

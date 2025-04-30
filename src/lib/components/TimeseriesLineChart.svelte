@@ -4,8 +4,12 @@
 	import { unit, unitOnly } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { CHART_COLORS } from '$lib/utils/chartUtils';
-	import { getColorScaleValue, isHealthRiskUnit } from '$lib/utils/colorScaleUtil';
-	import { getHealthRiskKeyByValue, getHealthRiskPill } from '$lib/utils/healthRisksUtil';
+	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
+	import {
+		getHealthRiskKeyByValue,
+		getHealthRiskPill,
+		isHealthRiskUnit
+	} from '$lib/utils/healthRisksUtil';
 	import {
 		getHeatStressCategoryByValue,
 		getHeatStressValueByCategory,
@@ -35,10 +39,12 @@
 	type Props = {
 		data?: DataRecord[];
 		error?: Error | null;
+		max: number | null;
+		min: number | null;
 		isLoading?: boolean;
 		isOrdinal?: boolean;
 	};
-	const { data = [], error, isLoading, isOrdinal }: Props = $props();
+	const { data = [], error, isLoading, isOrdinal, min, max }: Props = $props();
 
 	const stationNames = $derived(
 		Object.keys(data[0] || {})
@@ -108,7 +114,9 @@
 								value,
 								unit: $unit,
 								LL: $LL,
-								withLabel: false
+								withLabel: false,
+								min,
+								max
 							});
 							const healthRiskKey =
 								isHealthUnit && getHealthRiskKeyByValue({ value, unit: $unit as 'utci' | 'pet' });
@@ -189,7 +197,7 @@
 				{#if isOrdinal}
 					{#each valueToCategoryMap.entries() as [val, key]}
 						{@const seriesHeight = Math.ceil(height / valueToCategoryMap.size) + 3}
-						{@const color = getColorScaleValue({ unit: $unit, LL: $LL, value: key })}
+						{@const color = getColorScaleValue({ unit: $unit, LL: $LL, value: key, min, max })}
 						<Rect
 							x={width + catAsideWidth}
 							y={scaleY(val) - seriesHeight / 2}
@@ -216,7 +224,9 @@
 							getColorScaleValue({
 								unit: $unit,
 								LL: $LL,
-								value: d
+								value: d,
+								min,
+								max
 							})
 						)}
 						vertical

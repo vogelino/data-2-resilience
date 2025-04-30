@@ -2009,7 +2009,7 @@ type RootTranslation = {
 						 */
 						thermalComfort: string
 						/**
-						 * K​e​i​n​ ​t​h​e​r​m​i​s​c​h​e​r​ ​S​t​r​e​s​s
+						 * K​e​i​n​ ​t​h​e​r​m​.​ ​S​t​r​e​s​s
 						 */
 						heatStress: string
 					}
@@ -4127,7 +4127,7 @@ export type TranslationFunctions = {
 						 */
 						thermalComfort: () => LocalizedString
 						/**
-						 * Kein thermischer Stress
+						 * Kein therm. Stress
 						 */
 						heatStress: () => LocalizedString
 					}

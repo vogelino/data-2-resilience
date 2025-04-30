@@ -105,6 +105,41 @@ export const healthRisksRanges = {
 	}
 };
 
+const healthRiskUnits = ['utci', 'pet'] as const;
+export type HealthRiskUnit = (typeof healthRiskUnits)[number];
+
+function getUnitWithoutCategory(unit: string) {
+	return unit
+		.trim()
+		.toLowerCase()
+		.replace(/_category$/, '');
+}
+export const isHealthRiskUnit = (unit: string) => {
+	return healthRiskUnits.includes(getUnitWithoutCategory(unit) as HealthRiskUnit);
+};
+
+export function getHealthRisksByUnit({
+	LL,
+	unit,
+	showColdRisks
+}: {
+	unit: string;
+	LL: TranslationFunctions;
+	showColdRisks?: boolean;
+}) {
+	if (!isHealthRiskUnit(unit)) return [];
+	const titleKey = isHealthRiskUnit(unit) ? ('heatStress' as const) : ('thermalComfort' as const);
+	const allObjs = Object.values(LL.map.choroplethLegend.healthRisks).filter(
+		(item) => !!item.title[titleKey]()
+	);
+	const withOrWithoutColdRisks = showColdRisks ? allObjs : allObjs.slice(-4);
+	return withOrWithoutColdRisks.map(({ title, description, ranges }) => ({
+		title: title[titleKey](),
+		description: description(),
+		ranges: ranges[getUnitWithoutCategory(unit) as HealthRiskUnit]()
+	}));
+}
+
 export function getHealthRiskKeyByValue({
 	unit,
 	value
@@ -112,7 +147,7 @@ export function getHealthRiskKeyByValue({
 	unit: 'utci' | 'pet';
 	value: number | string | undefined | null;
 }) {
-	if (unit !== 'utci' && unit !== 'pet') return null;
+	if (!isHealthRiskUnit(unit)) return null;
 	if (typeof value === 'string') return value;
 	return Object.entries(healthRisksRanges).reduce(
 		(acc, [key, range]) => {
@@ -131,19 +166,24 @@ export function getHealthRiskPill({
 	value,
 	unit,
 	LL,
+	min,
+	max,
 	withLabel = false
 }: {
 	value: number | string | undefined | null;
 	unit: string;
 	LL: TranslationFunctions;
+	min: number | null;
+	max: number | null;
 	withLabel?: boolean;
 }) {
 	const isOrdinal = unit.trim().endsWith('_category');
 	const unitWithoutCategory = unit.replace(/_category$/, '');
-	const isHealthRiskUnit = unitWithoutCategory === 'utci' || unitWithoutCategory === 'pet';
 
 	const healthRisks = LL.map.choroplethLegend.healthRisks;
-	const titleKey = isHealthRiskUnit ? ('heatStress' as const) : ('thermalComfort' as const);
+	const titleKey = isHealthRiskUnit(unitWithoutCategory)
+		? ('heatStress' as const)
+		: ('thermalComfort' as const);
 	let healthRisk: (typeof healthRisks)[keyof typeof healthRisks] | null = null;
 	let color: string | null = null;
 
@@ -152,7 +192,9 @@ export function getHealthRiskPill({
 		color = getColorScaleValue({
 			unit,
 			LL,
-			value: value as unknown as number
+			value: value as unknown as number,
+			min,
+			max
 		});
 	} else if (typeof value === 'number') {
 		const key = getHealthRiskKeyByValue({ value, unit: unitWithoutCategory as 'utci' | 'pet' });
@@ -162,7 +204,10 @@ export function getHealthRiskPill({
 		color = getColorScaleValue({
 			unit,
 			LL,
-			value: isOrdinal && isHealthRiskUnit ? getHeatStressCategoryByValue(value as number) : value
+			value:
+				isOrdinal && isHealthRiskUnit(unit) ? getHeatStressCategoryByValue(value as number) : value,
+			min,
+			max
 		});
 	}
 

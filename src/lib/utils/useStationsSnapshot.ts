@@ -36,7 +36,11 @@ let config:
 	| undefined
 	| Readable<{
 			queryKey: (string | number | undefined)[];
-			queryFn: () => Promise<SnapshotDataType[]>;
+			queryFn: () => Promise<{
+				items: SnapshotDataType[];
+				scaleMin: number | null;
+				scaleMax: number | null;
+			}>;
 			enabled: boolean;
 	  }>;
 
@@ -55,18 +59,25 @@ export function useStationsSnapshotConfig({
 			return {
 				queryKey: ['stations-snapshot', dateKeyVal, unitWithMinMaxAvgVal, scaleVal],
 				queryFn: async () => {
-					if (!dateVal || !unitWithMinMaxAvgVal || !scaleVal || !datavisTypeVal) return [];
+					if (!dateVal || !unitWithMinMaxAvgVal || !scaleVal || !datavisTypeVal) {
+						return {
+							items: [],
+							scaleMin: null,
+							scaleMax: null
+						};
+					}
 					const dateWithHour = limitDateBoundsToToday({
 						date: dateVal,
 						hour: datavisTypeVal !== 'range' ? hourKeyVal : 23
 					});
-					const itemResults = await api().getStationsSnapshot({
+					const result = await api().getStationsSnapshot({
 						date: dateWithHour,
 						param: unitWithMinMaxAvgVal as unknown as WeatherMeasurementKey,
 						scale: scaleVal
 					});
+					const itemResults = result?.data || [];
 					const items = (stations.features || []).map((s) => {
-						const station = (itemResults || []).find((f) => f.id === s.properties.id) as
+						const station = itemResults.find((f) => f.id === s.properties.id) as
 							| SnapshotDataType
 							| undefined;
 						return {
@@ -76,7 +87,14 @@ export function useStationsSnapshotConfig({
 							[unitWithMinMaxAvgVal]: station?.[unitWithMinMaxAvgVal]
 						} satisfies SnapshotDataType;
 					});
-					return items;
+					let scaleMin = result?.visualization.vmin ? Math.floor(result.visualization.vmin) : null;
+					let scaleMax = result?.visualization.vmax ? Math.ceil(result.visualization.vmax) : null;
+					if (scaleMin === null && typeof scaleMax === 'number' && scaleMax > 0) {
+						scaleMin = 0;
+					} else if (scaleMax === null && typeof scaleMin === 'number' && scaleMin < 0) {
+						scaleMax = 0;
+					}
+					return { items, scaleMin, scaleMax };
 				},
 				enabled: Boolean(dateVal && unitWithMinMaxAvgVal)
 			};

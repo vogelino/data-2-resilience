@@ -15,7 +15,7 @@
 	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
-	import { getHealthRiskKeyByValue } from '$lib/utils/healthRisksUtil';
+	import { getHealthRiskKeyByValue, isHealthRiskUnit } from '$lib/utils/healthRisksUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import {
 		getMessageForUnavailableStations,
@@ -57,7 +57,7 @@
 			.map((id) => {
 				const label =
 					stations.features.find((f) => f.properties.id === id)?.properties.longName || id;
-				const item = ($query.data || []).find((d) => d.id === id);
+				const item = ($query.data?.items || []).find((d) => d.id === id);
 				if (!item) {
 					return {
 						id,
@@ -123,15 +123,17 @@
 		return getColorScaleValue({
 			unit: $unit,
 			LL: $LL,
-			value: val
+			value: val,
+			min: $query.data?.scaleMin ?? null,
+			max: $query.data?.scaleMax ?? null
 		});
 	});
 
-	const isHealthRiskUnit = $derived($unit === 'utci' || $unit === 'pet');
+	const isHealthUnit = $derived(isHealthRiskUnit($unit));
 	const healthRisks = $derived($LL.map.choroplethLegend.healthRisks);
 	const isLoading = $derived($query.isLoading || isExporting);
 	const showChart = $derived(
-		validIds.length > 0 || isLoading || $query.isError || ($query.data || []).length === 0
+		validIds.length > 0 || isLoading || $query.isError || ($query.data?.items || []).length === 0
 	);
 </script>
 
@@ -261,7 +263,7 @@
 							anchor="right"
 						>
 							{@const healthRiskKey =
-								isHealthRiskUnit &&
+								isHealthUnit &&
 								getHealthRiskKeyByValue({ value: d.value, unit: $unit as 'utci' | 'pet' })}
 							{@const healthRiskLabel = healthRiskKey
 								? healthRisks[healthRiskKey as keyof typeof healthRisks].title.thermalComfort()
@@ -273,7 +275,7 @@
 								<span
 									class={cn(
 										'flex items-center gap-x-1',
-										!isHealthRiskUnit && 'flex-row-reverse justify-end'
+										!isHealthUnit && 'flex-row-reverse justify-end'
 									)}
 								>
 									{@html cn(
@@ -287,7 +289,7 @@
 										class="inline-block size-2.5 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
 										style={`background-color: ${heatStressColorByValue(d.value)};`}
 									></span>
-									{#if isHealthRiskUnit}
+									{#if isHealthUnit}
 										{healthRiskLabel}
 									{/if}
 								</span>

@@ -6,8 +6,10 @@ import {
 	HeatStressColormapItemSchema,
 	HeatStressMetadataSchema,
 	ParsedStationMetadataSchema,
+	RasterLayerInfoSchema,
 	weatherMeasurementSchemas,
 	weatherMeasurementSchemasNoMinMax,
+	type RasterLayerInfo,
 	type StationMetadata,
 	type WeatherMeasurementKey,
 	type WeatherMeasurementKeyNoMinMax
@@ -120,6 +122,56 @@ export const api = (customFetch = fetch) => ({
 
 		if (!response.ok && response.status === 422) return null;
 		return await parseArrayData(response, HeatStressColormapItemSchema, 'colormap');
+	},
+	getLatestRasterData: async (params: { year: number; param: string }) => {
+		let unit = params.param.toUpperCase();
+		if (unit.toUpperCase() === 'UTCI_CATEGORY') {
+			unit = 'UTCI_CLASS';
+		}
+		if (unit.toUpperCase() === 'PET_CATEGORY') {
+			unit = 'PET_CLASS';
+		}
+		if (unit.toUpperCase() === 'RELATIVE_HUMIDITY') {
+			unit = 'RH';
+		}
+		if (unit.toUpperCase() === 'AIR_TEMPERATURE') {
+			unit = 'TA';
+		}
+		const url = `${PUBLIC_API_BASE_URL}/tms/datasets?param=${unit}&year=${params.year}&limit=5000`;
+		const response = await fetch(url);
+
+		if (!response.ok) {
+			throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
+		}
+
+		const json = await parseData(response, z.object({ datasets: z.array(RasterLayerInfoSchema) }));
+		let datasets: RasterLayerInfo[] = json.datasets || [];
+
+		if (json.datasets.length === 0) {
+			const url = `${PUBLIC_API_BASE_URL}/tms/datasets?param=${unit}&year=${params.year}&limit=5000`;
+			const response = await fetch(url);
+
+			if (!response.ok) {
+				throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
+			}
+
+			const json = await parseData(
+				response,
+				z.object({ datasets: z.array(RasterLayerInfoSchema) })
+			);
+			datasets = json.datasets || [];
+		}
+
+		if (datasets.length === 0) {
+			throw new Error(
+				`No datasets found for ${unit} in neither ${params.year - 1} nor ${params.year}`
+			);
+		}
+
+		const latest = datasets
+			.sort((a, b) => a.year - b.year || a.doy - b.doy || a.hour - b.hour)
+			.at(-1) as RasterLayerInfo;
+		return latest;
 	}
 });
 

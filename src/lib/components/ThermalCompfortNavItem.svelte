@@ -14,10 +14,14 @@
 </script>
 
 <script lang="ts">
+	import { PUBLIC_ENABLE_HEATATLAS_TIMESLIDER } from '$env/static/public';
+
 	import { LL } from '$i18n/i18n-svelte';
 	import { heatStressUnit, updateHeatStressUnit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import InfoTooltip from './InfoTooltip.svelte';
+
+	const showTimeslider = PUBLIC_ENABLE_HEATATLAS_TIMESLIDER === 'true';
 
 	interface Props {
 		indicator: IndicatorType;
@@ -39,6 +43,7 @@
 			'relative flex w-full flex-col bg-background p-4 text-left',
 			'transition hover:bg-muted ',
 			'group-first-of-type/indicators:rounded-t-xl',
+			!showTimeslider && 'group-last-of-type/indicators:rounded-b-xl',
 			indicator.isSelected && indicator.hasCategory && 'pb-5'
 		)}
 	>

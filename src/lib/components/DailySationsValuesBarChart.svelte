@@ -202,7 +202,7 @@
 	/>
 {:else if showChart}
 	{#if $isCategoryUnit}
-		<OrdinalDataVis {data} {isLoading} {stations} />
+		<OrdinalDataVis {data} {isLoading} {stations} {initialStationIds} />
 	{:else}
 		<div class={cn('relative')} style={`height: ${chartHeight}px`}>
 			<ChartQueryHull

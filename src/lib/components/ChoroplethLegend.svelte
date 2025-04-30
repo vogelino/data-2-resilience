@@ -56,14 +56,13 @@
 	const healthRisks = $derived(getHealthRisksByUnit({ unit: pageUnit, LL: $LL }));
 	const scheme = $derived(getColorsByUnit({ unit: pageUnit, LL: $LL }));
 
-	const stationsSnapshotQueryConfig = $derived.by(
-		() => useStationsSnapshotConfig({ initialStationIds, stations })
-		// useStationsSnapshotConfig({ initialStationIds: [], stations: [] })
+	const stationsSnapshotQueryConfig = $derived.by(() =>
+		useStationsSnapshotConfig({ initialStationIds, stations })
 	);
 	const snapshotQuery = createQuery(reactiveQueryArgs(() => $stationsSnapshotQueryConfig));
 
-	const scaleMin = $derived(isOrdinalUnit ? $snapshotQuery.data?.scaleMin : 0);
-	const scaleMax = $derived(isOrdinalUnit ? $snapshotQuery.data?.scaleMax : 100);
+	const scaleMin = $derived($snapshotQuery.data?.scaleMin ?? 0);
+	const scaleMax = $derived($snapshotQuery.data?.scaleMax ?? 100);
 
 	const healthRiskUnit = $derived.by(() => {
 		const unitWithoutCategory = $unit.replace(/_category$/, '') as 'utci' | 'pet';
@@ -78,10 +77,7 @@
 			max: scaleMax ?? null
 		});
 		if (stops.length === 0) return '';
-		const stopsStrings = stops.map(({ color, position }) => `${color} ${position}%`);
-		const stopStart = `${stops[0].color} 0%`;
-		const stopEnd = `${stops[stops.length - 1].color} 100%`;
-		const allStops = [stopStart, ...stopsStrings, stopEnd].join(', ');
+		const allStops = stops.map(({ color, position }) => `${color} ${position.toFixed(2)}%`);
 		return `linear-gradient(to right, ${allStops})`;
 	});
 
@@ -145,11 +141,11 @@
 	});
 	const minLabel = $derived.by(() => {
 		if ($heatStressGradientquery.isLoading || $snapshotQuery.isLoading) return '...';
-		return isOrdinalUnit && typeof scaleMin === 'number' ? formatValue(scaleMin) : '';
+		return !isOrdinalUnit && typeof scaleMin === 'number' ? formatValue(scaleMin) : '';
 	});
 	const maxLabel = $derived.by(() => {
 		if ($heatStressGradientquery.isLoading || $snapshotQuery.isLoading) return '...';
-		return isOrdinalUnit && typeof scaleMax === 'number' ? formatValue(scaleMax) : '';
+		return !isOrdinalUnit && typeof scaleMax === 'number' ? formatValue(scaleMax) : '';
 	});
 </script>
 
@@ -244,7 +240,7 @@
 				</span>
 			</div>
 		{/if}
-		{#if isHealthUnit}
+		{#if isHealthUnit || isHeatStressPage}
 			<Popover.Root bind:open>
 				<Popover.Trigger asChild>
 					{#snippet children({ builder })}

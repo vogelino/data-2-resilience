@@ -4,6 +4,7 @@ import { getColorScaleValue } from './colorScaleUtil';
 import { getHeatStressCategoryByValue } from './heatStressCategoriesUtil';
 export const healthRisksRanges = {
 	'extreme cold stress': {
+		idx: 0,
 		pet: {
 			min: -Infinity,
 			max: -Infinity
@@ -14,6 +15,7 @@ export const healthRisksRanges = {
 		}
 	},
 	'very strong cold stress': {
+		idx: 1,
 		pet: {
 			min: -Infinity,
 			max: 4
@@ -24,6 +26,7 @@ export const healthRisksRanges = {
 		}
 	},
 	'strong cold stress': {
+		idx: 2,
 		pet: {
 			min: 4,
 			max: 8
@@ -34,6 +37,7 @@ export const healthRisksRanges = {
 		}
 	},
 	'moderate cold stress': {
+		idx: 3,
 		pet: {
 			min: 8,
 			max: 13
@@ -44,6 +48,7 @@ export const healthRisksRanges = {
 		}
 	},
 	'slight cold stress': {
+		idx: 4,
 		pet: {
 			min: 13,
 			max: 18
@@ -54,6 +59,7 @@ export const healthRisksRanges = {
 		}
 	},
 	'no thermal stress': {
+		idx: 5,
 		pet: {
 			min: 18,
 			max: 23
@@ -64,6 +70,7 @@ export const healthRisksRanges = {
 		}
 	},
 	'moderate heat stress': {
+		idx: 6,
 		pet: {
 			min: 23,
 			max: 29
@@ -74,6 +81,7 @@ export const healthRisksRanges = {
 		}
 	},
 	'strong heat stress': {
+		idx: 7,
 		pet: {
 			min: 29,
 			max: 35
@@ -84,6 +92,7 @@ export const healthRisksRanges = {
 		}
 	},
 	'very strong heat stress': {
+		idx: 8,
 		pet: {
 			min: 35,
 			max: 41
@@ -94,6 +103,7 @@ export const healthRisksRanges = {
 		}
 	},
 	'extreme heat stress': {
+		idx: 9,
 		pet: {
 			min: 41,
 			max: Infinity
@@ -118,22 +128,41 @@ export const isHealthRiskUnit = (unit: string) => {
 	return healthRiskUnits.includes(getUnitWithoutCategory(unit) as HealthRiskUnit);
 };
 
+const isOrdinalUnit = (unit: string) => unit.trim().toLowerCase().endsWith('_category');
+
+export function getHealthRiskTitleKey(unit: string) {
+	return isOrdinalUnit(unit) ? ('heatStress' as const) : ('thermalComfort' as const);
+}
+
+export function normalizeHealthRiskKey(key: string) {
+	return key === 'slight heat stress' ? 'moderate heat stress' : key;
+}
+
+export function getHealthRiskByKey(params: {
+	key: string;
+	unit: string;
+	LL: TranslationFunctions;
+}) {
+	const key = normalizeHealthRiskKey(params.key);
+	const healthRisks = getHealthRisksByUnit({ unit: params.unit, LL: params.LL });
+	return healthRisks.find((healthRisk) => healthRisk.key === key);
+}
+
 export function getHealthRisksByUnit({
 	LL,
-	unit,
-	showColdRisks
+	unit
 }: {
 	unit: string;
 	LL: TranslationFunctions;
 	showColdRisks?: boolean;
 }) {
 	if (!isHealthRiskUnit(unit)) return [];
-	const titleKey = isHealthRiskUnit(unit) ? ('heatStress' as const) : ('thermalComfort' as const);
-	const allObjs = Object.values(LL.map.choroplethLegend.healthRisks).filter(
-		(item) => !!item.title[titleKey]()
+	const titleKey = getHealthRiskTitleKey(unit);
+	const allObjs = Object.entries(LL.map.choroplethLegend.healthRisks).filter(
+		([_key, item]) => !!item.title[titleKey]()
 	);
-	const withOrWithoutColdRisks = showColdRisks ? allObjs : allObjs.slice(-4);
-	return withOrWithoutColdRisks.map(({ title, description, ranges }) => ({
+	return allObjs.map(([key, { title, description, ranges }]) => ({
+		key: normalizeHealthRiskKey(key),
 		title: title[titleKey](),
 		description: description(),
 		ranges: ranges[getUnitWithoutCategory(unit) as HealthRiskUnit]()
@@ -148,13 +177,18 @@ export function getHealthRiskKeyByValue({
 	value: number | string | undefined | null;
 }) {
 	if (!isHealthRiskUnit(unit)) return null;
-	if (typeof value === 'string') return value;
+	if (typeof value === 'string') return normalizeHealthRiskKey(value);
+	if (typeof value !== 'number') return null;
+	const cleanUnit = unit.trim().toLowerCase();
+	if (cleanUnit === 'utci_category' || cleanUnit === 'pet_category') {
+		return getHeatStressCategoryByValue(value);
+	}
+	const unitWithoutCategory = cleanUnit.replace(/_category$/, '') as HealthRiskUnit;
 	return Object.entries(healthRisksRanges).reduce(
 		(acc, [key, range]) => {
-			const { min, max } = range[unit];
-			if (typeof value !== 'number') return acc;
+			const { min, max } = range[unitWithoutCategory || 'utci'];
 			if (value >= min && value < max) {
-				return key;
+				return normalizeHealthRiskKey(key);
 			}
 			return acc;
 		},
@@ -177,41 +211,22 @@ export function getHealthRiskPill({
 	max: number | null;
 	withLabel?: boolean;
 }) {
-	const isOrdinal = unit.trim().endsWith('_category');
 	const unitWithoutCategory = unit.replace(/_category$/, '');
 
-	const healthRisks = LL.map.choroplethLegend.healthRisks;
-	const titleKey = isHealthRiskUnit(unitWithoutCategory)
-		? ('heatStress' as const)
-		: ('thermalComfort' as const);
-	let healthRisk: (typeof healthRisks)[keyof typeof healthRisks] | null = null;
+	let healthRiskLabel: string = '';
 	let color: string | null = null;
 
 	if (typeof value === 'string') {
-		healthRisk = healthRisks[value as keyof typeof healthRisks];
-		color = getColorScaleValue({
-			unit,
-			LL,
-			value: value as unknown as number,
-			min,
-			max
-		});
+		healthRiskLabel =
+			getHealthRiskByKey({ key: value, unit: unitWithoutCategory, LL })?.title || '';
+		color = getColorScaleValue({ unit, LL, value, min, max });
 	} else if (typeof value === 'number') {
 		const key = getHealthRiskKeyByValue({ value, unit: unitWithoutCategory as 'utci' | 'pet' });
 		if (key) {
-			healthRisk = healthRisks[key as keyof typeof healthRisks];
+			healthRiskLabel = getHealthRiskByKey({ key, unit: unitWithoutCategory, LL })?.title || '';
 		}
-		color = getColorScaleValue({
-			unit,
-			LL,
-			value:
-				isOrdinal && isHealthRiskUnit(unit) ? getHeatStressCategoryByValue(value as number) : value,
-			min,
-			max
-		});
+		color = getColorScaleValue({ unit, LL, value, min, max });
 	}
-
-	let healthRiskLabel = healthRisk?.title[titleKey]() || '';
 
 	const isUnavailable = value === null;
 	const isUnsupported = typeof value === 'undefined';

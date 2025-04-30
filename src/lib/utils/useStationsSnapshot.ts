@@ -87,8 +87,8 @@ export function useStationsSnapshotConfig({
 							[unitWithMinMaxAvgVal]: station?.[unitWithMinMaxAvgVal]
 						} satisfies SnapshotDataType;
 					});
-					let scaleMin = result?.visualization.vmin ? Math.floor(result.visualization.vmin) : null;
-					let scaleMax = result?.visualization.vmax ? Math.ceil(result.visualization.vmax) : null;
+					let scaleMin = result?.visualization?.cmin ? Math.floor(result.visualization.cmin) : null;
+					let scaleMax = result?.visualization?.cmax ? Math.ceil(result.visualization.cmax) : null;
 					if (scaleMin === null && typeof scaleMax === 'number' && scaleMax > 0) {
 						scaleMin = 0;
 					} else if (scaleMax === null && typeof scaleMin === 'number' && scaleMin < 0) {

@@ -1,6 +1,7 @@
 import type { StationsGeoJSONType } from '$lib/stores/mapData';
 import { api } from '$lib/utils/api';
 import { limitDateBoundsToToday } from '$lib/utils/dateUtil';
+import { normalizeHealthRiskKey } from '$lib/utils/healthRisksUtil';
 import { getHeatStressValueByCategory } from '$lib/utils/heatStressCategoriesUtil';
 import type { WeatherMeasurementKeyNoMinMax } from '$lib/utils/schemas';
 import { compareAsc, format, isValid, parseISO } from 'date-fns';
@@ -118,7 +119,7 @@ function mapStationDataResults<
 		return {
 			id,
 			measured_at: i.measured_at,
-			value
+			value: normalizeHealthRiskKey(value)
 		} satisfies ParsedValueType;
 	});
 }

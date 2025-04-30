@@ -12,6 +12,7 @@ import {
 } from 'd3-scale-chromatic';
 import {
 	getHealthRiskKeyByValue,
+	getHealthRisksByUnit,
 	healthRisksRanges,
 	isHealthRiskUnit,
 	type HealthRiskUnit
@@ -296,35 +297,46 @@ const getHealthRiskUnitColorStops = (params: {
 		];
 	}
 
-	const ranges = Object.values(healthRisksRanges)
-		.map((range) => range[unit])
-		.sort((a, b) => a.min - b.min);
-	const minHealthRiskRangeIdx = ranges.reduce((acc, range, idx) => {
-		const { min: rMin, max: rMax } = range;
-		if (min >= rMin && min < rMax) return idx;
-		return acc;
-	}, 0);
-	const maxHealthRiskRangeIdx = ranges.reduce((acc, range, idx) => {
-		const { min: rMin, max: rMax } = range;
-		if (max >= rMin && max < rMax) return idx;
-		return acc;
-	}, ranges.length - 1);
-	debugger;
-	let validHealthRiskCategories = Object.keys(healthRisksRanges).filter(
-		(_, idx) => idx >= minHealthRiskRangeIdx && idx <= maxHealthRiskRangeIdx
+	const unitWithoutCategory = unit
+		.trim()
+		.toLowerCase()
+		.replace(/_category$/, '') as HealthRiskUnit;
+	const ranges = Object.entries(healthRisksRanges)
+		.map(([key, ranges]) => ({
+			key,
+			idx: ranges.idx,
+			min: ranges[unitWithoutCategory || 'utci']?.min ?? 0,
+			max: ranges[unitWithoutCategory || 'utci']?.max ?? 100
+		}))
+		.sort((a, b) => a.idx - b.idx);
+	const minHealthRiskRange = ranges.reduce(
+		(acc, range) => {
+			const { min: rMin, max: rMax } = range;
+			if (min >= rMin && min < rMax) return range;
+			return acc;
+		},
+		ranges.find((r) => r.idx === 0) || ranges[0]
 	);
-	if (validHealthRiskCategories.length === 1) {
-		validHealthRiskCategories = [validHealthRiskCategories[0], validHealthRiskCategories[0]];
+	const maxHealthRiskRange = ranges.reduce(
+		(acc, range) => {
+			const { min: rMin, max: rMax } = range;
+			if (max >= rMin && max < rMax) return range;
+			return acc;
+		},
+		ranges.find((r) => r.idx === ranges.length - 1) || ranges[ranges.length - 1]
+	);
+	let validRanges = ranges.filter(
+		(r) => r.idx >= minHealthRiskRange.idx && r.idx < maxHealthRiskRange.idx
+	);
+	if (validRanges.length === 1) {
+		validRanges = [validRanges[0], validRanges[0]];
 	}
-	const stops = validHealthRiskCategories.map((value, idx) => {
-		const color = getHealthRiskColorByValue({
-			value,
-			unit,
-			LL
-		});
+	const stops = validRanges.map((range, idx) => {
+		const value = idx === validRanges.length - 1 ? range.max : range.min;
+		const color = getHealthRiskColorByValue({ value, unit, LL });
 		return {
 			color,
-			position: (idx / (validHealthRiskCategories.length - 1)) * 100
+			position: (idx / (validRanges.length - 1)) * 100
 		};
 	});
 	return stops;
@@ -386,17 +398,17 @@ function getHealthRiskColorByValue(params: {
 	LL: TranslationFunctions;
 }) {
 	const { value, unit, LL } = params;
-	const categories = Object.keys(
-		LL.map.choroplethLegend.healthRisks
-	) as unknown as keyof typeof LL.map.choroplethLegend.healthRisks;
+	const categories = getHealthRisksByUnit({ unit, LL }).map(({ key }) => key);
 	const val =
 		typeof value === 'string'
 			? value
 			: getHealthRiskKeyByValue({ value, unit: unit as 'utci' | 'pet' });
-	const categoryIndex = categories.indexOf(val as string);
+	const normalizedVal = val === 'slight heat stress' ? 'moderate heat stress' : (val as string);
+	const categoryIndex = categories.indexOf(normalizedVal);
 	if (categoryIndex === -1) return 'hsl(var(--muted-foreground))';
 	const colors = getColorsByUnit({ unit, LL });
-	return colors[categoryIndex];
+	const color = colors[categoryIndex];
+	return color;
 }
 
 export function getColorScaleValue(params: {
@@ -406,7 +418,7 @@ export function getColorScaleValue(params: {
 	min: number | null;
 	max: number | null;
 }) {
-	const { unit, LL, value } = params;
+	const { unit, value } = params;
 
 	const isWindDirectionUnit = unit.startsWith('wind_direction');
 	if (isWindDirectionUnit) return 'hsl(var(--muted-foreground))';
@@ -425,10 +437,7 @@ export function getColorScaleValue(params: {
 export function getColorsByUnit({ unit, LL }: { unit: string; LL: TranslationFunctions }) {
 	const scheme = getUnitColorScheme(unit);
 	if (!isHealthRiskUnit(unit)) return scheme;
-	const titleKey = isOrdinalUnit(unit) ? 'heatStress' : 'thermalComfort';
-	const healthRisksCount = Object.values(LL.map.choroplethLegend.healthRisks).filter(
-		(item) => !!item.title[titleKey]()
-	).length;
+	const healthRisksCount = getHealthRisksByUnit({ unit, LL }).length;
 	const colors = (scheme as string[]).slice(-healthRisksCount);
 	return colors;
 }

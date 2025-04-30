@@ -2,14 +2,16 @@
 	import LL from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { useStations } from '$lib/stores/stationsStore';
-	import { isCategoryUnit, unitWithoutCategory } from '$lib/stores/uiStore';
+	import { unitWithoutCategory } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
+	import { getHealthRiskByKey } from '$lib/utils/healthRisksUtil';
 	import HealthRiskPill from './HealthRiskPill.svelte';
 	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
 	type Props = {
 		isLoading: boolean;
 		stations: StationsGeoJSONType;
+		initialStationIds?: string[];
 		data: {
 			id: string;
 			label: string;
@@ -17,13 +19,10 @@
 		}[];
 	};
 
-	const { isLoading, stations, data }: Props = $props();
+	const { isLoading, stations, initialStationIds = [], data }: Props = $props();
 
 	const ids = useStations({ stations });
 
-	const titleKey = $derived(
-		$isCategoryUnit ? ('heatStress' as const) : ('thermalComfort' as const)
-	);
 	const healthRisks = $derived($LL.map.choroplethLegend.healthRisks);
 </script>
 
@@ -51,7 +50,13 @@
 		{/each}
 	{:else}
 		{#each data as d}
-			{@const healthRisk = healthRisks[d.value as unknown as keyof typeof healthRisks]}
+			{@const healthRisk =
+				d.value &&
+				getHealthRiskByKey({
+					key: `${d.value}`,
+					unit: $unitWithoutCategory,
+					LL: $LL
+				})}
 			{@const correspondingFeature = stations.features.find((f) => f.properties.id === d.id)}
 			{@const label = correspondingFeature?.properties.longName || d.label || d.id || ''}
 			<strong class="max-w-48 font-semibold">{label}</strong>
@@ -62,20 +67,20 @@
 						d.value && 'transition-colors hover:text-muted-foreground'
 					)}
 				>
-					<HealthRiskPill value={d.value} withLabel />
+					<HealthRiskPill value={d.value} withLabel {stations} {initialStationIds} />
 				</TooltipTrigger>
 				{#if d.value}
 					<TooltipContent class="max-w-72">
 						{#if healthRisk}
 							<strong class="flex gap-2 font-semibold">
-								<span>{healthRisk.title[titleKey]()}</span>
-								{#if healthRisk.ranges[$unitWithoutCategory]()}
+								<span>{healthRisk.title}</span>
+								{#if healthRisk.ranges}
 									<span class="whitespace-nowrap font-normal text-muted-foreground">
-										({healthRisk.ranges[$unitWithoutCategory]()})
+										({healthRisk.ranges})
 									</span>
 								{/if}
 							</strong>
-							<span>{@html healthRisk.description()}</span>
+							<span>{@html healthRisk.description}</span>
 						{/if}
 					</TooltipContent>
 				{/if}

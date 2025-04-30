@@ -1,4 +1,5 @@
 import type { TranslationFunctions } from '$i18n/i18n-types';
+import { getHealthRisksByUnit } from './healthRisksUtil';
 
 export function getHeatStressLabel(params: {
 	unit: string;
@@ -6,10 +7,9 @@ export function getHeatStressLabel(params: {
 	value: string;
 }) {
 	const { unit, LL, value } = params;
-	const titleKey = unit.endsWith('_category') ? 'heatStress' : 'thermalComfort';
-	return LL.map.choroplethLegend.healthRisks[
-		value as keyof typeof LL.map.choroplethLegend.healthRisks
-	].title[titleKey]();
+	const allRanges = getHealthRisksByUnit({ unit, LL });
+	const matchingRange = allRanges.find(({ key }) => key === value);
+	return matchingRange?.title || '';
 }
 
 type SortUnit = { value: string; label: string };

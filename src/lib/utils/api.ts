@@ -78,12 +78,20 @@ export const api = (customFetch = fetch) => ({
 			z.object({
 				data: z.array(schema),
 				visualization: z.object({
-					[params.param]: z.object({
-						cmax: z.number().nullable(),
-						cmin: z.number().nullable(),
-						vmax: z.number().nullable(),
-						vmin: z.number().nullable()
-					})
+					[params.param]: z
+						.object({
+							cmax: z.number().nullable(),
+							cmin: z.number().nullable(),
+							vmax: z.number().nullable(),
+							vmin: z.number().nullable()
+						})
+						.nullable()
+						.default({
+							cmax: null,
+							cmin: null,
+							vmax: null,
+							vmin: null
+						})
 				})
 			})
 		);

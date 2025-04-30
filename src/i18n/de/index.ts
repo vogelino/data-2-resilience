@@ -795,7 +795,7 @@ const de = {
 			healthRisks: {
 				'extreme cold stress': {
 					title: {
-						thermalComfort: '',
+						thermalComfort: 'Extrem Kalt',
 						heatStress: 'Extremer Kältestress'
 					},
 					description:

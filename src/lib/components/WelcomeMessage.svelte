@@ -1,10 +1,30 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
 	import LL, { locale } from '$i18n/i18n-svelte';
-	import { closeLeftSidebar, openLeftSidebar } from '$lib/stores/uiStore';
+	import {
+		closeLeftSidebar,
+		datavisType,
+		dayValue,
+		heatStressUnit,
+		hour,
+		minMaxAvg,
+		openLeftSidebar,
+		rangeEnd,
+		rangeStart,
+		udpateDatavisType,
+		udpateDay,
+		udpateRangeStart,
+		unit,
+		updateHeatStressUnit,
+		updateHour,
+		updateMinMaxAvg,
+		updateRangeEnd,
+		updateUnit
+	} from '$lib/stores/uiStore';
+	import { SidebarState } from '$lib/types/sidebar';
 	import { cn } from '$lib/utils';
+	import { today } from '$lib/utils/dateUtil';
+	import { getHours } from 'date-fns';
 	import { ArrowDown, X } from 'lucide-svelte';
 	import Shepherd, { type StepOptions, type StepOptionsButton, type Tour } from 'shepherd.js';
 	import 'shepherd.js/dist/css/shepherd.css';
@@ -14,17 +34,7 @@
 
 	let opened = $state(false);
 	let tour: Tour | undefined;
-	let isMobile = $state(true);
-
-	onMount(() => {
-		if (!browser) return;
-		const mediaQuery = window.matchMedia('(max-width: 768px)');
-		function setIsMobile(e: MediaQueryListEvent) {
-			isMobile = e.matches;
-		}
-		mediaQuery.addEventListener('change', setIsMobile);
-		return () => mediaQuery.removeEventListener('change', setIsMobile);
-	});
+	const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
 	onMount(() => {
 		const lastValue = localStorage.getItem('welcome-opened');
@@ -35,7 +45,8 @@
 		}
 	});
 
-	onMount(() => {
+	function getTour() {
+		if (typeof tour?.id !== 'undefined') return tour;
 		tour = new Shepherd.Tour({
 			useModalOverlay: true,
 			keyboardNavigation: true,
@@ -45,6 +56,24 @@
 				scrollTo: false
 			}
 		});
+		return tour;
+	}
+
+	onMount(() => {
+		const t = getTour();
+
+		t.on('start', onTourStart);
+		t.on('active', onTourActive);
+		t.on('complete', onTourEnd);
+		t.on('cancel', onTourEnd);
+
+		return () => {
+			const t = getTour();
+			t.off('start', onTourStart);
+			t.off('active', onTourActive);
+			t.off('complete', onTourEnd);
+			t.off('cancel', onTourEnd);
+		};
 	});
 
 	async function wait(timeout: number): Promise<void> {
@@ -92,132 +121,145 @@
 		});
 	}
 
-	const ensurePage = $derived(async (path: string) => {
+	const ensurePage = $derived(async (path: string, currentPathname: string) => {
 		const pathWithLocale = `/${$locale}${path === '/' ? '' : path}`;
-		if (page.url.pathname === pathWithLocale) return;
 		const fullPath = `${pathWithLocale}?${urlQuery}`;
-		await goto(fullPath);
+		if (currentPathname !== pathWithLocale) {
+			await goto(fullPath);
+		}
 	});
 
 	const queryParams = $derived(queryParameters());
 	const urlQuery = $derived(new URLSearchParams($queryParams).toString());
 
-	$effect(() => {
-		if (!tour) return;
-		for (const step of tour.steps) {
-			tour.removeStep(step.id);
-		}
-		const nextButton = {
+	const buttons = $derived.by(() => ({
+		nextButton: {
 			text: $LL.welcome.tourSteps.buttons.next(),
-			action: tour.next
-		} satisfies StepOptionsButton;
-		const prevButton = {
+			action: () => tour?.next()
+		} satisfies StepOptionsButton,
+		prevButton: {
 			text: $LL.welcome.tourSteps.buttons.prev(),
-			action: tour.back,
+			action: () => tour?.back(),
 			secondary: true
-		} satisfies StepOptionsButton;
-		const cancelButton = {
+		} satisfies StepOptionsButton,
+		cancelButton: {
 			text: $LL.welcome.tourSteps.buttons.cancel(),
-			action: tour.cancel,
+			action: () => tour?.cancel(),
 			secondary: true
-		} satisfies StepOptionsButton;
-		const finishButton = {
+		} satisfies StepOptionsButton,
+		restartButton: {
+			text: $LL.welcome.tourSteps.buttons.restart(),
+			action: () => tour?.show(0),
+			secondary: true
+		} satisfies StepOptionsButton,
+		finishButton: {
 			text: $LL.welcome.tourSteps.buttons.last(),
-			action: tour.complete
-		} satisfies StepOptionsButton;
+			action: () => tour?.complete()
+		} satisfies StepOptionsButton
+	}));
+
+	function initTour(t: Tour) {
+		if (t.isActive()) return;
 
 		const steps = [
 			{
 				id: 'welcome',
 				title: $LL.welcome.tourSteps.welcome.title(),
 				text: $LL.welcome.tourSteps.welcome.text(),
-				beforeShowPromise: () => ensurePage('/')
+				async beforeShowPromise() {
+					await ensurePage('/', window.location.pathname);
+				}
+			} satisfies StepOptions,
+			{
+				id: 'navigation',
+				title: $LL.welcome.tourSteps.navigation.title(),
+				text: $LL.welcome.tourSteps.navigation.text(),
+				attachTo: {
+					element: '#navigation',
+					on: isMobile() ? 'auto' : 'right'
+				},
+				beforeShowPromise: async () => {
+					await ensurePage('/', window.location.pathname);
+					openLeftSidebar();
+					await scrollToHandler('#navigation');
+				}
+			} satisfies StepOptions,
+			{
+				id: 'measurements',
+				title: $LL.welcome.tourSteps.measurements.title(),
+				text: $LL.welcome.tourSteps.measurements.text(),
+				attachTo: {
+					element: '#unit-select',
+					on: isMobile() ? 'auto' : 'right'
+				},
+				beforeShowPromise: async () => {
+					await ensurePage('/', window.location.pathname);
+					openLeftSidebar();
+					await scrollToHandler('#unit-select');
+				}
+			} satisfies StepOptions,
+			{
+				id: 'visualisation',
+				title: $LL.welcome.tourSteps.visualisation.title(),
+				text: $LL.welcome.tourSteps.visualisation.text(),
+				attachTo: {
+					element: '#stations-datavis',
+					on: isMobile() ? 'auto' : 'right'
+				},
+				beforeShowPromise: async () => {
+					await ensurePage('/', window.location.pathname);
+					openLeftSidebar();
+					await scrollToHandler('#stations-datavis');
+				}
+			} satisfies StepOptions,
+			{
+				id: 'datavisType',
+				title: $LL.welcome.tourSteps.datavisType.title(),
+				text: $LL.welcome.tourSteps.datavisType.text(),
+				attachTo: {
+					element: '#date-range-slider',
+					on: isMobile() ? 'auto' : 'right'
+				},
+				beforeShowPromise: async () => {
+					await ensurePage('/', window.location.pathname);
+					openLeftSidebar();
+					await scrollToHandler('#date-range-slider');
+				}
 			} satisfies StepOptions,
 			{
 				id: 'map',
 				title: $LL.welcome.tourSteps.map.title(),
 				text: $LL.welcome.tourSteps.map.text(),
 				attachTo: {
-					element: '#map'
+					element: '#map',
+					on: 'top'
 				},
 				beforeShowPromise: async () => {
-					await ensurePage('/');
-					isMobile && closeLeftSidebar();
+					await ensurePage('/', window.location.pathname);
+					if (isMobile()) {
+						closeLeftSidebar();
+					} else {
+						openLeftSidebar();
+					}
 				}
-			} satisfies StepOptions,
+			},
 			{
-				id: 'stationSelect',
-				title: $LL.welcome.tourSteps.stationSelect.title(),
-				text: $LL.welcome.tourSteps.stationSelect.text(),
+				id: 'heatStress',
+				title: $LL.welcome.tourSteps.heatStress.title(),
+				text: $LL.welcome.tourSteps.heatStress.text(),
 				attachTo: {
-					element: '#stations-select-wrapper',
-					on: isMobile ? 'auto' : 'right'
+					element: '#map',
+					on: 'top'
 				},
 				beforeShowPromise: async () => {
-					await ensurePage('/');
-					openLeftSidebar();
-					await scrollToHandler('#stations-select-wrapper');
+					await ensurePage('/heat-stress', window.location.pathname);
+					if (isMobile()) {
+						closeLeftSidebar();
+					} else {
+						openLeftSidebar();
+					}
 				}
-			} satisfies StepOptions,
-			{
-				id: 'unitSelect',
-				title: $LL.welcome.tourSteps.unitSelect.title(),
-				text: $LL.welcome.tourSteps.unitSelect.text(),
-				attachTo: {
-					element: '#unit-select',
-					on: isMobile ? 'auto' : 'right'
-				},
-				beforeShowPromise: async () => {
-					await ensurePage('/');
-					openLeftSidebar();
-					await scrollToHandler('#unit-select');
-				}
-			} satisfies StepOptions,
-			{
-				id: 'stationsDatavis',
-				title: $LL.welcome.tourSteps.stationsDatavis.title(),
-				text: $LL.welcome.tourSteps.stationsDatavis.text(),
-				attachTo: {
-					element: '#stations-datavis',
-					on: isMobile ? 'auto' : 'right'
-
-				},
-				beforeShowPromise: async () => {
-					await ensurePage('/');
-					openLeftSidebar();
-					await scrollToHandler('#stations-datavis');
-				}
-			} satisfies StepOptions,
-			{
-				id: 'dateRangeSlider',
-				title: $LL.welcome.tourSteps.dateRangeSlider.title(),
-				text: $LL.welcome.tourSteps.dateRangeSlider.text(),
-				attachTo: {
-					element: '#date-range-slider',
-					on: isMobile ? 'auto' : 'right'
-
-				},
-				beforeShowPromise: async () => {
-					await ensurePage('/');
-					openLeftSidebar();
-					await scrollToHandler('#date-range-slider');
-				}
-			} satisfies StepOptions,
-			{
-				id: 'stationsHistogram',
-				title: $LL.welcome.tourSteps.stationsHistogram.title(),
-				text: $LL.welcome.tourSteps.stationsHistogram.text(),
-				attachTo: {
-					element: '#stations-histogram',
-					on: isMobile ? 'auto' : 'right'
-
-				},
-				beforeShowPromise: async () => {
-					await ensurePage('/');
-					openLeftSidebar();
-					await scrollToHandler('#stations-histogram');
-				}
-			} satisfies StepOptions,
+			},
 			{
 				id: 'stationsTable',
 				title: $LL.welcome.tourSteps.stationsTable.title(),
@@ -226,8 +268,12 @@
 					element: '#stations-table'
 				},
 				beforeShowPromise: async () => {
-					await ensurePage('/stations');
-					isMobile && closeLeftSidebar();
+					await ensurePage('/stations', window.location.pathname);
+					if (isMobile()) {
+						closeLeftSidebar();
+					} else {
+						openLeftSidebar();
+					}
 				}
 			} satisfies StepOptions
 		].map((originalStep, idx, arr) => {
@@ -237,20 +283,105 @@
 			return {
 				...step,
 				buttons: step.buttons || [
-					...(isLast ? [] : [cancelButton]),
-					...(isFirst ? [] : [prevButton]),
-					...(isLast ? [finishButton] : [nextButton])
+					...(isLast ? [] : [buttons.cancelButton]),
+					...(isFirst ? [] : [buttons.prevButton]),
+					...(isLast ? [buttons.restartButton, buttons.finishButton] : [buttons.nextButton])
 				],
 				attachTo:
 					step.attachTo &&
 					({
 						on: 'auto',
 						...step.attachTo
-					} satisfies StepOptions['attachTo'])
+					} satisfies StepOptions['attachTo']),
+				when: {
+					show() {
+						if (!t) return;
+						const currentStep = t.getCurrentStep();
+						if (!currentStep) return;
+						const currentEl = currentStep.getElement();
+						const footer = currentEl?.querySelector('.shepherd-footer') as HTMLElement;
+						if (!footer) return;
+						const currentStepIndex = t.steps.indexOf(currentStep);
+						const totalSteps = t.steps.length;
+						const stepsText = $LL.welcome.tourSteps.progress({
+							currentStep: currentStepIndex + 1,
+							totalSteps
+						});
+						const stepsSpan = document.createElement('span');
+						footer.classList.add('flex', 'items-center');
+						stepsSpan.classList.add(
+							'text-sm',
+							'text-muted-foreground',
+							'w-full',
+							'whitespace-nowrap'
+						);
+						stepsSpan.innerText = stepsText;
+						footer.insertBefore(stepsSpan, footer.firstChild);
+					}
+				}
 			} satisfies StepOptions;
 		});
-		tour.addSteps(steps);
+		if (t.steps.length === 0) {
+			t.addSteps(steps);
+		} else if (t.steps.length === steps.length) {
+			t.steps.forEach((step, idx) => step.updateStepOptions(steps[idx]));
+		}
+	}
+
+	$effect(() => {
+		tour && initTour(tour);
 	});
+
+	type TourSettings = {
+		pagePath: string;
+		unit: string;
+		datavisType: 'day' | 'hour' | 'range';
+		rangeStart: number;
+		rangeEnd: number;
+		sidebarState?: SidebarState;
+		dayValue: number;
+		minMaxAvg: 'min' | 'max' | 'avg';
+		hour: number;
+		heatStressUnit: 'utci' | 'pet';
+	};
+	let initialSettings: TourSettings;
+	const tourOptimalSettings = $derived({
+		pagePath: '/',
+		unit: 'utci',
+		datavisType: 'hour',
+		rangeStart: -10,
+		rangeEnd: 0,
+		dayValue: -2,
+		minMaxAvg: 'avg',
+		hour: getHours(today()),
+		heatStressUnit: 'utci'
+	} satisfies TourSettings);
+
+	function saveInitialSettings() {
+		const pagePath = window.location.pathname.replace(`/${$locale}`, '') || '/';
+		initialSettings = {
+			pagePath,
+			unit: $unit,
+			datavisType: $datavisType,
+			rangeStart: $rangeStart,
+			rangeEnd: $rangeEnd,
+			dayValue: $dayValue,
+			minMaxAvg: $minMaxAvg,
+			hour: $hour,
+			heatStressUnit: $heatStressUnit as 'utci' | 'pet'
+		};
+	}
+	function applySettings(stgns?: TourSettings) {
+		if (!stgns) return;
+		updateUnit(stgns.unit);
+		udpateDatavisType(stgns.datavisType);
+		udpateRangeStart(stgns.rangeStart);
+		updateRangeEnd(stgns.rangeEnd);
+		udpateDay(stgns.dayValue);
+		updateMinMaxAvg(stgns.minMaxAvg);
+		$updateHour(stgns.hour);
+		updateHeatStressUnit(stgns.heatStressUnit);
+	}
 
 	const handleClose = () => {
 		localStorage.setItem('welcome-opened', 'false');
@@ -261,6 +392,21 @@
 		localStorage.setItem('welcome-opened', 'true');
 		opened = true;
 	};
+
+	async function onTourStart() {
+		saveInitialSettings();
+
+		ensurePage('/', window.location.pathname);
+	}
+
+	function onTourActive() {
+		applySettings(tourOptimalSettings);
+	}
+
+	function onTourEnd() {
+		applySettings(initialSettings);
+		ensurePage(initialSettings.pagePath, window.location.pathname);
+	}
 </script>
 
 <section
@@ -287,13 +433,7 @@
 			<Button on:click={handleClose}>
 				{$LL.welcome.buttons.confirm()}
 			</Button>
-			<Button
-				variant="outline"
-				on:click={() => {
-					tour?.start();
-					handleClose();
-				}}
-			>
+			<Button variant="outline" on:click={() => tour?.start()}>
 				{$LL.welcome.buttons.launchTour()}
 			</Button>
 		</div>
@@ -368,6 +508,7 @@
 		border: 1px solid hsl(var(--border));
 		color: hsl(var(--foreground));
 		font-weight: 400;
+		white-space: nowrap;
 	}
 
 	:global(.shepherd-button.shepherd-button-secondary:not(:disabled):hover) {
@@ -406,6 +547,7 @@
 		font-weight: 600;
 		font-size: 1.25rem;
 		line-height: 1.75rem;
+		max-width: 100%;
 	}
 
 	:global(.shepherd-text) {

@@ -84,11 +84,7 @@ const de = {
 				last: 'Abschließen',
 				restart: 'Erneut starten'
 			},
-<<<<<<< HEAD
 			progress: '{currentStep:number}/{totalSteps:number}',
-=======
-			progress: 'Schritt {currentStep:number}/{totalSteps:number}',
->>>>>>> 84-guided-tour
 			welcome: {
 				title: 'Willkommen zur Dashboard-Einführung!',
 				text: 'In dieser kurzen Tour erfahren Sie interaktiv, wie Sie das Dashboard bedienen und die wichtigsten Funktionen nutzen.<br><br>Sie können die Tour jederzeit abbrechen – klicken Sie dafür einfach auf „Abbrechen“.'

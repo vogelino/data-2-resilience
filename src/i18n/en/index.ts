@@ -796,7 +796,7 @@ const en = {
 			healthRisks: {
 				'extreme cold stress': {
 					title: {
-						thermalComfort: '',
+						thermalComfort: 'Extremely cold',
 						heatStress: 'Extreme cold stress'
 					},
 					description: 'Life-threatening hypothermia, severe frostbite possible within minutes.',

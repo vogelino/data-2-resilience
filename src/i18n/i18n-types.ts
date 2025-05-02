@@ -229,7 +229,7 @@ type RootTranslation = {
 				 */
 				last: string
 				/**
-				 * T​o​u​r​ ​e​r​n​e​u​t​ ​s​t​a​r​t​e​n
+				 * E​r​n​e​u​t​ ​s​t​a​r​t​e​n
 				 */
 				restart: string
 			}
@@ -261,17 +261,17 @@ type RootTranslation = {
 			}
 			measurements: {
 				/**
-				 * M​e​s​s​w​e​r​t​e​ ​a​u​s​w​ä​h​l​e​n​:
+				 * M​e​s​s​w​e​r​t​e​ ​a​u​s​w​ä​h​l​e​n
 				 */
 				title: string
 				/**
-				 * F​ü​r​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​S​t​a​n​d​o​r​t​e​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​l​i​e​g​e​n​ ​W​e​t​t​e​r​d​a​t​e​n​ ​v​o​r​.​<​b​r​/​>​Ü​b​e​r​ ​d​a​s​ ​o​b​e​r​e​ ​T​e​x​t​f​e​l​d​ ​k​ö​n​n​e​n​ ​S​i​e​ ​e​i​n​e​ ​M​e​s​s​s​t​a​t​i​o​n​ ​d​u​r​c​h​ ​E​i​n​g​a​b​e​ ​v​o​n​ ​B​u​c​h​s​t​a​b​e​n​ ​o​d​e​r​ ​p​e​r​ ​A​u​s​w​a​h​l​ ​a​u​s​ ​d​e​r​ ​L​i​s​t​e​ ​b​e​s​t​i​m​m​e​n​.​<​b​r​/​>​I​m​ ​d​a​r​u​n​t​e​r​ ​l​i​e​g​e​n​d​e​n​ ​A​u​s​w​a​h​l​f​e​l​d​ ​w​ä​h​l​e​n​ ​S​i​e​ ​d​i​e​ ​g​e​w​ü​n​s​c​h​t​e​ ​K​l​i​m​a​g​r​ö​ß​e​ ​(​z​.​ ​B​.​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​,​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​)​ ​s​o​w​i​e​ ​d​i​e​ ​d​a​z​u​g​e​h​ö​r​i​g​e​ ​E​i​n​h​e​i​t​.
+				 * F​ü​r​ ​v​e​r​s​c​h​i​e​d​e​n​e​ ​S​t​a​n​d​o​r​t​e​ ​i​n​ ​D​o​r​t​m​u​n​d​ ​l​i​e​g​e​n​ ​W​e​t​t​e​r​d​a​t​e​n​ ​v​o​r​.​ ​Ü​b​e​r​ ​d​a​s​ ​o​b​e​r​e​ ​T​e​x​t​f​e​l​d​ ​k​ö​n​n​e​n​ ​S​i​e​ ​e​i​n​e​ ​M​e​s​s​s​t​a​t​i​o​n​ ​d​u​r​c​h​ ​E​i​n​g​a​b​e​ ​v​o​n​ ​B​u​c​h​s​t​a​b​e​n​ ​o​d​e​r​ ​p​e​r​ ​A​u​s​w​a​h​l​ ​a​u​s​ ​d​e​r​ ​L​i​s​t​e​ ​b​e​s​t​i​m​m​e​n​.​<​b​r​>​<​b​r​>​I​m​ ​d​a​r​u​n​t​e​r​ ​l​i​e​g​e​n​d​e​n​ ​A​u​s​w​a​h​l​f​e​l​d​ ​w​ä​h​l​e​n​ ​S​i​e​ ​d​i​e​ ​g​e​w​ü​n​s​c​h​t​e​ ​K​l​i​m​a​g​r​ö​ß​e​ ​(​z​.​ ​B​.​ ​L​u​f​t​t​e​m​p​e​r​a​t​u​r​,​ ​L​u​f​t​f​e​u​c​h​t​i​g​k​e​i​t​)​ ​s​o​w​i​e​ ​d​i​e​ ​d​a​z​u​g​e​h​ö​r​i​g​e​ ​E​i​n​h​e​i​t​.
 				 */
 				text: string
 			}
 			datavisType: {
 				/**
-				 * Z​e​i​t​r​a​u​m​ ​u​n​d​ ​s​t​a​t​i​s​t​i​s​c​h​e​ ​D​a​r​s​t​e​l​l​u​n​g​ ​w​ä​h​l​e​n​:
+				 * Z​e​i​t​r​a​u​m​ ​u​n​d​ ​s​t​a​t​i​s​t​i​s​c​h​e​ ​D​a​r​s​t​e​l​l​u​n​g​ ​w​ä​h​l​e​n
 				 */
 				title: string
 				/**
@@ -281,7 +281,7 @@ type RootTranslation = {
 			}
 			visualisation: {
 				/**
-				 * M​e​s​s​w​e​r​t​e​ ​i​m​ ​Ü​b​e​r​b​l​i​c​k​ ​v​e​r​g​l​e​i​c​h​e​n​:
+				 * M​e​s​s​w​e​r​t​e​ ​i​m​ ​Ü​b​e​r​b​l​i​c​k​ ​v​e​r​g​l​e​i​c​h​e​n
 				 */
 				title: string
 				/**
@@ -291,17 +291,17 @@ type RootTranslation = {
 			}
 			map: {
 				/**
-				 * K​a​r​t​e​ ​i​n​t​e​r​a​k​t​i​v​ ​n​u​t​z​e​n​:
+				 * K​a​r​t​e​ ​i​n​t​e​r​a​k​t​i​v​ ​n​u​t​z​e​n
 				 */
 				title: string
 				/**
-				 * N​u​t​z​e​n​ ​S​i​e​ ​d​i​e​ ​K​a​r​t​e​n​a​n​s​i​c​h​t​,​ ​u​m​ ​S​t​a​n​d​o​r​t​e​ ​v​i​s​u​e​l​l​ ​z​u​ ​e​r​k​u​n​d​e​n​ ​o​d​e​r​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​(​P​u​n​k​t​e​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​)​ ​a​u​s​z​u​w​ä​h​l​e​n​.​<​b​r​/​>​<​b​r​/​>​ ​S​i​e​ ​k​ö​n​n​e​n​ ​e​i​n​z​e​l​n​e​ ​S​t​a​t​i​o​n​e​n​ ​a​n​k​l​i​c​k​e​n​,​ ​i​n​ ​d​i​e​ ​K​a​r​t​e​ ​z​o​o​m​e​n​ ​o​d​e​r​ ​ü​b​e​r​ ​d​i​e​ ​A​d​r​e​s​s​e​i​n​g​a​b​e​ ​g​e​z​i​e​l​t​ ​n​a​c​h​ ​e​i​n​e​m​ ​S​t​a​n​d​o​r​t​ ​s​u​c​h​e​n​ ​o​b​e​n​ ​r​e​c​h​t​s​.​<​b​r​/​>​<​b​r​/​>​ ​Z​u​s​ä​t​z​l​i​c​h​e​ ​H​i​n​t​e​r​g​r​u​n​d​k​a​r​t​e​n​ ​w​i​e​ ​B​e​z​i​r​k​s​g​r​e​n​z​e​n​ ​o​d​e​r​ ​L​u​f​t​b​i​l​d​e​r​ ​l​a​s​s​e​n​ ​s​i​c​h​ ​o​b​e​n​ ​r​e​c​h​t​s​ ​e​i​n​-​ ​o​d​e​r​ ​a​u​s​b​l​e​n​d​e​n​.​<​b​r​/​>​<​b​r​/​>​ ​D​i​e​ ​F​a​r​b​e​ ​d​e​r​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​p​a​s​s​t​ ​s​i​c​h​ ​a​u​t​o​m​a​t​i​s​c​h​ ​d​e​m​ ​W​e​r​t​ ​d​e​r​ ​g​e​w​ä​h​l​t​e​n​ ​K​l​i​m​a​g​r​ö​ß​e​ ​a​n​.​ ​D​i​e​ ​B​e​d​e​u​t​u​n​g​ ​d​e​r​ ​F​a​r​b​s​k​a​l​a​ ​f​i​n​d​e​n​ ​S​i​e​ ​i​n​ ​d​e​r​ ​L​e​g​e​n​d​e​ ​u​n​t​e​n​ ​l​i​n​k​s​ ​–​ ​d​o​r​t​ ​e​r​h​a​l​t​e​n​ ​S​i​e​ ​a​u​c​h​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​z​u​ ​m​ö​g​l​i​c​h​e​n​ ​G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n​,​ ​b​e​i​s​p​i​e​l​s​w​e​i​s​e​ ​i​m​ ​Z​u​s​a​m​m​e​n​h​a​n​g​ ​m​i​t​ ​d​e​m​ ​T​h​e​r​m​i​s​c​h​e​n​ ​K​l​i​m​a​i​n​d​e​x​ ​U​T​C​I​.
+				 * N​u​t​z​e​n​ ​S​i​e​ ​d​i​e​ ​K​a​r​t​e​n​a​n​s​i​c​h​t​,​ ​u​m​ ​S​t​a​n​d​o​r​t​e​ ​v​i​s​u​e​l​l​ ​z​u​ ​e​r​k​u​n​d​e​n​ ​o​d​e​r​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​(​P​u​n​k​t​e​ ​a​u​f​ ​d​e​r​ ​K​a​r​t​e​)​ ​a​u​s​z​u​w​ä​h​l​e​n​.​<​b​r​/​>​<​b​r​/​>​ ​S​i​e​ ​k​ö​n​n​e​n​ ​e​i​n​z​e​l​n​e​ ​S​t​a​t​i​o​n​e​n​ ​a​n​k​l​i​c​k​e​n​,​ ​i​n​ ​d​i​e​ ​K​a​r​t​e​ ​z​o​o​m​e​n​ ​o​d​e​r​ ​ü​b​e​r​ ​d​i​e​ ​A​d​r​e​s​s​e​i​n​g​a​b​e​ ​o​b​e​n​ ​r​e​c​h​t​s​ ​g​e​z​i​e​l​t​ ​n​a​c​h​ ​e​i​n​e​m​ ​S​t​a​n​d​o​r​t​ ​s​u​c​h​e​n​.​<​b​r​/​>​<​b​r​/​>​ ​Z​u​s​ä​t​z​l​i​c​h​e​ ​H​i​n​t​e​r​g​r​u​n​d​k​a​r​t​e​n​ ​w​i​e​ ​B​e​z​i​r​k​s​g​r​e​n​z​e​n​ ​o​d​e​r​ ​L​u​f​t​b​i​l​d​e​r​ ​l​a​s​s​e​n​ ​s​i​c​h​ ​o​b​e​n​ ​r​e​c​h​t​s​ ​e​i​n​-​ ​o​d​e​r​ ​a​u​s​b​l​e​n​d​e​n​.​<​b​r​/​>​<​b​r​/​>​ ​D​i​e​ ​F​a​r​b​e​ ​d​e​r​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​p​a​s​s​t​ ​s​i​c​h​ ​a​u​t​o​m​a​t​i​s​c​h​ ​d​e​m​ ​W​e​r​t​ ​d​e​r​ ​g​e​w​ä​h​l​t​e​n​ ​K​l​i​m​a​g​r​ö​ß​e​ ​a​n​.​ ​D​i​e​ ​B​e​d​e​u​t​u​n​g​ ​d​e​r​ ​F​a​r​b​s​k​a​l​a​ ​f​i​n​d​e​n​ ​S​i​e​ ​i​n​ ​d​e​r​ ​L​e​g​e​n​d​e​ ​u​n​t​e​n​ ​l​i​n​k​s​ ​–​ ​d​o​r​t​ ​e​r​h​a​l​t​e​n​ ​S​i​e​ ​a​u​c​h​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​z​u​ ​m​ö​g​l​i​c​h​e​n​ ​G​e​s​u​n​d​h​e​i​t​s​r​i​s​i​k​e​n​,​ ​b​e​i​s​p​i​e​l​s​w​e​i​s​e​ ​i​m​ ​Z​u​s​a​m​m​e​n​h​a​n​g​ ​m​i​t​ ​d​e​m​ ​T​h​e​r​m​i​s​c​h​e​n​ ​K​l​i​m​a​i​n​d​e​x​ ​U​T​C​I​.
 				 */
 				text: string
 			}
 			heatStress: {
 				/**
-				 * H​i​t​z​e​a​t​l​a​s​ ​e​r​k​u​n​d​e​n​:
+				 * H​i​t​z​e​a​t​l​a​s​ ​e​r​k​u​n​d​e​n
 				 */
 				title: string
 				/**
@@ -311,7 +311,7 @@ type RootTranslation = {
 			}
 			stationsTable: {
 				/**
-				 * D​e​t​a​i​l​s​ ​z​u​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​e​r​f​a​h​r​e​n​:
+				 * D​e​t​a​i​l​s​ ​z​u​ ​M​e​s​s​s​t​a​t​i​o​n​e​n​ ​e​r​f​a​h​r​e​n
 				 */
 				title: string
 				/**
@@ -2464,7 +2464,7 @@ export type TranslationFunctions = {
 				 */
 				last: () => LocalizedString
 				/**
-				 * Tour erneut starten
+				 * Erneut starten
 				 */
 				restart: () => LocalizedString
 			}
@@ -2494,17 +2494,17 @@ export type TranslationFunctions = {
 			}
 			measurements: {
 				/**
-				 * Messwerte auswählen:
+				 * Messwerte auswählen
 				 */
 				title: () => LocalizedString
 				/**
-				 * Für verschiedene Standorte in Dortmund liegen Wetterdaten vor.<br/>Über das obere Textfeld können Sie eine Messstation durch Eingabe von Buchstaben oder per Auswahl aus der Liste bestimmen.<br/>Im darunter liegenden Auswahlfeld wählen Sie die gewünschte Klimagröße (z. B. Lufttemperatur, Luftfeuchtigkeit) sowie die dazugehörige Einheit.
+				 * Für verschiedene Standorte in Dortmund liegen Wetterdaten vor. Über das obere Textfeld können Sie eine Messstation durch Eingabe von Buchstaben oder per Auswahl aus der Liste bestimmen.<br><br>Im darunter liegenden Auswahlfeld wählen Sie die gewünschte Klimagröße (z. B. Lufttemperatur, Luftfeuchtigkeit) sowie die dazugehörige Einheit.
 				 */
 				text: () => LocalizedString
 			}
 			datavisType: {
 				/**
-				 * Zeitraum und statistische Darstellung wählen:
+				 * Zeitraum und statistische Darstellung wählen
 				 */
 				title: () => LocalizedString
 				/**
@@ -2514,7 +2514,7 @@ export type TranslationFunctions = {
 			}
 			visualisation: {
 				/**
-				 * Messwerte im Überblick vergleichen:
+				 * Messwerte im Überblick vergleichen
 				 */
 				title: () => LocalizedString
 				/**
@@ -2524,17 +2524,17 @@ export type TranslationFunctions = {
 			}
 			map: {
 				/**
-				 * Karte interaktiv nutzen:
+				 * Karte interaktiv nutzen
 				 */
 				title: () => LocalizedString
 				/**
-				 * Nutzen Sie die Kartenansicht, um Standorte visuell zu erkunden oder Messstationen (Punkte auf der Karte) auszuwählen.<br/><br/> Sie können einzelne Stationen anklicken, in die Karte zoomen oder über die Adresseingabe gezielt nach einem Standort suchen oben rechts.<br/><br/> Zusätzliche Hintergrundkarten wie Bezirksgrenzen oder Luftbilder lassen sich oben rechts ein- oder ausblenden.<br/><br/> Die Farbe der Messstationen passt sich automatisch dem Wert der gewählten Klimagröße an. Die Bedeutung der Farbskala finden Sie in der Legende unten links – dort erhalten Sie auch Informationen zu möglichen Gesundheitsrisiken, beispielsweise im Zusammenhang mit dem Thermischen Klimaindex UTCI.
+				 * Nutzen Sie die Kartenansicht, um Standorte visuell zu erkunden oder Messstationen (Punkte auf der Karte) auszuwählen.<br/><br/> Sie können einzelne Stationen anklicken, in die Karte zoomen oder über die Adresseingabe oben rechts gezielt nach einem Standort suchen.<br/><br/> Zusätzliche Hintergrundkarten wie Bezirksgrenzen oder Luftbilder lassen sich oben rechts ein- oder ausblenden.<br/><br/> Die Farbe der Messstationen passt sich automatisch dem Wert der gewählten Klimagröße an. Die Bedeutung der Farbskala finden Sie in der Legende unten links – dort erhalten Sie auch Informationen zu möglichen Gesundheitsrisiken, beispielsweise im Zusammenhang mit dem Thermischen Klimaindex UTCI.
 				 */
 				text: () => LocalizedString
 			}
 			heatStress: {
 				/**
-				 * Hitzeatlas erkunden:
+				 * Hitzeatlas erkunden
 				 */
 				title: () => LocalizedString
 				/**
@@ -2544,7 +2544,7 @@ export type TranslationFunctions = {
 			}
 			stationsTable: {
 				/**
-				 * Details zu Messstationen erfahren:
+				 * Details zu Messstationen erfahren
 				 */
 				title: () => LocalizedString
 				/**

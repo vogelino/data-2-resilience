@@ -18,30 +18,32 @@
 	const selectedStations = useStations({ initialStationIds, stations });
 </script>
 
-<div class="mt-4 flex flex-col rounded-md border border-border scroll-mt-20">
-	<div class="flex flex-col gap-4 border-b border-border p-4" id="stations-datavis">
-		{#if $selectedStations.length > 0}
-			{#if $datavisType === 'range'}
-				<StationsValuesLineChart {stations} />
+
+	<div class="mt-4 flex flex-col rounded-md border border-border scroll-mt-20">
+		<div class="flex flex-col gap-4 border-b border-border p-4 scroll-mt-20" id="stations-datavis">
+			{#if $selectedStations.length > 0}
+				{#if $datavisType === 'range'}
+					<StationsValuesLineChart {stations} />
+				{:else}
+					<DailySationsValuesBarChart {stations} />
+				{/if}
 			{:else}
-				<DailySationsValuesBarChart {stations} />
+				<p class="flex min-h-16 items-center justify-center p-4 text-center text-muted-foreground">
+					{$LL.pages.measurements.noStationsSelected()}
+				</p>
 			{/if}
-		{:else}
-			<p class="flex min-h-16 items-center justify-center p-4 text-center text-muted-foreground">
-				{$LL.pages.measurements.noStationsSelected()}
-			</p>
-		{/if}
-	</div>
-	<div class="border-border p-4 scroll-mt-20" id="date-range-slider">
-		<DateRangeSlider />
-	</div>
-</div>
-
-
-{#if $datavisType !== 'range'}
-	<div class="mt-4 flex flex-col rounded-md border border-border scroll-mt-20" id="stations-histogram">
-		<div class="flex flex-col gap-4 p-4">
-			<Histogram {stations} {initialStationIds} />
+		</div>
+		<div class="border-border p-4 scroll-mt-20" id="date-range-slider">
+			<DateRangeSlider />
 		</div>
 	</div>
-{/if}
+
+
+	{#if $datavisType !== 'range'}
+		<div class="mt-4 flex flex-col rounded-md border border-border scroll-mt-20" id="stations-histogram">
+			<div class="flex flex-col gap-4 p-4">
+				<Histogram {stations} {initialStationIds} />
+			</div>
+		</div>
+	{/if}
+

@@ -189,13 +189,13 @@
 				title: $LL.welcome.tourSteps.measurements.title(),
 				text: $LL.welcome.tourSteps.measurements.text(),
 				attachTo: {
-					element: '#unit-select',
+					element: '#value-selectors',
 					on: isMobile() ? 'auto' : 'right'
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
 					openLeftSidebar();
-					await scrollToHandler('#unit-select');
+					await scrollToHandler('#value-selectors');
 				}
 			} satisfies StepOptions,
 			{
@@ -206,6 +206,7 @@
 					element: '#stations-datavis',
 					on: isMobile() ? 'auto' : 'right'
 				},
+				extraHighlights: ['#stations-histogram'],
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
 					openLeftSidebar();
@@ -217,13 +218,14 @@
 				title: $LL.welcome.tourSteps.datavisType.title(),
 				text: $LL.welcome.tourSteps.datavisType.text(),
 				attachTo: {
-					element: '#date-range-slider',
+					element: '#stations-datavis',
 					on: isMobile() ? 'auto' : 'right'
 				},
+				extraHighlights: ['#date-range-slider'],
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
 					openLeftSidebar();
-					await scrollToHandler('#date-range-slider');
+					await scrollToHandler('#stations-datavis');
 				}
 			} satisfies StepOptions,
 			{
@@ -232,8 +234,9 @@
 				text: $LL.welcome.tourSteps.map.text(),
 				attachTo: {
 					element: '#map',
-					on: 'top'
+					on: 'left'
 				},
+				extraHighlights: ['#map-search'],
 				beforeShowPromise: async () => {
 					await ensurePage('/', window.location.pathname);
 					if (isMobile()) {
@@ -248,8 +251,8 @@
 				title: $LL.welcome.tourSteps.heatStress.title(),
 				text: $LL.welcome.tourSteps.heatStress.text(),
 				attachTo: {
-					element: '#map',
-					on: 'top'
+					element: '#heat-stress-selector',
+					on: 'right'
 				},
 				beforeShowPromise: async () => {
 					await ensurePage('/heat-stress', window.location.pathname);
@@ -267,12 +270,14 @@
 				attachTo: {
 					element: '#stations-table'
 				},
+				extraHighlights: ['#sensor-descriptions', '#station-table-search'],
 				beforeShowPromise: async () => {
 					await ensurePage('/stations', window.location.pathname);
 					if (isMobile()) {
 						closeLeftSidebar();
 					} else {
 						openLeftSidebar();
+						await scrollToHandler('#sensor-descriptions');
 					}
 				}
 			} satisfies StepOptions

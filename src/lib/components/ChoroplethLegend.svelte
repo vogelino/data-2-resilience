@@ -34,8 +34,8 @@
 	const p = $derived(page.url.pathname.replace(`/${$locale}`, '').replaceAll('/', ''));
 	const currentPage = $derived(p === '' ? 'measurements' : p);
 	const isAboutPage = $derived(currentPage === 'about');
-	const isHeatStressPage = $derived(currentPage === 'heat-stress');
-	const isMeasurmentPage = $derived(currentPage === 'measurements');
+	const isHeatStressPage = $derived(currentPage.trim().toLowerCase() === 'heat-stress');
+	const isMeasurmentPage = $derived(currentPage.trim().toLowerCase() === 'measurements');
 
 	// Unit related variables
 	type Unit = keyof TranslationFunctions['pages']['measurements']['unitSelect']['units'];
@@ -64,11 +64,6 @@
 	const scaleMin = $derived($snapshotQuery.data?.scaleMin ?? 0);
 	const scaleMax = $derived($snapshotQuery.data?.scaleMax ?? 100);
 
-	const healthRiskUnit = $derived.by(() => {
-		const unitWithoutCategory = $unit.replace(/_category$/, '') as 'utci' | 'pet';
-		return isHealthRiskUnit(unitWithoutCategory) ? unitWithoutCategory : 'utci';
-	});
-
 	let customGradient = $derived.by(() => {
 		const stops = getColorStops({
 			unit: $unit,
@@ -93,11 +88,11 @@
 	const dateKey = $derived(format(date, 'yyyy-MM-dd-HH'));
 	const heatStressGradientquery = createQuery(
 		reactiveQueryArgs(() => ({
-			queryKey: ['heatStressGradient', dateKey, healthRiskUnit],
+			queryKey: ['heatStressGradient', dateKey, $heatStressUnit],
 			queryFn: async () => {
 				const metadata = await api().getHeatStressMetadata({
 					date,
-					unit: healthRiskUnit
+					unit: $heatStressUnit
 				});
 				let colormap = await api().getHeatStressColormap({
 					rangeStart: metadata?.range[0] || 0,
@@ -128,6 +123,8 @@
 		}))
 	);
 
+	$inspect($heatStressGradientquery);
+
 	const heatStressGradient = $derived.by(() => {
 		if (!isHeatStressPage || !$heatStressGradientquery.data?.colormap.length) return null;
 		const stops = $heatStressGradientquery.data.colormap.map(
@@ -141,10 +138,19 @@
 	});
 	const minLabel = $derived.by(() => {
 		if ($heatStressGradientquery.isLoading || $snapshotQuery.isLoading) return '...';
+		if (isHeatStressPage) {
+			const min = $heatStressGradientquery.data?.metadata?.range[0];
+			return min ? formatValue(min) : '';
+		}
 		return !isOrdinalUnit && typeof scaleMin === 'number' ? formatValue(scaleMin) : '';
 	});
 	const maxLabel = $derived.by(() => {
-		if ($heatStressGradientquery.isLoading || $snapshotQuery.isLoading) return '...';
+		if ($heatStressGradientquery.isLoading && isHeatStressPage) return '...';
+		if ($snapshotQuery.isLoading && !isHeatStressPage) return '...';
+		if (isHeatStressPage) {
+			const max = $heatStressGradientquery.data?.metadata?.range[1];
+			return max ? formatValue(max) : '';
+		}
 		return !isOrdinalUnit && typeof scaleMax === 'number' ? formatValue(scaleMax) : '';
 	});
 </script>
@@ -199,9 +205,16 @@
 				<div
 					class="h-4 w-full max-w-96 rounded-sm bg-muted shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 					style={cn(
-						$heatStressGradientquery.isLoading && !isOrdinalUnit
-							? 'animate-pulse'
-							: `background-image: ${heatStressGradient || customGradient};`
+						isHeatStressPage &&
+							!$heatStressGradientquery.isLoading &&
+							!isOrdinalUnit &&
+							`background-image: ${heatStressGradient};`,
+						!isHeatStressPage &&
+							!$snapshotQuery.isLoading &&
+							!isOrdinalUnit &&
+							`background-image: ${customGradient};`,
+						($heatStressGradientquery.isLoading || $snapshotQuery.isLoading || isOrdinalUnit) &&
+							'animate-pulse'
 					)}
 				></div>
 			{/if}

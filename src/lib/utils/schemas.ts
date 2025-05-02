@@ -211,7 +211,7 @@ export const weatherMeasurementSchemasNoMinMaxKeys = Object.keys(
 const HeatStressMetadataKeysSchema = z.object({
 	doy: z.coerce.number(),
 	hour: z.coerce.number(),
-	param: z.enum(['UTCI', 'PET']).transform((v) => v.toLowerCase()),
+	param: z.enum(['UTCI', 'PET', 'RH', 'TA']).transform((v) => v.toLowerCase()),
 	year: z.coerce.number()
 });
 export const HeatStressMetadataSchema = z.object({
@@ -224,10 +224,10 @@ export const HeatStressMetadataSchema = z.object({
 	mean: z.number(),
 	metadata: HeatStressMetadataKeysSchema.extend({
 		city: z.string().nullable(),
-		method: z.string(),
-		resolution: z.string(),
-		version: z.string()
-	}),
+		method: z.string().nullable(),
+		resolution: z.string().nullable(),
+		version: z.string().nullable()
+	}).nullable(),
 	percentiles: z.array(z.number()),
 	range: z.tuple([z.number(), z.number()]),
 	stdev: z.number(),

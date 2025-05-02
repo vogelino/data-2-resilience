@@ -107,7 +107,17 @@ export const api = (customFetch = fetch) => ({
 		return typeof text === 'string' ? text : null;
 	},
 	getHeatStressMetadata: async (params: { date: Date; unit: string }) => {
-		const unit = params.unit.toUpperCase() === 'PET' ? 'PET' : 'UTCI';
+		const unit =
+			z
+				.enum(['utci', 'pet', 'at', 'air_temperature', 'rh', 'relative_humidity'])
+				.transform((v) => {
+					const u = v.trim().toLowerCase();
+					if (u === 'air_temperature') return 'TA';
+					if (u === 'relative_humidity') return 'RH';
+					return u.toUpperCase();
+				})
+				.catch('UTCI')
+				.safeParse(params.unit.trim().toLowerCase())?.data || 'UTCI';
 
 		const diffBtwNowAndUTCInHours = params.date.getTimezoneOffset() / 60;
 		const sliderDate = addHours(params.date, diffBtwNowAndUTCInHours);

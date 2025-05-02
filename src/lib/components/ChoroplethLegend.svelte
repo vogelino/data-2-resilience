@@ -123,8 +123,6 @@
 		}))
 	);
 
-	$inspect($heatStressGradientquery);
-
 	const heatStressGradient = $derived.by(() => {
 		if (!isHeatStressPage || !$heatStressGradientquery.data?.colormap.length) return null;
 		const stops = $heatStressGradientquery.data.colormap.map(

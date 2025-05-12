@@ -230,19 +230,22 @@ export function getHealthRiskPill({
 
 	const isUnavailable = value === null;
 	const isUnsupported = typeof value === 'undefined';
+	const isWindDirectionUnit = unitWithoutCategory.startsWith('wind_direction');
 
 	if (isUnavailable) {
 		healthRiskLabel = LL.map.choroplethLegend.noValueAvailable();
 	} else if (isUnsupported) {
 		healthRiskLabel = LL.map.choroplethLegend.notCollectingData();
+	} else if (isWindDirectionUnit) {
+		healthRiskLabel = LL.map.choroplethLegend.withData();
 	}
 
 	return `
 		<span
 			class="${cn(
 				'relative size-3 rounded-full',
-				isUnavailable && 'bg-warning/20',
-				isUnsupported && 'bg-muted-foreground/20'
+				isUnavailable && 'bg-muted-foreground/5',
+				isUnsupported && 'bg-muted-foreground/30'
 			)}"
 			style="${cn(color && `background-color: ${color};`)}"
 		>
@@ -250,7 +253,7 @@ export function getHealthRiskPill({
 				class="${cn(
 					'absolute inset-0 rounded-full border',
 					!isUnavailable && !isUnsupported && `border-black/20 mix-blend-multiply`,
-					isUnavailable && 'border-warning border-2',
+					isUnavailable && 'border-muted-foreground border-dashed',
 					isUnsupported && 'border-muted-foreground'
 				)}"
 			></span>

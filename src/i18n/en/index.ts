@@ -804,6 +804,7 @@ const en = {
 			title: 'Heath risks',
 			notCollectingData: 'Does not collect data',
 			noValueAvailable: 'No data available',
+			withData: 'Data available',
 			healthRisks: {
 				'extreme cold stress': {
 					title: {

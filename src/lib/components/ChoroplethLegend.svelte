@@ -153,20 +153,20 @@
 	});
 </script>
 
-{#if !isWindDirectionUnit}
-	<div
-		class={cn(
-			'flex w-72 flex-col gap-2 bg-background/80 text-sm backdrop-blur-[2px]',
-			'fixed bottom-4 left-4 z-10 overflow-clip rounded border border-border shadow-lg dark:shadow-black/80',
-			showLeftSidebar
-				? 'opacity-0 sm:translate-x-[var(--leftSidebarWidth)] sm:opacity-100'
-				: 'translate-x-0',
-			'p-4 transition duration-300 ease-in-out',
-			'[&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',
-			'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background'
-		)}
-	>
-		<strong>{labels.label}</strong>
+<div
+	class={cn(
+		'flex w-72 flex-col gap-2 bg-background/80 text-sm backdrop-blur-[2px]',
+		'fixed bottom-4 left-4 z-10 overflow-clip rounded border border-border shadow-lg dark:shadow-black/80',
+		showLeftSidebar
+			? 'opacity-0 sm:translate-x-[var(--leftSidebarWidth)] sm:opacity-100'
+			: 'translate-x-0',
+		'p-4 transition duration-300 ease-in-out',
+		'[&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-ring',
+		'[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background'
+	)}
+>
+	<strong>{labels.label}</strong>
+	{#if !isWindDirectionUnit}
 		<div class="flex flex-col gap-0">
 			{#if isOrdinalUnit}
 				<div
@@ -241,67 +241,72 @@
 				</span>
 			</div>
 		</div>
-		{#if isMeasurmentPage}
-			<div class="flex flex-col">
+	{/if}
+	{#if isMeasurmentPage}
+		<div class="flex flex-col">
+			{#if isWindDirectionUnit}
 				<span class="inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
-					<HealthRiskPill value={undefined} withLabel {stations} {initialStationIds} />
+					<HealthRiskPill value={123} withLabel {stations} {initialStationIds} />
 				</span>
-				<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
-					<HealthRiskPill value={null} withLabel {stations} {initialStationIds} />
-				</span>
-			</div>
-		{/if}
-		{#if isHealthUnit}
-			<Popover.Root bind:open>
-				<Popover.Trigger asChild>
-					{#snippet children({ builder })}
-						<Button
-							builders={[builder]}
-							variant="link"
-							role="combobox"
-							aria-expanded={open}
-							class={cn('flex h-fit items-center justify-start gap-2 p-0 transition-all')}
-						>
-							<HeartPulse class="size-5 shrink-0 text-pink-700" />
-							<span
-								>{open
-									? $LL.map.choroplethLegend.hideHealthRisks()
-									: $LL.map.choroplethLegend.showHealthRisks()}</span
-							>
-						</Button>
-					{/snippet}
-				</Popover.Trigger>
-				<Popover.Content
-					class="max-h-[calc(100vh-20rem)] w-72 -translate-y-[7.5rem] overflow-y-auto rounded p-0 pb-2"
-				>
-					<strong
-						class={cn(
-							'grid grid-cols-[1.25rem_1fr_1.25rem] items-center gap-2 text-base font-semibold',
-							'sticky top-0 border-b border-border bg-background/80 px-4 py-3 backdrop-blur-[2px]'
-						)}
+			{/if}
+			<span class="inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
+				<HealthRiskPill value={undefined} withLabel {stations} {initialStationIds} />
+			</span>
+			<span class="mb-1 inline-grid grid-cols-[0.75rem_1fr] items-center gap-2">
+				<HealthRiskPill value={null} withLabel {stations} {initialStationIds} />
+			</span>
+		</div>
+	{/if}
+	{#if isHealthUnit}
+		<Popover.Root bind:open>
+			<Popover.Trigger asChild>
+				{#snippet children({ builder })}
+					<Button
+						builders={[builder]}
+						variant="link"
+						role="combobox"
+						aria-expanded={open}
+						class={cn('flex h-fit items-center justify-start gap-2 p-0 transition-all')}
 					>
-						<HeartPulse class="size-5 text-pink-700" />
-						<span>{$LL.map.choroplethLegend.title()}</span>
-						<Button variant="ghost" size="icon" class="size-5 p-0" on:click={() => (open = false)}>
-							<X class="size-5 text-muted-foreground" />
-						</Button>
-					</strong>
-					<ul class="flex flex-col p-4 text-sm">
-						{#each healthRisks.toReversed() as { title, description, ranges }, i}
-							<li
-								class={cn('border-b border-l-4 py-2 pl-4 last-of-type:border-b-0')}
-								style={`border-left-color: ${unitsToScalesMap.utci_category.scheme.toReversed()[i]}`}
-							>
-								<p>
-									<strong>{title}</strong>
-									<span class="whitespace-nowrap text-muted-foreground">({ranges})</span>{': '}
-								</p>
-								{@html description}
-							</li>
-						{/each}
-					</ul>
-				</Popover.Content>
-			</Popover.Root>
-		{/if}
-	</div>
-{/if}
+						<HeartPulse class="size-5 shrink-0 text-pink-700" />
+						<span
+							>{open
+								? $LL.map.choroplethLegend.hideHealthRisks()
+								: $LL.map.choroplethLegend.showHealthRisks()}</span
+						>
+					</Button>
+				{/snippet}
+			</Popover.Trigger>
+			<Popover.Content
+				class="max-h-[calc(100vh-20rem)] w-72 -translate-y-[7.5rem] overflow-y-auto rounded p-0 pb-2"
+			>
+				<strong
+					class={cn(
+						'grid grid-cols-[1.25rem_1fr_1.25rem] items-center gap-2 text-base font-semibold',
+						'sticky top-0 border-b border-border bg-background/80 px-4 py-3 backdrop-blur-[2px]'
+					)}
+				>
+					<HeartPulse class="size-5 text-pink-700" />
+					<span>{$LL.map.choroplethLegend.title()}</span>
+					<Button variant="ghost" size="icon" class="size-5 p-0" on:click={() => (open = false)}>
+						<X class="size-5 text-muted-foreground" />
+					</Button>
+				</strong>
+				<ul class="flex flex-col p-4 text-sm">
+					{#each healthRisks.toReversed() as { title, description, ranges }, i}
+						<li
+							class={cn('border-b border-l-4 py-2 pl-4 last-of-type:border-b-0')}
+							style={`border-left-color: ${unitsToScalesMap.utci_category.scheme.toReversed()[i]}`}
+						>
+							<p>
+								<strong>{title}</strong>
+								<span class="whitespace-nowrap text-muted-foreground">({ranges})</span>{': '}
+							</p>
+							{@html description}
+						</li>
+					{/each}
+				</ul>
+			</Popover.Content>
+		</Popover.Root>
+	{/if}
+</div>

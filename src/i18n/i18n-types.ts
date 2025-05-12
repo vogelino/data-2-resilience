@@ -1994,6 +1994,10 @@ type RootTranslation = {
 			 * K​e​i​n​e​ ​D​a​t​e​n​ ​v​e​r​f​ü​g​b​a​r
 			 */
 			noValueAvailable: string
+			/**
+			 * D​a​t​e​n​ ​v​e​r​f​ü​g​b​a​r
+			 */
+			withData: string
 			healthRisks: {
 				'extreme cold stress': {
 					title: {
@@ -4225,6 +4229,10 @@ export type TranslationFunctions = {
 			 * Keine Daten verfügbar
 			 */
 			noValueAvailable: () => LocalizedString
+			/**
+			 * Daten verfügbar
+			 */
+			withData: () => LocalizedString
 			healthRisks: {
 				'extreme cold stress': {
 					title: {

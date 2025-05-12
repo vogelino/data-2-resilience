@@ -805,6 +805,7 @@ const de = {
 			title: 'Gesundheitsrisiken',
 			notCollectingData: 'Erhebt keine Daten',
 			noValueAvailable: 'Keine Daten verfügbar',
+			withData: 'Daten verfügbar',
 			healthRisks: {
 				'extreme cold stress': {
 					title: {

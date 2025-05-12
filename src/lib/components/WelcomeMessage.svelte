@@ -38,7 +38,7 @@
 
 	onMount(() => {
 		const lastValue = localStorage.getItem('welcome-opened');
-		if (lastValue === 'true') {
+		if (lastValue === 'true' || lastValue === null) {
 			opened = true;
 		} else if (lastValue === 'false') {
 			opened = false;

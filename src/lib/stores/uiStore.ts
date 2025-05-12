@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 import LL, { locale } from '$i18n/i18n-svelte';
 import { SIDEBAR_STATE_CYCLE, SidebarState } from '$lib/types/sidebar';
-import { isToday, limitDateBoundsToToday, today } from '$lib/utils/dateUtil';
+import { limitDateBoundsToToday, today } from '$lib/utils/dateUtil';
 import {
 	addDays,
 	endOfDay,
@@ -206,17 +206,14 @@ export const formattedTimeConfiguration = derived(
 	([datavisTypeVal, rangeStartVal, rangeEndVal, dayEndVal, hourVal, localeVal, LLVal]) => {
 		if (!dayEndVal || !rangeStartVal || !rangeEndVal) return '';
 		const dateLocale = localeVal === 'de' ? de : enUS;
-		const todayString = isToday(rangeEndVal)
-			? `(${LLVal.pages.measurements.dateRangeSlider.today()})`
-			: '';
 
 		if (datavisTypeVal === 'hour') {
 			const date = setMinutes(setHours(dayEndVal, hourVal), 0);
-			return `${format(date, 'do MMMM yyyy HH:mm', { locale: dateLocale })} ${todayString}`.trim();
+			return `${format(date, 'do MMMM yyyy HH:mm', { locale: dateLocale })}`.trim();
 		}
 
 		if (datavisTypeVal === 'day') {
-			return `${format(dayEndVal, 'do MMMM yyyy', { locale: dateLocale })} ${todayString}`.trim();
+			return `${format(dayEndVal, 'do MMMM yyyy', { locale: dateLocale })}`.trim();
 		}
 
 		if (datavisTypeVal === 'range') {

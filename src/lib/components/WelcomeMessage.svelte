@@ -34,7 +34,7 @@
 
 	let opened = $state(false);
 	let tour: Tour | undefined;
-	const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+	const isMobile = () => window.matchMedia('(max-width: 1280px)').matches;
 
 	onMount(() => {
 		const lastValue = localStorage.getItem('welcome-opened');

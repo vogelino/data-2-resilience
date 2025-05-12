@@ -47,7 +47,7 @@
 	let mediaQuery: MediaQueryList | null = null;
 	onMount(() => {
 		if (!browser || mediaQuery) return;
-		mediaQuery = window.matchMedia('(max-width: 768px)');
+		mediaQuery = window.matchMedia('(max-width: 1280px)');
 		isMobile = mediaQuery.matches;
 		mediaQuery.addEventListener('change', onMobileMediaQueryChange);
 	});

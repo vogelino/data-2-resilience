@@ -95,7 +95,7 @@ export const cycleSidebarState = () =>
 	sidebarStateQueryParam.update((currentState) => {
 		let isMobile = true;
 		if (browser) {
-			isMobile = window.matchMedia('(max-width: 768px)').matches;
+			isMobile = window.matchMedia('(max-width: 1280px)').matches;
 		}
 		const cycle = isMobile
 			? SIDEBAR_STATE_CYCLE.filter((state) => state !== 'large')
@@ -225,16 +225,16 @@ export const formattedTimeConfiguration = derived(
 			const endDay = format(rangeEndVal, 'do', { locale: dateLocale });
 
 			if (isSameDay(rangeStartVal, rangeEndVal)) {
-				return `${format(dayEndVal, 'do MMMM yyyy', { locale: dateLocale })} ${todayString}`.trim();
+				return `${format(dayEndVal, 'do MMMM yyyy', { locale: dateLocale })}`.trim();
 			}
 
 			if (startYear === endYear) {
 				if (startMonth === endMonth) {
-					return `${startDay} - ${endDay} ${startMonth} ${startYear} ${todayString}`;
+					return `${startDay} - ${endDay} ${startMonth} ${startYear}`;
 				}
-				return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${startYear} ${todayString}`;
+				return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${startYear}`;
 			}
-			return `${startDay} ${startMonth} ${startYear} - ${endDay} ${endMonth} ${endYear} ${todayString}`;
+			return `${startDay} ${startMonth} ${startYear} - ${endDay} ${endMonth} ${endYear}`;
 		}
 
 		return '';

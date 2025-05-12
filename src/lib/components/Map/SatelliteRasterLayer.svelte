@@ -27,7 +27,7 @@
 <RasterTileSource tiles={[dortmundOrthophotosTileUrl]} tileSize={256}>
 	<RasterLayer
 		paint={{}}
-		beforeId="tunnel_minor_case"
+		beforeId="landuse"
 		layout={{ visibility: visible ? 'visible' : 'none' }}
 	/>
 </RasterTileSource>

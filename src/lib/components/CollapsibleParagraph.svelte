@@ -2,7 +2,7 @@
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
-	import { afterUpdate, onMount } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 	import { Button } from './ui/button';
 
 	const clampingClasses = {
@@ -13,21 +13,24 @@
 		5: 'line-clamp-5'
 	};
 
-	export let defaultIsExpanded = false;
-	export let className = '';
-	export let linesClampedCount: keyof typeof clampingClasses = 2;
+	type Props = {
+		defaultIsExpanded?: boolean;
+		className?: string;
+		linesClampedCount?: keyof typeof clampingClasses;
+		children?: Snippet<[]>;
+	};
 
-	let isExpanded = defaultIsExpanded;
-	let contentDiv: HTMLDivElement;
-	let isClamped = false;
+	const props: Props = $props();
 
-	onMount(checkIfClamped);
-	afterUpdate(checkIfClamped);
+	let isExpanded = $state(props.defaultIsExpanded ?? false);
+	let isClamped = $state(true);
+	let contentDiv: HTMLDivElement | null = $state(null);
+
+	$effect(checkIfClamped);
 
 	function checkIfClamped() {
-		if (contentDiv) {
-			isClamped = contentDiv.scrollHeight > contentDiv.clientHeight;
-		}
+		if (!contentDiv) return;
+		isClamped = contentDiv.scrollHeight > contentDiv.clientHeight;
 	}
 
 	function toggle() {
@@ -39,12 +42,12 @@
 	bind:this={contentDiv}
 	class={cn(
 		'flex flex-col gap-1 transition-colors',
-		!isExpanded && clampingClasses[linesClampedCount],
+		!isExpanded && clampingClasses[props.linesClampedCount ?? 2],
 		!isExpanded && isClamped && 'text-muted-foreground',
-		className
+		props.className
 	)}
 >
-	<slot />
+	{@render props.children?.()}
 </div>
 {#if isClamped || isExpanded}
 	<Button

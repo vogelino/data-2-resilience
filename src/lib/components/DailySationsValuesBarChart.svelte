@@ -204,7 +204,7 @@
 	{#if $isCategoryUnit}
 		<OrdinalDataVis {data} {isLoading} {stations} {initialStationIds} />
 	{:else}
-		<div class={cn('relative')} style={`height: ${chartHeight}px`}>
+		<div class={cn('group relative')} style={`height: ${chartHeight}px`}>
 			<ChartQueryHull
 				isSuccess={$query.isSuccess}
 				error={$query.error}
@@ -258,7 +258,10 @@
 					<svelte:fragment slot="tooltip">
 						<Tooltip.Root
 							let:data={d}
-							classes={{ ...tooltipClasses, root: cn(tooltipClasses.root, 'w-48') }}
+							classes={{
+								...tooltipClasses,
+								root: cn(tooltipClasses.root, 'w-48')
+							}}
 							contained="container"
 							anchor="right"
 						>

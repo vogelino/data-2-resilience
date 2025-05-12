@@ -182,7 +182,7 @@
 		/>
 	</span>
 </h3>
-<div class="relative h-40" id="histogram-chart">
+<div class="group relative h-40" id="histogram-chart">
 	<ChartQueryHull
 		isSuccess={$snapshotQuery.isSuccess}
 		error={$snapshotQuery.error}

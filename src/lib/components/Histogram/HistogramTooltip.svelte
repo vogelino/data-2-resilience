@@ -7,9 +7,9 @@
 	};
 
 	export const tooltipClasses = {
-		root: 'w-56 bg-transparent chart-export-ignore',
+		root: 'w-56 bg-transparent chart-export-ignore opacity-0 group-hover:opacity-100',
 		container: cn(
-			'w-full border border-border shadow-lg p-3',
+			'w-full border border-border shadow-lg p-3 group',
 			'bg-background dark:bg-background bg-opacity-80 backdrop-blur-sm'
 		),
 		content: 'w-full text-xs font-normal text-foreground shadow-none'

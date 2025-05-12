@@ -157,7 +157,7 @@
 	});
 </script>
 
-<div class={cn('relative h-[360px] w-full')} id="linechart-container">
+<div class={cn('group relative h-[360px] w-full')} id="linechart-container">
 	{#if data && data.length > 0 && !error}
 		<Chart
 			{data}

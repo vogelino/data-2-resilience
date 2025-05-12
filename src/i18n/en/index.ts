@@ -91,7 +91,7 @@ const en = {
 			},
 			navigation: {
 				title: 'Navigation overview',
-				text: "In the left sidebar, you will find all topics of the dashboard. You can choose between Measurements, Heat atlas, and Weather stations. Each section offers specific information and interactive features."
+				text: 'In the left sidebar, you will find all topics of the dashboard. You can choose between Measurements, Heat atlas, and Weather stations. Each section offers specific information and interactive features.'
 			},
 			measurements: {
 				title: 'Selecting measurement data',
@@ -328,19 +328,19 @@ const en = {
 						label: 'Maximum average lightning distance',
 						description:
 							'The <strong>maximum average lightning distance</strong> describes the greatest mean distance of lightning strikes from a reference point, measured in meters.',
-						unitOnly: 'm'
+						unitOnly: 'km'
 					},
 					lightning_average_distance_min: {
 						label: 'Minimum average lightning distance',
 						description:
 							'The <strong>minimum average lightning distance</strong> describes the smallest mean distance of lightning strikes from a reference point, measured in meters.',
-						unitOnly: 'm'
+						unitOnly: 'km'
 					},
 					lightning_average_distance: {
 						label: 'Average lightning distance',
 						description:
 							'The <strong>average lightning distance</strong> shows the average distance of recorded lightning strikes from the selected location, measured in meters. While it does not directly affect heat perception, it can signal upcoming weather changes after a heat period.',
-						unitOnly: 'm'
+						unitOnly: 'km'
 					},
 					lightning_strike_count_max: {
 						label: 'Maximum number of lightning strikes',

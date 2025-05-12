@@ -331,19 +331,19 @@ const de = {
 						label: 'Maximale durchschnittliche Blitzentfernung',
 						description:
 							'Die <strong>Maximale durchschnittliche Blitzentfernung</strong> beschreibt die größte mittlere Entfernung von Blitze zu einem Bezugspunkt, gemessen in Metern.',
-						unitOnly: 'm'
+						unitOnly: 'km'
 					},
 					lightning_average_distance_min: {
 						label: 'Minimale durchschnittliche Blitzentfernung',
 						description:
 							'Die <strong>Minimale durchschnittliche Blitzentfernung</strong> beschreibt die kleinste mittlere Entfernung von Blitze zu einem Bezugspunkt, gemessen in Metern.',
-						unitOnly: 'm'
+						unitOnly: 'km'
 					},
 					lightning_average_distance: {
 						label: 'Durchschnittliche Blitzentfernung',
 						description:
 							'Die <strong>durchschnittliche Blitzentfernung</strong> gibt an, wie weit die registrierten Blitze im Mittel vom gewählten Standort entfernt waren – gemessen in Metern (m). Die durchschnittliche Blitzentfernung hat keinen direkten Einfluss auf die Hitzewahrnehmung, kann aber auf bevorstehende Wetteränderungen nach Hitze hinweisen.',
-						unitOnly: 'm'
+						unitOnly: 'km'
 					},
 					lightning_strike_count_max: {
 						label: 'Maximale Anzahl der Blitze',

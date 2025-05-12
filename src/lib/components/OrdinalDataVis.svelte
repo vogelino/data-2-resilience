@@ -6,7 +6,11 @@
 	import { cn } from '$lib/utils';
 	import { getHealthRiskByKey } from '$lib/utils/healthRisksUtil';
 	import HealthRiskPill from './HealthRiskPill.svelte';
-	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+	import {
+		PopoverTooltip,
+		PopoverTooltipContent,
+		PopoverTooltipTrigger
+	} from './ui/popover-tooltip';
 
 	type Props = {
 		isLoading: boolean;
@@ -22,8 +26,6 @@
 	const { isLoading, stations, initialStationIds = [], data }: Props = $props();
 
 	const ids = useStations({ stations });
-
-	const healthRisks = $derived($LL.map.choroplethLegend.healthRisks);
 </script>
 
 <div class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2">
@@ -60,17 +62,17 @@
 			{@const correspondingFeature = stations.features.find((f) => f.properties.id === d.id)}
 			{@const label = correspondingFeature?.properties.longName || d.label || d.id || ''}
 			<strong class="max-w-48 font-semibold">{label}</strong>
-			<Tooltip openDelay={0} disableHoverableContent>
-				<TooltipTrigger
+			<PopoverTooltip openDelay={0} disableHoverableContent>
+				<PopoverTooltipTrigger
 					class={cn(
 						'grid w-fit grid-cols-[0.75rem_1fr] items-center gap-2 text-left',
 						d.value && 'transition-colors hover:text-muted-foreground'
 					)}
 				>
 					<HealthRiskPill value={d.value} withLabel {stations} {initialStationIds} />
-				</TooltipTrigger>
+				</PopoverTooltipTrigger>
 				{#if d.value}
-					<TooltipContent class="max-w-72">
+					<PopoverTooltipContent class="max-w-72">
 						{#if healthRisk}
 							<strong class="flex gap-2 font-semibold">
 								<span>{healthRisk.title}</span>
@@ -82,9 +84,9 @@
 							</strong>
 							<span>{@html healthRisk.description}</span>
 						{/if}
-					</TooltipContent>
+					</PopoverTooltipContent>
 				{/if}
-			</Tooltip>
+			</PopoverTooltip>
 		{/each}
 	{/if}
 </div>

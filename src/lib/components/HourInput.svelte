@@ -6,7 +6,11 @@
 	import Button from 'components/ui/button/button.svelte';
 	import { getHours } from 'date-fns';
 	import { ArrowDown, ArrowUp } from 'lucide-svelte';
-	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+	import {
+		PopoverTooltip,
+		PopoverTooltipContent,
+		PopoverTooltipTrigger
+	} from './ui/popover-tooltip';
 
 	type ClassesType = {
 		container?: string;
@@ -95,8 +99,8 @@
 		)}
 		aria-label={$LL.generic.hourInput.inputAriaLabel()}
 	/>
-	<Tooltip openDelay={0}>
-		<TooltipTrigger>
+	<PopoverTooltip>
+		<PopoverTooltipTrigger>
 			<Button
 				size="icon"
 				variant="ghost"
@@ -112,13 +116,13 @@
 			>
 				<ArrowUp class={cn('size-4', classes.icon, classes.iconUp)} />
 			</Button>
-		</TooltipTrigger>
+		</PopoverTooltipTrigger>
 		{#if upIsDisabled}
-			<TooltipContent class="max-w-40 text-sm">
+			<PopoverTooltipContent class="max-w-40 text-sm">
 				{$LL.generic.hourInput.nextHourInFuture()}
-			</TooltipContent>
+			</PopoverTooltipContent>
 		{/if}
-	</Tooltip>
+	</PopoverTooltip>
 
 	<Button
 		size="icon"

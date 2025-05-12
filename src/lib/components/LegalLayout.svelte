@@ -15,7 +15,7 @@
 </script>
 
 <main class="h-[calc(100vh-var(--headerHeight,5rem))] w-screen overflow-y-auto overflow-x-clip">
-	<div class="prose mx-auto h-auto py-16">
+	<div class="prose mx-auto h-auto px-6 py-16">
 		<span class="mb-8 inline-flex items-baseline gap-2 text-muted-foreground">
 			<span>←</span>
 			<a

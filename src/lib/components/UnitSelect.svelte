@@ -10,7 +10,11 @@
 	import { tick } from 'svelte';
 	import type { ChangeEventHandler } from 'svelte/elements';
 	import CollapsibleParagraph from './CollapsibleParagraph.svelte';
-	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+	import {
+		PopoverTooltip,
+		PopoverTooltipContent,
+		PopoverTooltipTrigger
+	} from './ui/popover-tooltip';
 
 	let searchValue = $state('');
 	const units = $derived(
@@ -104,8 +108,8 @@
 										searchValue = '';
 									}}
 								>
-									<Tooltip disableHoverableContent openDelay={0} closeDelay={0}>
-										<TooltipTrigger class="flex w-fit gap-1 text-left">
+									<PopoverTooltip disableHoverableContent openDelay={0} closeDelay={0}>
+										<PopoverTooltipTrigger class="flex w-fit gap-1 text-left">
 											<Check
 												class={cn('mr-1 h-4 w-4 shrink-0', $unit !== value && 'text-transparent')}
 											/>
@@ -113,11 +117,11 @@
 											{#if unitOnly}
 												<span class="text-muted-foreground"> ({unitOnly})</span>
 											{/if}
-										</TooltipTrigger>
-										<TooltipContent side="right" strategy="fixed" class="w-80 max-w-full">
+										</PopoverTooltipTrigger>
+										<PopoverTooltipContent side="right" strategy="fixed" class="w-80 max-w-full">
 											{@html description}
-										</TooltipContent>
-									</Tooltip>
+										</PopoverTooltipContent>
+									</PopoverTooltip>
 								</Command.Item>
 							{/each}
 						</Command.Group>

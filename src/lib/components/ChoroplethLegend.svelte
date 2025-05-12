@@ -4,7 +4,11 @@
 	import type { TranslationFunctions } from '$i18n/i18n-types';
 	import { Button } from '$lib/components/ui/button';
 	import * as Popover from '$lib/components/ui/popover';
-	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
+	import {
+		PopoverTooltip,
+		PopoverTooltipContent,
+		PopoverTooltipTrigger
+	} from '$lib/components/ui/popover-tooltip';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { heatStressUnit, hour, isLeftSidebarOpened, unit } from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
@@ -173,15 +177,15 @@
 					class="group flex h-4 w-full max-w-96 overflow-clip rounded-sm shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]"
 				>
 					{#each scheme as color, i}
-						<Tooltip openDelay={0} closeDelay={0} disableHoverableContent>
-							<TooltipTrigger
+						<PopoverTooltip openDelay={0} closeDelay={0} disableHoverableContent>
+							<PopoverTooltipTrigger
 								class={cn(
 									'focusable size-full',
 									'transition-opacity hover-hover:group-has-[button:hover]:opacity-20 hover-hover:group-has-[button:hover]:hover:opacity-100'
 								)}
 								style={`background-color: ${color}`}
 							/>
-							<TooltipContent
+							<PopoverTooltipContent
 								class={cn('flex w-96 max-w-full flex-col gap-1 px-4 pb-4 pt-3 leading-tight')}
 							>
 								{#if healthRisks[i]}
@@ -195,8 +199,8 @@
 									</strong>
 									<span>{@html healthRisks[i].description}</span>
 								{/if}
-							</TooltipContent>
-						</Tooltip>
+							</PopoverTooltipContent>
+						</PopoverTooltip>
 					{/each}
 				</div>
 			{:else}

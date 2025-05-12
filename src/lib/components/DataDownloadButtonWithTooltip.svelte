@@ -3,7 +3,11 @@
 	import { api } from '$lib/utils/api';
 	import { Download, LoaderCircle } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
-	import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+	import {
+		PopoverTooltip,
+		PopoverTooltipContent,
+		PopoverTooltipTrigger
+	} from './ui/popover-tooltip';
 
 	type Props = {
 		id: string;
@@ -31,8 +35,8 @@
 	}
 </script>
 
-<Tooltip openDelay={10} disableHoverableContent>
-	<TooltipTrigger tabindex={-1}>
+<PopoverTooltip openDelay={10} disableHoverableContent>
+	<PopoverTooltipTrigger tabindex={-1}>
 		<Button variant="ghost" size="icon" class="p-0" onclick={handleDownload}>
 			{#if isLoading}
 				<LoaderCircle class="size-5 shrink-0 animate-spin text-muted-foreground" />
@@ -40,8 +44,8 @@
 				<Download class="size-5 shrink-0 text-muted-foreground" />
 			{/if}
 		</Button>
-	</TooltipTrigger>
-	<TooltipContent>
+	</PopoverTooltipTrigger>
+	<PopoverTooltipContent>
 		{$LL.pages.stations.table.headers.dataDownloadTooltip()}
-	</TooltipContent>
-</Tooltip>
+	</PopoverTooltipContent>
+</PopoverTooltip>

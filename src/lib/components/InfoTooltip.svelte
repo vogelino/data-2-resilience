@@ -1,5 +1,9 @@
 <script lang="ts">
-	import { Tooltip, TooltipContent, TooltipTrigger } from '$lib/components/ui/tooltip';
+	import {
+		PopoverTooltip,
+		PopoverTooltipContent,
+		PopoverTooltipTrigger
+	} from '$lib/components/ui/popover-tooltip';
 	import { cn } from '$lib/utils';
 	import { Info } from 'lucide-svelte';
 
@@ -14,8 +18,8 @@
 </script>
 
 {#if title || description}
-	<Tooltip openDelay={100}>
-		<TooltipTrigger
+	<PopoverTooltip openDelay={100}>
+		<PopoverTooltipTrigger
 			class={cn(
 				'focusable hover-hover:hover:bg-foreground hover-hover:hover:text-background',
 				'group flex items-center gap-2 rounded-full p-1 transition',
@@ -32,14 +36,14 @@
 					triggerLabel && 'text-muted-foreground hover-hover:group-hover:text-background'
 				)}
 			></Info>
-		</TooltipTrigger>
-		<TooltipContent class="flex w-96 max-w-full flex-col gap-1 px-4 pb-4 pt-3 leading-tight">
+		</PopoverTooltipTrigger>
+		<PopoverTooltipContent class="flex w-96 max-w-full flex-col gap-1 px-4 pb-4 pt-3 leading-tight">
 			{#if title}
 				<strong class="block text-balance text-base font-semibold leading-5">{title}</strong>
 			{/if}
 			{#if description}
 				<p class="text-pretty text-sm leading-4 text-muted-foreground">{@html description}</p>
 			{/if}
-		</TooltipContent>
-	</Tooltip>
+		</PopoverTooltipContent>
+	</PopoverTooltip>
 {/if}

@@ -251,7 +251,7 @@
 				</span>
 			</div>
 		{/if}
-		{#if isHealthUnit || isHeatStressPage}
+		{#if isHealthUnit}
 			<Popover.Root bind:open>
 				<Popover.Trigger asChild>
 					{#snippet children({ builder })}

@@ -1,8 +1,7 @@
-<!-- @migration-task Error while migrating Svelte code: Can't migrate code with afterUpdate. Please migrate by hand. -->
 <script lang="ts">
 	import LL from '$i18n/i18n-svelte';
 	import { cn } from '$lib/utils';
-	import { onMount, type Snippet } from 'svelte';
+	import { type Snippet } from 'svelte';
 	import { Button } from './ui/button';
 
 	const clampingClasses = {
@@ -20,18 +19,42 @@
 		children?: Snippet<[]>;
 	};
 
-	const props: Props = $props();
+	const { children, defaultIsExpanded, className, linesClampedCount }: Props = $props();
 
-	let isExpanded = $state(props.defaultIsExpanded ?? false);
-	let isClamped = $state(true);
+	let isExpanded = $state(defaultIsExpanded ?? false);
+	let isExpandable = $state(true);
 	let contentDiv: HTMLDivElement | null = $state(null);
+	let shadowDiv: HTMLDivElement | null = $state(null);
 
-	$effect(checkIfClamped);
-
-	function checkIfClamped() {
+	$effect(() => {
 		if (!contentDiv) return;
-		isClamped = contentDiv.scrollHeight > contentDiv.clientHeight;
-	}
+
+		const checkIfExpandable = () => {
+			if (!contentDiv || !shadowDiv) return;
+
+			shadowDiv.innerHTML = '';
+			shadowDiv.classList.add(clampingClasses[linesClampedCount ?? 2]);
+			shadowDiv.innerHTML = contentDiv.innerHTML;
+
+			setTimeout(() => {
+				if (!shadowDiv) return;
+				isExpandable = shadowDiv.scrollHeight > shadowDiv.clientHeight;
+				shadowDiv.innerHTML = '';
+			}, 0);
+		};
+
+		checkIfExpandable();
+
+		const observer = new MutationObserver(checkIfExpandable);
+
+		observer.observe(contentDiv, {
+			childList: true,
+			subtree: true,
+			characterData: true
+		});
+
+		return () => observer.disconnect();
+	});
 
 	function toggle() {
 		isExpanded = !isExpanded;
@@ -42,14 +65,17 @@
 	bind:this={contentDiv}
 	class={cn(
 		'flex flex-col gap-1 transition-colors',
-		!isExpanded && clampingClasses[props.linesClampedCount ?? 2],
-		!isExpanded && isClamped && 'text-muted-foreground',
-		props.className
+		!isExpanded && clampingClasses[linesClampedCount ?? 2],
+		!isExpanded && isExpandable && 'text-muted-foreground',
+		className
 	)}
 >
-	{@render props.children?.()}
+	{@render children?.()}
 </div>
-{#if isClamped || isExpanded}
+
+<div bind:this={shadowDiv}></div>
+
+{#if isExpandable}
 	<Button
 		variant="link"
 		type="button"

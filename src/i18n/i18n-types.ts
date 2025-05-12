@@ -322,6 +322,10 @@ type RootTranslation = {
 		}
 	}
 	navigation: {
+		/**
+		 * Z​u​r​ ​S​t​a​r​t​s​e​i​t​e
+		 */
+		backToHome: string
 		header: {
 			/**
 			 * Ü​b​e​r​ ​d​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d
@@ -840,7 +844,7 @@ type RootTranslation = {
 						 */
 						description: string
 						/**
-						 * m
+						 * k​m
 						 */
 						unitOnly: string
 					}
@@ -854,7 +858,7 @@ type RootTranslation = {
 						 */
 						description: string
 						/**
-						 * m
+						 * k​m
 						 */
 						unitOnly: string
 					}
@@ -868,7 +872,7 @@ type RootTranslation = {
 						 */
 						description: string
 						/**
-						 * m
+						 * k​m
 						 */
 						unitOnly: string
 					}
@@ -1789,6 +1793,26 @@ type RootTranslation = {
 				}
 			}
 		}
+		imprint: {
+			/**
+			 * I​m​p​r​e​s​s​u​m
+			 */
+			title: string
+			/**
+			 * <​p​>​D​i​e​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​ ​i​s​t​ ​e​i​n​e​ ​K​&​o​u​m​l​;​r​p​e​r​s​c​h​a​f​t​ ​d​e​s​ ​&​O​u​m​l​;​f​f​e​n​t​l​i​c​h​e​n​ ​R​e​c​h​t​s​.​ ​S​i​e​ ​w​i​r​d​ ​d​u​r​c​h​ ​i​h​r​e​n​ ​R​e​k​t​o​r​ ​H​e​r​r​n​ ​P​r​o​f​.​ ​D​r​.​ ​D​r​.​ ​h​.​ ​c​.​ ​M​a​r​t​i​n​ ​P​a​u​l​ ​g​e​s​e​t​z​l​i​c​h​ ​v​e​r​t​r​e​t​e​n​.​<​/​p​>​<​p​>​Z​u​s​t​&​a​u​m​l​;​n​d​i​g​e​ ​A​u​f​s​i​c​h​t​s​b​e​h​&​o​u​m​l​;​r​d​e​ ​i​s​t​:​<​/​p​>​<​p​>​M​i​n​i​s​t​e​r​i​u​m​ ​f​&​u​u​m​l​;​r​ ​I​n​n​o​v​a​t​i​o​n​,​ ​W​i​s​s​e​n​s​c​h​a​f​t​ ​u​n​d​ ​F​o​r​s​c​h​u​n​g​ ​d​e​s​ ​L​a​n​d​e​s​ ​N​o​r​d​r​h​e​i​n​-​W​e​s​t​f​a​l​e​n​<​b​r​ ​/​>​ ​V​&​o​u​m​l​;​l​k​l​i​n​g​e​r​ ​S​t​r​a​&​s​z​l​i​g​;​e​ ​4​9​<​b​r​ ​/​>​ ​4​0​2​2​1​ ​D​&​u​u​m​l​;​s​s​e​l​d​o​r​f​&​n​b​s​p​;​<​/​p​>​<​p​>​U​m​s​a​t​z​s​t​e​u​e​r​-​I​d​e​n​t​i​f​i​k​a​t​i​o​n​s​n​u​m​m​e​r​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​ ​B​o​c​h​u​m​:​ ​D​E​ ​1​2​7​ ​0​5​6​ ​2​6​1​<​/​p​>​<​p​>​I​n​h​a​l​t​l​i​c​h​e​ ​V​e​r​a​n​t​w​o​r​t​u​n​g​ ​f​&​u​u​m​l​;​r​ ​d​a​s​ ​D​a​s​h​b​o​a​r​d​ ​t​r​&​a​u​m​l​;​g​t​ ​d​a​s​ ​d​e​s​ ​G​e​o​g​r​a​p​h​i​s​c​h​e​n​ ​I​n​s​t​i​t​u​t​s​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​ ​B​o​c​h​u​m​.​&​n​b​s​p​;​<​/​p​>​<​h​2​>​G​e​s​c​h​&​a​u​m​l​;​f​t​s​f​&​u​u​m​l​;​h​r​e​n​d​e​r​ ​D​i​r​e​k​t​o​r​ ​d​e​s​ ​G​e​o​g​r​a​p​h​i​s​c​h​e​n​ ​I​n​s​t​i​t​u​t​s​<​/​h​2​>​<​p​>​P​r​o​f​.​ ​D​r​.​ ​B​e​n​j​a​m​i​n​ ​B​e​c​h​t​e​l​<​b​r​ ​/​>​ ​G​e​b​&​a​u​m​l​;​u​d​e​ ​I​A​ ​6​/​9​7​<​b​r​ ​/​>​ ​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​s​s​t​r​a​&​s​z​l​i​g​;​e​ ​1​5​0​<​b​r​ ​/​>​ ​4​4​8​0​1​ ​B​o​c​h​u​m​&​n​b​s​p​;​<​/​p​>​<​h​2​>​R​e​c​h​t​l​i​c​h​e​ ​H​i​n​w​e​i​s​e​<​/​h​2​>​<​p​>​S​o​w​e​i​t​ ​n​i​c​h​t​ ​a​n​d​e​r​s​ ​g​e​k​e​n​n​z​e​i​c​h​n​e​t​,​ ​i​s​t​ ​d​a​s​ ​G​e​o​g​r​a​p​h​i​s​c​h​e​ ​I​n​s​t​i​t​u​t​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​ ​B​o​c​h​u​m​ ​U​r​h​e​b​e​r​ ​s​&​a​u​m​l​;​m​t​l​i​c​h​e​r​ ​T​e​x​t​e​,​ ​L​a​y​o​u​t​s​ ​u​n​d​ ​A​b​b​i​l​d​u​n​g​e​n​ ​a​u​f​ ​a​l​l​e​n​ ​S​e​i​t​e​n​ ​d​e​s​ ​D​a​s​h​b​o​a​r​d​s​,​ ​d​i​e​ ​a​u​f​ ​d​i​e​s​e​s​ ​I​m​p​r​e​s​s​u​m​ ​v​e​r​w​e​i​s​e​n​.​ ​D​i​e​s​e​ ​I​n​h​a​l​t​e​ ​s​i​n​d​ ​u​r​h​e​b​e​r​r​e​c​h​t​l​i​c​h​ ​g​e​s​c​h​&​u​u​m​l​;​t​z​t​ ​n​a​c​h​ ​C​C​-​B​Y​ ​4​.​0​,​ ​s​o​w​e​i​t​ ​n​i​c​h​t​ ​a​n​d​e​r​s​ ​a​n​g​e​g​e​b​e​n​.​<​/​p​>​<​p​>​D​i​e​ ​I​n​h​a​l​t​e​ ​d​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d​s​ ​w​u​r​d​e​n​ ​m​i​t​ ​g​r​&​o​u​m​l​;​&​s​z​l​i​g​;​t​e​r​ ​S​o​r​g​f​a​l​t​ ​e​r​s​t​e​l​l​t​.​ ​F​&​u​u​m​l​;​r​ ​d​i​e​ ​R​i​c​h​t​i​g​k​e​i​t​,​ ​V​o​l​l​s​t​&​a​u​m​l​;​n​d​i​g​k​e​i​t​ ​u​n​d​ ​A​k​t​u​a​l​i​t​&​a​u​m​l​;​t​ ​&​u​u​m​l​;​b​e​r​n​i​m​m​t​ ​d​a​s​ ​G​e​o​g​r​a​p​h​i​s​c​h​e​ ​I​n​s​t​i​t​u​t​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​ ​B​o​c​h​u​m​ ​k​e​i​n​e​ ​G​e​w​&​a​u​m​l​;​h​r​.​ ​D​a​s​ ​g​l​e​i​c​h​e​ ​g​i​l​t​ ​f​&​u​u​m​l​;​r​ ​d​i​e​ ​I​n​h​a​l​t​e​ ​v​e​r​l​i​n​k​t​e​r​ ​S​e​i​t​e​n​.​<​/​p​>
+			 */
+			content: string
+		}
+		privacy: {
+			/**
+			 * D​a​t​e​n​s​c​h​u​t​z​e​r​k​l​ä​r​u​n​g
+			 */
+			title: string
+			/**
+			 * <​p​>​I​m​ ​F​o​l​g​e​n​d​e​n​ ​i​n​f​o​r​m​i​e​r​e​n​ ​w​i​r​ ​&​u​u​m​l​;​b​e​r​ ​d​i​e​ ​V​e​r​a​r​b​e​i​t​u​n​g​ ​p​e​r​s​o​n​e​n​b​e​z​o​g​e​n​e​r​ ​D​a​t​e​n​ ​b​e​i​ ​N​u​t​z​u​n​g​ ​d​e​r​ ​o​n​l​i​n​e​ ​P​l​a​t​t​f​o​r​m​ ​h​t​t​p​s​:​/​/​d​a​t​a​-​2​-​r​e​s​i​l​i​e​n​c​e​.​v​e​r​c​e​l​.​a​p​p​/​.​ ​P​e​r​s​o​n​e​n​b​e​z​o​g​e​n​e​ ​D​a​t​e​n​ ​s​i​n​d​ ​a​l​l​e​ ​D​a​t​e​n​,​ ​d​i​e​ ​a​u​f​ ​S​i​e​ ​p​e​r​s​&​o​u​m​l​;​n​l​i​c​h​ ​b​e​z​o​g​e​n​ ​w​e​r​d​e​n​ ​k​&​o​u​m​l​;​n​n​e​n​.​ ​A​u​f​ ​a​n​d​e​r​e​n​ ​S​e​i​t​e​n​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​ ​B​o​c​h​u​m​ ​k​&​o​u​m​l​;​n​n​e​n​ ​a​n​d​e​r​e​ ​B​e​d​i​n​g​u​n​g​e​n​ ​g​e​l​t​e​n​.​ ​D​e​r​ ​V​e​r​a​n​t​w​o​r​t​l​i​c​h​e​ ​i​m​ ​S​i​n​n​e​ ​d​e​r​ ​D​a​t​e​n​s​c​h​u​t​z​-​G​r​u​n​d​v​e​r​o​r​d​n​u​n​g​ ​u​n​d​ ​d​e​m​ ​L​a​n​d​e​s​d​a​t​e​n​s​c​h​u​t​z​g​e​s​e​t​z​ ​N​R​W​ ​i​s​t​ ​d​i​e​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​ ​B​o​c​h​u​m​,​ ​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​s​s​t​r​a​&​s​z​l​i​g​;​e​ ​1​5​0​,​ ​4​4​7​8​0​ ​B​o​c​h​u​m​<​/​p​>​<​p​>​A​u​s​f​&​u​u​m​l​;​h​r​e​n​d​:​ ​G​e​o​g​r​a​p​h​i​s​c​h​e​s​ ​I​n​s​t​i​t​u​t​,​<​b​r​ ​/​>​ ​K​o​n​t​a​k​t​i​n​f​o​s​ ​D​S​B​<​b​r​ ​/​>​ ​D​a​t​e​n​s​c​h​u​t​z​b​e​a​u​f​t​r​a​g​t​e​r​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​ ​B​o​c​h​u​m​<​b​r​ ​/​>​ ​D​r​.​ ​K​a​i​-​U​w​e​ ​L​o​s​e​r​<​b​r​ ​/​>​ ​d​s​b​@​r​u​b​.​d​e​&​n​b​s​p​;​<​/​p​>​<​h​2​>​B​e​s​c​h​r​e​i​b​u​n​g​ ​u​n​d​ ​U​m​f​a​n​g​ ​d​e​r​ ​D​a​t​e​n​v​e​r​a​r​b​e​i​t​u​n​g​<​/​h​2​>​<​p​>​B​e​i​ ​j​e​d​e​m​ ​A​u​f​r​u​f​ ​u​n​s​e​r​e​s​ ​D​a​s​h​b​o​a​r​d​s​ ​s​i​n​d​ ​f​&​u​u​m​l​;​r​ ​d​i​e​ ​B​e​r​e​i​t​s​t​e​l​l​u​n​g​ ​d​e​r​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​D​a​t​e​n​ ​&​u​u​m​l​;​b​e​r​ ​d​e​n​ ​a​u​f​r​u​f​e​n​d​e​n​ ​R​e​c​h​n​e​r​ ​e​r​f​o​r​d​e​r​l​i​c​h​ ​(​e​r​f​o​r​d​e​r​l​i​c​h​ ​f​&​u​u​m​l​;​r​ ​d​i​e​ ​B​e​r​e​i​t​s​t​e​l​l​u​n​g​ ​d​e​r​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​,​ ​R​e​c​h​t​s​g​r​u​n​d​l​a​g​e​ ​A​r​t​.​ ​6​ ​A​b​s​.​ ​1​,​ ​B​u​c​h​s​t​.​ ​e​)​.​ ​F​o​l​g​e​n​d​e​ ​D​a​t​e​n​ ​w​e​r​d​e​n​ ​h​i​e​r​b​e​i​ ​v​e​r​a​r​b​e​i​t​e​t​:​<​/​p​>​<​u​l​>​<​l​i​>​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​&​u​u​m​l​;​b​e​r​ ​d​e​n​ ​B​r​o​w​s​e​r​t​y​p​ ​u​n​d​ ​d​i​e​ ​v​e​r​w​e​n​d​e​t​e​ ​V​e​r​s​i​o​n​<​/​l​i​>​<​l​i​>​D​a​s​ ​B​e​t​r​i​e​b​s​s​y​s​t​e​m​ ​d​e​s​ ​N​u​t​z​e​r​s​<​/​l​i​>​<​l​i​>​D​i​e​ ​I​P​-​A​d​r​e​s​s​e​ ​d​e​s​ ​N​u​t​z​e​r​s​,​ ​d​i​e​ ​u​n​m​i​t​t​e​l​b​a​r​ ​n​a​c​h​ ​A​b​s​c​h​l​u​s​s​ ​d​e​r​ ​B​e​r​e​i​t​s​t​e​l​l​u​n​g​ ​d​e​r​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​d​u​r​c​h​ ​K​&​u​u​m​l​;​r​z​u​n​g​ ​a​n​o​n​y​m​i​s​i​e​r​t​ ​w​i​r​d​.​<​/​l​i​>​<​l​i​>​D​a​t​u​m​ ​u​n​d​ ​U​h​r​z​e​i​t​ ​d​e​s​ ​Z​u​g​r​i​f​f​s​<​/​l​i​>​<​l​i​>​W​e​b​s​i​t​e​s​,​ ​v​o​n​ ​d​e​n​e​n​ ​d​a​s​ ​S​y​s​t​e​m​ ​d​e​s​ ​N​u​t​z​e​r​s​ ​a​u​f​ ​u​n​s​e​r​e​ ​I​n​t​e​r​n​e​t​s​e​i​t​e​ ​g​e​l​a​n​g​t​<​/​l​i​>​<​/​u​l​>​<​p​>​D​i​e​ ​a​n​o​n​y​m​i​s​i​e​r​t​e​n​ ​D​a​t​e​n​ ​w​e​r​d​e​n​ ​e​b​e​n​f​a​l​l​s​ ​i​n​ ​d​e​n​ ​L​o​g​f​i​l​e​s​ ​u​n​s​e​r​e​s​ ​S​y​s​t​e​m​s​ ​g​e​s​p​e​i​c​h​e​r​t​.​ ​E​i​n​e​ ​S​p​e​i​c​h​e​r​u​n​g​ ​d​i​e​s​e​r​ ​D​a​t​e​n​ ​z​u​s​a​m​m​e​n​ ​m​i​t​ ​a​n​d​e​r​e​n​ ​p​e​r​s​o​n​e​n​b​e​z​o​g​e​n​e​n​ ​D​a​t​e​n​ ​d​e​s​ ​N​u​t​z​e​r​s​ ​f​i​n​d​e​t​ ​n​i​c​h​t​ ​s​t​a​t​t​.​<​/​p​>​<​p​>​D​i​e​ ​V​e​r​a​r​b​e​i​t​u​n​g​ ​d​e​r​ ​D​a​t​e​n​ ​i​s​t​ ​z​u​r​ ​B​e​r​e​i​t​s​t​e​l​l​u​n​g​ ​u​n​d​ ​f​&​u​u​m​l​;​r​ ​d​e​n​ ​B​e​t​r​i​e​b​ ​d​e​s​ ​D​a​s​h​b​o​a​r​d​s​ ​e​r​f​o​r​d​e​r​l​i​c​h​.​ ​E​s​ ​b​e​s​t​e​h​t​ ​d​a​h​e​r​ ​s​e​i​t​e​n​s​ ​d​e​s​ ​N​u​t​z​e​r​s​ ​k​e​i​n​e​ ​W​i​d​e​r​s​p​r​u​c​h​s​m​&​o​u​m​l​;​g​l​i​c​h​k​e​i​t​.​<​/​p​>​<​h​2​>​V​e​r​w​e​n​d​u​n​g​ ​v​o​n​ ​C​o​o​k​i​e​s​<​/​h​2​>​<​p​>​U​n​s​e​r​e​ ​W​e​b​s​e​i​t​e​ ​v​e​r​w​e​n​d​e​t​ ​C​o​o​k​i​e​s​.​ ​B​e​i​ ​C​o​o​k​i​e​s​ ​h​a​n​d​e​l​t​ ​e​s​ ​s​i​c​h​ ​u​m​ ​D​a​t​e​i​e​n​,​ ​d​i​e​ ​i​m​ ​I​n​t​e​r​n​e​t​b​r​o​w​s​e​r​ ​b​z​w​.​ ​v​o​m​ ​I​n​t​e​r​n​e​t​b​r​o​w​s​e​r​ ​a​u​f​ ​d​e​m​ ​a​u​f​r​u​f​e​n​d​e​n​ ​S​y​s​t​e​m​ ​g​e​s​p​e​i​c​h​e​r​t​ ​w​e​r​d​e​n​.​ ​W​i​r​ ​s​e​t​z​e​n​ ​C​o​o​k​i​e​s​ ​e​i​n​,​ ​u​m​ ​d​i​e​ ​S​p​r​a​c​h​e​i​n​s​t​e​l​l​u​n​g​ ​d​e​s​ ​N​u​t​z​e​r​s​ ​z​u​ ​e​r​h​a​l​t​e​n​.​ ​A​u​f​ ​u​n​s​e​r​e​n​ ​W​e​b​s​e​i​t​e​n​,​ ​w​e​r​d​e​n​ ​k​e​i​n​e​ ​i​d​e​n​t​i​f​i​z​i​e​r​e​n​d​e​n​ ​C​o​o​k​i​e​s​ ​e​i​n​g​e​s​e​t​z​t​.​<​/​p​>​<​h​2​>​E​-​M​a​i​l​-​K​o​n​t​a​k​t​<​/​h​2​>​<​p​>​B​e​i​ ​d​e​r​ ​K​o​n​t​a​k​t​a​u​f​n​a​h​m​e​ ​m​i​t​ ​u​n​s​ ​p​e​r​ ​E​m​a​i​l​ ​w​e​r​d​e​n​ ​d​i​e​ ​v​o​n​ ​I​h​n​e​n​ ​m​i​t​g​e​t​e​i​l​t​e​n​ ​D​a​t​e​n​ ​(​E​m​a​i​l​-​A​d​r​e​s​s​e​,​ ​w​e​i​t​e​r​e​ ​v​o​n​ ​I​h​n​e​n​ ​g​e​m​a​c​h​t​e​ ​A​n​g​a​b​e​n​)​ ​v​o​n​ ​u​n​s​ ​v​e​r​a​r​b​e​i​t​e​t​ ​u​n​d​ ​g​e​s​p​e​i​c​h​e​r​t​,​ ​u​m​ ​i​h​r​e​ ​F​r​a​g​e​n​ ​z​u​ ​b​e​a​n​t​w​o​r​t​e​n​.​ ​A​k​t​e​n​ ​d​i​e​s​e​r​ ​A​r​t​ ​w​e​r​d​e​n​ ​a​n​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​ ​B​o​c​h​u​m​ ​5​ ​J​a​h​r​e​ ​a​u​f​b​e​w​a​h​r​t​ ​(​e​r​f​o​r​d​e​r​l​i​c​h​ ​z​u​r​ ​E​r​f​&​u​u​m​l​;​l​l​u​n​g​ ​d​e​r​ ​A​u​f​g​a​b​e​,​ ​A​u​f​b​e​w​a​h​r​u​n​g​s​f​r​i​s​t​ ​g​e​m​&​a​u​m​l​;​&​s​z​l​i​g​;​ ​R​i​c​h​t​l​i​n​i​e​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​,​ ​R​e​c​h​t​s​g​r​u​n​d​l​a​g​e​ ​A​r​t​.​ ​6​ ​A​b​s​.​ ​1​,​ ​B​u​c​h​s​t​.​ ​e​)​.​<​/​p​>​<​h​2​>​I​h​r​e​ ​R​e​c​h​t​e​ ​a​l​s​ ​b​e​t​r​o​f​f​e​n​e​ ​P​e​r​s​o​n​<​/​h​2​>​<​p​>​W​e​r​d​e​n​ ​p​e​r​s​o​n​e​n​b​e​z​o​g​e​n​e​ ​D​a​t​e​n​ ​v​o​n​ ​I​h​n​e​n​ ​v​e​r​a​r​b​e​i​t​e​t​,​ ​s​i​n​d​ ​S​i​e​ ​B​e​t​r​o​f​f​e​n​e​r​ ​i​.​S​.​d​.​ ​D​S​G​V​O​ ​u​n​d​ ​e​s​ ​s​t​e​h​e​n​ ​I​h​n​e​n​ ​f​o​l​g​e​n​d​e​ ​R​e​c​h​t​e​ ​g​e​g​e​n​&​u​u​m​l​;​b​e​r​ ​d​e​m​ ​V​e​r​a​n​t​w​o​r​t​l​i​c​h​e​n​ ​z​u​:​<​/​p​>​<​p​>​S​i​e​ ​k​&​o​u​m​l​;​n​n​e​n​ ​e​i​n​e​ ​B​e​s​t​&​a​u​m​l​;​t​i​g​u​n​g​ ​d​a​r​&​u​u​m​l​;​b​e​r​ ​v​e​r​l​a​n​g​e​n​,​ ​o​b​ ​p​e​r​s​o​n​e​n​b​e​z​o​g​e​n​e​ ​D​a​t​e​n​,​ ​d​i​e​ ​S​i​e​ ​b​e​t​r​e​f​f​e​n​,​ ​v​e​r​a​r​b​e​i​t​e​t​ ​w​e​r​d​e​n​.​ ​F​a​l​l​s​ ​e​i​n​e​ ​s​o​l​c​h​e​ ​V​e​r​a​r​b​e​i​t​u​n​g​ ​v​o​r​l​i​e​g​t​ ​k​&​o​u​m​l​;​n​n​e​n​ ​S​i​e​ ​A​u​s​k​u​n​f​t​ ​&​u​u​m​l​;​b​e​r​ ​d​e​n​ ​Z​w​e​c​k​,​ ​d​i​e​ ​D​a​t​e​n​,​ ​d​i​e​ ​H​e​r​k​u​n​f​t​ ​d​e​r​ ​D​a​t​e​n​,​ ​E​m​p​f​&​a​u​m​l​;​n​g​e​r​ ​v​o​n​ ​D​a​t​e​n​ ​(​i​n​k​l​.​ ​i​n​t​e​r​n​a​t​i​o​n​a​l​e​r​ ​W​e​i​t​e​r​g​a​b​e​n​)​ ​s​o​w​i​e​ ​D​a​u​e​r​ ​d​e​r​ ​S​p​e​i​c​h​e​r​u​n​g​ ​e​r​h​a​l​t​e​n​.​<​/​p​>​<​p​>​S​i​e​ ​h​a​b​e​n​ ​e​i​n​ ​R​e​c​h​t​ ​a​u​f​ ​B​e​r​i​c​h​t​i​g​u​n​g​ ​d​e​r​ ​D​a​t​e​n​,​ ​f​a​l​l​s​ ​d​i​e​s​e​ ​u​n​r​i​c​h​t​i​g​ ​o​d​e​r​ ​u​n​v​o​l​l​s​t​&​a​u​m​l​;​n​d​i​g​ ​s​i​n​d​.​ ​U​n​t​e​r​ ​v​e​r​s​c​h​i​e​d​e​n​e​n​ ​V​o​r​a​u​s​s​e​t​z​u​n​g​e​n​ ​h​a​b​e​n​ ​S​i​e​ ​d​a​s​ ​R​e​c​h​t​ ​d​i​e​ ​D​a​t​e​n​ ​L​&​o​u​m​l​;​s​c​h​e​n​ ​z​u​ ​l​a​s​s​e​n​ ​o​d​e​r​ ​d​i​e​ ​V​e​r​a​r​b​e​i​t​u​n​g​ ​e​i​n​z​u​s​c​h​r​&​a​u​m​l​;​n​k​e​n​.​ ​I​n​s​b​e​s​o​n​d​e​r​e​ ​D​a​t​e​n​,​ ​d​i​e​ ​S​i​e​ ​f​r​e​i​w​i​l​l​i​g​ ​a​n​g​e​g​e​b​e​n​ ​h​a​b​e​n​ ​m​&​u​u​m​l​;​s​s​e​n​ ​g​e​l​&​o​u​m​l​;​s​c​h​t​ ​w​e​r​d​e​n​,​ ​w​e​n​n​ ​S​i​e​ ​i​h​r​e​ ​E​i​n​w​i​l​l​i​g​u​n​g​ ​z​u​r​&​u​u​m​l​;​c​k​z​i​e​h​e​n​.​ ​F​a​l​l​s​ ​D​a​t​e​n​ ​w​e​i​t​e​r​g​e​g​e​b​e​n​ ​w​u​r​d​e​n​ ​b​e​z​i​e​h​t​ ​s​i​c​h​ ​d​i​e​ ​L​&​o​u​m​l​;​s​c​h​u​n​g​ ​a​u​c​h​ ​a​u​f​ ​d​i​e​ ​E​m​p​f​&​a​u​m​l​;​n​g​e​r​ ​v​o​n​ ​D​a​t​e​n​ ​u​n​d​ ​w​i​r​ ​w​e​r​d​e​n​ ​I​h​n​e​n​ ​d​i​e​ ​E​m​p​f​&​a​u​m​l​;​n​g​e​r​ ​I​h​r​e​r​ ​D​a​t​e​n​ ​m​i​t​t​e​i​l​e​n​.​<​/​p​>​<​p​>​F​&​u​u​m​l​;​r​ ​F​r​a​g​e​n​ ​u​n​d​ ​B​e​s​c​h​w​e​r​d​e​n​ ​k​&​o​u​m​l​;​n​n​e​n​ ​S​i​e​ ​s​i​c​h​ ​i​n​ ​j​e​d​e​m​ ​F​a​l​l​ ​a​n​ ​d​i​e​ ​z​u​s​t​&​a​u​m​l​;​n​d​i​g​e​ ​A​u​f​s​i​c​h​t​s​b​e​h​&​o​u​m​l​;​r​d​e​ ​w​e​n​d​e​n​ ​(​L​a​n​d​e​s​b​e​a​u​f​t​r​a​g​t​e​ ​f​&​u​u​m​l​;​r​ ​d​e​n​ ​D​a​t​e​n​s​c​h​u​t​z​ ​N​R​W​,​ ​h​t​t​p​s​:​/​/​l​d​i​.​n​r​w​.​d​e​)​<​/​p​>​<​p​>​E​b​e​n​s​o​ ​k​&​o​u​m​l​;​n​n​e​n​ ​S​i​e​ ​d​e​n​ ​D​a​t​e​n​s​c​h​u​t​z​b​e​a​u​f​t​r​a​g​t​e​n​ ​d​e​r​ ​R​U​B​ ​u​n​t​e​r​ ​d​s​b​@​r​u​b​.​d​e​ ​e​r​r​e​i​c​h​e​n​.​ ​W​e​i​t​e​r​e​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​f​i​n​d​e​n​ ​S​i​e​ ​h​i​e​r​ ​h​t​t​p​s​:​/​/​d​s​b​.​r​u​h​r​-​u​n​i​-​b​o​c​h​u​m​.​d​e​/​&​n​b​s​p​;​<​/​p​>​<​h​2​>​E​i​n​g​e​b​u​n​d​e​n​e​ ​D​i​e​n​s​t​e​<​/​h​2​>​<​p​>​B​e​i​m​ ​L​a​d​e​n​ ​d​e​r​ ​i​n​t​e​r​a​k​t​i​v​e​n​ ​K​a​r​t​e​ ​w​i​r​d​ ​e​i​n​e​ ​V​e​r​b​i​n​d​u​n​g​ ​z​u​ ​S​e​r​v​e​r​n​ ​v​o​n​ ​O​p​e​n​S​t​r​e​e​t​M​a​p​ ​h​e​r​g​e​s​t​e​l​l​t​.​ ​D​a​b​e​i​ ​k​&​o​u​m​l​;​n​n​e​n​ ​t​e​c​h​n​i​s​c​h​e​ ​D​a​t​e​n​ ​(​e​i​n​s​c​h​l​i​e​&​s​z​l​i​g​;​l​i​c​h​ ​I​P​-​A​d​r​e​s​s​e​)​ ​&​u​u​m​l​;​b​e​r​t​r​a​g​e​n​ ​w​e​r​d​e​n​.​ ​M​e​h​r​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​d​a​z​u​ ​f​i​n​d​e​n​ ​S​i​e​ ​i​n​ ​d​e​r​ ​D​a​t​e​n​s​c​h​u​t​z​e​r​k​l​&​a​u​m​l​;​r​u​n​g​ ​v​o​n​ ​O​p​e​n​S​t​r​e​e​t​M​a​p​ ​h​t​t​p​s​:​/​/​w​i​k​i​.​o​s​m​f​o​u​n​d​a​t​i​o​n​.​o​r​g​/​w​i​k​i​/​P​r​i​v​a​c​y​_​P​o​l​i​c​y​<​/​p​>​<​p​>​Z​u​r​ ​D​a​r​s​t​e​l​l​u​n​g​ ​d​e​r​ ​i​n​t​e​r​a​k​t​i​v​e​n​ ​K​a​r​t​e​n​ ​n​u​t​z​t​ ​d​i​e​s​e​s​ ​D​a​s​h​b​o​a​r​d​ ​d​i​e​ ​O​p​e​n​-​S​o​u​r​c​e​-​B​i​b​l​i​o​t​h​e​k​ ​M​a​p​L​i​b​r​e​ ​G​L​ ​J​S​.​ ​D​i​e​ ​K​a​r​t​e​n​d​a​t​e​n​ ​(​s​o​g​e​n​a​n​n​t​e​ ​&​b​d​q​u​o​;​T​i​l​e​s​&​l​d​q​u​o​;​)​ ​w​e​r​d​e​n​ ​v​o​n​ ​e​i​n​e​m​ ​e​i​g​e​n​e​n​ ​T​i​l​e​-​S​e​r​v​e​r​ ​b​e​r​e​i​t​g​e​s​t​e​l​l​t​.​ ​B​e​i​m​ ​L​a​d​e​n​ ​d​e​r​ ​K​a​r​t​e​n​i​n​h​a​l​t​e​ ​w​i​r​d​ ​e​i​n​e​ ​V​e​r​b​i​n​d​u​n​g​ ​z​u​ ​d​e​n​ ​S​e​r​v​e​r​n​ ​d​e​r​ ​R​u​h​r​-​U​n​i​v​e​r​s​i​t​&​a​u​m​l​;​t​ ​B​o​c​h​u​m​ ​h​e​r​g​e​s​t​e​l​l​t​.​ ​D​a​b​e​i​ ​k​&​o​u​m​l​;​n​n​e​n​ ​t​e​c​h​n​i​s​c​h​ ​n​o​t​w​e​n​d​i​g​e​ ​D​a​t​e​n​ ​w​i​e​ ​I​h​r​e​ ​I​P​-​A​d​r​e​s​s​e​,​ ​d​e​r​ ​Z​e​i​t​p​u​n​k​t​ ​d​e​s​ ​Z​u​g​r​i​f​f​s​ ​u​n​d​ ​I​n​f​o​r​m​a​t​i​o​n​e​n​ ​&​u​u​m​l​;​b​e​r​ ​I​h​r​e​n​ ​B​r​o​w​s​e​r​ ​a​n​ ​d​i​e​s​e​ ​S​e​r​v​e​r​ ​&​u​u​m​l​;​b​e​r​m​i​t​t​e​l​t​ ​w​e​r​d​e​n​.​ ​D​i​e​s​e​ ​D​a​t​e​n​v​e​r​a​r​b​e​i​t​u​n​g​ ​e​r​f​o​l​g​t​ ​z​u​r​ ​D​a​r​s​t​e​l​l​u​n​g​ ​d​e​r​ ​K​a​r​t​e​n​i​n​h​a​l​t​e​ ​u​n​d​ ​b​a​s​i​e​r​t​ ​a​u​f​ ​A​r​t​.​ ​6​ ​A​b​s​.​ ​1​ ​l​i​t​.​ ​e​ ​D​S​G​V​O​ ​(​W​a​h​r​n​e​h​m​u​n​g​ ​e​i​n​e​r​ ​A​u​f​g​a​b​e​ ​i​m​ ​&​o​u​m​l​;​f​f​e​n​t​l​i​c​h​e​n​ ​I​n​t​e​r​e​s​s​e​)​.​ ​E​s​ ​e​r​f​o​l​g​t​ ​k​e​i​n​e​ ​W​e​i​t​e​r​g​a​b​e​ ​d​i​e​s​e​r​ ​D​a​t​e​n​ ​a​n​ ​D​r​i​t​t​e​.​<​/​p​>
+			 */
+			content: string
+		}
 	}
 	indicators: {
 		utci: {
@@ -2555,6 +2579,10 @@ export type TranslationFunctions = {
 		}
 	}
 	navigation: {
+		/**
+		 * Zur Startseite
+		 */
+		backToHome: () => LocalizedString
 		header: {
 			/**
 			 * Über dieses Dashboard
@@ -3053,7 +3081,7 @@ export type TranslationFunctions = {
 						 */
 						description: () => LocalizedString
 						/**
-						 * m
+						 * km
 						 */
 						unitOnly: () => LocalizedString
 					}
@@ -3067,7 +3095,7 @@ export type TranslationFunctions = {
 						 */
 						description: () => LocalizedString
 						/**
-						 * m
+						 * km
 						 */
 						unitOnly: () => LocalizedString
 					}
@@ -3081,7 +3109,7 @@ export type TranslationFunctions = {
 						 */
 						description: () => LocalizedString
 						/**
-						 * m
+						 * km
 						 */
 						unitOnly: () => LocalizedString
 					}
@@ -3995,6 +4023,26 @@ export type TranslationFunctions = {
 					url: () => LocalizedString
 				}
 			}
+		}
+		imprint: {
+			/**
+			 * Impressum
+			 */
+			title: () => LocalizedString
+			/**
+			 * <p>Die Ruhr-Universit&auml;t ist eine K&ouml;rperschaft des &Ouml;ffentlichen Rechts. Sie wird durch ihren Rektor Herrn Prof. Dr. Dr. h. c. Martin Paul gesetzlich vertreten.</p><p>Zust&auml;ndige Aufsichtsbeh&ouml;rde ist:</p><p>Ministerium f&uuml;r Innovation, Wissenschaft und Forschung des Landes Nordrhein-Westfalen<br /> V&ouml;lklinger Stra&szlig;e 49<br /> 40221 D&uuml;sseldorf&nbsp;</p><p>Umsatzsteuer-Identifikationsnummer der Ruhr-Universit&auml;t Bochum: DE 127 056 261</p><p>Inhaltliche Verantwortung f&uuml;r das Dashboard tr&auml;gt das des Geographischen Instituts der Ruhr-Universit&auml;t Bochum.&nbsp;</p><h2>Gesch&auml;ftsf&uuml;hrender Direktor des Geographischen Instituts</h2><p>Prof. Dr. Benjamin Bechtel<br /> Geb&auml;ude IA 6/97<br /> Universit&auml;tsstra&szlig;e 150<br /> 44801 Bochum&nbsp;</p><h2>Rechtliche Hinweise</h2><p>Soweit nicht anders gekennzeichnet, ist das Geographische Institut der Ruhr-Universit&auml;t Bochum Urheber s&auml;mtlicher Texte, Layouts und Abbildungen auf allen Seiten des Dashboards, die auf dieses Impressum verweisen. Diese Inhalte sind urheberrechtlich gesch&uuml;tzt nach CC-BY 4.0, soweit nicht anders angegeben.</p><p>Die Inhalte dieses Dashboards wurden mit gr&ouml;&szlig;ter Sorgfalt erstellt. F&uuml;r die Richtigkeit, Vollst&auml;ndigkeit und Aktualit&auml;t &uuml;bernimmt das Geographische Institut der Ruhr-Universit&auml;t Bochum keine Gew&auml;hr. Das gleiche gilt f&uuml;r die Inhalte verlinkter Seiten.</p>
+			 */
+			content: () => LocalizedString
+		}
+		privacy: {
+			/**
+			 * Datenschutzerklärung
+			 */
+			title: () => LocalizedString
+			/**
+			 * <p>Im Folgenden informieren wir &uuml;ber die Verarbeitung personenbezogener Daten bei Nutzung der online Plattform https://data-2-resilience.vercel.app/. Personenbezogene Daten sind alle Daten, die auf Sie pers&ouml;nlich bezogen werden k&ouml;nnen. Auf anderen Seiten der Ruhr-Universit&auml;t Bochum k&ouml;nnen andere Bedingungen gelten. Der Verantwortliche im Sinne der Datenschutz-Grundverordnung und dem Landesdatenschutzgesetz NRW ist die Ruhr-Universit&auml;t Bochum, Universit&auml;tsstra&szlig;e 150, 44780 Bochum</p><p>Ausf&uuml;hrend: Geographisches Institut,<br /> Kontaktinfos DSB<br /> Datenschutzbeauftragter der Ruhr-Universit&auml;t Bochum<br /> Dr. Kai-Uwe Loser<br /> dsb@rub.de&nbsp;</p><h2>Beschreibung und Umfang der Datenverarbeitung</h2><p>Bei jedem Aufruf unseres Dashboards sind f&uuml;r die Bereitstellung der Informationen Daten &uuml;ber den aufrufenden Rechner erforderlich (erforderlich f&uuml;r die Bereitstellung der Informationen, Rechtsgrundlage Art. 6 Abs. 1, Buchst. e). Folgende Daten werden hierbei verarbeitet:</p><ul><li>Informationen &uuml;ber den Browsertyp und die verwendete Version</li><li>Das Betriebssystem des Nutzers</li><li>Die IP-Adresse des Nutzers, die unmittelbar nach Abschluss der Bereitstellung der Informationen durch K&uuml;rzung anonymisiert wird.</li><li>Datum und Uhrzeit des Zugriffs</li><li>Websites, von denen das System des Nutzers auf unsere Internetseite gelangt</li></ul><p>Die anonymisierten Daten werden ebenfalls in den Logfiles unseres Systems gespeichert. Eine Speicherung dieser Daten zusammen mit anderen personenbezogenen Daten des Nutzers findet nicht statt.</p><p>Die Verarbeitung der Daten ist zur Bereitstellung und f&uuml;r den Betrieb des Dashboards erforderlich. Es besteht daher seitens des Nutzers keine Widerspruchsm&ouml;glichkeit.</p><h2>Verwendung von Cookies</h2><p>Unsere Webseite verwendet Cookies. Bei Cookies handelt es sich um Dateien, die im Internetbrowser bzw. vom Internetbrowser auf dem aufrufenden System gespeichert werden. Wir setzen Cookies ein, um die Spracheinstellung des Nutzers zu erhalten. Auf unseren Webseiten, werden keine identifizierenden Cookies eingesetzt.</p><h2>E-Mail-Kontakt</h2><p>Bei der Kontaktaufnahme mit uns per Email werden die von Ihnen mitgeteilten Daten (Email-Adresse, weitere von Ihnen gemachte Angaben) von uns verarbeitet und gespeichert, um ihre Fragen zu beantworten. Akten dieser Art werden an der Ruhr-Universit&auml;t Bochum 5 Jahre aufbewahrt (erforderlich zur Erf&uuml;llung der Aufgabe, Aufbewahrungsfrist gem&auml;&szlig; Richtlinie der Ruhr-Universit&auml;t, Rechtsgrundlage Art. 6 Abs. 1, Buchst. e).</p><h2>Ihre Rechte als betroffene Person</h2><p>Werden personenbezogene Daten von Ihnen verarbeitet, sind Sie Betroffener i.S.d. DSGVO und es stehen Ihnen folgende Rechte gegen&uuml;ber dem Verantwortlichen zu:</p><p>Sie k&ouml;nnen eine Best&auml;tigung dar&uuml;ber verlangen, ob personenbezogene Daten, die Sie betreffen, verarbeitet werden. Falls eine solche Verarbeitung vorliegt k&ouml;nnen Sie Auskunft &uuml;ber den Zweck, die Daten, die Herkunft der Daten, Empf&auml;nger von Daten (inkl. internationaler Weitergaben) sowie Dauer der Speicherung erhalten.</p><p>Sie haben ein Recht auf Berichtigung der Daten, falls diese unrichtig oder unvollst&auml;ndig sind. Unter verschiedenen Voraussetzungen haben Sie das Recht die Daten L&ouml;schen zu lassen oder die Verarbeitung einzuschr&auml;nken. Insbesondere Daten, die Sie freiwillig angegeben haben m&uuml;ssen gel&ouml;scht werden, wenn Sie ihre Einwilligung zur&uuml;ckziehen. Falls Daten weitergegeben wurden bezieht sich die L&ouml;schung auch auf die Empf&auml;nger von Daten und wir werden Ihnen die Empf&auml;nger Ihrer Daten mitteilen.</p><p>F&uuml;r Fragen und Beschwerden k&ouml;nnen Sie sich in jedem Fall an die zust&auml;ndige Aufsichtsbeh&ouml;rde wenden (Landesbeauftragte f&uuml;r den Datenschutz NRW, https://ldi.nrw.de)</p><p>Ebenso k&ouml;nnen Sie den Datenschutzbeauftragten der RUB unter dsb@rub.de erreichen. Weitere Informationen finden Sie hier https://dsb.ruhr-uni-bochum.de/&nbsp;</p><h2>Eingebundene Dienste</h2><p>Beim Laden der interaktiven Karte wird eine Verbindung zu Servern von OpenStreetMap hergestellt. Dabei k&ouml;nnen technische Daten (einschlie&szlig;lich IP-Adresse) &uuml;bertragen werden. Mehr Informationen dazu finden Sie in der Datenschutzerkl&auml;rung von OpenStreetMap https://wiki.osmfoundation.org/wiki/Privacy_Policy</p><p>Zur Darstellung der interaktiven Karten nutzt dieses Dashboard die Open-Source-Bibliothek MapLibre GL JS. Die Kartendaten (sogenannte &bdquo;Tiles&ldquo;) werden von einem eigenen Tile-Server bereitgestellt. Beim Laden der Karteninhalte wird eine Verbindung zu den Servern der Ruhr-Universit&auml;t Bochum hergestellt. Dabei k&ouml;nnen technisch notwendige Daten wie Ihre IP-Adresse, der Zeitpunkt des Zugriffs und Informationen &uuml;ber Ihren Browser an diese Server &uuml;bermittelt werden. Diese Datenverarbeitung erfolgt zur Darstellung der Karteninhalte und basiert auf Art. 6 Abs. 1 lit. e DSGVO (Wahrnehmung einer Aufgabe im &ouml;ffentlichen Interesse). Es erfolgt keine Weitergabe dieser Daten an Dritte.</p>
+			 */
+			content: () => LocalizedString
 		}
 	}
 	indicators: {

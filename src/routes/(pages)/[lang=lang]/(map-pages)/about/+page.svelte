@@ -134,9 +134,7 @@
 				{#each Object.values($LL.pages.about.links) as link}
 					<li>
 						<a
-							href={link.url()}
-							target="_blank"
-							rel="noopener noreferrer"
+							href={`/${$locale}${link.url()}?${urlQuery}`}
 							class={cn('focusable transition-colors hover-hover:hover:text-foreground')}
 						>
 							{link.label()}

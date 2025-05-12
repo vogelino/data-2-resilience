@@ -154,6 +154,9 @@ export const unitWithMinMaxAvg = derived(
 	[unit, datavisType, minMaxAvg, isCategoryUnit],
 	([u, dT, mMA, iCU]) => {
 		if (dT !== 'day') return u;
+		if (u.toLowerCase().trim().startsWith('maximum_wind_speed')) {
+			return 'maximum_wind_speed';
+		}
 		return mMA === 'avg' || iCU ? u : `${u}_${mMA}`;
 	}
 );

@@ -138,7 +138,7 @@
 </script>
 
 {#snippet minMaxAvgCombobox()}
-	{#if $datavisType === 'day' && !$isCategoryUnit}
+	{#if $datavisType === 'day' && !$isCategoryUnit && !$unit.startsWith('maximum_wind_speed')}
 		<Combobox
 			defaultValue={$minMaxAvg}
 			onChange={(value) => updateMinMaxAvg(value as 'min' | 'avg' | 'max')}

@@ -60,8 +60,8 @@
 	}
 </script>
 
-<div class="scroll-mt-20" id="stations-select-wrapper">
-	<label for="stations-select" class="mt-7 block border-t border-border pb-3 pt-5">
+<div class="mt-7 scroll-mt-20 border-t border-border pt-5" id="stations-select-wrapper">
+	<label for="stations-select" class="inline-block w-fit pb-3">
 		{$LL.pages.measurements.stationsSelect.label()}:
 	</label>
 	<div

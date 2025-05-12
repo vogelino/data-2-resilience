@@ -18,11 +18,22 @@
 	import { getHealthRisksByUnit, isHealthRiskUnit } from '$lib/utils/healthRisksUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
-	import { createQuery } from '@tanstack/svelte-query';
+	import { createQuery, type QueryKey, type QueryOptions } from '@tanstack/svelte-query';
 	import { scaleLinear } from 'd3-scale';
-	import { format, setHours } from 'date-fns';
+	import {
+		addDays,
+		addHours,
+		format,
+		getDayOfYear,
+		getHours,
+		getYear,
+		setHours,
+		setYear,
+		startOfYear
+	} from 'date-fns';
 	import { HeartPulse, X } from 'lucide-svelte';
 	import HealthRiskPill from './HealthRiskPill.svelte';
+	import { PUBLIC_ENABLE_HEATATLAS_TIMESLIDER } from '$env/static/public';
 
 	// Props
 	interface Props {
@@ -83,19 +94,42 @@
 	const showLeftSidebar = $derived(!isAboutPage && $isLeftSidebarOpened);
 	const isWindDirectionUnit = $derived(pageUnit.startsWith('wind_direction'));
 
-	const date = $derived.by(() => {
-		const date = today();
-		// WARNING: Do not offset the date here, it will be done in the getHeatStressMetadata function
-		const dateWithHour = setHours(date, $hour);
-		return dateWithHour;
+	const showTimeslider = PUBLIC_ENABLE_HEATATLAS_TIMESLIDER === 'true';
+	const queryKey = $derived(['lastAvailableRasterLayer', $heatStressUnit, getYear(today())]);
+	const lastAvailableRasterLayerQuery = createQuery(
+		reactiveQueryArgs(() => ({
+			queryKey,
+			queryFn: async ({ queryKey }: QueryOptions<QueryKey>) => {
+				const [, param, year] = queryKey as [string, string, number];
+				return api().getLatestRasterData({ year, param });
+			},
+			enabled: !showTimeslider,
+			staleTime: Infinity,
+			cacheTime: Infinity
+		}))
+	);
+	const finalLocalDate = $derived.by(() => {
+		const config = {
+			doy: $lastAvailableRasterLayerQuery.data?.doy ?? getDayOfYear(today()),
+			hour:
+				$lastAvailableRasterLayerQuery.data?.hour ??
+				getHours(addHours($hour, today().getTimezoneOffset() / 60)),
+			year: $lastAvailableRasterLayerQuery.data?.year ?? getYear(today()),
+			param: $heatStressUnit.toUpperCase()
+		};
+		const yearStart = startOfYear(setYear(today(), config.year));
+		const startOfDay = addDays(yearStart, config.doy - 1);
+		const tzOffsetInHours = today().getTimezoneOffset() / 60;
+		const date = addHours(setHours(startOfDay, config.hour), -tzOffsetInHours);
+		return date;
 	});
-	const dateKey = $derived(format(date, 'yyyy-MM-dd-HH'));
+	const dateKey = $derived(format(finalLocalDate, 'yyyy-MM-dd-HH'));
 	const heatStressGradientquery = createQuery(
 		reactiveQueryArgs(() => ({
 			queryKey: ['heatStressGradient', dateKey, $heatStressUnit],
 			queryFn: async () => {
 				const metadata = await api().getHeatStressMetadata({
-					date,
+					date: finalLocalDate,
 					unit: $heatStressUnit
 				});
 				let colormap = await api().getHeatStressColormap({

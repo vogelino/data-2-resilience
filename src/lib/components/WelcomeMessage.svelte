@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import LL, { locale } from '$i18n/i18n-svelte';
 	import {
 		closeLeftSidebar,
@@ -31,6 +30,8 @@
 	import { onMount } from 'svelte';
 	import { queryParameters } from 'sveltekit-search-params';
 	import Button from './ui/button/button.svelte';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 
 	let opened = $state(false);
 	let tour: Tour | undefined;
@@ -64,14 +65,12 @@
 
 		t.on('start', onTourStart);
 		t.on('active', onTourActive);
-		t.on('complete', onTourEnd);
 		t.on('cancel', onTourEnd);
 
 		return () => {
 			const t = getTour();
 			t.off('start', onTourStart);
 			t.off('active', onTourActive);
-			t.off('complete', onTourEnd);
 			t.off('cancel', onTourEnd);
 		};
 	});
@@ -121,13 +120,13 @@
 		});
 	}
 
-	const ensurePage = $derived(async (path: string, currentPathname: string) => {
+	async function ensurePage(path: string, currentPathname: string) {
 		const pathWithLocale = `/${$locale}${path === '/' ? '' : path}`;
 		const fullPath = `${pathWithLocale}?${urlQuery}`;
 		if (currentPathname !== pathWithLocale) {
-			await goto(fullPath);
+			await goto(fullPath, { replaceState: true, keepFocus: true, noScroll: true });
 		}
-	});
+	}
 
 	const queryParams = $derived(queryParameters());
 	const urlQuery = $derived(new URLSearchParams($queryParams).toString());
@@ -154,7 +153,10 @@
 		} satisfies StepOptionsButton,
 		finishButton: {
 			text: $LL.welcome.tourSteps.buttons.last(),
-			action: () => tour?.complete()
+			action: () => {
+				tour?.complete();
+				onTourEnd();
+			}
 		} satisfies StepOptionsButton
 	}));
 
@@ -381,8 +383,12 @@
 			heatStressUnit: $heatStressUnit as 'utci' | 'pet'
 		};
 	}
-	function applySettings(stgns?: TourSettings) {
+
+	async function applySettings(stgns?: TourSettings) {
 		if (!stgns) return;
+		if (stgns.pagePath) {
+			await ensurePage(stgns.pagePath, page.url.pathname);
+		}
 		updateUnit(stgns.unit);
 		udpateDatavisType(stgns.datavisType);
 		udpateRangeStart(stgns.rangeStart);
@@ -415,7 +421,6 @@
 
 	function onTourEnd() {
 		applySettings(initialSettings);
-		ensurePage(initialSettings.pagePath, window.location.pathname);
 	}
 </script>
 

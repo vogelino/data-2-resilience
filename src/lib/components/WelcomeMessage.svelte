@@ -254,6 +254,7 @@
 					element: '#heat-stress-selector',
 					on: 'right'
 				},
+				extraHighlights: [`#navigation-tab-heat-stress`],
 				beforeShowPromise: async () => {
 					await ensurePage('/heat-stress', window.location.pathname);
 					if (isMobile()) {
@@ -270,7 +271,11 @@
 				attachTo: {
 					element: '#stations-table'
 				},
-				extraHighlights: ['#sensor-descriptions', '#station-table-search'],
+				extraHighlights: [
+					'#sensor-descriptions',
+					'#station-table-search',
+					'#navigation-tab-stations'
+				],
 				beforeShowPromise: async () => {
 					await ensurePage('/stations', window.location.pathname);
 					if (isMobile()) {

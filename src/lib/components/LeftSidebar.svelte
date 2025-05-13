@@ -83,6 +83,7 @@
 				>
 					{#each tabs as tab (tab.slug)}
 						<li
+							id={`navigation-tab-${tab.slug}`}
 							class={cn(
 								'relative -mb-px -ml-px flex',
 								tab.isActive && 'z-10',

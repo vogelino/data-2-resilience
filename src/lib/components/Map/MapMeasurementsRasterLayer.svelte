@@ -117,6 +117,8 @@
 				colormap = 'explicit';
 			} else if (param === 'RH') {
 				colormap = 'ylgnbu';
+			} else if (param === 'TA') {
+				colormap = 'spectral_r';
 			} else {
 				colormap = 'turbo';
 			}

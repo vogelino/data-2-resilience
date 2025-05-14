@@ -177,13 +177,13 @@
 			<MapLayerSelection />
 
 			<SatelliteRasterLayer visible={$showSatellite} {map} />
-			{#if currentPage === 'measurements'}
-				<MapStationsLayer {stations} {map} {initialStationIds} />
-			{/if}
 			<MapMeasurementsRasterLayer visible={currentPage === 'heat-stress'} {map} />
 			<MapDistrictsLayer visible={$boundariesMode === 'districts'} {displayMode} />
 			<MapLorsLayer visible={$boundariesMode === 'lors'} {displayMode} />
 			<MapActionAreasLayer visible={$boundariesMode === 'lors'} {displayMode} />
+			{#if currentPage === 'measurements'}
+				<MapStationsLayer {stations} {map} {initialStationIds} />
+			{/if}
 			{#if $mapSearchCoordinates && $mapSearch}
 				<MapSearchedFeatureLayer
 					name={$mapSearch}

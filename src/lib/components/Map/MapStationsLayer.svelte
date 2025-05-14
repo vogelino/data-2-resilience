@@ -2,13 +2,20 @@
 	import { LL, locale } from '$i18n/i18n-svelte';
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { toggleStationSelection, useStations } from '$lib/stores/stationsStore';
-	import { unitLabel, unitOnly, unitWithMinMaxAvg } from '$lib/stores/uiStore';
-	import { cn } from '$lib/utils';
+	import {
+		unit,
+		unitLabel,
+		unitOnly,
+		unitWithMinMaxAvg,
+		unitWithoutCategory
+	} from '$lib/stores/uiStore';
+	import { darkenRGBColor as darkenColor, getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
 	import HealthRiskPill from 'components/HealthRiskPill.svelte';
-	import { GeoJSON, MarkerLayer } from 'svelte-maplibre';
+	import { mode } from 'mode-watcher';
+	import { GeoJSON, CircleLayer, Popup, hoverStateFilter } from 'svelte-maplibre';
 
 	interface Props {
 		stations: StationsGeoJSONType;
@@ -39,47 +46,115 @@
 		const value = item[$unitWithMinMaxAvg as keyof typeof item];
 		return value as ({ valueOf(): number } & string) | undefined | null;
 	});
+
+	const COLORS = $derived({
+		MUTED_FG: $mode === 'dark' ? '#677489' : '#97a3b6',
+		BG: $mode === 'dark' ? '#1e293b' : '#ffffff',
+		FG: $mode === 'dark' ? '#ffffff' : '#1e293b'
+	});
+
+	const stationsWithColors = $derived({
+		...stations,
+		features: stations.features.map((station) => {
+			const value = getValueById(station.properties.id);
+			let color = getColorScaleValue({
+				unit: $unit,
+				LL: $LL,
+				value: getValueById(station.properties?.id) as number | string,
+				min: $snapshotQuery.data?.scaleMin ?? null,
+				max: $snapshotQuery.data?.scaleMax ?? null
+			});
+			let borderColor = 'black';
+			let bgOpacity = 1;
+			let borderWidth = 1;
+			let borderOpacity = 1;
+			let radius = 4.5;
+
+			const isUnavailable = value === null;
+			const isUnsupported = typeof value === 'undefined';
+
+			if (isUnavailable || color === 'hsl(var(--muted-foreground))') {
+				color = COLORS.MUTED_FG;
+				borderColor = darkenColor(COLORS.MUTED_FG, 15);
+				bgOpacity = 0.5;
+			} else if (isUnsupported) {
+				color = COLORS.MUTED_FG;
+				borderColor = COLORS.MUTED_FG;
+				borderOpacity = 0.7;
+				borderWidth = 3;
+				bgOpacity = 0.1;
+				radius = 3;
+			} else {
+				borderColor = darkenColor(color, 15);
+			}
+
+			return {
+				...station,
+				properties: {
+					...station.properties,
+					color,
+					borderColor,
+					bgOpacity,
+					borderWidth,
+					borderOpacity,
+					radius
+				}
+			};
+		})
+	});
+
+	const selectedStationsGeoJSON = $derived({
+		...stations,
+		features: stations.features.filter(({ id }) => $selectedStations.includes(`${id}`))
+	});
 </script>
 
-<GeoJSON id="stations" data={stations} promoteId="STATEFP">
-	<MarkerLayer interactive class="group relative hover:z-10">
-		{#snippet children({ feature })}
-			{@const value = getValueById(feature.properties?.id)}
-			{@const type = feature.properties?.stationType === 'temprh' ? 'temprh' : 'biomet'}
-			<button
-				type="button"
-				class={cn(
-					'relative grid h-4 w-4 place-items-center rounded-full border-2 border-background outline-none',
-					'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-					$selectedStations.includes(feature.properties?.id) && [
-						'ring-2 ring-background ring-offset-2 ring-offset-foreground'
-					],
-					(typeof value === 'undefined' || value === 'null') && 'backdrop-blur-[2px]'
-				)}
-				onclick={() => {
-					if (!feature.properties?.id) return;
-					const { id } = feature.properties;
-					toggleStationSelection(id);
-				}}
-				onfocusin={() => {
-					map.flyTo({
-						center: [7.467, 51.511],
-						zoom: 10.5
-					});
-				}}
-				aria-label={feature.properties?.longName}
-			>
-				<HealthRiskPill {value} {stations} {initialStationIds} />
-			</button>
-			<div
-				class={cn(
-					'pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 group-hover:-translate-y-2',
-					'w-56 rounded-md bg-background px-4 py-3 opacity-0 transition group-hover:opacity-100',
-					'border border-border shadow-lg'
-				)}
-			>
+<GeoJSON id="stations-outer-rings" data={stations} promoteId="id">
+	<CircleLayer
+		paint={{
+			'circle-color': COLORS.BG,
+			'circle-radius': 8
+		}}
+	/>
+</GeoJSON>
+
+<GeoJSON id="selected-stations" data={selectedStationsGeoJSON} promoteId="id">
+	<CircleLayer
+		paint={{
+			'circle-color': 'transparent',
+			'circle-radius': 8,
+			'circle-stroke-color': COLORS.FG,
+			'circle-stroke-width': 2
+		}}
+	/>
+</GeoJSON>
+
+<GeoJSON id="stations" data={stationsWithColors} promoteId="id">
+	<CircleLayer
+		interactive
+		hoverCursor="pointer"
+		paint={{
+			'circle-color': ['get', 'color'],
+			'circle-opacity': ['get', 'bgOpacity'],
+			'circle-radius': ['get', 'radius'],
+			'circle-stroke-color': ['get', 'borderColor'],
+			'circle-stroke-width': ['get', 'borderWidth'],
+			'circle-stroke-opacity': ['get', 'borderOpacity']
+		}}
+		onclick={(data) => {
+			const featId = data.features[0]?.properties?.id;
+			if (!featId) return;
+			toggleStationSelection(`${featId}`);
+		}}
+	>
+		<Popup openOn="hover" closeOnClickInside>
+			{#snippet children(input)}
+				{@const data = input.data}
+				{@const props = data?.properties || {}}
+				{@const value = getValueById(props.id)}
+				{@const type = props.stationType === 'temprh' ? 'temprh' : 'biomet'}
 				<div class="relative flex flex-col">
-					<h3 class="text-sm font-bold leading-4">{feature.properties?.longName}</h3>
+					<h3 class="text-sm font-bold leading-4">{props.longName}</h3>
 					<div class="mb-2 border-b border-border pb-1 text-xs text-muted-foreground">
 						{$LL.pages.stations.table.cells.stationTypes[type]()}
 					</div>
@@ -102,7 +177,7 @@
 							</span>
 						{:else if value === null}
 							{@html $LL.pages.measurements.singleStationWithoutAvailableData({
-								station: feature.properties?.longName,
+								station: props.longName,
 								unit: $unitLabel
 							})}
 						{:else}
@@ -112,7 +187,7 @@
 						{/if}
 					</div>
 				</div>
-			</div>
-		{/snippet}
-	</MarkerLayer>
+			{/snippet}
+		</Popup>
+	</CircleLayer>
 </GeoJSON>

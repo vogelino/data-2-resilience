@@ -244,8 +244,8 @@ export function getHealthRiskPill({
 		<span
 			class="${cn(
 				'relative size-3 rounded-full',
-				isUnavailable && 'bg-muted-foreground/5',
-				isUnsupported && 'bg-muted-foreground/30'
+				isUnavailable && 'bg-muted-foreground/30',
+				isUnsupported && 'bg-muted-foreground/5'
 			)}"
 			style="${cn(color && `background-color: ${color};`)}"
 		>
@@ -253,8 +253,8 @@ export function getHealthRiskPill({
 				class="${cn(
 					'absolute inset-0 rounded-full border',
 					!isUnavailable && !isUnsupported && `border-black/20 mix-blend-multiply`,
-					isUnavailable && 'border-muted-foreground border-dashed',
-					isUnsupported && 'border-muted-foreground'
+					isUnavailable && 'border-muted-foreground',
+					isUnsupported && 'border-[3px] border-muted-foreground/50'
 				)}"
 			></span>
 		</span>

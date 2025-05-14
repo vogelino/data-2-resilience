@@ -80,11 +80,14 @@
 		border-left-color: transparent;
 	}
 	:global(.maplibregl-popup-content) {
-		background-color: hsl(var(--background));
+		background-color: hsl(var(--background) / 0.8);
+		backdrop-filter: blur(2px);
 		border: 1px solid hsl(var(--border));
 		font-size: 0.75rem;
 		line-height: 1rem;
 		padding: 0.75rem 1rem;
+		max-width: 14rem;
+		border-radius: 0.25rem;
 	}
 	:global(.maplibregl-canvas-container:has(.maplibregl-marker:hover) ~ .maplibregl-popup) {
 		opacity: 0;

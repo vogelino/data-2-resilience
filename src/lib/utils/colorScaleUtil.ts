@@ -17,6 +17,7 @@ import {
 	isHealthRiskUnit,
 	type HealthRiskUnit
 } from './healthRisksUtil';
+import { TinyColor } from '@ctrl/tinycolor';
 
 const schemeTurboSequential: readonly string[] = quantize(interpolateTurbo, 10);
 const schemeTurboOrdinal: readonly string[] = quantize(interpolateTurbo, 10);
@@ -440,4 +441,10 @@ export function getColorsByUnit({ unit, LL }: { unit: string; LL: TranslationFun
 	const healthRisksCount = getHealthRisksByUnit({ unit, LL }).length;
 	const colors = (scheme as string[]).slice(-healthRisksCount);
 	return colors;
+}
+
+export function darkenRGBColor(rgb: string, percent: number) {
+	const color = new TinyColor(rgb);
+	const darkenedColor = color.darken(percent);
+	return darkenedColor.toString();
 }

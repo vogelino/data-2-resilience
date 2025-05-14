@@ -74,11 +74,17 @@
 			const isUnavailable = value === null;
 			const isUnsupported = typeof value === 'undefined';
 
-			if (isUnsupported || color === 'hsl(var(--muted-foreground))') {
-				color = COLORS.MUTED_FG;
-				const bdColor = new TinyColor(COLORS.MUTED_FG);
+			const tinyMuted = new TinyColor(COLORS.MUTED_FG);
+			if (value && color === 'hsl(var(--muted-foreground))') {
+				color =
+					$mode === 'dark' ? tinyMuted.lighten(15).toString() : tinyMuted.darken(15).toString();
 				borderColor =
-					$mode === 'dark' ? bdColor.lighten(15).toString() : bdColor.darken(15).toString();
+					$mode === 'dark' ? tinyMuted.lighten(25).toString() : tinyMuted.darken(25).toString();
+				bgOpacity = 1;
+			} else if (isUnsupported) {
+				color = COLORS.MUTED_FG;
+				borderColor =
+					$mode === 'dark' ? tinyMuted.lighten(15).toString() : tinyMuted.darken(15).toString();
 				bgOpacity = 0.5;
 			} else if (isUnavailable) {
 				color = COLORS.MUTED_FG;

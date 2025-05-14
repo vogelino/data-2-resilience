@@ -36,8 +36,31 @@
 	import MapStationsLayer from './MapStationsLayer.svelte';
 	import MapZoomControl from './MapZoomControl.svelte';
 	import SatelliteRasterLayer from './SatelliteRasterLayer.svelte';
+	import ErrorBoundary from './ErrorBoundary.svelte';
 
 	import { positronMapStyleDay, positronMapStyleNight } from '$lib/stores/mapStyle';
+
+	// Global patch to prevent AbortError from showing in console
+	// This needs to be done before any maplibre code runs
+	const originalConsoleError = console.error;
+	console.error = function(...args) {
+		// Check if this is an AbortError from maplibre
+		if (
+			args.length > 0 && 
+			typeof args[0] === 'string' && 
+			args[0].includes('AbortError') &&
+			(
+				args[0].includes('setSourceProperty') ||
+				args[0].includes('setTiles') ||
+				args.some(arg => arg && arg.name === 'AbortError')
+			)
+		) {
+			// Silently ignore AbortErrors
+			return;
+		}
+		// Call original for all other errors
+		return originalConsoleError.apply(console, args);
+	};
 
 	interface Props {
 		stations: StationsGeoJSONType;
@@ -55,12 +78,7 @@
 	let mapLat = $state($mapLatitude);
 	let mapZ = $state($mapZoom);
 
-	// Initialize with a default value
-	let tilesLocal = {
-		type: 'vector',
-		tiles: '',
-		maxzoom: 14
-	};
+	const vectorTilesUrl = $derived($mode === 'dark' ? positronMapStyleNight : positronMapStyleDay);
 
 	onMount(() => {
 		mapLng = $mapLongitude;
@@ -75,7 +93,9 @@
 	};
 
 	$effect(() => {
-		if ($mapSearchCoordinates && map) {
+		if (!map) return;
+		
+		if ($mapSearchCoordinates) {
 			const [lng, lat] = $mapSearchCoordinates;
 			map.flyTo({ center: [lng, lat], zoom: 10 });
 		}
@@ -86,8 +106,6 @@
 		return p === '' ? 'measurements' : p;
 	});
 	const displayMode = $derived(currentPage === 'heat-stress' || $showSatellite ? 'stroke' : 'fill');
-
-	const vectorTilesUrl = $derived($mode === 'dark' ? positronMapStyleNight : positronMapStyleDay);
 
 	$effect(() => {
 		if (!map || !currentPage) return;
@@ -105,6 +123,8 @@
 
 	function onMapLoad(map: maplibregl.Map) {
 		if (!map) return;
+		
+		// Basic map setup
 		map.zoomTo(map.getZoom() ?? 10);
 		disableMapRotation(map);
 	}
@@ -129,6 +149,7 @@
 		}
 	}}
 />
+<ErrorBoundary>
 <div
 	id="map"
 	class={cn(
@@ -197,6 +218,7 @@
 	<ChoroplethLegend {stations} {initialStationIds} />
 	<MapAttribution />
 </div>
+</ErrorBoundary>
 
 <style>
 	/* MAPLIBRE */

@@ -9,13 +9,14 @@
 		unitWithMinMaxAvg,
 		unitWithoutCategory
 	} from '$lib/stores/uiStore';
-	import { darkenRGBColor as darkenColor, getColorScaleValue } from '$lib/utils/colorScaleUtil';
+	import { getColorScaleValue } from '$lib/utils/colorScaleUtil';
 	import { reactiveQueryArgs } from '$lib/utils/queryUtils.svelte';
 	import { useStationsSnapshotConfig } from '$lib/utils/useStationsSnapshot';
 	import { createQuery } from '@tanstack/svelte-query';
 	import HealthRiskPill from 'components/HealthRiskPill.svelte';
 	import { mode } from 'mode-watcher';
 	import { GeoJSON, CircleLayer, Popup, hoverStateFilter } from 'svelte-maplibre';
+	import { TinyColor } from '@ctrl/tinycolor';
 
 	interface Props {
 		stations: StationsGeoJSONType;
@@ -68,24 +69,26 @@
 			let bgOpacity = 1;
 			let borderWidth = 1;
 			let borderOpacity = 1;
-			let radius = 4.5;
+			let radius = 5;
 
 			const isUnavailable = value === null;
 			const isUnsupported = typeof value === 'undefined';
 
 			if (isUnsupported || color === 'hsl(var(--muted-foreground))') {
 				color = COLORS.MUTED_FG;
-				borderColor = darkenColor(COLORS.MUTED_FG, 15);
+				const bdColor = new TinyColor(COLORS.MUTED_FG);
+				borderColor =
+					$mode === 'dark' ? bdColor.lighten(15).toString() : bdColor.darken(15).toString();
 				bgOpacity = 0.5;
 			} else if (isUnavailable) {
 				color = COLORS.MUTED_FG;
 				borderColor = COLORS.MUTED_FG;
-				borderOpacity = 0.7;
+				borderOpacity = 1;
 				borderWidth = 3;
 				bgOpacity = 0.1;
 				radius = 3;
 			} else {
-				borderColor = darkenColor(color, 15);
+				borderColor = new TinyColor(color).darken(30).toString();
 			}
 
 			return {

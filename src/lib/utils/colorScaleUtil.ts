@@ -442,9 +442,3 @@ export function getColorsByUnit({ unit, LL }: { unit: string; LL: TranslationFun
 	const colors = (scheme as string[]).slice(-healthRisksCount);
 	return colors;
 }
-
-export function darkenRGBColor(rgb: string, percent: number) {
-	const color = new TinyColor(rgb);
-	const darkenedColor = color.darken(percent);
-	return darkenedColor.toString();
-}

@@ -73,11 +73,11 @@
 			const isUnavailable = value === null;
 			const isUnsupported = typeof value === 'undefined';
 
-			if (isUnavailable || color === 'hsl(var(--muted-foreground))') {
+			if (isUnavailable) {
 				color = COLORS.MUTED_FG;
 				borderColor = darkenColor(COLORS.MUTED_FG, 15);
 				bgOpacity = 0.5;
-			} else if (isUnsupported) {
+			} else if (isUnsupported || color === 'hsl(var(--muted-foreground))') {
 				color = COLORS.MUTED_FG;
 				borderColor = COLORS.MUTED_FG;
 				borderOpacity = 0.7;

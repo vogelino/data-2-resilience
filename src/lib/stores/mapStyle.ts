@@ -1,5 +1,6 @@
-import { PUBLIC_VITE_BASE_URL } from '$env/static/public';
 import type { StyleSpecification } from 'maplibre-gl';
+
+const PUBLIC_VITE_BASE_URL = 'https://dashboard.data2resilience.de';
 
 export const positronMapStyleDay = {
 	version: 8,

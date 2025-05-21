@@ -118,15 +118,16 @@
 			};
 			if (param.endsWith('_CLASS')) {
 				queryParameters['explicit_color_map'] = JSON.stringify({
-					'0': '4860e6',
-					'1': '2aabee',
-					'2': '2ee5ae',
-					'3': '6afd6a',
-					'4': 'c0ee3d',
-					'5': 'feb927',
-					'6': 'fe6e1a',
-					'7': 'c2270a',
-					'8': '900c00'
+					'0': '23171b',
+					'1': '4860e6',
+					'2': '2aabee',
+					'3': '2ee5ae',
+					'4': '6afd6a',
+					'5': 'c0ee3d',
+					'6': 'feb927',
+					'7': 'fe6e1a',
+					'8': 'c2270a',
+					'9': '900c00',
 				});
 			}
 			const searchParams = new URLSearchParams(queryParameters);

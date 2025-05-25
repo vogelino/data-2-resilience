@@ -13,6 +13,8 @@
 		mapSearchCoordinates,
 		mapZoom,
 		showSatellite,
+		showBuildings,
+		showStreets,
 		updateMapCoordinates,
 		updateMapSearch,
 		updateMapSearchCoordinates,
@@ -35,30 +37,27 @@
 	import MapSearchedFeatureLayer from './MapSearchedFeatureLayer.svelte';
 	import MapStationsLayer from './MapStationsLayer.svelte';
 	import MapZoomControl from './MapZoomControl.svelte';
-	import SatelliteRasterLayer from './SatelliteRasterLayer.svelte';
 	import ErrorBoundary from './ErrorBoundary.svelte';
-
-	import { positronMapStyleDay, positronMapStyleNight } from '$lib/stores/mapStyle';
+	import {
+		positronMapStyleDay,
+		positronMapStyleNight,
+		positronMapStyleDayWithSatellite,
+		positronMapStyleNightWithSatellite
+	} from '$lib/stores/mapStyle';
 
 	// Global patch to prevent AbortError from showing in console
-	// This needs to be done before any maplibre code runs
 	const originalConsoleError = console.error;
-	console.error = function(...args) {
-		// Check if this is an AbortError from maplibre
+	console.error = function (...args) {
 		if (
-			args.length > 0 && 
-			typeof args[0] === 'string' && 
+			args.length > 0 &&
+			typeof args[0] === 'string' &&
 			args[0].includes('AbortError') &&
-			(
-				args[0].includes('setSourceProperty') ||
+			(args[0].includes('setSourceProperty') ||
 				args[0].includes('setTiles') ||
-				args.some(arg => arg && arg.name === 'AbortError')
-			)
+				args.some((arg) => arg && arg.name === 'AbortError'))
 		) {
-			// Silently ignore AbortErrors
 			return;
 		}
-		// Call original for all other errors
 		return originalConsoleError.apply(console, args);
 	};
 
@@ -78,7 +77,82 @@
 	let mapLat = $state($mapLatitude);
 	let mapZ = $state($mapZoom);
 
-	const vectorTilesUrl = $derived($mode === 'dark' ? positronMapStyleNight : positronMapStyleDay);
+	// Base style selection (only for theme/satellite changes)
+	const baseMapStyle = $derived(
+		$showSatellite
+			? $mode === 'dark'
+				? positronMapStyleNightWithSatellite
+				: positronMapStyleDayWithSatellite
+			: $mode === 'dark'
+				? positronMapStyleNight
+				: positronMapStyleDay
+	);
+
+	// Effect 1: Handle style changes only (theme/satellite)
+	$effect(() => {
+		if (!map || !map.isStyleLoaded()) return;
+		map.setStyle(baseMapStyle);
+	});
+
+	// Effect 2: Handle visibility changes only (buildings/streets)
+	$effect(() => {
+		if (!map) return;
+
+		$showBuildings;
+		$showStreets;
+
+		const applyVisibility = () => {
+			// Use requestAnimationFrame to ensure DOM is ready
+			requestAnimationFrame(() => {
+				try {
+					// Buildings
+					const buildingVisibility = $showBuildings ? 'visible' : 'none';
+					['building', 'building-top'].forEach((layerId) => {
+						try {
+							if (map.getLayer(layerId)) {
+								map.setLayoutProperty(layerId, 'visibility', buildingVisibility);
+							}
+						} catch (e) {}
+					});
+
+					// Streets
+					const streetVisibility = $showStreets ? 'visible' : 'none';
+					const style = map.getStyle();
+					if (style?.layers) {
+						style.layers.forEach((layer) => {
+							try {
+								if (
+									(layer.type === 'line' || layer.type === 'symbol') &&
+									layer['source-layer'] === 'transportation' &&
+									!layer.id.includes('rail')
+								) {
+									map.setLayoutProperty(layer.id, 'visibility', streetVisibility);
+								}
+
+								if (layer.type === 'symbol' && layer['source-layer'] === 'transportation_name') {
+									map.setLayoutProperty(layer.id, 'visibility', streetVisibility);
+								}
+							} catch (e) {}
+						});
+					}
+				} catch (e) {
+					console.debug('Error applying visibility settings:', e);
+				}
+			});
+		};
+
+		// Apply immediately if map is loaded
+		if (map.loaded() && map.isStyleLoaded()) {
+			applyVisibility();
+		}
+
+		// Also apply after style loads
+		map.on('style.load', applyVisibility);
+
+		return () => {
+			map.off('style.load', applyVisibility);
+		};
+	});
 
 	onMount(() => {
 		mapLng = $mapLongitude;
@@ -94,7 +168,7 @@
 
 	$effect(() => {
 		if (!map) return;
-		
+
 		if ($mapSearchCoordinates) {
 			const [lng, lat] = $mapSearchCoordinates;
 			map.flyTo({ center: [lng, lat], zoom: 10 });
@@ -113,18 +187,13 @@
 	});
 
 	function disableMapRotation(map: maplibregl.Map) {
-		// disable map rotation using right click + drag
 		map.dragRotate.disable();
-		// disable map rotation using keyboard
 		map.keyboard.disable();
-		// disable map rotation using touch rotation gesture
 		map.touchZoomRotate.disableRotation();
 	}
 
 	function onMapLoad(map: maplibregl.Map) {
 		if (!map) return;
-		
-		// Basic map setup
 		map.zoomTo(map.getZoom() ?? 10);
 		disableMapRotation(map);
 	}
@@ -134,9 +203,6 @@
 	}
 
 	boundariesMode.subscribe(() => closePopup());
-	// Using the legacy $page store instead of the svelte 5 page state
-	// because using $effect with the page state is triggered way too often
-	// and prevents the popups from opening
 	storePage.subscribe(() => closePopup());
 </script>
 
@@ -149,79 +215,77 @@
 		}
 	}}
 />
+
 <ErrorBoundary>
-<div
-	id="map"
-	class={cn(
-		'main-map relative grid h-full w-full items-center justify-center overflow-clip',
-		showLeftSidebar ? 'left-sidebar-open' : 'left-sidebar-closed'
-	)}
->
-	<MapLibre
-		bind:map
-		center={[mapLng, mapLat]}
-		zoom={mapZ}
-		dragRotate={false}
-		pitchWithRotate={false}
-		maxPitch={0}
-		maxZoom={15.5}
-		maxBounds={[
-			[7.090650277147461, 51.400616267063896],
-			[7.826598237576263, 51.61374377792475]
-		]}
-		attributionControl={false}
-		class="relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen"
-		standardControls={false}
-		style={vectorTilesUrl}
-		onmoveend={(e) => {
-			if (!e.target) return;
-			const center = e.target.getCenter();
-			const zoom = e.target.getZoom();
-			center && updateMapCoordinates([center.lng, center.lat]);
-			zoom && updateMapZoom(zoom);
-		}}
-		onload={onMapLoad}
+	<div
+		id="map"
+		class={cn(
+			'main-map relative grid h-full w-full items-center justify-center overflow-clip',
+			showLeftSidebar ? 'left-sidebar-open' : 'left-sidebar-closed'
+		)}
 	>
-		{#snippet children({ map })}
-			{#if currentPage === 'measurements'}
-				<MapSearchInput
-					onFeatureSearched={(f) => showSearchedFeature(map, f)}
-					onSearchCleared={() => {
-						updateMapSearch('');
-						updateMapSearchCoordinates(undefined);
-					}}
-					queryValue={$mapSearch}
-					onSearchQueryChanged={updateMapSearch}
-				/>
-			{/if}
-			<MapZoomControl {map} />
-			<MapLayerSelection />
+		<MapLibre
+			bind:map
+			center={[mapLng, mapLat]}
+			zoom={mapZ}
+			dragRotate={false}
+			pitchWithRotate={false}
+			maxPitch={0}
+			maxZoom={15.5}
+			maxBounds={[
+				[7.090650277147461, 51.400616267063896],
+				[7.826598237576263, 51.61374377792475]
+			]}
+			attributionControl={false}
+			class="relative h-[calc(100vh-var(--headerHeight,5rem))] w-screen"
+			standardControls={false}
+			style={baseMapStyle}
+			onmoveend={(e) => {
+				if (!e.target) return;
+				const center = e.target.getCenter();
+				const zoom = e.target.getZoom();
+				center && updateMapCoordinates([center.lng, center.lat]);
+				zoom && updateMapZoom(zoom);
+			}}
+			onload={onMapLoad}
+		>
+			{#snippet children({ map })}
+				{#if currentPage === 'measurements'}
+					<MapSearchInput
+						onFeatureSearched={(f) => showSearchedFeature(map, f)}
+						onSearchCleared={() => {
+							updateMapSearch('');
+							updateMapSearchCoordinates(undefined);
+						}}
+						queryValue={$mapSearch}
+						onSearchQueryChanged={updateMapSearch}
+					/>
+				{/if}
+				<MapZoomControl {map} />
+				<MapLayerSelection />
+				<MapMeasurementsRasterLayer visible={currentPage === 'heat-stress'} {map} />
+				<MapDistrictsLayer visible={$boundariesMode === 'districts'} {displayMode} />
+				<MapLorsLayer visible={$boundariesMode === 'lors'} {displayMode} />
+				<MapActionAreasLayer visible={$boundariesMode === 'lors'} {displayMode} />
+				{#if currentPage === 'measurements'}
+					<MapStationsLayer {stations} {map} {initialStationIds} />
+				{/if}
+				{#if $mapSearchCoordinates && $mapSearch}
+					<MapSearchedFeatureLayer
+						name={$mapSearch}
+						coordinates={[$mapSearchCoordinates[0], $mapSearchCoordinates[1]]}
+					/>
+				{/if}
+				<ScaleControl unit="metric" position="bottom-right" />
+			{/snippet}
+		</MapLibre>
 
-			<SatelliteRasterLayer visible={$showSatellite} {map} />
-			<MapMeasurementsRasterLayer visible={currentPage === 'heat-stress'} {map} />
-			<MapDistrictsLayer visible={$boundariesMode === 'districts'} {displayMode} />
-			<MapLorsLayer visible={$boundariesMode === 'lors'} {displayMode} />
-			<MapActionAreasLayer visible={$boundariesMode === 'lors'} {displayMode} />
-			{#if currentPage === 'measurements'}
-				<MapStationsLayer {stations} {map} {initialStationIds} />
-			{/if}
-			{#if $mapSearchCoordinates && $mapSearch}
-				<MapSearchedFeatureLayer
-					name={$mapSearch}
-					coordinates={[$mapSearchCoordinates[0], $mapSearchCoordinates[1]]}
-				/>
-			{/if}
-			<ScaleControl unit="metric" position="bottom-right" />
-		{/snippet}
-	</MapLibre>
-
-	<ChoroplethLegend {stations} {initialStationIds} />
-	<MapAttribution />
-</div>
+		<ChoroplethLegend {stations} {initialStationIds} />
+		<MapAttribution />
+	</div>
 </ErrorBoundary>
 
 <style>
-	/* MAPLIBRE */
 	.main-map :global(.maplibregl-canvas) {
 		outline: none;
 	}

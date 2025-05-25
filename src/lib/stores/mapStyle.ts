@@ -1,6 +1,7 @@
 import { PUBLIC_VITE_BASE_URL } from '$env/static/public';
 import type { StyleSpecification } from 'maplibre-gl';
 
+// Default satellite-disbled versions
 export const positronMapStyleDay = {
 	version: 8,
 	name: 'Positron',
@@ -5966,3 +5967,49 @@ export const positronMapStyleNight = {
 	id: 'voyager',
 	owner: 'Carto'
 } as StyleSpecification;
+
+
+function createStyleWithSatellite(baseStyle: StyleSpecification, includeSatellite: boolean): StyleSpecification {
+	const style = JSON.parse(JSON.stringify(baseStyle)); // Deep clone
+	
+	if (includeSatellite) {
+		// Add satellite source using Dortmund orthophotos
+		style.sources.satellite = {
+			type: 'raster',
+			tiles: [
+				'https://www.wms.nrw.de/geobasis/wms_nw_dop?request=GetMap&service=WMS&version=1.3.0&format=image%2Fpng&transparent=true&layers=nw_dop_rgb&bbox={bbox-epsg-3857}&width=256&height=256&crs=EPSG%3A3857'
+			],
+			tileSize: 256
+		};
+		
+		// Find the landuse layer index
+		const landuseIndex = style.layers.findIndex((layer: any) => layer.id === 'landuse');
+		
+		// Create satellite layer
+		const satelliteLayer = {
+			id: 'satellite',
+			type: 'raster',
+			source: 'satellite',
+			layout: {
+				visibility: 'visible'
+			},
+			paint: {}
+		};
+		
+		// Insert satellite layer before landuse
+		if (landuseIndex !== -1) {
+			style.layers.splice(landuseIndex, 0, satelliteLayer);
+		} else {
+			// Fallback: insert after background if landuse not found
+			const backgroundIndex = style.layers.findIndex((layer: any) => layer.id === 'background');
+			style.layers.splice(backgroundIndex + 1, 0, satelliteLayer);
+		}
+	}
+	
+	return style;
+}
+
+
+// Export satellite-enabled versions
+export const positronMapStyleDayWithSatellite = createStyleWithSatellite(positronMapStyleDay, true);
+export const positronMapStyleNightWithSatellite = createStyleWithSatellite(positronMapStyleNight, true);

@@ -789,6 +789,17 @@ const en = {
 				title: 'What are digital orthophotos?',
 				description:
 					'Digital orthophotos are corrected aerial photographs that serve as a true-to-scale map, providing a realistic bird´s-eye view of Dortmund.'
+			},
+			buildings: 'Buildings',
+			buildingsTooltip: {
+				title: 'Building footprints',
+				description:
+					'Show or hide building footprints on the map.'
+			},
+			streets: 'Streets',
+			streetsTooltip: {
+				title: 'Street Network',
+				description: 'Toggle visibility of roads and street labels.'
 			}
 		},
 		layersTooltips: {

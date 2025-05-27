@@ -112,8 +112,18 @@
 			const { doy, param, year } = finalConfig;
 			const paddedHour = `${h}`.padStart(2, '0');
 			const paddedDayOfYear = `${doy}`.padStart(3, '0');
+			let colormap = 'turbo';
+			if (param.endsWith('_CLASS')) {
+				colormap = 'explicit';
+			} else if (param === 'RH') {
+				colormap = 'ylgnbu';
+			} else if (param === 'TA') {
+				colormap = 'spectral_r';
+			} else {
+				colormap = 'turbo';
+			}
 			const queryParameters: Record<string, string> = {
-				colormap: param.endsWith('_CLASS') ? 'explicit' : 'turbo',
+				colormap: colormap,
 				tile_size: '[256, 256]'
 			};
 			if (param.endsWith('_CLASS')) {

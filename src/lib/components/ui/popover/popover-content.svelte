@@ -18,7 +18,7 @@
 		children,
 		...rest
 	}: Props = $props();
-	
+
 </script>
 
 <PopoverPrimitive.Content

@@ -5,7 +5,7 @@
 
 	type $$Props = CommandPrimitive.InputProps;
 
-	
+
 	interface Props {
 		class?: string | undefined | null;
 		value?: string;

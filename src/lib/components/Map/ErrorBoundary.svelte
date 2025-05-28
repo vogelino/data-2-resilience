@@ -14,7 +14,7 @@
   onMount(() => {
     // Save original console.error
     originalConsoleError = console.error;
-    
+
     // Override console.error to filter out AbortError
     console.error = function(...args: any[]) {
       if (args.length > 0) {
@@ -26,7 +26,7 @@
           return;
         }
       }
-      
+
       // Forward all other errors to original console.error
       return originalConsoleError.apply(console, args);
     };

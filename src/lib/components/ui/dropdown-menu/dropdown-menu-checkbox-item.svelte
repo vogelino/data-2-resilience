@@ -14,7 +14,7 @@
 	}
 
 	let { class: className = undefined, checked = $bindable(undefined), children, ...rest }: Props = $props();
-	
+
 </script>
 
 <DropdownMenuPrimitive.CheckboxItem

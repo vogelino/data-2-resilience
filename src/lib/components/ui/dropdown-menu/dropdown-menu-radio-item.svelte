@@ -14,7 +14,7 @@
 	}
 
 	let { class: className = undefined, value, children, ...rest }: Props = $props();
-	
+
 </script>
 
 <DropdownMenuPrimitive.RadioItem

@@ -15,7 +15,7 @@
 	let { class: className = undefined, transition = fade, transitionConfig = {
 		duration: 150,
 	}, ...rest }: Props = $props();
-	
+
 </script>
 
 <DialogPrimitive.Overlay

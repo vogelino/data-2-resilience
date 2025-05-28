@@ -10,7 +10,7 @@
 	}
 
 	let { class: className = undefined, ...rest }: Props = $props();
-	
+
 </script>
 
 <DropdownMenuPrimitive.Separator

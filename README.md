@@ -521,7 +521,6 @@ The application relies on several environment variables that need proper configu
 
 #### Environment Files
 
-- `.env.local`: Contains environment variables for development
 - `.env.production`: Contains production environment variables
 - `.env.preview`: Contains preview environment variables for Vercel preview deployments
 - `.env.example`: Template for creating new environment files (never contains actual secret values)
@@ -566,16 +565,6 @@ Dependencies should be updated regularly to ensure security and access to new fe
 
 - Frontend errors are monitored using validation through Zod schemas in `lib/utils/schemas.ts`
 - API responses are validated with schema parsing in `lib/utils/api.ts`
-
-This project also uses [sentry.io](https://sentry.io/) for error monitoring. This can be
-configured using these environment variables
-
-- `PUBLIC_SENTRY_DSN` sets the url to ingest errors
-- `PUBLIC_SENTRY_TRACES_SAMPLE_RATE` sets how many % of transactions should be sampled
-- `PUBLIC_SENTRY_SESSION_SAMPLE_RATE` You may want this to be 100% while in development
-   and sample at a lower rate in production
-- `PUBLIC_SENTRY_REPLAY_ON_ERROR_SAMPLE_RATE` If the entire session is not sampled, use
-    the sample rate to sample sessions when an error occurs
 
 #### Reporting Issues
 

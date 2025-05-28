@@ -11,7 +11,7 @@
 	}
 
 	let { class: className = undefined, children, ...rest }: Props = $props();
-	
+
 </script>
 
 <span

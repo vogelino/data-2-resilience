@@ -5971,7 +5971,7 @@ export const positronMapStyleNight = {
 
 function createStyleWithSatellite(baseStyle: StyleSpecification, includeSatellite: boolean): StyleSpecification {
 	const style = JSON.parse(JSON.stringify(baseStyle)); // Deep clone
-	
+
 	if (includeSatellite) {
 		// Add satellite source using Dortmund orthophotos
 		style.sources.satellite = {
@@ -5981,10 +5981,10 @@ function createStyleWithSatellite(baseStyle: StyleSpecification, includeSatellit
 			],
 			tileSize: 256
 		};
-		
+
 		// Find the landuse layer index
 		const landuseIndex = style.layers.findIndex((layer: any) => layer.id === 'landuse');
-		
+
 		// Create satellite layer
 		const satelliteLayer = {
 			id: 'satellite',
@@ -5995,7 +5995,7 @@ function createStyleWithSatellite(baseStyle: StyleSpecification, includeSatellit
 			},
 			paint: {}
 		};
-		
+
 		// Insert satellite layer before landuse
 		if (landuseIndex !== -1) {
 			style.layers.splice(landuseIndex, 0, satelliteLayer);
@@ -6005,7 +6005,7 @@ function createStyleWithSatellite(baseStyle: StyleSpecification, includeSatellit
 			style.layers.splice(backgroundIndex + 1, 0, satelliteLayer);
 		}
 	}
-	
+
 	return style;
 }
 

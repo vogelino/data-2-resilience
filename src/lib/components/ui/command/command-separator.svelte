@@ -9,7 +9,7 @@
 	}
 
 	let { class: className = undefined, ...rest }: Props = $props();
-	
+
 </script>
 
 <CommandPrimitive.Separator class={cn("bg-border -mx-1 h-px", className)} {...rest} />

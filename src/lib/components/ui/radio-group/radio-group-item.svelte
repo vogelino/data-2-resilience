@@ -13,7 +13,7 @@
 	}
 
 	let { class: className = undefined, value, ...rest }: Props = $props();
-	
+
 </script>
 
 <RadioGroupPrimitive.Item

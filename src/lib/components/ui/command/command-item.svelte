@@ -13,7 +13,7 @@
 	}
 
 	let { asChild = false, class: className = undefined, children, ...rest }: Props = $props();
-	
+
 
 	const children_render = $derived(children);
 </script>
@@ -25,8 +25,8 @@
 		className
 	)}
 	{...rest}
-	
-	
+
+
 >
 	{#snippet children({ action, attrs })}
 		{@render children_render?.({ action, attrs, })}

@@ -12,7 +12,7 @@
 	}
 
 	let { class: className = undefined, value = $bindable(undefined), children, ...rest }: Props = $props();
-	
+
 </script>
 
 <RadioGroupPrimitive.Root bind:value class={cn("grid gap-2", className)} {...rest}>

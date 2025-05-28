@@ -23,7 +23,7 @@
 		children,
 		...rest
 	}: Props = $props();
-	
+
 </script>
 
 <Dialog.Portal>

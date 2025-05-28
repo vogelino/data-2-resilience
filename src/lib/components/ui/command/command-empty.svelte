@@ -10,7 +10,7 @@
 	}
 
 	let { class: className = undefined, children, ...rest }: Props = $props();
-	
+
 </script>
 
 <CommandPrimitive.Empty class={cn("py-6 text-center text-sm", className)} {...rest}>

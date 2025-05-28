@@ -61,7 +61,6 @@
 		"prettier-plugin-svelte": "^3.3.2",
 		"prettier-plugin-tailwindcss": "^0.6.9",
 		"shepherd.js": "14.5.0",
-		"@sentry/sveltekit": "^9.22.0",
 		"svelte": "^5.16.0",
 		"svelte-check": "^4.1.1",
 		"svelte-maplibre": "^1.0.0-next.8",

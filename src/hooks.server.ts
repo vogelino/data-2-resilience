@@ -1,5 +1,3 @@
-import { sequence } from '@sveltejs/kit/hooks';
-import * as Sentry from '@sentry/sveltekit';
 import { base } from '$app/paths';
 import type { Locales } from '$i18n/i18n-types.js';
 import { detectLocale, i18n, isLocale } from '$i18n/i18n-util';
@@ -7,17 +5,11 @@ import { loadAllLocales } from '$i18n/i18n-util.sync';
 import { redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
 import { initAcceptLanguageHeaderDetector } from 'typesafe-i18n/detectors';
 import { getPathnameWithoutBase } from './utils.js';
-import { PUBLIC_SENTRY_DSN, PUBLIC_SENTRY_TRACES_SAMPLE_RATE } from '$env/static/public';
-
-Sentry.init({
-	dsn: PUBLIC_SENTRY_DSN,
-	tracesSampleRate: Number(PUBLIC_SENTRY_TRACES_SAMPLE_RATE)
-});
 
 loadAllLocales();
 const L = i18n();
 
-export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, resolve }) => {
+export const handle: Handle = async ({ event, resolve }) => {
 	// read language slug
 	const [, lang] = getPathnameWithoutBase(event.url).split('/');
 
@@ -40,7 +32,7 @@ export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, re
 
 	// replace html lang attribute with correct language
 	return resolve(event, { transformPageChunk: ({ html }) => html.replace('%lang%', locale) });
-});
+};
 
 const getPreferredLocale = ({ request }: RequestEvent) => {
 	// detect the preferred language the user has configured in his browser
@@ -49,4 +41,3 @@ const getPreferredLocale = ({ request }: RequestEvent) => {
 
 	return detectLocale(acceptLanguageDetector);
 };
-export const handleError = Sentry.handleErrorWithSentry();

@@ -6,8 +6,12 @@
 		boundariesMode,
 		isLeftSidebarOpened,
 		showSatellite,
+		showBuildings,
+		showStreets,
 		updateBoundariesMode,
-		updateShowSatellite
+		updateShowSatellite,
+		updateShowBuildings,
+		updateShowStreets
 	} from '$lib/stores/uiStore';
 	import { cn } from '$lib/utils';
 	import type { Builder } from 'bits-ui';
@@ -104,5 +108,35 @@
 				description={$LL.map.layersSelection.satelliteTooltip.description()}
 			/>
 		</DropdownMenu.Item>
+
+		<DropdownMenu.Item
+			on:click={() => updateShowBuildings(!$showBuildings)}
+			class={cn('grid grid-cols-[auto_1fr_auto] items-center gap-2')}
+		>
+			<CheckboxIcon checked={$showBuildings} />
+			<span class={cn($showBuildings && 'font-semibold', 'leading-tight')}>
+				{@html $LL.map.layersSelection.buildings()}
+			</span>
+			<InfoTooltip
+				title={$LL.map.layersSelection.buildingsTooltip.title()}
+				description={$LL.map.layersSelection.buildingsTooltip.description()}
+			/>
+		</DropdownMenu.Item>
+
+		<!-- In the template, add this after the Buildings checkbox -->
+<DropdownMenu.Item
+  on:click={() => updateShowStreets(!$showStreets)}
+  class={cn('grid grid-cols-[auto_1fr_auto] items-center gap-2')}
+>
+  <CheckboxIcon checked={$showStreets} />
+  <span class={cn($showStreets && 'font-semibold', 'leading-tight')}>
+    {@html $LL.map.layersSelection.streets()}
+  </span>
+  <InfoTooltip
+    title={$LL.map.layersSelection.streetsTooltip.title()}
+    description={$LL.map.layersSelection.streetsTooltip.description()}
+  />
+</DropdownMenu.Item>
+
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

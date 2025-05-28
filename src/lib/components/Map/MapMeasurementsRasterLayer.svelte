@@ -112,21 +112,32 @@
 			const { doy, param, year } = finalConfig;
 			const paddedHour = `${h}`.padStart(2, '0');
 			const paddedDayOfYear = `${doy}`.padStart(3, '0');
+			let colormap = 'turbo';
+			if (param.endsWith('_CLASS')) {
+				colormap = 'explicit';
+			} else if (param === 'RH') {
+				colormap = 'ylgnbu';
+			} else if (param === 'TA') {
+				colormap = 'spectral_r';
+			} else {
+				colormap = 'turbo';
+			}
 			const queryParameters: Record<string, string> = {
-				colormap: param.endsWith('_CLASS') ? 'explicit' : 'turbo',
+				colormap: colormap,
 				tile_size: '[256, 256]'
 			};
 			if (param.endsWith('_CLASS')) {
 				queryParameters['explicit_color_map'] = JSON.stringify({
-					'0': '4860e6',
-					'1': '2aabee',
-					'2': '2ee5ae',
-					'3': '6afd6a',
-					'4': 'c0ee3d',
-					'5': 'feb927',
-					'6': 'fe6e1a',
-					'7': 'c2270a',
-					'8': '900c00'
+					'0': '23171b',
+					'1': '4860e6',
+					'2': '2aabee',
+					'3': '2ee5ae',
+					'4': '6afd6a',
+					'5': 'c0ee3d',
+					'6': 'feb927',
+					'7': 'fe6e1a',
+					'8': 'c2270a',
+					'9': '900c00',
 				});
 			}
 			const searchParams = new URLSearchParams(queryParameters);

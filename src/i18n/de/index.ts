@@ -790,6 +790,17 @@ const de = {
 				title: 'Was sind digitale Orthophotos?',
 				description:
 					'Digitale Orthofotos sind entzerrte Luftbilder, die wie eine maßstabsgetreue Karte funktionieren. Sie zeigen Dortmund aus der Vogelperspektive und ermöglichen eine realitätsnahe Orientierung.'
+			},
+			buildings: 'Gebäude',
+			buildingsTooltip: {
+				title: 'Gebäudegrundrisse',
+				description:
+					'Gebäudegrundrisse auf der Karte ein- oder ausblenden.'
+			},
+			streets: 'Straßen',
+			streetsTooltip: {
+				title: 'Straßennetz',
+				description: 'Sichtbarkeit von Straßen und Straßennamen ein- oder ausblenden.'
 			}
 		},
 		layersTooltips: {

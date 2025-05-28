@@ -133,9 +133,9 @@ export const api = (customFetch = fetch) => ({
 		const data = await parseData(response, HeatStressMetadataSchema);
 		return data;
 	},
-	getHeatStressColormap: async (params: { rangeStart: number; rangeEnd: number }) => {
+	getHeatStressColormap: async (params: { rangeStart: number; rangeEnd: number; cmap: string }) => {
 		const response = await customFetch(
-			`${PUBLIC_API_BASE_URL}/tms/colormap?stretch_range=%5B${params.rangeStart},${params.rangeEnd}%5D&colormap=turbo`
+			`${PUBLIC_API_BASE_URL}/tms/colormap?stretch_range=%5B${params.rangeStart},${params.rangeEnd}%5D&colormap=${params.cmap}`
 		);
 
 		if (!response.ok && response.status === 422) return null;

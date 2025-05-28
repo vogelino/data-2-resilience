@@ -313,7 +313,7 @@ The application uses custom styled vector tiles for the base map, with light and
 
 **Used For**: High-resolution orthophoto layer for Dortmund when satellite view is enabled.
 
-**Implementation**: Implemented in `SatelliteRasterLayer.svelte` as an optional satellite/orthophoto view that can be toggled by users.
+**Implementation**: Implemented in `mapStyle.ts` as an optional satellite/orthophoto view that can be toggled by users.
 
 ---
 

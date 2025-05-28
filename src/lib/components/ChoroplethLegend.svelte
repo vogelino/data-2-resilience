@@ -132,9 +132,16 @@
 					date: finalLocalDate,
 					unit: $heatStressUnit
 				});
+				let cmap = 'turbo';
+				if ($heatStressUnit === 'relative_humidity') {
+					cmap = 'ylgnbu';
+				} else if ($heatStressUnit === 'air_temperature') {
+					cmap = 'spectral_r';
+				}
 				let colormap = await api().getHeatStressColormap({
 					rangeStart: metadata?.range[0] || 0,
-					rangeEnd: metadata?.range[1] || 100
+					rangeEnd: metadata?.range[1] || 100,
+					cmap: cmap,
 				});
 				if (!colormap)
 					return {

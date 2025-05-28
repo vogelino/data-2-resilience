@@ -14,7 +14,7 @@ import {
 } from 'date-fns';
 import { de, enUS } from 'date-fns/locale';
 import { debounce } from 'es-toolkit';
-import { derived } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 import { queryParam, ssp } from 'sveltekit-search-params';
 import { z } from 'zod';
 
@@ -330,6 +330,14 @@ export const showSatellite = derived(showSatelliteQueryParam, (value: boolean) =
 export const updateShowSatellite = (value: boolean) => {
 	showSatelliteQueryParam.set(value);
 };
+
+export const showBuildings = writable(true);
+export const updateShowBuildings = (value: boolean) => showBuildings.set(value);
+
+export const showStreets = writable(true);
+export function updateShowStreets(value: boolean) {
+  showStreets.set(value);
+}
 
 // UTILS
 function validateQueryParam<T>(queryParam: unknown, schema: z.ZodSchema<T>, defaultValue: T): T {

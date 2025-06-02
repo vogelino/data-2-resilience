@@ -92,12 +92,15 @@ export const api = (customFetch = fetch) => ({
 							vmax: null,
 							vmin: null
 						})
-				})
+				}).nullable()
 			})
 		);
 		return {
 			data: data.data,
-			visualization: data.visualization[params.param]
+			visualization:
+				data.visualization && data.visualization[params.param]
+					? data.visualization[params.param]
+					: null
 		};
 	},
 	downloadStationData: async (params: { id: string }) => {

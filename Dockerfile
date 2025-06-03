@@ -7,6 +7,9 @@ RUN : \
 COPY . /app
 WORKDIR /app
 
+FROM base AS prod-deps
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
+
 FROM base AS build
 ENV IS_DOCKER=true
 # even though it's not in vercel, we need to override the production URL
@@ -22,6 +25,7 @@ RUN : \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=build /app/build build/
+COPY --from=prod-deps /app/node_modules /app/node_modules
+COPY --from=build /app/build app/build/
 EXPOSE 3000
-CMD [ "node", "build" ]
+CMD [ "node", "app/build" ]

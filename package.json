@@ -81,5 +81,8 @@
 		"zod": "^3.24.1",
 		"zod-validation-error": "^3.4.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@sentry/sveltekit": "^9"
+	}
 }

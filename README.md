@@ -1,3 +1,4 @@
+[![Build](https://github.com/RUBclim/data-2-resilience/actions/workflows/build.yml/badge.svg)](https://github.com/RUBclim/data-2-resilience/actions/workflows/build.yml)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/RUBclim/data-2-resilience/main.svg)](https://results.pre-commit.ci/latest/github/RUBclim/data-2-resilience/main)
 
 # Data2Resilience
@@ -573,9 +574,9 @@ configured using these environment variables
 - `PUBLIC_SENTRY_DSN` sets the url to ingest errors
 - `PUBLIC_SENTRY_TRACES_SAMPLE_RATE` sets how many % of transactions should be sampled
 - `PUBLIC_SENTRY_SESSION_SAMPLE_RATE` You may want this to be 100% while in development
-   and sample at a lower rate in production
+  and sample at a lower rate in production
 - `PUBLIC_SENTRY_REPLAY_ON_ERROR_SAMPLE_RATE` If the entire session is not sampled, use
-    the sample rate to sample sessions when an error occurs
+  the sample rate to sample sessions when an error occurs
 
 #### Reporting Issues
 

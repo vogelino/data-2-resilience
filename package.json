@@ -83,6 +83,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@kitql/handles": "^0.3.0",
 		"@sentry/sveltekit": "^9"
 	}
 }

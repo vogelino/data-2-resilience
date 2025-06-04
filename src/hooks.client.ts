@@ -21,9 +21,11 @@ Sentry.init({
 	replaysOnErrorSampleRate: Number(PUBLIC_SENTRY_REPLAY_ON_ERROR_SAMPLE_RATE),
 
 	// If you don't want to use Session Replay, just remove the line below:
-	integrations: [replayIntegration()],
+	integrations: [
+		replayIntegration({ useCompression: false, maskAllText: false, blockAllMedia: false })
+	],
 	// tunnel the errors so we avoid ad blockers
-	tunnel: '/tunnel'
+	tunnel: '/sentry-tunnel',
 });
 
 // If you have a custom error handler, pass it to `handleErrorWithSentry`

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@kitql/handles':
+        specifier: ^0.3.0
+        version: 0.3.0(@sveltejs/kit@2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.4)(vite@6.3.5(@types/node@22.13.4)(jiti@1.21.7)(yaml@2.8.0)))(svelte@5.33.4)(vite@6.3.5(@types/node@22.13.4)(jiti@1.21.7)(yaml@2.8.0)))(svelte@5.33.4)
       '@sentry/sveltekit':
         specifier: ^9
         version: 9.24.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.34.0)(@sveltejs/kit@2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.4)(vite@6.3.5(@types/node@22.13.4)(jiti@1.21.7)(yaml@2.8.0)))(svelte@5.33.4)(vite@6.3.5(@types/node@22.13.4)(jiti@1.21.7)(yaml@2.8.0)))(svelte@5.33.4)(vite@6.3.5(@types/node@22.13.4)(jiti@1.21.7)(yaml@2.8.0))
@@ -689,6 +692,17 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@kitql/handles@0.3.0':
+    resolution: {integrity: sha512-BBotYxvGt791zHJLawzcLgZHB0SJAAFXyGZHS+ukq4aWJCn9/zfAedAhQBLZy/myWUi87daFdnggC4ZyoVO95g==}
+    engines: {node: ^16.14 || >=18}
+    peerDependencies:
+      '@sveltejs/kit': ^2.4.0
+      svelte: ^3.54.0 || ^4.0.0 || ^5.0.0
+
+  '@kitql/helpers@0.8.13':
+    resolution: {integrity: sha512-8Om4jxF3XLTrpCkrZ8q6kHco4o6u/zKisA7XjLdiUDeSX7VSprlq6fnG2xayrbrc1He+pHQkgj2cHqqUvEHTGg==}
+    engines: {node: ^16.14 || >=18}
 
   '@layerstack/svelte-actions@0.0.12':
     resolution: {integrity: sha512-5dqMkfdZe7dbDk0Z0d7kUDez/ygWsjHIBkANACf4AjIDbPbCAGdFnt5UqQHmUmGkDrxEjmh7vLzhdapPPhA1PQ==}
@@ -3048,6 +3062,10 @@ packages:
   utrie@1.0.2:
     resolution: {integrity: sha512-1MLa5ouZiOmQzUbjbu9VmjLzn1QLXBhwpUa7kdLUQK+KQ5KA9I1vk5U4YHe/X2Ch7PYnJfWuWT+VbuxbGwljhw==}
 
+  vary@1.1.2:
+    resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
+    engines: {node: '>= 0.8'}
+
   vite@6.3.5:
     resolution: {integrity: sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -3554,6 +3572,18 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@kitql/handles@0.3.0(@sveltejs/kit@2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.4)(vite@6.3.5(@types/node@22.13.4)(jiti@1.21.7)(yaml@2.8.0)))(svelte@5.33.4)(vite@6.3.5(@types/node@22.13.4)(jiti@1.21.7)(yaml@2.8.0)))(svelte@5.33.4)':
+    dependencies:
+      '@kitql/helpers': 0.8.13
+      '@sveltejs/kit': 2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.4)(vite@6.3.5(@types/node@22.13.4)(jiti@1.21.7)(yaml@2.8.0)))(svelte@5.33.4)(vite@6.3.5(@types/node@22.13.4)(jiti@1.21.7)(yaml@2.8.0))
+      esm-env: 1.2.2
+      svelte: 5.33.4
+      vary: 1.1.2
+
+  '@kitql/helpers@0.8.13':
+    dependencies:
+      esm-env: 1.2.2
 
   '@layerstack/svelte-actions@0.0.12':
     dependencies:
@@ -6104,6 +6134,8 @@ snapshots:
   utrie@1.0.2:
     dependencies:
       base64-arraybuffer: 1.0.2
+
+  vary@1.1.2: {}
 
   vite@6.3.5(@types/node@22.13.4)(jiti@1.21.7)(yaml@2.8.0):
     dependencies:

@@ -129,9 +129,10 @@
 		} else if (event.key === 'Enter') {
 			const limitedData = data.slice(0, 5);
 			const index = limitedData.findIndex((result) => result.id === command);
+			if (index === -1 || !limitedData[index]?.properties?.text || !limitedData[index]?.id) return;
 			internalSearchQuery = limitedData[index].properties.text;
 			onSearchQueryChanged(internalSearchQuery);
-			command = limitedData[index]?.id;
+			command = limitedData[index].id;
 			handleSelect(limitedData[index]);
 		}
 	}

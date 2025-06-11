@@ -22,7 +22,7 @@
 		children,
 		...rest
 	}: Props = $props();
-	
+
 </script>
 
 <DropdownMenuPrimitive.Content

@@ -24,7 +24,7 @@
 		children,
 		...rest
 	}: Props = $props();
-	
+
 </script>
 
 <TooltipPrimitive.Content

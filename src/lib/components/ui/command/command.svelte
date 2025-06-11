@@ -13,7 +13,7 @@
 	}
 
 	let { value = $bindable(undefined), class: className = undefined, children, ...rest }: Props = $props();
-	
+
 </script>
 
 <CommandPrimitive.Root

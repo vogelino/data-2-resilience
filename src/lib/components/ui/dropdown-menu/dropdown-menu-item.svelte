@@ -15,7 +15,7 @@
 	}
 
 	let { class: className = undefined, inset = undefined, children, ...rest }: Props = $props();
-	
+
 </script>
 
 <DropdownMenuPrimitive.Item

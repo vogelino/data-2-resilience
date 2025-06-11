@@ -15,7 +15,7 @@
 	}
 
 	let { class: className = undefined, level = "h5", children, ...rest }: Props = $props();
-	
+
 </script>
 
 <svelte:element

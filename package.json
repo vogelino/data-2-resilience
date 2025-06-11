@@ -81,5 +81,9 @@
 		"zod": "^3.24.1",
 		"zod-validation-error": "^3.4.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@kitql/handles": "^0.3.0",
+		"@sentry/sveltekit": "^9"
+	}
 }

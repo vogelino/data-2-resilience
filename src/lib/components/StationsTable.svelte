@@ -59,17 +59,6 @@
 						? $LL.pages.stations.table.cells.stationTypes.biomet()
 						: $LL.pages.stations.table.cells.stationTypes.temprh();
 				return renderComponent(HighlightedSearchQuery, { text, searchQuery });
-			},
-			sortingFn: (a, b) => {
-				const aLabel =
-					a.original.stationType === 'biomet'
-						? $LL.pages.stations.table.cells.stationTypes.biomet()
-						: $LL.pages.stations.table.cells.stationTypes.temprh();
-				const bLabel =
-					b.original.stationType === 'biomet'
-						? $LL.pages.stations.table.cells.stationTypes.biomet()
-						: $LL.pages.stations.table.cells.stationTypes.temprh();
-				return aLabel.localeCompare(bLabel, $locale);
 			}
 		},
 		{
@@ -80,7 +69,7 @@
 				const searchQuery = info.table.getState().globalFilter;
 				return renderComponent(HighlightedSearchQuery, { searchQuery, text });
 			},
-			sortingFn: (a, b) => a.original.longName.localeCompare(b.original.longName, $locale)
+			sortingFn: (a, b) => a.original.id.localeCompare(b.original.id, $locale)
 		},
 		{
 			header: () => $LL.pages.stations.table.headers.district(),
@@ -92,7 +81,7 @@
 				const searchQuery = info.table.getState().globalFilter;
 				return renderComponent(HighlightedSearchQuery, { searchQuery, text: val });
 			},
-			sortingFn: (a, b) => a.original.longName.localeCompare(b.original.longName, $locale)
+			sortingFn: (a, b) => a.original.district.localeCompare(b.original.district, $locale)
 		},
 		{
 			header: () => $LL.pages.stations.table.headers.geolocation(),
@@ -101,15 +90,17 @@
 				const { latitude, longitude } = info.row.original;
 				const searchQuery = info.table.getState().globalFilter;
 				return renderComponent(SensorCoordinatesWithTooltip, { searchQuery, latitude, longitude });
-			}
+			},
+			enableSorting: false
 		},
 		{
 			header: () => $LL.pages.stations.table.headers.dataDownload(),
-			accessorKey: 'id',
+			accessorKey: 'longitude', // INFO: Using 'longitude' as a placeholder since using id with enableSorting: false would disable sorting for the id column
 			cell: (info) => {
-				const id = info.getValue() as string;
+				const id = info.row.original.id;
 				return renderComponent(DataDownloadButtonWithTooltip, { id });
-			}
+			},
+			enableSorting: false
 		}
 	] satisfies ColumnDef<StationMetadata>[];
 

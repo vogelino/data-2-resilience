@@ -180,7 +180,7 @@ export const scale = derived(datavisType, (val) =>
 );
 
 // HOUR
-const hourDefault = 12;
+const hourDefault = getHours(new Date());
 const hourQueryParam = queryParam('hour', ssp.number(hourDefault));
 export const hour = derived([hourQueryParam, dayEndDate], ([value, dayEndDateVal]) => {
 	const validated =

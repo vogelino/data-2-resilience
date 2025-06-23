@@ -1,7 +1,9 @@
 import { baseLocale, locales } from '$i18n/i18n-util';
+import { PUBLIC_VITE_BASE_URL } from '$env/static/public';
 
-const site = 'https://yourdomain.com'; // change this to reflect your domain
-const pages: string[] = ['', 'about']; // populate this with all the slugs you wish to include
+const site = PUBLIC_VITE_BASE_URL; // change this to reflect your domain
+// populate this with all the slugs you wish to include
+const pages: string[] = ['', 'heat-stress', 'stations', 'about', 'imprint', 'privacy-policy'];
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {

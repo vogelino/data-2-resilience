@@ -17,27 +17,38 @@ Sentry.init({
 loadAllLocales();
 const L = i18n();
 
-const SENTRY_HOST = new URL(PUBLIC_SENTRY_DSN).host;
-const SENTRY_PROJECT_ID = [new URL(PUBLIC_SENTRY_DSN).pathname.replace('/', '')];
-const SENTRY_UPSTREAM_URL = `https://${SENTRY_HOST}/api/${SENTRY_PROJECT_ID}/envelope/`;
-const SENTRY_KEY = new URL(PUBLIC_SENTRY_DSN).username;
+const SENTRY_URL = PUBLIC_SENTRY_DSN ? new URL(PUBLIC_SENTRY_DSN) : null;
+const SENTRY_HOST = SENTRY_URL?.host ?? null;
+const SENTRY_PROJECT_ID = SENTRY_URL?.pathname ?? null;
+const SENTRY_KEY = SENTRY_URL?.username ?? null;
+const SENTRY_UPSTREAM_URL =
+	SENTRY_HOST && SENTRY_PROJECT_ID
+		? `https://${SENTRY_HOST}/api/${SENTRY_PROJECT_ID}/envelope/`
+		: null;
 
-const proxies = handleProxies([
-	[
-		'/sentry-tunnel',
-		{
-			to: SENTRY_UPSTREAM_URL,
-			requestHook: (event) => {
-				const request = event.request.clone();
-				// https://develop.sentry.dev/sdk/data-model/envelopes/#authentication
-				request.headers.set('X-Sentry-Auth', `Sentry sentry_version=7, sentry_key=${SENTRY_KEY}`);
-				// https://develop.sentry.dev/sdk/data-model/envelopes/#http-headers
-				request.headers.set('Content-Type', 'application/x-sentry-envelope');
-				return request;
-			}
-		}
-	]
-]);
+const proxies = SENTRY_UPSTREAM_URL
+	? handleProxies([
+			[
+				'/sentry-tunnel',
+				{
+					to: SENTRY_UPSTREAM_URL,
+					requestHook: (event) => {
+						const request = event.request.clone();
+						// https://develop.sentry.dev/sdk/data-model/envelopes/#authentication
+						request.headers.set(
+							'X-Sentry-Auth',
+							`Sentry sentry_version=7, sentry_key=${SENTRY_KEY}`
+						);
+						// https://develop.sentry.dev/sdk/data-model/envelopes/#http-headers
+						request.headers.set('Content-Type', 'application/x-sentry-envelope');
+						return request;
+					}
+				}
+			]
+		])
+	: async ({ event, resolve }: Parameters<Handle>[0]) => {
+			return resolve(event);
+		};
 
 export const handle: Handle = sequence(
 	Sentry.sentryHandle(),

@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 import LL, { locale } from '$i18n/i18n-svelte';
 import { SIDEBAR_STATE_CYCLE, SidebarState } from '$lib/types/sidebar';
-import { limitDateBoundsToToday, today } from '$lib/utils/dateUtil';
+import { limitDateBoundsToToday } from '$lib/utils/dateUtil';
 import {
 	addDays,
 	endOfDay,
@@ -17,6 +17,7 @@ import { debounce } from 'es-toolkit';
 import { derived, writable } from 'svelte/store';
 import { queryParam, ssp } from 'sveltekit-search-params';
 import { z } from 'zod';
+import { today } from './../utils/dateUtil';
 
 const options = { debounceHistory: 500 };
 
@@ -180,7 +181,7 @@ export const scale = derived(datavisType, (val) =>
 );
 
 // HOUR
-const hourDefault = 12;
+const hourDefault = getHours(today());
 const hourQueryParam = queryParam('hour', ssp.number(hourDefault));
 export const hour = derived([hourQueryParam, dayEndDate], ([value, dayEndDateVal]) => {
 	const validated =
@@ -336,7 +337,7 @@ export const updateShowBuildings = (value: boolean) => showBuildings.set(value);
 
 export const showStreets = writable(true);
 export function updateShowStreets(value: boolean) {
-  showStreets.set(value);
+	showStreets.set(value);
 }
 
 // UTILS

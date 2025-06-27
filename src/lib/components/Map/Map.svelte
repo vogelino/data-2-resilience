@@ -5,6 +5,12 @@
 	import type { StationsGeoJSONType } from '$lib/stores/mapData';
 	import { closePopup } from '$lib/stores/mapPopupsStore.svelte';
 	import {
+		positronMapStyleDay,
+		positronMapStyleDayWithSatellite,
+		positronMapStyleNight,
+		positronMapStyleNightWithSatellite
+	} from '$lib/stores/mapStyle';
+	import {
 		boundariesMode,
 		isLeftSidebarOpened,
 		mapLatitude,
@@ -12,8 +18,8 @@
 		mapSearch,
 		mapSearchCoordinates,
 		mapZoom,
-		showSatellite,
 		showBuildings,
+		showSatellite,
 		showStreets,
 		updateMapCoordinates,
 		updateMapSearch,
@@ -27,6 +33,7 @@
 	import { onMount } from 'svelte';
 	import { MapLibre, ScaleControl, type Map } from 'svelte-maplibre';
 	import ChoroplethLegend from '../ChoroplethLegend.svelte';
+	import ErrorBoundary from './ErrorBoundary.svelte';
 	import MapActionAreasLayer from './MapActionAreasLayer.svelte';
 	import MapAttribution from './MapAttribution.svelte';
 	import MapDistrictsLayer from './MapDistrictsLayer.svelte';
@@ -37,13 +44,6 @@
 	import MapSearchedFeatureLayer from './MapSearchedFeatureLayer.svelte';
 	import MapStationsLayer from './MapStationsLayer.svelte';
 	import MapZoomControl from './MapZoomControl.svelte';
-	import ErrorBoundary from './ErrorBoundary.svelte';
-	import {
-		positronMapStyleDay,
-		positronMapStyleNight,
-		positronMapStyleDayWithSatellite,
-		positronMapStyleNightWithSatellite
-	} from '$lib/stores/mapStyle';
 
 	// Global patch to prevent AbortError from showing in console
 	const originalConsoleError = console.error;
@@ -104,12 +104,13 @@
 		const applyVisibility = () => {
 			// Use requestAnimationFrame to ensure DOM is ready
 			requestAnimationFrame(() => {
+				if (!map) return;
 				try {
 					// Buildings
 					const buildingVisibility = $showBuildings ? 'visible' : 'none';
 					['building', 'building-top'].forEach((layerId) => {
 						try {
-							if (map.getLayer(layerId)) {
+							if (map?.getLayer(layerId)) {
 								map.setLayoutProperty(layerId, 'visibility', buildingVisibility);
 							}
 						} catch (e) {}
@@ -126,11 +127,11 @@
 									layer['source-layer'] === 'transportation' &&
 									!layer.id.includes('rail')
 								) {
-									map.setLayoutProperty(layer.id, 'visibility', streetVisibility);
+									map?.setLayoutProperty(layer.id, 'visibility', streetVisibility);
 								}
 
 								if (layer.type === 'symbol' && layer['source-layer'] === 'transportation_name') {
-									map.setLayoutProperty(layer.id, 'visibility', streetVisibility);
+									map?.setLayoutProperty(layer.id, 'visibility', streetVisibility);
 								}
 							} catch (e) {}
 						});
@@ -150,7 +151,7 @@
 		map.on('style.load', applyVisibility);
 
 		return () => {
-			map.off('style.load', applyVisibility);
+			map?.off('style.load', applyVisibility);
 		};
 	});
 

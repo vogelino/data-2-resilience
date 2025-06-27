@@ -5968,8 +5968,10 @@ export const positronMapStyleNight = {
 	owner: 'Carto'
 } as StyleSpecification;
 
-
-function createStyleWithSatellite(baseStyle: StyleSpecification, includeSatellite: boolean): StyleSpecification {
+function createStyleWithSatellite(
+	baseStyle: StyleSpecification,
+	includeSatellite: boolean
+): StyleSpecification {
 	const style = JSON.parse(JSON.stringify(baseStyle)); // Deep clone
 
 	if (includeSatellite) {
@@ -5996,11 +5998,13 @@ function createStyleWithSatellite(baseStyle: StyleSpecification, includeSatellit
 			paint: {}
 		};
 
-		// Insert satellite layer before landuse
-		if (landuseIndex !== -1) {
-			style.layers.splice(landuseIndex, 0, satelliteLayer);
+		const lowerLayers = ['water', 'waterway', 'lake'];
+		const highestLowerLayerIndex = Math.max(
+			...style.layers.map((layer: any, i: number) => (lowerLayers.includes(layer.id) ? i : -1))
+		);
+		if (highestLowerLayerIndex !== -1) {
+			style.layers.splice(highestLowerLayerIndex + 1, 0, satelliteLayer);
 		} else {
-			// Fallback: insert after background if landuse not found
 			const backgroundIndex = style.layers.findIndex((layer: any) => layer.id === 'background');
 			style.layers.splice(backgroundIndex + 1, 0, satelliteLayer);
 		}
@@ -6009,7 +6013,9 @@ function createStyleWithSatellite(baseStyle: StyleSpecification, includeSatellit
 	return style;
 }
 
-
 // Export satellite-enabled versions
 export const positronMapStyleDayWithSatellite = createStyleWithSatellite(positronMapStyleDay, true);
-export const positronMapStyleNightWithSatellite = createStyleWithSatellite(positronMapStyleNight, true);
+export const positronMapStyleNightWithSatellite = createStyleWithSatellite(
+	positronMapStyleNight,
+	true
+);

@@ -677,3 +677,7 @@ The application is currently deployed on Vercel which provides a secure and comp
 - HTTPS enabled on all deployments
 - Vercel DDoS protection
 - Segregated environments for production and preview deployments
+
+## Project Funding
+
+This project was funded by [ICLEI Europe](https://iclei-europe.org/) through the [ICLEI Action Fund 2.0](https://iclei-europe.org/funding-opportunities/action-fund), a granting scheme supported by [Google.org](https://www.google.org/), under the project "Data2Resillience: Data-driven Urban Climate Adaptation".

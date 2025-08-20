@@ -108,8 +108,9 @@
 				)}">
 					${stationNames
 						.filter((name) => typeof d[name as keyof typeof d] === 'number')
-						.map((name, idx) => {
+						.map((name) => {
 							let value = d[name as keyof typeof d] as number | string;
+							const idx = stationNames.indexOf(name);
 							const heatStressPill = getHealthRiskPill({
 								value,
 								unit: $unit,
